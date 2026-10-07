@@ -1,0 +1,269 @@
+{
+  "days": 14,
+  "format": 7,
+  "laws": "biosphere-1.1",
+  "note": "Three seed/initial-weather scenarios, three population sizes. Equal per-person supplies; autonomous local behavior; no external agent. This tests the opening fortnight, not long-term demographic or genetic viability.",
+  "results": [
+    {
+      "scenario": "temperate",
+      "seed": 1847,
+      "foundersPerCommunity": 4,
+      "days": 14,
+      "initialPopulation": 12,
+      "population": 12,
+      "survival": 1,
+      "communities": [
+        {
+          "name": "Fernhaven",
+          "living": 4,
+          "foodKg": 43.25
+        },
+        {
+          "name": "Amber Hollow",
+          "living": 4,
+          "foodKg": 39.56
+        },
+        {
+          "name": "Stonebrook",
+          "living": 4,
+          "foodKg": 35.39
+        }
+      ],
+      "averageHealth": 100,
+      "structures": 3,
+      "relativeElementError": 6.230515420743651e-14
+    },
+    {
+      "scenario": "temperate",
+      "seed": 1847,
+      "foundersPerCommunity": 8,
+      "days": 14,
+      "initialPopulation": 24,
+      "population": 24,
+      "survival": 1,
+      "communities": [
+        {
+          "name": "Fernhaven",
+          "living": 8,
+          "foodKg": 61.86
+        },
+        {
+          "name": "Amber Hollow",
+          "living": 8,
+          "foodKg": 70.46
+        },
+        {
+          "name": "Stonebrook",
+          "living": 8,
+          "foodKg": 66.31
+        }
+      ],
+      "averageHealth": 100,
+      "structures": 10,
+      "relativeElementError": 2.2272319678975782e-14
+    },
+    {
+      "scenario": "temperate",
+      "seed": 1847,
+      "foundersPerCommunity": 12,
+      "days": 14,
+      "initialPopulation": 36,
+      "population": 36,
+      "survival": 1,
+      "communities": [
+        {
+          "name": "Fernhaven",
+          "living": 12,
+          "foodKg": 109.18
+        },
+        {
+          "name": "Amber Hollow",
+          "living": 12,
+          "foodKg": 77.11
+        },
+        {
+          "name": "Stonebrook",
+          "living": 12,
+          "foodKg": 100.51
+        }
+      ],
+      "averageHealth": 100,
+      "structures": 10,
+      "relativeElementError": 2.4533792080605566e-13
+    },
+    {
+      "scenario": "warm and dry",
+      "seed": 72,
+      "foundersPerCommunity": 4,
+      "days": 14,
+      "initialPopulation": 12,
+      "population": 12,
+      "survival": 1,
+      "communities": [
+        {
+          "name": "Fernhaven",
+          "living": 4,
+          "foodKg": 27.98
+        },
+        {
+          "name": "Amber Hollow",
+          "living": 4,
+          "foodKg": 27.61
+        },
+        {
+          "name": "Stonebrook",
+          "living": 4,
+          "foodKg": 30.53
+        }
+      ],
+      "averageHealth": 100,
+      "structures": 5,
+      "relativeElementError": 2.674284558081032e-13
+    },
+    {
+      "scenario": "warm and dry",
+      "seed": 72,
+      "foundersPerCommunity": 8,
+      "days": 14,
+      "initialPopulation": 24,
+      "population": 24,
+      "survival": 1,
+      "communities": [
+        {
+          "name": "Fernhaven",
+          "living": 8,
+          "foodKg": 55.07
+        },
+        {
+          "name": "Amber Hollow",
+          "living": 8,
+          "foodKg": 61.41
+        },
+        {
+          "name": "Stonebrook",
+          "living": 8,
+          "foodKg": 58.38
+        }
+      ],
+      "averageHealth": 100,
+      "structures": 9,
+      "relativeElementError": 3.3051297334572766e-13
+    },
+    {
+      "scenario": "warm and dry",
+      "seed": 72,
+      "foundersPerCommunity": 12,
+      "days": 14,
+      "initialPopulation": 36,
+      "population": 36,
+      "survival": 1,
+      "communities": [
+        {
+          "name": "Fernhaven",
+          "living": 12,
+          "foodKg": 93.13
+        },
+        {
+          "name": "Amber Hollow",
+          "living": 12,
+          "foodKg": 104.85
+        },
+        {
+          "name": "Stonebrook",
+          "living": 12,
+          "foodKg": 105.42
+        }
+      ],
+      "averageHealth": 100,
+      "structures": 17,
+      "relativeElementError": 1.1103815236430842e-13
+    },
+    {
+      "scenario": "cool and wet",
+      "seed": 908,
+      "foundersPerCommunity": 4,
+      "days": 14,
+      "initialPopulation": 12,
+      "population": 12,
+      "survival": 1,
+      "communities": [
+        {
+          "name": "Fernhaven",
+          "living": 4,
+          "foodKg": 36.64
+        },
+        {
+          "name": "Amber Hollow",
+          "living": 4,
+          "foodKg": 23.58
+        },
+        {
+          "name": "Stonebrook",
+          "living": 4,
+          "foodKg": 29.23
+        }
+      ],
+      "averageHealth": 100,
+      "structures": 5,
+      "relativeElementError": 4.900791028806016e-14
+    },
+    {
+      "scenario": "cool and wet",
+      "seed": 908,
+      "foundersPerCommunity": 8,
+      "days": 14,
+      "initialPopulation": 24,
+      "population": 24,
+      "survival": 1,
+      "communities": [
+        {
+          "name": "Fernhaven",
+          "living": 8,
+          "foodKg": 59.42
+        },
+        {
+          "name": "Amber Hollow",
+          "living": 8,
+          "foodKg": 33.78
+        },
+        {
+          "name": "Stonebrook",
+          "living": 8,
+          "foodKg": 56.11
+        }
+      ],
+      "averageHealth": 100,
+      "structures": 12,
+      "relativeElementError": 1.299825649585136e-13
+    },
+    {
+      "scenario": "cool and wet",
+      "seed": 908,
+      "foundersPerCommunity": 12,
+      "days": 14,
+      "initialPopulation": 36,
+      "population": 36,
+      "survival": 1,
+      "communities": [
+        {
+          "name": "Fernhaven",
+          "living": 12,
+          "foodKg": 116.47
+        },
+        {
+          "name": "Amber Hollow",
+          "living": 12,
+          "foodKg": 75.6
+        },
+        {
+          "name": "Stonebrook",
+          "living": 12,
+          "foodKg": 57.28
+        }
+      ],
+      "averageHealth": 100,
+      "structures": 11,
+      "relativeElementError": 8.286153200619144e-14
+    }
+  ]
+}

@@ -27,3 +27,17 @@ Thumbs.db
 # Runtime output
 logs/
 
+# Browser runtime and local shared-world data
+node_modules/
+dist/
+/data/
+output/
+*.tsbuildinfo
+.env.local
+.env.*.local
+.vercel/
+.railway/*
+!.railway/railway.ts
+.vercel
+.env*
+!.env.example

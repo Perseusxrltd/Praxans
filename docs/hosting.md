@@ -1,0 +1,106 @@
+# Operate one continuing world
+
+The website and world have different lifetimes. Vercel serves the browser assets and forwards `/api/*` and `/mcp` to one persistent Railway service. The simulation and SQLite database never run in a Vercel function.
+
+## Railway service
+
+The repository includes `Dockerfile`, `.railway/railway.ts`, and a local `compose.yaml`. The container builds the client and server, removes development dependencies, and starts Node 22. Its entrypoint gives the mounted `/data` directory to the unprivileged runtime user before starting the application.
+
+Create **one service and one persistent volume mounted at `/data`**, attached to that service and environment. Use one replica and keep server sleeping disabled. Do not deploy multiple independently ticking replicas against the same world or clone the database into another publicly active world.
+
+Set the service variables:
+
+| Variable | Value or purpose |
+| --- | --- |
+| `PRAXANS_DB` | `/data/praxans.sqlite` |
+| `WORLD_SEED` | Initial generation seed; ignored after a world exists |
+| `SERVER_ORIGIN` | The service's generated HTTPS Railway origin |
+| `PUBLIC_ORIGIN` | The browser site's HTTPS origin; initially the Railway origin can serve the same built client |
+| `TRUST_PROXY` | `1`, behind the hosting proxy |
+| `PRAXANS_RELEASE` | Unique identifier for the deployed code release |
+| `PRAXANS_RELEASE_NOTES` | A factual description recorded in the public intervention history |
+| `PRAXANS_REQUIRE_EXISTING_WORLD` | Set to `1` after the first successful world creation; missing state then stops startup |
+
+`NODE_ENV=production`, `HOST=0.0.0.0`, and `PORT=8080` are container defaults. Production ignores manual test controls. `/api/health` is the configured deployment health check; Railway's healthcheck hostname is accepted only for that route.
+
+The Railway TypeScript configuration describes the existing `world` service, its `world-volume` attachment at `/data`, one awake replica, Docker build, and health check. It preserves values already stored by Railway rather than committing operator variables. The application enforces the presence of its existing world through `PRAXANS_REQUIRE_EXISTING_WORLD=1`. The SDK version is pinned because its IaC API is still evolving. On a new project, deliberately initialize the variables and configure that project's names, region, volume size, and domain before applying; the checked-in configuration identifies the existing Praxans service.
+
+After linking the project/service with the Railway CLI, preview and apply configuration changes, then deploy the repository:
+
+```sh
+railway config plan --out /tmp/praxans-hosting-plan.json
+# Review the plan, including the preserved volume attachment and variables.
+railway config apply --plan /tmp/praxans-hosting-plan.json --yes
+railway up --service world --environment production --detach
+railway deployment list --service world --json
+railway logs --service world --lines 100
+```
+
+Do not approve an imported plan that removes the database volume or environment variables. The legacy `railway.json` format is no longer used here. An environment still explicitly managed by a Config File path must use Railway's documented migration procedure before IaC can manage it; do not clear a working configuration without a reviewed replacement and a backup.
+
+Railway's current configuration import omits some effective defaults, so a later plan can repeat the explicit sleep/restart settings. Check the effective deployment manifest before treating that as a real change. The live manifest must show one replica, `sleepApplication: false`, and `/data` in its volume mounts. The application's expected-world safeguard remains necessary; a declared mount alone does not prove that the intended database is present.
+
+Check health and the attached volume after the first successful launch. Then enable `PRAXANS_REQUIRE_EXISTING_WORLD=1` and leave it enabled for subsequent releases. This separates intentional first creation from accidentally starting against an empty or wrong volume.
+
+A volume-backed redeploy can briefly stop the process. The next process loads the same checkpoint and computes missed ticks. The lease prevents overlapping owners; an interrupted process may require up to thirty seconds for its lease to expire. Deployments must tolerate that short delay. The server preserves state rather than forcing past an active lease.
+
+## Vercel website
+
+The client has no embedded model keys or database credentials. Set **`WORLD_SERVER_ORIGIN`** as a build-time variable to the Railway HTTPS origin. The build emits the Vercel Build Output API directory with external routes for `/api/*` and `/mcp`, followed by static assets and the application fallback.
+
+```sh
+WORLD_SERVER_ORIGIN=https://your-world.up.railway.app npm run build:website
+vercel deploy --prebuilt --target preview
+```
+
+Alternatively let Vercel run the configured `npm run build:website` command with that environment variable. Use `--target preview` explicitly for a preview: Vercel can assign the first deployment of a new project to production even without `--prod`. Subsequent production releases should be an intentional choice.
+
+Set the Railway service's `PUBLIC_ORIGIN` to the exact deployed website origin. If a later preview receives a different URL, update the origin or use a stable approved website domain. A public observer site and external agents need a deployment that is accessible without team-only preview authentication; configure that only for this intended public project. Direct Railway access remains available through `SERVER_ORIGIN`.
+
+The browser reconnects its event stream after a network or proxy interruption and receives the current snapshot. Pausing the browser never pauses the server.
+
+## Inspect and back up
+
+The database contains the world, agent ownership, session records, receipt deduplication, clock checkpoint, and history. Copying only the main SQLite file while it is live can miss WAL data. Use the consistent online backup command:
+
+```sh
+PRAXANS_DB=/data/praxans.sqlite node dist/server/maintenance.js inspect
+PRAXANS_DB=/data/praxans.sqlite node dist/server/maintenance.js backup /data/backups/before-hotfix.sqlite
+```
+
+Run these inside the Railway container, for example through its SSH facility. Locally, the equivalent commands are `npm run world:inspect` and `npm run world:backup -- <new-file.sqlite>`. Inspection refuses a missing file; backup refuses to overwrite an existing destination. Both check/use existing state without creating a universe.
+
+For example, after configuring your own Railway SSH identity:
+
+```sh
+railway ssh --service world --identity-file /path/to/your/key -- node dist/server/maintenance.js backup /data/backups/before-hotfix.sqlite
+railway volume files --volume world-volume download /backups/before-hotfix.sqlite ./before-hotfix.sqlite --json
+PRAXANS_DB=./before-hotfix.sqlite node dist/server/maintenance.js inspect
+```
+
+The volume file API uses paths relative to its mount: `/backups/...` corresponds to `/data/backups/...` inside the container. Store the downloaded file outside version control; it contains ownership and world state.
+
+Store durable backup copies outside the service volume as well. A retained volume and the in-database migration archive are not independent protection against losing that volume. Host snapshots or an operator-managed backup schedule should cover the chosen retention period; this code does not configure an external backup service automatically.
+
+The production smoke test creates an online backup, stops its disposable source, waits for the copied ownership lease to expire, and actually resumes the backup with the original browser owner and agent key.
+
+## Hotfix procedure
+
+1. Reproduce the issue with a disposable world or an isolated backup, not by advancing the live world with test controls.
+2. Make the correction. For a saved-state change, bump `WORLD_VERSION` and register its transformation in `src/server/migrations.ts`. For changed physics, also version the law set. Keep old generators available for worlds pinned to them.
+3. Run the relevant model, server, production, and browser checks. Demonstrate that the old state resumes with the same tick, inhabitants, ownership, and conserved matter, apart from an explicitly documented physical intervention.
+4. Take a consistent backup. Preserve a copy outside the live volume.
+5. Give the code release a new `PRAXANS_RELEASE` and factual notes, deploy to the **same service, environment, and volume**, and retain the expected-world safeguard.
+6. Check health, tick progression, conservation measurements, and the recorded intervention. Browsers should reconnect to the same communities.
+
+Registered migrations validate the candidate state and atomically store the transformation, exact pre-migration snapshot, and before/after metadata checksums. Each region has its own checksum. Unknown formats, incompatible laws, missing expected state, and invalid ledgers stop instead of triggering a reset.
+
+## Recovery and capacity
+
+For a process fault, preserve its files and examine the logs and `/api/health`. A catching-up world may temporarily reject decisions while remaining observable. Do not erase a backlog by overwriting the clock: it represents real consequences still to be computed.
+
+For restoration, stop the sole world process, preserve the damaged state for diagnosis, and restore a verified backup into the same data path, including its associated identity and ownership tables. Do not copy live `-wal`/`-shm` files from a different database generation. Let the backup's lease expire and start compatible code with new-world creation disabled. Restoration is an operator recovery action and can rewind to the backup's time; it should be recorded and communicated.
+
+Do not blindly roll back application code after a data migration. The old binary may not understand the new save. Prefer a forward repair; otherwise use an explicitly planned compatible restore.
+
+Current limits are one process, all materialized regions resident, 100 simultaneous observer streams, finite request quotas, and finite hosting CPU/storage. Monitor lag, memory, disk growth, and backup retention before admitting a much larger population. Hosting plan limits and credits can also stop a service; the application cannot guarantee perpetual hosting independently of its provider.

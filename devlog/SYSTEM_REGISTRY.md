@@ -4,12 +4,106 @@
 
 ---
 
+## Current Browser Runtime
+
+The systems below implement the active browser world. The subsequent Python/Pygame entries are retained as deprecated historical references; their code and original last-touched dates are preserved.
+
+### world_state
+
+- **name**: Deterministic Planet and Clock
+- **status**: active
+- **package**: src/simulation/
+- **files**: `types.ts`, `world.ts`, `terrain.ts`, `surface.ts`, `random.ts`, `planet.ts`, `chronology.ts`
+- **dependencies**: natural_systems
+- **dependents**: civilization_intelligence, world_storage, agent_gateway, browser_observer
+- **known_issues**: All materialized regions remain resident in one process; unmaterialized geography has priors rather than simulated history.
+- **last_touched**: 2026-10-07
+
+### natural_systems
+
+- **name**: Conserved Matter and Coupled Biosphere
+- **status**: experimental
+- **package**: src/simulation/
+- **files**: `chemistry.ts`, `elements.ts`, `laws.ts`, `thermodynamics.ts`, `weather.ts`, `geology.ts`, `ecology.ts`, `life.ts`, `fauna.ts`
+- **dependencies**: world_state
+- **dependents**: civilization_intelligence, agent_gateway, browser_observer
+- **known_issues**: Reduced thermal/weather/statics/cohort models; no general reaction network, molecular biology, or full planetary entropy. See docs/model.md.
+- **last_touched**: 2026-10-07
+
+### civilization_intelligence
+
+- **name**: Autonomous Communities and Material Learning
+- **status**: experimental
+- **package**: src/simulation/
+- **files**: `citizens.ts`, `economy.ts`, `engine.ts`, `actions.ts`, `founding.ts`
+- **dependencies**: world_state, natural_systems
+- **dependents**: agent_gateway, browser_observer
+- **known_issues**: Short-run founding/construction validation; no established multi-generation or genetic equilibrium.
+- **last_touched**: 2026-10-07
+
+### world_storage
+
+- **name**: Persistent State and Intervention Archive
+- **status**: active
+- **package**: src/server/
+- **files**: `store.ts`, `migrations.ts`, `scripts/world-maintenance.ts`
+- **dependencies**: world_state, natural_systems
+- **dependents**: agent_gateway, world_hosting
+- **known_issues**: One writer/volume; external backup scheduling is an operator responsibility. Anonymous browser management has no account recovery yet.
+- **last_touched**: 2026-10-07
+
+### agent_gateway
+
+- **name**: Scoped HTTP and MCP Stewardship
+- **status**: active
+- **package**: src/server/
+- **files**: `app.ts`, `schema.ts`, `scripts/example-agent.ts`
+- **dependencies**: world_state, civilization_intelligence, world_storage
+- **dependents**: browser_observer, world_hosting
+- **known_issues**: Agents need HTTP/MCP tool capability; request and receipt retention limits are explicit.
+- **last_touched**: 2026-10-07
+
+### browser_observer
+
+- **name**: Planet Entrance and Living Landscape
+- **status**: active
+- **package**: src/client/
+- **files**: `main.tsx`, `renderer.ts`, `PlanetWelcome.tsx`, `FieldGuide.tsx`, `LifePanel.tsx`, `Archive.tsx`, `Dialog.tsx`, `style.css`, `planet.css`
+- **dependencies**: agent_gateway, world_state, natural_systems
+- **dependents**: none
+- **known_issues**: Globe requires WebGL for its full visual; current service caps observer streams at 100.
+- **last_touched**: 2026-10-07
+
+### world_hosting
+
+- **name**: Persistent World and Static Website Deployment
+- **status**: active
+- **package**: root
+- **files**: `Dockerfile`, `compose.yaml`, `.railway/railway.ts`, `vercel.json`, `src/server/index.ts`, `scripts/container-entrypoint.mjs`, `scripts/prepare-website.mjs`
+- **dependencies**: world_storage, agent_gateway, browser_observer
+- **dependents**: none
+- **known_issues**: Hosting resources and provider limits remain finite; public origin must match the deployed website.
+- **last_touched**: 2026-10-07
+
+### browser_validation
+
+- **name**: Model, Browser, and Continuity Validation
+- **status**: active
+- **package**: tests/web/
+- **files**: `tests/web/`, `scripts/browser-smoke.mjs`, `scripts/production-smoke.mjs`, `scripts/founding-trials.ts`, `.github/workflows/browser.yml`
+- **dependencies**: world_state, natural_systems, civilization_intelligence, world_storage, agent_gateway, browser_observer
+- **dependents**: none
+- **known_issues**: Local causal and short-run checks do not establish large-world load capacity or century-scale ecological stability.
+- **last_touched**: 2026-10-07
+
+---
+
 ## Entity Layer
 
 ### praxan_entity
 
 - **name**: Praxan Entity
-- **status**: active
+- **status**: deprecated
 - **package**: entities/
 - **files**: `entities/praxan.py`
 - **dependencies**: praxans_game (wildcard import → ADR-015)
@@ -24,7 +118,7 @@
 ### def_database
 
 - **name**: DefDatabase (Content Registry)
-- **status**: active
+- **status**: deprecated
 - **package**: systems/
 - **files**: `systems/def_database.py`, `defs/core/buildings.json`, `defs/core/technologies.json`, `defs/core/items.json`, `defs/core/jobs.json`, `defs/core/moods.json`
 - **dependencies**: none (standalone loader)
@@ -35,7 +129,7 @@
 ### ticker
 
 - **name**: Staggered Tick Engine
-- **status**: active
+- **status**: deprecated
 - **package**: systems/
 - **files**: `systems/ticker.py`
 - **dependencies**: none
@@ -46,7 +140,7 @@
 ### policies
 
 - **name**: Colony Policy Manager
-- **status**: active
+- **status**: deprecated
 - **package**: systems/
 - **files**: `systems/policies.py`
 - **dependencies**: none
@@ -57,7 +151,7 @@
 ### dev_mode
 
 - **name**: F12 Developer Overlay
-- **status**: active
+- **status**: deprecated
 - **package**: systems/
 - **files**: `systems/dev_mode.py`
 - **dependencies**: praxan_entity, event_bus
@@ -68,7 +162,7 @@
 ### advisor
 
 - **name**: LLM-Powered Advisor
-- **status**: active
+- **status**: deprecated
 - **package**: systems/
 - **files**: `systems/advisor.py`
 - **dependencies**: llm_client, llm_scheduler, llm_prompts, llm_interpreters, llm_memory, def_database
@@ -79,7 +173,7 @@
 ### diplomacy
 
 - **name**: Inter-Faction Diplomacy
-- **status**: active
+- **status**: deprecated
 - **package**: systems/
 - **files**: `systems/diplomacy.py`
 - **dependencies**: society, event_bus
@@ -90,7 +184,7 @@
 ### ecology
 
 - **name**: Ecology System
-- **status**: active
+- **status**: deprecated
 - **package**: systems/
 - **files**: `systems/ecology.py`
 - **dependencies**: spatial_index, map_generation
@@ -101,7 +195,7 @@
 ### quests
 
 - **name**: Quest System
-- **status**: active
+- **status**: deprecated
 - **package**: systems/
 - **files**: `systems/quests.py`
 - **dependencies**: praxan_entity, event_bus
@@ -112,7 +206,7 @@
 ### storyteller
 
 - **name**: Event/Crisis Storyteller
-- **status**: active
+- **status**: deprecated
 - **package**: systems/
 - **files**: `systems/storyteller.py`
 - **dependencies**: event_bus, diplomacy, ecology, society
@@ -123,7 +217,7 @@
 ### society
 
 - **name**: Society & Faction Mechanics
-- **status**: active
+- **status**: deprecated
 - **package**: systems/
 - **files**: `systems/society.py`
 - **dependencies**: praxan_entity, event_bus
@@ -134,7 +228,7 @@
 ### spatial_index
 
 - **name**: Spatial Indexing
-- **status**: active
+- **status**: deprecated
 - **package**: systems/
 - **files**: `systems/spatial.py`
 - **dependencies**: none
@@ -145,7 +239,7 @@
 ### expose_data
 
 - **name**: Data Exposure Layer
-- **status**: active
+- **status**: deprecated
 - **package**: systems/
 - **files**: `systems/expose_data.py`
 - **dependencies**: praxan_entity, def_database
@@ -156,7 +250,7 @@
 ### mod_loader
 
 - **name**: Mod Loader
-- **status**: active
+- **status**: deprecated
 - **package**: systems/
 - **files**: `systems/mod_loader.py`
 - **dependencies**: def_database
@@ -171,7 +265,7 @@
 ### llm_client
 
 - **name**: Ollama Client
-- **status**: active
+- **status**: deprecated
 - **package**: llm/
 - **files**: `llm/client.py`
 - **dependencies**: ollama (optional external)
@@ -182,7 +276,7 @@
 ### llm_scheduler
 
 - **name**: LLM Async Scheduler (4 Channels)
-- **status**: active
+- **status**: deprecated
 - **package**: llm/
 - **files**: `llm/scheduler.py`
 - **dependencies**: llm_client
@@ -193,7 +287,7 @@
 ### llm_prompts
 
 - **name**: LLM Prompt Templates
-- **status**: active
+- **status**: deprecated
 - **package**: llm/
 - **files**: `llm/prompts.py`
 - **dependencies**: expose_data
@@ -204,7 +298,7 @@
 ### llm_interpreters
 
 - **name**: LLM Response Interpreters
-- **status**: active
+- **status**: deprecated
 - **package**: llm/
 - **files**: `llm/interpreters.py`
 - **dependencies**: none
@@ -215,7 +309,7 @@
 ### llm_memory
 
 - **name**: LLM Memory & Digest
-- **status**: active
+- **status**: deprecated
 - **package**: llm/
 - **files**: `llm/memory.py`
 - **dependencies**: none
@@ -226,7 +320,7 @@
 ### llm_contracts
 
 - **name**: LLM Contracts & Schemas
-- **status**: active
+- **status**: deprecated
 - **package**: llm/
 - **files**: `llm/contracts.py`
 - **dependencies**: none
@@ -237,7 +331,7 @@
 ### llm_state_views
 
 - **name**: LLM State Views
-- **status**: active
+- **status**: deprecated
 - **package**: llm/
 - **files**: `llm/state_views.py`
 - **dependencies**: praxan_entity, def_database
@@ -252,7 +346,7 @@
 ### event_bus
 
 - **name**: Event Bus
-- **status**: active
+- **status**: deprecated
 - **package**: events/
 - **files**: `events/bus.py`
 - **dependencies**: none
@@ -263,7 +357,7 @@
 ### cascades
 
 - **name**: Event Cascades
-- **status**: active
+- **status**: deprecated
 - **package**: events/
 - **files**: `events/cascades.py`
 - **dependencies**: event_bus
@@ -274,7 +368,7 @@
 ### incidents
 
 - **name**: Incidents
-- **status**: active
+- **status**: deprecated
 - **package**: events/
 - **files**: `events/incidents.py`
 - **dependencies**: event_bus
@@ -289,7 +383,7 @@
 ### scene_renderer
 
 - **name**: Scene Renderer
-- **status**: active
+- **status**: deprecated
 - **package**: graphics/
 - **files**: `graphics/scene_renderer.py`
 - **dependencies**: terrain_renderer, entity_renderer, effects_renderer
@@ -300,7 +394,7 @@
 ### terrain_renderer
 
 - **name**: Terrain Renderer
-- **status**: active
+- **status**: deprecated
 - **package**: graphics/
 - **files**: `graphics/terrain_renderer.py`
 - **dependencies**: graphics_content, sprites
@@ -311,7 +405,7 @@
 ### entity_renderer
 
 - **name**: Entity Renderer
-- **status**: active
+- **status**: deprecated
 - **package**: graphics/
 - **files**: `graphics/entity_renderer.py`
 - **dependencies**: sprites, palette
@@ -322,7 +416,7 @@
 ### effects_renderer
 
 - **name**: Effects Renderer
-- **status**: active
+- **status**: deprecated
 - **package**: graphics/
 - **files**: `graphics/effects_renderer.py`
 - **dependencies**: palette
@@ -333,7 +427,7 @@
 ### sprites
 
 - **name**: Sprite Manager
-- **status**: active
+- **status**: deprecated
 - **package**: graphics/
 - **files**: `graphics/sprites.py`
 - **dependencies**: assets/ (PNG files)
@@ -344,7 +438,7 @@
 ### palette
 
 - **name**: Color Palette
-- **status**: active
+- **status**: deprecated
 - **package**: graphics/
 - **files**: `graphics/palette.py`
 - **dependencies**: none
@@ -355,7 +449,7 @@
 ### graphics_content
 
 - **name**: Graphics Content Definitions
-- **status**: active
+- **status**: deprecated
 - **package**: graphics/
 - **files**: `graphics/content.py`
 - **dependencies**: def_database
@@ -366,7 +460,7 @@
 ### frame_models
 
 - **name**: Render Frame Models
-- **status**: active
+- **status**: deprecated
 - **package**: graphics/
 - **files**: `graphics/frame_models.py`
 - **dependencies**: none
@@ -381,7 +475,7 @@
 ### map_generation
 
 - **name**: World Map Generation
-- **status**: active
+- **status**: deprecated
 - **package**: map/
 - **files**: `map/generation.py`
 - **dependencies**: noise (optional external), map_models
@@ -392,7 +486,7 @@
 ### map_models
 
 - **name**: Map & Biome Models
-- **status**: active
+- **status**: deprecated
 - **package**: map/
 - **files**: `map/models.py`
 - **dependencies**: none
@@ -403,7 +497,7 @@
 ### planet
 
 - **name**: Planet Selection
-- **status**: active
+- **status**: deprecated
 - **package**: map/
 - **files**: `map/planet.py`
 - **dependencies**: none
@@ -414,7 +508,7 @@
 ### poi
 
 - **name**: Points of Interest
-- **status**: active
+- **status**: deprecated
 - **package**: map/
 - **files**: `map/poi.py`
 - **dependencies**: map_models
@@ -429,7 +523,7 @@
 ### ui_shell
 
 - **name**: Command Center Shell
-- **status**: active
+- **status**: deprecated
 - **package**: ui/
 - **files**: `ui/shell.py`
 - **dependencies**: ui_theme, ui_input_router
@@ -440,7 +534,7 @@
 ### ui_hud
 
 - **name**: Live Run HUD
-- **status**: active
+- **status**: deprecated
 - **package**: ui/
 - **files**: `ui/hud.py`
 - **dependencies**: ui_theme, ui_layout
@@ -451,7 +545,7 @@
 ### ui_inspect
 
 - **name**: Scrollable Entity Inspect Drawer
-- **status**: active
+- **status**: deprecated
 - **package**: ui/
 - **files**: `ui/inspect.py`
 - **dependencies**: praxan_entity, ui_theme
@@ -462,7 +556,7 @@
 ### ui_analytics
 
 - **name**: Modal Analytics & End-of-Run Summary
-- **status**: active
+- **status**: deprecated
 - **package**: ui/
 - **files**: `ui/analytics.py`
 - **dependencies**: observer_analytics, ui_theme
@@ -473,7 +567,7 @@
 ### ui_panels
 
 - **name**: UI Panels (Research, Evolution, etc.)
-- **status**: active
+- **status**: deprecated
 - **package**: ui/
 - **files**: `ui/panels.py`
 - **dependencies**: ui_theme, def_database
@@ -484,7 +578,7 @@
 ### ui_input_router
 
 - **name**: UI State & Input Router
-- **status**: active
+- **status**: deprecated
 - **package**: ui/
 - **files**: `ui/input_router.py`
 - **dependencies**: none
@@ -495,7 +589,7 @@
 ### ui_camera_director
 
 - **name**: Camera Bookmarks & Auto-Follow
-- **status**: active
+- **status**: deprecated
 - **package**: ui/
 - **files**: `ui/camera_director.py`
 - **dependencies**: none
@@ -506,7 +600,7 @@
 ### ui_theme
 
 - **name**: UI Theme & Panel Rendering
-- **status**: active
+- **status**: deprecated
 - **package**: ui/
 - **files**: `ui/theme.py`
 - **dependencies**: none
@@ -517,7 +611,7 @@
 ### ui_history_graph
 
 - **name**: Time-Series Population/Wealth/Mood Graph
-- **status**: active
+- **status**: deprecated
 - **package**: ui/
 - **files**: `ui/history_graph.py`
 - **dependencies**: none
@@ -528,7 +622,7 @@
 ### ui_search_overlay
 
 - **name**: Search Overlay
-- **status**: active
+- **status**: deprecated
 - **package**: ui/
 - **files**: `ui/search_overlay.py`
 - **dependencies**: ui_theme
@@ -539,7 +633,7 @@
 ### ui_planet_select
 
 - **name**: Planet Selection Screen
-- **status**: active
+- **status**: deprecated
 - **package**: ui/
 - **files**: `ui/planet_select.py`
 - **dependencies**: planet, ui_theme
@@ -550,7 +644,7 @@
 ### ui_layout
 
 - **name**: Layout Computation
-- **status**: active
+- **status**: deprecated
 - **package**: ui/
 - **files**: `ui/layout.py`
 - **dependencies**: none
@@ -561,7 +655,7 @@
 ### ui_models
 
 - **name**: UI Data Models
-- **status**: active
+- **status**: deprecated
 - **package**: ui/
 - **files**: `ui/models.py`
 - **dependencies**: none
@@ -576,7 +670,7 @@
 ### praxans_game
 
 - **name**: Main Game Loop & Top-Level State
-- **status**: active
+- **status**: deprecated
 - **package**: root
 - **files**: `praxans_game.py`
 - **dependencies**: all systems, all UI, all graphics, map, events, entities
@@ -587,7 +681,7 @@
 ### runtime_config
 
 - **name**: CLI Args & User Settings
-- **status**: active
+- **status**: deprecated
 - **package**: root
 - **files**: `runtime_config.py`
 - **dependencies**: none
@@ -598,7 +692,7 @@
 ### game_content
 
 - **name**: Building Definitions Proxy
-- **status**: active
+- **status**: deprecated
 - **package**: root
 - **files**: `game_content.py`
 - **dependencies**: def_database
@@ -609,7 +703,7 @@
 ### game_scenarios
 
 - **name**: Scenario Presets
-- **status**: active
+- **status**: deprecated
 - **package**: root
 - **files**: `game_scenarios.py`
 - **dependencies**: none
@@ -620,7 +714,7 @@
 ### observer_analytics
 
 - **name**: Observer Analytics Engine
-- **status**: active
+- **status**: deprecated
 - **package**: root
 - **files**: `observer_analytics.py`
 - **dependencies**: praxan_entity
@@ -631,7 +725,7 @@
 ### society_dynamics
 
 - **name**: Society Dynamics (Legacy)
-- **status**: active
+- **status**: deprecated
 - **package**: root
 - **files**: `society_dynamics.py`
 - **dependencies**: praxan_entity
@@ -642,7 +736,7 @@
 ### run_snapshot
 
 - **name**: Snapshot Serializer
-- **status**: active
+- **status**: deprecated
 - **package**: root
 - **files**: `run_snapshot.py`
 - **dependencies**: praxan_entity, all systems
@@ -653,7 +747,7 @@
 ### run_archive
 
 - **name**: Archive Summary Generator
-- **status**: active
+- **status**: deprecated
 - **package**: root
 - **files**: `run_archive.py`
 - **dependencies**: observer_analytics
@@ -664,7 +758,7 @@
 ### genetics
 
 - **name**: Genetics System
-- **status**: active
+- **status**: deprecated
 - **package**: root
 - **files**: `genetics.py`
 - **dependencies**: none
@@ -679,7 +773,7 @@
 ### test_suite
 
 - **name**: Automated Tests
-- **status**: active
+- **status**: deprecated
 - **package**: tests/
 - **files**: 20 test files covering: advisor contract, diplomacy, game content, game scenarios, graphics renderer, grief system, headless smoke, LLM contracts, LLM interpreters, LLM memory, LLM scheduler, map generation, observer analytics, quest system, run archive, run snapshot, runtime config, society dynamics, UI input router, UI render smoke
 - **dependencies**: all systems under test

@@ -5,6 +5,47 @@
 
 ---
 
+## [Browser Foundation 0.1] — 2026-10-07
+
+### Added
+- One persistent shared TypeScript world, seeded spherical terrain, remote founding, and a precise astronomical clock (→ world_state).
+- Elemental inventories, coupled weather/soil/food-web cycles, 18 initial plant and 20 animal lineages, material statics, and selected entropy accounting (→ natural_systems).
+- Autonomous needs, geometric experimentation, construction, family life, exchange, and relationships (→ civilization_intelligence).
+- Civilization-scoped HTTP/MCP, atomic decisions, idempotent receipts, and a runnable external steward (→ agent_gateway).
+- SQLite region checksums, permanent events, versioned migrations, pre-intervention snapshots, leases, recovery, and online backups (→ world_storage).
+- Browser planet onboarding, landscape/individual/wildlife inspection, periodic elements, clock/entropy field guide, archive pagination, and mobile layouts (→ browser_observer).
+- Persistent Railway container, Vercel static/proxy output, CI, and real browser/production checks (→ world_hosting, browser_validation).
+- A fundamentals roadmap covering continuous planetary state, energy and processing, local knowledge, population viability, and external-agent decision time.
+
+### Changed
+- Browser rebuild supersedes the Python-first assessment proposal; Python source and historical decisions are retained as references.
+- New communities start with eight adults and equal per-person supplies under documented, provisional opening-balance constraints.
+- README, agent instructions, and canonical MoltHub metadata describe the runnable browser project.
+
+### Fixed
+- Material learning retains alternative supports and considers actual material scarcity instead of becoming trapped in a weak single-design hypothesis.
+- Heat and moisture transport exchange finite air volumes and avoid artificial convergence/runaway heating.
+- Pausing observation leaves the shared world running; failed agent batches and migrations leave committed state intact.
+
+---
+
+## [Assessment and Rebuild Proposal] — 2026-10-07
+
+### Added
+- Repository and runtime assessment with source references, reproducible command details, measured results, and baseline UI screenshots (`docs/assessment-2026-10-07/`).
+- Proposed staged migration to an explicit simulation core, with acceptance gates (→ ADR-016).
+
+### Observed
+- Existing suite passes: 1,140 unittest tests; 1,143 pytest tests and three subtests.
+- Live governance/migration updates are skipped by swallowed uninitialized-variable errors.
+- Four tested save continuations fail partway through restoration despite successful batch status.
+- The main loop limits frames twice; the solo probe measured 15.09 FPS with a 30 FPS setting.
+- Menu and gameplay controls overlap at 1366×768; the local AI world-generation handler imports a missing function.
+
+No runtime fixes or repository-history integration were performed in this assessment.
+
+---
+
 ## [Current — Polish & Live Systems] — 2026-03-07 to present
 
 ### Added

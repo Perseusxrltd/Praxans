@@ -1,0 +1,246 @@
+{
+  "assessment_date": "2026-10-07",
+  "repository": "https://github.com/Perseusxrltd/Praxans",
+  "baseline": {
+    "main": "89df2f81ebcd5144bce7f32f5f1e7251fab0f2e6",
+    "master": "b65f5b695b3e298484c1195cc36ac340e6d290fd"
+  },
+  "environment": {
+    "platform": "WSL Linux",
+    "python": "3.12.3",
+    "pygame": "2.6.1",
+    "pytest": "9.1.1",
+    "ollama_package": "0.6.3",
+    "noise_installed": false,
+    "inference_calls_made": false,
+    "display": "SDL dummy"
+  },
+  "installation": {
+    "documented_requirements": "failed building noise 1.2.2: Python.h missing",
+    "working_fallback": "pygame>=2.6,<3.0, ollama>=0.6,<1.0, pytest; no noise",
+    "environment_bootstrap": "python3 -m venv lacked ensurepip; pip bootstrapped only inside the project venv"
+  },
+  "source_inventory": {
+    "tracked_files": 675,
+    "python_files": 147,
+    "python_lines_including_tests": 66594,
+    "test_modules": 49,
+    "content_definitions": 403,
+    "content_types": 31,
+    "content_duplicate_ids": 0,
+    "main_module_lines": 8207,
+    "main_function_lines": 3219,
+    "praxan_module_lines": 3603,
+    "advisor_module_lines": 2224
+  },
+  "checks": {
+    "syntax": {
+      "files": 147,
+      "errors": 0
+    },
+    "unittest": {
+      "tests": 1140,
+      "passed": 1140
+    },
+    "pytest": {
+      "tests": 1143,
+      "passed": 1143,
+      "subtests_passed": 3
+    }
+  },
+  "batch_reported_summary": {
+    "total_runs": 8,
+    "successful_runs": 8,
+    "failed_runs": 0,
+    "crashes_reported": 0,
+    "extinctions": [],
+    "highest_score": 54,
+    "longest_wall_clock_seconds": 102.83
+  },
+  "audited_runs": [
+    {
+      "name": "01_standard_seed11_fresh",
+      "scenario": "standard",
+      "frames": 900,
+      "wall_clock_seconds": 87.1,
+      "exit_code": 0,
+      "reported_success": true,
+      "reported_crashes": 0,
+      "population": 5,
+      "buildings": 3,
+      "restore_requested": false,
+      "restore_error": null,
+      "restore_success_message": false,
+      "approx_fps": 10.63,
+      "llm_enabled": false,
+      "artifact_directory": "logs/assessment-2026-10-07/simlab_20261007_153936/01_standard_seed11_fresh"
+    },
+    {
+      "name": "02_harsh_winter_basin_seed11_fresh",
+      "scenario": "harsh_winter_basin",
+      "frames": 900,
+      "wall_clock_seconds": 84.41,
+      "exit_code": 0,
+      "reported_success": true,
+      "reported_crashes": 0,
+      "population": 7,
+      "buildings": 4,
+      "restore_requested": false,
+      "restore_error": null,
+      "restore_success_message": false,
+      "approx_fps": 10.91,
+      "llm_enabled": false,
+      "artifact_directory": "logs/assessment-2026-10-07/simlab_20261007_153936/02_harsh_winter_basin_seed11_fresh"
+    },
+    {
+      "name": "03_plague_start_seed11_fresh",
+      "scenario": "plague_start",
+      "frames": 900,
+      "wall_clock_seconds": 102.23,
+      "exit_code": 0,
+      "reported_success": true,
+      "reported_crashes": 0,
+      "population": 7,
+      "buildings": 3,
+      "restore_requested": false,
+      "restore_error": null,
+      "restore_success_message": false,
+      "approx_fps": 9.07,
+      "llm_enabled": false,
+      "artifact_directory": "logs/assessment-2026-10-07/simlab_20261007_153936/03_plague_start_seed11_fresh"
+    },
+    {
+      "name": "04_high_mutation_seed11_fresh",
+      "scenario": "high_mutation",
+      "frames": 900,
+      "wall_clock_seconds": 102.83,
+      "exit_code": 0,
+      "reported_success": true,
+      "reported_crashes": 0,
+      "population": 9,
+      "buildings": 4,
+      "restore_requested": false,
+      "restore_error": null,
+      "restore_success_message": false,
+      "approx_fps": 8.95,
+      "llm_enabled": false,
+      "artifact_directory": "logs/assessment-2026-10-07/simlab_20261007_153936/04_high_mutation_seed11_fresh"
+    },
+    {
+      "name": "01_standard_seed11_fresh_resume1",
+      "scenario": "standard",
+      "frames": 150,
+      "wall_clock_seconds": 12.92,
+      "exit_code": 0,
+      "reported_success": true,
+      "reported_crashes": 0,
+      "population": 7,
+      "buildings": 3,
+      "restore_requested": true,
+      "restore_error": "NameError: name 'now' is not defined",
+      "restore_success_message": false,
+      "approx_fps": 13.08,
+      "llm_enabled": false,
+      "artifact_directory": "logs/assessment-2026-10-07/simlab_20261007_153936/01_standard_seed11_fresh_resume1"
+    },
+    {
+      "name": "02_harsh_winter_basin_seed11_fresh_resume1",
+      "scenario": "harsh_winter_basin",
+      "frames": 150,
+      "wall_clock_seconds": 14.68,
+      "exit_code": 0,
+      "reported_success": true,
+      "reported_crashes": 0,
+      "population": 9,
+      "buildings": 4,
+      "restore_requested": true,
+      "restore_error": "NameError: name 'now' is not defined",
+      "restore_success_message": false,
+      "approx_fps": 12.52,
+      "llm_enabled": false,
+      "artifact_directory": "logs/assessment-2026-10-07/simlab_20261007_153936/02_harsh_winter_basin_seed11_fresh_resume1"
+    },
+    {
+      "name": "03_plague_start_seed11_fresh_resume1",
+      "scenario": "plague_start",
+      "frames": 150,
+      "wall_clock_seconds": 15.18,
+      "exit_code": 0,
+      "reported_success": true,
+      "reported_crashes": 0,
+      "population": 9,
+      "buildings": 3,
+      "restore_requested": true,
+      "restore_error": "NameError: name 'now' is not defined",
+      "restore_success_message": false,
+      "approx_fps": 10.38,
+      "llm_enabled": false,
+      "artifact_directory": "logs/assessment-2026-10-07/simlab_20261007_153936/03_plague_start_seed11_fresh_resume1"
+    },
+    {
+      "name": "04_high_mutation_seed11_fresh_resume1",
+      "scenario": "high_mutation",
+      "frames": 150,
+      "wall_clock_seconds": 15.07,
+      "exit_code": 0,
+      "reported_success": true,
+      "reported_crashes": 0,
+      "population": 9,
+      "buildings": 4,
+      "restore_requested": true,
+      "restore_error": "NameError: name 'now' is not defined",
+      "restore_success_message": false,
+      "approx_fps": 10.15,
+      "llm_enabled": false,
+      "artifact_directory": "logs/assessment-2026-10-07/simlab_20261007_153936/04_high_mutation_seed11_fresh_resume1"
+    }
+  ],
+  "live_integration_probe": {
+    "frames": 5,
+    "tracing_started": "first TickManager.tick, after the first governance/migration calls",
+    "observed_update_calls": {
+      "governance": 0,
+      "migration": 0,
+      "mentorship": 5,
+      "feuds": 5,
+      "chronicle": 5
+    },
+    "main_exceptions": [
+      {
+        "line": 6616,
+        "type": "UnboundLocalError",
+        "message": "cannot access local variable 'local_names' where it is not associated with a value",
+        "count": 4
+      },
+      {
+        "line": 6633,
+        "type": "UnboundLocalError",
+        "message": "cannot access local variable 'local_names' where it is not associated with a value",
+        "count": 4
+      }
+    ]
+  },
+  "solo_frame_rate": {
+    "resolution": [
+      1366,
+      768
+    ],
+    "frames": 150,
+    "configured_fps": 30,
+    "measured_fps": 15.09,
+    "headless": true,
+    "llm_enabled": false
+  },
+  "world_generation_probe": {
+    "error": "ImportError: cannot import name 'get_global_ollama_client' from 'llm.client'",
+    "ai_world_seed": null,
+    "inference_attempted": false
+  },
+  "limits": [
+    "No native Windows interactive playtest",
+    "No live local model inference",
+    "No native noise backend",
+    "No multi-generation balance or large-population endurance study",
+    "Batch FPS includes concurrent processes and instrumentation load; use solo measurement for pacing evidence"
+  ]
+}

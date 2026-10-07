@@ -7,6 +7,45 @@
 
 ## Log
 
+### [2026-10-07] Live Browser Launch and Core-Systems Review
+
+- **type**: milestone
+- **systems**: world_hosting, world_storage, browser_validation, natural_systems, civilization_intelligence
+- **files**: `railway.ts`, `hosting.md`, `fundamentals.md`, `browser-foundation-0.1.md`, `progress.md`
+- **agent**: Codex
+
+Published the Vercel browser site and the persistent Railway world. Verified a consistent backup outside the volume, the original world's continuation through hosting updates, the public-origin configuration, and enforced refusal to create a replacement world if its expected state is missing. Recorded the hosting intervention at tick 5972; subsequent inspection at tick 6900 retained all 24 people and valid region checksums. Provider artifacts and test scope are in `docs/releases/browser-foundation-0.1.md`. → ADR-019.
+
+The final local model/server suite passed 43 tests, alongside 36 browser checks, 10 compiled-production checks, nine founding trials, and the actual Railway container build. Documented proposed next fundamentals: continuous planetary state across resolutions, energy and material transformations, ecological regulators, population viability, local information, and external-agent decision time. The roadmap itself changes no live physical laws.
+
+---
+
+### [2026-10-07] Persistent Browser World Foundation
+
+- **type**: milestone
+- **systems**: world_state, natural_systems, civilization_intelligence, world_storage, agent_gateway, browser_observer, world_hosting, browser_validation
+- **files**: `README.md`, `types.ts`, `engine.ts`, `app.ts`, `store.ts`, `migrations.ts`, `main.tsx`, `PlanetWelcome.tsx`, `Dockerfile`
+- **agent**: Codex
+
+Implemented the authorized shared browser rebuild with a data-derived planet entrance, autonomous communities, scoped HTTP/MCP agents, and one continuing world. Coupled elemental, planetary, weather, ecological, mechanical, and selected entropy processes replace the browser draft's recipe-based progression. Retained the Python baseline as historical evidence and updated canonical public metadata. → ADR-017, ADR-018, ADR-020.
+
+Added checked region persistence, a permanent journal, recorded migrations/releases, a precise clock with missed-time recovery, one-writer leases, an expected-world safeguard, and consistent backups. The compiled production checks resume both an interrupted world and an online backup with the same owner and key. Configured the Vercel website and a single Railway service with a persistent `/data` volume. → ADR-019.
+
+Local model/server, browser, production, and founding validation is documented in `docs/validation/README.md`; hosting and scientific limits are explicit. The final release record identifies the deployed artifacts and verification outcome.
+
+---
+
+### [2026-10-07] Runtime Assessment and Rebuild Proposal
+
+- **type**: audit
+- **systems**: praxans_game, runtime_config, ticker, ui_shell, ui_planet_select, test_suite
+- **files**: `docs/assessment-2026-10-07/README.md`, `docs/assessment-2026-10-07/evidence.json`, `devlog/DECISIONS.md`, `devlog/CHANGELOG.md`
+- **agent**: Codex
+
+Assessed the executable `master` baseline in an isolated worktree and documented its unrelated history with the documentation-only default branch. Existing unittest/pytest checks passed, but live probes found inactive governance/migration updates, four partial save-restore failures that the batch runner marked successful, inconsistent frame pacing, and UI layout collisions. Added evidence, screenshots, and a staged rebuild proposal (→ ADR-016); runtime source and remote branches were not changed.
+
+---
+
 ### [2026-03-07] Production Logging System Created
 
 - **type**: infrastructure
