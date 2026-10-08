@@ -2,17 +2,26 @@ import { clamp } from "../simulation/random";
 import { surfaceFields, surfaceToTile } from "../simulation/surface";
 import { getTile } from "../simulation/terrain";
 import type { World } from "../simulation/types";
+import { setImmediate } from "node:timers/promises";
 
 export const ATLAS_WIDTH = 1024;
 export const ATLAS_HEIGHT = 512;
+export const ATLAS_PREVIEW_WIDTH = 256;
+export const ATLAS_PREVIEW_HEIGHT = 128;
 
 /** Equirectangular overview of the same surface field. Rows run south to north for WebGL. */
-export function planetAtlas(world: World): Uint8Array {
-  const pixels = new Uint8Array(ATLAS_WIDTH * ATLAS_HEIGHT * 4);
-  for (let row = 0; row < ATLAS_HEIGHT; row++)
-    for (let col = 0; col < ATLAS_WIDTH; col++) {
-      const latitude = ((row + 0.5) / ATLAS_HEIGHT - 0.5) * Math.PI;
-      const longitude = ((col + 0.5) / ATLAS_WIDTH - 0.5) * Math.PI * 2;
+export async function planetAtlas(
+  world: World,
+  width = ATLAS_WIDTH,
+  height = ATLAS_HEIGHT,
+): Promise<Uint8Array> {
+  const pixels = new Uint8Array(width * height * 4);
+  for (let row = 0; row < height; row++) {
+    // A cold atlas must not block the simulation, health checks or agent traffic.
+    if (row % 8 === 0) await setImmediate();
+    for (let col = 0; col < width; col++) {
+      const latitude = ((row + 0.5) / height - 0.5) * Math.PI;
+      const longitude = ((col + 0.5) / width - 0.5) * Math.PI * 2;
       const { x, y } = surfaceToTile(latitude, longitude);
       const f =
         getTile(world, x, y) ??
@@ -34,25 +43,27 @@ export function planetAtlas(world: World): Uint8Array {
           (n, i) => n * (1 - relief) + [168, 157, 133][i] * relief,
         );
       }
-      const index = (row * ATLAS_WIDTH + col) * 4;
+      const index = (row * width + col) * 4;
       for (let channel = 0; channel < 3; channel++)
         pixels[index + channel] = Math.round(color[channel]);
       pixels[index + 3] = 255;
     }
+  }
   // At this scale a pixel spans many ecosystems. Filter the field to avoid representing
   // subpixel rivers and clearings as continent-sized checkerboards.
   const filtered = new Uint8Array(pixels.length);
-  for (let y = 0; y < ATLAS_HEIGHT; y++)
-    for (let x = 0; x < ATLAS_WIDTH; x++) {
-      const i = (y * ATLAS_WIDTH + x) * 4;
+  for (let y = 0; y < height; y++) {
+    if (y % 32 === 0) await setImmediate();
+    for (let x = 0; x < width; x++) {
+      const i = (y * width + x) * 4;
       for (let channel = 0; channel < 3; channel++) {
         let sum = 0;
         for (let dy = -1; dy <= 1; dy++)
           for (let dx = -1; dx <= 1; dx++) {
-            const sx = (x + dx + ATLAS_WIDTH) % ATLAS_WIDTH,
-              sy = Math.max(0, Math.min(ATLAS_HEIGHT - 1, y + dy));
+            const sx = (x + dx + width) % width,
+              sy = Math.max(0, Math.min(height - 1, y + dy));
             sum +=
-              pixels[(sy * ATLAS_WIDTH + sx) * 4 + channel] *
+              pixels[(sy * width + sx) * 4 + channel] *
               (dx === 0 ? 2 : 1) *
               (dy === 0 ? 2 : 1);
           }
@@ -60,5 +71,6 @@ export function planetAtlas(world: World): Uint8Array {
       }
       filtered[i + 3] = 255;
     }
+  }
   return filtered;
 }

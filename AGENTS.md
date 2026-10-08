@@ -27,6 +27,8 @@ Praxans is an authoritative Node/TypeScript shared-world simulation with a React
 - Prefer coupled, measurable processes over scripted events, building recipes, technology trees, or invented resources.
 - Keep model limits explicit. A reference element is not a full reaction network; coarse cohorts are not molecular biology; a large map is not infinite compute.
 - Run the appropriate model/server tests after behavioral changes. Run build and production checks after lifecycle changes. Use real browser interaction and inspect screenshots after playable UI changes.
+- At each meaningful release, review the whole repository for coherence: shared units and clocks, conserved transfers between systems, duplicated rules, module responsibilities, obsolete paths, and agreement between code, model documentation and the requirement ledger. Record concrete findings and follow-up work; a passing build alone does not establish a coherent model.
+- Keep each new mechanism connected to its physical reservoirs, spatial and temporal scales, information carriers and existing causal processes. Prefer extending the relevant system to adding a parallel rule or special-case resource grant. Use the research and scale records in `docs/research/` to challenge assumptions.
 - `npm run test:browser` and `npm run test:production` create disposable saves. Never point automated mutation or time-advance tests at the live world.
 - Keep the public `render_game_to_text` observer hook and test-only `advanceTime` hook usable. Production must not expose manual time controls.
 - Do not run model inference or add hosted AI spending just to run the simulation. Players run their own agents through scoped HTTP/MCP connections.

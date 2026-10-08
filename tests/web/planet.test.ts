@@ -27,7 +27,7 @@ import {
   climatePrior,
   saturationVapor,
 } from "../../src/simulation/planet";
-import { createWorld } from "../../src/simulation/world";
+import { smallWorld as createWorld } from "./fixtures";
 import { stepWorld, validateWorld } from "../../src/simulation/engine";
 import { equilibrateCloud, updateWeather } from "../../src/simulation/weather";
 import { updateEcology } from "../../src/simulation/ecology";

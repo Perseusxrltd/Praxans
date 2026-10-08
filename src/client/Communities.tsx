@@ -150,7 +150,9 @@ export function CommunityDirectory({
           a.name.localeCompare(b.name)
         : order === "name"
           ? a.name.localeCompare(b.name)
-          : b.foundedTick - a.foundedTick || a.name.localeCompare(b.name),
+          : (b.renewal?.tick ?? b.foundedTick) -
+              (a.renewal?.tick ?? a.foundedTick) ||
+            a.name.localeCompare(b.name),
     );
   return (
     <div className="community-directory" data-community-directory>
@@ -226,7 +228,8 @@ export function CommunityDirectory({
       <div className="community-directory-list">
         {visible.map((civ) => {
           const people = population.get(civ.id) ?? 0;
-          const newBeginning = world.tick - civ.foundedTick < 96 * 7;
+          const chapterTick = civ.renewal?.tick ?? civ.foundedTick;
+          const newBeginning = world.tick - chapterTick < 96 * 7;
           const endangered = world.citizens.filter(
             (p) => p.civId === civ.id && (p.hunger < 20 || p.health < 35),
           ).length;
@@ -248,9 +251,9 @@ export function CommunityDirectory({
                 {newBeginning && (
                   <span
                     className="new-beginning"
-                    title="Founded within the last seven world days"
+                    title="This chapter began within the last seven world days"
                   >
-                    New beginning
+                    {civ.renewal ? "Renewed" : "New beginning"}
                   </span>
                 )}
               </div>
@@ -278,8 +281,8 @@ export function CommunityDirectory({
               </button>
               <p>{civ.motto}</p>
               <small className="community-founded">
-                Founded {communityDate(civ.foundedTick)} ·{" "}
-                {ago(civ.foundedTick, world.tick)}
+                {civ.renewal ? "Renewed" : "Founded"}{" "}
+                {communityDate(chapterTick)} · {ago(chapterTick, world.tick)}
               </small>
               <div className="community-entry-actions">
                 <FollowCommunity
@@ -366,7 +369,7 @@ export function CommunityLifeStory({
           );
       });
     return () => controller.abort();
-  }, [civ.id, civ.deaths, day, world.id]);
+  }, [civ.id, civ.deaths, civ.renewal?.interventionId, day, world.id]);
   const living = world.citizens.some((p) => p.civId === civ.id);
   const currentRecord = record?.communityId === civ.id ? record : null;
   const endedTick =
@@ -407,6 +410,15 @@ export function CommunityLifeStory({
             : "The landscape around their former home continues to change."}
         </p>
       )}
+      {currentRecord?.renewals?.map((renewal) => (
+        <p key={renewal.interventionId} className="community-renewal">
+          <strong>A new chapter · {communityDate(renewal.tick)}</strong>
+          <br />
+          {renewal.arrivals} new residents arrived through a recorded world
+          intervention. The earlier community’s lives and losses remain part of
+          this history.
+        </p>
+      ))}
       <div className="community-record-facts">
         <span>{civ.births} births</span>
         <span>{civ.deaths} remembered lives</span>

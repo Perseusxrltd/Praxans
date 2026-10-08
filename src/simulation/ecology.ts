@@ -242,12 +242,29 @@ export function growPlant(
   );
   plant.carbon -= respiration;
   respire(world, respiration, tile, aquatic);
+  // A growth optimum is not a lethal temperature. Cold-adapted tissues can
+  // remain dormant in frozen soil even though there is no liquid water for
+  // photosynthesis. Respiration still spends reserves; severe heat/cold and
+  // actual unfrozen drought still damage tissue.
+  const frozenDormancy =
+    !aquatic && tile.temperature < 2 && tile.ice + tile.air.snow > 0;
+  const coldLimit = genome.temperature - 30 - genome.roots * 8;
+  const heatLimit = genome.temperature + 27;
   const stress =
-    Math.max(0, 0.15 - waterSuitability) + Math.max(0, 0.25 - tempSuitability);
+    (frozenDormancy ? 0 : Math.max(0, 0.15 - waterSuitability)) +
+    Math.max(
+      0,
+      (coldLimit - tile.temperature) / 25,
+      (tile.temperature - heatLimit) / 25,
+    );
+  const rootFraction = aquatic ? 0 : clamp(genome.roots * 0.35, 0, 0.4);
   const shed = clamp(
     // Leaves turn over much faster than structural wood. Applying leaf loss
     // to the entire tree previously gave even healthy trunks a 44-day half-life.
-    (0.00065 + (1 - leafFactor) * 0.002) * (1 - genome.woodiness) +
+    (0.00065 + (1 - leafFactor) * 0.002) *
+      (1 - genome.woodiness) *
+      (1 - rootFraction) +
+      0.000006 * rootFraction * (1 - genome.woodiness) +
       0.000003 * genome.woodiness +
       stress * 0.012 * livingFraction,
     0,

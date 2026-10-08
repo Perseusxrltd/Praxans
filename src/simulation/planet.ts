@@ -77,6 +77,20 @@ export function surfaceCoordinates(
     longitude: (wrapX(x) / LONGITUDE_TILES) * TAU,
   };
 }
+/** Great-circle ground distance; projected cell edges are not uniformly ten metres. */
+export function groundDistanceMetres(
+  a: { x: number; y: number },
+  b: { x: number; y: number },
+): number {
+  const from = surfaceCoordinates(a.x, a.y),
+    to = surfaceCoordinates(b.x, b.y);
+  const haversine =
+    Math.sin((to.latitude - from.latitude) / 2) ** 2 +
+    Math.cos(from.latitude) *
+      Math.cos(to.latitude) *
+      Math.sin((to.longitude - from.longitude) / 2) ** 2;
+  return 2 * PLANET.radius * Math.asin(Math.sqrt(Math.min(1, haversine)));
+}
 const length = (v: readonly number[]) => Math.hypot(...v);
 const dot = (a: readonly number[], b: readonly number[]) =>
   a.reduce((s, v, i) => s + v * b[i], 0);

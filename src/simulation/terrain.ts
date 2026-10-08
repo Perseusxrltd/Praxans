@@ -45,12 +45,17 @@ export const INITIAL_AIR = Object.freeze({
 const coordinateKey = (x: number, y: number) => x * 134217728 + y;
 const indices = new WeakMap<
   World,
-  { length: number; positions: Map<number, number> }
+  { tiles: Tile[]; length: number; positions: Map<number, number> }
 >();
 export function tileIndex(world: World, x: number, y: number): number {
   let cached = indices.get(world);
-  if (!cached || cached.length !== world.tiles.length) {
+  if (
+    !cached ||
+    cached.tiles !== world.tiles ||
+    cached.length !== world.tiles.length
+  ) {
     cached = {
+      tiles: world.tiles,
       length: world.tiles.length,
       positions: new Map(
         world.tiles.map((t, i) => [coordinateKey(t.x, t.y), i]),

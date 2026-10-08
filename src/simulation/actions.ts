@@ -212,8 +212,8 @@ export function executeProposal(
   }
 }
 
-/** Every submission in a batch is queued atomically; its receipt is not an approval or a guaranteed outcome. */
-export function applyAgentActions(
+/** Stage an atomic submission. Unchanged physical state is shared until the server commits and replaces its world. */
+export function stageAgentActions(
   source: World,
   civId: string,
   actions: AgentAction[],
@@ -221,7 +221,14 @@ export function applyAgentActions(
 ): { world: World; outcomes: string[] } {
   if (actions.length < 1 || actions.length > 6)
     throw new RuleError("Send between one and six proposals.");
-  const world = structuredClone(source),
+  const world: World = {
+      ...source,
+      civilizations: source.civilizations.map((c) =>
+        c.id === civId ? structuredClone(c) : c,
+      ),
+      events: [...source.events],
+      pendingEvents: [...source.pendingEvents],
+    },
     civ = world.civilizations.find((c) => c.id === civId);
   if (!civ || !peopleOf(world, civId).length)
     throw new RuleError(
@@ -269,4 +276,15 @@ export function applyAgentActions(
   civ.lastAgentTick = world.tick;
   civ.lastIntent = actions.at(-1)!.reason;
   return { world, outcomes };
+}
+
+/** Independent simulation branches retain the previous fully isolated result contract. */
+export function applyAgentActions(
+  source: World,
+  civId: string,
+  actions: AgentAction[],
+  agentName: string,
+): { world: World; outcomes: string[] } {
+  const result = stageAgentActions(source, civId, actions, agentName);
+  return { ...result, world: structuredClone(result.world) };
 }

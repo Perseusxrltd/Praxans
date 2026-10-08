@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createWorld } from "../../src/simulation/world";
+import { smallWorld as createWorld } from "./fixtures";
 import { updateEcology } from "../../src/simulation/ecology";
 import { ledger } from "../../src/simulation/laws";
 import { elementLedger } from "../../src/simulation/chemistry";

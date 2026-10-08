@@ -28,6 +28,34 @@ import {
 } from "./landscape";
 
 const fluxBuffers = new WeakMap<World, Float64Array[]>();
+const neighborCache = new WeakMap<
+  World,
+  { tiles: Tile[]; length: number; indices: Int32Array }
+>();
+function weatherNeighbors(world: World): Int32Array {
+  const cached = neighborCache.get(world);
+  if (cached?.tiles === world.tiles && cached.length === world.tiles.length)
+    return cached.indices;
+  const indices = new Int32Array(world.tiles.length * 4);
+  for (let i = 0; i < world.tiles.length; i++) {
+    const t = world.tiles[i];
+    const around = [
+      tileIndex(world, t.x, t.y - 1),
+      tileIndex(world, t.x + 1, t.y),
+      tileIndex(world, t.x, t.y + 1),
+      tileIndex(world, t.x - 1, t.y),
+    ];
+    for (let direction = 0; direction < 4; direction++)
+      indices[i * 4 + direction] =
+        around[direction] < 0 ? i : around[direction];
+  }
+  neighborCache.set(world, {
+    tiles: world.tiles,
+    length: world.tiles.length,
+    indices,
+  });
+  return indices;
+}
 function reusableFluxes(world: World) {
   let buffers = fluxBuffers.get(world);
   if (!buffers || buffers[0].length !== world.tiles.length) {
@@ -104,6 +132,7 @@ export function updateWeather(world: World): void {
   advancePlanetaryClimate(world);
   const sediments: SedimentTransfer[] = [];
   const length = world.tiles.length;
+  const neighbors = weatherNeighbors(world);
   const [
     vaporDelta,
     cloudDelta,
@@ -116,6 +145,7 @@ export function updateWeather(world: World): void {
   const skies = world.chunks.map((c) =>
     astronomy(world.tick, c.x * CHUNK_SIZE + 16, c.y * CHUNK_SIZE + 16),
   );
+  const circulations = skies.map((sky) => prevailingWind(sky.latitude));
   for (let i = 0; i < length; i++) {
     const tile = world.tiles[i],
       air = tile.air;
@@ -222,13 +252,15 @@ export function updateWeather(world: World): void {
   for (let i = 0; i < length; i++) {
     const tile = world.tiles[i],
       air = tile.air;
-    const circulation = prevailingWind(
-      skies[Math.floor(i / CHUNK_SIZE ** 2)].latitude,
-    );
-    const north = getTile(world, tile.x, tile.y - 1) ?? tile,
-      east = getTile(world, tile.x + 1, tile.y) ?? tile,
-      south = getTile(world, tile.x, tile.y + 1) ?? tile,
-      west = getTile(world, tile.x - 1, tile.y) ?? tile;
+    const circulation = circulations[Math.floor(i / CHUNK_SIZE ** 2)];
+    const northIndex = neighbors[i * 4],
+      eastIndex = neighbors[i * 4 + 1],
+      southIndex = neighbors[i * 4 + 2],
+      westIndex = neighbors[i * 4 + 3];
+    const north = world.tiles[northIndex],
+      east = world.tiles[eastIndex],
+      south = world.tiles[southIndex],
+      west = world.tiles[westIndex];
     air.windX = clamp(
       air.windX * 0.65 +
         circulation.x * 0.35 +
@@ -256,10 +288,10 @@ export function updateWeather(world: World): void {
     displaceSurface(world, tile, -erosion);
     air.dust += erosion;
     world.climate.dustLifted += erosion;
-    const flow = (target: Tile, velocity: number) => {
+    const flow = (index: number, velocity: number) => {
+      const target = world.tiles[index];
       if (target === tile) return;
-      const index = tileIndex(world, target.x, target.y),
-        fraction = Math.min(0.22, Math.abs(velocity) * 0.05);
+      const fraction = Math.min(0.22, Math.abs(velocity) * 0.05);
       // Exchange equal air volumes (unresolved turbulent eddies), not just vapor mass.
       // Advecting water into a cell without exporting displaced air creates spurious
       // convergence and runaway latent heating. Heat and aerosols follow the same exchange.
@@ -276,8 +308,8 @@ export function updateWeather(world: World): void {
       heatDelta[i] -= heat;
       heatDelta[index] += heat;
     };
-    flow(air.windX >= 0 ? east : west, air.windX);
-    flow(air.windY >= 0 ? south : north, air.windY);
+    flow(air.windX >= 0 ? eastIndex : westIndex, air.windX);
+    flow(air.windY >= 0 ? southIndex : northIndex, air.windY);
     const head =
       Math.max(0, tile.elevation - 0.19) * 600 +
       Math.max(

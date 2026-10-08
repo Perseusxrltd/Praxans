@@ -1,0 +1,1739 @@
+{
+  "schema_version": 1,
+  "updated_on": "2026-10-08",
+  "research_orientation": "Begin with ancient and premodern primary inquiry; use modern reproducible measurements to check physical claims. Philosophical and normative interpretations do not establish physical laws.",
+  "scope": "Prioritized research candidates for active-session batches; no authorization to deploy, mutate a live database, or run new costly ensembles.",
+  "source_register": "source-register.json",
+  "research_log": "2026-10-08-first-batch.md",
+  "priorities": {
+    "P0": "Diagnose an immediate causal or observational failure.",
+    "P1": "Resolve the next material or behavioral connection.",
+    "P2": "Develop a bounded later mechanism after prerequisites."
+  },
+  "status_note": "Candidate progress is not implementation or deployment evidence; consult the canonical roadmap and release record.",
+  "candidates": [
+    {
+      "id": "R13",
+      "rank": 1,
+      "priority": "P0",
+      "title": "Make the scale and quantity contract explicit",
+      "status": "ready_for_contract_review",
+      "tracks": ["scale", "geometry", "numerics", "resources"],
+      "roadmap_ids": ["P13", "P16"],
+      "source_ids": ["A10", "A11", "M08", "M10"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/planet.ts",
+          "symbol": "surfaceCoordinates, LONGITUDE_TILES, NORTH_TILE and SOUTH_TILE"
+        },
+        {
+          "path": "src/simulation/world.ts",
+          "symbol": "distance"
+        },
+        {
+          "path": "src/simulation/laws.ts",
+          "symbol": "evaluateDesign"
+        },
+        {
+          "path": "src/simulation/types.ts",
+          "symbol": "TICK_MS, HOURS_PER_TICK, DAYS_PER_YEAR and CHUNK_SIZE"
+        }
+      ],
+      "observed_problem": "A 100 m2 equal-area surface cell is treated as a uniform 10 m step although ground distances vary with latitude. Smaller component geometry does not establish continuous underground or millimetre physics.",
+      "hypothesis": "One declared metric and quantity contract exposes mismatched distance, area, depth and cadence before more mechanisms depend on them.",
+      "proposed_change": "Publish pool units, spatial owners, depth scope, resolution and process cadence; then separately version latitude/seam distance and component-footprint corrections.",
+      "mechanism": {
+        "inputs": [
+          "current coordinates and pools",
+          "process clocks",
+          "component geometry"
+        ],
+        "outputs": [
+          "inspectable unit/scope metadata",
+          "consistent metric and footprint calculations"
+        ],
+        "location": "celestial, coarse planetary, region, surface cell and component levels",
+        "duration": "metadata audit, then bounded numerical fixtures"
+      },
+      "conservation_constraints": [
+        "A coordinate or unit correction cannot multiply material or rewrite historical identities.",
+        "Keep extensive totals distinct from intensive densities, concentrations and temperatures.",
+        "Distinguish an effective reservoir from an explicitly resolved material volume."
+      ],
+      "local_information_constraint": "Observer scale metadata must not reveal unobserved deposits, resources or remote conditions to inhabitants.",
+      "counterexample": "A cell can preserve area yet distort travel distances; a 2 mm contact tolerance can exist without 2 mm terrain resolution.",
+      "bounded_test": {
+        "type": "arithmetic and geometry fixtures",
+        "fixture_count": 7,
+        "metrics": [
+          "round-trip coordinate error",
+          "east/south spherical distance at five latitudes",
+          "longitude-seam path cost",
+          "assembly footprint versus owned cells"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Every affected quantity has units and a spatial owner; metric/footprint discrepancies have bounded, versioned correction proposals with explicit numerical tolerances.",
+      "parameter_assumptions": [
+        "Spherical radius and present physical constants are model assumptions.",
+        "Any future refinement tolerance is chosen for a represented process, not visual appearance."
+      ],
+      "dependencies": [],
+      "release_implications": "Start with documentation; physical metric changes are later law changes. Preserve tile IDs and live stocks. Detailed observations and fingerprints are in scale-audit.json."
+    },
+    {
+      "id": "R24",
+      "rank": 2,
+      "priority": "P0",
+      "title": "Diagnose settlement footprint, waste placement and concentrated heat",
+      "status": "small_coupling_checks_and_short_bundle_comparison_pass_seasonal_open",
+      "tracks": ["scale", "thermodynamics", "subsistence", "settlement"],
+      "roadmap_ids": ["P13", "P16", "W06", "E03"],
+      "source_ids": ["A03", "A04"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/settlement.ts",
+          "symbol": "campFootprint, campTiles and campRestPlace (parent implementation in progress)"
+        },
+        {
+          "path": "src/simulation/weathering.ts",
+          "symbol": "decayStocks and physical waste destination"
+        },
+        {
+          "path": "src/simulation/citizens.ts",
+          "symbol": "all rest assignments and food access"
+        },
+        {
+          "path": "src/simulation/laws.ts",
+          "symbol": "respire"
+        },
+        {
+          "path": "src/simulation/ecology.ts",
+          "symbol": "hourly detritus decomposition"
+        },
+        {
+          "path": "src/simulation/thermodynamics.ts",
+          "symbol": "heatCapacity"
+        }
+      ],
+      "observed_problem": "The concentrated 300-person implementation retained all 1,200 arrivals for 14 days but ended at 44.12–49.19°C with roughly 29–30 t net camp food stock drawdown. Shared rest/decay placement was concentrated into one cell. The corrected bundle and remaining aggregate-model limits are now documented separately.",
+      "hypothesis": "An explicit finite settlement footprint and physically consistent stock/waste locations reduce artificial heat concentration while retaining real reaction energy and environmental limits.",
+      "proposed_change": "Retain the passed connected-access, actual-area, cache and transfer checks; inspect the parent’s final full-world recheck, then use explicit food-flow and thermal-pool diagnostics for the next bounded mechanism. Do not equate net stock decline with spoilage.",
+      "mechanism": {
+        "inputs": [
+          "population and actual occupancy",
+          "material volumes and allocated stock",
+          "usable connected land",
+          "respiratory/decomposition energy",
+          "weather and transport"
+        ],
+        "outputs": [
+          "distributed physical sources",
+          "per-cell heat/material traces",
+          "whole-camp budgets",
+          "reconciled food loss"
+        ],
+        "location": "occupied camp footprint and actual stock/waste destinations",
+        "duration": "initial accounting and parent-run short comparative diagnostic"
+      },
+      "conservation_constraints": [
+        "Distribution does not erase reaction heat or add material.",
+        "Distributed decay implies distributed stocks or paid hauling; an untracked sink is not a correction.",
+        "Aggregate and subgrid representations cannot both own the same stock.",
+        "No temperature clamp or compensating food grant."
+      ],
+      "local_information_constraint": "Footprint placement follows known/reachable land and declared storage allocation, not remote temperature or resource optimization.",
+      "counterexample": "A real concentrated organic pile can heat up; an arbitrary redistribution of heat would hide that possibility. A layout can also be limited by actual land. Neither short-run survival nor lower peak temperature establishes adequate food production or seasonal balance.",
+      "bounded_test": {
+        "type": "same-input concentrated/distributed comparison and access/accounting fixture",
+        "fixture_count": 2,
+        "metrics": [
+          "resting people per cell",
+          "stock and waste kg/cell",
+          "achieved usable area m2",
+          "food access/refill failures",
+          "respiratory/decomposition kJ",
+          "latent/radiative/transport kJ",
+          "maximum and camp-integrated thermal change",
+          "matter/energy residual"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "A lower hotspot is explained by physical source placement and transfers with equal conserved inputs; no conclusion of 300-person viability precedes adequate seasonal evidence.",
+      "parameter_assumptions": [
+        "Draft 16 m² per resident and 0.5 m open-pile height are explicit effective choices, not calibrated ancient camp dimensions.",
+        "Tile heat capacity excludes added stock/detritus/structure mass; land decomposition has no local oxygen-diffusion limit. These remain scoped approximations.",
+        "Derived baseline 36.1–48.6 kW for 300 adults is an input bound, not a predicted equilibrium temperature."
+      ],
+      "dependencies": ["R13", "R02", "R21"],
+      "release_implications": "Placement and storage interpretation change physical behavior. Preserve identity/history and exact transfers, version the law/state as required, and report the comparison before claiming a corrected release.",
+      "progress_history": [
+        {
+          "reported_on": "2026-10-08",
+          "note": ""
+        }
+      ],
+      "progress_note": "Final small probe verifies cardinal access, 48 cells for 4,800 m2 where available, explicitly constrained islands, population-cache invalidation and conserved distributed food loss. The 14-day full-world bundle ends at 21.88–22.93°C versus 44.12–49.19°C with the concentrated implementation, with no new deaths. No one-factor or seasonal claim; aggregate stock/thermal-pool limits remain."
+    },
+    {
+      "id": "R21",
+      "rank": 3,
+      "priority": "P0",
+      "title": "Validate a finite 300-adult founding model across resources and observation",
+      "status": "short_bundle_comparison_complete_seasonal_adequacy_unverified",
+      "tracks": [
+        "demography",
+        "subsistence",
+        "water",
+        "labor",
+        "scale",
+        "observation"
+      ],
+      "roadmap_ids": ["W06", "W07", "H01", "P13", "W01"],
+      "source_ids": ["A03", "A04", "A08", "A09", "M01", "M02", "M03", "M04"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/founding.ts",
+          "symbol": "FOUNDING and initializeFounders"
+        },
+        {
+          "path": "src/simulation/renewal.ts",
+          "symbol": "renewal request and founder placement"
+        },
+        {
+          "path": "src/simulation/citizens.ts",
+          "symbol": "hunger, hydration, gatherTask and carried provisions"
+        },
+        {
+          "path": "scripts/renewal-trials.ts",
+          "symbol": "request/domain fingerprints and sampling"
+        }
+      ],
+      "observed_problem": "Moving from 32 to 300 multiplies demand by 9.375, while fixed catchments, spawn jitter, trait permutation, storage and observation costs do not scale automatically. Existing successful diagnostics used 32 founders.",
+      "hypothesis": "Explicit demographic inputs and a food/water/work/catchment ledger reveal whether 300 adults have sustained access rather than merely large opening supplies.",
+      "proposed_change": "Validate the concrete arrival request, complete domains, local memories/travel, distributed accessible positions, trait independence, finite materials and food/water flow. Use parent-run diagnostics only; keep browser/person detail bounded.",
+      "mechanism": {
+        "inputs": [
+          "300-adult arrival assumption",
+          "finite supplied stocks",
+          "represented habitat and water",
+          "local travel/knowledge",
+          "existing trial outputs"
+        ],
+        "outputs": [
+          "arrival ledger",
+          "daily resource/work budgets",
+          "survival and dependency distributions",
+          "bounded observation payload"
+        ],
+        "location": "disposable exact-request diagnostics; no live activation by research",
+        "duration": "initial accounting then existing successive-season runs"
+      },
+      "conservation_constraints": [
+        "300×480 kg is 144,000 kg opening food, not annual production.",
+        "Wraps and carried rations transfer existing material.",
+        "A larger radius cannot conjure food, water, labor or demographic viability.",
+        "Keep all original identities, ownership and history."
+      ],
+      "local_information_constraint": "Resource selection uses each person’s memories, local exploration and paid travel, never diagnostic global yields.",
+      "counterexample": "300 adults can starve despite 32-founder success; an all-adult cohort can survive a season and still have unvalidated long-term demography.",
+      "bounded_test": {
+        "type": "arrival/accounting fixture and existing exact-input seasonal diagnostics",
+        "fixture_count": 1,
+        "metrics": [
+          "food kg consumed versus opening stock",
+          "delivered food per person-hour",
+          "liquid water recharge/depletion",
+          "storage m3",
+          "represented/reachable/harvested ha",
+          "trait covariance",
+          "founder and descendant survival",
+          "observation bytes"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "All numerical claims identify their initial condition, domain and duration; sustained production/access is distinguished from drawing down the finite opening supply.",
+      "parameter_assumptions": [
+        "300 is a user-directed working baseline, not an empirical optimum.",
+        "The model’s 195–262.5 kg/day food and 468–561.6 kg/day water baseline totals need physical calibration.",
+        "A 367.4 m radius merely preserves the former area/person ratio; it does not establish carrying capacity.",
+        "Ordinary founding currently supplies 48 kg food/person; recovery supplies 480 kg/person. A trial of one allowance does not validate the other."
+      ],
+      "dependencies": ["R01", "R02", "R03", "R05"],
+      "release_implications": "Any arrival is an explicit factual intervention with request/state/code fingerprints. Earlier 32-founder tests cannot authorize claims about 300-founder success.",
+      "progress_note": "Read both full-38-region 300-person artifacts at source tick 151764: same reported initial sample and intervention/matter summary; no new deaths over 14 days. Final food 113.78–114.85 t concentrated versus 130.00–134.02 t distributed. This is net stock drawdown, not separately measured spoilage; longer-term adequacy remains unverified.",
+      "progress_history": [
+        {
+          "reported_on": "2026-10-08",
+          "note": "Later 2026-10-08 parent report: 1,200 arrivals alive at 14 days in a full-backup 300-adult-per-camp trial, but camp-center temperature about 28→49°C and ~30 t food/camp spoiled. R24 diagnoses concentrated rest/waste. Spatial correction and long-term adequacy remain unverified."
+        }
+      ]
+    },
+    {
+      "id": "R01",
+      "rank": 4,
+      "priority": "P0",
+      "title": "Measure the complete catchment and boundary sensitivity",
+      "status": "combined_32_founder_failure_observed",
+      "tracks": ["ecology", "subsistence", "numerics"],
+      "roadmap_ids": ["W06", "E02", "E07", "P12"],
+      "source_ids": ["A03", "A04", "M02", "M06"],
+      "code_anchors": [
+        {
+          "path": "scripts/renewal-trials.ts",
+          "symbol": "domain, wholeCatchments, catchments and sample"
+        },
+        {
+          "path": "src/simulation/terrain.ts",
+          "symbol": "nearbyTiles"
+        }
+      ],
+      "observed_problem": "The original single-region trial clips a 120 m disk. The revised catchment domain retains intersecting saved regions; domain changes still alter boundary transport, atmospheric allocation and shared RNG order.",
+      "hypothesis": "Some camp differences shrink when the entire existing catchment is represented; others persist because production or access is inadequate.",
+      "proposed_change": "Read the new domain metadata and existing complete-catchment results when available; add reachable-area and food-flow diagnostics as needed. Preserve original cropped reports as historical results.",
+      "mechanism": {
+        "inputs": [
+          "saved terrain and climate",
+          "explicit renewal request",
+          "domain mask"
+        ],
+        "outputs": [
+          "represented and reachable habitat counts",
+          "food/biomass by distance band"
+        ],
+        "location": "disposable diagnostic world",
+        "duration": "count at start and at existing trial sample times"
+      },
+      "conservation_constraints": [
+        "Never generate free replacement habitat in a clipped trial.",
+        "Label any revised accounting boundary and preserve the untouched source backup."
+      ],
+      "local_information_constraint": "Observer diagnostics may inspect ground truth; inhabitant decisions must not receive those diagnostic totals.",
+      "counterexample": "If failure persists with comparable access and environmental forcing after the full catchment is represented, clipping alone is insufficient.",
+      "bounded_test": {
+        "type": "geometry audit then existing-run comparison",
+        "fixture_count": 2,
+        "metrics": [
+          "disk coverage fraction",
+          "reachable land area m2",
+          "annual delivered food kg",
+          "boundary fluxes",
+          "population trajectory"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Interpret survival rankings only with their coverage and forcing differences reported; choose the next mechanism from the residual deficit.",
+      "parameter_assumptions": [
+        "A geometric buffer is a sensitivity choice, not a guarantee that all ecological influences are enclosed."
+      ],
+      "dependencies": [],
+      "release_implications": "Diagnostic changes need reproducible script/code/request/state fingerprints; no live intervention is implied.",
+      "progress_note": "Completed parent artifact read: seven-region 600-day run ends Fern 48, Amber 4, Stone 3, Adonis 47; new deaths 0/44/40/0. Complete 120 m catchments did not establish balanced survival. Separate-run results remain historically qualified.",
+      "progress_history": [
+        {
+          "reported_on": "2026-10-08",
+          "note": "2026-10-08: inspected catchments/catchment:<community-id> support and region/cell/catchment-area reporting. Collaborator reports new complete-catchment 600-day runs just started. No completed full-catchment survival result is claimed."
+        },
+        {
+          "reported_on": "2026-10-08",
+          "note": "Later 2026-10-08 parent report: original-domain Fern 45, Amber 46 and Adonis 47 at day 600, all 32 founders alive; Stone 46 at day 600 in its complete two-region catchment, all founders alive. All 128 founders passed 14 days across all 38 saved regions. Combined seven-region/four-community 600-day run pending around day 160 when reported. Earlier cropped failures remain historical evidence. No 300-founder success or live activation is established."
+        }
+      ]
+    },
+    {
+      "id": "R02",
+      "rank": 5,
+      "priority": "P0",
+      "title": "Reconcile edible reserves, use, loss, and gathering effort",
+      "status": "ready_for_diagnostic_design",
+      "tracks": ["subsistence", "economics"],
+      "roadmap_ids": ["W11", "P01", "P03", "W06"],
+      "source_ids": ["A04", "A08", "M03"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/subsistence.ts",
+          "symbol": "edibleReserves"
+        },
+        {
+          "path": "src/simulation/citizens.ts",
+          "symbol": "finishTask and updateCitizen"
+        },
+        {
+          "path": "src/simulation/physiology.ts",
+          "symbol": "takeAccessibleFood and fuel"
+        },
+        {
+          "path": "src/simulation/weathering.ts",
+          "symbol": "decayStocks"
+        },
+        {
+          "path": "scripts/renewal-trials.ts",
+          "symbol": "sample"
+        }
+      ],
+      "observed_problem": "Camp stock and cumulative harvest omit carried food, use categories, prior-history baselines, and the contribution of initial supplies.",
+      "hypothesis": "A closed daily food account distinguishes low growth, failed access, excess loss, and thermal consumption before another resource intervention is considered.",
+      "proposed_change": "Record observer-only opening/closing reserves and transfer categories; report harvest deltas and food delivered per work/travel hour.",
+      "mechanism": {
+        "inputs": [
+          "existing stock, personal, cargo, caravan and body transfers"
+        ],
+        "outputs": [
+          "balanced daily edible-food account",
+          "cause-specific unmet demand"
+        ],
+        "location": "community diagnostic account",
+        "duration": "daily aggregation"
+      },
+      "conservation_constraints": [
+        "Internal packing and delivery transfers cancel.",
+        "Food allocated to bodies, offspring, experiments or construction must leave the edible pool once.",
+        "Spoilage and respiration have existing material destinations."
+      ],
+      "local_information_constraint": "An analytical ledger does not become omniscient personal knowledge.",
+      "counterexample": "A camp can have positive standing plant mass while no reachable, harvestable food covers consumption; total biomass alone must not count as food income.",
+      "bounded_test": {
+        "type": "scripted transfers and existing trace reconciliation",
+        "fixture_count": 3,
+        "metrics": [
+          "food-account residual kg",
+          "meal kg",
+          "thermal-fuel kg",
+          "spoilage kg",
+          "delivered kg per hour",
+          "fraction funded by initial reserves"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Every material discrepancy has a classified transfer within the model's existing numerical tolerance before changing production rates.",
+      "parameter_assumptions": [
+        "Counter labels are observational definitions, not physiological calibration."
+      ],
+      "dependencies": [],
+      "release_implications": "Prefer diagnostic counters first; persistent counters require saved-state migration and must begin at their actual introduction tick."
+    },
+    {
+      "id": "R03",
+      "rank": 6,
+      "priority": "P0",
+      "title": "Make biological food decay depend on conditions",
+      "status": "cold_loss_mechanism_partial_evidence_seasonal_limits",
+      "tracks": ["subsistence", "ecology", "materials"],
+      "roadmap_ids": ["P10", "E03", "W06"],
+      "source_ids": ["A02", "A04", "M03"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/weathering.ts",
+          "symbol": "decayStocks"
+        },
+        {
+          "path": "src/simulation/subsistence.ts",
+          "symbol": "SUBSISTENCE and foodReservePerPerson"
+        }
+      ],
+      "observed_problem": "The initially inspected equation imposed a 0.004/day food-loss floor independent of temperature; the planner assumed 0.006/day.",
+      "hypothesis": "Removing that unconditional biological-loss floor improves cold-storage retention while preserving temperature-dependent finite loss.",
+      "proposed_change": "The implementation collaborator reports applying the existing thermal factor to the entire biological rate, with the old 20°C value preserved. Evaluate that candidate before deeper moisture/pest state.",
+      "mechanism": {
+        "inputs": [
+          "actual stored food",
+          "temperature",
+          "humidity and exposure"
+        ],
+        "outputs": ["remaining food", "returned decayed material"],
+        "location": "camp storage",
+        "duration": "daily loss integration"
+      },
+      "conservation_constraints": [
+        "Removed food must reach its existing detritus/mineral destinations.",
+        "Cooling adds no food or energy.",
+        "Future pests require an actual living source and metabolic budget."
+      ],
+      "local_information_constraint": "Reserve expectations should ultimately be learned from local losses and seasonal records, not future weather.",
+      "counterexample": "Warm wet stores should still lose food; finite cold retention is not permanent preservation. Material packing into personal rations must not become a loss-avoidance exploit.",
+      "bounded_test": {
+        "type": "cold/warm/protection comparison and conservation regression",
+        "fixture_count": 3,
+        "metrics": [
+          "retained fraction",
+          "warm-rate equality at 20°C",
+          "matter residual",
+          "actual versus planned loss"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "The warm baseline remains consistent; colder storage loses less food without a ledger error; seasonal conclusions wait for the collaborator's existing reruns.",
+      "parameter_assumptions": [
+        "Q10=2 is an effective assumption, not an empirically calibrated universal constant.",
+        "Temperature clamps, humidity coupling and rate coefficients require sensitivity checks.",
+        "Grain-storage evidence does not calibrate every bulk food."
+      ],
+      "dependencies": ["R02"],
+      "release_implications": "A law change requires a law version, continuity tests and factual release evidence. Candidate status here is not deployment status.",
+      "progress_note": "The earlier combined 32-founder seasonal run has severe losses in Amber and Stone despite the thermal decay correction. Later 300-person 14-day changed-bundle comparison lowers heat and net camp stock drawdown. Neither isolates decay nor establishes seasonal balance; Q10=2 remains an effective assumption.",
+      "progress_history": [
+        {
+          "reported_on": "2026-10-08",
+          "note": "2026-10-08 collaborator report: applying the existing thermal factor to all biological food decay preserves 20°C rates and finite cold loss. Q10=2 remains an uncalibrated effective assumption. Cropped Stonebrook still went extinct at day 465; other original cropped trials had exceeded 500 days with all founders alive. Full-catchment results pending."
+        },
+        {
+          "reported_on": "2026-10-08",
+          "note": "Later 2026-10-08 parent report: original-domain Fern 45, Amber 46 and Adonis 47 at day 600, all 32 founders alive; Stone 46 at day 600 in its complete two-region catchment, all founders alive. All 128 founders passed 14 days across all 38 saved regions. Combined seven-region/four-community 600-day run pending around day 160 when reported. Earlier cropped failures remain historical evidence. No 300-founder success or live activation is established."
+        }
+      ]
+    },
+    {
+      "id": "R22",
+      "rank": 7,
+      "priority": "P0",
+      "title": "Require connected containment before granting storage protection",
+      "status": "connected_geometry_fixture_verified_storage_coupling_open",
+      "tracks": ["geometry", "storage", "subsistence", "construction"],
+      "roadmap_ids": ["P11", "P10", "P13"],
+      "source_ids": ["A04", "A11"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/laws.ts",
+          "symbol": "evaluateDesign storageVolume"
+        },
+        {
+          "path": "src/simulation/weathering.ts",
+          "symbol": "decayStocks protectedFraction"
+        },
+        {
+          "path": "docs/research/construction-review.json",
+          "symbol": "continuousWalls and detachedWalls fixtures"
+        }
+      ],
+      "observed_problem": "A 1 m² floor and four detached walls receive 0.95 m³ storageVolume, equal to a connected box, because nearest cardinal walls are accepted without a containing boundary.",
+      "hypothesis": "Connectivity-aware void/boundary geometry rejects detached walls and gaps while preserving valid containing arrangements without named building recipes.",
+      "proposed_change": "Derive contained regions from actual cuboid boundaries; distinguish open-top granular storage from weather, air and water protection. Keep tolerances explicit and bounded.",
+      "mechanism": {
+        "inputs": [
+          "solid component geometry",
+          "contact/gap tolerance",
+          "specific storage/exposure interaction"
+        ],
+        "outputs": [
+          "contained region and volume",
+          "open boundaries",
+          "supported protection affordance"
+        ],
+        "location": "one assembly in actual metre coordinates",
+        "duration": "static evaluation and subsequent exposure integration"
+      },
+      "conservation_constraints": [
+        "An enclosure needs actual material at its boundary.",
+        "Correction adds no walls, goods or compensating survival supplies.",
+        "Recomputed capacity changes preserve structure material and identity."
+      ],
+      "local_information_constraint": "An investigator must test actual containment or retain it as a prediction; a label cannot establish sealing.",
+      "counterexample": "An open-top bin may hold grain but not prevent rain, while a doorway can break containment even if a wall is visible in each cardinal direction.",
+      "bounded_test": {
+        "type": "connected box, detached walls, slit and removed-wall fixtures",
+        "fixture_count": 4,
+        "metrics": [
+          "contained volume m3",
+          "leak/open-boundary classification",
+          "translation/name invariance",
+          "stock-protection effect",
+          "material ledger"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "The reproduced detached-wall case loses false enclosure credit; valid geometry retains justified capacity with declared tolerance and exposure scope.",
+      "parameter_assumptions": [
+        "Current effective solids lack grain size/permeability; do not infer airtightness or watertightness from granular containment.",
+        "Only the connected/detached baseline calls were executed by research."
+      ],
+      "dependencies": ["R13"],
+      "release_implications": "Evaluator correction changes physical behavior. Version the law and deliberately re-evaluate saved structures, preserving stock/history and reporting capacity consequences before activation.",
+      "progress_note": "Independent seven-case connected-volume checks pass, including detached walls, missing floor, side slit, spillway, rotation/translation and displaced volume. Raw geometry cache invalidates on dimension/element/removal changes. Loading/retrieval, actual stock placement and weather/fluid protection remain open.",
+      "progress_history": [
+        {
+          "reported_on": "2026-10-08",
+          "note": "After the reproduced detached-wall counterexample, parent reports implementing an axis-aligned connected-volume flood calculation. No corrected result is claimed in this research batch."
+        }
+      ]
+    },
+    {
+      "id": "R17",
+      "rank": 8,
+      "priority": "P0",
+      "title": "Verify renderer correctness and visible-work reductions",
+      "status": "partial_isolated_browser_verification",
+      "tracks": ["rendering", "observation", "performance"],
+      "roadmap_ids": ["W01", "W03"],
+      "source_ids": ["M11", "M12", "M13", "M15"],
+      "code_anchors": [
+        {
+          "path": "src/client/renderer.ts",
+          "symbol": "mix, update, drawTerrain and draw"
+        },
+        {
+          "path": "docs/research/renderer-probe.mjs",
+          "symbol": "isolated browser diagnostic"
+        }
+      ],
+      "observed_problem": "Nested material colors were invalid, equal-content structure arrays dirtied all terrain, and entirely offscreen terrain still projected all 9,216 cells.",
+      "hypothesis": "Valid color composition, revision-aware caches and visible traversal remove incorrect shading and unnecessary work without changing world state.",
+      "proposed_change": "Use the preserved probe against the concrete renderer revision, then measure the affected populated navigation trace. Verify changed structure content still invalidates relevant geometry.",
+      "mechanism": {
+        "inputs": [
+          "immutable observer state",
+          "camera and canvas size",
+          "structure and population revisions"
+        ],
+        "outputs": [
+          "valid pixels",
+          "bounded draw/projection work",
+          "retained caches"
+        ],
+        "location": "browser only",
+        "duration": "one frame and repeated updates"
+      },
+      "conservation_constraints": [
+        "Camera, visibility and quality never advance or alter authoritative state.",
+        "Culling removes draws, not inhabitants or material."
+      ],
+      "local_information_constraint": "Observer caches must not become a source of knowledge for inhabitant decisions.",
+      "counterexample": "A cache that stays clean after a real material or geometry change is wrong; fewer offscreen projections do not prove faster visible full redraws.",
+      "bounded_test": {
+        "type": "isolated browser probe plus affected navigation trace",
+        "fixture_count": 3,
+        "metrics": [
+          "Canvas color acceptance",
+          "terrainDirty on equal and changed content",
+          "offscreen project calls",
+          "frame/input p95",
+          "page errors"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Color, cache and culling regressions pass; report timing without claiming an unmeasured overall speedup.",
+      "parameter_assumptions": [
+        "The 800×600 DPR 1 empty-meadow probe is not a populated or ordinary-PC benchmark.",
+        "Five sequential Chrome 153 timing samples are insufficient for a causal speedup claim."
+      ],
+      "dependencies": [],
+      "release_implications": "Client release only; verify lifecycle and real browser interactions before reporting deployment. Parent implements the source changes.",
+      "progress_note": "Isolated revised renderer SHA 5faf9176 produced valid nested color, retained terrain cache for equal new structure arrays, and zero fully offscreen terrain projection calls versus 46,080 originally. Full-redraw timing improvement and populated-view performance remain unproven; exact outputs and browser versions are preserved in rendering-review.json."
+    },
+    {
+      "id": "R04",
+      "rank": 9,
+      "priority": "P0",
+      "title": "Couple perception to the path actually traveled",
+      "status": "ready_for_small_fixture",
+      "tracks": ["cognition", "movement", "numerics"],
+      "roadmap_ids": ["H02", "H03", "W08"],
+      "source_ids": ["A03", "A04", "M02"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/movement.ts",
+          "symbol": "walkPath"
+        },
+        {
+          "path": "src/simulation/cognition.ts",
+          "symbol": "updateMind and perceive"
+        },
+        {
+          "path": "src/simulation/citizens.ts",
+          "symbol": "updateCitizen"
+        }
+      ],
+      "observed_problem": "Hourly endpoint perception can skip water and food beside cells crossed in a multi-cell movement step.",
+      "hypothesis": "Bounded observations along traveled positions reduce timestep-dependent loss of local information.",
+      "proposed_change": "Expose traversed positions to a perception sampler with spacing tied to sensory range, light and attention; retain a bounded memory budget.",
+      "mechanism": {
+        "inputs": [
+          "actual movement path",
+          "light",
+          "attention",
+          "local sensory range"
+        ],
+        "outputs": ["dated place observations"],
+        "location": "traveled positions only",
+        "duration": "during integrated travel"
+      },
+      "conservation_constraints": [
+        "Perception grants no stock, water or movement.",
+        "Sampling must remain bounded in CPU/memory and not alter distance traveled."
+      ],
+      "local_information_constraint": "Untraveled or out-of-range resources stay unknown; no enlargement to a global resource scan.",
+      "counterexample": "A rich untraveled site must not enter memory merely because it is in the same region.",
+      "bounded_test": {
+        "type": "mid-route resource and timestep comparison",
+        "fixture_count": 3,
+        "metrics": [
+          "observed path-adjacent sources",
+          "false remote observations",
+          "observation difference after subdivision",
+          "runtime and memory cost"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "The mid-route source is learned in both integrated and subdivided travel, the remote source remains unknown, and the declared work budget is respected.",
+      "parameter_assumptions": [
+        "Sensory radius and sampling spacing remain coarse behavioral choices."
+      ],
+      "dependencies": [],
+      "release_implications": "Behavioral change needs targeted replay/local-information tests; any saved memory representation change requires migration."
+    },
+    {
+      "id": "R05",
+      "rank": 10,
+      "priority": "P1",
+      "title": "Choose gathering by remembered return and a feasible journey",
+      "status": "ready_for_small_fixture",
+      "tracks": ["subsistence", "cognition", "economics"],
+      "roadmap_ids": ["H02", "H03", "W04", "W06"],
+      "source_ids": ["A04", "A05", "M02"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/citizens.ts",
+          "symbol": "gatherTask and finishTask"
+        },
+        {
+          "path": "src/simulation/cognition.ts",
+          "symbol": "perceive"
+        },
+        {
+          "path": "src/simulation/subsistence.ts",
+          "symbol": "foodReservePerPerson"
+        }
+      ],
+      "observed_problem": "Nearest-site ranking, a 100 m exploration horizon, seven-day eligibility and 48 recency entries can combine with fixed work time to favor repeatedly poor returns.",
+      "hypothesis": "Remembered expected yield per total effort, with uncertainty and return provisions, improves delivered food without privileged information.",
+      "proposed_change": "Compare two known patches using yield, outbound/work/return time, and water/ration margins; retain useful observations with uncertainty before increasing raw memory size.",
+      "mechanism": {
+        "inputs": [
+          "dated personal observations",
+          "experienced yield",
+          "route and ration budget"
+        ],
+        "outputs": [
+          "chosen gathering or exploratory task",
+          "updated expected return"
+        ],
+        "location": "known reachable sites and walked exploration",
+        "duration": "one work trip"
+      },
+      "conservation_constraints": [
+        "All food comes from actual tissue and is carried back.",
+        "Greater radius has travel, work, fatigue and provisioning costs.",
+        "Do not harvest the same unchanging remembered quantity after depletion."
+      ],
+      "local_information_constraint": "Use estimated remembered yield, never the unvisited patch's live stock; verify source/date for shared reports.",
+      "counterexample": "A distant rich patch may be a worse choice when its return route, water or time budget fails.",
+      "bounded_test": {
+        "type": "two-patch choice with hidden-information and blocked-route controls",
+        "fixture_count": 3,
+        "metrics": [
+          "delivered kg per total hour",
+          "failed or abandoned work hours",
+          "repeat visits to depleted sites",
+          "ration margin",
+          "unknown-site selection"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Choice responds to observed return and feasibility, falls back when knowledge is absent, and improves delivery in the specific fixture rather than every possible landscape.",
+      "parameter_assumptions": [
+        "Expected-yield decay and memory salience weights need sensitivity tests.",
+        "Anthropological path distances do not establish a universal gathering radius."
+      ],
+      "dependencies": ["R02", "R04"],
+      "release_implications": "Publish the behavioral approximation; verify determinism and no gain in resources or authority from a larger search budget."
+    },
+    {
+      "id": "R06",
+      "rank": 11,
+      "priority": "P1",
+      "title": "Separate structural tissue, living reserves, and edible production",
+      "status": "evidence_ready_design_needed",
+      "tracks": ["ecology", "subsistence", "materials"],
+      "roadmap_ids": ["E01", "E02", "E07", "P01"],
+      "source_ids": ["A01", "A02", "M01"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/ecology.ts",
+          "symbol": "growPlant and seedPlant"
+        },
+        {
+          "path": "src/simulation/laws.ts",
+          "symbol": "refreshTile"
+        },
+        {
+          "path": "src/simulation/citizens.ts",
+          "symbol": "finishTask"
+        },
+        {
+          "path": "src/simulation/renewal.ts",
+          "symbol": "renewCommunities"
+        }
+      ],
+      "observed_problem": "One organic pool couples growth, wood, leaves, reserves and forage; woody capacity and the renewal mass are sparse-stand scales, not general mature-forest values.",
+      "hypothesis": "Separating consequential tissue pools can support slow structural turnover and seasonal regrowth without converting every extra kilogram of wood into extra food.",
+      "proposed_change": "First measure process flows by functional lineage; then design a minimal conservative partition of structural, active and reserve tissue, without adding total mass.",
+      "mechanism": {
+        "inputs": [
+          "existing tissue and minerals",
+          "light",
+          "water",
+          "nutrients"
+        ],
+        "outputs": [
+          "allocated growth",
+          "respiration",
+          "litter",
+          "propagules",
+          "harvestable tissue"
+        ],
+        "location": "plant cohort in a cell",
+        "duration": "hourly physiology and seasonal allocation"
+      },
+      "conservation_constraints": [
+        "Pool initialization partitions existing mass exactly.",
+        "Seed and regrowth investment spend represented tissue and nutrients.",
+        "Extra edible yield cannot be inferred from standing structural wood."
+      ],
+      "local_information_constraint": "Harvest decisions need visible or learned edible opportunities, not the complete internal plant state.",
+      "counterexample": "A large woody stand may produce little edible food; a root reserve cannot regrow after every living carrier is removed.",
+      "bounded_test": {
+        "type": "small cohort seasonal-forcing fixture",
+        "fixture_count": 3,
+        "metrics": [
+          "structural/active/reserve kg",
+          "edible output kg",
+          "respiration and litter kg",
+          "post-harvest regrowth",
+          "element and energy residual"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Tissue-specific damage and regrowth follow their sources and limits; standing stock and edible annual yield can vary independently.",
+      "parameter_assumptions": [
+        "IPCC stock/growth ranges are comparative bounds, not local target values.",
+        "Allocation, edibility and turnover need lineage-specific evidence before calibration."
+      ],
+      "dependencies": ["R01", "R02"],
+      "release_implications": "New pools require world-version migration and continuity checks. Raising capacity or restoration mass is a separate physical intervention, not this conservative partition."
+    },
+    {
+      "id": "R14",
+      "rank": 12,
+      "priority": "P1",
+      "title": "Represent finite depth reservoirs before extracting them",
+      "status": "untested_proposal",
+      "tracks": ["scale", "geology", "resources"],
+      "roadmap_ids": ["P14", "P16"],
+      "source_ids": ["A11", "A12", "M09"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/types.ts",
+          "symbol": "Tile and PlateState"
+        },
+        {
+          "path": "src/simulation/geology.ts",
+          "symbol": "initialGeology and updateGeology"
+        },
+        {
+          "path": "src/simulation/terrain.ts",
+          "symbol": "generateTile"
+        },
+        {
+          "path": "src/simulation/thermodynamics.ts",
+          "symbol": "heatCapacity"
+        }
+      ],
+      "observed_problem": "Loose rock and nutrient mixtures are shallow accessible masses; regional buried traces have no host volume, grade, depth or mineral form. Neither is a full underground column.",
+      "hypothesis": "A finite stratified column makes extraction, groundwater and thermal coupling depend on volume and accessibility rather than an unexplained buried label.",
+      "proposed_change": "Prototype one shallow column with explicit solids, pores, water, depth intervals, temperature and provenance; describe deeper crust/mantle/core as unresolved until their own budgets exist.",
+      "mechanism": {
+        "inputs": [
+          "finite layer volumes and constituent masses",
+          "existing surface pools",
+          "declared inherited geology"
+        ],
+        "outputs": [
+          "accessible and inaccessible layer inventories",
+          "mass/volume and thermal reference contracts"
+        ],
+        "location": "one disposable shallow ground column",
+        "duration": "initialization and a few transfer steps"
+      },
+      "conservation_constraints": [
+        "Preserve existing surface inventories exactly through the migration.",
+        "Introducing previously unrepresented depth needs an explicit boundary/representation record, not a multiplier.",
+        "Separate solid density, bulk density, porosity and dissolved material.",
+        "A scalar elemental mass is not an ore body or immediately usable metal."
+      ],
+      "local_information_constraint": "Residents learn strata and deposits through exposure, samples and transmitted observations; the initial layer specification is observer knowledge.",
+      "counterexample": "Two equal trace-element masses in different mineral forms and host volumes need not have equal recoverability or processing cost.",
+      "bounded_test": {
+        "type": "finite-column mass/volume and migration fixtures",
+        "fixture_count": 3,
+        "metrics": [
+          "elemental mass error kg",
+          "bulk/solid/pore volume closure m3",
+          "source overdraw rejection",
+          "unchanged historical stock and IDs"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "No layer has unexplained mass, volume or heat capacity; repeat extraction cannot exceed the same finite source.",
+      "parameter_assumptions": [
+        "Initial layer thickness, density, porosity and ore form require local calibration or explicit sensitivity ranges.",
+        "NASA/USGS depth summaries are scale checks, not local Praxans profiles."
+      ],
+      "dependencies": ["R13"],
+      "release_implications": "Saved-state depth is a later versioned representation migration; never silently turn existing loose-rock kilograms into an entire geological column."
+    },
+    {
+      "id": "R16",
+      "rank": 13,
+      "priority": "P1",
+      "title": "Conserve inventories when refining and coarsening space",
+      "status": "untested_proposal",
+      "tracks": ["scale", "resources", "numerics"],
+      "roadmap_ids": ["P16", "P13", "P14"],
+      "source_ids": ["A01", "A04", "A08", "M09"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/climate.ts",
+          "symbol": "advancePlanetaryClimate, exchangeRegionalHeat and diffusePlanetaryHeat"
+        },
+        {
+          "path": "src/simulation/terrain.ts",
+          "symbol": "materializeChunk"
+        },
+        {
+          "path": "src/simulation/laws.ts",
+          "symbol": "ledger"
+        },
+        {
+          "path": "src/simulation/chemistry.ts",
+          "symbol": "elementLedger"
+        }
+      ],
+      "observed_problem": "Thermal coarse/local exchange has explicit conservation properties, but no general coarse material and organism inventory can be partitioned into detailed cells without treating it as a new arrival.",
+      "hypothesis": "Exclusive ownership of parent residuals and child inventories makes outcomes independent of observational detail while preserving finite resources and causal fluxes.",
+      "proposed_change": "Prototype reversible partition/recombination of one finite column and one boundary transfer; retain non-owning parent summaries and one owner of each integrated flux.",
+      "mechanism": {
+        "inputs": [
+          "parent inventory",
+          "chosen detail geometry",
+          "integrated boundary flux",
+          "identity and uncertainty records"
+        ],
+        "outputs": [
+          "disjoint child inventories",
+          "parent residual",
+          "recombined state and error report"
+        ],
+        "location": "one parent with a small number of children",
+        "duration": "one refine/transfer/coarsen cycle and one hour of coupled steps"
+      },
+      "conservation_constraints": [
+        "Q_total equals parent residual plus owned children; summaries do not own another copy.",
+        "Integrate one flux and apply equal and opposite transfers.",
+        "Aggregate extensive mass/energy; weight temperature and concentration appropriately.",
+        "Coarsening preserves history and unresolved differences needed for later refinement."
+      ],
+      "local_information_constraint": "A camera move changes neither the physical trajectory nor inhabitants' observations; refinement does not supply hidden information.",
+      "counterexample": "Parent and child totals can each look reasonable while being counted twice; independent coarse/fine solvers can deliver unequal fluxes.",
+      "bounded_test": {
+        "type": "conservative representation and timestep fixtures",
+        "fixture_count": 3,
+        "metrics": [
+          "elemental/energy error before and after round trip",
+          "coarse-versus-fine integrated flux mismatch",
+          "identity/knowledge invariance under camera changes"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Round trips and flux balances meet predeclared tolerances, with no observer-dependent resource creation or information gain.",
+      "parameter_assumptions": [
+        "The hierarchy and solver tolerances are untested design choices.",
+        "Ancient accounts motivate explicit ownership/accounting questions; they do not prove a numerical method."
+      ],
+      "dependencies": ["R13", "R14"],
+      "release_implications": "Existing climate exclusion and equal/opposite heat transfers must survive. General refinement requires state migration and bounded regression evidence before release.",
+      "progress_note": "New scaling memo distinguishes explicit boundary materialization from conservative refinement. All saved regions remain resident and detailed; regional ownership/flux epochs, retained human identity and distribution-sensitive coarse laws remain proposed, not implemented."
+    },
+    {
+      "id": "R15",
+      "rank": 14,
+      "priority": "P1",
+      "title": "Make excavation and underground construction physical operations",
+      "status": "untested_proposal",
+      "tracks": ["scale", "construction", "resources", "work"],
+      "roadmap_ids": ["P15", "P14", "P16"],
+      "source_ids": ["A11", "A12", "M09"],
+      "code_anchors": [
+        {
+          "path": "src/server/schema.ts",
+          "symbol": "designSchema and actionSchema"
+        },
+        {
+          "path": "src/simulation/citizens.ts",
+          "symbol": "finishTask"
+        },
+        {
+          "path": "src/simulation/laws.ts",
+          "symbol": "evaluateDesign"
+        },
+        {
+          "path": "src/simulation/landscape.ts",
+          "symbol": "displaceSurface"
+        }
+      ],
+      "observed_problem": "Components require nonnegative z and obtain support from an assumed ground plane. Loose-stone extraction changes stock but creates no cavity, access route, spoil geometry or underground support condition.",
+      "hypothesis": "Finite excavation plus geometry, work and environmental constraints permits below-ground structures without granting free space, material or support.",
+      "proposed_change": "Add a bounded dig/haul/fill operation on the finite depth prototype, then cavity/support and underground traversal; enclosed occupancy additionally requires represented air, water and heat exchange.",
+      "mechanism": {
+        "inputs": [
+          "known accessible material",
+          "tool/work budget",
+          "finite layer geometry",
+          "haul route and spoil destination"
+        ],
+        "outputs": [
+          "removed source volume",
+          "cargo/spoil",
+          "cavity and support state",
+          "work, wear and heat transfers"
+        ],
+        "location": "one shallow disposable pit/opening",
+        "duration": "a few explicit work and transfer steps"
+      },
+      "conservation_constraints": [
+        "1 m3 of solid model stone at 2400 kg/m3 requires 2400 kg to leave its source.",
+        "Spill, transport and filling have explicit destinations; no deletion to make a cavity.",
+        "Depth supplies no support, free ore or named-building effect.",
+        "Ground support must depend on remaining material and loads rather than unchanged z=0 assumptions."
+      ],
+      "local_information_constraint": "Only exposed, reached or credibly reported strata are actionable; a dig cannot inspect all deeper geology in advance.",
+      "counterexample": "Equal removed volumes can have different collapse, flooding and air-exchange consequences; a strong beam on absent bearing material is unsupported.",
+      "bounded_test": {
+        "type": "excavate/fill and small support/environment fixtures",
+        "fixture_count": 4,
+        "metrics": [
+          "source/cargo/spoil mass closure",
+          "cavity and refill volume closure",
+          "unsupported-load response",
+          "access and air/water connection state"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Digging pays material/work/haulage costs and changes real geometry; insufficient material, tools, access or support prevents the proposed result.",
+      "parameter_assumptions": [
+        "Bulk density, excavation work and ground strength require evidence or sensitivity bounds.",
+        "Vitruvius and Agricola describe relationships, not modern constitutive parameters or guaranteed safety."
+      ],
+      "dependencies": ["R13", "R14", "R16"],
+      "release_implications": "Requires new action/state schemas and conservative depth migration. Do not merely allow negative component z or lower visual terrain."
+    },
+    {
+      "id": "R18",
+      "rank": 15,
+      "priority": "P1",
+      "title": "Connect geographic overview and bounded live views with one coordinate contract",
+      "status": "bounded_architecture_proposed",
+      "tracks": ["scale", "rendering", "api", "information"],
+      "roadmap_ids": ["W01", "W03", "W04", "P13", "P14", "P15"],
+      "source_ids": ["A11", "A12", "M11", "M12"],
+      "code_anchors": [
+        {
+          "path": "src/client/PlanetWelcome.tsx",
+          "symbol": "globe selection and atlas"
+        },
+        {
+          "path": "src/server/atlas.ts",
+          "symbol": "buildAtlas"
+        },
+        {
+          "path": "src/server/app.ts",
+          "symbol": "snapshot, frame and originFor"
+        },
+        {
+          "path": "src/simulation/planet.ts",
+          "symbol": "surfaceCoordinates and tileCoordinates"
+        }
+      ],
+      "observed_problem": "The orbit view has no geographic zoom into a selected location; terrain snapshots use a community-selected window while entity detail is global. Preview and saved colors share a runtime-cached atlas.",
+      "hypothesis": "A versioned geographic view envelope permits a coherent planet-to-local transition and bounded transport without loading or materializing the whole surface.",
+      "proposed_change": "Add a bounded bounds/anchor request, explicit preview/live/unknown provenance, origin/base-tick validation and compact visible records; preserve existing coordinate IDs. Generate reusable previews outside the writer event loop.",
+      "mechanism": {
+        "inputs": [
+          "world/generation/geometry IDs",
+          "camera geographic bounds",
+          "immutable chunk publications",
+          "pure seeded preview"
+        ],
+        "outputs": [
+          "versioned visible chunks",
+          "sparse global summaries",
+          "coordinate-preserving globe/local selection"
+        ],
+        "location": "read-only observer publication, view API and browser",
+        "duration": "one view generation with timestamped updates"
+      },
+      "conservation_constraints": [
+        "A preview tile is not a new material reservoir.",
+        "Opening or magnifying a view cannot materialize land, excavate it or move people.",
+        "Depth views require actual represented reservoirs and cavities."
+      ],
+      "local_information_constraint": "Public observer detail and external-agent knowledge remain explicit; inhabitant perception never reads the view cache.",
+      "counterexample": "A stale delta applied after changing origin corrupts the view; a seeded preview cannot be presented as current habitat.",
+      "bounded_test": {
+        "type": "five-latitude, seam and view-generation protocol fixture",
+        "fixture_count": 7,
+        "metrics": [
+          "geographic anchor error m",
+          "max live chunk count",
+          "delta resync behavior",
+          "provenance coverage",
+          "world state hash before/after viewing"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "The selected geographic place survives every transition; bounded reads leave authoritative state unchanged and unknown depth remains unknown.",
+      "parameter_assumptions": [
+        "Nine live chunks is a proposed initial protocol bound, not a universal visibility radius.",
+        "A two-root geographic texture pyramid is an architectural option, not physical discretization."
+      ],
+      "dependencies": ["R13", "R17"],
+      "release_implications": "Protocol changes need compatible versioned clients and cached-response invalidation. No physical migration follows from visual LOD alone.",
+      "progress_history": [
+        {
+          "reported_on": "2026-10-08",
+          "note": "Read pre-activation external SSE reset: 23 frames and one snapshot, 66,693,423 decoded body bytes over about 103.5 seconds, ECONNRESET. Parent confirms unchanged old runtime; cause unknown and compressed wire size not measured."
+        }
+      ],
+      "progress_note": "Inspected WorldOverview, a one-second shared cache, five-second entrance polling, lighter DTOs and detail-on-entry SSE. These reduce defined work/bytes, but detailed frames still carry global entities and agent views all local people. Next contract separates global summaries, bounded spatial detail and selected records by stable IDs."
+    },
+    {
+      "id": "R19",
+      "rank": 16,
+      "priority": "P1",
+      "title": "Bound observer CPU, graphics memory and adaptive quality",
+      "status": "budgets_proposed_target_devices_unmeasured",
+      "tracks": ["rendering", "performance", "scale"],
+      "roadmap_ids": ["W01", "W03"],
+      "source_ids": ["M11", "M12", "M13", "M14", "M15"],
+      "code_anchors": [
+        {
+          "path": "src/client/renderer.ts",
+          "symbol": "raster backing, animation and drawing caches"
+        },
+        {
+          "path": "src/client/PlanetWelcome.tsx",
+          "symbol": "WebGL resource lifecycle"
+        },
+        {
+          "path": "src/server/app.ts",
+          "symbol": "frame serialization and stream bounds"
+        }
+      ],
+      "observed_problem": "A larger planet and population can increase full-array transport, allocations and draw work even when most content is invisible; GPU memory is not free or fully queryable.",
+      "hypothesis": "Screen-contribution detail, byte-aware eviction and measured adaptive quality keep observation responsive while leaving the simulation unchanged.",
+      "proposed_change": "Budget decoded and in-flight data, estimated GPU allocations, raster pixels and concurrent jobs; cancel obsolete views, transfer worker buffers, and adapt with hysteresis.",
+      "mechanism": {
+        "inputs": [
+          "visible patches",
+          "cache byte estimates",
+          "frame/input measurements",
+          "device/context capabilities"
+        ],
+        "outputs": [
+          "bounded renderer-owned memory",
+          "quality tier",
+          "cancelled stale work",
+          "responsive navigation"
+        ],
+        "location": "browser and non-authoritative preview workers",
+        "duration": "navigation trace and repeated view transitions"
+      },
+      "conservation_constraints": [
+        "Changing quality affects only observations.",
+        "Coarse and detailed render products do not duplicate authoritative stocks.",
+        "Dispose owned GPU/bitmap buffers on eviction and context recovery."
+      ],
+      "local_information_constraint": "Visual aggregation does not merge, hide from simulation, or grant omniscience to actual inhabitants.",
+      "counterexample": "Moving decoding to a worker can still exhaust memory; low average FPS can hide repeated long input stalls.",
+      "bounded_test": {
+        "type": "fixed navigation trace on baseline and higher display configurations",
+        "fixture_count": 2,
+        "metrics": [
+          "frame and input p95",
+          "long tasks where supported",
+          "renderer-owned CPU bytes",
+          "estimated GPU bytes",
+          "in-flight count",
+          "cache growth after repeated navigation"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Documented budgets hold without unbounded growth; representative hardware traces establish capability rather than assumed ordinary-PC guarantees.",
+      "parameter_assumptions": [
+        "Proposed initial values: 30 Hz, 4 million backing pixels, DPR 1.5, 64 MiB CPU and 64 MiB estimated GPU caches, four in-flight view jobs.",
+        "An 8 ms p95 main-thread rendering target is unvalidated."
+      ],
+      "dependencies": ["R18"],
+      "release_implications": "No physics change. Context loss, hidden tabs, reduced motion, input and lifecycle need real browser checks for the released implementation.",
+      "progress_note": "Parent reports the live 1 GB/500 MB service suffered an OOM during a large read-only audit and disk exhaustion during backup retention. No incident was reproduced by research. New memo proposes combined live/preflight/backup memory/disk admission budgets and measured load tiers; massive scale remains unsolved."
+    },
+    {
+      "id": "R20",
+      "rank": 17,
+      "priority": "P1",
+      "title": "Run a recurring semantic coherence review across the repository",
+      "status": "release_and_scaling_semantic_reviews_recorded_open_limits",
+      "tracks": ["architecture", "units", "review", "information"],
+      "roadmap_ids": ["W11", "W13", "P13", "P16"],
+      "source_ids": ["A01", "A11"],
+      "code_anchors": [
+        {
+          "path": "AGENTS.md",
+          "symbol": "whole-repository coherence review"
+        },
+        {
+          "path": "docs/roadmap.md",
+          "symbol": "canonical requirements"
+        },
+        {
+          "path": "docs/research/scale-audit.json",
+          "symbol": "units and reservoir ownership"
+        },
+        {
+          "path": "docs/research/rendering-review.json",
+          "symbol": "observer contracts and evidence"
+        }
+      ],
+      "observed_problem": "A parent-reported scan of 844 Git-visible files found no missing imports, bad simulation imports or broken Markdown links, yet semantic unit, color, cache and population errors remained.",
+      "hypothesis": "A small requirement-to-source-to-check review at meaningful increments exposes disconnected mechanisms and contradictory documentation earlier.",
+      "proposed_change": "Reuse structural scans, then inspect changed cross-system quantity, time, provenance, population and ownership contracts. Record findings, scope, fingerprint and disposition before release.",
+      "mechanism": {
+        "inputs": [
+          "changed source and requirements",
+          "existing structural scan",
+          "quantity and API contracts",
+          "targeted checks"
+        ],
+        "outputs": [
+          "dated findings",
+          "resolved or queued discrepancies",
+          "explicit unverified claims"
+        ],
+        "location": "repository review record",
+        "duration": "one meaningful development/release batch"
+      },
+      "conservation_constraints": [
+        "No review may silently adjust live stocks, past events or source-state history.",
+        "Representation changes retain one owner for each budget."
+      ],
+      "local_information_constraint": "Check spectator, advisor and inhabitant information paths separately.",
+      "counterexample": "Zero import/link errors cannot certify physical correctness; repeated broad tests without a new question add cost without resolving semantics.",
+      "bounded_test": {
+        "type": "bounded static inventory and changed-contract trace",
+        "fixture_count": 1,
+        "metrics": [
+          "broken imports/links",
+          "boundary violations",
+          "unit/clock mismatches",
+          "duplicated rules",
+          "unmapped requirements",
+          "unsupported release claims"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Every concrete finding has an evidence anchor and disposition; the review reports its scope instead of declaring whole-repository correctness.",
+      "parameter_assumptions": [
+        "Cadence is an active-development practice, not an installed scheduler.",
+        "Premodern whole/part and measurement questions motivate the review; they do not prescribe software architecture."
+      ],
+      "dependencies": [],
+      "release_implications": "Record the review with each meaningful release; structural checks supplement the required behavioral, lifecycle and continuity checks.",
+      "progress_note": "Second semantic review inspects observer DTOs/cache, async preview/full atlas, private preflight, monolithic metadata/all-region residency, population-pair searches and institutional locality. Source fingerprints and untested promotion criteria are in scaling-and-open-endedness.json.",
+      "progress_history": [
+        {
+          "reported_on": "2026-10-08",
+          "note": "Release-coherence review completed: 869 Git-visible files, 545 resolved import/asset edges and 177 local Markdown targets, with no target/layer errors. Contradictory experiment/method reuse was reproduced, fixed by the parent and independently rechecked. Scale, clock, transfer, objective and deployment limits remain explicit; pre-activation external stream reset is recorded without causal attribution."
+        },
+        {
+          "date": "2026-10-08",
+          "kind": "independent_local_simulation_performance_measurement",
+          "record": "restored-world-cpu-profile.json",
+          "note": "64 actual stepWorld ticks on a private copy of 1,200 people/38 regions: 15.780 s, 246.6 ms mean; ecology 56.4%, citizen updates 25.9%, GC 9.2%, contacts 1.8%. Source hash unchanged. Measured chemistry/weather allocation takes immediate optimization priority; population-index growth work remains. No daily update, saving, rendering, observers or production-capacity evidence."
+        },
+        {
+          "date": "2026-10-08",
+          "kind": "parent_run_artifacts_reviewed",
+          "record": "restored-world-cpu-profile.json",
+          "note": "Four-molar-constant plus Object.keys sediment candidate matched initial/final full-world digests over 64 ticks, but was slower in both orders (before/after 15297/17001 ms; after/before 27130/18156 ms). Entire candidate reverted and will not deploy. No isolated attribution. Advisory staging/current-tick backlog acceptance and retained-WAL limit remain separately prepared, not activated."
+        }
+      ]
+    },
+    {
+      "id": "R07",
+      "rank": 18,
+      "priority": "P1",
+      "title": "Test finite seasonal carriers and connected refugia",
+      "status": "evidence_ready_design_needed",
+      "tracks": ["ecology", "demography"],
+      "roadmap_ids": ["E02", "E05", "E07"],
+      "source_ids": ["A02", "A03", "M05", "M06"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/ecology.ts",
+          "symbol": "updateSeedBank and growPlant"
+        },
+        {
+          "path": "src/simulation/fauna.ts",
+          "symbol": "updateFauna"
+        }
+      ],
+      "observed_problem": "Seed dormancy and effective root fractions exist, but no explicit perennial reserve or animal resting-stage model establishes longer-term recolonization.",
+      "hypothesis": "Persistence depends on viable carriers and suitable connected locations, with different costs and failure modes for dormancy, shelter and migration.",
+      "proposed_change": "Compare a surviving seed bank, a surviving reserve-bearing plant and a fully extinct patch; add only the next missing carrier supported by the diagnosis.",
+      "mechanism": {
+        "inputs": [
+          "living carrier reserves",
+          "local thermal/water history",
+          "reachable source populations"
+        ],
+        "outputs": ["survival, spent reserves, germination or immigration"],
+        "location": "local patches and actual dispersal routes",
+        "duration": "one adverse period and recovery window"
+      },
+      "conservation_constraints": [
+        "Every carrier originates in reproduction or an explicit boundary arrival.",
+        "Dormancy spends finite reserves.",
+        "No carrier and no immigration means no recovery."
+      ],
+      "local_information_constraint": "No organism consults future seasonal success or a global refuge list.",
+      "counterexample": "A refuge suitable for one lineage may fail another, and a long unfavorable period can exhaust every reserve.",
+      "bounded_test": {
+        "type": "three-patch adverse-condition fixture",
+        "fixture_count": 3,
+        "metrics": [
+          "carrier viability",
+          "reserve exhaustion time",
+          "germination and immigration sources",
+          "local extinction",
+          "mass balance"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Recovery occurs only with a traceable living source and suitable conditions; no test requires universal survival.",
+      "parameter_assumptions": [
+        "Abstract-only seed-bank evidence supports variation and delayed germination, not a calibrated universal fraction."
+      ],
+      "dependencies": ["R06"],
+      "release_implications": "Any new life stage needs a state migration and measured ecological limits; never backfill a fictitious living past."
+    },
+    {
+      "id": "R08",
+      "rank": 19,
+      "priority": "P2",
+      "title": "Make migration a physical journey and a social arrival",
+      "status": "evidence_ready_design_needed",
+      "tracks": ["demography", "institutions", "movement"],
+      "roadmap_ids": ["H01", "E05", "D06", "W15"],
+      "source_ids": ["A07", "A09", "M04"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/engine.ts",
+          "symbol": "migration and updateFamilies"
+        },
+        {
+          "path": "src/simulation/diplomacy.ts",
+          "symbol": "updateJourneys"
+        }
+      ],
+      "observed_problem": "Current migration changes affiliation before arrival and selects unpartnered adults without dependents; household migration, receiver consent and demographic continuity remain coarse.",
+      "hypothesis": "Journey state, local destination reports, care obligations and receiver decisions create meaningful demographic connection without a minimum-population magic number.",
+      "proposed_change": "Prototype one migrant or household transfer using actual provisions, retained IDs, a route and an arrival decision; record affiliation transitions explicitly.",
+      "mechanism": {
+        "inputs": [
+          "volunteers and dependents",
+          "dated destination information",
+          "provisions",
+          "route",
+          "recipient response"
+        ],
+        "outputs": [
+          "arrival, refusal, return or loss",
+          "retained identities and relationships"
+        ],
+        "location": "origin, route and destination",
+        "duration": "actual travel and reception"
+      },
+      "conservation_constraints": [
+        "Moving people and their supplies transfers existing matter.",
+        "No duplication at origin and destination.",
+        "Kinship/history and dependent care cannot disappear on affiliation change."
+      ],
+      "local_information_constraint": "Destination suitability is based on dated contact, not live remote population/stock inspection.",
+      "counterexample": "A nearby willing receiver may be unreachable; a rich receiver may refuse; 32 adults without external contact are not proven genetically viable.",
+      "bounded_test": {
+        "type": "arrival/refusal/blocked-route fixture",
+        "fixture_count": 3,
+        "metrics": [
+          "retained IDs",
+          "membership timing",
+          "provision use",
+          "dependent travel/care",
+          "ancestry continuity"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Affiliation and stocks change at explicit events; impossible or refused journeys do not teleport people or supplies.",
+      "parameter_assumptions": [
+        "Fertility, care and migration preferences need separate calibration; present band size does not determine long-term viable population size."
+      ],
+      "dependencies": ["R04"],
+      "release_implications": "Requires a versioned journey/affiliation representation and continuity tests before generational experiments."
+    },
+    {
+      "id": "R09",
+      "rank": 20,
+      "priority": "P2",
+      "title": "Transmit local survival knowledge through actual holders",
+      "status": "evidence_ready_design_needed",
+      "tracks": ["cognition", "history", "demography"],
+      "roadmap_ids": ["H02", "H03", "H04"],
+      "source_ids": ["A01", "A04", "M07"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/cognition.ts",
+          "symbol": "teachNearby and learnObservation"
+        },
+        {
+          "path": "src/simulation/subsistence.ts",
+          "symbol": "foodReservePerPerson"
+        },
+        {
+          "path": "src/simulation/economy.ts",
+          "symbol": "runExperiment"
+        }
+      ],
+      "observed_problem": "Teaching chiefly values construction observations; seasonal planning is an adult heuristic that computes past daylight rather than consulting a carried record.",
+      "hypothesis": "A small repertoire of provenance-bearing survival observations can be learned, taught and lost without a technology-unlock tree.",
+      "proposed_change": "Prototype one taught resource or seasonal practice with a witness, confidence, retention, teaching time and an observable outcome.",
+      "mechanism": {
+        "inputs": [
+          "teacher's retained observation",
+          "listener attention",
+          "shared time",
+          "material trial if needed"
+        ],
+        "outputs": ["new uncertain memory and later verification"],
+        "location": "actual encounter or physical record",
+        "duration": "teaching and practice time"
+      },
+      "conservation_constraints": [
+        "Teaching grants neither matter nor an untested physical effect.",
+        "A persistent record has a carrier and eventually material/work costs.",
+        "The last carrier's loss removes access unless rediscovery occurs."
+      ],
+      "local_information_constraint": "No lesson appears in everyone else's memory simultaneously; provenance and possible error travel with the report.",
+      "counterexample": "A larger isolated population lacking a holder, record or discovery does not automatically acquire a practice.",
+      "bounded_test": {
+        "type": "one teacher, one listener, and loss/false-report controls",
+        "fixture_count": 3,
+        "metrics": [
+          "transmission provenance",
+          "time spent",
+          "retention",
+          "prediction error",
+          "behavior after carrier loss"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Learning changes an observable decision through transmitted evidence; copying a label alone grants nothing.",
+      "parameter_assumptions": [
+        "Memory decay, lesson time and confidence are coarse choices; the consulted cultural-complexity critique is not a universal theory."
+      ],
+      "dependencies": ["R05"],
+      "release_implications": "New knowledge categories need explicit migration and no fabricated records predating their introduction."
+    },
+    {
+      "id": "R23",
+      "rank": 21,
+      "priority": "P1",
+      "title": "Make invention local operations and recipes descriptive evidence",
+      "status": "general_search_and_narrow_evidence_fix_verified_operations_carriers_open",
+      "tracks": ["construction", "knowledge", "experimentation", "agency"],
+      "roadmap_ids": ["P11", "H03", "H04", "P13", "P15"],
+      "source_ids": ["A01", "A04", "A11", "A12"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/economy.ts",
+          "symbol": "varyDesign, designScore, runExperiment and requestAssembly"
+        },
+        {
+          "path": "src/simulation/cognition.ts",
+          "symbol": "learnObservation and teachNearby"
+        },
+        {
+          "path": "src/simulation/engine.ts",
+          "symbol": "planCommunity"
+        },
+        {
+          "path": "src/simulation/citizens.ts",
+          "symbol": "construction evidence"
+        },
+        {
+          "path": "src/server/app.ts",
+          "symbol": "evaluate_assembly static estimate"
+        }
+      ],
+      "observed_problem": "Initial review found post/slab-biased proposals; the revised generator removes those forms. One fixed utility score, exact full-scale model estimates after tiny samples and a shared-record cap that erases personal holders remain.",
+      "hypothesis": "Separating material operations, uncertain predictions, physical trials and carrier-bound notes allows inventions to spread without unlocks or a prescribed building catalog.",
+      "proposed_change": "Prototype one placement/load or containment trial with actual material/work, append its observation separately from prediction, and record a descriptive plan after evidence. Use local unmet needs and retained information; separate cache eviction from forgetting.",
+      "mechanism": {
+        "inputs": [
+          "found material and available work",
+          "proposed arrangement/operation",
+          "local need and uncertain prediction",
+          "actual trial outcome",
+          "holder or record carrier"
+        ],
+        "outputs": [
+          "conserved arrangement or failure",
+          "scope-limited observation",
+          "dated descriptive plan",
+          "locally transmitted knowledge"
+        ],
+        "location": "actual material site and encounters",
+        "duration": "trial, subsequent use and teaching time"
+      },
+      "conservation_constraints": [
+        "Recipes and names grant no physical effects or resources.",
+        "Shaping, joining, heating or excavation require represented operations and budgets.",
+        "Copies preserve provenance, not automatic skill or universal access.",
+        "Failed trials leave their material somewhere."
+      ],
+      "local_information_constraint": "External static estimates remain labeled predictions; residents learn from actual trials, holders or records. Evicting a shared index cannot erase a different person’s retained memory.",
+      "counterexample": "A small sample can support a material estimate without proving a long loaded beam; one successful assembly can later fail after new loading, weather or missing support.",
+      "bounded_test": {
+        "type": "renaming, physical failure, sample-versus-full-scale and retained-holder controls",
+        "fixture_count": 5,
+        "metrics": [
+          "name invariance",
+          "paid material/work",
+          "prediction versus observed scope",
+          "trial chronology",
+          "different local experiment choices",
+          "knowledge retained by actual holders"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "An arbitrary supported arrangement works through its interactions; unsupported interactions stay explicit. Plans follow evidence and rebuilding pays actual costs without a technology flag.",
+      "parameter_assumptions": [
+        "Finite geometry/operation budgets remain explicit approximations, not declarations of natural impossibility.",
+        "There is no promise to represent every physically possible machine or molecular interaction.",
+        "Any candidate-generation bias and decision weights are behavioral assumptions, not physical laws."
+      ],
+      "dependencies": ["R13", "R22", "R09"],
+      "release_implications": "New operations and knowledge provenance require scoped state/law migrations, retained history and conservation tests. Do not fabricate recipes or experiments in the past.",
+      "progress_history": [
+        {
+          "reported_on": "2026-10-08",
+          "note": "The revised generator uses general dimensions, addition/removal, axis swaps, translation, scaling and available-material substitution; the earlier post/slab prior is removed. Fixed scoring, sample-versus-full-scale evidence and globally forced record loss remain."
+        }
+      ],
+      "progress_note": "Release review reproduced an old storage 0.95 m3 result retained after a current 0 m3 test, confidence 0.50→0.58. Parent corrected geometry/result/method matching. Independent 13:18:27 UTC probe preserved the original note, added a current zero-capacity result, reused only matching repeats, and separated methods. Universal council affordance gates, fixed scoring, sample scope and globally forced record loss remain explicit next work."
+    },
+    {
+      "id": "R10",
+      "rank": 22,
+      "priority": "P2",
+      "title": "Represent institutions as maintained agreements",
+      "status": "historical_questions_ready_design_needed",
+      "tracks": ["institutions", "diplomacy", "history"],
+      "roadmap_ids": ["H05", "A01", "D02", "D03"],
+      "source_ids": ["A05", "A07", "A08", "A09"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/society.ts",
+          "symbol": "updateCouncils and proposal execution"
+        },
+        {
+          "path": "src/simulation/diplomacy.ts",
+          "symbol": "updateAccords"
+        }
+      ],
+      "observed_problem": "Assemblies and bilateral commitments exist, while monitoring, enforcement effort, succession, and broader shared practices remain limited.",
+      "hypothesis": "An institution's durability depends on participants, interests, knowledge, resources and maintenance, not its name or a scripted historical sequence.",
+      "proposed_change": "Prototype one locally adopted store-access or shared-work agreement with revision, dissent, monitoring time and succession.",
+      "mechanism": {
+        "inputs": [
+          "participant assent",
+          "specific material/work commitments",
+          "witnessed performance",
+          "monitoring effort"
+        ],
+        "outputs": ["fulfillment, refusal, revision or observed breach"],
+        "location": "participants and their communication routes",
+        "duration": "specified term and actual review events"
+      },
+      "conservation_constraints": [
+        "Rules cannot conjure goods or labor.",
+        "Monitoring and enforcement use actual people/time/resources.",
+        "No institution receives a flat production bonus."
+      ],
+      "local_information_constraint": "Breach and reputation need witnesses or transmitted reports; free prose cannot execute unsupported effects.",
+      "counterexample": "A formally accepted agreement can fail through lost supply, missing participants, unobserved breach or a disputed succession.",
+      "bounded_test": {
+        "type": "single agreement with resource/removal and refusal controls",
+        "fixture_count": 3,
+        "metrics": [
+          "consent",
+          "work diverted to monitoring",
+          "delivery or breach evidence",
+          "revision and exit events"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Behavior follows explicit maintained relationships and constraints, with no automatic constitution cycle or guaranteed cooperation.",
+      "parameter_assumptions": [
+        "Ancient assessments of ideal government, natural hierarchy and necessary royal authority remain interpretations."
+      ],
+      "dependencies": ["R02"],
+      "release_implications": "Expand composable commitments only with scoped authority, input validation and state/history continuity tests.",
+      "progress_note": "Large-polity audit finds one local assembly within 3 projected cells but quorum at least 50% of all adults; peace/passage/transfer are the only enforceable terms. A physically communicated revocable scoped authorization/commitment is proposed as a bounded next primitive, with no institution-name effects or prescribed government progression."
+    },
+    {
+      "id": "R11",
+      "rank": 23,
+      "priority": "P2",
+      "title": "Keep exchange value tied to information and delivery",
+      "status": "historical_questions_ready_design_needed",
+      "tracks": ["economics", "diplomacy", "materials"],
+      "roadmap_ids": ["P11", "H05", "D01", "D04"],
+      "source_ids": ["A04", "A05", "A08", "A09"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/diplomacy.ts",
+          "symbol": "sendTrade, launch and updateJourneys"
+        },
+        {
+          "path": "src/simulation/economy.ts",
+          "symbol": "material costs and experiments"
+        }
+      ],
+      "observed_problem": "Bulk stocks and simple exchange utilities do not yet distinguish enough accessible forms, processing costs, information reliability and obligations.",
+      "hypothesis": "Some apparent scarcity can be informational or logistical even when aggregate material exists; processing and exchange expand access only with real costs.",
+      "proposed_change": "First compare two voluntary exchanges under delayed reports and transport costs; later add a useful physical transformation with explicit inputs and waste.",
+      "mechanism": {
+        "inputs": [
+          "dated offer/request",
+          "actual source cargo",
+          "volunteers",
+          "transport and any processing work"
+        ],
+        "outputs": ["delivered goods, losses, return cargo or refusal"],
+        "location": "source, route, recipient",
+        "duration": "actual work and journey time"
+      },
+      "conservation_constraints": [
+        "Prices, loans and promises create claims, not matter.",
+        "No remote double-reservation of destination goods.",
+        "Processing outputs plus waste account for all inputs and any added water/energy."
+      ],
+      "local_information_constraint": "Use communicated information; expose errors and stale reports rather than correcting them from the global state.",
+      "counterexample": "A profitable-looking trade can fail after spoilage or refusal; a wealthy group can still lack reachable food.",
+      "bounded_test": {
+        "type": "two-community trade under delayed and adverse information",
+        "fixture_count": 3,
+        "metrics": [
+          "net delivered material",
+          "travel/work cost",
+          "stale-report error",
+          "refusal",
+          "inventory reconciliation"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Observed gains require actual production/access or agreed redistribution; accounting gains alone do not improve nourishment.",
+      "parameter_assumptions": [
+        "No universal barter-to-money or market-equilibrium sequence is assumed.",
+        "Utility and price heuristics require declared behavioral scope."
+      ],
+      "dependencies": ["R02", "R10"],
+      "release_implications": "New material forms or claims require migration, conservation tests and bounded agent interfaces."
+    },
+    {
+      "id": "R12",
+      "rank": 24,
+      "priority": "P2",
+      "title": "Test plural outcomes and warranted advice credit",
+      "status": "ready_for_small_fixture",
+      "tracks": ["philosophy", "institutions", "measurement"],
+      "roadmap_ids": ["A01", "A02", "A03"],
+      "source_ids": ["A06", "A07"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/progress.ts",
+          "symbol": "measureSuccess and sampleProgress"
+        },
+        {
+          "path": "src/simulation/society.ts",
+          "symbol": "observational proposal review and adviceTrust"
+        }
+      ],
+      "observed_problem": "Outcome feedback is plural, but current advice-trust review uses fixed wellbeing/resilience/knowledge/connection weights and omits ecology/reach; observed improvement also confounds advice with weather and prior conditions.",
+      "hypothesis": "Exposing distributions, tradeoffs and uncertainty can keep feedback informative without enforcing one definition of success or claiming causal credit.",
+      "proposed_change": "Test opposing community aspirations on the same outcome vector; inspect whose welfare changes and whether trust evaluation respects declared priorities and dissent.",
+      "mechanism": {
+        "inputs": [
+          "measured outcomes",
+          "community priorities",
+          "individual circumstances",
+          "review baseline and uncertainty"
+        ],
+        "outputs": ["explanatory feedback and bounded trust updates"],
+        "location": "community deliberation and observer reporting",
+        "duration": "existing daily measurement and review periods"
+      },
+      "conservation_constraints": [
+        "Changing weights or repeatedly reading feedback grants no goods, power or extra reward.",
+        "Historical milestones are not spendable resources."
+      ],
+      "local_information_constraint": "Participants judge evidence available to them; observer evaluation should distinguish measurement from causal attribution.",
+      "counterexample": "Average welfare can improve while a vulnerable resident worsens; good weather after advice is not proof that advice caused improvement.",
+      "bounded_test": {
+        "type": "two aspirations plus distribution and relabeling controls",
+        "fixture_count": 3,
+        "metrics": [
+          "axis vector",
+          "individual welfare distribution",
+          "priority-sensitive trust",
+          "unearned credit from relabeling",
+          "dissent retained"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Reports make the value judgment and uncertainty visible; no universal score, guaranteed progress, or automatic causal attribution is introduced.",
+      "parameter_assumptions": [
+        "Aristotle's hierarchy of ends is a philosophical position, not a measured utility function.",
+        "Any trust weights remain design choices subject to adversarial tests."
+      ],
+      "dependencies": ["R02"],
+      "release_implications": "Explain feedback semantics and preserve prior history; a new metric starts at its real measurement epoch."
+    }
+  ],
+  "scale_audit": "scale-audit.json",
+  "organizing_contract": "P13–P16 organize units, locations, depths, finite resources, geometry and process times across the research queue. Open construction and descriptive recipes follow actual material operations and evidence. Rank is research attention, not a dependency-sorted implementation or bundled release instruction.",
+  "rendering_review": "rendering-review.json",
+  "founding_review": "300-person-founding.md",
+  "construction_review": "construction-review.json",
+  "connected_model_review": "connected-model-review.json",
+  "release_coherence_review": "release-coherence-review.md",
+  "scaling_and_open_endedness": "scaling-and-open-endedness.md",
+  "simulation_cpu_profile": "restored-world-cpu-profile.json"
+}

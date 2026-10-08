@@ -427,3 +427,17 @@
     transition: none;
   }
 }
+.planet-survey-link {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.planet-survey-link:hover {
+  color: #edf1cf;
+}

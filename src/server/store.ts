@@ -48,6 +48,7 @@ export class Store {
     this.db = new DatabaseSync(path);
     this.db
       .exec(`PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA busy_timeout=5000;
+      PRAGMA journal_size_limit=16777216;
       CREATE TABLE IF NOT EXISTS world (id INTEGER PRIMARY KEY CHECK(id=1), json TEXT NOT NULL, checksum TEXT NOT NULL, saved_at INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS chunks (id TEXT PRIMARY KEY, json TEXT NOT NULL, checksum TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS sessions (hash TEXT PRIMARY KEY, civ_id TEXT, created_at INTEGER NOT NULL);
@@ -124,7 +125,13 @@ export class Store {
       for (const done of this.afterCommit) done();
       return result;
     } catch (error) {
-      this.db.exec("ROLLBACK");
+      // SQLITE_FULL and some I/O failures already roll back the transaction.
+      // Preserve that original cause instead of hiding it behind "no transaction".
+      try {
+        this.db.exec("ROLLBACK");
+      } catch {
+        /* already rolled back */
+      }
       this.chunkHashes.clear();
       throw error;
     } finally {
@@ -132,7 +139,7 @@ export class Store {
       this.afterCommit = [];
     }
   }
-  load(seed: number, requireExisting = false): World {
+  load(seed: number, requireExisting = false, persistMigration = true): World {
     const row = this.db
       .prepare("SELECT json,checksum FROM world WHERE id=1")
       .get() as { json: string; checksum: string } | undefined;
@@ -173,6 +180,9 @@ export class Store {
       return world;
     }
     const upgraded = migrateWorld(world);
+    // Only private candidate validation skips the durable migration archive.
+    // Normal startup always archives and commits before returning.
+    if (!persistMigration) return upgraded.world;
     // Archive and transform atomically. A failed migration leaves the old checkpoint intact.
     this.transaction(() => {
       const backup = JSON.stringify(world);
@@ -359,6 +369,15 @@ export class Store {
       lastDeath: death ? (JSON.parse(death.json) as WorldEvent) : null,
       firstEvent: event("ASC"),
       lastEvent: event("DESC"),
+      renewals: this.db
+        .prepare(
+          "SELECT tick,json_extract(json,'$.renewal.arrivals') AS arrivals,json_extract(json,'$.renewal.interventionId') AS interventionId FROM world_events WHERE tick<=? AND json_extract(json,'$.civId')=? AND json_type(json,'$.renewal')='object' ORDER BY sequence",
+        )
+        .all(throughTick, communityId) as {
+        tick: number;
+        arrivals: number;
+        interventionId: string;
+      }[],
       connections,
     };
   }

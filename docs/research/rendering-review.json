@@ -1,0 +1,430 @@
+{
+  "schema_version": 1,
+  "updated_on": "2026-10-08",
+  "report": "rendering-review.md",
+  "founding_report": "300-person-founding.md",
+  "source_register": "source-register.json",
+  "candidate_queue": "mechanism-candidates.json",
+  "source_ids": ["A11", "A12", "M11", "M12", "M13", "M14", "M15"],
+  "scope": "Observer-only code review and isolated browser diagnostics. No live world read/write, survival ensemble, deployment or production/source edit by this research batch.",
+  "code_fingerprints": [
+    {
+      "path": "src/client/renderer.ts",
+      "sha256": "e96b3f0d011341a0b14f69221da30951c49793cd1db79cbdea9b81c83bda4b84",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    },
+    {
+      "path": "src/client/PlanetWelcome.tsx",
+      "sha256": "cfc20b8961547ed1b4bf4bff165f59ae1239603d3224ac535b13580232f0aba1",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    },
+    {
+      "path": "src/client/main.tsx",
+      "sha256": "b5f6143747813260c32e9de3a17885e3d3f8fd87959944f2d118d850806cdff4",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    },
+    {
+      "path": "src/server/atlas.ts",
+      "sha256": "913333bfbeec6d555347649336bf3baf11abf14952514c2b9249086c5d77d074",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    },
+    {
+      "path": "src/server/app.ts",
+      "sha256": "fd45237f37b5e6de732a0ae0e6f2b0c7b55b0675bb0bfd4b59dd25906047d360",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    },
+    {
+      "path": "src/simulation/planet.ts",
+      "sha256": "5e5c8babbfae1a050a8fef95bd188a8bfbf2adf6de9df2bbd013492612cc78f4",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    },
+    {
+      "path": "src/simulation/founding.ts",
+      "sha256": "36e909fa53b200317fab2ca8169a5b67517af677c70f179c017197683e82cb2f",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    },
+    {
+      "path": "src/simulation/renewal.ts",
+      "sha256": "5f460b6cd0106b599e1379a244126fd74bc307f6ef8dcf502f48d6b21a5f3a42",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    },
+    {
+      "path": "src/simulation/citizens.ts",
+      "sha256": "8531753af8c7b4a417bd4283834af57752a30da102df462eb1b6859b166137f9",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    },
+    {
+      "path": "src/simulation/economy.ts",
+      "sha256": "ee4fc6540fe6a0309fa07fe629b5954ad79386e5860b2d3c50edf61d0ce7d3d2",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    }
+  ],
+  "probe": {
+    "path": "renderer-probe.mjs",
+    "command": "node docs/research/renderer-probe.mjs /tmp/praxans-render-report.json",
+    "baseline_rerun_command": "node docs/research/renderer-probe.mjs /tmp/praxans-render-original.json /tmp/praxans-render-research-20261008/bundle.js",
+    "baseline_bundle_note": "Temporary original bundle is available in this session only. Its SHA-256 and observed outputs persist here; this repository does not retain a duplicate implementation.",
+    "dimensions_unchanged": true,
+    "fixture_revision": "Added ice=0 and air.snow=0 so the same 96x96 meadow fixture satisfies the new material shading inputs.",
+    "measures": [
+      "nested color accepted by Canvas",
+      "terrain cache retained for equal new structures array",
+      "projection calls with terrain fully offscreen",
+      "five forced full-redraw JavaScript submissions after one warm-up"
+    ],
+    "does_not_measure": [
+      "GPU completion",
+      "end-to-end frame rate",
+      "ordinary-PC capability",
+      "populated view",
+      "networking and React update cost",
+      "authoritative simulation performance",
+      "all renderer interactions"
+    ],
+    "runs": [
+      {
+        "observed_on": "2026-10-08",
+        "timestamp_limit": "Exact submission timestamp not recorded. Original CLI browser session preceded the repeatable probe.",
+        "source": "original frozen renderer bundle",
+        "sourceSha256": "603e007a8e365350a0342e866e35d791b1bbd7f00a0e94d4bf2013b4a2d5217f",
+        "browser": "HeadlessChrome/144.0.0.0, Linux x86_64",
+        "canvas_css_px": {
+          "width": 800,
+          "height": 600
+        },
+        "device_pixel_ratio": 1,
+        "tile_count": 9216,
+        "population": 0,
+        "structure_count": 0,
+        "warmup_redraws": 1,
+        "measured_redraws": 5,
+        "color": {
+          "base": "rgb(191,166,125)",
+          "nested": "rgb(NaN,23,32)",
+          "retainedCanvasFill": "#112233"
+        },
+        "cache": {
+          "dirtySameArrays": false,
+          "dirtyNewEqualStructures": true
+        },
+        "offscreen_project_calls": 46080,
+        "terrain_submit_times_ms": [
+          58.30000000074506, 56.59999999962747, 81.90000000037253, 55.5, 49
+        ],
+        "limitation": "Earlier CLI fixture; color helper copied from source. Later probe exports the actual helper. Different browser version prevents controlled timing comparison."
+      },
+      {
+        "observedAtUtc": "2026-10-08T12:06:52.244Z",
+        "source": "src/client/renderer.ts",
+        "sourceSha256": "5faf917625c6bbe00f2883886dec4f4e68569e3c020a5f2f50b870fdb9429816",
+        "fixture": "96×96 uniform meadow, no inhabitants or structures, 800×600 CSS pixels, DPR 1; one warm-up and five synchronous terrain submissions.",
+        "limitations": "JavaScript submission timing only; no GPU completion, full-frame FPS, representative-PC, networking, population, or simulation benchmark. Private renderer members are diagnostic hooks, not a supported API.",
+        "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36",
+        "viewportCss": {
+          "width": 800,
+          "height": 600
+        },
+        "devicePixelRatio": 1,
+        "color": {
+          "base": "#bfa67d",
+          "nested": "#ab9873",
+          "retainedCanvasFill": "#ab9873"
+        },
+        "cache": {
+          "dirtySameArrays": false,
+          "dirtyNewEqualStructures": false
+        },
+        "offscreen": {
+          "tileCount": 9216,
+          "projectCalls": 0
+        },
+        "terrainSubmitTimesMs": [
+          94.90000000037253, 79.09999999962747, 76.09999999962747,
+          92.09999999962747, 99.19999999925494
+        ],
+        "pageErrors": []
+      },
+      {
+        "observedAtUtc": "2026-10-08T12:08:29.256Z",
+        "source": "frozen bundle: /tmp/praxans-render-research-20261008/bundle.js",
+        "sourceSha256": "603e007a8e365350a0342e866e35d791b1bbd7f00a0e94d4bf2013b4a2d5217f",
+        "fixture": "96×96 uniform meadow, no inhabitants or structures, 800×600 CSS pixels, DPR 1; one warm-up and five synchronous terrain submissions.",
+        "limitations": "JavaScript submission timing only; no GPU completion, full-frame FPS, representative-PC, networking, population, or simulation benchmark. Private renderer members are diagnostic hooks, not a supported API.",
+        "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.12 Safari/537.36",
+        "viewportCss": {
+          "width": 800,
+          "height": 600
+        },
+        "devicePixelRatio": 1,
+        "color": {
+          "base": "rgb(191,166,125)",
+          "nested": "rgb(NaN,23,32)",
+          "retainedCanvasFill": "#112233"
+        },
+        "cache": {
+          "dirtySameArrays": false,
+          "dirtyNewEqualStructures": true
+        },
+        "offscreen": {
+          "tileCount": 9216,
+          "projectCalls": 46080
+        },
+        "terrainSubmitTimesMs": [
+          51.59999999962747, 115.30000000074506, 58, 40.69999999925494,
+          39.09999999962747
+        ],
+        "pageErrors": []
+      }
+    ]
+  },
+  "observed_disposition": [
+    {
+      "finding": "nested color corruption",
+      "evidence": "Invalid rgb(NaN,23,32) versus accepted #ab9873",
+      "status": "revised_fixture_pass"
+    },
+    {
+      "finding": "equal-content structure arrays invalidating terrain cache",
+      "evidence": "true before, false in revised fixture",
+      "status": "revised_fixture_pass"
+    },
+    {
+      "finding": "offscreen terrain projected in full",
+      "evidence": "46080 before, 0 in revised fixture",
+      "status": "revised_fixture_pass"
+    },
+    {
+      "finding": "right-neighbor lookup wrapping next row",
+      "evidence": "Original source lookup requested (96,0), read (0,1); parent reports fix.",
+      "status": "parent_reported_fix_not_independently_exercised"
+    },
+    {
+      "finding": "full redraw performance",
+      "evidence": "Chrome 153 original median 51.6 ms, revised median 92.1 ms; five sequential samples each under concurrent host load.",
+      "status": "no_speedup_claim"
+    },
+    {
+      "finding": "entity culling, draw-order/population caches, raster/animation bounds, hidden/reduced-motion handling",
+      "evidence": "Parent reports implementation; source compiles per parent. Empty terrain probe does not test all behavior.",
+      "status": "broader_measurement_pending"
+    }
+  ],
+  "coordinate_contract": {
+    "anchor": [
+      "world_id",
+      "geometry_version",
+      "normalized_longitude_deg",
+      "latitude_deg",
+      "canonical_surface_coordinates",
+      "physical_height_or_depth_m"
+    ],
+    "camera_relative_fine_geometry": true,
+    "float32_spacing_m": {
+      "near_planet_radius": 0.5,
+      "near_one_au": 16384
+    },
+    "visual_resolution_changes_physics": false,
+    "subsurface_prerequisites": ["P14", "P15"],
+    "existing_component_glyph_scale": "Original component factor5 differs from tile horizontal metre scale; dimensioned views need a declared common metric."
+  },
+  "protocol_proposal": {
+    "claim_type": "untested_proposal",
+    "request": [
+      "geographic_bounds_or_anchor",
+      "detail_kind",
+      "view_generation"
+    ],
+    "envelope": [
+      "world_id",
+      "base_tick",
+      "snapshot_tick",
+      "origin_and_bounds",
+      "projection_geometry_version",
+      "chunk_revisions",
+      "data_provenance"
+    ],
+    "provenance_values": [
+      "seeded_preview",
+      "saved_live_state",
+      "unknown_unrepresented"
+    ],
+    "preview_cache_key": [
+      "seed",
+      "generation_version",
+      "geometry_version",
+      "style_version",
+      "patch_key"
+    ],
+    "live_overlay_cache_key": [
+      "world_id",
+      "chunk_key",
+      "chunk_revision",
+      "published_tick"
+    ],
+    "stale_delta_behavior": "resynchronize; never apply to an incompatible origin/base",
+    "physics_authority": "independent sole-writer simulation, unaffected by camera and quality",
+    "detail_transport": "bounded compact visual records; rich selected or paginated person detail"
+  },
+  "quantities": {
+    "atlas_width": 1024,
+    "atlas_height": 512,
+    "atlas_rgba_bytes": 2097152,
+    "atlas_with_mips_approx_bytes": 2796202.6666666665,
+    "atlas_texel_45deg_east_west_m": 27642.194530280227,
+    "atlas_texel_north_south_m": 39091.96639847768,
+    "live_snapshot_cells": 9216,
+    "live_snapshot_area_m2": 921600,
+    "two_1920x1080_rgba_canvases_dpr2_bytes": 66355200,
+    "rgba_256_square_with_mips_approx_bytes": 349525.3333333333
+  },
+  "proposed_budgets": {
+    "claim_type": "parameter_assumption",
+    "measured_target_device_validation": false,
+    "default_motion_hz": 30,
+    "optional_headroom_hz": 60,
+    "renderer_main_thread_p95_ms": 8,
+    "max_backing_pixels": 4000000,
+    "initial_dpr_cap": 1.5,
+    "renderer_owned_cpu_baseline_bytes": 67108864,
+    "estimated_gpu_baseline_bytes": 67108864,
+    "tested_high_tier_bytes": 134217728,
+    "max_inflight_view_jobs": 4,
+    "active_view_generations": 1,
+    "initial_live_chunk_limit": 9,
+    "adaptive_quality": "hysteresis; lower raster/detail/labels/cadence, never physical resolution or outcomes",
+    "accounting_limits": "Application estimates exclude some browser/compositor/driver allocations; measure process growth and target devices separately."
+  },
+  "coherence_scan": {
+    "provenance": "parent-supplied report; not rerun by research",
+    "observed_on": "2026-10-08",
+    "git_visible_files": 844,
+    "missing_imports": 0,
+    "simulation_to_server_or_client_import_violations": 0,
+    "broken_local_markdown_links": 0,
+    "limit": "Structural checks do not establish semantic, physical or rendering correctness.",
+    "proposed_cadence": "At meaningful development batches and before release; not an installed scheduler.",
+    "additional_review": [
+      "units and depth",
+      "finite pool ownership",
+      "clock and camera separation",
+      "snapshot/delta versions and origins",
+      "preview/live provenance",
+      "population scaling",
+      "requirements and source/document agreement"
+    ]
+  },
+  "founding_300": {
+    "claim_type": "derived_from_code_and_working_request",
+    "activation_status_at_report": "Parent reports the earlier 32-founder restoration remains unapplied; the working 300-person model is under revision and isolated testing.",
+    "adult_count": 300,
+    "four_camp_population": 1200,
+    "opening_stock_kg": {
+      "biomass": 144000,
+      "wood": 24000,
+      "fiber": 1800,
+      "stone": 1500,
+      "clay": 600
+    },
+    "opening_bulk_volume_m3": 718.0408782394076,
+    "opening_food_volume_m3": 654.5454545454545,
+    "baseline_food_kg_day": [195.0, 262.5],
+    "baseline_water_loss_kg_day": [468.0, 561.6],
+    "wrap_transfer_kg": 600,
+    "max_carried_provisions_kg": 900,
+    "code_covered_floor_m2": 510.0,
+    "old_120m_integer_disk_cells": 441,
+    "old_disk_cell_footprint_ha": 4.41,
+    "radius_preserving_32_person_area_ratio_m": 367.4234614174767,
+    "ideal_area_preserving_ratio_ha": 42.411500823462205,
+    "code_baseline_food_t_ha_year_on_old_footprint": [
+      16.150546787367144, 21.74112067530192
+    ],
+    "limits": [
+      "All-adult arrivals are an explicit initial condition, not a demographic equilibrium.",
+      "Model water loss is not a measured complete human requirement.",
+      "A larger catchment ratio is not calibrated carrying capacity.",
+      "Opening food and standing tissue are not annual edible productivity.",
+      "Later 14-day changed-bundle comparison retains all arrivals with cooler camp centers and more food stock. No isolated causal attribution or seasonal adequacy result is established."
+    ]
+  },
+  "parent_supplied_trials": {
+    "source": "Parent messages during the 2026-10-08 active session; not independently repeated.",
+    "founders_per_camp": 32,
+    "day600": [
+      {
+        "camp": "Fern",
+        "people": 45,
+        "domain": "original diagnostic",
+        "all_founders_alive": true
+      },
+      {
+        "camp": "Amber",
+        "people": 46,
+        "domain": "original diagnostic",
+        "all_founders_alive": true
+      },
+      {
+        "camp": "Adonis",
+        "people": 47,
+        "domain": "original diagnostic",
+        "all_founders_alive": true
+      },
+      {
+        "camp": "Stone",
+        "people": 46,
+        "domain": "complete two-region catchment",
+        "all_founders_alive": true
+      }
+    ],
+    "full_38_region_check": {
+      "days": 14,
+      "all128_founders_healthy": true
+    },
+    "combined_seven_region_four_camp_600day_run": "Pending around day 160 when reported.",
+    "limits": "Historical cropped failures remain in the first-batch log. Different domains and earlier 32-person inputs do not validate 300-person founding or permanent survival.",
+    "later_completed_seasonal_record": "connected-model-review.json: severe new deaths in Amber and Stone; earlier pending report is historical."
+  },
+  "candidate_ids": ["R17", "R18", "R19", "R20", "R21", "R24"],
+  "next_validation": "Use a fixed navigation trace on ordinary integrated-GPU PCs in Chrome and Firefox. Reconcile the parent’s 300-person spatial thermal comparison before extending demographic or seasonal claims.",
+  "later_parent_supplied_300_trial": {
+    "reported_on": "2026-10-08",
+    "provenance": "parent message; not independently rerun",
+    "domain": "full-backup trial",
+    "founders_per_camp": 300,
+    "camps": 4,
+    "duration_days": 14,
+    "arrivals_alive": 1200,
+    "camp_center_temperature_c_approx": [28, 49],
+    "diagnostic_hypothesis": "Resting population and decaying stocks concentrated in one 100 m² cell.",
+    "correction_status": "Small corrected coupling checks and a 14-day changed-bundle comparison completed; final minor-refinement full-world recheck and seasonal adequacy remain distinct.",
+    "code_derived_constraints": {
+      "baseline_metabolic_power_w": [36065.97222222222, 48550.34722222222],
+      "one_cell_area_m2": 100,
+      "draft_footprint_m2": 4800,
+      "draft_ideal_radius_m": 39.08820095223359,
+      "draft_open_stockpile_height_m": 0.5,
+      "opening_stock_footprint_m2": 1436.0817564788151,
+      "old_home_access_radius_m": 24,
+      "chemical_energy_if_30t_food_became_detritus_gj": 479.4
+    },
+    "limits": [
+      "Hypothesis pending same-input comparison.",
+      "Metabolic power and potential chemical energy are not measured heat fluxes or predicted temperatures.",
+      "16 m²/person and 0.5 m pile height are uncalibrated model parameters.",
+      "Heat capacity omits added organic/structure mass; land oxygen is globally available rather than transported into a pile."
+    ],
+    "reported_food_loss_per_camp_kg_approx": 30000,
+    "interpretation_correction": "Initial parent wording called the ~30 t difference spoilage. Completed artifacts establish net camp stock drawdown; separate consumption, harvest, cargo and spoilage flows were not measured here.",
+    "later_completed_comparison_record": "connected-model-review.json"
+  }
+}

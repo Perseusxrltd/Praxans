@@ -24,7 +24,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **name**: Conserved Matter and Coupled Biosphere
 - **status**: experimental
 - **package**: src/simulation/
-- **files**: `chemistry.ts`, `elements.ts`, `laws.ts`, `thermodynamics.ts`, `climate.ts`, `weather.ts`, `geology.ts`, `ecology.ts`, `life.ts`, `fauna.ts`, `landscape.ts`, `weathering.ts`
+- **files**: `chemistry.ts`, `elements.ts`, `laws.ts`, `thermodynamics.ts`, `climate.ts`, `weather.ts`, `geology.ts`, `ecology.ts`, `life.ts`, `fauna.ts`, `landscape.ts`, `weathering.ts`, `geometry.ts`
 - **dependencies**: world_state
 - **dependents**: civilization_intelligence, agent_gateway, browser_observer
 - **known_issues**: Reduced thermal/weather/statics/cohort models. Planetary thermal exchange is represented; full global moisture, materials and ecology are unresolved. No general chemistry, molecular biology or total planetary entropy. See docs/model.md.
@@ -36,7 +36,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **status**: experimental
 - **package**: src/simulation/
 - **files**: `citizens.ts`, `economy.ts`, `engine.ts`, `actions.ts`, `founding.ts`
-- **dependencies**: world_state, natural_systems, human_cognition, civic_relations
+- **dependencies**: world_state, natural_systems, human_cognition, civic_relations, human_physiology, settlement_space, material_geometry
 - **dependents**: agent_gateway, browser_observer
 - **known_issues**: Short-run founding/construction validation; no established multi-generation or genetic equilibrium.
 - **last_touched**: 2026-10-08
@@ -46,10 +46,10 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **name**: Persistent State and Intervention Archive
 - **status**: active
 - **package**: src/server/
-- **files**: `store.ts`, `migrations.ts`, `startup.ts`, `scripts/world-maintenance.ts`, `scripts/verify-upgrade.ts`
+- **files**: `store.ts`, `migrations.ts`, `startup.ts`, `intervention.ts`, `scripts/world-maintenance.ts`, `scripts/verify-upgrade.ts`
 - **dependencies**: world_state, natural_systems
 - **dependents**: agent_gateway, world_hosting, community_history
-- **known_issues**: One writer/volume; external backup scheduling is an operator responsibility. Anonymous browser management has no account recovery yet.
+- **known_issues**: One writer/volume, monolithic population metadata and full region serialization. The 16 MiB reusable-WAL retention setting does not bound active transactions/readers. External backup retention/capacity monitoring remain operator work; anonymous ownership has no account recovery.
 - **last_touched**: 2026-10-08
 
 ### agent_gateway
@@ -57,7 +57,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **name**: Scoped HTTP and MCP Stewardship
 - **status**: active
 - **package**: src/server/
-- **files**: `app.ts`, `schema.ts`, `scripts/example-agent.ts`
+- **files**: `app.ts`, `schema.ts`, `src/client/AgentInvitation.tsx`, `scripts/example-agent.ts`
 - **dependencies**: world_state, civilization_intelligence, world_storage
 - **dependents**: browser_observer, world_hosting
 - **known_issues**: Agents need HTTP/MCP tool capability; request and receipt retention limits are explicit.
@@ -68,10 +68,10 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **name**: Planet Entrance and Living Landscape
 - **status**: active
 - **package**: src/client/
-- **files**: `main.tsx`, `renderer.ts`, `PlanetWelcome.tsx`, `FieldGuide.tsx`, `LifePanel.tsx`, `DevelopmentPanel.tsx`, `Archive.tsx`, `Communities.tsx`, `Dialog.tsx`, `style.css`, `planet.css`, `development.css`, `communities.css`
+- **files**: `main.tsx`, `renderer.ts`, `PlanetWelcome.tsx`, `FieldGuide.tsx`, `LifePanel.tsx`, `DevelopmentPanel.tsx`, `Archive.tsx`, `Communities.tsx`, `Dialog.tsx`, `AgentInvitation.tsx`, `src/server/observer.ts`, `src/server/atlas.ts`, `style.css`, `planet.css`, `development.css`, `communities.css`
 - **dependencies**: agent_gateway, world_state, natural_systems, community_history
 - **dependents**: none
-- **known_issues**: Globe requires WebGL for its full visual; current service caps observer streams at 100.
+- **known_issues**: Globe requires WebGL for its full visual; 100-stream service cap. Overview/atlas loading is progressive, but cold server work still delays opening. Detailed frames retain global entity lists; bounded viewport/delta publication is unresolved.
 - **last_touched**: 2026-10-08
 
 ### community_history
@@ -104,7 +104,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `gateway.ts`, `runtime.ts`, `worker.ts`, `preflight.ts`, `artifact.ts`, `sse.ts`, `scripts/prepare-hotfix.ts`, `scripts/hotfix.ts`
 - **dependencies**: world_storage, agent_gateway
 - **dependents**: world_hosting, browser_observer, browser_validation
-- **known_issues**: One host and volume. In-place hotfixes require compatible dependencies; gateway/container and infrastructure failures require separate operations. Stream/request queues are finite. One external stream interrupted during a successful live activation; the cause remains unconfirmed despite a passing compressed handover on the real backup.
+- **known_issues**: One host and volume. Hotfixes require compatible dependencies and combined preflight/live-world memory and disk headroom. Real-backup handovers pass, but live memory restart/checkpoint rollback and disk-full halts occurred. Infrastructure failures remain separate operations; queues are finite.
 - **last_touched**: 2026-10-08
 
 ### browser_validation
@@ -112,7 +112,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **name**: Model, Browser, and Continuity Validation
 - **status**: active
 - **package**: tests/web/
-- **files**: `tests/web/`, `scripts/browser-smoke.mjs`, `scripts/production-smoke.mjs`, `scripts/founding-trials.ts`, `scripts/extinction-smoke.ts`, `scripts/hotfix-smoke.ts`, `scripts/verify-upgrade.ts`, `.github/workflows/browser.yml`
+- **files**: `tests/web/`, `scripts/browser-smoke.mjs`, `scripts/production-smoke.mjs`, `scripts/founding-trials.ts`, `scripts/extinction-smoke.ts`, `scripts/renewal-smoke.ts`, `scripts/renewal-trials.ts`, `scripts/exploration-smoke.ts`, `scripts/connection-smoke.ts`, `scripts/startup-smoke.ts`, `scripts/hotfix-smoke.ts`, `scripts/verify-upgrade.ts`, `.github/workflows/browser.yml`
 - **dependencies**: world_state, natural_systems, civilization_intelligence, world_storage, agent_gateway, browser_observer
 - **dependents**: none
 - **known_issues**: Local causal and short-run checks do not establish large-world load capacity or century-scale ecological stability.
@@ -141,6 +141,61 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **last_touched**: 2026-10-08
 
 ---
+
+### human_physiology
+
+- **name**: Funded Human Needs and Survival
+- **status**: experimental
+- **package**: src/simulation/
+- **files**: `physiology.ts`, `subsistence.ts`, `citizens.ts`
+- **dependencies**: natural_systems, world_state, settlement_space
+- **dependents**: civilization_intelligence
+- **known_issues**: Effective heat balance and adult seasonal heuristic, not organs or full thermoregulation. Containers, care and generational viability remain unresolved.
+- **last_touched**: 2026-10-08
+
+### settlement_space
+
+- **name**: Ground Travel and Connected Camp Area
+- **status**: experimental
+- **package**: src/simulation/
+- **files**: `movement.ts`, `settlement.ts`, `planet.ts`, `terrain.ts`, `weathering.ts`
+- **dependencies**: world_state, natural_systems
+- **dependents**: civilization_intelligence, human_physiology
+- **known_issues**: Stock volumes and camp area are represented, but inventory is still pooled; hauling, exact occupied piles, ventilation and stored-material heat capacity are incomplete.
+- **last_touched**: 2026-10-08
+
+### material_geometry
+
+- **name**: Connected Material Geometry and Invention
+- **status**: experimental
+- **package**: src/simulation/
+- **files**: `geometry.ts`, `laws.ts`, `economy.ts`, `weathering.ts`
+- **dependencies**: world_state, natural_systems, human_cognition
+- **dependents**: civilization_intelligence, browser_observer
+- **known_issues**: Five aggregate media, 32 axis-aligned parts and 1,600 kg assemblies. No general tool/process/chemistry solver; global knowledge eviction and idealized sample estimates remain.
+- **last_touched**: 2026-10-08
+
+### world_renewal
+
+- **name**: Finite Recorded Community Restoration
+- **status**: active
+- **package**: src/simulation/, src/server/
+- **files**: `src/simulation/renewal.ts`, `src/server/intervention.ts`, `src/server/migrations.ts`, `src/client/Communities.tsx`
+- **dependencies**: world_state, natural_systems, world_storage
+- **dependents**: community_history, browser_validation
+- **known_issues**: Explicit operator boundary additions, not automatic respawn or a survival guarantee. The historical fauna remains absent.
+- **last_touched**: 2026-10-08
+
+### planet_exploration
+
+- **name**: Bounded Planetary Geography Survey
+- **status**: active
+- **package**: src/client/
+- **files**: `PlanetExplorer.tsx`, `planet-survey.worker.ts`, `explorer.css`, `renderer.ts`
+- **dependencies**: world_state, browser_observer
+- **dependents**: browser_validation
+- **known_issues**: Survey of pinned geography with live community visits; no arbitrary-location live ecology, millimetre terrain or subsurface navigation.
+- **last_touched**: 2026-10-08
 
 ## Entity Layer
 

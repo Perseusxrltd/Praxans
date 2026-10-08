@@ -7,6 +7,54 @@
 
 ## Log
 
+### [2026-10-08] Advisory Recovery and SQLite Retention Published
+
+- **type**: bugfix
+- **systems**: agent_gateway, civic_relations, world_storage, runtime_handover, browser_validation
+- **files**: `actions.ts`, `app.ts`, `store.ts`, `server.test.ts`, `persistence.test.ts`, `AgentInvitation.tsx`
+- **agent**: Codex
+
+Activated `advisor-recovery-20261008-2` at tick 209364 in the existing Railway gateway. Advisory batches can enter the current logical tick during recovery without skipping clock debt; staging avoids cloning physical state and failed commits leave no partial proposal. Halted service has an explicit code, while committed receipts remain readable. SQLite limits retained reusable WAL to 16 MiB; active writes/readers can exceed that size. → ADR-029.
+
+All 112 model/server tests pass locally, including failed-commit, stopped-service and held-reader/WAL regressions. Ten continuity checks on a fresh 1,200-person backup retain the compressed connection, keys, history, archives and clock. The live saved checkpoint subsequently advances to 210388 with exact clock arithmetic, unchanged archive checksums and no additional OOM kill. Website/provider evidence and subsequent CI results belong to the release record.
+
+---
+
+### [2026-10-08] Progressive Planet Entrance and Smaller Spectator Data
+
+- **type**: feature
+- **systems**: browser_observer, agent_gateway, runtime_handover, browser_validation
+- **files**: `observer.ts`, `atlas.ts`, `types.ts`, `app.ts`, `main.tsx`, `PlanetWelcome.tsx`, `startup-smoke.ts`
+- **agent**: Codex
+
+Published `observer-scaling-20261008` and Vercel `dpl_26YvFNQz88tWZx7Z8DZ6Maxuqs3r`. The entrance uses a small overview and progressive atlas; local SSE starts on entering and closes on returning to orbit. Public projections omit large internal learning/seed data while preserving authoritative state. Eight startup checks, sixteen connection checks and a nine-check real-backup handover pass; screenshots were inspected. Cold atlas latency remains material. → ADR-028.
+
+---
+
+### [2026-10-08] Finite Renewal and Population-Scaled Survival
+
+- **type**: milestone
+- **systems**: world_renewal, human_physiology, settlement_space, material_geometry, natural_systems, human_cognition, world_storage
+- **files**: `renewal.ts`, `intervention.ts`, `physiology.ts`, `subsistence.ts`, `movement.ts`, `settlement.ts`, `geometry.ts`, `economy.ts`, `migrations.ts`
+- **agent**: Codex
+
+At tick 195860, format 9 / biosphere-1.3 and the separate authorized intervention restored four historical communities with 300 new adults each. Earlier deaths, identities, ownership and archives remain. Cold protection, ice melting, clothing, provisions, ground travel, dormancy, stock decay and camp area share explicit material/energy/space constraints. General component search and distinct trial/construction evidence replace narrower assumptions. → ADR-026; → ADR-027.
+
+The verified tick-204116 backup retains all 1,200, but housing remains scarce and reserves finite. Failed concentrated-camp and coupled seasonal trials remain recorded. A heavy live audit coincided with an OOM restart and visible checkpoint rollback; two disk-full incidents stopped saves. Independent backups and SQLite-managed reclamation preserved the world. No fauna restoration or multi-generation equilibrium is claimed.
+
+---
+
+### [2026-10-08] Planet Survey and Private Agent Handoff
+
+- **type**: feature
+- **systems**: planet_exploration, browser_observer, agent_gateway, browser_validation
+- **files**: `PlanetExplorer.tsx`, `planet-survey.worker.ts`, `renderer.ts`, `AgentInvitation.tsx`, `exploration-smoke.ts`, `connection-smoke.ts`
+- **agent**: Codex
+
+Published a bounded, cancellable planet-to-cell geography survey with community visits and improved local rendering. Added one private copyable connection briefing with share-sheet, email-draft and manual-copy fallbacks. Seventeen exploration and sixteen connection checks pass, with inspected desktop/mobile screenshots and exact camera-only state preservation. A shared agent message remains a user-controlled action. → ADR-028; → ADR-029.
+
+---
+
 ### [2026-10-08] Community Directory Published Without Replacing the World
 
 - **type**: milestone

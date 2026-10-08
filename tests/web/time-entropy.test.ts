@@ -7,7 +7,7 @@ import {
   passiveHeat,
   kelvin,
 } from "../../src/simulation/thermodynamics";
-import { createWorld } from "../../src/simulation/world";
+import { smallWorld as createWorld } from "./fixtures";
 import { updateEcology } from "../../src/simulation/ecology";
 import { validateWorld } from "../../src/simulation/engine";
 import { PLANET, STAR } from "../../src/simulation/planet";
@@ -100,9 +100,9 @@ test("an entropy hotfix starts an honest measurement epoch while preserving an o
     assert.equal(restored.tick, 9123);
     assert.equal(restored.entropy.sinceTick, 9123);
     assert.equal(restored.entropy.heatMixing, 0);
-    assert.equal(restored.lawsVersion, "biosphere-1.2");
+    assert.equal(restored.lawsVersion, "biosphere-1.3");
     assert.deepEqual(restored.tiles, world.tiles);
-    assert.equal(store.interventions().length, 2);
+    assert.equal(store.interventions().length, 3);
   } finally {
     store.close();
   }

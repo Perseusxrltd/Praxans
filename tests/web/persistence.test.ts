@@ -1,10 +1,12 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, rmSync } from "node:fs";
+import { mkdtempSync, rmSync, statSync } from "node:fs";
+import { DatabaseSync } from "node:sqlite";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { Store, digest } from "../../src/server/store";
-import { createWorld, recordEvent } from "../../src/simulation/world";
+import { recordEvent } from "../../src/simulation/world";
+import { smallWorld as createWorld } from "./fixtures";
 import { stepWorld } from "../../src/simulation/engine";
 import {
   materializeChunk,
@@ -13,6 +15,102 @@ import {
 } from "../../src/simulation/terrain";
 import { elementLedger } from "../../src/simulation/chemistry";
 import { legacyCheckpoint } from "./fixtures";
+
+test("WAL retention shrinks after readers release it without discarding active history", () => {
+  const directory = mkdtempSync(join(tmpdir(), "praxans-wal-retention-"));
+  const path = join(directory, "world.sqlite");
+  const store = new Store(path);
+  let reader: DatabaseSync | undefined;
+  try {
+    const limit = Number(
+      store.db.prepare("PRAGMA journal_size_limit").get()?.journal_size_limit,
+    );
+    assert.ok(limit > 0 && limit <= 16 * 1024 * 1024);
+    // A held reader and deliberately disabled automatic checkpoints reproduce
+    // a backup's retained WAL without applying a storage fault to any real world.
+    store.db.exec(
+      "PRAGMA wal_autocheckpoint=0; CREATE TABLE retention_probe (value BLOB)",
+    );
+    const insert = store.db.prepare(
+      "INSERT INTO retention_probe VALUES (zeroblob(?))",
+    );
+    insert.run(limit / 2);
+    reader = new DatabaseSync(path, { readOnly: true });
+    reader.exec("BEGIN");
+    assert.equal(
+      reader.prepare("SELECT count(*) n FROM retention_probe").get()?.n,
+      1,
+    );
+    for (let n = 0; n < 3; n++) insert.run(limit / 2);
+    const held = store.db.prepare("PRAGMA wal_checkpoint(PASSIVE)").get() as {
+      log: number;
+      checkpointed: number;
+    };
+    assert.ok(held.checkpointed < held.log);
+    assert.ok(statSync(path + "-wal").size > limit);
+    assert.equal(
+      reader.prepare("SELECT count(*) n FROM retention_probe").get()?.n,
+      1,
+    );
+    reader.close();
+    reader = undefined;
+    const released = store.db
+      .prepare("PRAGMA wal_checkpoint(PASSIVE)")
+      .get() as { log: number; checkpointed: number };
+    assert.equal(released.checkpointed, released.log);
+    insert.run(1); // Reusing the fully checkpointed WAL applies the retention cap.
+    assert.ok(statSync(path + "-wal").size <= limit);
+    assert.equal(
+      store.db.prepare("SELECT count(*) n FROM retention_probe").get()?.n,
+      5,
+    );
+    assert.equal(
+      store.db
+        .prepare("SELECT sum(length(value)) bytes FROM retention_probe")
+        .get()?.bytes,
+      limit * 2 + 1,
+    );
+  } finally {
+    reader?.close();
+    store.close();
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("an automatically rolled-back full database retains the original error and prior rows", () => {
+  const store = new Store(":memory:");
+  try {
+    store.db.exec(
+      "CREATE TABLE capacity_probe (value BLOB); INSERT INTO capacity_probe VALUES (x'01')",
+    );
+    const pages = store.db.prepare("PRAGMA page_count").get() as {
+      page_count: number;
+    };
+    store.db.exec(`PRAGMA max_page_count=${pages.page_count}`);
+    assert.throws(
+      () =>
+        store.transaction(() => {
+          store.db.exec("UPDATE capacity_probe SET value=zeroblob(1048576)");
+        }),
+      /database or disk is full/,
+    );
+    assert.equal(
+      store.db.prepare("SELECT hex(value) AS value FROM capacity_probe").get()
+        ?.value,
+      "01",
+    );
+    store.transaction(() =>
+      store.db.exec("UPDATE capacity_probe SET value=x'02'"),
+    );
+    assert.equal(
+      store.db.prepare("SELECT hex(value) AS value FROM capacity_probe").get()
+        ?.value,
+      "02",
+    );
+  } finally {
+    store.close();
+  }
+});
 
 test("a live service refuses to generate a replacement for a missing world", () => {
   const store = new Store(":memory:");
@@ -43,7 +141,7 @@ test("a registered hotfix preserves an established world and archives its exact 
     stepWorld(original, 8);
     const legacy = legacyCheckpoint(store, original, 5);
     const upgraded = store.load(999);
-    assert.equal(upgraded.version, 8);
+    assert.equal(upgraded.version, 9);
     assert.equal(upgraded.entropy.sinceTick, original.tick);
     assert.equal(upgraded.generationVersion, "archipelago-1");
     assert.equal(upgraded.tick, original.tick);
@@ -56,11 +154,23 @@ test("a registered hotfix preserves an established world and archives its exact 
       assert.deepEqual(seedBank, []);
     }
     assert.deepEqual(
-      upgraded.citizens.map(({ mind, journeyId, ...person }) => person),
+      upgraded.citizens.map(
+        ({ mind, journeyId, wrapMass, provisions, ...person }) => person,
+      ),
       legacy.citizens,
     );
-    assert.deepEqual(elementLedger(upgraded), elementLedger(original));
-    assert.equal(store.interventions().length, 3);
+    const restoredElements = elementLedger(upgraded),
+      originalElements = elementLedger(original);
+    for (const symbol of Object.keys(originalElements))
+      assert.ok(
+        Math.abs(restoredElements[symbol] - originalElements[symbol]) <
+          Math.max(
+            1e-8,
+            Math.abs(originalElements[symbol]) * Number.EPSILON * 8,
+          ),
+        `${symbol}: projecting personal inventories into legacy stock preserves matter`,
+      );
+    assert.equal(store.interventions().length, 4);
     const backup = store.db
       .prepare("SELECT json,checksum FROM world_backups")
       .get() as { json: string; checksum: string };
@@ -70,7 +180,7 @@ test("a registered hotfix preserves an established world and archives its exact 
     assert.deepEqual(store.load(0), upgraded);
     assert.equal(
       store.interventions().length,
-      3,
+      4,
       "a restart does not apply the migration again",
     );
     materializeChunk(upgraded, 30, 40);

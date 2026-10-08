@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Globe2, Link2, Sprout } from "lucide-react";
 import { celestialState, surfaceCoordinates } from "../simulation/planet";
-import type { WorldSnapshot } from "../simulation/types";
+import type { WorldOverview } from "../simulation/types";
 import "./planet.css";
 
 export function PlanetWelcome({
@@ -10,12 +10,14 @@ export function PlanetWelcome({
   fault,
   observe,
   connect,
+  explore,
 }: {
-  world: WorldSnapshot | null;
+  world: WorldOverview | null;
   connected: boolean;
   fault: string;
   observe: () => void;
   connect: () => void;
+  explore: () => void;
 }) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const latest = useRef(world);
@@ -23,7 +25,7 @@ export function PlanetWelcome({
   const [ready, setReady] = useState(false),
     [drawingError, setDrawingError] = useState("");
   useEffect(() => {
-    if (!canvas.current || !world) return;
+    if (!canvas.current) return;
     const element = canvas.current,
       abort = new AbortController();
     let disposed = false,
@@ -31,7 +33,7 @@ export function PlanetWelcome({
     void (async () => {
       const [THREE, response] = await Promise.all([
         import("three"),
-        fetch("/api/planet/atlas", { signal: abort.signal }),
+        fetch("/api/planet/atlas?detail=preview", { signal: abort.signal }),
       ]);
       if (!response.ok) throw new Error("The planet’s surface is unavailable.");
       const width = Number(response.headers.get("X-Atlas-Width")),
@@ -53,7 +55,7 @@ export function PlanetWelcome({
       renderer.toneMappingExposure = 1.35;
       const scene = new THREE.Scene(),
         camera = new THREE.PerspectiveCamera(38, 1, 0.1, 200);
-      const texture = new THREE.DataTexture(
+      let texture = new THREE.DataTexture(
         pixels,
         width,
         height,
@@ -64,6 +66,7 @@ export function PlanetWelcome({
       texture.minFilter = THREE.LinearMipmapLinearFilter;
       texture.generateMipmaps = true;
       texture.needsUpdate = true;
+      element.dataset.atlasWidth = String(width);
       const surface = new THREE.Group();
       scene.add(surface);
       const globeGeometry = new THREE.SphereGeometry(1, 96, 64);
@@ -132,7 +135,7 @@ export function PlanetWelcome({
         pitch = 0.28,
         animation = 0,
         previous = 0;
-      let rotation = celestialState(latest.current!.tick).rotation;
+      let rotation: number | undefined;
       const resize = () => {
         const box = element.getBoundingClientRect();
         renderer.setSize(
@@ -192,6 +195,7 @@ export function PlanetWelcome({
         const state = latest.current;
         if (!state) return;
         const sky = celestialState(state.tick);
+        rotation ??= sky.rotation;
         rotation += (sky.rotation - rotation) * Math.min(1, elapsed * 7);
         surface.rotation.y = rotation;
         sunlight.position.set(
@@ -249,6 +253,31 @@ export function PlanetWelcome({
         renderer.dispose();
       };
       setReady(true);
+      // First draw uses a small real geographic survey. Refine it in place after
+      // the planet is usable; the camera and live celestial time stay intact.
+      void (async () => {
+        const detailed = await fetch("/api/planet/atlas", {
+          signal: abort.signal,
+        });
+        if (!detailed.ok) return;
+        const w = Number(detailed.headers.get("X-Atlas-Width")),
+          h = Number(detailed.headers.get("X-Atlas-Height")),
+          data = new Uint8Array(await detailed.arrayBuffer());
+        if (disposed || !w || !h || data.length !== w * h * 4) return;
+        const replacement = new THREE.DataTexture(data, w, h, THREE.RGBAFormat);
+        replacement.colorSpace = THREE.SRGBColorSpace;
+        replacement.magFilter = THREE.LinearFilter;
+        replacement.minFilter = THREE.LinearMipmapLinearFilter;
+        replacement.generateMipmaps = true;
+        replacement.needsUpdate = true;
+        globeMaterial.map = replacement;
+        globeMaterial.needsUpdate = true;
+        texture.dispose();
+        texture = replacement;
+        element.dataset.atlasWidth = String(w);
+      })().catch(() => {
+        /* The initial geographic survey remains usable. */
+      });
     })().catch((error) => {
       if (!disposed)
         setDrawingError(
@@ -260,7 +289,7 @@ export function PlanetWelcome({
       abort.abort();
       cleanup();
     };
-  }, [world?.id]);
+  }, []);
   return (
     <main className="planet-welcome">
       <header className="planet-header">
@@ -322,7 +351,13 @@ export function PlanetWelcome({
           </button>
         </div>
         <span className="planet-invitation">
-          Come to watch. Stay to see what grows.
+          <button
+            className="planet-survey-link"
+            onClick={explore}
+            disabled={!world}
+          >
+            <Globe2 size={14} /> Explore the whole planet
+          </button>
         </span>
         {fault && (
           <p className="planet-fault" role="status">

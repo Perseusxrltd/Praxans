@@ -133,10 +133,24 @@ test("public community records preserve extinct histories without inventing a da
         `${base}/api/journal?communities=${civ.id}&category=life&through=0`,
       )
     ).json();
-    assert.equal(scoped.events.length, civ.deaths);
-    assert.ok(
-      scoped.events.every((e: { civId: string }) => e.civId === civ.id),
+    assert.equal(scoped.events.length, Math.min(60, civ.deaths));
+    let cursor = scoped.next;
+    const allDeaths = [...scoped.events];
+    while (cursor !== null) {
+      const page = await (
+        await fetch(
+          `${base}/api/journal?communities=${civ.id}&category=life&through=0&before=${cursor}`,
+        )
+      ).json();
+      allDeaths.push(...page.events);
+      cursor = page.next;
+    }
+    assert.equal(allDeaths.length, civ.deaths);
+    assert.equal(
+      new Set(allDeaths.map((e: { id: string }) => e.id)).size,
+      civ.deaths,
     );
+    assert.ok(allDeaths.every((e: { civId: string }) => e.civId === civ.id));
     assert.equal(
       (await fetch(`${base}/api/communities/missing/record`)).status,
       404,

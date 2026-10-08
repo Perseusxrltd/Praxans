@@ -6,6 +6,10 @@ import { BIOTA_MODEL, FAUNA, FLORA } from "./life";
 import { FOUNDING } from "./founding";
 import { THERMODYNAMICS } from "./thermodynamics";
 import { ADVICE_RULES } from "./society";
+import { PHYSIOLOGY } from "./physiology";
+import { SUBSISTENCE } from "./subsistence";
+import { WALKING_METRES_PER_HOUR } from "./movement";
+import { SETTLEMENT_SPACE } from "./settlement";
 
 export const NATURAL_MODEL = Object.freeze({
   laws: LAWS,
@@ -27,13 +31,19 @@ export const NATURAL_MODEL = Object.freeze({
   },
   biosphere: { ...BIOTA_MODEL, fauna: FAUNA, flora: FLORA },
   founding: FOUNDING,
+  settlementSpace: SETTLEMENT_SPACE,
   humanVitals: {
+    thermalBalance: PHYSIOLOGY,
+    seasonalPlanning: SUBSISTENCE,
+    walkingMetresPerHour: WALKING_METRES_PER_HOUR,
     nourishment:
       "0 means starving; 100 means well fed. Agent observations expose people[].nourishment. The saved field people[].hunger is a historical name for the same high-is-good value, not hunger severity.",
     energy:
       "0 means exhausted; 100 means rested. Urgent nourishment and rest can interrupt ongoing work.",
     feeding:
       "People eat available fractions at home or from their own carried food/provisions. Food, body growth, respiration and mineral returns remain conserved.",
+    protection:
+      "Body wraps contain real fiber. Thickness and conductivity reduce heat demand; exposed cold requires extra accessible food. Frozen drinking water needs paid latent heat. Heat stress consumes hydration. This is a coarse heat-budget approximation, not organ physiology.",
   },
   thermodynamics: THERMODYNAMICS,
   agency: ADVICE_RULES,

@@ -147,6 +147,8 @@ export function perceive(world: World, person: Citizen, radius: number): void {
       y: tile.y,
       tick: world.tick,
       food: tile.forage,
+      water: tile.water,
+      frozenWater: tile.ice + tile.air.snow,
       wood: plants.reduce(
         (sum, p) => sum + (p ? p.carbon * p.genome.woodiness : 0),
         0,

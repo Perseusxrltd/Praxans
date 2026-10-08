@@ -1,13 +1,14 @@
 /** Equal initial resources; survival subsequently depends on the living environment. */
 export const FOUNDING = Object.freeze({
-  people: 8,
+  people: 300,
   ages: [20, 24, 22, 28, 26, 32, 30, 34] as readonly number[],
-  stockPerPerson: { biomass: 4, wood: 4.5, fiber: 1, stone: 2.25, clay: 0.75 },
+  stockPerPerson: { biomass: 48, wood: 12, fiber: 4, stone: 2.25, clay: 0.75 },
+  resourceRadius: 48,
   minimumTemperature: 8,
   maximumTemperature: 30,
-  minimumLocalFood: 160,
-  minimumLocalWood: 60,
+  minimumLocalFoodPerPerson: 20,
+  minimumLocalWoodPerPerson: 10,
   minimumSoilWater: 2000,
   description:
-    "Eight unrelated adults, equal supplies and a comparable spread of traits, begin in a temperate clearing with water and reachable plant food. This is an initial balance choice, not a biological minimum population or a survival guarantee.",
+    "Three hundred unrelated adult settlers, each represented individually, arrive with equal finite supplies and a comparable spread of traits. Opening food is 48 kg per person; 2 kg of the 4 kg fiber allowance becomes a body wrap. Habitat screening covers a 480 m projected radius and scales its food and wood requirements with population. This selected adult founding group is not a complete historical age distribution, a biological minimum population, or a survival guarantee.",
 });

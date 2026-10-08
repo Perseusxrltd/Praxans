@@ -1,11 +1,11 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
-  createWorld,
   distance,
   settleFrontier,
   summarizeWorld,
 } from "../../src/simulation/world";
+import { smallWorld as createWorld } from "./fixtures";
 import {
   generateTile,
   materializeChunk,
@@ -14,6 +14,7 @@ import {
 } from "../../src/simulation/terrain";
 import { stepWorld, validateWorld } from "../../src/simulation/engine";
 import { Store } from "../../src/server/store";
+import { FOUNDING } from "../../src/simulation/founding";
 
 test("terrain depends on seed and coordinates, independent of reveal order", () => {
   const a = createWorld(72),
@@ -51,7 +52,10 @@ test("new arrivals get genuinely distant untouched land without changing old set
     assert.ok(distance(civ, second) > 160);
   }
   assert.ok(distance(first, second) > 160);
-  assert.equal(world.citizens.filter((p) => p.civId === first.id).length, 8);
+  assert.equal(
+    world.citizens.filter((p) => p.civId === first.id).length,
+    FOUNDING.people,
+  );
   assert.deepEqual(world.tiles.slice(0, originalTiles.length), originalTiles);
   for (const old of originalCivs) {
     const current = world.civilizations.find((c) => c.id === old.id)!;

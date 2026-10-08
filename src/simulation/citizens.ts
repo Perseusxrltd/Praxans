@@ -1,6 +1,6 @@
 import { MATERIALS } from "./content";
 import { seedPlant } from "./ecology";
-import { runExperiment, designScore } from "./economy";
+import { runExperiment, designScore, matchingObservation } from "./economy";
 import {
   emptyStock,
   refreshTile,
@@ -34,7 +34,7 @@ import {
   moveSoil,
   oxygenFraction,
 } from "./chemistry";
-import { astronomy } from "./planet";
+import { astronomy, groundDistanceMetres } from "./planet";
 import { clamp, random } from "./random";
 import {
   DAYS_PER_YEAR,
@@ -61,6 +61,15 @@ import {
 } from "./world";
 import { nearbyTiles } from "./terrain";
 import { hasPassage } from "./diplomacy";
+import {
+  regulateTemperature,
+  takeAccessibleFood,
+  hydrationTarget,
+  nearbyDrinkingWater,
+} from "./physiology";
+import { walkPath, WALKING_METRES_PER_HOUR } from "./movement";
+import { foodReservePerPerson, SUBSISTENCE } from "./subsistence";
+import { campRestPlace, canReachCampStocks } from "./settlement";
 
 function assignTask(
   world: World,
@@ -94,7 +103,8 @@ function gatherTask(
     (s) =>
       s.collapsed &&
       s.properties.cost[material] > 0.1 &&
-      distance(s, civ) < 12 &&
+      groundDistanceMetres(s, civ) <
+        WALKING_METRES_PER_HOUR * SUBSISTENCE.workTravelHours &&
       (s.civId === civ.id || (civ.relations[s.civId]?.affinity ?? 0) >= 0),
   );
   if (
@@ -105,28 +115,28 @@ function gatherTask(
     })
   )
     return true;
-  const candidates = nearbyTiles(world, civ, 12).filter((tile) => {
-    if (
-      distance(tile, civ) > 12 ||
-      tile.terrain === "water" ||
-      (tile.owner &&
-        tile.owner !== civ.id &&
-        (civ.relations[tile.owner]?.affinity ?? -1) < 0 &&
-        !hasPassage(world, civ.id, tile.owner))
-    )
-      return false;
-    const memory = person.mind.places.find(
+  const candidates = person.mind.places
+    .filter(
       (place) =>
-        place.x === tile.x &&
-        place.y === tile.y &&
-        world.tick - place.tick < 96 * 7,
-    );
-    return (
-      !!memory &&
-      memory[material === "biomass" ? "food" : material] >
-        (material === "biomass" ? 2 : 1)
-    );
-  });
+        world.tick - place.tick < 96 * 7 &&
+        place[material === "biomass" ? "food" : material] >
+          (material === "biomass" ? 2 : 1) &&
+        groundDistanceMetres(place, civ) <=
+          WALKING_METRES_PER_HOUR * SUBSISTENCE.workTravelHours,
+    )
+    .map((place) => getTile(world, place.x, place.y))
+    .filter((tile): tile is NonNullable<typeof tile> => {
+      if (
+        !tile ||
+        tile.terrain === "water" ||
+        (tile.owner &&
+          tile.owner !== civ.id &&
+          (civ.relations[tile.owner]?.affinity ?? -1) < 0 &&
+          !hasPassage(world, civ.id, tile.owner))
+      )
+        return false;
+      return true;
+    });
   candidates.sort(
     (a, b) =>
       distance(person, a) +
@@ -147,10 +157,12 @@ function gatherTask(
     )
       return true;
   // Unseen resource locations are learned by walking into sensory range.
-  const unexplored = nearbyTiles(world, civ, 10).filter(
+  const unexplored = nearbyTiles(world, person, 10).filter(
     (tile) =>
       tile.terrain !== "water" &&
       distance(tile, person) > 2 &&
+      groundDistanceMetres(tile, civ) <=
+        WALKING_METRES_PER_HOUR * SUBSISTENCE.workTravelHours &&
       !person.mind.places.some((p) => p.x === tile.x && p.y === tile.y),
   );
   unexplored.sort((a, b) => distance(a, person) - distance(b, person));
@@ -167,11 +179,43 @@ function decide(
 ): void {
   const sky = astronomy(world.tick, person.x, person.y),
     night = sky.solarAltitude < -6;
+  if (person.hydration < hydrationTarget(person) * 0.6) {
+    const known = person.mind.places.filter(
+      (place) =>
+        world.tick - place.tick < 96 * 7 &&
+        ((place.water ?? 0) > 1 ||
+          ((place.frozenWater ?? 0) > 1 && person.provisions > 0.01)),
+    );
+    known.sort((a, b) => distance(person, a) - distance(person, b));
+    for (const place of known) {
+      const bank = nearbyTiles(world, place, 1.5).filter(
+        (t) => t.terrain !== "water",
+      );
+      bank.sort((a, b) => distance(person, a) - distance(person, b));
+      for (const tile of bank)
+        if (assignTask(world, person, "move", tile.x, tile.y)) return;
+    }
+    const search = nearbyTiles(world, person, 10).filter(
+      (t) =>
+        t.terrain !== "water" &&
+        distance(person, t) > 2 &&
+        !person.mind.places.some((p) => p.x === t.x && p.y === t.y),
+    );
+    search.sort((a, b) => distance(person, a) - distance(person, b));
+    for (const tile of search.slice(0, 8))
+      if (assignTask(world, person, "explore", tile.x, tile.y)) return;
+  }
   if (person.cargo) {
     assignTask(world, person, "deliver", civ.x, civ.y);
     return;
   }
-  if (person.hunger < 40 && civ.stock.biomass > 1e-9) {
+  if (
+    (person.hunger < 40 ||
+      (person.provisions < 0.25 &&
+        getTile(world, person.x, person.y)!.temperature < 10)) &&
+    !canReachCampStocks(world, civ, person) &&
+    civ.stock.biomass > 1e-9
+  ) {
     assignTask(world, person, "move", civ.x, civ.y);
     return;
   }
@@ -193,16 +237,18 @@ function decide(
             p.task.tile === tileIndex(world, s.x, s.y),
         ).length < Math.floor(s.properties.capacity),
     );
-    assignTask(world, person, "rest", shelter?.x ?? civ.x, shelter?.y ?? civ.y);
+    const place = shelter ?? campRestPlace(world, civ, person, population);
+    assignTask(world, person, "rest", place.x, place.y);
     return;
   }
   if (person.age < 12) {
+    const place = campRestPlace(world, civ, person, population);
     assignTask(
       world,
       person,
       random(world) < 0.5 ? "social" : "rest",
-      civ.x,
-      civ.y,
+      place.x,
+      place.y,
     );
     return;
   }
@@ -212,6 +258,13 @@ function decide(
   );
   if (
     civ.stock.biomass < population * (2 + civ.policies.sharing * 2) &&
+    gatherTask(world, person, civ, "biomass")
+  )
+    return;
+  const foodTarget = population * foodReservePerPerson(world, civ);
+  if (
+    civ.stock.biomass < foodTarget &&
+    chance < (civ.focus === "nourish" ? 0.85 : 0.65) &&
     gatherTask(world, person, civ, "biomass")
   )
     return;
@@ -335,26 +388,22 @@ function decide(
         !s.collapsed &&
         s.properties.workSurface > 0.2,
     );
-    assignTask(
-      world,
-      person,
-      "experiment",
-      place?.x ?? civ.x,
-      place?.y ?? civ.y,
-    );
+    const location = place ?? campRestPlace(world, civ, person, population);
+    assignTask(world, person, "experiment", location.x, location.y);
     return;
   }
   if (
-    civ.stock.biomass < population * 7 &&
+    civ.stock.biomass < foodTarget &&
     gatherTask(world, person, civ, "biomass")
   )
     return;
+  const idlePlace = campRestPlace(world, civ, person, population);
   assignTask(
     world,
     person,
     person.happiness < 65 ? "social" : "rest",
-    civ.x,
-    civ.y,
+    idlePlace.x,
+    idlePlace.y,
   );
 }
 
@@ -504,32 +553,32 @@ export function updateCitizen(
   const waterLoss = Math.min(person.hydration, dt * 0.065 * (active ? 1.2 : 1));
   person.hydration -= waterLoss;
   accumulateAtmosphere(world, "water", waterLoss);
-  const waterTarget = person.age < 12 ? 1 + person.body * 0.25 : 8;
-  if (person.hydration < waterTarget * 0.8 && tile.water > 0.1) {
-    const drink = Math.min(tile.water, waterTarget - person.hydration);
-    tile.water -= drink;
-    person.hydration += drink;
-  }
-  const atHome = distance(person, civ) < 2.4;
-  const carriedFood =
-    person.cargo?.material === "biomass" ? person.cargo : null;
-  const food = journey
-    ? journey.provisions
-    : atHome
-      ? civ.stock.biomass
-      : (carriedFood?.amount ?? 0);
-  if (person.hunger < 62 && food > 1e-9) {
-    const meal = Math.min(
-      food,
-      person.age < 12 ? 0.65 : 0.9,
-      respirable(world, 1) / 0.94,
-    );
-    if (journey) journey.provisions -= meal;
-    else if (atHome) civ.stock.biomass -= meal;
-    else if (carriedFood) {
-      carriedFood.amount -= meal;
-      if (carriedFood.amount === 0) person.cargo = null;
+  const waterTarget = hydrationTarget(person);
+  if (person.hydration < waterTarget * 0.8) {
+    const source = nearbyDrinkingWater(world, person);
+    if (source && source.water > 0.1) {
+      const drink = Math.min(source.water, waterTarget - person.hydration);
+      source.water -= drink;
+      person.hydration += drink;
+      touchTile(world, tileIndex(world, source.x, source.y));
     }
+  }
+  const atHome = canReachCampStocks(world, civ, person);
+  if (atHome && !journey) {
+    const packed = Math.max(
+      0,
+      Math.min(3 - person.provisions, civ.stock.biomass),
+    );
+    civ.stock.biomass -= packed;
+    person.provisions += packed;
+  }
+  if (person.hunger < 62) {
+    const meal = takeAccessibleFood(
+      world,
+      person,
+      civ,
+      Math.min(person.age < 12 ? 0.65 : 0.9, respirable(world, 1) / 0.94),
+    );
     const retained =
       person.body < 18 ? Math.min(meal * 0.35, 18 - person.body) : 0;
     person.body += retained;
@@ -551,7 +600,6 @@ export function updateCitizen(
     person.health = clamp(
       person.health + dt * (0.08 + person.traits.resilience * 0.1),
     );
-  if (person.hydration < 0.15) person.health = clamp(person.health - dt * 1.3);
   const breathable = oxygenFraction(world);
   if (breathable < 0.15)
     person.health = clamp(person.health - dt * (1 - breathable / 0.15) * 16);
@@ -573,10 +621,16 @@ export function updateCitizen(
           ),
       )
     : 0;
-  if (tile.temperature < 3)
-    person.health = clamp(
-      person.health - dt * (3 - tile.temperature) * 0.055 * (1 - sheltered),
-    );
+  regulateTemperature(
+    world,
+    person,
+    civ,
+    tile,
+    dt,
+    !!active,
+    sheltered * (nearbyShelter?.properties.insulation ?? 0),
+  );
+  if (person.hydration < 0.15) person.health = clamp(person.health - dt * 1.3);
   if (person.sick > 0) {
     person.sick = Math.max(
       0,
@@ -615,7 +669,11 @@ export function updateCitizen(
         task.kind === "move") &&
       task.path.at(-1) === tileIndex(world, civ.x, civ.y);
     const needsFood =
-      person.hunger < 40 && civ.stock.biomass > 1e-9 && !atHome && !headingHome;
+      (person.hunger < 40 ||
+        (person.provisions < 0.25 && tile.temperature < 10)) &&
+      civ.stock.biomass > 1e-9 &&
+      !atHome &&
+      !headingHome;
     const needsRest =
       (person.energy < 23 ||
         person.mind.sleepPressure > 0.75 ||
@@ -623,7 +681,8 @@ export function updateCitizen(
         person.sick > 45) &&
       task.kind !== "rest" &&
       task.kind !== "deliver";
-    if (needsFood || needsRest) {
+    const needsWater = person.hydration < waterTarget * 0.6;
+    if (needsFood || needsRest || needsWater) {
       // Bodily needs can interrupt ongoing work, including a multi-day assembly.
       // Existing fabric/progress and carried matter remain in the world.
       reinforce(person, -0.2, world.tick);
@@ -635,26 +694,7 @@ export function updateCitizen(
   const task = person.task;
   if (!task) return;
   if (task.path.length) {
-    const nextIndex = task.path[0],
-      next = world.tiles[nextIndex],
-      dx = next.x - person.x,
-      dy = next.y - person.y,
-      length = Math.hypot(dx, dy);
-    const pace =
-      dt *
-      (person.age < 12 ? 1 : 1.55) *
-      (0.6 + person.energy / 250) *
-      (next.terrain === "hill" ? 0.7 : 1);
-    if (length <= pace) {
-      person.x = next.x;
-      person.y = next.y;
-      task.path.shift();
-    } else {
-      person.x += (dx / length) * pace;
-      person.y += (dy / length) * pace;
-    }
-    next.road = clamp(next.road + 0.002, 0, 1);
-    touchTile(world, nextIndex);
+    walkPath(world, person, task.path, dt, person.energy, person.age < 12);
     return;
   }
   if (task.kind === "rest") {
@@ -719,10 +759,11 @@ export function updateCitizen(
           y: structure.y,
         });
       }
-      let observation = civ.observations.find(
-        (o) =>
-          JSON.stringify(o.design.components) ===
-          JSON.stringify(structure.design.components),
+      let observation = matchingObservation(
+        civ,
+        structure.design,
+        structure.properties,
+        "construction",
       );
       if (!observation) {
         observation = {
@@ -747,7 +788,6 @@ export function updateCitizen(
         civ.observations.push(observation);
       }
       observation.trials++;
-      observation.research.method = "construction";
       observation.research.confidence = 0.95;
       learnObservation(world, person, observation);
       reinforce(person, structure.collapsed ? -0.8 : 0.9, world.tick);
@@ -781,6 +821,8 @@ export function processDeaths(world: World): void {
     const tile = getTile(world, person.x, person.y)!,
       civ = world.civilizations.find((c) => c.id === person.civId)!;
     returnMaterial(world, tile, "biomass", person.body);
+    returnMaterial(world, tile, "fiber", person.wrapMass);
+    returnMaterial(world, tile, "biomass", person.provisions);
     tile.water += person.hydration;
     if (person.cargo)
       returnMaterial(world, tile, person.cargo.material, person.cargo.amount);

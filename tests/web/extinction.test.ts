@@ -94,6 +94,12 @@ test("a new beginning preserves the extinct community and scopes new ownership a
       civilizationId,
     );
     const journal = game.store.journal().events;
+    let cursor = journal.at(-1)?.sequence;
+    while (cursor !== undefined) {
+      const page = game.store.journal(cursor);
+      journal.push(...page.events);
+      cursor = page.next ?? undefined;
+    }
     for (const event of oldEvents)
       assert.deepEqual(
         journal.find((e) => e.id === event.id),

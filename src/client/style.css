@@ -1493,6 +1493,78 @@ small {
   font-size: 9px;
   color: #a0b389;
 }
+.agent-invitation {
+  margin: 18px 0;
+  padding: 17px;
+  background: #f1f5e9;
+  border: 1px solid #dce5d1;
+  border-radius: 9px;
+}
+.invitation-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #4d704e;
+}
+.invitation-heading > svg {
+  flex: none;
+  margin-top: 2px;
+}
+.invitation-heading strong {
+  font-size: 13px;
+}
+.invitation-heading p {
+  margin: 6px 0 14px;
+  font-size: 11px;
+  line-height: 1.65;
+  color: #718365;
+}
+.agent-invitation > .button {
+  width: 100%;
+}
+.invitation-share {
+  display: flex;
+  gap: 9px;
+  margin-top: 8px;
+}
+.invitation-share .button {
+  flex: 1;
+  min-width: 0;
+  justify-content: center;
+  text-decoration: none;
+  color: #4d704e;
+}
+.invitation-private,
+.agent-invitation summary {
+  font-size: 10px;
+  line-height: 1.6;
+  color: #75856a;
+}
+.invitation-private {
+  margin: 11px 0 7px;
+}
+.agent-invitation summary {
+  cursor: pointer;
+  color: #4d704e;
+}
+.agent-invitation textarea {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #d4dec9;
+  border-radius: 6px;
+  background: #fbfcf6;
+  color: #465c3d;
+  font: 11px/1.6 monospace;
+  resize: vertical;
+}
+.invitation-error {
+  margin: 10px 0 0;
+  color: #985b45;
+  font-size: 11px;
+  line-height: 1.6;
+}
 .copy-field {
   display: flex;
   position: relative;

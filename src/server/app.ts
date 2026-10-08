@@ -7,7 +7,7 @@ import { z } from "zod";
 import compression from "compression";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
-import { applyAgentActions } from "../simulation/actions";
+import { stageAgentActions } from "../simulation/actions";
 import { FOCUSES, MATERIALS } from "../simulation/content";
 import { stepWorld } from "../simulation/engine";
 import { evaluateDesign, LAWS } from "../simulation/laws";
@@ -22,9 +22,10 @@ import {
 import {
   CHUNK_SIZE,
   TICK_MS,
-  type Tile,
+  type ObserverTile,
   type World,
   type WorldFrame,
+  type WorldOverview,
   type WorldSnapshot,
 } from "../simulation/types";
 import { agentSchema, batchSchema, claimSchema, designSchema } from "./schema";
@@ -38,11 +39,19 @@ import {
 } from "../simulation/elements";
 import { elementLedger } from "../simulation/chemistry";
 import { astronomy, celestialState } from "../simulation/planet";
-import { planetAtlas, ATLAS_WIDTH, ATLAS_HEIGHT } from "./atlas";
+import {
+  planetAtlas,
+  ATLAS_WIDTH,
+  ATLAS_HEIGHT,
+  ATLAS_PREVIEW_WIDTH,
+  ATLAS_PREVIEW_HEIGHT,
+} from "./atlas";
 import { worldClock } from "../simulation/chronology";
 import { progressReport } from "../simulation/progress";
 import { contactLevel } from "../simulation/diplomacy";
 import { ADVICE_RULES } from "../simulation/society";
+import { applyRenewal, readRenewal } from "./intervention";
+import { observerCitizen, observerTile as publicTile } from "./observer";
 
 export interface AppOptions {
   database: string;
@@ -60,6 +69,7 @@ class HttpError extends Error {
   constructor(
     public status: number,
     message: string,
+    public code?: string,
   ) {
     super(message);
   }
@@ -70,6 +80,7 @@ export function createGameServer(options: AppOptions) {
   try {
     store.acquireLease();
     world = store.load(options.seed ?? 1847, options.requireExistingWorld);
+    world = applyRenewal(store, world, readRenewal(options.database));
     if (options.autoTick !== false) store.resumeClock(world.tick);
   } catch (error) {
     store.close();
@@ -87,7 +98,9 @@ export function createGameServer(options: AppOptions) {
   let fault: string | null = null,
     stopped = false,
     frameCount = 0;
-  let atlas: Uint8Array | undefined;
+  let atlas: Promise<Uint8Array> | undefined;
+  let previewAtlas: Promise<Uint8Array> | undefined;
+  let overviewCache: { until: number; value: WorldOverview } | undefined;
   if (options.trustProxy) app.set("trust proxy", 1);
   app.disable("x-powered-by");
   const allowedHosts = new Set([
@@ -119,14 +132,31 @@ export function createGameServer(options: AppOptions) {
   });
   app.use(express.json({ limit: "64kb" }));
   app.use(compression({ level: 4, threshold: 1024 }));
-  app.use((req, _res, next) => {
-    if (req.method !== "GET" && req.method !== "HEAD" && store.lagMs() > 10000)
-      return next(
-        new HttpError(
-          503,
-          "The world is catching up after an interruption. You can keep observing; new decisions resume when its clock has caught up.",
-        ),
+  const requireCurrentClock = () => {
+    if (store.lagMs() > 10000)
+      throw new HttpError(
+        503,
+        "The world is catching up after an interruption. This change waits for its clock to catch up; observations and advisory proposals remain available.",
+        "WORLD_CATCHING_UP",
       );
+  };
+  app.use((req, _res, next) => {
+    // MCP carries observations over POST, and a receipt replay is also a read.
+    // Their mutation boundary is act(), after checking the stored request ID.
+    // Issuing/revoking a scoped key changes access, not simulated history.
+    const connectionManagement =
+      (req.method === "POST" && req.path === "/api/agents") ||
+      (req.method === "DELETE" && /^\/api\/agents\/[^/]+$/.test(req.path));
+    if (
+      req.method !== "GET" &&
+      req.method !== "HEAD" &&
+      !connectionManagement &&
+      !(
+        req.method === "POST" &&
+        ["/api/agent/actions", "/api/agent/evaluate", "/mcp"].includes(req.path)
+      )
+    )
+      requireCurrentClock();
     next();
   });
   const limits = new Map<string, { count: number; until: number }>();
@@ -194,52 +224,6 @@ export function createGameServer(options: AppOptions) {
       throw new HttpError(401, "Use an active civilization-scoped bearer key.");
     return agent;
   };
-  const publicTile = (tile: Tile): Tile => {
-    const rounded = structuredClone(tile);
-    for (const key of [
-      "water",
-      "mineral",
-      "rock",
-      "temperature",
-      "moisture",
-      "fertility",
-      "trees",
-      "forage",
-      "road",
-    ] as const)
-      rounded[key] = Math.round(rounded[key] * 100) / 100;
-    rounded.detritus.carbon = Math.round(rounded.detritus.carbon * 100) / 100;
-    rounded.detritus.mineral = Math.round(rounded.detritus.mineral * 100) / 100;
-    if (rounded.plant) {
-      rounded.plant.carbon = Math.round(rounded.plant.carbon * 100) / 100;
-      rounded.plant.mineral = Math.round(rounded.plant.mineral * 100) / 100;
-    }
-    if (rounded.groundcover) {
-      rounded.groundcover.carbon =
-        Math.round(rounded.groundcover.carbon * 100) / 100;
-      rounded.groundcover.mineral =
-        Math.round(rounded.groundcover.mineral * 100) / 100;
-    }
-    for (const plant of [
-      rounded.plant,
-      rounded.groundcover,
-      ...rounded.seedBank,
-    ])
-      if (plant) {
-        plant.carbon = Math.round(plant.carbon * 1000000) / 1000000;
-        plant.mineral = Math.round(plant.mineral * 1000000) / 1000000;
-        for (const key of Object.keys(
-          plant.genome,
-        ) as (keyof typeof plant.genome)[])
-          plant.genome[key] = Math.round(plant.genome[key] * 10000) / 10000;
-      }
-    for (const key of Object.keys(rounded.air) as (keyof typeof rounded.air)[])
-      rounded.air[key] = Math.round(rounded.air[key] * 1000000) / 1000000;
-    for (const symbol of Object.keys(rounded.nutrients))
-      rounded.nutrients[symbol] =
-        Math.round(rounded.nutrients[symbol] * 1000000) / 1000000;
-    return rounded;
-  };
   const within = (
     tile: { x: number; y: number },
     origin: { x: number; y: number },
@@ -272,7 +256,7 @@ export function createGameServer(options: AppOptions) {
       },
     ),
     civilizations: world.civilizations,
-    citizens: world.citizens,
+    citizens: world.citizens.map(observerCitizen),
     animals: world.animals,
     structures: world.structures,
     caravans: world.caravans,
@@ -291,7 +275,7 @@ export function createGameServer(options: AppOptions) {
     const origin = originFor(civId),
       width = CHUNK_SIZE * 3,
       height = CHUNK_SIZE * 3;
-    const tiles: Tile[] = [];
+    const tiles: ObserverTile[] = [];
     for (let y = origin.y; y < origin.y + height; y++)
       for (let x = origin.x; x < origin.x + width; x++) {
         const tile = getTile(world, x, y);
@@ -383,6 +367,17 @@ export function createGameServer(options: AppOptions) {
     const civ = world.civilizations.find((c) => c.id === agent.civId)!;
     return {
       protocol: "praxans/2",
+      service: {
+        simulation: fault
+          ? "halted"
+          : store.lagMs() > 10000
+            ? "catching-up"
+            : "running",
+        lagSeconds: Math.floor(store.lagMs() / 1000),
+        acceptingProposals: !fault,
+        proposalTime:
+          "Advice enters at the current simulated tick. Deliberation and work happen at later simulated ticks; recovery never skips the clock debt.",
+      },
       tick: world.tick,
       lawsVersion: LAWS.version,
       world: { name: world.name, ...summarizeWorld(world, civ) },
@@ -434,8 +429,6 @@ export function createGameServer(options: AppOptions) {
     };
   };
   const act = (agent: Agent, input: unknown) => {
-    if (fault)
-      throw new HttpError(503, "The world is paused after an internal error.");
     const batch = batchSchema.parse(input),
       payloadHash = digest(JSON.stringify(batch.actions));
     const previous = store.receipt(agent.id, batch.requestId);
@@ -447,9 +440,18 @@ export function createGameServer(options: AppOptions) {
         );
       return { ...JSON.parse(previous.response), replayed: true };
     }
-    let result: ReturnType<typeof applyAgentActions>;
+    if (fault)
+      throw new HttpError(
+        503,
+        "The world is paused after an internal error. Check /api/health before retrying the same request.",
+        "WORLD_HALTED",
+      );
+    // An advisory proposal belongs to the world's current logical moment, even
+    // during recovery. It neither changes old ticks nor executes physical work.
+    // The clock debt, local deliberation, budgets and later feasibility checks remain.
+    let result: ReturnType<typeof stageAgentActions>;
     try {
-      result = applyAgentActions(world, agent.civId, batch.actions, agent.name);
+      result = stageAgentActions(world, agent.civId, batch.actions, agent.name);
     } catch (error) {
       throw new HttpError(
         422,
@@ -492,6 +494,7 @@ export function createGameServer(options: AppOptions) {
       tick: world.tick,
       lawsVersion: LAWS.version,
       persistent: true,
+      acceptingProposals: !fault,
       lagSeconds: Math.floor(store.lagMs() / 1000),
       simulation: fault
         ? "halted"
@@ -511,6 +514,32 @@ export function createGameServer(options: AppOptions) {
       ),
     ),
   );
+  app.get("/api/overview", (_req, res) => {
+    // All entrance viewers share one completed-state summary. The full ledgers
+    // are not recalculated for each visitor; the returned tick describes this sample.
+    if (overviewCache && performance.now() < overviewCache.until)
+      return res.json(overviewCache.value);
+    const populations = new Map<string, number>();
+    for (const person of world.citizens)
+      populations.set(person.civId, (populations.get(person.civId) ?? 0) + 1);
+    const overview: WorldOverview = {
+      id: world.id,
+      name: world.name,
+      seed: world.seed,
+      tick: world.tick,
+      lawsVersion: world.lawsVersion,
+      summary: summarizeWorld(world),
+      civilizations: world.civilizations.map(({ id, name, x, y }) => ({
+        id,
+        name,
+        x,
+        y,
+        population: populations.get(id) ?? 0,
+      })),
+    };
+    overviewCache = { until: performance.now() + 1000, value: overview };
+    return res.json(overview);
+  });
   app.get("/api/laws", (_req, res) =>
     res.json({
       ...NATURAL_MODEL,
@@ -529,15 +558,28 @@ export function createGameServer(options: AppOptions) {
   app.get("/api/clock", (_req, res) =>
     res.json({ clock: worldClock(world.tick), entropy: world.entropy }),
   );
-  app.get("/api/planet/atlas", (_req, res) => {
-    atlas ??= planetAtlas(world);
+  app.get("/api/planet/atlas", async (req, res) => {
+    const preview = req.query.detail === "preview";
+    const width = preview ? ATLAS_PREVIEW_WIDTH : ATLAS_WIDTH,
+      height = preview ? ATLAS_PREVIEW_HEIGHT : ATLAS_HEIGHT;
+    const pending = preview
+      ? (previewAtlas ??= planetAtlas(world, width, height))
+      : (atlas ??= planetAtlas(world));
+    let pixels: Uint8Array;
+    try {
+      pixels = await pending;
+    } catch (error) {
+      if (preview) previewAtlas = undefined;
+      else atlas = undefined;
+      throw error;
+    }
     res.set({
       "Content-Type": "application/octet-stream",
       "Cache-Control": "public, max-age=3600",
-      "X-Atlas-Width": String(ATLAS_WIDTH),
-      "X-Atlas-Height": String(ATLAS_HEIGHT),
+      "X-Atlas-Width": String(width),
+      "X-Atlas-Height": String(height),
     });
-    res.send(Buffer.from(atlas));
+    res.send(Buffer.from(pixels));
   });
   app.get("/api/journal", (req, res) => {
     const before =
@@ -904,6 +946,7 @@ export function createGameServer(options: AppOptions) {
       if (status >= 500 && !expected) console.error(error);
       if (status === 503) res.setHeader("Retry-After", "5");
       res.status(status).json({
+        ...(expected && error.code ? { code: error.code } : {}),
         error:
           status >= 500 && !expected
             ? "An internal error occurred. Your saved world has been preserved."

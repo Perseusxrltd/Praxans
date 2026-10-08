@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createWorld, getTile } from "../../src/simulation/world";
+import { getTile } from "../../src/simulation/world";
+import { smallWorld as createWorld } from "./fixtures";
 import { evaluateDesign, ledger } from "../../src/simulation/laws";
 import { elementLedger } from "../../src/simulation/chemistry";
 import {
@@ -66,6 +67,26 @@ test("surface and storage affordances follow exact cuboid extents, including tra
   const floating = structuredClone(box);
   floating.components[1].z += 0.1;
   assert.equal(evaluateDesign(floating).storageVolume, 0);
+  const detached = structuredClone(box);
+  detached.components[1].x = -2;
+  detached.components[2].x = 2;
+  detached.components[3].y = -2;
+  detached.components[4].y = 2;
+  assert.equal(
+    evaluateDesign(detached).storageVolume,
+    0,
+    "detached walls do not enclose the floor",
+  );
+  const spillway = structuredClone(box);
+  spillway.components[1].height = 0.2;
+  close(evaluateDesign(spillway).storageVolume, 0.9 * 0.9 * 0.2);
+  const bottomless = structuredClone(box);
+  bottomless.components.shift();
+  assert.equal(
+    evaluateDesign(bottomless).storageVolume,
+    0,
+    "a missing floor cannot retain contents",
+  );
 });
 
 test("wet warmth and actual frost weaken fabric while its lost elements remain in the world", () => {
@@ -264,8 +285,8 @@ test("format 7 migration preserves existing matter, identities, decisions and RN
   try {
     const old = legacyCheckpoint(store, world, 7);
     const { world: next, interventions } = migrateWorld(old);
-    assert.equal(next.version, 8);
-    assert.equal(interventions.length, 1);
+    assert.equal(next.version, 9);
+    assert.equal(interventions.length, 2);
     assert.equal(next.tick, old.tick);
     assert.equal(next.rng, old.rng);
     assert.equal(next.nextId, old.nextId);
@@ -275,11 +296,15 @@ test("format 7 migration preserves existing matter, identities, decisions and RN
         ...p,
         mind: undefined,
         journeyId: undefined,
+        wrapMass: undefined,
+        provisions: undefined,
       })),
       old.citizens.map((p) => ({
         ...p,
         mind: undefined,
         journeyId: undefined,
+        wrapMass: undefined,
+        provisions: undefined,
       })),
     );
     assert.deepEqual(
@@ -292,11 +317,19 @@ test("format 7 migration preserves existing matter, identities, decisions and RN
     assert.equal(next.citizens[0].mind.knowledge[0].source, "inherited-record");
     assert.equal(next.citizens[0].mind.learned, 0);
     assert.equal(next.civilizations[0].civics.progress.achievements.length, 0);
-    assert.deepEqual(elementLedger(next), elementLedger(world));
+    // The legacy fixture returns modern carried supplies to communal stock.
+    // That changes floating-point summation order, not the retained matter.
+    const before = elementLedger(world);
+    for (const [element, mass] of Object.entries(elementLedger(next)))
+      assert.ok(
+        Math.abs(mass - (before[element] ?? 0)) <
+          Math.max(1e-8, Math.abs(before[element] ?? 0) * Number.EPSILON * 8),
+        element,
+      );
     validateWorld(next);
     assert.deepEqual(store.load(999), next);
     assert.deepEqual(store.load(999), next);
-    assert.equal(store.interventions().length, 1);
+    assert.equal(store.interventions().length, 2);
   } finally {
     store.close();
   }

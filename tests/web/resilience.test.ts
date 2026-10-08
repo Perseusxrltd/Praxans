@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createWorld } from "../../src/simulation/world";
+import { smallWorld as createWorld } from "./fixtures";
 import {
   growPlant,
   seedPlant,
@@ -154,5 +154,52 @@ test("structural wood survives longer than leaf tissue under the same dark condi
   }
   assert.ok(tiles[0].plant!.carbon / initial[0] > 0.8);
   assert.ok((tiles[1].plant?.carbon ?? 0) / initial[1] < 0.4);
+  conserved(world, before, energy);
+});
+
+test("frozen dormancy spends reserves without treating ice as drought; lethal exposure still kills", () => {
+  const world = createWorld(1847, 64, 64),
+    tiles = world.tiles
+      .filter((t) => t.plant && t.terrain === "meadow")
+      .slice(0, 4);
+  const template = structuredClone(tiles[0].plant!);
+  template.carbon = 10;
+  template.mineral = 0.4;
+  template.genome = {
+    ...template.genome,
+    temperature: 12,
+    woodiness: 0.55,
+    roots: 0.9,
+    deciduous: 0.6,
+  };
+  for (const [i, tile] of tiles.entries()) {
+    tile.plant = structuredClone(template);
+    tile.water = 0;
+    tile.ice = i === 1 ? 0 : 1000;
+    tile.air.snow = 0;
+    tile.air.sunlight = 0;
+  }
+  const before = elementLedger(world),
+    energy = ledger(world).chemical,
+    temperatures = [-5, -5, -65, 75];
+  for (let hour = 0; hour < 100 * 24; hour++) {
+    world.tick += 4;
+    for (const [i, tile] of tiles.entries()) {
+      tile.temperature = temperatures[i];
+      if (tile.plant) growPlant(world, tile, tile.plant, "plant", 1);
+    }
+  }
+  const remaining = tiles.map((t) => t.plant?.carbon ?? 0);
+  assert.ok(
+    remaining[0] > 1,
+    "cold-tolerant perennial tissue survives a winter without growth",
+  );
+  assert.ok(remaining[0] < 10, "dormancy still consumes finite reserves");
+  assert.ok(
+    remaining[1] < remaining[0] / 2,
+    "absence of soil water causes real drought stress",
+  );
+  assert.equal(remaining[2], 0, "cold beyond tissue tolerance remains lethal");
+  assert.equal(remaining[3], 0, "heat beyond tissue tolerance remains lethal");
   conserved(world, before, energy);
 });

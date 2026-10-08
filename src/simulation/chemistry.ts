@@ -2,6 +2,8 @@ import { MATERIALS } from "./content";
 import {
   addElements,
   composition,
+  elementTerms,
+  freezeElements,
   molarMass,
   normalize,
   totalElements,
@@ -35,11 +37,11 @@ export function accumulateAtmosphere(
 
 // Organic matrix is a carbohydrate equivalent, NOT pure carbon. Mineral tissue is an
 // explicit coarse elemental mixture. This is atom accounting, not protein biochemistry.
-export const ORGANIC = Object.freeze(composition("C6H10O5"));
-export const WATER = Object.freeze(composition("H2O"));
-export const CO2 = Object.freeze(composition("CO2"));
-export const CLAY = Object.freeze(composition("Al2Si2O5(OH)4"));
-export const BIO_NUTRIENTS = Object.freeze(
+export const ORGANIC = freezeElements(composition("C6H10O5"));
+export const WATER = freezeElements(composition("H2O"));
+export const CO2 = freezeElements(composition("CO2"));
+export const CLAY = freezeElements(composition("Al2Si2O5(OH)4"));
+export const BIO_NUTRIENTS = freezeElements(
   normalize({
     N: 0.5,
     P: 0.09,
@@ -56,7 +58,7 @@ export const BIO_NUTRIENTS = Object.freeze(
   }),
 );
 // Model lithology, not a claim that every rock has Earth's average crust composition.
-export const ROCK = Object.freeze(
+export const ROCK = freezeElements(
   normalize({
     O: 0.466,
     Si: 0.277,
@@ -115,9 +117,11 @@ export function materialElements(
 }
 export function availableMixture(tile: Tile, mixture: ElementMass): number {
   let possible = Infinity;
-  for (const symbol in mixture) {
-    if (!Object.hasOwn(mixture, symbol)) continue;
-    const fraction = mixture[symbol];
+  const terms = elementTerms(mixture),
+    symbols = terms?.symbols ?? Object.keys(mixture);
+  for (let i = 0; i < symbols.length; i++) {
+    const symbol = symbols[i];
+    const fraction = terms ? terms.fractions[i] : mixture[symbol];
     if (fraction > 0)
       possible = Math.min(
         possible,
@@ -144,12 +148,16 @@ export function takeNutrients(
     0,
     Math.min(requested, availableMixture(tile, mixture)),
   );
-  for (const symbol in mixture)
-    if (Object.hasOwn(mixture, symbol))
-      tile.nutrients[symbol] = Math.max(
-        0,
-        (tile.nutrients[symbol] ?? 0) - mixture[symbol] * amount,
-      );
+  const terms = elementTerms(mixture),
+    symbols = terms?.symbols ?? Object.keys(mixture);
+  for (let i = 0; i < symbols.length; i++) {
+    const symbol = symbols[i];
+    const fraction = terms ? terms.fractions[i] : mixture[symbol];
+    tile.nutrients[symbol] = Math.max(
+      0,
+      (tile.nutrients[symbol] ?? 0) - fraction * amount,
+    );
+  }
   tile.mineral = totalElements(tile.nutrients);
   return amount;
 }
@@ -213,6 +221,8 @@ export function elementLedger(world: World): ElementMass {
       addMaterial(material as Material, amount);
   for (const person of world.citizens) {
     addMaterial("biomass", person.body);
+    addMaterial("fiber", person.wrapMass);
+    addMaterial("biomass", person.provisions);
     water += person.hydration;
     if (person.cargo) addMaterial(person.cargo.material, person.cargo.amount);
   }

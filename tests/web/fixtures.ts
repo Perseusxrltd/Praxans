@@ -1,5 +1,10 @@
+import { createWorld as createSimulationWorld } from "../../src/simulation/world";
 import { Store, digest } from "../../src/server/store";
-import type { Design, World } from "../../src/simulation/types";
+import type {
+  Design,
+  World,
+  GenerationVersion,
+} from "../../src/simulation/types";
 import { requestAssembly } from "../../src/simulation/economy";
 
 export const shelter: Design = {
@@ -111,6 +116,13 @@ export function legacyCheckpoint(
     delete tile.seedBank;
   }
   for (const person of old.citizens) {
+    const civ = old.civilizations.find(
+      (c: { id: string }) => c.id === person.civId,
+    );
+    civ.stock.fiber += person.wrapMass;
+    civ.stock.biomass += person.provisions;
+    delete person.wrapMass;
+    delete person.provisions;
     delete person.mind;
     delete person.journeyId;
   }
@@ -164,4 +176,14 @@ export function legacyCheckpoint(
     .prepare("UPDATE world SET json=?,checksum=?")
     .run(json, digest(json));
   return old as World;
+}
+
+/** Small explicit populations keep mechanism tests focused; founding-scale trials use the production default. */
+export function smallWorld(
+  seed = 1847,
+  width = 96,
+  height = 96,
+  generationVersion: GenerationVersion = "planet-1",
+) {
+  return createSimulationWorld(seed, width, height, generationVersion, 8);
 }

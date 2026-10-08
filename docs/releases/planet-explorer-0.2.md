@@ -1,0 +1,13 @@
+# Planet explorer — 2026-10-08
+
+The website at **https://praxans.vercel.app** now includes planetary exploration from continents to surface cells and a route into each community's live local observer. Refresh an already open tab to load the new assets.
+
+Vercel deployment **dpl_2rBdpKAm3tBNQ7jgurn7A6XGW7FW** is **READY**, target **production**, with the canonical alias. Its immutable address is `praxans-nrdspcopf-perseusxr-projects.vercel.app`. Publication was verified through provider metadata; no post-deployment page fetch was performed. Main assets include `index-CYgg_jeB.js` (408.89 kB, 124.59 kB gzip); Three.js remains a separate, lazily loaded orbital-view bundle.
+
+The Canvas survey samples the same seeded, pinned terrain generator in a cancellable worker. It retains at most three rasters, samples fewer than 100,000 points per request, caps display raster area near 1.5 million pixels and accepts mouse, keyboard and touch navigation. Reading geography does not generate detailed world regions, introduce material or advance simulation time. Live ecology, people and assemblies remain available through community windows; the survey is not an arbitrary-location live ecology API.
+
+The local landscape renderer fixes invalid mixed colors, reuses terrain across equivalent snapshots, indexes community counts, visits only visible terrain bounds, and culls offscreen objects. Raster area and frame scheduling are bounded; hidden views stop drawing. These changes improve defined work/memory bounds and visual correctness. They do not establish a speedup on every device; the matched Node renderer probe produced noisy timings and no general CPU-speedup claim is made.
+
+Seventeen compiled desktop/mobile browser checks passed without page or console errors. They cover scale changes, pan, cursor-anchored wheel zoom, community visits, mobile controls, cache/raster bounds and exact unchanged-world checksums. The supplied web-game interaction client also ran two action bursts. Planet, ground, community and mobile screenshots were opened and inspected. Evidence remains under `output/playwright/exploration-smoke`, `output/playwright/planet-survey-game` and `output/validation/planet-explorer-*`.
+
+The current surface cell is **100 m²**. Smaller assembly geometry exists in the local construction model; millimetre terrain, subsurface exploration and conservative ecological detail transitions remain open requirements. This website publication does not activate the separate population/physics candidate or restore the extinct live communities. Those operations require their own continuity record.

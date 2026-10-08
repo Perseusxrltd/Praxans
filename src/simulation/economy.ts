@@ -10,6 +10,7 @@ import type {
   Design,
   Material,
   PhysicalProperties,
+  Observation,
   Stock,
   World,
   Structure,
@@ -61,82 +62,100 @@ const practicalScore = (properties: PhysicalProperties, stock: Stock) =>
   ) *
     0.04;
 
-/** Search a space of cuboids and contact surfaces; there are no named building templates. */
+/** Repeated evidence supports the same result and method, not just the same shape. */
+export function matchingObservation(
+  civ: Civilization,
+  design: Design,
+  properties: PhysicalProperties,
+  method: Observation["research"]["method"],
+): Observation | undefined {
+  const geometry = JSON.stringify(design.components),
+    result = JSON.stringify(properties);
+  return civ.observations.find(
+    (observation) =>
+      observation.research.method === method &&
+      JSON.stringify(observation.design.components) === geometry &&
+      JSON.stringify(observation.properties) === result,
+  );
+}
+
+/** Propose material arrangements through general component operations, not building forms. */
 export function varyDesign(
   world: World,
   parent: Design | null,
   serial: number,
+  stock?: Stock,
 ): Design {
   const components = parent ? structuredClone(parent.components) : [];
-  const material = pick(world, [
-    "wood",
-    "wood",
-    "fiber",
-    "stone",
-    "clay",
-  ] as const);
-  if (!components.length) {
-    const dimensions = [
-      between(world, 0.1, 0.3),
-      between(world, 0.1, 0.3),
-      between(world, 1.7, 2.4),
-    ];
-    const axis = Math.floor(random(world) * 3),
-      rotated = [
-        dimensions[axis],
-        dimensions[(axis + 1) % 3],
-        dimensions[(axis + 2) % 3],
-      ];
-    components.push({
-      material,
-      x: 0,
-      y: 0,
-      z: 0,
-      width: rotated[0],
-      depth: rotated[1],
-      height: rotated[2],
-    });
-  } else if (components.length < 32 && random(world) < 0.48) {
+  const materials = (Object.keys(MATERIALS) as Material[]).filter(
+    (material) => !stock || stock[material] > 0.01,
+  );
+  const material = pick(
+    world,
+    materials.length ? materials : (Object.keys(MATERIALS) as Material[]),
+  );
+  const dimension = () =>
+    Math.exp(between(world, Math.log(0.025), Math.log(3)));
+  const part: Component = {
+    material,
+    x: 0,
+    y: 0,
+    z: 0,
+    width: dimension(),
+    depth: dimension(),
+    height: dimension(),
+  };
+  if (!components.length) components.push(part);
+  else if (components.length < 32 && random(world) < 0.48) {
     const anchor = pick(world, components);
-    const flat = random(world) < 0.7;
-    const width = flat ? between(world, 1.3, 3.2) : between(world, 0.12, 0.4),
-      depth = flat ? between(world, 1.3, 3.2) : between(world, 0.12, 0.4),
-      height = flat ? between(world, 0.028, 0.07) : between(world, 0.6, 1.8);
-    const beside = random(world) < 0.3;
-    const z = beside ? 0 : anchor.z + anchor.height;
-    if (z + height <= 6)
-      components.push({
-        material,
-        width,
-        depth,
-        height,
-        x: beside
-          ? anchor.x + anchor.width
-          : anchor.x + anchor.width / 2 - width / 2,
-        y: anchor.y + anchor.depth / 2 - depth / 2,
-        z,
-      });
+    const positions = ["x", "y", "z"] as const,
+      sizes = ["width", "depth", "height"] as const;
+    for (let axis = 0; axis < 3; axis++)
+      part[positions[axis]] =
+        anchor[positions[axis]] +
+        (anchor[sizes[axis]] - part[sizes[axis]]) * random(world);
+    const axis = Math.floor(random(world) * 3),
+      positive = random(world) < 0.5;
+    part[positions[axis]] = positive
+      ? anchor[positions[axis]] + anchor[sizes[axis]]
+      : anchor[positions[axis]] - part[sizes[axis]];
+    if (part.z < 0 && axis !== 2) part.z = 0;
+    components.push(part);
   } else {
     const index = Math.floor(random(world) * components.length),
-      part = components[index];
-    if (components.length > 1 && random(world) < 0.15)
-      components.splice(index, 1);
-    else if (random(world) < 0.35) part.material = material;
-    else {
+      selected = components[index];
+    const operation = random(world);
+    if (components.length > 1 && operation < 0.15) components.splice(index, 1);
+    else if (operation < 0.35) selected.material = material;
+    else if (operation < 0.5) {
+      const sizes = ["width", "depth", "height"] as const;
+      const a = Math.floor(random(world) * 3),
+        b = (a + 1 + Math.floor(random(world) * 2)) % 3;
+      [selected[sizes[a]], selected[sizes[b]]] = [
+        selected[sizes[b]],
+        selected[sizes[a]],
+      ];
+    } else if (operation < 0.7) {
+      const position = pick(world, ["x", "y", "z"] as const);
+      selected[position] += between(world, -0.3, 0.3);
+    } else {
       const key = pick(world, ["width", "depth", "height"] as const),
-        previous = part[key];
-      part[key] = clamp(part[key] * between(world, 0.8, 1.2), 0.025, 4);
+        previous = selected[key];
+      selected[key] = clamp(previous * between(world, 0.7, 1.4), 0.025, 6);
       if (key === "height")
         for (const other of components)
-          if (other !== part && Math.abs(other.z - part.z - previous) < 0.008)
-            other.z += part.height - previous;
-      if (part.z + part.height > 8) part.height = previous;
+          if (
+            other !== selected &&
+            Math.abs(other.z - selected.z - previous) < 0.008
+          )
+            other.z += selected.height - previous;
     }
   }
   const candidate = { name: `Assembly ${serial}`, components };
   if (
     components.some(
-      (p) => Math.abs(p.x) > 5 || Math.abs(p.y) > 5 || p.z + p.height > 8,
+      (p) =>
+        Math.abs(p.x) > 5 || Math.abs(p.y) > 5 || p.z < 0 || p.z + p.height > 8,
     )
   )
     return parent
@@ -174,7 +193,12 @@ export function runExperiment(
   }
   const candidate =
     supplied ??
-    varyDesign(world, random(world) < 0.2 ? null : parent, civ.experiments + 1);
+    varyDesign(
+      world,
+      random(world) < 0.2 ? null : parent,
+      civ.experiments + 1,
+      civ.stock,
+    );
   const properties = evaluateDesign(candidate);
   const samples = emptyStock();
   for (const material of Object.keys(samples) as Material[]) {
@@ -204,10 +228,11 @@ export function runExperiment(
       (1 + properties.coveredArea) +
     Math.abs(prediction.storageVolume - properties.storageVolume) /
       (1 + properties.storageVolume);
-  const previous = civ.observations.find(
-    (o) =>
-      JSON.stringify(o.design.components) ===
-      JSON.stringify(candidate.components),
+  const previous = matchingObservation(
+    civ,
+    candidate,
+    properties,
+    "material-trial",
   );
   if (!previous) {
     const statement = properties.stable

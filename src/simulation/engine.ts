@@ -7,6 +7,7 @@ import { executeProposal } from "./actions";
 import { sampleProgress } from "./progress";
 import { validateDepth } from "./validation";
 import { decayStocks } from "./weathering";
+import { invalidateCampPopulation } from "./settlement";
 import { updateEcology } from "./ecology";
 import { updateFauna } from "./fauna";
 import { CLIMATE_MODEL, regionalTemperature } from "./climate";
@@ -279,6 +280,7 @@ function migration(world: World, civ: Civilization): void {
   const path = findPath(world, person, target, world.tiles.length);
   if (!path) return;
   person.civId = target.id;
+  invalidateCampPopulation(world);
   person.task = {
     kind: "move",
     tile: tileIndex(world, target.x, target.y),
@@ -304,9 +306,9 @@ export function stepWorld(world: World, ticks = 1): void {
       updateEcology(world);
       updateFauna(world);
     }
-    const populations = new Map(
-      world.civilizations.map((c) => [c.id, peopleOf(world, c.id).length]),
-    );
+    const populations = new Map<string, number>();
+    for (const person of world.citizens)
+      populations.set(person.civId, (populations.get(person.civId) ?? 0) + 1);
     const civs = new Map(world.civilizations.map((c) => [c.id, c]));
     for (const person of world.citizens)
       updateCitizen(
@@ -567,7 +569,13 @@ export function validateWorld(world: World): void {
       !getTile(world, person.x, person.y)
     )
       fail("citizen position or community");
-    for (const value of [person.body, person.hydration, person.age])
+    for (const value of [
+      person.body,
+      person.hydration,
+      person.age,
+      person.wrapMass,
+      person.provisions,
+    ])
       positive(value, "body state");
     for (const value of [
       person.health,

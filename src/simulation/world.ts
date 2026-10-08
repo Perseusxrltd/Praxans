@@ -21,6 +21,7 @@ import { astronomy, cloudCover } from "./planet";
 import { localWeather } from "./weather";
 import { recordEvent } from "./events";
 import { FOUNDING } from "./founding";
+import { invalidateCampPopulation } from "./settlement";
 import { emptyEntropy } from "./thermodynamics";
 import { worldClock } from "./chronology";
 import { createMind } from "./cognition";
@@ -70,6 +71,7 @@ export function createWorld(
   width = 96,
   height = 96,
   generationVersion: GenerationVersion = "planet-1",
+  foundingPeople: number = FOUNDING.people,
 ): World {
   if (
     !Number.isInteger(seed) ||
@@ -78,7 +80,10 @@ export function createWorld(
     width < 64 ||
     height < 64 ||
     width > 128 ||
-    height > 128
+    height > 128 ||
+    !Number.isInteger(foundingPeople) ||
+    foundingPeople < 2 ||
+    foundingPeople > 1000
   )
     throw new Error("Invalid seed or initial window dimensions.");
   const world: World = {
@@ -180,17 +185,16 @@ export function createWorld(
     },
   ];
   for (const start of starts) {
-    const site = findSettlementSite(world, start);
+    const site = findSettlementSite(world, start, foundingPeople);
     if (site) {
       const civ = createCivilization(world, start.name, site, false);
       civ.focus = start.focus;
       civ.motto = start.motto;
-      initializeFounders(world, civ);
+      initializeFounders(world, civ, foundingPeople);
       recordEvent(world, {
         category: "founding",
         title: `${civ.name} takes root`,
-        detail:
-          "Eight people arrive with gathered materials. What they make of this place is still unwritten.",
+        detail: `${foundingPeople} people arrive with gathered materials. What they make of this place is still unwritten.`,
         civId: civ.id,
         ...site,
       });
@@ -218,6 +222,7 @@ export function createWorld(
 export function findSettlementSite(
   world: World,
   preferred?: { x: number; y: number },
+  population: number = FOUNDING.people,
 ): { x: number; y: number } | null {
   const target = preferred ?? { x: world.width * 0.3, y: world.height * 0.65 };
   const sites = nearbyTiles(world, target, 23).filter((tile) => {
@@ -237,20 +242,25 @@ export function findSettlementSite(
         if (near && near.terrain !== "water") habitable++;
       }
     if (habitable < 44) return false;
+    return true;
+  });
+  sites.sort((a, b) => distance(a, target) - distance(b, target));
+  for (const site of sites) {
     let food = 0,
       wood = 0;
-    for (const near of nearbyTiles(world, tile, 7)) {
+    for (const near of nearbyTiles(world, site, FOUNDING.resourceRadius)) {
       if (near.terrain === "water") continue;
       food += near.forage;
       for (const plant of [near.plant, near.groundcover])
         if (plant) wood += plant.carbon * plant.genome.woodiness;
     }
-    return (
-      food >= FOUNDING.minimumLocalFood && wood >= FOUNDING.minimumLocalWood
-    );
-  });
-  sites.sort((a, b) => distance(a, target) - distance(b, target));
-  return sites[0] ? { x: sites[0].x, y: sites[0].y } : null;
+    if (
+      food >= population * FOUNDING.minimumLocalFoodPerPerson &&
+      wood >= population * FOUNDING.minimumLocalWoodPerPerson
+    )
+      return { x: site.x, y: site.y };
+  }
+  return null;
 }
 export function createCitizen(
   world: World,
@@ -304,6 +314,8 @@ export function createCitizen(
     memories: [],
     lastBirthTick: world.tick - Math.floor(DAYS_PER_YEAR * 96),
     clothing: Math.floor(random(world) * 5),
+    wrapMass: 0,
+    provisions: 0,
     experience: {},
     pregnancy: null,
     journeyId: null,
@@ -370,23 +382,61 @@ export function initializeFounders(
   world: World,
   civ: Civilization,
   count: number = FOUNDING.people,
+  recordInitialProgress = true,
 ): void {
   for (const material of Object.keys(
     FOUNDING.stockPerPerson,
   ) as (keyof typeof FOUNDING.stockPerPerson)[])
     civ.stock[material] = FOUNDING.stockPerPerson[material] * count;
   const founders: Citizen[] = [];
+  const traits = [
+    "diligence",
+    "sociability",
+    "curiosity",
+    "resilience",
+  ] as const;
+  // Equal marginal distributions, independently permuted so larger groups do
+  // not accidentally correlate almost everyone's personality dimensions.
+  const ranks = traits.map((_, column) => {
+    const ranking: number[] = [];
+    Array.from({ length: count }, (_, i) => i)
+      .sort(
+        (a, b) =>
+          hash(a, column, world.seed + civ.x + civ.y) -
+          hash(b, column, world.seed + civ.x + civ.y),
+      )
+      .forEach((person, rank) => {
+        ranking[person] = rank;
+      });
+    return ranking;
+  });
+  // A temporary arrival camp allows four square metres per adult. This is a
+  // placement area, not housing, a resource grant, or a population multiplier.
+  const radius = Math.max(
+    0.3,
+    Math.sqrt((count * 4) / Math.PI) / Math.sqrt(LAWS.tileArea),
+  );
   for (let i = 0; i < count; i++) {
     const person = createCitizen(world, civ);
+    const angle = i * Math.PI * (3 - Math.sqrt(5));
+    const spread = radius * Math.sqrt((i + 0.5) / count);
+    const x = civ.x + Math.cos(angle) * spread,
+      y = civ.y + Math.sin(angle) * spread;
+    const land = getTile(world, x, y);
+    if (land && land.terrain !== "water") {
+      person.x = x;
+      person.y = y;
+    }
     person.age = FOUNDING.ages[i % FOUNDING.ages.length];
     person.hunger = 90;
     person.energy = 90;
     person.happiness = 75;
     person.skill = 1;
-    const traits = Object.keys(person.traits) as (keyof Citizen["traits"])[];
+    person.wrapMass = Math.min(2, civ.stock.fiber);
+    civ.stock.fiber -= person.wrapMass;
     traits.forEach((trait, column) => {
       person.traits[trait] =
-        0.35 + (((i + column * 3) % count) / Math.max(1, count - 1)) * 0.5;
+        0.35 + (ranks[column][i] / Math.max(1, count - 1)) * 0.5;
     });
     founders.push(person);
     world.citizens.push(person);
@@ -395,26 +445,32 @@ export function initializeFounders(
     founders[i].partnerId = founders[i + 1].id;
     founders[i + 1].partnerId = founders[i].id;
   }
-  sampleProgress(world, civ);
+  if (recordInitialProgress) sampleProgress(world, civ);
 }
-/** New player communities come from existing people and matter, never from a spawn grant. */
+/** A branch transfers existing people and matter; frontier founding is a separate boundary arrival. */
 export function branchCivilization(world: World, name: string): Civilization {
   const source = [...world.civilizations]
     .sort((a, b) => peopleOf(world, b.id).length - peopleOf(world, a.id).length)
-    .find((c) => peopleOf(world, c.id).filter((p) => p.age >= 16).length >= 14);
+    .find(
+      (c) =>
+        peopleOf(world, c.id).filter((p) => p.age >= 18).length >=
+        FOUNDING.people * 2,
+    );
   const site = findSettlementSite(world);
   if (!source || !site)
     throw new Error(
-      "A new community needs a reachable site and an existing group with at least 14 adults. Adopt an unclaimed community or let the population grow.",
+      `A branch needs a reachable site and an existing group with at least ${FOUNDING.people * 2} adults, so ${FOUNDING.people} can leave and as many remain.`,
     );
   const path = findPath(world, source, site, world.tiles.length);
   if (!path) throw new Error("The new site is not reachable on foot.");
   const members = peopleOf(world, source.id)
-    .filter((p) => p.age >= 16)
-    .slice(0, 6);
+    .filter((p) => p.age >= 18)
+    .slice(0, FOUNDING.people);
   const civ = createCivilization(world, name, site);
   for (const material of Object.keys(civ.stock) as (keyof typeof civ.stock)[]) {
-    const share = source.stock[material] * 0.25;
+    const share =
+      (source.stock[material] * members.length) /
+      peopleOf(world, source.id).length;
     source.stock[material] -= share;
     civ.stock[material] = share;
   }
@@ -428,10 +484,11 @@ export function branchCivilization(world: World, name: string): Civilization {
     };
     remember(world, person, `Set out from ${source.name} to begin ${name}.`);
   }
+  invalidateCampPopulation(world);
   recordEvent(world, {
     category: "founding",
     title: `${name} branches into the world`,
-    detail: `Six adults leave ${source.name}, carrying a share of its supplies.`,
+    detail: `${members.length} adults leave ${source.name}, carrying their proportional share of its supplies.`,
     civId: civ.id,
     relatedId: source.id,
     ...site,
@@ -471,8 +528,7 @@ export function settleFrontier(world: World, name: string): Civilization {
     recordEvent(world, {
       category: "founding",
       title: `${name}, far beyond the familiar`,
-      detail:
-        "Eight nomadic people begin in an unclaimed clearing. Their initial matter enters the frontier ledger; every subsequent action obeys the same laws.",
+      detail: `${FOUNDING.people} nomadic adults begin in an unclaimed clearing. Their initial matter enters the frontier ledger; every subsequent action obeys the same laws.`,
       civId: civ.id,
       ...site,
     });

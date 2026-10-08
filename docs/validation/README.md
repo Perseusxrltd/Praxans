@@ -1,6 +1,18 @@
 # Browser world validation
 
-## Community following — 2026-10-08
+## Renewal, observation and agent recovery — 2026-10-08
+
+The current format-9 / biosphere-1.3 tree passes **112/112 model/server tests locally**, plus TypeScript/build and formatting. These include 300-person founding, connected geometry, contradictory experimental evidence, finite idempotent renewal, thermal/carrying/movement mechanisms, observer projections, clock-debt advisory input, failed transaction isolation, receipt replay during a halt and held-reader/WAL retention. No tests were skipped or cancelled. GitHub runs for each pushed head are listed on [draft PR #1](https://github.com/Perseusxrltd/Praxans/pull/1); local validation and deployment evidence are distinct from CI status.
+
+The corresponding completed local browser scenarios pass **40 general checks, 22 community/extinction checks, 9 renewal checks, 17 exploration checks, 16 connection checks and 8 startup checks**. The compiled-production scenario passes 12 checks and the isolated hotfix scenario 17. Newer 1,200-person copied-world handovers provide nine checks for observer replacement and ten for the final advisory/WAL release, including the same compressed connection, ownership, history, both archives, exact clock debt and idempotent restart. Browser screenshots and the supplied game-client output were inspected. These are separate bounded scenarios, not a single continuous load experiment.
+
+The [actual renewal investigation](community-renewal-2026-10-08.md) and [continuity record](community-renewal-continuity.json) distinguish live measurements, short coupled trials, failed seasonal cases and the observed memory/disk incidents. The [observer release](../releases/observer-scaling-0.2.md) records payload and cold-opening measurements. The [CPU baseline](../research/restored-world-cpu-profile.md) and [scaling review](../research/scaling-and-open-endedness.md) describe measured costs and the reverted allocation candidate; no massive-population, universal browser-speed or multi-generation-equilibrium claim follows from these passes.
+
+The [advisory/storage release](../releases/agent-recovery-0.2.md) identifies the exact live artifact, fresh off-host backup, post-update saved-clock checks and READY website deployment. Its ten-check copied-world handover is distinct from the lighter production continuity read.
+
+The [whole-repository coherence review](release-coherence-2026-10-08.md) connects unit, matter, authority, observation and operational boundaries to the measured implementation and remaining requirements. Its static scan does not substitute for model tests or scientific validation.
+
+## Historical community following — 2026-10-08
 
 The community update passes **87 model/server tests in both independent GitHub runs** and **13 targeted local model/server tests**, covering scoped pagination, historical time bounds, complete/incomplete death records, read-only history, extinction, ownership and persistence. It also passes **40 general browser checks, 22 community/extinction browser checks, 12 compiled-production checks and 17 runtime-hotfix checks**, plus TypeScript/build and formatting. Browser scenarios reported no page or console errors; directory, memorial, followed-journal and mobile screenshots were opened and inspected.
 
@@ -8,9 +20,9 @@ The community scenario follows an extinct group, reads its final date, starts a 
 
 The [live continuity evidence](community-records-continuity.json) verifies all prior records and exact clock arithmetic. The backup and deployed release evidence are recorded in [community records](../releases/community-records-0.2.md). One external observer connection dropped during live activation; a compressed handover on a disposable copy of the actual world passed, and the external cause remains unconfirmed. Browser-local following is not an account or notification service; incomplete historical evidence remains explicitly unknown.
 
-## Recovery and depth release — 2026-10-08
+## Historical recovery and depth release — 2026-10-08
 
-The current format-8 / biosphere-1.2 build passed **85 model/server tests, 40 browser checks, 12 compiled-production checks, 9 extinction/rebeginning checks, and 17 runtime-hotfix checks**. TypeScript, both application bundles and formatting passed. The supplied web-game interaction client also exercised the observer and manual test clock against a disposable local world. Current screenshots were opened and inspected; the browser scenarios reported no console or page errors.
+The format-8 / biosphere-1.2 build passed **85 model/server tests, 40 browser checks, 12 compiled-production checks, 9 extinction/rebeginning checks, and 17 runtime-hotfix checks**. TypeScript, both application bundles and formatting passed. The supplied web-game interaction client also exercised the observer and manual test clock against a disposable local world. Screenshots from that release were opened and inspected; the browser scenarios reported no console or page errors.
 
 The hotfix scenario retains the same public SSE connection, browser camera/selection, owner and agent key through a runtime replacement. It checks queued decisions, invalid-candidate rejection, one recorded intervention, persistence across a complete gateway restart, and shutdown during preflight without an orphaned simulation owner. This is a single-host runtime handover test, not proof of uninterrupted service during host or volume failure.
 

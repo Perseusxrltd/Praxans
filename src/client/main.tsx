@@ -37,20 +37,23 @@ import { FOCUSES, MATERIALS } from "../simulation/content";
 import { LAWS } from "../simulation/laws";
 import type {
   AgentPublic,
-  Citizen,
+  ObserverCitizen as Citizen,
   Civilization,
   SessionView,
   WorldEvent,
   WorldFrame,
+  WorldOverview,
   WorldSnapshot,
 } from "../simulation/types";
 import { WorldRenderer, type Layer, type Selection } from "./renderer";
 import { LifePanel, AnimalPanel, plantLabel } from "./LifePanel";
 import { PlanetWelcome } from "./PlanetWelcome";
+import { PlanetExplorer } from "./PlanetExplorer";
 import { FOUNDING } from "../simulation/founding";
 import { FieldGuide } from "./FieldGuide";
 import { ago, EventIcon, Journal, ArchivedJournal } from "./Archive";
 import { Dialog } from "./Dialog";
+import { AgentInvitation } from "./AgentInvitation";
 import { MindPanel, SocietyPanel } from "./DevelopmentPanel";
 import {
   CommunityDirectory,
@@ -191,6 +194,7 @@ function App() {
     setArrived(true);
   };
   const [world, setWorld] = useState<WorldSnapshot | null>(null),
+    [overview, setOverview] = useState<WorldOverview | null>(null),
     [session, setSession] = useState<SessionView>({ civilizationId: null });
   const { followed, toggle: toggleFollowing } = useFollowing(world);
   const latest = useRef<WorldSnapshot | null>(null),
@@ -204,6 +208,7 @@ function App() {
     [selection, setSelection] = useState<Selection>(null),
     [layer, setLayer] = useState<Layer>("landscape");
   const [region, setRegion] = useState("");
+  const [exploring, setExploring] = useState(false);
   const regionRef = useRef("");
   regionRef.current = region;
   const [connectOpen, setConnectOpen] = useState(false),
@@ -219,6 +224,7 @@ function App() {
     renderer = useRef<WorldRenderer | null>(null);
   const ui = useRef({
     world,
+    overview,
     paused,
     selection,
     layer,
@@ -226,9 +232,11 @@ function App() {
     connected,
     arrived,
     followed,
+    exploring,
   });
   ui.current = {
     world,
+    overview,
     paused,
     selection,
     layer,
@@ -236,6 +244,7 @@ function App() {
     connected,
     arrived,
     followed,
+    exploring,
   };
   const accept = (snapshot: WorldSnapshot) => {
     latest.current = snapshot;
@@ -253,6 +262,39 @@ function App() {
       .catch((error) => {
         if (alive) setFault(error.message);
       });
+    return () => {
+      alive = false;
+    };
+  }, []);
+  useEffect(() => {
+    if (arrived) return;
+    const abort = new AbortController();
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const refresh = async () => {
+      try {
+        const response = await fetch("/api/overview", { signal: abort.signal });
+        if (!response.ok)
+          throw new Error("The world overview is temporarily unavailable.");
+        const value = (await response.json()) as WorldOverview;
+        if (abort.signal.aborted) return;
+        setOverview(value);
+        setConnected(true);
+        setFault("");
+      } catch (error) {
+        if (abort.signal.aborted) return;
+        setConnected(false);
+        setFault((error as Error).message);
+      }
+      if (!abort.signal.aborted) timer = setTimeout(refresh, 5000);
+    };
+    void refresh();
+    return () => {
+      abort.abort();
+      clearTimeout(timer);
+    };
+  }, [arrived]);
+  useEffect(() => {
+    if (!arrived) return;
     const source = new EventSource(
       `/api/stream${region ? `?civilization=${encodeURIComponent(region)}` : ""}`,
     );
@@ -286,10 +328,9 @@ function App() {
       setConnected(false);
     });
     return () => {
-      alive = false;
       source.close();
     };
-  }, [region]);
+  }, [region, arrived]);
   useEffect(() => {
     if (session.civilizationId) setRegion(session.civilizationId);
   }, [session.civilizationId]);
@@ -316,6 +357,9 @@ function App() {
   useEffect(() => {
     renderer.current?.setSelection(selection);
   }, [selection]);
+  useEffect(() => {
+    renderer.current?.setActive(!exploring);
+  }, [exploring, arrived]);
   useEffect(() => {
     if (!toast) return;
     const timer = setTimeout(() => setToast(""), 3200);
@@ -358,16 +402,27 @@ function App() {
   useEffect(() => {
     window.render_game_to_text = () => {
       const state = ui.current,
-        w = state.world;
+        w = state.arrived ? state.world : null;
       return JSON.stringify(
         w
           ? {
-              mode: state.arrived ? "shared-world" : "planet-onboarding",
+              mode: state.exploring
+                ? "planet-survey"
+                : state.arrived
+                  ? "shared-world"
+                  : "planet-onboarding",
               connected: state.connected,
               observerPaused: state.paused,
               view: state.view,
               layer: state.layer,
               viewport: renderer.current?.cameraState(),
+              survey: state.exploring
+                ? JSON.parse(
+                    document.querySelector<HTMLCanvasElement>(
+                      ".survey-stage canvas",
+                    )?.dataset.exploration ?? "null",
+                  )
+                : undefined,
               region: {
                 originX: w.originX,
                 originY: w.originY,
@@ -451,7 +506,18 @@ function App() {
               agents: w.agents,
               recentEvents: w.events.slice(-3).map((e) => e.title),
             }
-          : { mode: "loading", connected: state.connected },
+          : state.overview && !state.arrived
+            ? {
+                mode: "planet-onboarding",
+                connected: state.connected,
+                tick: state.overview.tick,
+                time: state.overview.summary,
+                communities: state.overview.civilizations.map((c) => ({
+                  ...c,
+                  people: c.population,
+                })),
+              }
+            : { mode: "loading", connected: state.connected },
       );
     };
     window.advanceTime = async (ms) => {
@@ -549,11 +615,18 @@ function App() {
     return (
       <>
         <PlanetWelcome
-          world={world}
+          world={overview}
           connected={connected}
           fault={fault}
           observe={enterWorld}
-          connect={() => setConnectOpen(true)}
+          connect={() => {
+            enterWorld();
+            setConnectOpen(true);
+          }}
+          explore={() => {
+            enterWorld();
+            setExploring(true);
+          }}
         />
         {connectOpen && world && (
           <ConnectionDialog
@@ -759,6 +832,13 @@ function App() {
               </span>
             </div>
             <div className="map-tools">
+              <IconButton
+                label="Explore the whole planet"
+                onClick={() => setExploring(true)}
+              >
+                <Globe2 size={18} />
+              </IconButton>
+              <span />
               <IconButton
                 label="Zoom in"
                 onClick={() => renderer.current?.zoom(1.25)}
@@ -1443,6 +1523,16 @@ function App() {
           {toast}
         </div>
       )}
+      {exploring && world && (
+        <PlanetExplorer
+          world={world}
+          close={() => setExploring(false)}
+          visit={(civ) => {
+            setExploring(false);
+            chooseCiv(civ);
+          }}
+        />
+      )}
       {connectOpen && world && (
         <ConnectionDialog
           world={latest.current ?? world}
@@ -2015,6 +2105,14 @@ function ConnectionDialog({
               {agent?.name} · {provider}
             </small>
           </div>
+          <AgentInvitation
+            worldName={world.name}
+            worldId={world.id}
+            communityName={owned.name}
+            communityId={owned.id}
+            token={token}
+            notify={notify}
+          />
           <label>
             Private civilization key
             <div className="copy-field">

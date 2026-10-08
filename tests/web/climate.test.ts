@@ -9,7 +9,7 @@ import {
   advancePlanetaryClimate,
 } from "../../src/simulation/climate";
 import { heatCapacity } from "../../src/simulation/thermodynamics";
-import { createWorld } from "../../src/simulation/world";
+import { smallWorld as createWorld } from "./fixtures";
 import { validateWorld } from "../../src/simulation/engine";
 
 test("planetary heat transport warms colder bands with equal and opposite energy transfers", () => {

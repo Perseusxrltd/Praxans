@@ -84,9 +84,15 @@ Store durable backup copies outside the service volume as well. A retained volum
 
 Allow temporary disk and memory headroom for the online backup, migration archive, WAL and candidate preflight copy. On a small volume, retain verified compressed backups and independent full copies instead of accumulating redundant raw files. Verify the decompressed SHA-256 and independent copy before removing only a redundant backup representation. Never remove or compress the active SQLite file in place. A healthy current checkpoint does not by itself prove that enough capacity remains for the next update.
 
+The October 8 renewal exposed both limits on the 1 GB / 500 MB service: a heavy archive read coincided with an OOM worker restart, and backup staging plus retained WAL exhausted disk space. Read-only inspection can still consume substantial memory. Inspect bounded SQL identity/count fields on the host; perform full archive/state verification on an independent backup. Create large backups in container scratch space and stream them off-host when the data volume lacks proven headroom. Scratch files are not a durable off-host backup.
+
+`journal_size_limit=16777216` limits retained reusable WAL after checkpoint/reset; active transactions and readers may exceed it. A held backup reader can temporarily retain several checkpoints' writes. Monitor database, WAL, scratch and total cgroup memory together. If necessary, `PRAGMA wal_checkpoint(TRUNCATE)` asks SQLite to reclaim checkpointed WAL; inspect its busy/result status and never delete a live WAL manually. The transaction wrapper preserves the original disk/I/O error if SQLite already rolled back. A runtime halted by a storage failure still needs recovery after its cause has been corrected; there is no automatic capacity expansion or fault-resume policy.
+
 The production smoke test creates an online backup, stops its disposable source, waits for the copied ownership lease to expire, and actually resumes the backup with the original browser owner and agent key.
 
 ## Hotfix procedure
+
+During active development, publish meaningful verified increments regularly instead of collecting hours of completed work into one release. Aim for a 15–30 minute release review when work is ready; an independent browser fix need not wait for a long ecological experiment. State the actual active website/runtime release and distinguish deployed changes from candidates still under test. A cadence target never overrides a failing continuity or conservation check.
 
 Ordinary runtime hotfixes can use the stable production gateway without replacing the host container. Build and verify the candidate first, then prepare a unique immutable artifact:
 
@@ -117,6 +123,10 @@ This path handles simulation and API changes with the same installed dependencie
 6. Check health, tick progression, conservation measurements, and the recorded intervention. Routine runtime replacement should retain the same browser stream, camera, community and agent keys.
 
 Registered migrations validate the candidate state and atomically store the transformation, exact pre-migration snapshot, and before/after metadata checksums. Each region has its own checksum. Unknown formats, incompatible laws, missing expected state, and invalid ledgers stop instead of triggering a reset.
+
+Physical community renewal uses a private `runtime/intervention.json` beside the database, validated by `src/server/intervention.ts`. It names the exact world/seed, existing empty community IDs, new population, finite supplies, plant tissue/propagules and a reason. Stage it only as part of an authorized, backed-up operator release. Startup applies it atomically after the law migration and before resuming the clock. Its request digest, before/after checksums and measured boundary arrivals become permanent records. Repeating the exact request is a no-op; reusing its ID with different contents fails. No HTTP or MCP route exposes this power.
+
+Preflight exercises a pending physical intervention on its consistent private copy. It does not rewrite the operator file or the source database. It skips redundant archival writes and rollback clones **only inside that disposable preflight**; real startup still archives law migrations and commits the intervention transaction. Budget both memory and temporary disk for the candidate while the old owner is running. SQLite-managed checkpointing can reclaim a WAL when no reader/writer prevents it; a busy result is not permission to delete WAL files manually.
 
 For a format-7 to format-8 check on an **offline backup**, `npx tsx scripts/verify-upgrade.ts <backup.sqlite> 288 <report.json>` creates its own disposable copy, verifies checksums, retained rows and inventories, advances three simulated days, and checks an exact save/reload. It never advances the service database. Set Railway release variables with `--skip-deploys` before uploading their matching code so the preceding binary does not record a release intended for a later law set.
 

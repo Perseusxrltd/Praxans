@@ -8,6 +8,40 @@ export const ELEMENT_BY_SYMBOL = Object.freeze(
   Object.fromEntries(ELEMENTS.map((e) => [e.symbol, e])),
 );
 
+type ElementTerms = {
+  readonly symbols: readonly string[];
+  readonly fractions: readonly number[];
+  readonly total: number;
+};
+const constantTerms = new WeakMap<ElementMass, ElementTerms>();
+
+/** Compile constant compositions once, preserving own-property and sum order. */
+export function freezeElements<T extends ElementMass>(mass: T): Readonly<T> {
+  Object.freeze(mass);
+  const symbols = Object.keys(mass),
+    fractions: number[] = [];
+  let total = 0;
+  for (const symbol of symbols) {
+    const property = Object.getOwnPropertyDescriptor(mass, symbol)!;
+    // A frozen accessor can still change its result; never cache such a value.
+    if (!("value" in property) || typeof property.value !== "number")
+      return mass;
+    fractions.push(property.value);
+    total += property.value;
+  }
+  constantTerms.set(
+    mass,
+    Object.freeze({
+      symbols: Object.freeze(symbols),
+      fractions: Object.freeze(fractions),
+      total,
+    }),
+  );
+  return mass;
+}
+export const elementTerms = (mass: ElementMass): ElementTerms | undefined =>
+  constantTerms.get(mass);
+
 /** Counts atoms in a formula, including nested parentheses. No invented element names. */
 export function atoms(formula: string): ElementMass {
   const tokens = formula.match(/[A-Z][a-z]?|\d+|[()]/g);
@@ -63,6 +97,14 @@ export function addElements(
   source: ElementMass,
   amount = 1,
 ): void {
+  const terms = constantTerms.get(source);
+  if (terms) {
+    for (let i = 0; i < terms.symbols.length; i++) {
+      const symbol = terms.symbols[i];
+      target[symbol] = (target[symbol] ?? 0) + terms.fractions[i] * amount;
+    }
+    return;
+  }
   // Keep enumeration order and own-property semantics without allocating a pair
   // for every element on every soil/plant exchange.
   for (const symbol in source)
@@ -70,6 +112,8 @@ export function addElements(
       target[symbol] = (target[symbol] ?? 0) + source[symbol] * amount;
 }
 export function totalElements(mass: ElementMass): number {
+  const terms = constantTerms.get(mass);
+  if (terms) return terms.total;
   let sum = 0;
   for (const symbol in mass)
     if (Object.hasOwn(mass, symbol)) sum += mass[symbol];

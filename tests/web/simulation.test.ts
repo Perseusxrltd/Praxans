@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createWorld, summarizeWorld } from "../../src/simulation/world";
+import { summarizeWorld } from "../../src/simulation/world";
+import { smallWorld as createWorld } from "./fixtures";
 import { stepWorld, validateWorld } from "../../src/simulation/engine";
 import { evaluateDesign, ledger, refreshTile } from "../../src/simulation/laws";
 import { seedPlant, updateEcology } from "../../src/simulation/ecology";
@@ -44,13 +45,33 @@ test("fixed ticks replay exactly, including after JSON serialization", () => {
   stepWorld(restored, 96);
   assert.deepEqual(a, restored);
 });
-test("24 simulated days conserve elements and biochemical energy through growth, gathering, building, and trade", (t) => {
+test("24 simulated days conserve elements and biochemical energy through growth, gathering, and funded construction", (t) => {
   const world = createWorld(1847);
+  // A conservation trial must actually exercise construction. An unprompted
+  // invention before a fixed date is not an invariant of a changing ecosystem.
+  const construction = requestAssembly(world, world.civilizations[2], {
+    ...testShelter,
+    components: testShelter.components.map((part) => ({
+      ...part,
+      x: part.x / 2,
+      y: part.y / 2,
+      z: part.z / 2,
+      width: part.width / 2,
+      depth: part.depth / 2,
+      height: Math.max(0.025, part.height / 2),
+    })),
+  });
   let maxStructures = 0;
+  let constructionProgress = 0;
   for (let day = 0; day < 24; day++) {
     stepWorld(world, 96);
     validateWorld(world);
     maxStructures = Math.max(maxStructures, world.structures.length);
+    constructionProgress = Math.max(
+      constructionProgress,
+      world.structures.find((structure) => structure.id === construction)
+        ?.progress ?? 0,
+    );
     assert.ok(
       world.tiles.every(
         (tile) => tile.temperature > -80 && tile.temperature < 65,
@@ -62,9 +83,10 @@ test("24 simulated days conserve elements and biochemical energy through growth,
   assert.equal(world.births, 0, "gestation takes months, not days");
   assert.ok(summary.discoveries > 0);
   assert.ok(world.citizens.length >= 12);
-  assert.ok(
-    maxStructures > 0,
-    "material experimentation should lead to at least one usable assembly",
+  assert.equal(
+    constructionProgress,
+    1,
+    "inhabitants must finish the small assembly using reserved matter and actual work",
   );
   assert.ok(Math.abs(summary.carbonError) < 0.001);
   assert.ok(Math.abs(summary.waterError) < 0.001);
@@ -75,6 +97,7 @@ test("24 simulated days conserve elements and biochemical energy through growth,
       days: 24,
       people: world.citizens.length,
       peakAssemblies: maxStructures,
+      constructionProgress,
       discoveries: summary.discoveries,
       elementError: summary.elementError,
       energyError: summary.energyError,
@@ -159,6 +182,8 @@ test("construction reserves matter; failed action batches make no change", () =>
   assert.ok(Math.abs(civ.stock.wood - (wood - cost)) < 1e-8);
   validateWorld(world);
   assert.ok(Math.abs(ledger(world).carbon - before.carbon) < 1e-6);
+  other.stock.wood += civ.stock.wood;
+  civ.stock.wood = 0;
   const original = JSON.stringify(world);
   assert.throws(() =>
     applyAgentActions(
@@ -180,7 +205,9 @@ test("construction reserves matter; failed action batches make no change", () =>
 test("an offered exchange preserves matter without reserving foreign stock before consent", () => {
   const world = createWorld(),
     [from, to] = world.civilizations,
-    before = ledger(world);
+    before = ledger(world),
+    senderWood = from.stock.wood,
+    recipientStone = to.stock.stone;
   encounter(world, from, to, true);
   dispatchTrade(
     world,
@@ -189,8 +216,8 @@ test("an offered exchange preserves matter without reserving foreign stock befor
     { material: "wood", amount: 12 },
     { material: "stone", amount: 3 },
   );
-  assert.equal(from.stock.wood, 24);
-  assert.equal(to.stock.stone, 18);
+  assert.equal(from.stock.wood, senderWood - 12);
+  assert.equal(to.stock.stone, recipientStone);
   assert.equal(world.caravans.length, 1);
   assert.ok(Math.abs(ledger(world).carbon - before.carbon) < 1e-6);
   assert.ok(Math.abs(ledger(world).mineral - before.mineral) < 1e-6);

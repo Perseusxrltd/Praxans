@@ -1,6 +1,6 @@
 import type { WorldClock } from "./chronology";
 import type { EntropyRecord } from "./thermodynamics";
-export const WORLD_VERSION = 8;
+export const WORLD_VERSION = 9;
 export type GenerationVersion = "archipelago-1" | "planet-1";
 export const TICK_MS = 250;
 export const HOURS_PER_TICK = 0.25;
@@ -193,6 +193,8 @@ export interface PlaceMemory {
   y: number;
   tick: number;
   food: number;
+  water?: number;
+  frozenWater?: number;
   wood: number;
   fiber: number;
   stone: number;
@@ -266,6 +268,10 @@ export interface Citizen {
   memories: Memory[];
   lastBirthTick: number;
   clothing: number;
+  /** Kilograms of real plant fiber arranged around the body for insulation. */
+  wrapMass: number;
+  /** Carried edible biomass, separate from work cargo. */
+  provisions: number;
   experience: Partial<Record<Activity, number>>;
   pregnancy: {
     partner: Pick<Citizen, "id" | "name" | "generation" | "traits">;
@@ -415,6 +421,7 @@ export interface Civilization {
   x: number;
   y: number;
   foundedTick: number;
+  renewal?: { tick: number; arrivals: number; interventionId: string };
   focus: Focus;
   stock: Stock;
   policies: { sharing: number; effort: number; extraction: number };
@@ -515,6 +522,7 @@ export interface WorldEvent {
   y?: number;
   referenceId?: string;
   relatedId?: string;
+  renewal?: { interventionId: string; arrivals: number };
   lifeState?: {
     nourishment: number;
     rest: number;
@@ -543,6 +551,7 @@ export interface CommunityRecord {
   lastDeath: WorldEvent | null;
   firstEvent: WorldEvent | null;
   lastEvent: WorldEvent | null;
+  renewals?: { tick: number; arrivals: number; interventionId: string }[];
   connections: {
     communityId: string;
     relationship:
@@ -775,11 +784,32 @@ export interface WorldSummary {
     maxUplift: number;
   };
 }
+/** Observer views are not writable simulation state. Internal cognition stays on the server. */
+export interface ObserverCitizen extends Omit<Citizen, "mind"> {
+  mind: Omit<Mind, "synapses" | "pending" | "activations" | "places"> & {
+    places: Pick<PlaceMemory, "x" | "y">[];
+  };
+}
+export interface ObserverTile extends Omit<Tile, "seedBank"> {
+  seedBank: Pick<Propagule, "carbon" | "mineral" | "lineage" | "layer">[];
+}
+/** The planetary entrance never needs individual inhabitants or local terrain. */
+export interface WorldOverview {
+  id: string;
+  name: string;
+  seed: number;
+  tick: number;
+  lawsVersion: string;
+  summary: WorldSummary;
+  civilizations: (Pick<Civilization, "id" | "name" | "x" | "y"> & {
+    population: number;
+  })[];
+}
 export interface WorldFrame {
   tick: number;
   summary: WorldSummary;
   civilizations: Civilization[];
-  citizens: Citizen[];
+  citizens: ObserverCitizen[];
   animals: Animal[];
   structures: Structure[];
   caravans: Caravan[];
@@ -787,7 +817,7 @@ export interface WorldFrame {
   events: WorldEvent[];
   history: HistoryPoint[];
   agents: AgentPublic[];
-  tileChanges: Tile[];
+  tileChanges: ObserverTile[];
 }
 export interface WorldSnapshot extends WorldFrame {
   id: string;
@@ -798,5 +828,5 @@ export interface WorldSnapshot extends WorldFrame {
   originY: number;
   seed: number;
   lawsVersion: string;
-  tiles: Tile[];
+  tiles: ObserverTile[];
 }

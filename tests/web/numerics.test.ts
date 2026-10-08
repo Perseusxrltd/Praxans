@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createWorld } from "../../src/simulation/world";
+import { smallWorld as createWorld } from "./fixtures";
 import { accumulateEnergy } from "../../src/simulation/laws";
 import { validateWorld } from "../../src/simulation/engine";
 import { infraredColumn } from "../../src/simulation/thermodynamics";

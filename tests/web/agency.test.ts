@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   applyAgentActions,
+  stageAgentActions,
   executeProposal,
 } from "../../src/simulation/actions";
 import { updateCouncils } from "../../src/simulation/society";
@@ -24,7 +25,8 @@ import {
 } from "../../src/simulation/progress";
 import { runExperiment } from "../../src/simulation/economy";
 import { learnObservation } from "../../src/simulation/cognition";
-import { createWorld, distance, peopleOf } from "../../src/simulation/world";
+import { distance, peopleOf } from "../../src/simulation/world";
+import { smallWorld as createWorld } from "./fixtures";
 import { validateWorld } from "../../src/simulation/engine";
 import { ledger } from "../../src/simulation/laws";
 import type { World } from "../../src/simulation/types";
@@ -35,6 +37,63 @@ function localWorld() {
   world.tick = 48;
   return world;
 }
+
+test("transaction staging leaves the source unchanged and does not clone physical reservoirs", () => {
+  const source = localWorld(),
+    before = JSON.stringify(source),
+    civId = source.civilizations[0].id;
+  const staged = stageAgentActions(
+    source,
+    civId,
+    [
+      {
+        type: "focus",
+        focus: "build",
+        reason: "Consider shelter for the whole settlement.",
+      },
+    ],
+    "Steward",
+  );
+  assert.equal(JSON.stringify(source), before);
+  assert.equal(
+    staged.world.tiles,
+    source.tiles,
+    "world terrain is read-only during proposal staging",
+  );
+  assert.equal(
+    staged.world.citizens,
+    source.citizens,
+    "a proposal must not duplicate the entire population",
+  );
+  assert.notEqual(staged.world.civilizations[0], source.civilizations[0]);
+  assert.equal(
+    staged.world.civilizations[0].civics.proposals.at(-1)?.status,
+    "pending",
+  );
+  assert.throws(
+    () =>
+      stageAgentActions(
+        source,
+        civId,
+        [
+          { type: "focus", focus: "build", reason: "First part is valid." },
+          {
+            type: "diplomacy",
+            target: civId,
+            stance: "friendship",
+            reason: "Invalid self contact.",
+          },
+        ],
+        "Steward",
+      ),
+    /contact/,
+  );
+  assert.equal(
+    JSON.stringify(source),
+    before,
+    "a later rejection also leaves no pending events or consumed IDs",
+  );
+});
 function contacts() {
   const world = localWorld(),
     [from, to] = world.civilizations;
@@ -239,7 +298,8 @@ test("trade reserves only outward goods, the recipient decides on arrival, and r
   const { world, from, to } = contacts(),
     before = ledger(world),
     recipientStone = to.stock.stone,
-    senderStone = from.stock.stone;
+    senderStone = from.stock.stone,
+    senderWood = from.stock.wood;
   const id = sendTrade(
     world,
     from,
@@ -248,7 +308,7 @@ test("trade reserves only outward goods, the recipient decides on arrival, and r
     { material: "stone", amount: 3 },
   );
   assert.equal(to.stock.stone, recipientStone);
-  assert.equal(from.stock.wood, 24);
+  assert.equal(from.stock.wood, senderWood - 12);
   assert.ok(world.citizens.some((p) => p.journeyId === id));
   assert.ok(Math.abs(ledger(world).carbon - before.carbon) < 1e-6);
   const stale = structuredClone(from.relations[to.id].contact.report);

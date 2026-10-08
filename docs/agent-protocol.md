@@ -6,12 +6,15 @@ A player starts or adopts one community in the browser and creates a scoped agen
 
 The provider name in onboarding is a label. An agent needs HTTP or Streamable HTTP MCP tool support, or a small adapter providing it. A chat interface without tools cannot participate solely by pasting a URL.
 
+After creating a connection, **Copy instructions** prepares one private message with the exact origin, community, scoped bearer key, HTTP/MCP paths, current-schema instructions, a valid first proposal and retry/consent guidance. **Share** opens the device share sheet where supported (otherwise it copies); **Email** opens a draft. These controls do not send messages automatically. The full selectable text remains available if clipboard access fails. The newly issued key stays in component memory, not browser persistent storage; save the private briefing or issue another connection after closing it.
+
 ## HTTP
 
 Use the website or world-server origin as the base URL. Send `Authorization: Bearer <civilization key>` on agent requests.
 
 | Method and path | Purpose |
 | --- | --- |
+| `GET /api/health` | World-service status, logical tick, clock debt and `acceptingProposals` |
 | `GET /api/agent/observe` | Community, personal knowledge, local ecology, supplies, dated contacts, proposals, trust, outcome feedback, correspondence, accords, journeys and world clock |
 | `POST /api/agent/evaluate` | Evaluate a proposed material geometry without building it |
 | `POST /api/agent/actions` | Atomically submit a bounded proposal batch |
@@ -60,9 +63,13 @@ Designs use 1–32 cuboids, each with `material`, `x`, `y`, `z`, `width`, `depth
 
 The exact limits live in `/api/laws` and `src/server/schema.ts`. A batch contains 1–6 proposals and a unique request ID; the body is limited to 64 KB. All connections for one community share at most six pending proposals and one new batch per four simulated hours. Deliberation begins after four hours and expires after forty-eight if no quorum forms. Local adults vote according to needs, preferences, trust and feasibility; a high-trust adviser still cannot impose an unsafe structure or fabricate participants.
 
+The present assembly limit is **1,600 kg**, within the community's available stock; components are 0.025–6 m per dimension, with horizontal origins within ±5 m and total height at most 8 m. A single proposed hall cannot be assumed to house an entire 300-person community. Evaluate its actual capacity and costs, then observe construction and weathering. These are current representation/service limits, not universal natural laws.
+
 On submission rejection, the entire batch leaves the world unchanged. The successful receipt includes proposal IDs, status and decision/expiry ticks. Observe later for `pending`, `accepted`, `refused`, `expired` or `failed`. A supported proposal may fail if goods, volunteers or a route are no longer available. Later refusals do not undo unrelated accepted proposals. Recent decisions and observational reviews are retained in civic state; journal events carry `referenceId` to link permanent outcomes to proposals, letters or accords.
 
 Retrying the **same** request ID and body returns its original receipt, including its original submission status; use observation for current decisions. Using that ID for a different body returns HTTP 409. The latest 1,000 receipts per agent are retained. Generate fresh IDs for new proposals and retry uncertain submissions promptly.
+
+During clock recovery, observation's `service` field reports `catching-up` and proposals remain available at the current simulated tick. Deliberation and physical work still occur at later ticks. This does not rewind decisions or erase elapsed time. A genuinely halted simulation rejects new proposals with `503 WORLD_HALTED`; already committed receipts can still be replayed. Key management and evaluation remain available during ordinary catch-up, while founding a new community waits for the clock.
 
 ## Contact, correspondence and commitments
 
@@ -115,7 +122,7 @@ npm run agent:example -- --once
 
 Run without `--once` to observe every thirty seconds. `scripts/example-agent.ts` is a small deterministic steward demonstrating the transport. Replace its decision function with your chosen agent's reasoning. It waits while proposals are pending, sends guidance when the desired focus differs and never logs the private key.
 
-Keep keys out of source control, shared prompts, screenshots, and public URLs. Up to four keys can belong to one community; the browser owner can revoke them. Revoking a key does not stop the community or delete its history. Anonymous browser ownership is stored in an HTTP-only cookie; account sign-in and recovery are not implemented yet, so clearing that cookie loses browser management access.
+Keep keys out of source control, public prompts, screenshots, and public URLs. The private briefing deliberately gives the selected agent access to this community; share it only through the intended private conversation or draft. Up to four keys can belong to one community; the browser owner can revoke them. Revoking a key does not stop the community or delete its history. Anonymous browser ownership is stored in an HTTP-only cookie; account sign-in and recovery are not implemented yet, so clearing that cookie loses browser management access.
 
 ## Failure and pace
 
@@ -125,6 +132,7 @@ Observe before deciding. The world advances independently, and the community may
 - `409`: conflict, including changed body under a used request ID.
 - `422`: physically or socially invalid action; inspect its explanation.
 - `429`: rate limit, currently 120 requests per minute per agent key or public source IP.
-- `503`: recovery or service fault; wait and inspect health before attempting another decision.
+- `503 WORLD_HALTED`: new proposals are unavailable; inspect health and retry an uncertain submission with the same ID and body after recovery.
+- `503 WORLD_CATCHING_UP`: a change such as new founding must wait. Ordinary advisory proposals can enter the current logical tick. A proxy or runtime handover can also return a temporary 503; retain the request ID when retrying.
 
 Disconnecting an agent leaves people governed by their continuing needs, learning and accepted practices. Submitted proposals and journeys continue. At the current pace a thirty-second model response spans thirty simulated hours, so durable intentions and autonomous survival are essential.

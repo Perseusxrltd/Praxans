@@ -35,8 +35,10 @@ Docker is also supported: `docker compose up --build -d` starts the application 
 ## Spend time in the world
 
 - **Watch the world** opens the landscape. Inspect a person, plant habitat, animal cohort, community, or assembly. Drag to pan, use the zoom buttons, press **F** for fullscreen, or press **Space** to pause your own view.
-- **Connect your AI** establishes a community in habitable wilderness away from existing settlements. Each new community starts with **eight adults**, comparable trait distributions, and equal supplies per person.
+- **Explore the whole planet** opens a map from continents to 100 m² surface cells. Drag, scroll, pinch or use the arrow keys; choose a community to visit its living local landscape. Surveying geography does not create resources or advance the world.
+- **Connect your AI** establishes a community in habitable wilderness away from existing settlements. The new founding model starts each community with **300 individually represented adults**, comparable trait distributions, and equal finite supplies per person.
 - Create a civilization key, then connect an agent through **HTTP or Streamable HTTP MCP**. Agents propose priorities, experiments, assemblies, repairs, journeys and diplomacy. A local assembly can accept or refuse advice; trust grows from experience.
+- **Copy instructions** includes the private connection, community, protocol and first steps in one message. Share it through your device's share sheet or open an email draft; the website does not send messages for you.
 - The field guide exposes the planet, all **118 elements**, the continuing clock, measured entropy flows, conservation ledgers, and recorded interventions. The journal can load older chapters.
 - **Communities** lists living and historical groups, with search, newest beginnings and a personal follow list. Read one community's archive or the combined stories of those you follow. Extinct groups retain their record and links to later beginnings. See [community tracking and its limits](docs/communities.md).
 
@@ -58,6 +60,10 @@ The world advances in 15-minute simulation steps, nominally every 250 ms of real
 
 The periodic table is a reference catalog plus an elemental inventory. General reaction chemistry, nuclear processes, full ocean circulation, and total planetary entropy are not yet resolved. The surface is finite; only materialized regions run detailed simulation. Read [the model and its limits](docs/model.md) and [the architecture](docs/architecture.md).
 
+The [finite renewal](docs/releases/community-renewal-0.2.md) restored four historical communities with 300 new adults each while preserving their old deaths. The [progressive entrance](docs/releases/observer-scaling-0.2.md) avoids loading detailed world state before the visitor enters. The [scaling review](docs/research/scaling-and-open-endedness.md) records current CPU, storage, population and construction limits; massive civilizations are not yet a supported capacity claim.
+
+The [agent recovery hotfix](docs/releases/agent-recovery-0.2.md) accepts advisory input during clock catch-up, preserves atomic receipts and bounds retained reusable SQLite log space. It leaves physical law, prior inhabitants and clock debt intact.
+
 The [implementation ledger](docs/roadmap.md) tracks every accepted requirement, its status and its evidence. The [fundamentals review](docs/fundamentals.md) explains the remaining core work; the [agency and diplomacy contract](docs/agency-and-diplomacy.md) defines influence, success and contact.
 
 ## Keep the same universe
@@ -73,7 +79,7 @@ npm run world:inspect
 npm run world:backup -- data/backups/manual.sqlite
 ```
 
-See [deployment, backup, and hotfix operations](docs/hosting.md) before operating a shared world. Eight founders are a provisional opening balance: the trial program compares 4, 8, and 12 over 14 simulated days, not genetic viability over generations.
+See [deployment, backup, and hotfix operations](docs/hosting.md) before operating a shared world. Three hundred adults is a selected founding baseline, not a proven demographic minimum or survival guarantee. Historical eight-person trials do not validate the new population scale.
 
 ## Validate changes
 
@@ -84,13 +90,17 @@ npm run test:production
 npx playwright install chromium
 npm run test:browser
 npm run test:extinction
+npm run test:renewal
+npm run test:exploration
+npm run test:connection
+npm run test:startup
 npm run test:hotfix
 npm run format:check
 ```
 
 Tests cover replay, conservation, ecological causes, geometry, scoped HTTP/MCP actions, migrations, permanent history, the clock, and entropy. Production checks restore a real backup and verify agent ownership across process restarts. Browser checks use independent observers and mobile layouts; screenshots and reports go into `output/`.
 
-`npm run balance:founders` regenerates the longer [founding trials](docs/validation/founding-trials.json). Validation scope and measured results are in [the validation record](docs/validation/README.md).
+`npm run balance:founders -- 14 150,300,600` runs three population sizes across three initial climates and writes a new report under `output/validation/`. These can be long trials; previous evidence is retained. Validation scope and measured results are in [the validation record](docs/validation/README.md).
 
 ## Repository history and contribution
 

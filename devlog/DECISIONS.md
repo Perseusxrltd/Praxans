@@ -220,7 +220,7 @@
 ### ADR-020: Eight Provisional Founders with Comparable Initial Terms
 
 - **date**: 2026-10-07
-- **status**: accepted
+- **status**: superseded by ADR-026
 - **context**: New players need viable, fair beginnings far from established communities, while maintaining resource pressure and allowing the ecosystem to determine outcomes.
 - **decision**: Start new communities with eight adults, four complementary pairs, matched age/trait distributions, and equal supplies per person. Search unoccupied frontier sites with water, tolerable temperatures, food, timber, and usable land. Account for founders and new terrain as explicit arrivals into the simulated volume.
 - **alternatives**: Taking people from an existing player's community harms that player's starting terms. Unlimited supplies bypass natural constraints. Four, eight, and twelve were compared in nine fourteen-day trials; all survived, so those trials do not establish a unique optimal number.
@@ -280,3 +280,47 @@
 - **decision**: Provide a searchable lifecycle directory, browser-local following and community/category archive filters applied before pagination. Derive an ending date only from complete recorded death evidence and current absence of inhabitants; use explicit existing event links for branches and later beginnings. Keep observation separate from physical simulation and retain historical groups in the directory and follow list.
 - **alternatives**: Removing empty groups erases the user's route to their history. Filtering only the latest global journal page hides quieter communities. Inventing dates or ancestry fills gaps with unsupported events. A shared follow list would expose personal observer choices.
 - **consequences**: Public history reads use parameterized indexed queries and contain no management credentials. Following survives reloads in the same browser; accounts, cross-device synchronization, notifications, inheritance and detailed genealogy remain explicit future work. The change uses compatible format-8 event fields and leaves the natural laws unchanged.
+
+---
+
+### ADR-026: Three Hundred Founders with Real Camp Area and Finite Renewal
+
+- **date**: 2026-10-08
+- **status**: accepted
+- **context**: The owner requested a few hundred founders and authorized repopulating the extinct historical communities. Increasing headcount without land, provisions, thermal protection or realistic travel concentrated hundreds of people's heat and food decay at one cell.
+- **decision**: Supersede ADR-020 for future founding with 300 individually represented adults, comparable traits and finite proportional supplies. Give camp rest/stock access a connected footprint sized by people and stock volume; use spherical walking distance and food-funded thermoregulation, real fiber wraps and carried provisions. Restore the four old communities only through a separate finite, idempotent, recorded boundary intervention.
+- **alternatives**: Changing a displayed count leaves eight simulated people. Infinite food, automatic respawning or erasing old deaths bypass the world contract. Concentrated 300-person camps overheated in the tested candidate.
+- **consequences**: Format 9 / biosphere-1.3 explicitly migrates existing state. The actual renewal occurred at tick 195860 and preserves earlier history. Three hundred is a selected baseline, not a demographic guarantee; failed coupled seasonal tests and aggregate storage/thermal limits remain documented.
+
+---
+
+### ADR-027: General Component Search and Distinct Experimental Evidence
+
+- **date**: 2026-10-08
+- **status**: accepted
+- **context**: Template-like post/slab mutations and overpermissive enclosure measurements restricted invention or granted capacity unsupported by connected geometry. Reusing an old observation solely by design could also conceal a contradictory result or confuse a material trial with completed construction.
+- **decision**: Search add/remove/translate/resize/axis/material operations on general components. Measure connected enclosure, openings and spill height from geometry. Match evidence by design, properties and method; retain conflicting observations without rewriting their past.
+- **alternatives**: Named recipes or renamed designs grant no demonstrated physical effect. Replacing all old observations with new geometry predictions fabricates historical evidence. Simply increasing the part cap does not supply tools, processing or scalable mechanics.
+- **consequences**: Five bulk materials, 32 cuboids, 1,600 kg assemblies and idealized samples remain explicit limits. Durable record carriers, general transformations, tools and locally chosen evaluation criteria remain required for broader invention.
+
+---
+
+### ADR-028: Progressive Observation Separate from Simulation Detail
+
+- **date**: 2026-10-08
+- **status**: accepted
+- **context**: The planet entrance downloaded roughly 30 MB of detailed world state before showing the world. A vast address space and population increase also threatened browser work and server serialization budgets.
+- **decision**: Load a small overview and progressive atlas at the entrance, start detailed SSE on entry and close it on return. Project ordinary spectator data without learning internals or full seed genomes. Run geography exploration in a cancellable, bounded worker with explicit raster/cache limits; cameras never generate physical regions or advance time.
+- **alternatives**: Sending the complete authoritative world for every view couples observation cost to unseen population. Adding detail when a camera zooms would create physical matter or simulation behavior from spectators. Caching unlimited detail only postpones the memory limit.
+- **consequences**: Local browser tests preserve exact world state and verify work bounds, but cold atlas work can still take seconds. Global entity frames, all-region residency and monolithic persistence remain scaling constraints; conservative coarse/fine simulation is separate future work.
+
+---
+
+### ADR-029: Private Agent Briefing and Advisory Input During Clock Recovery
+
+- **date**: 2026-10-08
+- **status**: accepted
+- **context**: The owner requested one message an agent can use immediately. A long recovery backlog also blocked useful advice even though people continued through difficult conditions.
+- **decision**: Provide a private scoped briefing with HTTP/MCP paths, key, schema/consent instructions and idempotent retries, using copy, device sharing or email drafts. Accept bounded proposals at the current logical tick during catch-up; local consent, later feasibility/work and shared decision budgets still apply. Stage only affected advisory records before the atomic save/receipt commit; replay committed receipts even during a halt.
+- **alternatives**: Resetting the clock erases unprocessed history. Directly executing advice bypasses inhabitants. Issuing keys without a usable briefing leaves avoidable setup work. Putting credentials in public URLs or persistent browser storage expands their exposure.
+- **consequences**: No messages are sent automatically and no agent can mint resources. `acceptingProposals`, `WORLD_HALTED` and `WORLD_CATCHING_UP` distinguish service state from a proposal's outcome. New founding remains gated during backlog; model-only callers retain isolated simulation branches. Stored credentials remain hashes, and account recovery is still unresolved.

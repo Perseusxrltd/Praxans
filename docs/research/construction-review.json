@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "updated_on": "2026-10-08",
+  "report": "open-construction.md",
+  "source_register": "source-register.json",
+  "candidate_queue": "mechanism-candidates.json",
+  "source_ids": ["A04", "A11", "A12"],
+  "scope": "Read-only code audit and two pure evaluateDesign calls; no world construction, simulation advance, database or source edits.",
+  "code_fingerprints": [
+    {
+      "path": "src/simulation/economy.ts",
+      "sha256": "ee4fc6540fe6a0309fa07fe629b5954ad79386e5860b2d3c50edf61d0ce7d3d2",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    },
+    {
+      "path": "src/simulation/laws.ts",
+      "sha256": "bddbcbf63c5a3ec88bc7b4f6467318cfa23dcbab6ac43b4f5b34d4efcce9eeda",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    },
+    {
+      "path": "src/simulation/cognition.ts",
+      "sha256": "e6da762851f1373cc15af1b295a63b07c8f0da6de0bbbfa7775f6b3b693ef45a",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    },
+    {
+      "path": "src/simulation/citizens.ts",
+      "sha256": "8531753af8c7b4a417bd4283834af57752a30da102df462eb1b6859b166137f9",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    },
+    {
+      "path": "src/simulation/engine.ts",
+      "sha256": "b06e0df79bf7c9b16bbf7ab8455d6db44c12508733eee8c0b6f7e5e63cb64fdb",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    },
+    {
+      "path": "src/simulation/types.ts",
+      "sha256": "d226eebbffa2189ff61099c432a53e9042638cd80e96e44ef1c8768f5bfbf630",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    },
+    {
+      "path": "src/simulation/content.ts",
+      "sha256": "22cf13ee58c69f41a94bb31bdd7e78c16f1f1764a5e5aea63de5cdfcbedf39f3",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    },
+    {
+      "path": "src/simulation/actions.ts",
+      "sha256": "e483938cb619fc3435213bf8ee007aa390f7afd8bd5e1931398339d405567b26",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    },
+    {
+      "path": "src/server/schema.ts",
+      "sha256": "3343d25a78ea569ae8d408a6dcfed892c2326e448fbe5706be975ef4e62b0cac",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    },
+    {
+      "path": "src/server/app.ts",
+      "sha256": "fd45237f37b5e6de732a0ae0e6f2b0c7b55b0675bb0bfd4b59dd25906047d360",
+      "captured_at_utc": "2026-10-08T12:21:19.871815+00:00",
+      "note": "Working-tree file; capture time need not equal an earlier measurement time."
+    }
+  ],
+  "enclosure_probe": {
+    "observed_at_utc": "2026-10-08T12:18:25.265Z",
+    "source": "src/simulation/laws.ts",
+    "source_sha256": "bddbcbf63c5a3ec88bc7b4f6467318cfa23dcbab6ac43b4f5b34d4efcce9eeda",
+    "method": "node --import tsx --input-type=module, direct evaluateDesign calls with the following components; no world creation.",
+    "cases": [
+      {
+        "label": "continuousWalls",
+        "components": [
+          {
+            "material": "wood",
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "width": 1,
+            "depth": 1,
+            "height": 0.05
+          },
+          {
+            "material": "wood",
+            "x": -0.1,
+            "y": -0.1,
+            "z": 0,
+            "width": 0.1,
+            "depth": 1.2,
+            "height": 1
+          },
+          {
+            "material": "wood",
+            "x": 1,
+            "y": -0.1,
+            "z": 0,
+            "width": 0.1,
+            "depth": 1.2,
+            "height": 1
+          },
+          {
+            "material": "wood",
+            "x": 0,
+            "y": -0.1,
+            "z": 0,
+            "width": 1,
+            "depth": 0.1,
+            "height": 1
+          },
+          {
+            "material": "wood",
+            "x": 0,
+            "y": 1,
+            "z": 0,
+            "width": 1,
+            "depth": 0.1,
+            "height": 1
+          }
+        ],
+        "observed_properties": {
+          "mass_kg": 254.8,
+          "stable": true,
+          "storage_volume_m3": 0.95,
+          "covered_area_m2": 0,
+          "work": 17.65555555555556
+        }
+      },
+      {
+        "label": "detachedWalls",
+        "components": [
+          {
+            "material": "wood",
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "width": 1,
+            "depth": 1,
+            "height": 0.05
+          },
+          {
+            "material": "wood",
+            "x": -2,
+            "y": 0,
+            "z": 0,
+            "width": 0.1,
+            "depth": 1,
+            "height": 1
+          },
+          {
+            "material": "wood",
+            "x": 2,
+            "y": 0,
+            "z": 0,
+            "width": 0.1,
+            "depth": 1,
+            "height": 1
+          },
+          {
+            "material": "wood",
+            "x": 0,
+            "y": -2,
+            "z": 0,
+            "width": 1,
+            "depth": 0.1,
+            "height": 1
+          },
+          {
+            "material": "wood",
+            "x": 0,
+            "y": 2,
+            "z": 0,
+            "width": 1,
+            "depth": 0.1,
+            "height": 1
+          }
+        ],
+        "observed_properties": {
+          "mass_kg": 234,
+          "stable": true,
+          "storage_volume_m3": 0.95,
+          "covered_area_m2": 0,
+          "work": 16.5
+        }
+      }
+    ],
+    "conclusion": "Nearest cardinal walls do not establish a connected containing boundary. Detached-wall storage credit can lower current stock exposure.",
+    "implementation_status": "Finding reproduced; no correction implemented by this research batch.",
+    "later_parent_report": "Parent is implementing an axis-aligned connected-volume flood calculation; corrected fixture result remains unverified by research.",
+    "later_verified_revision": {
+      "record": "connected-model-review.json",
+      "status": "Seven small geometry cases and geometry-cache invalidation independently pass; no loading/contents/fluid completeness claim."
+    }
+  },
+  "open_construction_contract": {
+    "names_grant_effects": false,
+    "recipe_role": "Post-invention, provenance-bearing description of operations, conditions and outcomes; no unlock.",
+    "physical_scope": "Open composition within represented interactions; unsupported possibilities remain explicit model limits.",
+    "unit_and_depth_dependencies": ["R13", "R14", "R15", "R16"],
+    "prediction_is_observation": false,
+    "notes_require_carriers": true,
+    "sample_test_does_not_certify_full_scale": true,
+    "universal_design_success_score": false
+  },
+  "observed_limits": {
+    "material_categories": 5,
+    "component_count": [1, 32],
+    "component_dimension_m": [0.025, 6],
+    "origin_xy_absolute_max_m": 5,
+    "z_min_m": 0,
+    "top_max_m": 8,
+    "request_mass_max_kg": 1600,
+    "unfinished_request_max": 2,
+    "autonomous_unfinished_max": 1,
+    "site_distance_m": [15, 60],
+    "minimum_structure_separation_m": 18,
+    "experiment_progress_hours": 4,
+    "sample_mass_per_used_material_kg": [0.01, 0.4],
+    "shared_observation_cap_in_experiment_path": 64,
+    "personal_knowledge_limit": 32
+  },
+  "hidden_priors": [
+    "fixed geometry score for experiment selection and autonomous assembly",
+    "similar fixed weights for teaching",
+    "global cache-cap eviction erases all personal holders",
+    "five homogeneous effective materials without processing states",
+    "full-size evaluator values recorded after tiny material sampling"
+  ],
+  "next_bounded_checks": [
+    "connected versus detached walls",
+    "doorway/slit and removed wall",
+    "translation and name invariance",
+    "tiny sample versus full-size load/containment trial",
+    "changed load after prior success",
+    "one retained holder after summary-cache eviction"
+  ],
+  "candidate_ids": ["R22", "R23"],
+  "release_requirements": "Evaluator/state changes require scoped law/version migration, deliberate saved-structure recomputation, preserved material and history, and capacity/survival impact reporting; no compensating supplies implied.",
+  "historical_generator_note": "The original post/slab generator was replaced by general component operations in the later reviewed source; fixed size/operation priors remain declared assumptions."
+}

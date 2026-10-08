@@ -2,7 +2,7 @@ import { validateWorld } from "../simulation/engine";
 import { WORLD_VERSION, type World } from "../simulation/types";
 import { emptyEntropy } from "../simulation/thermodynamics";
 import { createMind, learnObservation } from "../simulation/cognition";
-import { initialFabric } from "../simulation/weathering";
+import { initialFabric, refreshStructure } from "../simulation/weathering";
 import { emptyStock, evaluateDesign } from "../simulation/laws";
 import { createCivics, sampleProgress } from "../simulation/progress";
 import { inheritedContact } from "../simulation/diplomacy";
@@ -136,6 +136,22 @@ export function migrateWorld(saved: World): {
       to: 8,
       description:
         "Preserve identities, tick, RNG, terrain, existing matter, energy counters and history. Fund atmospheric radiation from absorbed infrared and shortwave energy; separate future soil/lake freezing from snowfall. Compensate future energy additions and evaluate numerical error against processed energy. Correct seedling light response and woody tissue turnover. Begin resource-funded dormant propagules with empty seed banks; no seeds or extinct organisms are invented. Let urgent needs interrupt work and allow carried or fractional meals. Begin measured landscape/fabric aging, personal learning and civic outcome records at this tick. Previous shared observations and relationships become explicitly inherited accounts. New advice needs local consent; new diplomacy travels with provisioned people. Honor already escrowed exchanges under their old terms. No past erosion, neural activity, votes, agreements or achievements are invented.",
+    });
+  }
+  if (world.version === 8 && world.lawsVersion === "biosphere-1.2") {
+    for (const person of world.citizens) {
+      person.wrapMass = 0;
+      person.provisions = 0;
+    }
+    for (const structure of world.structures) refreshStructure(structure);
+    world.version = 9;
+    world.lawsVersion = "biosphere-1.3";
+    interventions.push({
+      id: "009-human-thermal-and-distance-balance",
+      from: 8,
+      to: 9,
+      description:
+        "Preserve the clock, identities, history, terrain, life and all existing matter. New body wraps and personal rations begin empty. Thermal protection requires real fiber; cold metabolism and melting frozen drinking water spend accessible food, while heat stress consumes hydration. Integrate walking in ground metres across the whole time step, respecting latitude and the date line. Resource gathering uses personally remembered places within a walking-time budget. New communities start with 300 individually represented adults and finite per-person supplies. Spread shelterless rest and aggregate exposed stocks over a population/material-volume camp footprint. Derive storage capacity from connected geometry, including gaps and missing floors; retain the old estimates in historical observations. Remember and seek observed water; plan seasonal food reserves through the growing season. Count carried food in community wellbeing and couple the whole biological food-decay rate to temperature. Separate plants' growth optima from lethal tissue temperatures and frozen dormancy from drought, with slower belowground turnover. No populations or habitats are restored by this law migration; any such intervention requires its own explicit operator record.",
     });
   }
   if (world.version !== WORLD_VERSION) {

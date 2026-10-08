@@ -1,0 +1,75 @@
+# Research observatory
+
+This is Praxans's continuing research record: questions about how a living world works, the sources actually consulted, and mechanisms that could be tested. It begins with ancient and premodern inquiry into nature, household provision, medicine, ethics, politics, and exchange. Modern reproducible measurements check physical claims and numerical scales. Neither the age nor the popularity of a theory establishes its truth.
+
+The purpose is to understand causal order, variation, and limits. A mechanism must explain what happens through represented circumstances and interactions. A desired outcome, a philosophical purpose, a technology name, or a political label cannot supply missing matter, information, work, or consent.
+
+- [Scale audit](scale-audit.md) and [machine-readable quantities](scale-audit.json): the organizing contract from celestial distances through local habitats, material geometry, and underground volumes. Exact current limits and proposed P13–P16 work remain distinct.
+- [Large civilizations and open-ended creation](scaling-and-open-endedness.md) and [source/budget record](scaling-and-open-endedness.json): actual post-renewal capacity incidents, current observer/preflight changes, regional ownership, identity-preserving coarse/fine state and explicit load-promotion criteria.
+- [Restored-world CPU profile](restored-world-cpu-profile.md) and [measured costs](restored-world-cpu-profile.json): 64 actual ticks on a private copy of the 1,200-person world; chemistry/weather costs, contact-search limits and the subsequent reverted optimization candidate.
+- [Bounded planet observer](rendering-review.md), [measurement record](rendering-review.json) and [repeatable browser probe](renderer-probe.mjs): visible detail, shared coordinates, preview/live provenance, cache budgets and measured renderer findings.
+- [300-person founding critique](300-person-founding.md): finite food, water, land, storage, labor, demographic assumptions and later spatial heat-concentration diagnostics.
+- [Open construction and knowledge](open-construction.md) and [geometry fixtures](construction-review.json): material operations and descriptive recipes, the current search biases, and reproduced false enclosure credit.
+- [Connected-model review](connected-model-review.md), [scoped results](connected-model-review.json) and [repeatable probe](connected-model-probe.mjs): independently checked geometry/access/cache corrections, conserved stock loss, and the qualified seasonal/short-run comparisons.
+- [Release coherence review](release-coherence-review.md), [dated evidence](release-coherence-review.json) and [repeatable structural/observation probe](release-coherence-probe.mjs): module boundaries, units, clocks, material transfers, construction purposes and historical versus current trial records.
+- [First research batch, 8 October 2026](2026-10-08-first-batch.md): subsistence critique, historical readings, measured bounds, and proposed tests.
+- [Source register](source-register.json): stable source IDs, exact URLs, access dates, passages read, and limits of each claim.
+- [Mechanism candidates](mechanism-candidates.json): ordered, machine-readable questions and bounded experiments. Candidate status is separate from implementation and deployment status.
+- [Model](../model.md), [fundamentals](../fundamentals.md), and [roadmap](../roadmap.md): the model contract and canonical requirement status. This directory does not replace them.
+
+## Working loop
+
+1. **Observe and read.** Start with an actual discrepancy or an unanswered question. Read an appropriate ancient or premodern primary passage in context; examine current code and available observations; then seek measurements that can check the physical claim. Record the translation, section, URL, access date, and whether only an abstract or excerpt was accessible.
+2. **Classify the claim.** Separate a historical description, an author's interpretation, an ethical judgment, a measurement, a model parameter, an analogy, and a proposal. A text describing a practice does not establish how common or effective it was. A simulation result does not establish a law of nature.
+3. **State a hypothesis and causal model.** Specify inputs, outputs, locations, duration, limiting conditions, and who can know what. State the spatial scale, depth, units, process times, and numerical resolution. Explain the predicted change before running the test. Link every new pool to its source and every transfer to its destination.
+4. **Seek a counterexample.** Ask when the explanation should fail. Consider another season, age, habitat, incentive, institution, or historical case. Do not treat one surviving camp, one successful state, or one apparent equilibrium as a universal recipe.
+5. **Check constraints.** Account for represented elements, water, chemical energy, heat where modeled, work, capacity, travel, and communication. Separate observer knowledge from inhabitant knowledge. A reserve, migrant, seed, tool, promise, or lesson needs a carrier and a history.
+6. **Test the smallest discriminating case.** Begin with arithmetic, a trace, or a small disposable fixture. State the metric, expected direction, adverse case, numerical tolerance, and compute limit. Reuse existing runs before commissioning more. Broaden to seasonal or generational trials only when a specific unresolved claim requires them.
+7. **Stage implementation and release review.** Hand over a bounded change, dependencies, expected failure modes, and continuity obligations. Saved-state changes need a versioned migration; physical rule changes need a law version and factual intervention record. Follow [hosting](../hosting.md) for backups, the sole writer, preflight, and activation. Research notes do not authorize or certify a live intervention.
+8. **Record what changed in our understanding.** Keep failed predictions and counterexamples. Link the tested implementation and result, including duration and domain. Mark a candidate implemented or released only with matching evidence; retain its remaining limitations and next question.
+
+This loop runs in bounded batches during active collaboration. These files are durable handoffs, not an installed scheduler or a promise that an agent keeps running after a session ends. Each batch should leave at least one usable finding or rejected hypothesis, rather than only a longer reading list.
+
+## Claim vocabulary
+
+| Label                       | What it establishes                                                                                                              |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `historical_description`    | A consulted primary text describes an observation or practice; translation, genre, setting, and author perspective still matter. |
+| `historical_interpretation` | An author's causal or historical explanation, to be examined rather than assumed.                                                |
+| `normative_value`           | A judgment about a good life, justice, obligation, or desirable government; it does not establish a physical equation.           |
+| `measured_evidence`         | An empirical result with its population, method, units, and scope.                                                               |
+| `expert_compilation`        | A sourced synthesis or default table; underlying studies have not necessarily been read.                                         |
+| `code_observation`          | A behavior or equation found in the inspected implementation.                                                                    |
+| `parameter_assumption`      | A chosen numerical value or effective rule requiring calibration or sensitivity analysis.                                        |
+| `analogy`                   | A comparison that suggests a question, without proving the same mechanism applies.                                               |
+| `simulation_result`         | A result for named code, state, inputs, domain, and duration.                                                                    |
+| `untested_proposal`         | A falsifiable candidate with no implementation or success claim.                                                                 |
+
+A source can contain several kinds of claims. In particular, the ancient sources consulted here contain valuable distinctions alongside teleology, spontaneous-generation explanations, rigid social hierarchies, or strong claims about political necessity. Preserve the context; do not turn these into unquestioned simulation laws. The same scrutiny applies to modern optimizing agents, equilibrium assumptions, and universal measures of success.
+
+## Study priorities
+
+| Question                                             | Primary starting point                                                             | Physical or empirical check                                                           | First model consequence to examine                                                           |
+| ---------------------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| How do whole and part, distance and volume agree?    | Aristotle, _On the Heavens_ II.14; _Parts of Animals_ I.1                          | Spherical geometry, celestial measurements, extensive versus intensive quantities     | Establish one metric and scale contract; preserve budgets across detail levels.              |
+| What supports building above and below ground?       | Vitruvius, _Architecture_ III.4; Agricola, _De Re Metallica_ V                     | Finite mass/volume, depth, work, bearing loads, drainage and air exchange             | Represent strata and removed material before permitting excavation or underground occupancy. |
+| What survives an unfavorable season?                 | Theophrastus, _Enquiry into Plants_ VII–VIII; Hippocratic _Airs, Waters, Places_ 1 | Measured seed viability, local microclimate, plant stock and growth                   | Distinguish living reserves, dormant carriers, accessible food, and refugia.                 |
+| How does a household provide for the year?           | Xenophon, _Oeconomicus_ IX, XVI; _Arthashastra_ II.15                              | Grain moisture, temperature, loss, labor, and storage capacity                        | Measure food flows; let storage conditions and observed seasons matter.                      |
+| How do people learn a place and transmit skills?     | Xenophon XVI; Aristotle, _Parts of Animals_ I.1                                    | Travel measurements and evidence on social networks and cultural transmission         | Perceive along travel, retain useful observations, and require actual teachers or records.   |
+| How do cooperation and authority persist?            | Aristotle, _Politics_ I; Polybius VI; Ibn Khaldun's first prefatory discussion     | Comparative cases and controlled tests of costs, dissent, dependence, and information | Separate adoption, enforcement, supply, and succession from an institution's name.           |
+| What makes possessions useful and exchange possible? | Aristotle, _Politics_ I.8–9; Xenophon IX; Ibn Khaldun                              | Material accessibility, transport, spoilage, and information delays                   | A valuable claim or price cannot replace reachable food, tools, or delivered goods.          |
+| What counts as doing well?                           | Aristotle, _Nicomachean Ethics_ I.1–4                                              | Transparent distributions and sensitivity to measurement choices                      | Preserve plural outcomes and disagreement; do not infer one compulsory objective.            |
+
+Scale is the organizing model for every row: where a pool exists, how much is present, how information and material travel, and which times and depths are resolved. Establish that contract while completing immediate causal diagnostics, then add missing connections and justified detail. Extra species, resources, or political categories are useful only when they change testable behavior. Molecular realism, complete historical reconstruction, an inevitable progression of institutions, and permanent survival are not acceptance conditions.
+
+Construction must remain open within the interactions actually represented. A recipe records an invention's operations and evidence after the event; it is neither an unlock nor a source of effects. Numerical geometry/work limits remain explicit computational approximations. Extend material operations and their tests rather than replacing a missing physical mechanism with a named structure.
+
+## Reading and updating the queue
+
+`mechanism-candidates.json` uses `priority` (`P0`, `P1`, `P2`) and `rank` for research order, not an automatic release instruction. Each entry supplies code anchors, source IDs, a hypothesis, a counterexample, constraints, a bounded test, and a decision criterion. Parameters proposed for an experiment remain explicitly provisional.
+
+Before taking a candidate forward, recheck its anchors: the development tree changes while research proceeds. Record the implementation fingerprint and trial script as well as the world/request fingerprints. Changing domain size can change environmental exchange and the order of shared RNG consumption; matching seeds alone does not guarantee matching weather trajectories.
+
+At meaningful development batches and before release, perform the [bounded coherence review](rendering-review.md#regular-coherence-review): reuse import/link checks, then examine units, time, reservoirs, information, browser/API contracts and agreement with requirements. Record the actual review scope and unresolved findings. This is an active-session practice, not a background scheduler.
+
+Documentation checks cover JSON syntax, source/dependency references, arithmetic and local links. Later batches record isolated browser/geometry probes and one authorized 64-tick CPU profile on a disposable backup copy. These checks do not establish seasonal balance or production capacity. Research performs no live database change, deployment or paid inference.

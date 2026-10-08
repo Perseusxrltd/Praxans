@@ -1,4 +1,5 @@
 import { evaluateDesign } from "./laws";
+import { edibleReserves } from "./subsistence";
 import { hasPeace, tradeUtility } from "./diplomacy";
 import { measureSuccess } from "./progress";
 import { clamp } from "./random";
@@ -54,7 +55,7 @@ function preference(
   action: AgentAction,
 ): { utility: number; reason: string } {
   const population = peopleOf(world, civ.id).length,
-    food = civ.stock.biomass / Math.max(1, population);
+    food = edibleReserves(world, civ) / Math.max(1, population);
   const deprived = person.hunger < 40 || person.health < 45;
   const result = (utility: number, reason: string) => ({ utility, reason });
   switch (action.type) {

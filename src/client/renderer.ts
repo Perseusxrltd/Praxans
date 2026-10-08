@@ -1,6 +1,6 @@
 import { FAUNA_BY_ID, floraOf } from "../simulation/life";
 import { MATERIALS } from "../simulation/content";
-import type { Tile, WorldSnapshot } from "../simulation/types";
+import type { ObserverTile as Tile, WorldSnapshot } from "../simulation/types";
 
 export type Selection = {
   type: "civilization" | "citizen" | "structure" | "tile" | "animal";
@@ -9,9 +9,13 @@ export type Selection = {
 export type Layer = "landscape" | "communities" | "water" | "life";
 type Point = { x: number; y: number };
 const mix = (a: string, b: string, t: number) => {
-  const ca = a.replace("#", ""),
-    cb = b.replace("#", "");
-  return `rgb(${[0, 2, 4].map((i) => Math.round(parseInt(ca.slice(i, i + 2), 16) * (1 - t) + parseInt(cb.slice(i, i + 2), 16) * t)).join(",")})`;
+  if (t <= 0) return a;
+  if (t >= 1) return b;
+  const ca = parseInt(a.slice(1), 16),
+    cb = parseInt(b.slice(1), 16);
+  const channel = (shift: number) =>
+    Math.round(((ca >> shift) & 255) * (1 - t) + ((cb >> shift) & 255) * t);
+  return `#${((1 << 24) | (channel(16) << 16) | (channel(8) << 8) | channel(0)).toString(16).slice(1)}`;
 };
 export class WorldRenderer {
   private ctx: CanvasRenderingContext2D;
@@ -25,6 +29,19 @@ export class WorldRenderer {
   private initialized = false;
   private animation = 0;
   private time = 0;
+  private frameDirty = true;
+  private active = true;
+  private lastFrame = -Infinity;
+  private frameCost = 0;
+  private renderedFrames = 0;
+  private terrainPasses = 0;
+  private visibleTiles = 0;
+  private visiblePeople = 0;
+  private sceneSignature = "";
+  private people: WorldSnapshot["citizens"] = [];
+  private populations = new Map<string, number>();
+  private civs = new Map<string, WorldSnapshot["civilizations"][number]>();
+  private reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   private drag: Point | null = null;
   private moved = false;
   private layer: Layer = "landscape";
@@ -48,12 +65,9 @@ export class WorldRenderer {
     canvas.addEventListener("pointercancel", this.pointerCancel);
     canvas.addEventListener("wheel", this.wheel, { passive: false });
     window.addEventListener("keydown", this.key);
-    const loop = (time: number) => {
-      this.time = time;
-      this.draw();
-      this.animation = requestAnimationFrame(loop);
-    };
-    this.animation = requestAnimationFrame(loop);
+    document.addEventListener("visibilitychange", this.visibility);
+    this.reducedMotion.addEventListener("change", this.motionChanged);
+    this.invalidate();
   }
   destroy() {
     cancelAnimationFrame(this.animation);
@@ -64,6 +78,49 @@ export class WorldRenderer {
     this.canvas.removeEventListener("pointercancel", this.pointerCancel);
     this.canvas.removeEventListener("wheel", this.wheel);
     window.removeEventListener("keydown", this.key);
+    document.removeEventListener("visibilitychange", this.visibility);
+    this.reducedMotion.removeEventListener("change", this.motionChanged);
+  }
+  private invalidate(terrain = false) {
+    this.frameDirty = true;
+    if (terrain) this.terrainDirty = true;
+    if (!this.animation && !document.hidden && this.active)
+      this.animation = requestAnimationFrame(this.loop);
+  }
+  private loop = (time: number) => {
+    this.animation = 0;
+    if (document.hidden || !this.active) return;
+    // A slow device can render fewer pictures without changing a single world tick.
+    const interval = Math.max(
+      1000 / 30,
+      Math.min(1000 / 15, this.frameCost * 1.5),
+    );
+    if (time - this.lastFrame >= interval) {
+      this.time = this.reducedMotion.matches ? 0 : time;
+      const started = performance.now();
+      this.draw();
+      this.frameCost =
+        this.frameCost * 0.85 + (performance.now() - started) * 0.15;
+      this.lastFrame = time;
+      this.frameDirty = false;
+      this.renderedFrames++;
+    }
+    if (this.frameDirty || !this.reducedMotion.matches)
+      this.animation = requestAnimationFrame(this.loop);
+  };
+  private visibility = () => {
+    if (document.hidden) {
+      cancelAnimationFrame(this.animation);
+      this.animation = 0;
+    } else this.invalidate();
+  };
+  private motionChanged = () => this.invalidate();
+  setActive(active: boolean) {
+    this.active = active;
+    if (!active) {
+      cancelAnimationFrame(this.animation);
+      this.animation = 0;
+    } else this.invalidate();
   }
   update(world: WorldSnapshot) {
     if (
@@ -72,12 +129,34 @@ export class WorldRenderer {
         this.world.originY !== world.originY)
     )
       this.initialized = false;
-    if (
+    const sceneSignature = JSON.stringify([
+      world.civilizations.map((c) => [c.id, c.x, c.y, c.color, c.accent]),
+      world.structures.map((s) => [
+        s.id,
+        s.x,
+        s.y,
+        s.progress,
+        s.condition,
+        s.collapsed,
+        s.design,
+      ]),
+    ]);
+    this.invalidate(
       this.world?.tiles !== world.tiles ||
-      this.world?.structures !== world.structures
-    )
-      this.terrainDirty = true;
+        this.sceneSignature !== sceneSignature,
+    );
+    this.sceneSignature = sceneSignature;
     this.world = world;
+    this.civs = new Map(world.civilizations.map((c) => [c.id, c]));
+    this.populations = new Map();
+    for (const person of world.citizens)
+      this.populations.set(
+        person.civId,
+        (this.populations.get(person.civId) ?? 0) + 1,
+      );
+    this.people = world.citizens
+      .filter((p) => this.inWindow(p))
+      .sort((a, b) => a.x + a.y - b.x - b.y);
     if (!this.initialized) {
       this.initialized = true;
       this.fit();
@@ -85,13 +164,24 @@ export class WorldRenderer {
   }
   setLayer(layer: Layer) {
     this.layer = layer;
-    this.terrainDirty = true;
+    this.invalidate(true);
   }
   setSelection(selection: Selection) {
     this.selection = selection;
+    this.invalidate();
   }
   cameraState() {
-    return { ...this.camera, width: this.width, height: this.height };
+    return {
+      ...this.camera,
+      width: this.width,
+      height: this.height,
+      pixelRatio: this.ratio,
+      frames: this.renderedFrames,
+      terrainPasses: this.terrainPasses,
+      visibleTiles: this.visibleTiles,
+      visiblePeople: this.visiblePeople,
+      drawMs: Math.round(this.frameCost * 100) / 100,
+    };
   }
   focus(x: number, y: number) {
     const point = this.projectRaw(x, y);
@@ -101,15 +191,18 @@ export class WorldRenderer {
     );
     this.camera.x = this.width * 0.5 - point.x * this.camera.zoom;
     this.camera.y = this.height * 0.56 - point.y * this.camera.zoom;
-    this.terrainDirty = true;
+    this.invalidate(true);
   }
-  zoom(amount: number) {
+  zoom(
+    amount: number,
+    anchor: Point = { x: this.width / 2, y: this.height / 2 },
+  ) {
     const previous = this.camera.zoom;
-    this.camera.zoom = Math.max(0.42, Math.min(3.2, this.camera.zoom * amount));
+    this.camera.zoom = Math.max(0.3, Math.min(24, this.camera.zoom * amount));
     const scale = this.camera.zoom / previous;
-    this.camera.x = this.width / 2 + (this.camera.x - this.width / 2) * scale;
-    this.camera.y = this.height / 2 + (this.camera.y - this.height / 2) * scale;
-    this.terrainDirty = true;
+    this.camera.x = anchor.x + (this.camera.x - anchor.x) * scale;
+    this.camera.y = anchor.y + (this.camera.y - anchor.y) * scale;
+    this.invalidate(true);
   }
   fit() {
     if (!this.world) return;
@@ -145,19 +238,23 @@ export class WorldRenderer {
     );
     this.camera.x = this.width * 0.5 - ((minX + maxX) / 2) * this.camera.zoom;
     this.camera.y = this.height * 0.54 - ((minY + maxY) / 2) * this.camera.zoom;
-    this.terrainDirty = true;
+    this.invalidate(true);
   }
   private resize() {
     const rect = this.canvas.getBoundingClientRect();
     this.width = rect.width;
     this.height = rect.height;
-    this.ratio = Math.min(window.devicePixelRatio || 1, 2);
+    this.ratio = Math.min(
+      window.devicePixelRatio || 1,
+      1.75,
+      Math.sqrt(2_000_000 / Math.max(1, this.width * this.height)),
+    );
     this.canvas.width = Math.round(this.width * this.ratio);
     this.canvas.height = Math.round(this.height * this.ratio);
     this.terrainCanvas.width = this.canvas.width;
     this.terrainCanvas.height = this.canvas.height;
     if (this.initialized) this.fit();
-    this.terrainDirty = true;
+    this.invalidate(true);
   }
   private projectRaw(x: number, y: number, z = 0): Point {
     const world = this.world;
@@ -191,6 +288,49 @@ export class WorldRenderer {
       elevation(0, 1) * (1 - fx) * fy +
       elevation(1, 1) * fx * fy;
     return { x: (x - y) * 10, y: (x + y) * 5 - height - z };
+  }
+  private tileAt(x: number, y: number) {
+    const world = this.world;
+    if (!world || !this.inWindow({ x, y })) return undefined;
+    return world.tiles[(y - world.originY) * world.width + x - world.originX];
+  }
+  private inWindow(point: Point) {
+    const world = this.world;
+    return (
+      !!world &&
+      point.x >= world.originX &&
+      point.y >= world.originY &&
+      point.x < world.originX + world.width &&
+      point.y < world.originY + world.height
+    );
+  }
+  private onScreen(point: Point, margin = 50) {
+    return (
+      point.x >= -margin &&
+      point.x <= this.width + margin &&
+      point.y >= -margin &&
+      point.y <= this.height + margin
+    );
+  }
+  private terrainBounds() {
+    const world = this.world!;
+    const padding = 80 * Math.max(1, this.camera.zoom);
+    const left = (-padding - this.camera.x) / this.camera.zoom,
+      right = (this.width + padding - this.camera.x) / this.camera.zoom,
+      top = (-padding - this.camera.y) / this.camera.zoom,
+      bottom = (this.height + padding - this.camera.y) / this.camera.zoom;
+    return {
+      minX: Math.max(world.originX, Math.floor(left / 20 + top / 10)),
+      maxX: Math.min(
+        world.originX + world.width - 1,
+        Math.ceil(right / 20 + bottom / 10),
+      ),
+      minY: Math.max(world.originY, Math.floor(top / 10 - right / 20)),
+      maxY: Math.min(
+        world.originY + world.height - 1,
+        Math.ceil(bottom / 10 - left / 20),
+      ),
+    };
   }
   screenPoint(x: number, y: number, z = 0): Point {
     const p = this.projectRaw(x, y, z);
@@ -324,167 +464,201 @@ export class WorldRenderer {
     ctx.save();
     ctx.translate(this.camera.x, this.camera.y);
     ctx.scale(this.camera.zoom, this.camera.zoom);
-    const tiles = [...world.tiles].sort((a, b) => a.x + a.y - b.x - b.y);
-    for (const tile of tiles) {
-      if (tile.terrain === "water" || tile.terrain === "unknown") continue;
-      const p = this.projectRaw(tile.x, tile.y),
-        variation = tile.variation;
-      let fill =
-        tile.terrain === "shore"
-          ? mix("#d5ceab", "#e3ddbe", variation)
-          : tile.terrain === "hill"
-            ? mix("#b8bc99", "#cbd0b1", variation)
-            : tile.terrain === "marsh"
-              ? "#a6b999"
-              : mix("#b6c995", "#d0d6a6", variation);
-      if (tile.terrain === "desert")
-        fill = mix("#d5c397", "#e1d1ac", variation);
-      if (tile.terrain === "tundra")
-        fill = mix("#b4bdac", "#d2d7c6", variation);
-      if (tile.terrain === "forest")
-        fill = mix("#a0b98b", "#b3c59b", variation);
-      if (this.layer === "water")
-        fill = mix("#e5d7b4", "#69a7aa", Math.min(tile.moisture, 1));
-      if (this.layer === "life")
-        fill = mix(
-          "#d8d8c4",
-          "#60946d",
-          Math.min(
-            ((tile.plant?.carbon ?? 0) + (tile.groundcover?.carbon ?? 0)) / 100,
-            1,
-          ),
-        );
-      if (this.layer === "communities" && tile.owner) {
-        const civ = world.civilizations.find((c) => c.id === tile.owner);
-        if (civ)
-          fill = mix(fill.startsWith("#") ? fill : "#c5cda4", civ.accent, 0.72);
-      }
-      const neighbor =
-        world.tiles[
-          (tile.y + 1 - world.originY) * world.width + tile.x - world.originX
-        ];
-      if (!neighbor || neighbor.terrain === "water")
+    this.terrainPasses++;
+    this.visibleTiles = 0;
+    const bounds = this.terrainBounds();
+    // Diagonal traversal keeps painter order without copying/sorting the world.
+    for (
+      let diagonal = bounds.minX + bounds.minY;
+      diagonal <= bounds.maxX + bounds.maxY;
+      diagonal++
+    ) {
+      for (
+        let y = Math.max(bounds.minY, diagonal - bounds.maxX);
+        y <= Math.min(bounds.maxY, diagonal - bounds.minX);
+        y++
+      ) {
+        const tile = this.tileAt(diagonal - y, y)!;
+        if (
+          tile.terrain === "unknown" ||
+          (tile.terrain === "water" && tile.ice < 10 && tile.air.snow < 10)
+        )
+          continue;
+        const p = this.projectRaw(tile.x, tile.y),
+          variation = tile.variation;
+        if (
+          !this.onScreen(
+            {
+              x: p.x * this.camera.zoom + this.camera.x,
+              y: p.y * this.camera.zoom + this.camera.y,
+            },
+            45 * Math.max(1, this.camera.zoom),
+          )
+        )
+          continue;
+        this.visibleTiles++;
+        let fill =
+          tile.terrain === "shore"
+            ? mix("#d5ceab", "#e3ddbe", variation)
+            : tile.terrain === "hill"
+              ? mix("#b8bc99", "#cbd0b1", variation)
+              : tile.terrain === "marsh"
+                ? "#a6b999"
+                : mix("#b6c995", "#d0d6a6", variation);
+        if (tile.terrain === "desert")
+          fill = mix("#d5c397", "#e1d1ac", variation);
+        if (tile.terrain === "tundra")
+          fill = mix("#b4bdac", "#d2d7c6", variation);
+        if (tile.terrain === "forest")
+          fill = mix("#a0b98b", "#b3c59b", variation);
+        if (tile.terrain === "water")
+          fill = mix("#9ab9c1", "#d8e8e4", Math.min(1, tile.ice / 8000));
+        if (this.layer === "landscape") {
+          const uphill =
+            this.tileAt(tile.x - 1, tile.y)?.elevation ?? tile.elevation;
+          fill = mix(
+            fill,
+            uphill > tile.elevation ? "#61775b" : "#f4efd0",
+            Math.min(0.2, Math.abs(uphill - tile.elevation) * 4),
+          );
+          if (tile.air.snow > 0)
+            fill = mix(fill, "#edf1e9", 1 - Math.exp(-tile.air.snow / 180));
+        }
+        if (this.layer === "water")
+          fill = mix("#e5d7b4", "#69a7aa", Math.min(tile.moisture, 1));
+        if (this.layer === "life")
+          fill = mix(
+            "#d8d8c4",
+            "#60946d",
+            Math.min(
+              ((tile.plant?.carbon ?? 0) + (tile.groundcover?.carbon ?? 0)) /
+                100,
+              1,
+            ),
+          );
+        if (this.layer === "communities" && tile.owner) {
+          const civ = this.civs.get(tile.owner);
+          if (civ) fill = mix(fill, civ.accent, 0.72);
+        }
+        const neighbor = this.tileAt(tile.x, tile.y + 1);
+        if (!neighbor || neighbor.terrain === "water")
+          this.polygon(
+            ctx,
+            [
+              { x: p.x - 10, y: p.y },
+              { x: p.x, y: p.y + 5 },
+              { x: p.x, y: p.y + 9 },
+              { x: p.x - 10, y: p.y + 4 },
+            ],
+            "#b6b694",
+          );
+        const right = this.tileAt(tile.x + 1, tile.y);
+        if (!right || right.terrain === "water")
+          this.polygon(
+            ctx,
+            [
+              { x: p.x, y: p.y + 5 },
+              { x: p.x + 10, y: p.y },
+              { x: p.x + 10, y: p.y + 4 },
+              { x: p.x, y: p.y + 9 },
+            ],
+            "#a3af93",
+          );
         this.polygon(
           ctx,
           [
-            { x: p.x - 10, y: p.y },
-            { x: p.x, y: p.y + 5 },
-            { x: p.x, y: p.y + 9 },
-            { x: p.x - 10, y: p.y + 4 },
+            this.projectRaw(tile.x - 0.5, tile.y - 0.5),
+            this.projectRaw(tile.x + 0.5, tile.y - 0.5),
+            this.projectRaw(tile.x + 0.5, tile.y + 0.5),
+            this.projectRaw(tile.x - 0.5, tile.y + 0.5),
           ],
-          "#b6b694",
+          fill,
+          fill,
         );
-      const right =
-        world.tiles[
-          (tile.y - world.originY) * world.width + tile.x + 1 - world.originX
-        ];
-      if (!right || right.terrain === "water")
-        this.polygon(
-          ctx,
-          [
-            { x: p.x, y: p.y + 5 },
-            { x: p.x + 10, y: p.y },
-            { x: p.x + 10, y: p.y + 4 },
-            { x: p.x, y: p.y + 9 },
-          ],
-          "#a3af93",
-        );
-      this.polygon(
-        ctx,
-        [
-          this.projectRaw(tile.x - 0.5, tile.y - 0.5),
-          this.projectRaw(tile.x + 0.5, tile.y - 0.5),
-          this.projectRaw(tile.x + 0.5, tile.y + 0.5),
-          this.projectRaw(tile.x - 0.5, tile.y + 0.5),
-        ],
-        fill,
-        fill,
-      );
-      if (tile.road > 0.035) {
-        ctx.globalAlpha = Math.min(0.6, tile.road + 0.15);
-        this.diamond(ctx, p.x, p.y + 0.5, "#d6c4a0", 1.5);
-        ctx.globalAlpha = 1;
-      }
-      if (tile.owner && this.layer === "communities") {
-        const civ = world.civilizations.find((c) => c.id === tile.owner);
-        ctx.strokeStyle = civ?.color ?? "#6f8b70";
-        ctx.lineWidth = 1;
-        const offsets = [
-          [1, 0, 0, 5, 10, 0],
-          [0, 1, -10, 0, 0, 5],
-          [-1, 0, -10, 0, 0, -5],
-          [0, -1, 0, -5, 10, 0],
-        ];
-        for (const [dx, dy, x1, y1, x2, y2] of offsets)
-          if (
-            world.tiles[
-              (tile.y + dy - world.originY) * world.width +
-                tile.x +
-                dx -
-                world.originX
-            ]?.owner !== tile.owner
-          ) {
+        if (tile.road > 0.035) {
+          ctx.globalAlpha = Math.min(0.6, tile.road + 0.15);
+          this.diamond(ctx, p.x, p.y + 0.5, "#d6c4a0", 1.5);
+          ctx.globalAlpha = 1;
+        }
+        if (tile.owner && this.layer === "communities") {
+          const civ = this.civs.get(tile.owner);
+          ctx.strokeStyle = civ?.color ?? "#6f8b70";
+          ctx.lineWidth = 1;
+          const offsets = [
+            [1, 0, 0, 5, 10, 0],
+            [0, 1, -10, 0, 0, 5],
+            [-1, 0, -10, 0, 0, -5],
+            [0, -1, 0, -5, 10, 0],
+          ];
+          for (const [dx, dy, x1, y1, x2, y2] of offsets)
+            if (this.tileAt(tile.x + dx, tile.y + dy)?.owner !== tile.owner) {
+              ctx.beginPath();
+              ctx.moveTo(p.x + x1, p.y + y1);
+              ctx.lineTo(p.x + x2, p.y + y2);
+              ctx.stroke();
+            }
+        }
+        if (tile.terrain === "hill" && variation > 0.62 && tile.rock > 25) {
+          this.polygon(
+            ctx,
+            [
+              { x: p.x - 4, y: p.y + 1 },
+              { x: p.x - 1, y: p.y - 6 },
+              { x: p.x + 4, y: p.y - 3 },
+              { x: p.x + 5, y: p.y + 2 },
+            ],
+            "#a2ab97",
+          );
+          this.polygon(
+            ctx,
+            [
+              { x: p.x - 1, y: p.y - 6 },
+              { x: p.x + 4, y: p.y - 3 },
+              { x: p.x, y: p.y + 1 },
+              { x: p.x - 4, y: p.y + 1 },
+            ],
+            "#d0d3bb",
+          );
+        }
+        if (
+          this.layer !== "water" &&
+          this.layer !== "life" &&
+          tile.trees > 0.35 &&
+          variation < Math.min(0.82, tile.trees * 0.4)
+        )
+          this.drawTree(
+            ctx,
+            p.x + (variation - 0.5) * 5,
+            p.y,
+            9 + Math.min(tile.trees, 3) * 3,
+            variation,
+          );
+        else if (
+          tile.plant &&
+          tile.forage > 4 &&
+          variation > 0.52 &&
+          this.layer === "landscape"
+        ) {
+          ctx.strokeStyle = variation > 0.9 ? "#baac70" : "#8fac73";
+          ctx.lineWidth = 0.75;
+          for (let i = 0; i < 3; i++) {
+            const x = p.x - 3 + i * 2;
             ctx.beginPath();
-            ctx.moveTo(p.x + x1, p.y + y1);
-            ctx.lineTo(p.x + x2, p.y + y2);
+            ctx.moveTo(x, p.y + 1);
+            ctx.lineTo(x - 1, p.y - 2);
+            ctx.moveTo(x, p.y);
+            ctx.lineTo(x + 1, p.y - 3);
             ctx.stroke();
           }
-      }
-      if (tile.terrain === "hill" && variation > 0.62 && tile.rock > 25) {
-        this.polygon(
-          ctx,
-          [
-            { x: p.x - 4, y: p.y + 1 },
-            { x: p.x - 1, y: p.y - 6 },
-            { x: p.x + 4, y: p.y - 3 },
-            { x: p.x + 5, y: p.y + 2 },
-          ],
-          "#a2ab97",
-        );
-        this.polygon(
-          ctx,
-          [
-            { x: p.x - 1, y: p.y - 6 },
-            { x: p.x + 4, y: p.y - 3 },
-            { x: p.x, y: p.y + 1 },
-            { x: p.x - 4, y: p.y + 1 },
-          ],
-          "#d0d3bb",
-        );
-      }
-      if (
-        this.layer !== "water" &&
-        this.layer !== "life" &&
-        tile.trees > 0.35 &&
-        variation < Math.min(0.82, tile.trees * 0.4)
-      )
-        this.drawTree(
-          ctx,
-          p.x + (variation - 0.5) * 5,
-          p.y,
-          9 + Math.min(tile.trees, 3) * 3,
-          variation,
-        );
-      else if (
-        tile.plant &&
-        tile.forage > 4 &&
-        variation > 0.52 &&
-        this.layer === "landscape"
-      ) {
-        ctx.strokeStyle = variation > 0.9 ? "#baac70" : "#8fac73";
-        ctx.lineWidth = 0.75;
-        for (let i = 0; i < 3; i++) {
-          const x = p.x - 3 + i * 2;
-          ctx.beginPath();
-          ctx.moveTo(x, p.y + 1);
-          ctx.lineTo(x - 1, p.y - 2);
-          ctx.moveTo(x, p.y);
-          ctx.lineTo(x + 1, p.y - 3);
-          ctx.stroke();
         }
       }
     }
     for (const civ of world.civilizations) {
+      if (
+        !this.inWindow(civ) ||
+        !this.onScreen(this.screenPoint(civ.x, civ.y), 50 * this.camera.zoom)
+      )
+        continue;
       const p = this.projectRaw(civ.x, civ.y);
       ctx.fillStyle = "#d9cbab";
       ctx.beginPath();
@@ -514,12 +688,21 @@ export class WorldRenderer {
     for (const structure of [...world.structures].sort(
       (a, b) => a.x + a.y - b.x - b.y,
     )) {
+      if (
+        !this.inWindow(structure) ||
+        !this.onScreen(
+          this.screenPoint(structure.x, structure.y),
+          60 * this.camera.zoom,
+        )
+      )
+        continue;
       const center = this.projectRaw(structure.x, structure.y);
       const progress = Math.max(0.08, structure.progress);
       for (const [partIndex, part] of [...structure.design.components]
         .sort((a, b) => a.z - b.z)
         .entries()) {
-        const s = 5,
+        // One metre is one projected unit; close zoom reveals the real geometry.
+        const s = 1,
           x =
             center.x +
             (part.x - part.y) * s +
@@ -609,9 +792,12 @@ export class WorldRenderer {
     ctx.drawImage(this.terrainCanvas, 0, 0, this.width, this.height);
     this.hitTargets = [];
     for (const structure of world.structures) {
+      if (!this.inWindow(structure)) continue;
+      const point = this.screenPoint(structure.x, structure.y, 1);
+      if (!this.onScreen(point)) continue;
       this.hitTargets.push({
         selection: { type: "structure", id: structure.id },
-        point: this.screenPoint(structure.x, structure.y, 7),
+        point,
         radius: 12,
       });
     }
@@ -629,6 +815,7 @@ export class WorldRenderer {
           animal.y,
           species.habitat === "air" ? 9 : 0,
         );
+      if (!this.onScreen(p)) continue;
       const scale = Math.max(0.7, this.camera.zoom),
         size = species.dryMass > 1 ? 3 : species.dryMass > 0.001 ? 2 : 1.5;
       ctx.save();
@@ -673,13 +860,24 @@ export class WorldRenderer {
         radius: 6,
       });
     }
-    for (const person of [...world.citizens].sort(
-      (a, b) => a.x + a.y - b.x - b.y,
-    )) {
-      const civ = world.civilizations.find((c) => c.id === person.civId)!,
+    this.visiblePeople = 0;
+    for (const person of this.people) {
+      const civ = this.civs.get(person.civId)!,
         p = this.screenPoint(person.x, person.y),
-        scale = Math.max(0.85, this.camera.zoom),
+        scale = Math.max(0.65, this.camera.zoom / 4.5),
         small = person.age < 12 ? 0.7 : 1;
+      if (!this.onScreen(p, 12 * scale)) continue;
+      this.visiblePeople++;
+      if (this.camera.zoom < 1.5 && this.selection?.id !== person.id) {
+        ctx.fillStyle = civ.color;
+        ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
+        this.hitTargets.push({
+          selection: { type: "citizen", id: person.id },
+          point: p,
+          radius: 5,
+        });
+        continue;
+      }
       const walk = person.task?.path.length
         ? Math.sin(this.time * 0.012 + person.clothing) * 1.4
         : 0;
@@ -748,7 +946,9 @@ export class WorldRenderer {
       });
     }
     for (const caravan of world.caravans) {
+      if (!this.inWindow(caravan)) continue;
       const p = this.screenPoint(caravan.x, caravan.y);
+      if (!this.onScreen(p)) continue;
       ctx.fillStyle = "#c6a36f";
       ctx.fillRect(p.x - 4, p.y - 4, 8, 5);
       ctx.fillStyle = "#726b50";
@@ -764,10 +964,9 @@ export class WorldRenderer {
       bottom: number;
     }[] = [];
     for (const civ of world.civilizations) {
+      if (!this.inWindow(civ)) continue;
       const p = this.screenPoint(civ.x, civ.y, 37),
-        population = world.citizens.filter(
-          (person) => person.civId === civ.id,
-        ).length;
+        population = this.populations.get(civ.id) ?? 0;
       if (
         p.x < -80 ||
         p.x > this.width + 80 ||
@@ -879,7 +1078,7 @@ export class WorldRenderer {
     this.camera.x += dx;
     this.camera.y += dy;
     this.drag = { x: event.clientX, y: event.clientY };
-    this.terrainDirty = true;
+    this.invalidate(true);
   };
   private pointerCancel = () => {
     this.drag = null;
@@ -930,7 +1129,11 @@ export class WorldRenderer {
   };
   private wheel = (event: WheelEvent) => {
     event.preventDefault();
-    this.zoom(event.deltaY < 0 ? 1.09 : 1 / 1.09);
+    const rect = this.canvas.getBoundingClientRect();
+    this.zoom(Math.exp(-Math.max(-300, Math.min(300, event.deltaY)) * 0.002), {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+    });
   };
   private key = (event: KeyboardEvent) => {
     if (
@@ -949,7 +1152,7 @@ export class WorldRenderer {
       event.preventDefault();
       this.camera.x += direction[event.key].x;
       this.camera.y += direction[event.key].y;
-      this.terrainDirty = true;
+      this.invalidate(true);
     }
   };
 }

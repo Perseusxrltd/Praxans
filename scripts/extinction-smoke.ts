@@ -37,6 +37,16 @@ const check = (label: string, condition: unknown) => {
   assert.ok(condition, label);
   checks.push(label);
 };
+const journalIds = () => {
+  const ids = new Set<string>();
+  let before: number | undefined;
+  for (;;) {
+    const page = game.store.journal(before, 100);
+    for (const event of page.events) ids.add(event.id);
+    if (page.next === null) return ids;
+    before = page.next;
+  }
+};
 let browser: Awaited<ReturnType<typeof chromium.launch>> | undefined;
 try {
   const world = game.getWorld(),
@@ -56,7 +66,7 @@ try {
   processDeaths(world);
   game.store.save(world);
   const identity = { id: world.id, seed: world.seed, tick: world.tick },
-    history = game.store.journal().events;
+    history = journalIds();
   browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
     baseURL: base,
@@ -178,10 +188,10 @@ try {
     current.civilizations.some((c) => c.id === previous.id) &&
       !current.citizens.some((p) => p.civId === previous.id),
   );
-  const journal = game.store.journal().events;
+  const journal = journalIds();
   check(
     "earlier events remain readable",
-    history.every((e) => journal.some((n) => n.id === e.id)),
+    [...history].every((id) => journal.has(id)),
   );
   check(
     "the earlier key is retired",

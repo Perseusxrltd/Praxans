@@ -24,8 +24,11 @@ flowchart LR
 | `landscape.ts`, `weathering.ts` | Sediment/surface evolution, fabric loss, repair, salvage and storage exposure |
 | `cognition.ts`, `society.ts`, `diplomacy.ts`, `progress.ts` | Personal learning, local assemblies, journeys/commitments and civilization outcome feedback |
 | `citizens.ts`, `economy.ts`, `engine.ts`, `actions.ts` | Needs, learning, work, relationships, ordered updates, bounded agent intervention |
+| `physiology.ts`, `subsistence.ts`, `movement.ts`, `settlement.ts`, `geometry.ts` | Funded thermal needs, remembered supplies, spherical walking, connected camp area and material enclosures |
 | `src/server/app.ts`, `schema.ts` | HTTP/MCP, scoped authorization, action validation, public snapshots and event streams |
+| `observer.ts`, `atlas.ts` | Public projections and progressively sampled planetary imagery, separate from authoritative state |
 | `store.ts`, `migrations.ts` | Atomic SQLite storage, checksums, archives, ownership lease, recovery clock |
+| `src/server/intervention.ts`, `src/simulation/renewal.ts` | Private, finite, idempotent operator renewal with explicit boundary inventories and permanent history |
 | `gateway.ts`, `runtime.ts`, `worker.ts`, `artifact.ts`, `preflight.ts` | Stable HTTP/SSE transport, replaceable sole-writer runtime, verified artifacts, private candidate validation and durable activation |
 | `src/client/` | Planet entrance, landscape rendering, inspection, history, and agent onboarding |
 
@@ -35,7 +38,7 @@ The historical Python modules and authored content definitions do not participat
 
 The world stores a nonnegative integer tick and the seeded PRNG state. One tick represents 900 simulated seconds. The host aims to advance one tick every 250 real milliseconds: one simulated day takes 24 real seconds at full speed. Weather and ecology update hourly; geological changes integrate daily at their much slower physical rates.
 
-A persisted wall-clock checkpoint records how much real time has been processed. After interruption, the server advances every missed tick in bounded batches. It does not jump over hunger, metabolism, births, weather, or other consequences. The public health response reports lag and recovery state; new decisions wait when recovery is more than ten real seconds behind. Very large backlogs and growing worlds can take time to recover.
+A persisted wall-clock checkpoint records how much real time has been processed. After interruption, the server advances every missed tick in bounded batches. It does not jump over hunger, metabolism, births, weather, or other consequences. The public health response reports lag, recovery state and proposal availability. Advisory proposals enter at the current logical tick even during recovery; they cannot change earlier ticks, skip debt or execute work immediately. New founding waits when recovery is more than ten real seconds behind. Very large backlogs and growing worlds can take time to recover.
 
 Recovery yields between work batches and promptly schedules further overdue ticks. It does not add an ordinary tick delay to every recovery batch. Observer broadcasts have a wall-time ceiling so accelerated recovery need not transmit every intermediate frame; simulation time and the persistent checkpoint retain all processed steps.
 
@@ -61,6 +64,8 @@ People choose work from bodily drives, policy, locally remembered opportunities,
 
 An external agent receives an observation and submits one to six typed proposals. A transaction validates and queues the whole batch atomically with its receipt. A receipt confirms submission, not acceptance. Local adults deliberate; quorum, consent, bodily needs, trust and feasibility constrain later execution. All keys share a community's six-pending-proposal capacity and four-simulated-hour interval. Retrying the same request ID and body returns the prior receipt within its retained window. Votes, decisions and subsequent observational reviews persist.
 
+Submission staging copies only the affected community, event queues and root bookkeeping. Unchanged physical state is shared read-only until the synchronous commit replaces the authoritative root; failed validation or database commit cannot leak a proposal. Independent simulation callers retain a fully isolated result through the separate `applyAgentActions` wrapper. This reduces submission allocations but does not make full-world checkpointing incremental.
+
 Contacts are per-community, dated reports. New correspondence travels with living volunteers who eat, rest and leave work behind. Trade reserves only the sender's cargo; a recipient can decline on arrival. Return cargo needs the homeward leg. Free-form letters are inert data; supported commitment primitives need reciprocal assent and actual fulfillment. Existing pre-format-8 escrowed exchanges retain their original terms. Outcome feedback is a vector of state potentials sampled once per world day; reads do not create rewards.
 
 Agent execution happens outside the world process. The server stores a hash of each civilization key and exposes no arbitrary code execution endpoint. Model outages do not block autonomous local behavior.
@@ -69,8 +74,14 @@ Agent execution happens outside the world process. The server stores a hash of e
 
 SQLite uses WAL mode with full synchronization. Metadata and each materialized region carry checksums. Durable tables retain events, historical measurements, sessions, scoped agent records, action receipts, releases, and migration snapshots. The in-memory event ring is only a recent working view; the browser can page through the permanent journal.
 
-Browsers receive an initial snapshot and periodic frames through a compressed server-sent event stream. Public values are rounded for transport; physical calculations retain their original precision. A slow observer can be disconnected rather than indefinitely buffering updates. The current service limits concurrent streams to 100.
+The entrance polls a small overview every five seconds and shares a one-second server summary cache. It displays a 256×128 planet atlas before requesting 1024×512 refinement. Detailed SSE starts only after entering the surface and closes on returning to the entrance. A shared async atlas task yields between row batches; it still runs on the simulation process's event loop.
 
-The map uses Canvas; the globe lazy-loads Three.js and runs at a capped frame rate. Geometry and colors come from world data. Pausing is local to an observer, and test time controls exist only in explicitly enabled development runs.
+Detailed viewers receive a snapshot and periodic compressed frames. Public people omit synapses, activations and pending learning; place memories expose coordinates rather than full resource maps. Dormant cohorts omit full inherited genomes. Authoritative state and the scoped agent's fuller people observations are preserved. Public values are rounded for transport; physical calculations retain their precision. A slow observer can be disconnected rather than indefinitely buffering updates. The current service limits concurrent streams to 100.
+
+SQLite caps retained reusable WAL space at 16 MiB when the log is reset after checkpointing. Active transactions or held readers can require a larger WAL; this is not a hard disk-use cap. Backups must fit outside the live data volume or include demonstrated database/WAL headroom. The [scaling review](research/scaling-and-open-endedness.md) records remaining global scans, unbounded entity-frame growth, monolithic metadata writes and coarse/fine execution requirements.
+
+The local map uses Canvas, visible-tile traversal, object culling and bounded raster/frame scheduling; the globe lazy-loads Three.js. A cancellable browser worker samples the world's pinned terrain generator for planetary exploration, with fewer than 100,000 samples and at most three retained rasters. This is a geography survey, not a parallel simulation. Visiting a community switches to its authoritative local snapshot. Camera movement neither materializes server regions nor invents fine physical reservoirs.
+
+Geometry and colors come from world data. Pausing is local to an observer; hidden/explorer-covered local canvases stop drawing, and test time controls exist only in explicitly enabled development runs. The current surface resolution is 100 m²; fine construction geometry and future subsurface physics are separate scales.
 
 See [hosting](hosting.md) for volume, backup, release, and migration procedures, and [model scope](model.md) for the scientific assumptions.

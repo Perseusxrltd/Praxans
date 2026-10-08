@@ -19,11 +19,18 @@ import {
   type RuntimeArtifact,
 } from "../src/server/artifact";
 import { SseRecords } from "../src/server/sse";
+import { Store } from "../src/server/store";
+import { createWorld } from "../src/simulation/world";
 
 const temporary = await mkdtemp(join(tmpdir(), "praxans-handover-")),
   database = join(temporary, "world.sqlite"),
   output = "output/playwright/hotfix-smoke";
 await mkdir(output, { recursive: true });
+// Isolate transport continuity from capacity benchmarks. Full-size founding and
+// the copied 1,200-resident world have their own conservation/throughput trials.
+const fixture = new Store(database);
+fixture.save(createWorld(1847, 64, 64, "planet-1", 8));
+fixture.close();
 process.env.PRAXANS_MANUAL_CLOCK = "0";
 process.env.PRAXANS_TEST_CONTROLS = "0";
 process.env.PRAXANS_REQUIRE_EXISTING_WORLD = "0";
@@ -119,7 +126,19 @@ try {
   const page = await context.newPage();
   page.on("pageerror", (error) => errors.push(String(error)));
   page.on("console", (msg) => {
-    if (msg.type() === "error") errors.push(msg.text());
+    if (msg.type() === "error")
+      errors.push(`${msg.text()} (${msg.location().url})`);
+  });
+  page.on("response", (response) => {
+    if (response.status() < 400) return;
+    void response
+      .text()
+      .then((body) => {
+        console.log(
+          `Browser HTTP diagnostic: ${JSON.stringify({ path: new URL(response.url()).pathname, status: response.status(), body: body.slice(0, 1000), gateway: gateway.status() })}`,
+        );
+      })
+      .catch(() => {});
   });
   await page.goto(base);
   await page
@@ -211,16 +230,41 @@ try {
       },
     ],
   };
-  const queued = request("/api/agent/actions", {
+  const adviceOptions: RequestInit = {
     method: "POST",
     headers: authorization,
     body: JSON.stringify(payload),
-  });
+    signal: AbortSignal.timeout(90000),
+  };
+  const queued = fetch(`${base}/api/agent/actions`, adviceOptions);
   const activationResult = await activation;
   console.log(`Activation completed: ${JSON.stringify(gateway.status())}`);
-  const receipt = await (await queued).json();
+  let queuedReply = await queued;
+  let catchupDeferrals = 0;
+  const catchupDeadline = Date.now() + 90000;
+  while (queuedReply.status === 503) {
+    const refusal = await queuedReply.json();
+    assert.match(refusal.error ?? "", /world is catching up/i);
+    assert.ok(
+      Date.now() < catchupDeadline,
+      "the disposable world must catch up without resetting its clock",
+    );
+    catchupDeferrals++;
+    // A real-time clock can accrue debt under CI load. Preserve the request ID
+    // and the normal write gate rather than assuming every handover is instant.
+    await sleep(500);
+    queuedReply = await fetch(`${base}/api/agent/actions`, {
+      ...adviceOptions,
+      signal: AbortSignal.timeout(90000),
+    });
+  }
+  assert.ok(queuedReply.ok, `Queued advice HTTP ${queuedReply.status}`);
+  const receipt = await queuedReply.json();
+  console.log(
+    `Catch-up deferrals retried with the same request ID: ${catchupDeferrals}`,
+  );
   check(
-    "a request arriving during handover completes through the new runtime",
+    "a request arriving during handover completes through the new runtime after any clock catch-up",
     receipt.replayed === false && receipt.proposals.length === 1,
   );
   const replayed = await (

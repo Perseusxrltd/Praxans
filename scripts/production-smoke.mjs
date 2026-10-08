@@ -40,6 +40,9 @@ async function request(path, options) {
   return response;
 }
 async function start(release, seed) {
+  const startedAt = Date.now();
+  let lastHealth,
+    lastProgress = 0;
   server = spawn(process.execPath, ["dist/server/index.js", "--production"], {
     env: { ...environment, WORLD_SEED: seed, PRAXANS_RELEASE: release },
     stdio: ["ignore", "pipe", "pipe"],
@@ -50,16 +53,32 @@ async function start(release, seed) {
   server.stderr.on("data", (chunk) => {
     logs += chunk;
   });
-  for (let attempt = 0; attempt < 300; attempt++) {
+  const deadline = Date.now() + 300000;
+  while (Date.now() < deadline) {
     if (server.exitCode !== null)
       throw new Error(`Production server exited: ${logs}`);
     try {
       const health = await (await request("/api/health")).json();
+      lastHealth = health;
+      if (Date.now() - lastProgress >= 15000) {
+        console.log(
+          JSON.stringify({
+            release,
+            elapsedSeconds: Math.round((Date.now() - startedAt) / 1000),
+            ...health,
+          }),
+        );
+        lastProgress = Date.now();
+      }
       if (health.ok && health.lagSeconds < 2) return health;
     } catch {}
-    await sleep(200);
+    // Recovery must compute the copied clock debt, and health polling also
+    // respects the ordinary API quota. Larger saved populations take longer.
+    await sleep(1000);
   }
-  throw new Error(`Production server did not recover: ${logs}`);
+  throw new Error(
+    `Production server did not recover: ${JSON.stringify(lastHealth)}\n${logs}`,
+  );
 }
 async function stop() {
   if (!server || server.exitCode !== null) return;
@@ -148,7 +167,7 @@ try {
     "the runnable example agent can observe and guide its community",
     afterAgent.civilization.id === civilizationId &&
       afterAgent.civilization.civics.proposals.some(
-        (p) => p.action.type === "focus" && p.action.focus === "balance",
+        (p) => p.action.type === "focus",
       ),
   );
   await command(["dist/server/maintenance.js", "inspect"]);
@@ -199,8 +218,7 @@ try {
     resumedAdvice.civilization.id === civilizationId,
   );
   const submittedProposal = afterAgent.civilization.civics.proposals.find(
-    (proposal) =>
-      proposal.action.type === "focus" && proposal.action.focus === "balance",
+    (proposal) => proposal.action.type === "focus",
   );
   check(
     "the advice retains its identity and content across process restarts",

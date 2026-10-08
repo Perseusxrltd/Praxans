@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createWorld, getTile } from "../../src/simulation/world";
+import { getTile } from "../../src/simulation/world";
+import { smallWorld as createWorld } from "./fixtures";
 import { elementLedger } from "../../src/simulation/chemistry";
 import { FAUNA_BY_ID, habitatSuitability } from "../../src/simulation/life";
 import {

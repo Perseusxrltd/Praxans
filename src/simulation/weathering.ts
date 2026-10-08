@@ -275,7 +275,7 @@ export function workspaceBenefit(world: World, person: Citizen): number {
 }
 
 export function decayStocks(world: World, civ: Civilization): void {
-  const tile = getTile(world, civ.x, civ.y)!;
+  const footprint = campTiles(world, civ);
   const volume = world.structures
     .filter((s) => s.civId === civ.id && !s.collapsed && s.progress >= 1)
     .reduce(
@@ -287,17 +287,23 @@ export function decayStocks(world: World, civ: Civilization): void {
     0,
   );
   const protectedFraction = clamp(volume / Math.max(storedVolume, 0.001), 0, 1);
-  const damp =
-    clamp(tile.air.humidity + tile.air.rain * 0.2, 0, 1) *
-    (1 - protectedFraction * 0.6);
-  const warmth = clamp(2 ** ((tile.temperature - 20) / 10), 0.05, 8);
   for (const material of Object.keys(civ.stock) as Material[]) {
-    const rate =
-      material === "biomass"
-        ? 0.004 + 0.004 * warmth * (0.3 + damp)
-        : RATES[material].loss * 24 * (0.1 + damp) * warmth;
-    const spoiled = civ.stock[material] * (1 - Math.exp(-rate));
+    const share = civ.stock[material] / footprint.length;
+    let spoiled = 0;
+    for (const tile of footprint) {
+      const damp =
+        clamp(tile.air.humidity + tile.air.rain * 0.2, 0, 1) *
+        (1 - protectedFraction * 0.6);
+      const warmth = clamp(2 ** ((tile.temperature - 20) / 10), 0.05, 8);
+      const rate =
+        material === "biomass"
+          ? 0.004 * warmth * (1.3 + damp)
+          : RATES[material].loss * 24 * (0.1 + damp) * warmth;
+      const loss = share * (1 - Math.exp(-rate));
+      spoiled += loss;
+      returnMaterial(world, tile, material, loss);
+    }
     civ.stock[material] -= spoiled;
-    returnMaterial(world, tile, material, spoiled);
   }
 }
+import { campTiles } from "./settlement";

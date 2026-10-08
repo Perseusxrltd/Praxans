@@ -4,6 +4,8 @@ import { knows, learnObservation } from "./cognition";
 import { returnMaterial } from "./laws";
 import { astronomy } from "./planet";
 import { clamp, random } from "./random";
+import { walkPath } from "./movement";
+import { HOURS_PER_TICK } from "./types";
 import {
   distance,
   findPath,
@@ -848,22 +850,15 @@ export function updateJourneys(world: World): void {
         finished.add(caravan.id);
         continue;
       }
-      const length = distance(caravan, next),
-        pace =
-          0.32 *
-          (world.weather === "storm" ? 0.7 : 1) *
-          (caravan.stage === "legacy"
-            ? 1
-            : Math.max(0.3, Math.min(...party.map((p) => p.energy / 100)))) *
-          (next.terrain === "hill" ? 0.7 : 1);
-      if (length <= pace) {
-        caravan.x = next.x;
-        caravan.y = next.y;
-        caravan.path.shift();
-      } else {
-        caravan.x += ((next.x - caravan.x) / length) * pace;
-        caravan.y += ((next.y - caravan.y) / length) * pace;
-      }
+      walkPath(
+        world,
+        caravan,
+        caravan.path,
+        HOURS_PER_TICK * (world.weather === "storm" ? 0.7 : 1),
+        caravan.stage === "legacy"
+          ? 100
+          : Math.min(...party.map((p) => p.energy)),
+      );
       for (const person of party) {
         person.x = caravan.x;
         person.y = caravan.y;

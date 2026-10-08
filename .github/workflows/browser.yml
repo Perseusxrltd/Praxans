@@ -5,7 +5,9 @@ on:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
+    env:
+      NODE_OPTIONS: --max-old-space-size=768
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -15,11 +17,15 @@ jobs:
       - run: npm ci
       - run: npm run format:check
       - run: npm run build
-      - run: npm test
+      - run: node --import tsx --test --test-concurrency=2 tests/web/*.test.ts
       - run: npm run test:production
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
       - run: npm run test:extinction
+      - run: npm run test:renewal
+      - run: npm run test:exploration
+      - run: npm run test:connection
+      - run: npm run test:startup
       - run: npm run test:hotfix
       - uses: actions/upload-artifact@v4
         if: always()
@@ -28,5 +34,9 @@ jobs:
           path: |
             output/playwright/browser-smoke
             output/playwright/extinction-smoke
+            output/playwright/renewal-smoke
+            output/playwright/exploration-smoke
+            output/playwright/connection-smoke
+            output/playwright/startup-smoke
             output/playwright/hotfix-smoke
           retention-days: 7

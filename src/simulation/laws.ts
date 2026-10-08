@@ -1,3 +1,4 @@
+import { enclosedStorageVolume } from "./geometry";
 import { MATERIALS } from "./content";
 import {
   accumulateAtmosphere,
@@ -25,7 +26,7 @@ import type {
 
 /** Changing these laws requires a new version and an explicit saved-world migration. */
 export const LAWS = Object.freeze({
-  version: "biosphere-1.2",
+  version: "biosphere-1.3",
   gravity: 9.81,
   chemicalEnergy: 17000,
   photosyntheticEfficiency: 0.024,
@@ -169,6 +170,8 @@ export function ledger(world: World): Matter & { chemical: number } {
       add(material as Material, amount);
   for (const person of world.citizens) {
     add("biomass", person.body);
+    add("fiber", person.wrapMass);
+    add("biomass", person.provisions);
     water += person.hydration;
     if (person.cargo) add(person.cargo.material, person.cargo.amount);
   }
@@ -358,40 +361,8 @@ export function evaluateDesign(
         continue;
       if (level >= 0.35 && !above.some((p) => p.z > level && p.z < level + 0.6))
         workSurface += area;
-      const walls = parts.filter(
-        (p) => p.z <= level + 0.008 && p.z + p.height > level + 0.1,
-      );
-      const top = (part: Component | undefined) =>
-        part ? part.z + part.height : level;
-      const west = top(
-        walls
-          .filter((p) => p.x + p.width <= x && y >= p.y && y < p.y + p.depth)
-          .sort((a, b) => b.x + b.width - a.x - a.width)[0],
-      );
-      const east = top(
-        walls
-          .filter((p) => p.x > x && y >= p.y && y < p.y + p.depth)
-          .sort((a, b) => a.x - b.x)[0],
-      );
-      const north = top(
-        walls
-          .filter((p) => p.y + p.depth <= y && x >= p.x && x < p.x + p.width)
-          .sort((a, b) => b.y + b.depth - a.y - a.depth)[0],
-      );
-      const south = top(
-        walls
-          .filter((p) => p.y > y && x >= p.x && x < p.x + p.width)
-          .sort((a, b) => a.y - b.y)[0],
-      );
-      const ceiling = Math.min(
-        west,
-        east,
-        north,
-        south,
-        ...above.filter((p) => p.z > level).map((p) => p.z),
-      );
-      storageVolume += Math.max(0, ceiling - level) * area;
     }
+  storageVolume = stable ? enclosedStorageVolume(parts) : 0;
   const cost = emptyStock();
   parts.forEach((p, i) => {
     cost[p.material] += masses[i];

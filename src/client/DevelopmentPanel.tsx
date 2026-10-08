@@ -1,5 +1,5 @@
 import type {
-  Citizen,
+  ObserverCitizen as Citizen,
   Civilization,
   SuccessAxis,
   WorldSnapshot,

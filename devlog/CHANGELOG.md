@@ -5,6 +5,28 @@
 
 ---
 
+## [Renewal, Scale and Agent Recovery 0.2] — 2026-10-08
+
+### Added
+- Three hundred individually represented founders with finite proportional supplies and population-scaled habitat screening; explicit one-time renewal of the four historical communities (→ world_renewal).
+- Food-funded thermal protection and ice melting, real fiber wraps, carried provisions, remembered water and a stated seasonal reserve heuristic (→ human_physiology).
+- Connected camp footprints, distributed resting/stock decay, spherical walking distance and bounded general component geometry/search (→ settlement_space; → material_geometry).
+- Worker-based planetary survey, progressive atlas/overview entrance and reduced spectator projections (→ planet_exploration; → browser_observer).
+- Private one-message agent connection, copy/share/email drafts and current-logical-tick advice during recovery (→ agent_gateway).
+- Antiquity-first source register, scale audits, failed-candidate evidence, measured CPU baseline and explicit large-world acceptance targets.
+
+### Fixed
+- Cold-tolerant frozen dormancy is distinct from drought damage; food decay has no temperature-independent biological floor.
+- Disconnected or open geometry cannot grant unsupported bulk enclosure; conflicting trial results and construction evidence remain distinct.
+- Agent submission staging leaves physical state shared read-only until atomic commit; failed saves do not leak proposals, and halted service permits committed receipt replay.
+- SQLite retains the original disk-full cause when it has already rolled back; reusable WAL retention is limited without discarding active reader history.
+
+### Validation and limits
+- All 112 model/server tests pass locally, with explicit browser and full-backup continuity evidence. Live memory/disk incidents and visible checkpoint rollback remain recorded; no uninterrupted-infrastructure claim.
+- A measured molar-mass/sediment allocation candidate was reverted after slower timings despite exact replay. Massive civilizations, sustainable multi-generation populations, general material chemistry, durable knowledge carriers and underground construction remain open work.
+
+---
+
 ## [Community Following 0.2] — 2026-10-08
 
 ### Added

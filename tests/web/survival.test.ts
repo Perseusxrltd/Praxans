@@ -1,12 +1,12 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
-  createWorld,
   getTile,
   tileIndex,
   findPath,
   distance,
 } from "../../src/simulation/world";
+import { smallWorld as createWorld } from "./fixtures";
 import { updateCitizen } from "../../src/simulation/citizens";
 import { elementLedger } from "../../src/simulation/chemistry";
 import { built } from "./fixtures";

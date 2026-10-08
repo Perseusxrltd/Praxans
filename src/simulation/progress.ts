@@ -1,4 +1,5 @@
 import { clamp } from "./random";
+import { edibleReserves } from "./subsistence";
 import { nearbyTiles } from "./terrain";
 import { housing, peopleOf, recordEvent } from "./world";
 import type {
@@ -68,7 +69,7 @@ export function measureSuccess(world: World, civ: Civilization): SuccessVector {
     (p) => (p.health + p.hunger + p.energy + p.happiness) / 4,
   );
   const mean = welfare.reduce((s, n) => s + n, 0) / population;
-  const storesPerPerson = civ.stock.biomass / population;
+  const storesPerPerson = edibleReserves(world, civ) / population;
   // Distinct tested functional hypotheses, with greater weight for construction and living transmission.
   // Labels, duplicate geometries and the number of requests do not count as evidence.
   const evidence = new Map<string, number>();
