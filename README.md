@@ -64,7 +64,7 @@ The [finite renewal](docs/releases/community-renewal-0.2.md) restored four histo
 
 The [agent recovery hotfix](docs/releases/agent-recovery-0.2.md) accepts advisory input during clock catch-up, preserves atomic receipts and bounds retained reusable SQLite log space. It leaves physical law, prior inhabitants and clock debt intact.
 
-The live [body-maintenance correction](docs/releases/body-maintenance-0.2.md) lets Praxans spend ordinary work and existing fiber on their own covering or someone nearby. Inspectors show real recipients, completed work and covering mass. Its law migration preserves the saved world and all historical deaths. Food allocation, childhood growth, metabolic energy and long-term survival remain explicit corrective work.
+The live [body-maintenance correction](docs/releases/body-maintenance-0.2.md) lets Praxans spend ordinary work and existing fiber on their own covering or someone nearby. Inspectors show real recipients, completed work and covering mass. Its law migration preserves the saved world and all historical deaths. The [ration-boundary candidate](docs/releases/ration-boundary-0.2.md) puts current bodily consumption before optional packing, preserves private custody and exposes personal food inventories. Competing physiological consumption, childhood growth, metabolic energy and long-term survival remain explicit corrective work.
 
 The [implementation ledger](docs/roadmap.md) tracks every accepted requirement, its status and its evidence. The [fundamentals review](docs/fundamentals.md) explains the remaining core work; the [agency and diplomacy contract](docs/agency-and-diplomacy.md) defines influence, success and contact.
 

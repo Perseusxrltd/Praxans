@@ -13,7 +13,7 @@ collaborator_roles: ["Simulation engineer", "Ecology modeler", "TypeScript devel
 skills_needed: ["TypeScript", "React", "Simulation Design", "Ecology", "SQLite", "HTTP", "MCP"]
 help_wanted: "Conservation-preserving model improvements, multi-generation ecological validation, world scaling, and accessible observation tools."
 looking_for: "Contributors who build transparent physical and ecological models and preserve existing worlds through recorded migrations."
-latest_milestone: "Performed local body maintenance, a preserved-world collapse investigation and verified continuing-world law updates, alongside three-hundred-person founding, planetary exploration and model-neutral agent connections."
+latest_milestone: "Performed local body maintenance, current-consumption-before-packing, lossless historical storage and verified continuing-world law updates, alongside three-hundred-person founding, planetary exploration and model-neutral agent connections."
 contribution_notes: "Read README.md and AGENTS.md. Canonical metadata lives in .molthub/project.md. Preserve existing worlds and keep model limits explicit."
 ---
 
@@ -37,7 +37,7 @@ The browser can survey seeded geography from planetary scale to surface cells, t
 
 New communities begin with 300 individually represented adults and finite supplies. Camp area, walking distance, carried food and clothing have represented physical costs. The entrance loads a small overview before detailed observation; agents receive a private connection briefing with user-controlled copying, sharing and email drafts. Population scale, long-term survival and open-ended construction remain measured development questions.
 
-Body maintenance uses existing repair work and real fiber, with local contact, competing bodily needs and feedback from thermal effects. An investigation of extinct communities separates demonstrated care and allocation defects from unvalidated ecological or demographic assumptions. Finite protection is not a claim of sustainable civilizations.
+Body maintenance uses existing repair work and real fiber, with local contact, competing bodily needs and feedback from thermal effects. An investigation of extinct communities separates demonstrated care and allocation defects from unvalidated ecological or demographic assumptions. Current bodily consumption precedes optional ration pickup; private inventories remain distinct. Reserve heuristics, feeding work, metabolic energy, growth and sustainable civilizations still need deeper validation.
 
 The former Python/Pygame project remains a historical reference. See the README for current setup, validation, architecture, and contribution boundaries.
 

@@ -21,6 +21,8 @@ import { backupDatabase } from "./backup";
 import {
   initializeArchives,
   checkArchiveStorage,
+  compactWorldArchive,
+  listWorldArchives,
   writeWorldArchive,
 } from "./archives";
 
@@ -200,6 +202,17 @@ export class Store {
       throw new Error(
         "This save needs an explicit migration. The existing world has been preserved; it will not be reset.",
       );
+    if (world.version !== WORLD_VERSION) {
+      // Resolve support before touching even the representation of history.
+      describeMigration(world);
+      // Reclaim reusable pages before another physical archive. Each completed
+      // conversion retains exact original bytes, identity, time and checksum and
+      // remains readable by the previous storage-v1 runtime if migration fails.
+      // Do this before terrain loading to avoid retaining two large worlds.
+      for (const archive of listWorldArchives(this.db))
+        if (archive.encoding === "json")
+          this.transaction(() => compactWorldArchive(this.db, archive.id));
+    }
     world.tiles = [];
     for (const chunk of world.chunks) {
       const storedChunk = this.db

@@ -100,9 +100,9 @@ test("an entropy hotfix starts an honest measurement epoch while preserving an o
     assert.equal(restored.tick, 9123);
     assert.equal(restored.entropy.sinceTick, 9123);
     assert.equal(restored.entropy.heatMixing, 0);
-    assert.equal(restored.lawsVersion, "biosphere-1.4");
+    assert.equal(restored.lawsVersion, "biosphere-1.5");
     assert.deepEqual(restored.tiles, world.tiles);
-    assert.equal(store.interventions().length, 4);
+    assert.equal(store.interventions().length, 5);
   } finally {
     store.close();
   }

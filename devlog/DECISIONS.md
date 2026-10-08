@@ -377,3 +377,22 @@
 - **decision**: Extend repair tasks with a local recipient and target covering mass. Earn transfer capacity only during an existing active task, then commit finite fiber movements at a common boundary after individual physiology and movement. Share the signed heat calculation with physiology and reinforce each actor's actual marginal result. Observable opposing self-adjustment prompts an ordinary new choice.
 - **alternatives**: Free protective bonuses would bypass material and time constraints. A kin-only or universal consent flag would invent social authority and exclude observable physical possibilities. Reading another person's private task as assent/refusal would grant hidden information. Sequential transfer commits would permit ordering-dependent stock reuse.
 - **consequences**: Format 10 / biosphere-1.4 records changed future behavior with a state-preserving migration. Contact is still approximated by one occupied surface cell; controller probabilities, age/work thresholds and target estimates require calibration. Body-transfer ordering is corrected within its scope; food allocation, baseline metabolic energy, childhood growth and demographic balance remain separate work.
+
+
+### ADR-035: Bodily consumption before optional reserve pickup
+
+- **date**: 2026-10-09
+- **status**: accepted
+- **context**: The collapse investigation reproduced a fed adult automatically packing the last food before a hungry child's meal. Cold fuel and ice melting use the same resource; moving packing after only that adult's meal would retain the defect.
+- **decision**: Split citizen scheduling into all physiology, a common residual ration-pickup boundary, then decisions/movement/work and existing body-work commitment. Preserve original task identity, private/caravan custody, accessible source budgets and one bodily update. Snapshot pickup contact, reject stale actors and allocate competing automatic refill requests proportionally. Keep these controller conventions separate from physical conservation and future freely developed social choices.
+- **alternatives**: End-of-tick pickup would either strand departing workers or transfer food remotely. Deferred debits with immediate physiological benefits would create unfunded nourishment and heat. An age-priority mandate would impose a social allocation rule without represented choices. Fully simultaneous metabolism needs funded requests and compartments first.
+- **consequences**: Format 11 / biosphere-1.5 preserves the saved world and changes future ordering. Refill handling labor, the 3 kg target, sequential current consumption and metabolic/growth abstractions remain explicit limits. No further renewal occurs.
+
+### ADR-036: Lossless reuse of legacy archive pages before a new migration
+
+- **date**: 2026-10-09
+- **status**: accepted
+- **context**: The first ration-boundary rehearsal exhausted a 454,299,648-byte filesystem after adding its archive and saving later ticks, with a 315 MB initial non-WAL footprint. Keeping roughly 100 MB of older plaintext archives prevented safe continued publication on that volume.
+- **decision**: Before loading full terrain for a supported law migration, convert each old plaintext archive to the existing storage-version-1 compressed-block representation in its own checked transaction. Preserve the exact original byte sequence, checksum, identity and creation date; verify stored blocks before committing replacement. Reuse the freed pages without rewriting history or replacing the database.
+- **alternatives**: Increasing the test's disk quota would conceal the deployment limit. Deleting historical archives would remove evidence. Parsing and reserializing old JSON could change original bytes. Loading old large rows alongside the full world would risk the protected heap. A new incompatible storage codec would require a separate gateway fallback design.
+- **consequences**: Successfully converted archives may remain after a later law failure; the preceding storage-v1 runtime already reads this format. The database file does not shrink, full checkpoint WAL remains large and every next release still needs a verified backup and measured headroom. Conversion is an encoding change, not a physical-world intervention.

@@ -244,7 +244,7 @@ test("a registered hotfix preserves an established world and archives its exact 
     stepWorld(original, 8);
     const legacy = legacyCheckpoint(store, original, 5);
     const upgraded = store.load(999);
-    assert.equal(upgraded.version, 10);
+    assert.equal(upgraded.version, 11);
     assert.equal(upgraded.entropy.sinceTick, original.tick);
     assert.equal(upgraded.generationVersion, "archipelago-1");
     assert.equal(upgraded.tick, original.tick);
@@ -262,8 +262,17 @@ test("a registered hotfix preserves an established world and archives its exact 
       ),
       legacy.citizens,
     );
-    const restoredElements = elementLedger(upgraded),
-      originalElements = elementLedger(original);
+    assert.deepEqual(upgraded.atmosphere, original.atmosphere);
+    // Compare the rearranged small inventories separately from unchanged bulk
+    // air. Adding each ration's nitrogen to billions of kg of atmospheric N
+    // loses several ulps solely from grouping, hiding the transfer we test.
+    const withoutBulkAir = (world: typeof original) =>
+      elementLedger({
+        ...world,
+        atmosphere: { ...world.atmosphere, nitrogen: 0, oxygen: 0, argon: 0 },
+      });
+    const restoredElements = withoutBulkAir(upgraded),
+      originalElements = withoutBulkAir(original);
     for (const symbol of Object.keys(originalElements))
       assert.ok(
         Math.abs(restoredElements[symbol] - originalElements[symbol]) <
@@ -273,7 +282,7 @@ test("a registered hotfix preserves an established world and archives its exact 
           ),
         `${symbol}: projecting personal inventories into legacy stock preserves matter`,
       );
-    assert.equal(store.interventions().length, 5);
+    assert.equal(store.interventions().length, 6);
     const [backup] = listWorldArchives(store.db);
     const json = Buffer.concat([
       ...worldArchiveBytes(store.db, backup.id),
@@ -284,7 +293,7 @@ test("a registered hotfix preserves an established world and archives its exact 
     assert.deepEqual(store.load(0), upgraded);
     assert.equal(
       store.interventions().length,
-      5,
+      6,
       "a restart does not apply the migration again",
     );
     materializeChunk(upgraded, 30, 40);

@@ -14,7 +14,11 @@ import {
   preferredWrapMass,
   regulateTemperature,
 } from "../../src/simulation/physiology";
-import { updateCitizen, processDeaths } from "../../src/simulation/citizens";
+import {
+  updateCitizen,
+  updateCitizens,
+  processDeaths,
+} from "../../src/simulation/citizens";
 import { beginExperience } from "../../src/simulation/cognition";
 import { getTile, tileIndex } from "../../src/simulation/world";
 import { elementLedger } from "../../src/simulation/chemistry";
@@ -314,6 +318,7 @@ test("thermal planning respects signed heat exchange including the skin-temperat
 
 test("already awake people can choose care before cargo/reserve goals, while selection earns no free work", () => {
   const { world, civ, actor, child } = fixture();
+  world.citizens = [actor, child];
   world.rng = 0;
   world.tick = 1;
   while (
@@ -326,14 +331,14 @@ test("already awake people can choose care before cargo/reserve goals, while sel
   civ.stock.fiber -= 0.5;
   actor.cargo = { material: "fiber", amount: 0.5 };
   civ.stock.biomass = 0; // Fixture scarcity: baseline comparisons below concern finite fiber.
-  updateCitizen(world, actor, civ, 8);
+  updateCitizens(world);
   assert.ok(isBodyRepair(actor.task));
   assert.equal(actor.task.recipientId, child.id);
   assert.equal(child.wrapMass, 0);
   assert.equal(actor.task.progress, 0);
   const energy = actor.energy;
   world.tick++;
-  updateCitizen(world, actor, civ, 8);
+  updateCitizens(world);
   assert.ok(
     child.wrapMass > 0 && child.wrapMass <= PHYSIOLOGY.wrappingKgPerHour * 0.25,
   );
@@ -396,10 +401,8 @@ test("post-physiology target capping completes work in either actor update order
     wrap(world, child, 1.99);
     const task = assign(world, actor, child);
     world.tick = 1;
-    const work = beginBodyWork(world);
-    for (const person of reversed ? [child, actor] : [actor, child])
-      updateCitizen(world, person, civ, 8, work);
-    finishBodyWork(world, work);
+    world.citizens = reversed ? [child, actor] : [actor, child];
+    updateCitizens(world);
     close(child.wrapMass, 2);
     assert.equal(actor.task, null);
     assert.ok(
@@ -529,12 +532,15 @@ test("format nine migration retains people, minds, tasks, inventories and empty 
       assert.equal(JSON.stringify(old), original);
       assert.deepEqual(migrated.world, {
         ...old,
-        version: 10,
-        lawsVersion: "biosphere-1.4",
+        version: 11,
+        lawsVersion: "biosphere-1.5",
       });
       assert.deepEqual(
         migrated.interventions.map((i) => i.id),
-        ["010-performed-body-maintenance"],
+        [
+          "010-performed-body-maintenance",
+          "011-consumption-before-ration-pickup",
+        ],
       );
       const loaded = store.load(0, true);
       assert.deepEqual(loaded, migrated.world);
@@ -552,7 +558,7 @@ test("format nine migration retains people, minds, tasks, inventories and empty 
       );
       assert.deepEqual(JSON.parse(archived), old);
       assert.deepEqual(store.load(0, true), loaded);
-      assert.equal(store.interventions().length, 1);
+      assert.equal(store.interventions().length, 2);
     } finally {
       store.close();
     }

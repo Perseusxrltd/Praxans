@@ -15,6 +15,7 @@ import {
   verifyWorldArchives,
   worldArchiveBytes,
   writeWorldArchive,
+  compactWorldArchive,
 } from "../../src/server/archives";
 import { Store } from "../../src/server/store";
 import { legacyCheckpoint, smallWorld } from "./fixtures";
@@ -26,6 +27,118 @@ const hash = (bytes: string | Uint8Array) =>
   createHash("sha256").update(bytes).digest("hex");
 const archivedText = (db: DatabaseSync, id: string) =>
   Buffer.concat([...worldArchiveBytes(db, id)]).toString();
+
+test("compaction retains original archive bytes, formatting, identity and date across Unicode boundaries", () => {
+  const store = new Store(":memory:");
+  try {
+    const text =
+      '{ "note": "' +
+      "a".repeat(ARCHIVE_BLOCK_BYTES / 4 - 12) +
+      "🌱é水".repeat(70000) +
+      '", "zero": -0, "exponent": 1e+0 }\n';
+    const id = "original-spacing";
+    store.db
+      .prepare(
+        "INSERT INTO world_backups(id,json,checksum,created_at) VALUES(?,?,?,?)",
+      )
+      .run(id, text, hash(text), 12345);
+    const before = listWorldArchives(store.db)[0];
+    const result = store.transaction(() => compactWorldArchive(store.db, id));
+    assert.deepEqual(
+      {
+        id: result.id,
+        checksum: result.checksum,
+        rawBytes: result.rawBytes,
+        createdAt: result.createdAt,
+      },
+      {
+        id: before.id,
+        checksum: before.checksum,
+        rawBytes: before.rawBytes,
+        createdAt: before.createdAt,
+      },
+    );
+    assert.equal(archivedText(store.db, id), text);
+    assert.equal(result.encoding, "deflate-parts-1");
+    assert.ok(result.parts > 1);
+    assert.deepEqual(
+      { ...store.transaction(() => compactWorldArchive(store.db, id)) },
+      result,
+    );
+    assert.equal(
+      store.db.prepare("SELECT json FROM world_backups WHERE id=?").get(id)!
+        .json,
+      "",
+    );
+    assert.equal(verifyWorldArchives(store.db).length, 1);
+  } finally {
+    store.close();
+  }
+});
+
+test("corrupt input or a failed archive replacement rolls back compaction without blessing damaged history", () => {
+  for (const failure of ["checksum", "write"] as const) {
+    const store = new Store(":memory:");
+    try {
+      const text = '{ "retained": "' + "🌿".repeat(150000) + '" }';
+      store.db
+        .prepare(
+          "INSERT INTO world_backups(id,json,checksum,created_at) VALUES('old',?,?,17)",
+        )
+        .run(text, failure === "checksum" ? hash("wrong") : hash(text));
+      const before = store.db
+        .prepare("SELECT * FROM world_backups WHERE id='old'")
+        .get();
+      if (failure === "write")
+        store.db.exec(
+          "CREATE TRIGGER reject_compact BEFORE UPDATE ON world_backups BEGIN SELECT RAISE(ABORT,'injected archive conversion failure'); END",
+        );
+      assert.throws(
+        () => store.transaction(() => compactWorldArchive(store.db, "old")),
+        failure === "checksum"
+          ? /checksum mismatch/
+          : /injected archive conversion failure/,
+      );
+      assert.deepEqual(
+        store.db.prepare("SELECT * FROM world_backups WHERE id='old'").get(),
+        before,
+      );
+      assert.equal(
+        store.db.prepare("SELECT count(*) n FROM world_backup_parts").get()!.n,
+        0,
+      );
+    } finally {
+      store.close();
+    }
+  }
+});
+
+test("a later law-migration failure preserves its checkpoint and exact readable historical archives", () => {
+  const store = new Store(":memory:");
+  try {
+    legacyCheckpoint(store, smallWorld(1847, 64, 64), 7);
+    const text = '{ "history": "exact old bytes 🌱" }\n';
+    store.db
+      .prepare(
+        "INSERT INTO world_backups(id,json,checksum,created_at) VALUES('old',?,?,17)",
+      )
+      .run(text, hash(text));
+    const head = store.db.prepare("SELECT * FROM world").get();
+    store.db.exec(
+      "CREATE TRIGGER reject_next_law BEFORE UPDATE ON world BEGIN SELECT RAISE(ABORT,'injected later migration failure'); END",
+    );
+    assert.throws(
+      () => store.load(0, true),
+      /injected later migration failure/,
+    );
+    assert.deepEqual(store.db.prepare("SELECT * FROM world").get(), head);
+    assert.equal(archivedText(store.db, "old"), text);
+    assert.equal(listWorldArchives(store.db)[0].encoding, "deflate-parts-1");
+    assert.equal(store.interventions().length, 0);
+  } finally {
+    store.close();
+  }
+});
 
 test("owned migration matches the pure API without changing its caller's original state", () => {
   for (const version of [5, 6, 7] as const) {
@@ -54,7 +167,7 @@ test("a failed commit after owned migration preserves the old checkpoint and arc
     const head = store.db.prepare("SELECT * FROM world").get();
     const regions = store.db.prepare("SELECT * FROM chunks ORDER BY id").all();
     store.db.exec(
-      "CREATE TRIGGER reject_upgraded_world BEFORE UPDATE ON world WHEN json_extract(NEW.json,'$.version')=10 BEGIN SELECT RAISE(ABORT,'injected migration commit failure'); END",
+      "CREATE TRIGGER reject_upgraded_world BEFORE UPDATE ON world WHEN json_extract(NEW.json,'$.version')=11 BEGIN SELECT RAISE(ABORT,'injected migration commit failure'); END",
     );
     assert.throws(
       () => store.load(0, true),
@@ -72,9 +185,9 @@ test("a failed commit after owned migration preserves the old checkpoint and arc
     );
     assert.equal(store.interventions().length, 0);
     store.db.exec("DROP TRIGGER reject_upgraded_world");
-    assert.equal(store.load(0, true).version, 10);
+    assert.equal(store.load(0, true).version, 11);
     assert.equal(verifyWorldArchives(store.db).length, 1);
-    assert.equal(store.interventions().length, 3);
+    assert.equal(store.interventions().length, 4);
   } finally {
     store.close();
   }

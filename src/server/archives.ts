@@ -182,6 +182,91 @@ export function listWorldArchives(db: DatabaseSync): WorldArchive[] {
     .all() as unknown as WorldArchive[];
 }
 
+function writeParts(db: DatabaseSync, id: string, pieces: Iterable<string>) {
+  const insert = db.prepare("INSERT INTO world_backup_parts VALUES(?,?,?,?,?)");
+  const hash = createHash("sha256");
+  let rawBytes = 0,
+    parts = 0;
+  for (const bytes of blocks(pieces)) {
+    hash.update(bytes);
+    rawBytes += bytes.length;
+    insert.run(
+      id,
+      parts++,
+      bytes.length,
+      sha256(bytes),
+      deflateSync(bytes, { level: 1 }),
+    );
+  }
+  return { checksum: hash.digest("hex"), rawBytes, parts };
+}
+
+/** Slice without splitting a UTF-16 surrogate pair or allocating a second full byte buffer. */
+function* textPieces(text: string): Generator<string> {
+  for (let start = 0; start < text.length;) {
+    let end = Math.min(text.length, start + ARCHIVE_BLOCK_BYTES / 4);
+    const last = text.charCodeAt(end - 1);
+    if (end < text.length && last >= 0xd800 && last <= 0xdbff) end--;
+    yield text.slice(start, end);
+    start = end;
+  }
+}
+
+/**
+ * Losslessly encode an existing plaintext archive inside a Store transaction.
+ * The original text and checksum remain authoritative: never parse/reserialize
+ * history. Run before loading terrain so the old large row does not overlap a
+ * second fully decoded world. Failure preserves the original archive and parts.
+ * Storage version 1 readers already understand the resulting representation.
+ */
+export function compactWorldArchive(
+  db: DatabaseSync,
+  id: string,
+): WorldArchive {
+  const archive = listWorldArchives(db).find((item) => item.id === id);
+  if (!archive) throw new Error(`Unknown world archive ${id}.`);
+  if (archive.encoding === encoding) return archive;
+  if (archive.encoding !== "json")
+    throw new Error(`Unsupported world archive encoding ${archive.encoding}.`);
+  db.exec("SAVEPOINT praxans_archive_compact");
+  try {
+    if (
+      db
+        .prepare("SELECT count(*) n FROM world_backup_parts WHERE archive_id=?")
+        .get(id)!.n !== 0
+    )
+      throw new Error(`Plaintext world archive ${id} has unexpected blocks.`);
+    const row = db
+      .prepare("SELECT json FROM world_backups WHERE id=? AND encoding='json'")
+      .get(id) as { json: string };
+    const written = writeParts(db, id, textPieces(row.json));
+    if (
+      written.checksum !== archive.checksum ||
+      written.rawBytes !== archive.rawBytes
+    )
+      throw new Error(
+        `World archive ${id} checksum mismatch; original history preserved.`,
+      );
+    db.prepare(
+      "UPDATE world_backups SET json='',encoding=?,raw_bytes=?,part_count=? WHERE id=?",
+    ).run(encoding, written.rawBytes, written.parts, id);
+    // Validate the stored compressed representation before dropping the original
+    // from this transaction. Any malformed or altered block rolls it all back.
+    for (const bytes of worldArchiveBytes(db, id)) void bytes;
+    db.exec("RELEASE praxans_archive_compact");
+    return { ...archive, encoding, ...written };
+  } catch (error) {
+    try {
+      db.exec(
+        "ROLLBACK TO praxans_archive_compact; RELEASE praxans_archive_compact",
+      );
+    } catch {
+      /* Retain the initial I/O or checksum failure if SQLite rolled back. */
+    }
+    throw error;
+  }
+}
+
 /** Call inside the same Store transaction as the corresponding world migration. */
 export function writeWorldArchive(
   db: DatabaseSync,
@@ -195,24 +280,7 @@ export function writeWorldArchive(
     db.prepare(
       "INSERT INTO world_backups(id,json,checksum,created_at,encoding,raw_bytes,part_count) VALUES(?,'','',?,?,0,0)",
     ).run(id, createdAt, encoding);
-    const insert = db.prepare(
-      "INSERT INTO world_backup_parts VALUES(?,?,?,?,?)",
-    );
-    const hash = createHash("sha256");
-    let rawBytes = 0,
-      parts = 0;
-    for (const bytes of blocks(worldJson(world))) {
-      hash.update(bytes);
-      rawBytes += bytes.length;
-      insert.run(
-        id,
-        parts++,
-        bytes.length,
-        sha256(bytes),
-        deflateSync(bytes, { level: 1 }),
-      );
-    }
-    const checksum = hash.digest("hex");
+    const { checksum, rawBytes, parts } = writeParts(db, id, worldJson(world));
     db.prepare(
       "UPDATE world_backups SET checksum=?,raw_bytes=?,part_count=? WHERE id=?",
     ).run(checksum, rawBytes, parts, id);

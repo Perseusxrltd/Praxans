@@ -24,7 +24,7 @@
     "recordedSurprise": 0.95,
     "trialsAfter": 2,
     "recordedTickAfter": -100,
-    "statementAfter": "Historical estimate: 0.95 m³ storage",
+    "statementAfter": "Historical estimate: 0.95 m\u00b3 storage",
     "woodStockAfterKg": 0.6,
     "detritus": {
       "carbon": 0.396,
@@ -81,8 +81,8 @@
       "freshNote": {
         "id": "observation-1",
         "tick": 0,
-        "statement": "0.0 m² of cover, 0.4 m² of working surface, and 0.00 m³ of enclosed space",
-        "evidence": "Probe Person handled samples of the actual materials. Components occupy separate volumes. Loads reach the ground within the material strength limits. 0.00 m² of free floor space is covered above head height. These are idealized static estimates; construction and exposure provide further evidence.",
+        "statement": "0.0 m\u00b2 of cover, 0.4 m\u00b2 of working surface, and 0.00 m\u00b3 of enclosed space",
+        "evidence": "Probe Person handled samples of the actual materials. Components occupy separate volumes. Loads reach the ground within the material strength limits. 0.00 m\u00b2 of free floor space is covered above head height. These are idealized static estimates; construction and exposure provide further evidence.",
         "design": {
           "name": "Detached walls",
           "components": [
@@ -155,7 +155,7 @@
           "explanation": [
             "Components occupy separate volumes.",
             "Loads reach the ground within the material strength limits.",
-            "0.00 m² of free floor space is covered above head height."
+            "0.00 m\u00b2 of free floor space is covered above head height."
           ]
         },
         "trials": 1,
@@ -205,7 +205,10 @@
         "src/simulation/economy.ts",
         "src/simulation/citizens.ts"
       ],
-      "candidate_ids": ["R23", "R09"],
+      "candidate_ids": [
+        "R23",
+        "R09"
+      ],
       "acceptance": "Match geometry, method and physical properties to reuse evidence; keep contradictory/different-method notes separate and earlier accounts unchanged.",
       "verification": "Original conflicting result remains byte-for-byte unchanged; separate current note stores 0 m3; agreeing repeat reuses current result; method control preserves construction note. Parent reports 11/11 knowledge-record/depth-suite regressions, including construction after sample; research inspected that regression source without rerunning the suite."
     },
@@ -221,7 +224,10 @@
         "src/simulation/engine.ts",
         "src/simulation/cognition.ts"
       ],
-      "candidate_ids": ["R23", "R12"],
+      "candidate_ids": [
+        "R23",
+        "R12"
+      ],
       "arithmetic": {
         "base_utility": -0.2,
         "maximum_trust": 0.95,
@@ -236,7 +242,10 @@
       "status": "documented_next_work",
       "claim_type": "code_observation",
       "summary": "Finite cuboid/material and automatic-site representation lacks general processing/tools and physical knowledge carriers.",
-      "candidate_ids": ["R23", "R09"]
+      "candidate_ids": [
+        "R23",
+        "R09"
+      ]
     },
     {
       "id": "C04",
@@ -244,7 +253,10 @@
       "status": "documented_next_work",
       "claim_type": "code_observation",
       "summary": "Aggregate storage/remote capacity and incompletely populated thermal capacity remain explicit effective couplings.",
-      "candidate_ids": ["R22", "R24"]
+      "candidate_ids": [
+        "R22",
+        "R24"
+      ]
     },
     {
       "id": "C05",
@@ -252,7 +264,12 @@
       "status": "documented_next_work",
       "claim_type": "code_observation",
       "summary": "Spherical movement and projected search/site distances coexist; fine geometry is not fine terrain or depth-resolved reservoirs.",
-      "candidate_ids": ["R13", "R14", "R15", "R16"]
+      "candidate_ids": [
+        "R13",
+        "R14",
+        "R15",
+        "R16"
+      ]
     },
     {
       "id": "C06",
@@ -260,7 +277,12 @@
       "status": "evidence_scope_limit",
       "claim_type": "parameter_assumption",
       "summary": "Ordinary 300-adult founding starts with 48 kg food/person; tested recovery with 480 kg/person. Neither short trial certifies seasonal or generational adequacy.",
-      "candidate_ids": ["R21", "R01", "R02", "R03"],
+      "candidate_ids": [
+        "R21",
+        "R01",
+        "R02",
+        "R03"
+      ],
       "food_kg_per_person": {
         "ordinary_founding": 48,
         "recovery": 480
@@ -272,7 +294,10 @@
       "status": "documented_next_work",
       "claim_type": "code_observation",
       "summary": "Advice trust uses fixed four-outcome weights; initialConditions metadata still calls fresh 300-person communities small.",
-      "candidate_ids": ["R12", "R20"]
+      "candidate_ids": [
+        "R12",
+        "R20"
+      ]
     },
     {
       "id": "C08",
@@ -280,7 +305,10 @@
       "status": "documented_next_work",
       "claim_type": "code_observation",
       "summary": "Bounded browser survey is a preview, with live detail in community windows; multiscale payload and subsurface contracts remain future work.",
-      "candidate_ids": ["R18", "R19"]
+      "candidate_ids": [
+        "R18",
+        "R19"
+      ]
     },
     {
       "id": "C09",
@@ -288,7 +316,11 @@
       "status": "external_transport_baseline_unresolved",
       "claim_type": "simulation_result",
       "summary": "External observer ECONNRESET before any activation; large decoded payload observed, causal diagnosis unknown.",
-      "candidate_ids": ["R18", "R19", "R20"],
+      "candidate_ids": [
+        "R18",
+        "R19",
+        "R20"
+      ],
       "acceptance": "Correlate external and local stream, runtime and proxy evidence; distinguish preexisting resets from any later activation and decoded size from wire size."
     }
   ],
@@ -462,5 +494,10 @@
     "as_of_parent_report_utc_date": "2026-10-08",
     "vercel_explorer": "Parent release record reports production READY; no independent research page fetch.",
     "railway_v9_1200_renewal": "Parent says preparing; no live activation claimed."
+  },
+  "rationBoundaryFollowup": {
+    "date": "2026-10-09",
+    "record": "../validation/ration-boundary-2026-10-09.json",
+    "scope": "Implemented consumption-before-packing and compatible lossless archive compaction. Immediate consumption, metabolism, growth, scale and open institutions remain unresolved."
   }
 }

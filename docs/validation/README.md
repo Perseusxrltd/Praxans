@@ -1,5 +1,7 @@
 # Browser world validation
 
+The [ration-boundary candidate](../releases/ration-boundary-0.2.md) has separate [causal, storage, continuity and publication evidence](ration-boundary-2026-10-09.json). Its initial quota failure is retained alongside the corrected test; passing allocation cases do not establish demographic viability.
+
 ## Body maintenance — 2026-10-08
 
 The live [body-maintenance release](../releases/body-maintenance-0.2.md) passes **153 model/server tests**, with **36 focused body/persistence/archive/preflight tests rerun after its final loader-memory correction**. Final build/format, twelve compiled-production checks, 21 hotfix checks and fifteen actual inhabited-copy handover/restart checks pass. Nine focused browser checks and the supplied unmodified game client pass; helper, child and mobile screenshots were inspected. The browser reports performed material movement and the recipient's actual covering, without claiming continuous care.

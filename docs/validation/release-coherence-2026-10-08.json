@@ -1,14 +1,14 @@
 {
-  "inspectedAt": "2026-10-08T23:26:03.488Z",
+  "inspectedAt": "2026-10-08T23:55:18.146Z",
   "structuralScan": {
-    "baseCommit": "90d346eaaf2a18b614fd1e1a7c708f839ad8a315",
+    "baseCommit": "c920a74deea2249727ec495299527522cbd9fdbb",
     "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
-    "gitVisibleExistingFileCount": 929,
-    "jsTsFileCount": 124,
+    "gitVisibleExistingFileCount": 932,
+    "jsTsFileCount": 125,
     "sourceFileCount": 76,
-    "srcContentSha256": "0b3ccfc5b0556d117020166dff379dc983efd7eadbfaa043f34b7ac63225082e",
+    "srcContentSha256": "df00982e16e559eab6b9e8f7fc245a64deb19e77ac1b603ff67e4d144a4c48f9",
     "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
-    "resolvedEdgeCount": 618,
+    "resolvedEdgeCount": 634,
     "edgesByArea": {
       "docs -> src/simulation": 22,
       "scripts -> src/server": 22,
@@ -18,9 +18,9 @@
       "src/server -> src/simulation": 40,
       "src/server -> src/server": 22,
       "src/simulation -> src/simulation": 242,
-      "tests -> src/simulation": 137,
-      "tests -> tests": 27,
-      "tests -> src/server": 33
+      "tests -> src/simulation": 149,
+      "tests -> tests": 28,
+      "tests -> src/server": 36
     },
     "missingImports": [],
     "missingAssets": [],
@@ -36,7 +36,26 @@
     ],
     "layerViolations": [],
     "simulationEnvironmentImports": [],
-    "localMarkdownLinksChecked": 384,
+    "localMarkdownLinksChecked": 395,
     "missingMarkdownLinks": []
+  },
+  "rationBoundaryReview": {
+    "physicalOrder": "All citizen physiology, finite residual ration pickup, decisions and movement/work, then existing body transfers.",
+    "unitsAndCustody": "Kilograms move once from accessible camp stock to the same person; private and caravan stocks stay separate. Original tasks retain their paid work interval.",
+    "stateContinuity": "Format 11 / biosphere-1.5 changes no saved inventory, person, task, RNG or time at the boundary.",
+    "archiveContinuity": "Lossless prior-archive conversion preserves original bytes, checksums, dates and IDs in storage version 1. It commits separately before full terrain loading and can remain compatible after a later law failure.",
+    "resolvedFindings": [
+      "Optional packing formerly preceded other people\u2019s current meals/thermal fuel.",
+      "Repeated camp access checks after debits could shrink the stock-dependent footprint.",
+      "A full new archive plus later save exhausted the unchanged 315 MB / 454299648 B capacity fixture until legacy pages became reusable.",
+      "Large unchanged atmospheric nitrogen hid precision in the older transfer test; unchanged air is now checked exactly and changed small compartments separately."
+    ],
+    "limits": [
+      "Sequential immediate consumption and heuristic packing without handling labor.",
+      "Unfunded baseline metabolic estimate and rapid childhood growth.",
+      "Full-region WAL, small remaining disk headroom and no populated 1 GB cgroup handover proof.",
+      "No new renewal or claim of demographic viability."
+    ],
+    "evidence": "ration-boundary-2026-10-09.json"
   }
 }

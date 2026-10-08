@@ -17,7 +17,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **dependencies**: natural_systems
 - **dependents**: civilization_intelligence, world_storage, agent_gateway, browser_observer
 - **known_issues**: All materialized regions remain resident in one process; unmaterialized geography has priors rather than simulated history.
-- **last_touched**: 2026-10-08
+- **last_touched**: 2026-10-09
 
 ### natural_systems
 
@@ -28,7 +28,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **dependencies**: world_state
 - **dependents**: civilization_intelligence, agent_gateway, browser_observer
 - **known_issues**: Reduced thermal/weather/statics/cohort models. Planetary thermal exchange is represented; full global moisture, materials and ecology are unresolved. No general chemistry, molecular biology or total planetary entropy. See docs/model.md.
-- **last_touched**: 2026-10-08
+- **last_touched**: 2026-10-09
 
 ### civilization_intelligence
 
@@ -38,8 +38,8 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `citizens.ts`, `economy.ts`, `engine.ts`, `actions.ts`, `founding.ts`
 - **dependencies**: world_state, natural_systems, human_cognition, civic_relations, human_physiology, settlement_space, material_geometry
 - **dependents**: agent_gateway, browser_observer
-- **known_issues**: Fixed design score and site radius/spacing constrain invention despite feasible-alternative and conditional-work selection. All four renewed communities later died. Short-run founding/construction validation does not establish multi-generation or genetic equilibrium; optional ration packing reproduces update-order deprivation under scarcity.
-- **last_touched**: 2026-10-08
+- **known_issues**: Fixed design score and site radius/spacing constrain invention despite feasible-alternative and conditional-work selection. All four renewed communities later died. Short-run founding/construction validation does not establish multi-generation or genetic equilibrium; shared physiological consumption now precedes optional ration pickup; immediate meal/thermal contention remains sequential, and reserve behavior is still heuristic.
+- **last_touched**: 2026-10-09
 
 ### world_storage
 
@@ -49,8 +49,8 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `store.ts`, `backup.ts`, `archives.ts`, `migrations.ts`, `startup.ts`, `intervention.ts`, `scripts/world-maintenance.ts`, `scripts/verify-upgrade.ts`
 - **dependencies**: world_state, natural_systems
 - **dependents**: agent_gateway, world_hosting, community_history
-- **known_issues**: One writer/volume, monolithic population metadata and full region serialization. New archives use verified compressed blocks and owned migration; old plaintext archives retain their original footprint and require offline large-row verification. The additive schema commits separately from physical migration. Pre-write checkpoint reuse and bounded native copies address demonstrated reader-related log accumulation, but single-write and combined live/preflight capacity remain finite. The 16 MiB setting bounds only reusable WAL. External backup retention/monitoring and account recovery remain open.
-- **last_touched**: 2026-10-08
+- **known_issues**: One writer/volume, monolithic population metadata and full region serialization. New archives use verified compressed blocks and owned migration; older plaintext archives are losslessly converted before a new law migration, retaining exact expanded bytes and permitting reuse of freed pages. Conversion runs before full terrain loading; it does not shrink the file. The additive schema commits separately from physical migration. Pre-write checkpoint reuse and bounded native copies address demonstrated reader-related log accumulation, but single-write and combined live/preflight capacity remain finite. The 16 MiB setting bounds only reusable WAL. External backup retention/monitoring and account recovery remain open.
+- **last_touched**: 2026-10-09
 
 ### agent_gateway
 
@@ -72,7 +72,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **dependencies**: agent_gateway, world_state, natural_systems, community_history
 - **dependents**: none
 - **known_issues**: Globe requires WebGL for its full visual; 100-stream service cap. Overview/atlas loading is progressive, but cold server work still delays opening. Detailed frames retain global entity lists; bounded viewport/delta publication is unresolved.
-- **last_touched**: 2026-10-08
+- **last_touched**: 2026-10-09
 
 ### community_history
 
@@ -116,7 +116,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **dependencies**: world_state, natural_systems, civilization_intelligence, world_storage, agent_gateway, browser_observer
 - **dependents**: none
 - **known_issues**: Local causal and short-run checks do not establish large-world load capacity or century-scale ecological stability.
-- **last_touched**: 2026-10-08
+- **last_touched**: 2026-10-09
 
 ### human_cognition
 
@@ -150,8 +150,8 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `physiology.ts`, `bodywork.ts`, `subsistence.ts`, `citizens.ts`
 - **dependencies**: natural_systems, world_state, settlement_space, human_cognition
 - **dependents**: civilization_intelligence
-- **known_issues**: The historical infant death exposed absent caregiver protection. Body maintenance now permits finite local assistance through ordinary repair work, with common transfer budgets and observable self-adjustment. Contact and work/choice parameters remain coarse; feeding allocation, childhood growth, body-reserve metabolism, containers, broader care and generational viability remain unresolved. See docs/research/community-collapse-2026-10-08.md.
-- **last_touched**: 2026-10-08
+- **known_issues**: The historical infant death exposed absent caregiver protection. Body maintenance now permits finite local assistance through ordinary repair work, with common transfer budgets and observable self-adjustment. Contact and work/choice parameters remain coarse; immediate consumption contention, performed feeding, childhood growth, body-reserve metabolism, containers, broader care and generational viability remain unresolved. See docs/research/community-collapse-2026-10-08.md.
+- **last_touched**: 2026-10-09
 
 ### settlement_space
 

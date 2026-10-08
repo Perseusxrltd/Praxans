@@ -7,6 +7,19 @@
 
 ## Log
 
+### [2026-10-09] Residual Ration Pickup and Lossless Archive Compaction
+
+- **type**: bugfix
+- **systems**: human_physiology, civilization_intelligence, world_storage, browser_observer, browser_validation
+- **files**: `citizens.ts`, `subsistence.ts`, `engine.ts`, `archives.ts`, `store.ts`, `migrations.ts`, `main.tsx`, `rations.test.ts`
+- **agent**: Codex
+
+All citizens finish current physiological withdrawals before finite local reserve pickup and later movement/work. The scheduler retains paid body-work intervals and skips behavior after physiological death; personal, cargo and caravan custody stay distinct. Ration quantities are observable in the inspector. → ADR-035.
+
+The initial small-volume rehearsal failed after its new archive; lossless conversion of older plaintext archives now permits the same quota/heap rehearsal to migrate, save and restart with 16.98 MB minimum free space. Original bytes/checksums and history are verified. Local checks and publication are recorded separately in the [release](../docs/releases/ration-boundary-0.2.md). → ADR-036.
+
+---
+
 ### [2026-10-08] Performed Body Maintenance and Migration Memory Correction
 
 - **type**: bugfix

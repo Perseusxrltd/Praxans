@@ -168,6 +168,18 @@ const migrations: RegisteredMigration[] = [
       // Optional body-repair task fields need no invented state in old tasks.
     },
   },
+  {
+    id: "011-consumption-before-ration-pickup",
+    from: 10,
+    to: 11,
+    description:
+      "Preserve every person, task, memory, private ration, caravan, stock, region, clock, RNG and historical record. From this boundary, all current citizen physiology precedes optional personal ration pickup, which precedes decisions, movement and work. Meals, extra cold fuel and ice melting debit actual accessible food before the remaining camp stock can be packed for later. Snapshot local pickup access and share competing refill requests proportionally against one finite residual budget, retaining private and caravan custody. The inherited 3 kg automatic reserve target and proportional contention are explicit controller conventions, not physical laws, inferred generosity or a learned social agreement. No food, people, retrospective meals or clock time are created. Competition among current physiological withdrawals remains sequential; metabolic energy, childhood growth and performed feeding need further correction.",
+    fromLaws: "biosphere-1.4",
+    toLaws: "biosphere-1.5",
+    apply() {
+      // Only future scheduling changes; no saved inventory or task is rewritten.
+    },
+  },
 ];
 
 function migrationPath(

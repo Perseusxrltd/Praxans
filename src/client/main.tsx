@@ -508,6 +508,7 @@ function App() {
                 y: +p.y.toFixed(2),
                 activity: p.task?.kind ?? "deciding",
                 bodyCoveringKg: p.wrapMass,
+                rationsKg: p.provisions,
                 helpingPerson: p.task?.recipientId,
                 health: round(p.health),
                 generation: p.generation,
@@ -1903,6 +1904,9 @@ function CitizenPanel({
       <Meter label="Contentment" value={person.happiness} />
       <p className="muted">
         Body covering: {round(person.wrapMass, 2)} kg of fiber.
+      </p>
+      <p className="muted">
+        Personal rations: {round(person.provisions, 2)} kg of food.
       </p>
       <MindPanel person={person} civ={civ} />
       <h3>A way of being</h3>

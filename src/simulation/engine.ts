@@ -1,6 +1,5 @@
 import { MATERIALS } from "./content";
-import { processDeaths, updateCitizen } from "./citizens";
-import { beginBodyWork, finishBodyWork } from "./bodywork";
+import { processDeaths, updateCitizens } from "./citizens";
 import { knows, learnObservation } from "./cognition";
 import { detectContacts, updateJourneys, updateAccords } from "./diplomacy";
 import { updateCouncils, autonomousDiplomacy } from "./society";
@@ -311,20 +310,7 @@ export function stepWorld(world: World, ticks = 1): void {
       updateEcology(world);
       updateFauna(world);
     }
-    const populations = new Map<string, number>();
-    for (const person of world.citizens)
-      populations.set(person.civId, (populations.get(person.civId) ?? 0) + 1);
-    const civs = new Map(world.civilizations.map((c) => [c.id, c]));
-    const bodyWork = beginBodyWork(world);
-    for (const person of world.citizens)
-      updateCitizen(
-        world,
-        person,
-        civs.get(person.civId)!,
-        populations.get(person.civId)!,
-        bodyWork,
-      );
-    finishBodyWork(world, bodyWork);
+    updateCitizens(world);
     processDeaths(world);
     updateJourneys(world);
     if (world.tick % 4 === 0) {

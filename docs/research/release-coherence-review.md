@@ -1,5 +1,8 @@
 # Release coherence review — 8 October 2026
 
+The [2026-10-09 ration-boundary follow-up](../releases/ration-boundary-0.2.md) implements current-consumption-before-packing and compatible lossless archive compaction, with [current repository evidence](../validation/release-coherence-2026-10-08.json). Earlier observations below retain their original scope and dates.
+
+
 This is the pre-renewal review. The later [scaling memo](scaling-and-open-endedness.md) records the parent's report of live renewal, subsequent capacity incidents and the next observer/preflight hotfix; earlier deployment statements below retain their original date and scope.
 
 The reviewed model accepts arrangements of found bulk materials without a named building recipe or technology unlock. General component variation and connected containment are real improvements. **That establishes open construction within the represented geometry and interactions, not every physically possible construction.** The new defect found here—contradictory experiments increasing confidence in unchanged old results—has been corrected and independently rechecked. No remaining code blocker was identified in the inspected recovery paths. The limits and unresolved external transport observation below remain explicit.

@@ -8,6 +8,8 @@ The continuing public world runs format **10**, laws **biosphere-1.4**, storage 
 
 The current runtime is **body-maintenance-20261008-2**. [Its release record](releases/body-maintenance-0.2.md) verifies finite local self/nearby care through existing repair work, a state-preserving law migration and the continuing live observer connection. It retains the [compressed archive](releases/archive-blocks-0.2.md) and [checkpoint/copy corrections](releases/checkpoint-copy-0.2.md). Memory, full-region writes and old plaintext storage remain constrained. All four renewed communities remain extinct; the [completed collapse study](research/community-collapse-2026-10-08.md) records the demonstrated care gap and separate unresolved allocation, growth, energy and habitat issues. No further renewal occurred.
 
+The [ration-boundary candidate](releases/ration-boundary-0.2.md) addresses optional packing before current meals/thermal fuel, exposes personal rations and losslessly compresses older archives for reuse of space. It is under publication validation; current physiological contention, growth, metabolic energy and social control of provisioning remain open.
+
 ## World, participation, and continuity
 
 | ID | Requirement | Status and evidence | Remaining work / acceptance condition |

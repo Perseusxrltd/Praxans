@@ -20,6 +20,8 @@
 - Antiquity-first source register, scale audits, failed-candidate evidence, measured CPU baseline and explicit large-world acceptance targets.
 
 ### Fixed
+- All current physiological food use now precedes optional ration pickup, followed by decisions and movement. Residual refills preserve contact, finite budgets and private custody; the inspector shows actual rations. Format 11 / biosphere-1.5 leaves prior state intact (→ human_physiology; → ADR-035).
+- Legacy archive compression retains exact original bytes and checksums while making old pages reusable before the next law migration; the preceding storage-v1 runtime remains compatible (→ world_storage; → ADR-036).
 - World loading releases obsolete serialized population metadata before a migration save, preventing the demonstrated protected-heap failure on the 1,439-person backup (→ world_storage).
 - Live `archive-blocks-20261008-1` avoids a duplicate complete world during owned migration, exercises real archival in preflight and closes failed storage constructors. The connection test waits for the existing fallback selection to complete; no client code changed.
 - The separate-writer backup test now establishes two checkpoint opportunities at a real native batch boundary and measures overlap in the worker. Its held-reader negative control still fails; the runtime is unchanged.

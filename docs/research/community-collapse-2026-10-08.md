@@ -67,7 +67,7 @@ This replay establishes one precise historical cause. It does not apportion all 
 
 ## Two reproduced mechanisms
 
-**C1 — optional ration packing can precede another person's urgent meal.** [`stepWorld`](../../src/simulation/engine.ts) updates people in array order; [births append children](../../src/simulation/engine.ts). [`updateCitizen`](../../src/simulation/citizens.ts) packs up to 3 kg at home before checking meal need. [`takeAccessibleFood`](../../src/simulation/physiology.ts) does not make someone else's provisions available.
+**C1 — optional ration packing can precede another person's urgent meal.** [`stepWorld`](../../src/simulation/engine.ts) updated people in array order in the investigated baseline; [births append children](../../src/simulation/engine.ts). [`updateCitizen`](../../src/simulation/citizens.ts) packed up to 3 kg at home before checking meal need in that baseline. [`takeAccessibleFood`](../../src/simulation/physiology.ts) does not make someone else's provisions available.
 
 With the same 3 kg communal food, an adult at 90 nourishment and a child at 10, one actual tick gives:
 

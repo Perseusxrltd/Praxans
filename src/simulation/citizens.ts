@@ -45,6 +45,7 @@ import {
   type Material,
   type Task,
   type Observation,
+  type Tile,
   type World,
 } from "./types";
 import {
@@ -77,7 +78,12 @@ import {
   type BodyWork,
 } from "./bodywork";
 import { walkPath, WALKING_METRES_PER_HOUR } from "./movement";
-import { foodReservePerPerson, SUBSISTENCE } from "./subsistence";
+import {
+  foodReservePerPerson,
+  finishRationPickup,
+  prepareRationPickup,
+  SUBSISTENCE,
+} from "./subsistence";
 import { campRestPlace, canReachCampStocks } from "./settlement";
 
 function assignTask(
@@ -578,26 +584,53 @@ export function updateCitizen(
   sharedBodyWork?: BodyWork,
 ): void {
   const bodyWork = sharedBodyWork ?? beginBodyWork(world);
-  updateCitizenStep(world, person, civ, population, bodyWork);
+  const step = updateCitizenPhysiology(world, person, civ);
+  finishRationPickup(world, prepareRationPickup(world, [person]));
+  updateCitizenActivity(world, step, population, bodyWork);
   // Standalone diagnostic callers update one actor. The world engine passes one
-  // shared context and commits after all actors have paid costs and moved.
+  // population through updateCitizens; calling this repeatedly does not provide
+  // a shared food boundary. A supplied body context only groups body transfers.
   if (!sharedBodyWork) finishBodyWork(world, bodyWork);
 }
 
-function updateCitizenStep(
+/** One bodily phase, one local pickup boundary, then decisions and movement. */
+export function updateCitizens(world: World): void {
+  const populations = new Map<string, number>();
+  for (const person of world.citizens)
+    populations.set(person.civId, (populations.get(person.civId) ?? 0) + 1);
+  const civs = new Map(world.civilizations.map((civ) => [civ.id, civ]));
+  const bodyWork = beginBodyWork(world);
+  const steps = world.citizens.map((person) =>
+    updateCitizenPhysiology(world, person, civs.get(person.civId)!),
+  );
+  finishRationPickup(world, prepareRationPickup(world));
+  for (const step of steps)
+    updateCitizenActivity(
+      world,
+      step,
+      populations.get(step.person.civId)!,
+      bodyWork,
+    );
+  finishBodyWork(world, bodyWork);
+}
+
+interface CitizenStep {
+  person: Citizen;
+  civ: Civilization;
+  taskAtStart: Task | null;
+  tile: Tile;
+  waterTarget: number;
+  sheltered: number;
+}
+
+function updateCitizenPhysiology(
   world: World,
   person: Citizen,
   civ: Civilization,
-  population: number,
-  bodyWork: BodyWork,
-): void {
+): CitizenStep {
   const taskAtStart = person.task;
   const dt = HOURS_PER_TICK,
-    home = getTile(world, civ.x, civ.y)!,
     tile = getTile(world, person.x, person.y)!;
-  const journey = person.journeyId
-    ? world.caravans.find((c) => c.id === person.journeyId)
-    : undefined;
   updateMind(world, person, dt);
   person.age += dt / (24 * DAYS_PER_YEAR);
   const active = person.task && !["rest", "social"].includes(person.task.kind);
@@ -625,15 +658,6 @@ function updateCitizenStep(
       person.hydration += drink;
       touchTile(world, tileIndex(world, source.x, source.y));
     }
-  }
-  const atHome = canReachCampStocks(world, civ, person);
-  if (atHome && !journey) {
-    const packed = Math.max(
-      0,
-      Math.min(3 - person.provisions, civ.stock.biomass),
-    );
-    civ.stock.biomass -= packed;
-    person.provisions += packed;
   }
   if (person.hunger < 62) {
     const meal = takeAccessibleFood(
@@ -707,7 +731,19 @@ function updateCitizenStep(
   person.happiness = clamp(
     person.happiness + (satisfaction - person.happiness) * 0.004,
   );
-  if (journey) return;
+  return { person, civ, taskAtStart, tile, waterTarget, sheltered };
+}
+
+function updateCitizenActivity(
+  world: World,
+  step: CitizenStep,
+  population: number,
+  bodyWork: BodyWork,
+): void {
+  const { person, civ, taskAtStart, tile, waterTarget, sheltered } = step;
+  if (person.health <= 0 || person.journeyId) return;
+  const dt = HOURS_PER_TICK,
+    atHome = canReachCampStocks(world, civ, person);
   if (person.task) {
     const task = person.task;
     const headingHome =
