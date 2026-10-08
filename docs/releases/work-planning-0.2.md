@@ -51,3 +51,9 @@ The heap bound does not solve active-WAL growth. Capacity-safe copying, incremen
 ## Political and social freedom
 
 The owner's clarification is recorded as H06 and in the [agency contract](../agency-and-diplomacy.md). The [political mechanism review](../research/open-social-organization-review.md) proposes overlapping membership, locally acknowledged authority, constrained delegation, refusal, revocation and surviving obligations. These are subsequent work, not features of this hotfix. The existing universal local assembly remains provisional. New saved political records require an explicit migration, archived continuity and measured memory/disk headroom; titles or membership must never create resources or obedience.
+
+## Subsequent causal study
+
+Both GitHub runs for commit `e438698` completed successfully (`37835720311`, `37835711383`). The later [collapse investigation](../research/community-collapse-2026-10-08.md) exactly reproduces the first infant death under the earlier engine and isolates missing caregiver wrapping and scarce-food allocation by update order. Those mechanisms are not fixed by this release. The study preserves the 1,607 renewed deaths and proposes measured corrections without another restoration.
+
+The same runtime halted again with `SQLITE_FULL` at 19:45:59 UTC. A verified backup, SQLite checkpoint reclamation and restart of the confirmed halted child recovered it at 20:24 UTC; 21 later health samples passed through tick 293208. The last committed tick was 291092, so 32 uncommitted ticks were recomputed. The [separate recovery record](../validation/storage-recovery-2026-10-08.md) retains the unchanged identities, clock and interventions and the unresolved reader/capacity risk. This was recovery of the existing artifact, not another hotfix.

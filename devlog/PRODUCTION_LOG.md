@@ -7,6 +7,32 @@
 
 ## Log
 
+### [2026-10-08] Historical Collapse Reproduced and Care Defects Isolated
+
+- **type**: audit
+- **systems**: human_physiology, civilization_intelligence, settlement_space, community_history, browser_validation
+- **files**: `community-collapse-2026-10-08.md`, `collapse-first-death-replay.json`, `collapse-mechanism-probe.mjs`, `collapse-habitat.json`, `roadmap.md`
+- **agent**: Codex
+
+Reconciled the 1,607 deaths after renewal, including all 407 children before age one. An exact historical replay from an independently verified inhabited backup reproduces the first infant death inside heat regulation, with accessible stock fiber but no caregiver wrapping path. Small finite-resource controls reproduce ration-order deprivation and the protection possible from existing fiber; no preserved world was altered.
+
+Published the chronology, figure, source checks, narrow causal conclusions and remaining growth, metabolism, storage and connected-food questions. Updated survival and scale requirements while retaining H06 political freedom. The prior work-planning hotfix is live and its two GitHub CI runs pass; this study is not a claim that care/allocation defects are fixed or that another restoration is justified.
+
+---
+
+### [2026-10-08] Reclaimed Completed WAL and Resumed the Preserved Checkpoint
+
+- **type**: infrastructure
+- **systems**: world_storage, runtime_handover, world_hosting
+- **files**: `storage-recovery-2026-10-08.md`, `storage-recovery-2026-10-08.json`, `hosting.md`
+- **agent**: Codex
+
+Detected a second disk-full halt after the work-planning handover. SQLite checkpoint reclamation recovered 174 MB without changing the saved world or clock; a new off-host backup passed full integrity, region and archive verification. Restarted the confirmed halted child under the same gateway/artifact, preserving committed state and recomputing 32 uncommitted ticks.
+
+The bounded identity/clock comparison and all 21 later health samples pass through tick 293208. The temporary watcher ended. This restores operation but does not resolve copy-reader overlap, large save transactions or the small host's capacity limits; no new physical intervention or release was made.
+
+---
+
 ### [2026-10-08] Feasible Work Published; Collapse and Storage Failures Retained
 
 - **type**: bugfix

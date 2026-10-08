@@ -88,6 +88,8 @@ The October 8 renewal exposed both limits on the 1 GB / 500 MB service: a heavy 
 
 `journal_size_limit=16777216` limits retained reusable WAL after checkpoint/reset; active transactions and readers may exceed it. A held backup reader can temporarily retain several checkpoints' writes. Monitor database, WAL, scratch and total cgroup memory together. If necessary, `PRAGMA wal_checkpoint(TRUNCATE)` asks SQLite to reclaim checkpointed WAL; inspect its busy/result status and never delete a live WAL manually. The transaction wrapper preserves the original disk/I/O error if SQLite already rolled back. A runtime halted by a storage failure still needs recovery after its cause has been corrected; there is no automatic capacity expansion or fault-resume policy.
 
+The [later storage recovery](validation/storage-recovery-2026-10-08.md) reclaimed 174 MB of WAL without changing the saved checksum or clock, verified an independent backup and restarted only the confirmed halted runtime. Thirty-two uncommitted ticks were recomputed. A subsequent healthy interval does not establish safe copy-reader overlap or permanent capacity; confirm the persisted checkpoint and retain the failed continuity evidence before resuming.
+
 The production smoke test creates an online backup, stops its disposable source, waits for the copied ownership lease to expire, and actually resumes the backup with the original browser owner and agent key.
 
 ## Hotfix procedure

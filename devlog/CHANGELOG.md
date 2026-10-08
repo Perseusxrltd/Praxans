@@ -8,6 +8,7 @@
 ## [Renewal, Scale and Agent Recovery 0.2] — 2026-10-08
 
 ### Added
+- Preserved-world collapse study: 1,607 deaths reconciled, exact first-infant thermal replay, finite-fiber/ration-order controls, connected habitat measurements and an exported chronology. Corrective care, growth and allocation work remains open (→ human_physiology; → settlement_space).
 - H06 and a reviewed contract for open political/social organization, plus source-backed shelter/family and conditional labor investigations; proposed political mechanisms are not yet implemented.
 - Three hundred individually represented founders with finite proportional supplies and population-scaled habitat screening; explicit one-time renewal of the four historical communities (→ world_renewal).
 - Food-funded thermal protection and ice melting, real fiber wraps, carried provisions, remembered water and a stated seasonal reserve heuristic (→ human_physiology).
@@ -25,6 +26,7 @@
 - SQLite retains the original disk-full cause when it has already rolled back; reusable WAL retention is limited without discarding active reader history.
 
 ### Validation and limits
+- A later disk-full halt was recovered by SQLite checkpoint reclamation, independent backup validation and resuming the same artifact; 32 uncommitted ticks were recomputed. Twenty-one later health samples pass, with held-reader/capacity risks still open (→ world_storage; → runtime_handover).
 - The work-planning candidate passes 121 model/server tests locally; previous deployed releases and their browser/full-backup evidence remain distinct. Live memory/disk incidents and visible checkpoint rollback remain recorded; no uninterrupted-infrastructure claim.
 - A measured molar-mass/sediment allocation candidate was reverted after slower timings despite exact replay. Massive civilizations, sustainable multi-generation populations, general material chemistry, durable knowledge carriers and underground construction remain open work.
 

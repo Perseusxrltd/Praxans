@@ -13,8 +13,155 @@
   "status_note": "Candidate progress is not implementation or deployment evidence; consult the canonical roadmap and release record.",
   "candidates": [
     {
-      "id": "R13",
+      "id": "R25",
       "rank": 1,
+      "priority": "P0",
+      "title": "Connect finite care, age-dependent growth and metabolic energy",
+      "status": "exact_historical_thermal_death_and_finite_fiber_counterfactual_verified_corrections_pending",
+      "tracks": ["demography", "physiology", "care", "subsistence"],
+      "roadmap_ids": ["H01", "W06", "P13"],
+      "source_ids": ["A03", "A04", "M16", "M17"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/citizens.ts",
+          "symbol": "updateCitizen, meals, growth and catabolism"
+        },
+        {
+          "path": "src/simulation/physiology.ts",
+          "symbol": "regulateTemperature, hydrationTarget and fuel"
+        },
+        {
+          "path": "src/simulation/engine.ts",
+          "symbol": "birth and update ordering"
+        }
+      ],
+      "observed_problem": "The exact first infant death at tick 231549 occurs inside heat regulation with 327.154 kg stock fiber but no caregiver wrap path. Body material reaches 17.908 kg of an 18 kg effective adult target in 80 days. Baseline heat, meal oxidation and thermal demand lack one metabolic budget.",
+      "hypothesis": "Actual finite care can reduce exposure, while one substrate/heat account and age-dependent body compartments can distinguish unmet needs from arbitrary independent injury rules.",
+      "proposed_change": "Begin with the reproduced terminal state and absent-fiber/absent-caregiver controls. Represent work, local relationships and access for care; partition existing body matter only with justified structural/reserve semantics. Reconcile oxidation before changing injury coefficients.",
+      "mechanism": {
+        "inputs": [
+          "existing finite fiber",
+          "nearby capable caregivers and available work",
+          "personal and communal food subject to existing access",
+          "body material and oxygen"
+        ],
+        "outputs": [
+          "actual protection",
+          "material transfers and respiratory products",
+          "funded heat/work and unmet demand",
+          "attributed health change"
+        ],
+        "location": "local actor/caregiver interaction and bodily accounting",
+        "duration": "quarter-hour controls before seasonal cohorts"
+      },
+      "conservation_constraints": [
+        "No added food, fiber, people or body mass.",
+        "Every oxidation and its respiratory products/heat is counted once.",
+        "Digested or stored energy needs unoxidized material; already dissipated energy cannot be reused.",
+        "Care and protection need actual time, material, location and willing or otherwise physically compelled actors."
+      ],
+      "local_information_constraint": "Actors observe local need, relationships, material and work; diagnostic global knowledge never grants care or compliance.",
+      "counterexample": "Without reachable fiber, caregiver capacity or metabolic substrate the operation must fail or remain inadequate; one protected call does not imply winter survival.",
+      "bounded_test": {
+        "type": "historical terminal-state controls followed by one coherent metabolic fixture",
+        "fixture_count": 6,
+        "metrics": [
+          "fiber transferred and worn kg",
+          "caregiver work hours",
+          "body/food oxidized kg",
+          "heat funded and unmet kJ",
+          "health-loss components",
+          "element/chemical-energy residuals"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "The baseline terminal call remains exactly reproducible, finite protection reduces measured unmet heat without free labor, and food/body oxidation reconciles under pulsed meals, no food and depleted reserves before any survival claim.",
+      "parameter_assumptions": [
+        "Current body kg are organic/mineral material with separate hydration, not anatomical body mass.",
+        "The 87-hour low-hunger result is isolated source arithmetic, not a human starvation forecast.",
+        "Age-dependent structural/reserve bounds and damage calibration require measured evidence."
+      ],
+      "dependencies": ["R02", "R13"],
+      "release_implications": "Saved-state/physical-rule corrections need explicit versions, archive and continuity; the old death stays recorded and no automatic renewal follows.",
+      "latest_evidence": "community-collapse-2026-10-08.md"
+    },
+    {
+      "id": "R02",
+      "rank": 2,
+      "priority": "P0",
+      "title": "Reconcile edible reserves, use, loss, and gathering effort",
+      "status": "ration_order_defect_reproduced_food_and_energy_flows_still_incomplete",
+      "tracks": ["subsistence", "economics"],
+      "roadmap_ids": ["W11", "P01", "P03", "W06"],
+      "source_ids": ["A04", "A08", "M03", "M16", "M17"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/subsistence.ts",
+          "symbol": "edibleReserves"
+        },
+        {
+          "path": "src/simulation/citizens.ts",
+          "symbol": "finishTask and updateCitizen"
+        },
+        {
+          "path": "src/simulation/physiology.ts",
+          "symbol": "takeAccessibleFood and fuel"
+        },
+        {
+          "path": "src/simulation/weathering.ts",
+          "symbol": "decayStocks"
+        },
+        {
+          "path": "scripts/renewal-trials.ts",
+          "symbol": "sample"
+        }
+      ],
+      "observed_problem": "Camp stock and cumulative harvest omit carried food, use categories, prior-history baselines, and the contribution of initial supplies.",
+      "hypothesis": "A closed daily food account distinguishes low growth, failed access, excess loss, and thermal consumption before another resource intervention is considered.",
+      "proposed_change": "Record observer-only opening/closing reserves and transfer categories; report harvest deltas and food delivered per work/travel hour.",
+      "mechanism": {
+        "inputs": [
+          "existing stock, personal, cargo, caravan and body transfers"
+        ],
+        "outputs": [
+          "balanced daily edible-food account",
+          "cause-specific unmet demand"
+        ],
+        "location": "community diagnostic account",
+        "duration": "daily aggregation"
+      },
+      "conservation_constraints": [
+        "Internal packing and delivery transfers cancel.",
+        "Food allocated to bodies, offspring, experiments or construction must leave the edible pool once.",
+        "Spoilage and respiration have existing material destinations."
+      ],
+      "local_information_constraint": "An analytical ledger does not become omniscient personal knowledge.",
+      "counterexample": "A camp can have positive standing plant mass while no reachable, harvestable food covers consumption; total biomass alone must not count as food income.",
+      "bounded_test": {
+        "type": "scripted transfers and existing trace reconciliation",
+        "fixture_count": 3,
+        "metrics": [
+          "food-account residual kg",
+          "meal kg",
+          "thermal-fuel kg",
+          "spoilage kg",
+          "delivered kg per hour",
+          "fraction funded by initial reserves"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Every material discrepancy has a classified transfer within the model's existing numerical tolerance before changing production rates.",
+      "parameter_assumptions": [
+        "Counter labels are observational definitions, not physiological calibration."
+      ],
+      "dependencies": [],
+      "release_implications": "Prefer diagnostic counters first; persistent counters require saved-state migration and must begin at their actual introduction tick.",
+      "progress_note": "Five fixed-stock ration fixtures reproduce update-order deprivation despite full sharing; reversing order or providing ample food changes the result. Thermal fuel, hunger catabolism and baseline heat use disconnected budgets. Communal stock is not a complete food-flow account.",
+      "latest_evidence": "community-collapse-2026-10-08.md"
+    },
+    {
+      "id": "R13",
+      "rank": 3,
       "priority": "P0",
       "title": "Make the scale and quantity contract explicit",
       "status": "ready_for_contract_review",
@@ -82,8 +229,389 @@
       "release_implications": "Start with documentation; physical metric changes are later law changes. Preserve tile IDs and live stocks. Detailed observations and fingerprints are in scale-audit.json."
     },
     {
+      "id": "R21",
+      "rank": 4,
+      "priority": "P0",
+      "title": "Validate a finite 300-adult founding model across resources and observation",
+      "status": "renewed_communities_extinct_care_and_allocation_defects_reproduced",
+      "tracks": [
+        "demography",
+        "subsistence",
+        "water",
+        "labor",
+        "scale",
+        "observation"
+      ],
+      "roadmap_ids": ["W06", "W07", "H01", "P13", "W01"],
+      "source_ids": ["A03", "A04", "A08", "A09", "M01", "M02", "M03", "M04"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/founding.ts",
+          "symbol": "FOUNDING and initializeFounders"
+        },
+        {
+          "path": "src/simulation/renewal.ts",
+          "symbol": "renewal request and founder placement"
+        },
+        {
+          "path": "src/simulation/citizens.ts",
+          "symbol": "hunger, hydration, gatherTask and carried provisions"
+        },
+        {
+          "path": "scripts/renewal-trials.ts",
+          "symbol": "request/domain fingerprints and sampling"
+        }
+      ],
+      "observed_problem": "Moving from 32 to 300 multiplies demand by 9.375, while fixed catchments, spawn jitter, trait permutation, storage and observation costs do not scale automatically. Existing successful diagnostics used 32 founders.",
+      "hypothesis": "Explicit demographic inputs and a food/water/work/catchment ledger reveal whether 300 adults have sustained access rather than merely large opening supplies.",
+      "proposed_change": "Validate the concrete arrival request, complete domains, local memories/travel, distributed accessible positions, trait independence, finite materials and food/water flow. Use parent-run diagnostics only; keep browser/person detail bounded.",
+      "mechanism": {
+        "inputs": [
+          "300-adult arrival assumption",
+          "finite supplied stocks",
+          "represented habitat and water",
+          "local travel/knowledge",
+          "existing trial outputs"
+        ],
+        "outputs": [
+          "arrival ledger",
+          "daily resource/work budgets",
+          "survival and dependency distributions",
+          "bounded observation payload"
+        ],
+        "location": "disposable exact-request diagnostics; no live activation by research",
+        "duration": "initial accounting then existing successive-season runs"
+      },
+      "conservation_constraints": [
+        "300×480 kg is 144,000 kg opening food, not annual production.",
+        "Wraps and carried rations transfer existing material.",
+        "A larger radius cannot conjure food, water, labor or demographic viability.",
+        "Keep all original identities, ownership and history."
+      ],
+      "local_information_constraint": "Resource selection uses each person’s memories, local exploration and paid travel, never diagnostic global yields.",
+      "counterexample": "300 adults can starve despite 32-founder success; an all-adult cohort can survive a season and still have unvalidated long-term demography.",
+      "bounded_test": {
+        "type": "arrival/accounting fixture and existing exact-input seasonal diagnostics",
+        "fixture_count": 1,
+        "metrics": [
+          "food kg consumed versus opening stock",
+          "delivered food per person-hour",
+          "liquid water recharge/depletion",
+          "storage m3",
+          "represented/reachable/harvested ha",
+          "trait covariance",
+          "founder and descendant survival",
+          "observation bytes"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "All numerical claims identify their initial condition, domain and duration; sustained production/access is distinguished from drawing down the finite opening supply.",
+      "parameter_assumptions": [
+        "300 is a user-directed working baseline, not an empirical optimum.",
+        "The model’s 195–262.5 kg/day food and 468–561.6 kg/day water baseline totals need physical calibration.",
+        "A 367.4 m radius merely preserves the former area/person ratio; it does not establish carrying capacity.",
+        "Ordinary founding currently supplies 48 kg food/person; recovery supplies 480 kg/person. A trial of one allowance does not validate the other."
+      ],
+      "dependencies": ["R01", "R02", "R03", "R05", "R25"],
+      "release_implications": "Any arrival is an explicit factual intervention with request/state/code fingerprints. Earlier 32-founder tests cannot authorize claims about 300-founder success.",
+      "progress_note": "The later verified journal records all 1,200 renewed adults and their 407 children dying. Every child died under one year. The short successful opening trials did not establish seasonal or generational viability; the first infant death is exactly reproduced as cold-exposure health loss.",
+      "progress_history": [
+        {
+          "reported_on": "2026-10-08",
+          "note": "Later 2026-10-08 parent report: 1,200 arrivals alive at 14 days in a full-backup 300-adult-per-camp trial, but camp-center temperature about 28→49°C and ~30 t food/camp spoiled. R24 diagnoses concentrated rest/waste. Spatial correction and long-term adequacy remain unverified."
+        },
+        {
+          "reported_on": "2026-10-08",
+          "note": "Read both full-38-region 300-person artifacts at source tick 151764: same reported initial sample and intervention/matter summary; no new deaths over 14 days. Final food 113.78–114.85 t concentrated versus 130.00–134.02 t distributed. This is net stock drawdown, not separately measured spoilage; longer-term adequacy remains unverified."
+        }
+      ],
+      "latest_evidence": "community-collapse-2026-10-08.md"
+    },
+    {
+      "id": "R01",
+      "rank": 5,
+      "priority": "P0",
+      "title": "Measure the complete catchment and boundary sensitivity",
+      "status": "shared_land_and_overlapping_stocks_measured_access_yield_unresolved",
+      "tracks": ["ecology", "subsistence", "numerics"],
+      "roadmap_ids": ["W06", "E02", "E07", "P12"],
+      "source_ids": ["A03", "A04", "M02", "M06"],
+      "code_anchors": [
+        {
+          "path": "scripts/renewal-trials.ts",
+          "symbol": "domain, wholeCatchments, catchments and sample"
+        },
+        {
+          "path": "src/simulation/terrain.ts",
+          "symbol": "nearbyTiles"
+        }
+      ],
+      "observed_problem": "The original single-region trial clips a 120 m disk. The revised catchment domain retains intersecting saved regions; domain changes still alter boundary transport, atmospheric allocation and shared RNG order.",
+      "hypothesis": "Some camp differences shrink when the entire existing catchment is represented; others persist because production or access is inadequate.",
+      "proposed_change": "Read the new domain metadata and existing complete-catchment results when available; add reachable-area and food-flow diagnostics as needed. Preserve original cropped reports as historical results.",
+      "mechanism": {
+        "inputs": [
+          "saved terrain and climate",
+          "explicit renewal request",
+          "domain mask"
+        ],
+        "outputs": [
+          "represented and reachable habitat counts",
+          "food/biomass by distance band"
+        ],
+        "location": "disposable diagnostic world",
+        "duration": "count at start and at existing trial sample times"
+      },
+      "conservation_constraints": [
+        "Never generate free replacement habitat in a clipped trial.",
+        "Label any revised accounting boundary and preserve the untouched source backup."
+      ],
+      "local_information_constraint": "Observer diagnostics may inspect ground truth; inhabitant decisions must not receive those diagnostic totals.",
+      "counterexample": "If failure persists with comparable access and environmental forcing after the full catchment is represented, clipping alone is insufficient.",
+      "bounded_test": {
+        "type": "geometry audit then existing-run comparison",
+        "fixture_count": 2,
+        "metrics": [
+          "disk coverage fraction",
+          "reachable land area m2",
+          "annual delivered food kg",
+          "boundary fluxes",
+          "population trajectory"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Interpret survival rankings only with their coverage and forcing differences reported; choose the next mechanism from the residual deficit.",
+      "parameter_assumptions": [
+        "A geometric buffer is a sensitivity choice, not a guarantee that all ecological influences are enclosed."
+      ],
+      "dependencies": [],
+      "release_implications": "Diagnostic changes need reproducible script/code/request/state fingerprints; no live intervention is implied.",
+      "progress_note": "The inhabited backup has three camps sharing 36.83 ha of represented connected land, with overlapping standing edible stocks. Connectivity and current remembered extent do not establish actual delivered food or sustainable production.",
+      "progress_history": [
+        {
+          "reported_on": "2026-10-08",
+          "note": "2026-10-08: inspected catchments/catchment:<community-id> support and region/cell/catchment-area reporting. Collaborator reports new complete-catchment 600-day runs just started. No completed full-catchment survival result is claimed."
+        },
+        {
+          "reported_on": "2026-10-08",
+          "note": "Later 2026-10-08 parent report: original-domain Fern 45, Amber 46 and Adonis 47 at day 600, all 32 founders alive; Stone 46 at day 600 in its complete two-region catchment, all founders alive. All 128 founders passed 14 days across all 38 saved regions. Combined seven-region/four-community 600-day run pending around day 160 when reported. Earlier cropped failures remain historical evidence. No 300-founder success or live activation is established."
+        },
+        {
+          "reported_on": "2026-10-08",
+          "note": "Completed parent artifact read: seven-region 600-day run ends Fern 48, Amber 4, Stone 3, Adonis 47; new deaths 0/44/40/0. Complete 120 m catchments did not establish balanced survival. Separate-run results remain historically qualified."
+        }
+      ],
+      "latest_evidence": "community-collapse-2026-10-08.md"
+    },
+    {
+      "id": "R03",
+      "rank": 6,
+      "priority": "P0",
+      "title": "Make biological food decay depend on conditions",
+      "status": "cold_scaling_checked_inventory_location_and_calibration_gaps_remain",
+      "tracks": ["subsistence", "ecology", "materials"],
+      "roadmap_ids": ["P10", "E03", "W06"],
+      "source_ids": ["A02", "A04", "M03"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/weathering.ts",
+          "symbol": "decayStocks"
+        },
+        {
+          "path": "src/simulation/subsistence.ts",
+          "symbol": "SUBSISTENCE and foodReservePerPerson"
+        }
+      ],
+      "observed_problem": "The initially inspected equation imposed a 0.004/day food-loss floor independent of temperature; the planner assumed 0.006/day.",
+      "hypothesis": "Removing that unconditional biological-loss floor improves cold-storage retention while preserving temperature-dependent finite loss.",
+      "proposed_change": "The implementation collaborator reports applying the existing thermal factor to the entire biological rate, with the old 20°C value preserved. Evaluate that candidate before deeper moisture/pest state.",
+      "mechanism": {
+        "inputs": [
+          "actual stored food",
+          "temperature",
+          "humidity and exposure"
+        ],
+        "outputs": ["remaining food", "returned decayed material"],
+        "location": "camp storage",
+        "duration": "daily loss integration"
+      },
+      "conservation_constraints": [
+        "Removed food must reach its existing detritus/mineral destinations.",
+        "Cooling adds no food or energy.",
+        "Future pests require an actual living source and metabolic budget."
+      ],
+      "local_information_constraint": "Reserve expectations should ultimately be learned from local losses and seasonal records, not future weather.",
+      "counterexample": "Warm wet stores should still lose food; finite cold retention is not permanent preservation. Material packing into personal rations must not become a loss-avoidance exploit.",
+      "bounded_test": {
+        "type": "cold/warm/protection comparison and conservation regression",
+        "fixture_count": 3,
+        "metrics": [
+          "retained fraction",
+          "warm-rate equality at 20°C",
+          "matter residual",
+          "actual versus planned loss"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "The warm baseline remains consistent; colder storage loses less food without a ledger error; seasonal conclusions wait for the collaborator's existing reruns.",
+      "parameter_assumptions": [
+        "Q10=2 is an effective assumption, not an empirically calibrated universal constant.",
+        "Temperature clamps, humidity coupling and rate coefficients require sensitivity checks.",
+        "Grain-storage evidence does not calibrate every bulk food."
+      ],
+      "dependencies": ["R02"],
+      "release_implications": "A law change requires a law version, continuity tests and factual release evidence. Candidate status here is not deployment status.",
+      "progress_note": "Daily exponential decay and reserve arithmetic have no factor-of-24 error. Identical food in communal versus personal inventory lacks equivalent biological decay; uniform loss rates and moisture/storage approximations are uncalibrated.",
+      "progress_history": [
+        {
+          "reported_on": "2026-10-08",
+          "note": "2026-10-08 collaborator report: applying the existing thermal factor to all biological food decay preserves 20°C rates and finite cold loss. Q10=2 remains an uncalibrated effective assumption. Cropped Stonebrook still went extinct at day 465; other original cropped trials had exceeded 500 days with all founders alive. Full-catchment results pending."
+        },
+        {
+          "reported_on": "2026-10-08",
+          "note": "Later 2026-10-08 parent report: original-domain Fern 45, Amber 46 and Adonis 47 at day 600, all 32 founders alive; Stone 46 at day 600 in its complete two-region catchment, all founders alive. All 128 founders passed 14 days across all 38 saved regions. Combined seven-region/four-community 600-day run pending around day 160 when reported. Earlier cropped failures remain historical evidence. No 300-founder success or live activation is established."
+        },
+        {
+          "reported_on": "2026-10-08",
+          "note": "The earlier combined 32-founder seasonal run has severe losses in Amber and Stone despite the thermal decay correction. Later 300-person 14-day changed-bundle comparison lowers heat and net camp stock drawdown. Neither isolates decay nor establishes seasonal balance; Q10=2 remains an effective assumption."
+        }
+      ],
+      "latest_evidence": "community-collapse-2026-10-08.md"
+    },
+    {
+      "id": "R04",
+      "rank": 7,
+      "priority": "P0",
+      "title": "Couple perception to the path actually traveled",
+      "status": "historical_local_memory_extent_measured_outward_search_test_pending",
+      "tracks": ["cognition", "movement", "numerics"],
+      "roadmap_ids": ["H02", "H03", "W08"],
+      "source_ids": ["A03", "A04", "M02"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/movement.ts",
+          "symbol": "walkPath"
+        },
+        {
+          "path": "src/simulation/cognition.ts",
+          "symbol": "updateMind and perceive"
+        },
+        {
+          "path": "src/simulation/citizens.ts",
+          "symbol": "updateCitizen"
+        }
+      ],
+      "observed_problem": "Hourly endpoint perception can skip water and food beside cells crossed in a multi-cell movement step.",
+      "hypothesis": "Bounded observations along traveled positions reduce timestep-dependent loss of local information.",
+      "proposed_change": "Expose traversed positions to a perception sampler with spacing tied to sensory range, light and attention; retain a bounded memory budget.",
+      "mechanism": {
+        "inputs": [
+          "actual movement path",
+          "light",
+          "attention",
+          "local sensory range"
+        ],
+        "outputs": ["dated place observations"],
+        "location": "traveled positions only",
+        "duration": "during integrated travel"
+      },
+      "conservation_constraints": [
+        "Perception grants no stock, water or movement.",
+        "Sampling must remain bounded in CPU/memory and not alter distance traveled."
+      ],
+      "local_information_constraint": "Untraveled or out-of-range resources stay unknown; no enlargement to a global resource scan.",
+      "counterexample": "A rich untraveled site must not enter memory merely because it is in the same region.",
+      "bounded_test": {
+        "type": "mid-route resource and timestep comparison",
+        "fixture_count": 3,
+        "metrics": [
+          "observed path-adjacent sources",
+          "false remote observations",
+          "observation difference after subdivision",
+          "runtime and memory cost"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "The mid-route source is learned in both integrated and subdivided travel, the remote source remains unknown, and the declared work budget is respected.",
+      "parameter_assumptions": [
+        "Sensory radius and sampling spacing remain coarse behavioral choices."
+      ],
+      "dependencies": [],
+      "release_implications": "Behavioral change needs targeted replay/local-information tests; any saved memory representation change requires migration.",
+      "progress_note": "At tick 228436 adult farthest remembered locations have camp medians of roughly 114–150 m and maxima of 208–309 m despite a nominal 900 m work travel bound. This is current memory, not maximum historical travel; a fixed-terrain outward-search counterfactual remains needed.",
+      "latest_evidence": "community-collapse-2026-10-08.md"
+    },
+    {
+      "id": "R05",
+      "rank": 8,
+      "priority": "P0",
+      "title": "Choose gathering by remembered return and a feasible journey",
+      "status": "standing_food_access_mismatch_observed_not_isolated_causality",
+      "tracks": ["subsistence", "cognition", "economics"],
+      "roadmap_ids": ["H02", "H03", "W04", "W06"],
+      "source_ids": ["A04", "A05", "M02"],
+      "code_anchors": [
+        {
+          "path": "src/simulation/citizens.ts",
+          "symbol": "gatherTask and finishTask"
+        },
+        {
+          "path": "src/simulation/cognition.ts",
+          "symbol": "perceive"
+        },
+        {
+          "path": "src/simulation/subsistence.ts",
+          "symbol": "foodReservePerPerson"
+        }
+      ],
+      "observed_problem": "Nearest-site ranking, a 100 m exploration horizon, seven-day eligibility and 48 recency entries can combine with fixed work time to favor repeatedly poor returns.",
+      "hypothesis": "Remembered expected yield per total effort, with uncertainty and return provisions, improves delivered food without privileged information.",
+      "proposed_change": "Compare two known patches using yield, outbound/work/return time, and water/ration margins; retain useful observations with uncertainty before increasing raw memory size.",
+      "mechanism": {
+        "inputs": [
+          "dated personal observations",
+          "experienced yield",
+          "route and ration budget"
+        ],
+        "outputs": [
+          "chosen gathering or exploratory task",
+          "updated expected return"
+        ],
+        "location": "known reachable sites and walked exploration",
+        "duration": "one work trip"
+      },
+      "conservation_constraints": [
+        "All food comes from actual tissue and is carried back.",
+        "Greater radius has travel, work, fatigue and provisioning costs.",
+        "Do not harvest the same unchanging remembered quantity after depletion."
+      ],
+      "local_information_constraint": "Use estimated remembered yield, never the unvisited patch's live stock; verify source/date for shared reports.",
+      "counterexample": "A distant rich patch may be a worse choice when its return route, water or time budget fails.",
+      "bounded_test": {
+        "type": "two-patch choice with hidden-information and blocked-route controls",
+        "fixture_count": 3,
+        "metrics": [
+          "delivered kg per total hour",
+          "failed or abandoned work hours",
+          "repeat visits to depleted sites",
+          "ration margin",
+          "unknown-site selection"
+        ],
+        "new_long_runs_authorized": false
+      },
+      "decision_criterion": "Choice responds to observed return and feasibility, falls back when knowledge is absent, and improves delivery in the specific fixture rather than every possible landscape.",
+      "parameter_assumptions": [
+        "Expected-yield decay and memory salience weights need sensitivity tests.",
+        "Anthropological path distances do not establish a universal gathering radius."
+      ],
+      "dependencies": ["R02", "R04"],
+      "release_implications": "Publish the behavioral approximation; verify determinism and no gain in resources or authority from a larger search budget.",
+      "progress_note": "The inhabited snapshot contains 555.5 t standing edible tissue while local inner areas are depleted. This upper stock is not delivered food or annual production. Test one knowledge/path rule at a time before changing ecological yields.",
+      "latest_evidence": "community-collapse-2026-10-08.md"
+    },
+    {
       "id": "R24",
-      "rank": 2,
+      "rank": 9,
       "priority": "P0",
       "title": "Diagnose settlement footprint, waste placement and concentrated heat",
       "status": "small_coupling_checks_and_short_bundle_comparison_pass_seasonal_open",
@@ -176,315 +704,8 @@
       "progress_note": "Final small probe verifies cardinal access, 48 cells for 4,800 m2 where available, explicitly constrained islands, population-cache invalidation and conserved distributed food loss. The 14-day full-world bundle ends at 21.88–22.93°C versus 44.12–49.19°C with the concentrated implementation, with no new deaths. No one-factor or seasonal claim; aggregate stock/thermal-pool limits remain."
     },
     {
-      "id": "R21",
-      "rank": 3,
-      "priority": "P0",
-      "title": "Validate a finite 300-adult founding model across resources and observation",
-      "status": "short_bundle_comparison_complete_seasonal_adequacy_unverified",
-      "tracks": [
-        "demography",
-        "subsistence",
-        "water",
-        "labor",
-        "scale",
-        "observation"
-      ],
-      "roadmap_ids": ["W06", "W07", "H01", "P13", "W01"],
-      "source_ids": ["A03", "A04", "A08", "A09", "M01", "M02", "M03", "M04"],
-      "code_anchors": [
-        {
-          "path": "src/simulation/founding.ts",
-          "symbol": "FOUNDING and initializeFounders"
-        },
-        {
-          "path": "src/simulation/renewal.ts",
-          "symbol": "renewal request and founder placement"
-        },
-        {
-          "path": "src/simulation/citizens.ts",
-          "symbol": "hunger, hydration, gatherTask and carried provisions"
-        },
-        {
-          "path": "scripts/renewal-trials.ts",
-          "symbol": "request/domain fingerprints and sampling"
-        }
-      ],
-      "observed_problem": "Moving from 32 to 300 multiplies demand by 9.375, while fixed catchments, spawn jitter, trait permutation, storage and observation costs do not scale automatically. Existing successful diagnostics used 32 founders.",
-      "hypothesis": "Explicit demographic inputs and a food/water/work/catchment ledger reveal whether 300 adults have sustained access rather than merely large opening supplies.",
-      "proposed_change": "Validate the concrete arrival request, complete domains, local memories/travel, distributed accessible positions, trait independence, finite materials and food/water flow. Use parent-run diagnostics only; keep browser/person detail bounded.",
-      "mechanism": {
-        "inputs": [
-          "300-adult arrival assumption",
-          "finite supplied stocks",
-          "represented habitat and water",
-          "local travel/knowledge",
-          "existing trial outputs"
-        ],
-        "outputs": [
-          "arrival ledger",
-          "daily resource/work budgets",
-          "survival and dependency distributions",
-          "bounded observation payload"
-        ],
-        "location": "disposable exact-request diagnostics; no live activation by research",
-        "duration": "initial accounting then existing successive-season runs"
-      },
-      "conservation_constraints": [
-        "300×480 kg is 144,000 kg opening food, not annual production.",
-        "Wraps and carried rations transfer existing material.",
-        "A larger radius cannot conjure food, water, labor or demographic viability.",
-        "Keep all original identities, ownership and history."
-      ],
-      "local_information_constraint": "Resource selection uses each person’s memories, local exploration and paid travel, never diagnostic global yields.",
-      "counterexample": "300 adults can starve despite 32-founder success; an all-adult cohort can survive a season and still have unvalidated long-term demography.",
-      "bounded_test": {
-        "type": "arrival/accounting fixture and existing exact-input seasonal diagnostics",
-        "fixture_count": 1,
-        "metrics": [
-          "food kg consumed versus opening stock",
-          "delivered food per person-hour",
-          "liquid water recharge/depletion",
-          "storage m3",
-          "represented/reachable/harvested ha",
-          "trait covariance",
-          "founder and descendant survival",
-          "observation bytes"
-        ],
-        "new_long_runs_authorized": false
-      },
-      "decision_criterion": "All numerical claims identify their initial condition, domain and duration; sustained production/access is distinguished from drawing down the finite opening supply.",
-      "parameter_assumptions": [
-        "300 is a user-directed working baseline, not an empirical optimum.",
-        "The model’s 195–262.5 kg/day food and 468–561.6 kg/day water baseline totals need physical calibration.",
-        "A 367.4 m radius merely preserves the former area/person ratio; it does not establish carrying capacity.",
-        "Ordinary founding currently supplies 48 kg food/person; recovery supplies 480 kg/person. A trial of one allowance does not validate the other."
-      ],
-      "dependencies": ["R01", "R02", "R03", "R05"],
-      "release_implications": "Any arrival is an explicit factual intervention with request/state/code fingerprints. Earlier 32-founder tests cannot authorize claims about 300-founder success.",
-      "progress_note": "Read both full-38-region 300-person artifacts at source tick 151764: same reported initial sample and intervention/matter summary; no new deaths over 14 days. Final food 113.78–114.85 t concentrated versus 130.00–134.02 t distributed. This is net stock drawdown, not separately measured spoilage; longer-term adequacy remains unverified.",
-      "progress_history": [
-        {
-          "reported_on": "2026-10-08",
-          "note": "Later 2026-10-08 parent report: 1,200 arrivals alive at 14 days in a full-backup 300-adult-per-camp trial, but camp-center temperature about 28→49°C and ~30 t food/camp spoiled. R24 diagnoses concentrated rest/waste. Spatial correction and long-term adequacy remain unverified."
-        }
-      ]
-    },
-    {
-      "id": "R01",
-      "rank": 4,
-      "priority": "P0",
-      "title": "Measure the complete catchment and boundary sensitivity",
-      "status": "combined_32_founder_failure_observed",
-      "tracks": ["ecology", "subsistence", "numerics"],
-      "roadmap_ids": ["W06", "E02", "E07", "P12"],
-      "source_ids": ["A03", "A04", "M02", "M06"],
-      "code_anchors": [
-        {
-          "path": "scripts/renewal-trials.ts",
-          "symbol": "domain, wholeCatchments, catchments and sample"
-        },
-        {
-          "path": "src/simulation/terrain.ts",
-          "symbol": "nearbyTiles"
-        }
-      ],
-      "observed_problem": "The original single-region trial clips a 120 m disk. The revised catchment domain retains intersecting saved regions; domain changes still alter boundary transport, atmospheric allocation and shared RNG order.",
-      "hypothesis": "Some camp differences shrink when the entire existing catchment is represented; others persist because production or access is inadequate.",
-      "proposed_change": "Read the new domain metadata and existing complete-catchment results when available; add reachable-area and food-flow diagnostics as needed. Preserve original cropped reports as historical results.",
-      "mechanism": {
-        "inputs": [
-          "saved terrain and climate",
-          "explicit renewal request",
-          "domain mask"
-        ],
-        "outputs": [
-          "represented and reachable habitat counts",
-          "food/biomass by distance band"
-        ],
-        "location": "disposable diagnostic world",
-        "duration": "count at start and at existing trial sample times"
-      },
-      "conservation_constraints": [
-        "Never generate free replacement habitat in a clipped trial.",
-        "Label any revised accounting boundary and preserve the untouched source backup."
-      ],
-      "local_information_constraint": "Observer diagnostics may inspect ground truth; inhabitant decisions must not receive those diagnostic totals.",
-      "counterexample": "If failure persists with comparable access and environmental forcing after the full catchment is represented, clipping alone is insufficient.",
-      "bounded_test": {
-        "type": "geometry audit then existing-run comparison",
-        "fixture_count": 2,
-        "metrics": [
-          "disk coverage fraction",
-          "reachable land area m2",
-          "annual delivered food kg",
-          "boundary fluxes",
-          "population trajectory"
-        ],
-        "new_long_runs_authorized": false
-      },
-      "decision_criterion": "Interpret survival rankings only with their coverage and forcing differences reported; choose the next mechanism from the residual deficit.",
-      "parameter_assumptions": [
-        "A geometric buffer is a sensitivity choice, not a guarantee that all ecological influences are enclosed."
-      ],
-      "dependencies": [],
-      "release_implications": "Diagnostic changes need reproducible script/code/request/state fingerprints; no live intervention is implied.",
-      "progress_note": "Completed parent artifact read: seven-region 600-day run ends Fern 48, Amber 4, Stone 3, Adonis 47; new deaths 0/44/40/0. Complete 120 m catchments did not establish balanced survival. Separate-run results remain historically qualified.",
-      "progress_history": [
-        {
-          "reported_on": "2026-10-08",
-          "note": "2026-10-08: inspected catchments/catchment:<community-id> support and region/cell/catchment-area reporting. Collaborator reports new complete-catchment 600-day runs just started. No completed full-catchment survival result is claimed."
-        },
-        {
-          "reported_on": "2026-10-08",
-          "note": "Later 2026-10-08 parent report: original-domain Fern 45, Amber 46 and Adonis 47 at day 600, all 32 founders alive; Stone 46 at day 600 in its complete two-region catchment, all founders alive. All 128 founders passed 14 days across all 38 saved regions. Combined seven-region/four-community 600-day run pending around day 160 when reported. Earlier cropped failures remain historical evidence. No 300-founder success or live activation is established."
-        }
-      ]
-    },
-    {
-      "id": "R02",
-      "rank": 5,
-      "priority": "P0",
-      "title": "Reconcile edible reserves, use, loss, and gathering effort",
-      "status": "ready_for_diagnostic_design",
-      "tracks": ["subsistence", "economics"],
-      "roadmap_ids": ["W11", "P01", "P03", "W06"],
-      "source_ids": ["A04", "A08", "M03"],
-      "code_anchors": [
-        {
-          "path": "src/simulation/subsistence.ts",
-          "symbol": "edibleReserves"
-        },
-        {
-          "path": "src/simulation/citizens.ts",
-          "symbol": "finishTask and updateCitizen"
-        },
-        {
-          "path": "src/simulation/physiology.ts",
-          "symbol": "takeAccessibleFood and fuel"
-        },
-        {
-          "path": "src/simulation/weathering.ts",
-          "symbol": "decayStocks"
-        },
-        {
-          "path": "scripts/renewal-trials.ts",
-          "symbol": "sample"
-        }
-      ],
-      "observed_problem": "Camp stock and cumulative harvest omit carried food, use categories, prior-history baselines, and the contribution of initial supplies.",
-      "hypothesis": "A closed daily food account distinguishes low growth, failed access, excess loss, and thermal consumption before another resource intervention is considered.",
-      "proposed_change": "Record observer-only opening/closing reserves and transfer categories; report harvest deltas and food delivered per work/travel hour.",
-      "mechanism": {
-        "inputs": [
-          "existing stock, personal, cargo, caravan and body transfers"
-        ],
-        "outputs": [
-          "balanced daily edible-food account",
-          "cause-specific unmet demand"
-        ],
-        "location": "community diagnostic account",
-        "duration": "daily aggregation"
-      },
-      "conservation_constraints": [
-        "Internal packing and delivery transfers cancel.",
-        "Food allocated to bodies, offspring, experiments or construction must leave the edible pool once.",
-        "Spoilage and respiration have existing material destinations."
-      ],
-      "local_information_constraint": "An analytical ledger does not become omniscient personal knowledge.",
-      "counterexample": "A camp can have positive standing plant mass while no reachable, harvestable food covers consumption; total biomass alone must not count as food income.",
-      "bounded_test": {
-        "type": "scripted transfers and existing trace reconciliation",
-        "fixture_count": 3,
-        "metrics": [
-          "food-account residual kg",
-          "meal kg",
-          "thermal-fuel kg",
-          "spoilage kg",
-          "delivered kg per hour",
-          "fraction funded by initial reserves"
-        ],
-        "new_long_runs_authorized": false
-      },
-      "decision_criterion": "Every material discrepancy has a classified transfer within the model's existing numerical tolerance before changing production rates.",
-      "parameter_assumptions": [
-        "Counter labels are observational definitions, not physiological calibration."
-      ],
-      "dependencies": [],
-      "release_implications": "Prefer diagnostic counters first; persistent counters require saved-state migration and must begin at their actual introduction tick."
-    },
-    {
-      "id": "R03",
-      "rank": 6,
-      "priority": "P0",
-      "title": "Make biological food decay depend on conditions",
-      "status": "cold_loss_mechanism_partial_evidence_seasonal_limits",
-      "tracks": ["subsistence", "ecology", "materials"],
-      "roadmap_ids": ["P10", "E03", "W06"],
-      "source_ids": ["A02", "A04", "M03"],
-      "code_anchors": [
-        {
-          "path": "src/simulation/weathering.ts",
-          "symbol": "decayStocks"
-        },
-        {
-          "path": "src/simulation/subsistence.ts",
-          "symbol": "SUBSISTENCE and foodReservePerPerson"
-        }
-      ],
-      "observed_problem": "The initially inspected equation imposed a 0.004/day food-loss floor independent of temperature; the planner assumed 0.006/day.",
-      "hypothesis": "Removing that unconditional biological-loss floor improves cold-storage retention while preserving temperature-dependent finite loss.",
-      "proposed_change": "The implementation collaborator reports applying the existing thermal factor to the entire biological rate, with the old 20°C value preserved. Evaluate that candidate before deeper moisture/pest state.",
-      "mechanism": {
-        "inputs": [
-          "actual stored food",
-          "temperature",
-          "humidity and exposure"
-        ],
-        "outputs": ["remaining food", "returned decayed material"],
-        "location": "camp storage",
-        "duration": "daily loss integration"
-      },
-      "conservation_constraints": [
-        "Removed food must reach its existing detritus/mineral destinations.",
-        "Cooling adds no food or energy.",
-        "Future pests require an actual living source and metabolic budget."
-      ],
-      "local_information_constraint": "Reserve expectations should ultimately be learned from local losses and seasonal records, not future weather.",
-      "counterexample": "Warm wet stores should still lose food; finite cold retention is not permanent preservation. Material packing into personal rations must not become a loss-avoidance exploit.",
-      "bounded_test": {
-        "type": "cold/warm/protection comparison and conservation regression",
-        "fixture_count": 3,
-        "metrics": [
-          "retained fraction",
-          "warm-rate equality at 20°C",
-          "matter residual",
-          "actual versus planned loss"
-        ],
-        "new_long_runs_authorized": false
-      },
-      "decision_criterion": "The warm baseline remains consistent; colder storage loses less food without a ledger error; seasonal conclusions wait for the collaborator's existing reruns.",
-      "parameter_assumptions": [
-        "Q10=2 is an effective assumption, not an empirically calibrated universal constant.",
-        "Temperature clamps, humidity coupling and rate coefficients require sensitivity checks.",
-        "Grain-storage evidence does not calibrate every bulk food."
-      ],
-      "dependencies": ["R02"],
-      "release_implications": "A law change requires a law version, continuity tests and factual release evidence. Candidate status here is not deployment status.",
-      "progress_note": "The earlier combined 32-founder seasonal run has severe losses in Amber and Stone despite the thermal decay correction. Later 300-person 14-day changed-bundle comparison lowers heat and net camp stock drawdown. Neither isolates decay nor establishes seasonal balance; Q10=2 remains an effective assumption.",
-      "progress_history": [
-        {
-          "reported_on": "2026-10-08",
-          "note": "2026-10-08 collaborator report: applying the existing thermal factor to all biological food decay preserves 20°C rates and finite cold loss. Q10=2 remains an uncalibrated effective assumption. Cropped Stonebrook still went extinct at day 465; other original cropped trials had exceeded 500 days with all founders alive. Full-catchment results pending."
-        },
-        {
-          "reported_on": "2026-10-08",
-          "note": "Later 2026-10-08 parent report: original-domain Fern 45, Amber 46 and Adonis 47 at day 600, all 32 founders alive; Stone 46 at day 600 in its complete two-region catchment, all founders alive. All 128 founders passed 14 days across all 38 saved regions. Combined seven-region/four-community 600-day run pending around day 160 when reported. Earlier cropped failures remain historical evidence. No 300-founder success or live activation is established."
-        }
-      ]
-    },
-    {
       "id": "R22",
-      "rank": 7,
+      "rank": 10,
       "priority": "P0",
       "title": "Require connected containment before granting storage protection",
       "status": "connected_geometry_fixture_verified_storage_coupling_open",
@@ -558,7 +779,7 @@
     },
     {
       "id": "R17",
-      "rank": 8,
+      "rank": 11,
       "priority": "P0",
       "title": "Verify renderer correctness and visible-work reductions",
       "status": "partial_isolated_browser_verification",
@@ -620,135 +841,8 @@
       "progress_note": "Isolated revised renderer SHA 5faf9176 produced valid nested color, retained terrain cache for equal new structure arrays, and zero fully offscreen terrain projection calls versus 46,080 originally. Full-redraw timing improvement and populated-view performance remain unproven; exact outputs and browser versions are preserved in rendering-review.json."
     },
     {
-      "id": "R04",
-      "rank": 9,
-      "priority": "P0",
-      "title": "Couple perception to the path actually traveled",
-      "status": "ready_for_small_fixture",
-      "tracks": ["cognition", "movement", "numerics"],
-      "roadmap_ids": ["H02", "H03", "W08"],
-      "source_ids": ["A03", "A04", "M02"],
-      "code_anchors": [
-        {
-          "path": "src/simulation/movement.ts",
-          "symbol": "walkPath"
-        },
-        {
-          "path": "src/simulation/cognition.ts",
-          "symbol": "updateMind and perceive"
-        },
-        {
-          "path": "src/simulation/citizens.ts",
-          "symbol": "updateCitizen"
-        }
-      ],
-      "observed_problem": "Hourly endpoint perception can skip water and food beside cells crossed in a multi-cell movement step.",
-      "hypothesis": "Bounded observations along traveled positions reduce timestep-dependent loss of local information.",
-      "proposed_change": "Expose traversed positions to a perception sampler with spacing tied to sensory range, light and attention; retain a bounded memory budget.",
-      "mechanism": {
-        "inputs": [
-          "actual movement path",
-          "light",
-          "attention",
-          "local sensory range"
-        ],
-        "outputs": ["dated place observations"],
-        "location": "traveled positions only",
-        "duration": "during integrated travel"
-      },
-      "conservation_constraints": [
-        "Perception grants no stock, water or movement.",
-        "Sampling must remain bounded in CPU/memory and not alter distance traveled."
-      ],
-      "local_information_constraint": "Untraveled or out-of-range resources stay unknown; no enlargement to a global resource scan.",
-      "counterexample": "A rich untraveled site must not enter memory merely because it is in the same region.",
-      "bounded_test": {
-        "type": "mid-route resource and timestep comparison",
-        "fixture_count": 3,
-        "metrics": [
-          "observed path-adjacent sources",
-          "false remote observations",
-          "observation difference after subdivision",
-          "runtime and memory cost"
-        ],
-        "new_long_runs_authorized": false
-      },
-      "decision_criterion": "The mid-route source is learned in both integrated and subdivided travel, the remote source remains unknown, and the declared work budget is respected.",
-      "parameter_assumptions": [
-        "Sensory radius and sampling spacing remain coarse behavioral choices."
-      ],
-      "dependencies": [],
-      "release_implications": "Behavioral change needs targeted replay/local-information tests; any saved memory representation change requires migration."
-    },
-    {
-      "id": "R05",
-      "rank": 10,
-      "priority": "P1",
-      "title": "Choose gathering by remembered return and a feasible journey",
-      "status": "ready_for_small_fixture",
-      "tracks": ["subsistence", "cognition", "economics"],
-      "roadmap_ids": ["H02", "H03", "W04", "W06"],
-      "source_ids": ["A04", "A05", "M02"],
-      "code_anchors": [
-        {
-          "path": "src/simulation/citizens.ts",
-          "symbol": "gatherTask and finishTask"
-        },
-        {
-          "path": "src/simulation/cognition.ts",
-          "symbol": "perceive"
-        },
-        {
-          "path": "src/simulation/subsistence.ts",
-          "symbol": "foodReservePerPerson"
-        }
-      ],
-      "observed_problem": "Nearest-site ranking, a 100 m exploration horizon, seven-day eligibility and 48 recency entries can combine with fixed work time to favor repeatedly poor returns.",
-      "hypothesis": "Remembered expected yield per total effort, with uncertainty and return provisions, improves delivered food without privileged information.",
-      "proposed_change": "Compare two known patches using yield, outbound/work/return time, and water/ration margins; retain useful observations with uncertainty before increasing raw memory size.",
-      "mechanism": {
-        "inputs": [
-          "dated personal observations",
-          "experienced yield",
-          "route and ration budget"
-        ],
-        "outputs": [
-          "chosen gathering or exploratory task",
-          "updated expected return"
-        ],
-        "location": "known reachable sites and walked exploration",
-        "duration": "one work trip"
-      },
-      "conservation_constraints": [
-        "All food comes from actual tissue and is carried back.",
-        "Greater radius has travel, work, fatigue and provisioning costs.",
-        "Do not harvest the same unchanging remembered quantity after depletion."
-      ],
-      "local_information_constraint": "Use estimated remembered yield, never the unvisited patch's live stock; verify source/date for shared reports.",
-      "counterexample": "A distant rich patch may be a worse choice when its return route, water or time budget fails.",
-      "bounded_test": {
-        "type": "two-patch choice with hidden-information and blocked-route controls",
-        "fixture_count": 3,
-        "metrics": [
-          "delivered kg per total hour",
-          "failed or abandoned work hours",
-          "repeat visits to depleted sites",
-          "ration margin",
-          "unknown-site selection"
-        ],
-        "new_long_runs_authorized": false
-      },
-      "decision_criterion": "Choice responds to observed return and feasibility, falls back when knowledge is absent, and improves delivery in the specific fixture rather than every possible landscape.",
-      "parameter_assumptions": [
-        "Expected-yield decay and memory salience weights need sensitivity tests.",
-        "Anthropological path distances do not establish a universal gathering radius."
-      ],
-      "dependencies": ["R02", "R04"],
-      "release_implications": "Publish the behavioral approximation; verify determinism and no gain in resources or authority from a larger search budget."
-    },
-    {
       "id": "R06",
-      "rank": 11,
+      "rank": 12,
       "priority": "P1",
       "title": "Separate structural tissue, living reserves, and edible production",
       "status": "evidence_ready_design_needed",
@@ -822,7 +916,7 @@
     },
     {
       "id": "R14",
-      "rank": 12,
+      "rank": 13,
       "priority": "P1",
       "title": "Represent finite depth reservoirs before extracting them",
       "status": "untested_proposal",
@@ -892,7 +986,7 @@
     },
     {
       "id": "R16",
-      "rank": 13,
+      "rank": 14,
       "priority": "P1",
       "title": "Conserve inventories when refining and coarsening space",
       "status": "untested_proposal",
@@ -964,7 +1058,7 @@
     },
     {
       "id": "R15",
-      "rank": 14,
+      "rank": 15,
       "priority": "P1",
       "title": "Make excavation and underground construction physical operations",
       "status": "untested_proposal",
@@ -1037,7 +1131,7 @@
     },
     {
       "id": "R18",
-      "rank": 15,
+      "rank": 16,
       "priority": "P1",
       "title": "Connect geographic overview and bounded live views with one coordinate contract",
       "status": "bounded_architecture_proposed",
@@ -1116,7 +1210,7 @@
     },
     {
       "id": "R19",
-      "rank": 16,
+      "rank": 17,
       "priority": "P1",
       "title": "Bound observer CPU, graphics memory and adaptive quality",
       "status": "budgets_proposed_target_devices_unmeasured",
@@ -1187,7 +1281,7 @@
     },
     {
       "id": "R20",
-      "rank": 17,
+      "rank": 18,
       "priority": "P1",
       "title": "Run a recurring semantic coherence review across the repository",
       "status": "release_and_scaling_semantic_reviews_recorded_open_limits",
@@ -1278,7 +1372,7 @@
     },
     {
       "id": "R07",
-      "rank": 18,
+      "rank": 19,
       "priority": "P1",
       "title": "Test finite seasonal carriers and connected refugia",
       "status": "evidence_ready_design_needed",
@@ -1336,7 +1430,7 @@
     },
     {
       "id": "R08",
-      "rank": 19,
+      "rank": 20,
       "priority": "P2",
       "title": "Make migration a physical journey and a social arrival",
       "status": "evidence_ready_design_needed",
@@ -1399,7 +1493,7 @@
     },
     {
       "id": "R09",
-      "rank": 20,
+      "rank": 21,
       "priority": "P2",
       "title": "Transmit local survival knowledge through actual holders",
       "status": "evidence_ready_design_needed",
@@ -1462,7 +1556,7 @@
     },
     {
       "id": "R23",
-      "rank": 21,
+      "rank": 22,
       "priority": "P1",
       "title": "Make invention local operations and recipes descriptive evidence",
       "status": "general_search_and_narrow_evidence_fix_verified_operations_carriers_open",
@@ -1550,7 +1644,7 @@
     },
     {
       "id": "R10",
-      "rank": 22,
+      "rank": 23,
       "priority": "P2",
       "title": "Represent institutions as maintained agreements",
       "status": "historical_questions_ready_design_needed",
@@ -1609,7 +1703,7 @@
     },
     {
       "id": "R11",
-      "rank": 23,
+      "rank": 24,
       "priority": "P2",
       "title": "Keep exchange value tied to information and delivery",
       "status": "historical_questions_ready_design_needed",
@@ -1669,7 +1763,7 @@
     },
     {
       "id": "R12",
-      "rank": 24,
+      "rank": 25,
       "priority": "P2",
       "title": "Test plural outcomes and warranted advice credit",
       "status": "ready_for_small_fixture",
@@ -1735,5 +1829,11 @@
   "connected_model_review": "connected-model-review.json",
   "release_coherence_review": "release-coherence-review.md",
   "scaling_and_open_endedness": "scaling-and-open-endedness.md",
-  "simulation_cpu_profile": "restored-world-cpu-profile.json"
+  "simulation_cpu_profile": "restored-world-cpu-profile.json",
+  "collapse_review": {
+    "recorded_on": "2026-10-08",
+    "report": "community-collapse-2026-10-08.md",
+    "reproduction": "collapse-reproduction.md",
+    "status": "confirmed_defects_and_one_exact_cause_corrections_not_released"
+  }
 }

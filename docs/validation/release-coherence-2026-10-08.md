@@ -1,4 +1,4 @@
-# Renewal and observer release coherence review
+# Living-world release coherence review
 
 This review covers the Git-visible repository, including the retained Python project, current TypeScript systems, tests, public documentation and requirement ledger. The [structural report](release-coherence-2026-10-08.json) records its exact scope, source fingerprint, file/import/link counts and limitations. Static imports/assets and checked local Markdown targets resolve; the simulation has no detected server/browser/Node dependency. This is structural evidence, not proof that every modeled process is complete or scientifically correct.
 
@@ -30,3 +30,13 @@ The repository also retains a historical `Thonglets` gitlink (`27de497eafa06ba72
 The later live overview at tick 287132 contains no living people after 407 births and 1,639 cumulative deaths, under the preceding runtime. This contradicts any claim that the initial renewal established sustainable communities. The world's clock, ecology and conservation checks continue; further demographic/environmental diagnosis remains necessary before claiming a balanced living society.
 
 The work-planning release is now active, with [separate live evidence](work-planning-continuity.json). Its private copy held a reader long enough for several full-region saves to exhaust the 500 MB volume despite about 175 MB initial free space. The observed fault and 24 repeated ticks expose a gap between bounded local handover tests and real disk pressure. Heap isolation addresses one failure mode; capacity-safe copy/persistence remains unresolved. The external connection survived, but the live seamless/monotonic criterion failed and stays explicit in the release record.
+
+## Collapse investigation follow-up
+
+The [completed causal study](../research/community-collapse-2026-10-08.md) changes the survival assessment without changing physical law or saved state. All renewed people died; the first infant's cold-exposure health loss is exactly reproduced under the historical engine. Current-function controls separately expose ration ordering and missing caregiver wrapping. Conservation can pass while access, allocation or physiology is defective.
+
+The review now connects mass units to the effective body compartment, quarter-hour heat calls to daily demand, food stores to carried rations, personal memory to reachable harvest and overlapping camp catchments to one shared land area. It preserves positive sickness records and rejects endpoint spring weather as evidence for winter deaths. The figure and source scripts retain their provenance; neither aggregate history nor a successful single-call counterfactual proves generational viability. Care, growth, body-reserve energy, storage flows and exploration remain explicit work, and H06 political freedom remains accepted.
+
+This batch adds research records and diagnostic scripts only. The exact historical replay and bounded controls supply its behavioral evidence; the source tree fingerprint is unchanged. Prior full model/browser tests are reused because application code did not change. Both GitHub runs for `e438698` succeeded. No new runtime, website deployment, law migration or physical intervention was made.
+
+The same review also found a later live disk-full halt. The [recovery record](storage-recovery-2026-10-08.md) separates preservation of the committed world from uncommitted progress, validates the off-host backup and records the resumed artifact without a new law or population intervention. The bounded watcher and identity checks passed; neither they nor the structural scan establish permanent capacity.

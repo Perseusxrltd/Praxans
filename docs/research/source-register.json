@@ -358,6 +358,32 @@
       "usable_claim": "The interface describes uninterrupted main-thread tasks lasting at least 50 ms; they can delay input and rendering.",
       "limits": "The API is not supported in all widely used browsers. Fifty milliseconds is an API threshold, not an acceptable universal latency budget; use fallback frame/input timing where unavailable.",
       "accessed_on": "2026-10-08"
+    },
+    {
+      "id": "M16",
+      "author": "FAO/WHO/UNU",
+      "title": "Human energy requirements, chapter 2: Principles and definitions",
+      "url": "https://www.fao.org/4/y5686e/y5686e04.htm",
+      "access_scope": "Selected HTML passages from sections 2.1–2.4 and the energy-unit footnote; title/contents page also read.",
+      "claim_types": ["expert_compilation"],
+      "usable_claim": "Energy intake, expenditure and tissue deposition require distinct accounting; basal energy depends on body size/composition and state; 1 kcal = 4.184 kJ.",
+      "limits": "Healthy-population dietary guidance is not a starvation mortality curve or validation of this model's body pool, damage coefficients or normative goals. Underlying studies were not independently read.",
+      "accessed_on": "2026-10-08",
+      "recorded_in": "starvation-storage-arithmetic.json",
+      "local_record_id": "F01"
+    },
+    {
+      "id": "M17",
+      "author": "FAO/WHO/UNU",
+      "title": "Human energy requirements, chapter 3: Energy requirements of infants from birth to 12 months",
+      "url": "https://www.fao.org/4/y5686e/y5686e05.htm",
+      "access_scope": "Selected HTML passages in sections 3.1 and 3.3 on doubly labelled water, tissue synthesis/deposition and body-composition measurement; methodological limitations in section 3.4.",
+      "claim_types": ["expert_compilation"],
+      "usable_claim": "Measured expenditure already includes thermoregulation and tissue synthesis; stored tissue energy is added separately. Body-composition measurement determines the meaning of mass-based comparisons.",
+      "limits": "No table or equation was fitted to Praxans. The component studies, particularly their malnutrition data, were not independently read; no infant survival limit is inferred.",
+      "accessed_on": "2026-10-08",
+      "recorded_in": "starvation-storage-arithmetic.json",
+      "local_record_id": "F02"
     }
   ]
 }

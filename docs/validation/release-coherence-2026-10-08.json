@@ -1,16 +1,16 @@
 {
-  "inspectedAt": "2026-10-08T19:50:14.237Z",
+  "inspectedAt": "2026-10-08T20:37:43.911Z",
   "structuralScan": {
-    "baseCommit": "4ed610b48c604ab9734a301ecdddda55fc9f6111",
+    "baseCommit": "e4386986f518f92743a69e5f351088b74f18396b",
     "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
-    "gitVisibleExistingFileCount": 894,
-    "jsTsFileCount": 113,
+    "gitVisibleExistingFileCount": 917,
+    "jsTsFileCount": 118,
     "sourceFileCount": 73,
     "srcContentSha256": "91075bd09e472dfed17e561b010eb1a47f7541103b64165ec38e720e4e2870ed",
     "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
-    "resolvedEdgeCount": 566,
+    "resolvedEdgeCount": 580,
     "edgesByArea": {
-      "docs -> src/simulation": 8,
+      "docs -> src/simulation": 22,
       "scripts -> src/server": 18,
       "scripts -> src/simulation": 25,
       "src/client -> src/simulation": 27,
@@ -24,10 +24,19 @@
     },
     "missingImports": [],
     "missingAssets": [],
-    "nonliteralLoads": [],
+    "nonliteralLoads": [
+      {
+        "file": "docs/research/collapse-first-death-replay.mjs",
+        "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+      },
+      {
+        "file": "docs/research/collapse-first-death-replay.mjs",
+        "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+      }
+    ],
     "layerViolations": [],
     "simulationEnvironmentImports": [],
-    "localMarkdownLinksChecked": 282,
+    "localMarkdownLinksChecked": 354,
     "missingMarkdownLinks": []
   }
 }

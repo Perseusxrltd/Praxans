@@ -38,7 +38,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `citizens.ts`, `economy.ts`, `engine.ts`, `actions.ts`, `founding.ts`
 - **dependencies**: world_state, natural_systems, human_cognition, civic_relations, human_physiology, settlement_space, material_geometry
 - **dependents**: agent_gateway, browser_observer
-- **known_issues**: Fixed design score and site radius/spacing constrain invention despite feasible-alternative and conditional-work selection. Short-run founding/construction validation does not establish multi-generation or genetic equilibrium.
+- **known_issues**: Fixed design score and site radius/spacing constrain invention despite feasible-alternative and conditional-work selection. All four renewed communities later died. Short-run founding/construction validation does not establish multi-generation or genetic equilibrium; optional ration packing reproduces update-order deprivation under scarcity.
 - **last_touched**: 2026-10-08
 
 ### world_storage
@@ -150,7 +150,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `physiology.ts`, `subsistence.ts`, `citizens.ts`
 - **dependencies**: natural_systems, world_state, settlement_space
 - **dependents**: civilization_intelligence
-- **known_issues**: Effective heat balance and adult seasonal heuristic, not organs or full thermoregulation. Containers, care and generational viability remain unresolved.
+- **known_issues**: Exact historical infant death occurs in the cold-exposure penalty despite available fiber; children cannot self-wrap and lack caregiver protection. Age-dependent growth, body-reserve metabolism, containers, care and generational viability remain unresolved. See docs/research/community-collapse-2026-10-08.md.
 - **last_touched**: 2026-10-08
 
 ### settlement_space
@@ -161,7 +161,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `movement.ts`, `settlement.ts`, `planet.ts`, `terrain.ts`, `weathering.ts`
 - **dependencies**: world_state, natural_systems
 - **dependents**: civilization_intelligence, human_physiology
-- **known_issues**: Stock volumes and camp area are represented, but inventory is still pooled; hauling, exact occupied piles, ventilation and stored-material heat capacity are incomplete.
+- **known_issues**: Stock volumes and camp area are represented, but inventory is still pooled; hauling, exact occupied piles, ventilation and stored-material heat capacity are incomplete. Three renewed camps share 36.83 ha of represented connected land; overlapping standing stocks do not establish independent sustainable food supply.
 - **last_touched**: 2026-10-08
 
 ### material_geometry

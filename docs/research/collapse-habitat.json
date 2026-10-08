@@ -1,0 +1,2325 @@
+{
+  "recordedAtUTC": "2026-10-08T19:51:16.180Z",
+  "method": "Independent verified backups opened read-only; metadata and every region hashed. Derived physical-distance, four-neighbour land connectivity and resource/memory summaries; no simulation advanced or host contacted.",
+  "limits": [
+    "A geometrically connected cell is not proof of known resources, access permission, bounded path-search success, delivery time or renewable yield.",
+    "Catchments overlap; their resources must not be added as independent inventories.",
+    "Edible tissue is a standing upper stock, not sustainable production or the yield of one gathering visit.",
+    "The 120m sample is a diagnostic inner area; actual restoration used48projected cells, about480m near these camps."
+  ],
+  "snapshots": [
+    {
+      "file": "output/backups/before-advisor-recovery-20261008.sqlite",
+      "sha256": "197178de84dea08cf5055b599acc5f0896fc927a6a730bf6b418153bad551968",
+      "metadataSha256": "de5ca9c84a4d23897c6223bcd5e0c97cdc5f88db756b73d29ab317c8c43c5056",
+      "tick": 204116,
+      "daysAfterRenewal": 86,
+      "people": 1200,
+      "births": 0,
+      "deaths": 32,
+      "regions": 38,
+      "totalAreaHectares": 389.12,
+      "landAreaHectares": 317.93,
+      "globalEdibleTissueKg": 87863.66839020158,
+      "globalOrganicPlantKg": 171805.93908996947,
+      "communities": [
+        {
+          "id": "civ-1",
+          "name": "Fernhaven",
+          "population": 300,
+          "births": 0,
+          "deaths": 9,
+          "focus": "nourish",
+          "policies": {
+            "sharing": 0.7,
+            "effort": 0.5,
+            "extraction": 0.4
+          },
+          "stockKg": {
+            "biomass": 114958.57728632535,
+            "wood": 23801.19689072701,
+            "fiber": 234.5828712583007,
+            "stone": 1555.901855883272,
+            "clay": 515.8168021752206
+          },
+          "personalFoodKg": 893.7510448994758,
+          "carriedFoodKg": 0,
+          "cumulativeHarvestKg": 30804.501928073576,
+          "housingPlaces": 11.501395512517632,
+          "campCells": 48,
+          "campTemperatureC": {
+            "count": 48,
+            "min": -7.6137656164783545,
+            "median": -6.290076194714954,
+            "p90": -5.368967215469616,
+            "max": -4.409973241931424,
+            "mean": -6.283854496264849
+          },
+          "wholeConnectedLandHectares": 36.83,
+          "catchments": [
+            {
+              "radiusMetres": 120,
+              "representedCells": 439,
+              "landCells": 437,
+              "connectedLandCells": 437,
+              "connectedLandHectares": 4.37,
+              "edibleTissueKg": 312.253791768443,
+              "organicPlantKg": 2470.7448767754954,
+              "edibleCellsOver2Kg": 3,
+              "liquidWaterCells": 3,
+              "temperatureC": {
+                "count": 437,
+                "min": -8.781154997541702,
+                "median": -8.321812614629426,
+                "p90": -6.75573054925655,
+                "max": -4.409973241931424,
+                "mean": -8.015285599784237
+              },
+              "competingCommunityIds": [
+                "civ-1"
+              ]
+            },
+            {
+              "radiusMetres": 480,
+              "representedCells": 7210,
+              "landCells": 3820,
+              "connectedLandCells": 3379,
+              "connectedLandHectares": 33.79,
+              "edibleTissueKg": 7510.460399650032,
+              "organicPlantKg": 23475.935399026224,
+              "edibleCellsOver2Kg": 519,
+              "liquidWaterCells": 51,
+              "temperatureC": {
+                "count": 3379,
+                "min": -10.483073054927349,
+                "median": -8.196668162130148,
+                "p90": -6.066043064730613,
+                "max": -2.0615345777405714,
+                "mean": -7.790806984131828
+              },
+              "competingCommunityIds": [
+                "civ-1",
+                "civ-11",
+                "civ-21"
+              ]
+            },
+            {
+              "radiusMetres": 900,
+              "representedCells": 16862,
+              "landCells": 10385,
+              "connectedLandCells": 3683,
+              "connectedLandHectares": 36.83,
+              "edibleTissueKg": 9367.065643986212,
+              "organicPlantKg": 26132.393600698844,
+              "edibleCellsOver2Kg": 663,
+              "liquidWaterCells": 65,
+              "temperatureC": {
+                "count": 3683,
+                "min": -10.483073054927349,
+                "median": -8.068896957415872,
+                "p90": -5.7668454287735145,
+                "max": -2.0615345777405714,
+                "mean": -7.680992644648951
+              },
+              "competingCommunityIds": [
+                "civ-1",
+                "civ-11",
+                "civ-21"
+              ]
+            }
+          ],
+          "adults": {
+            "people": 300,
+            "bodyKg": {
+              "count": 300,
+              "min": 18,
+              "median": 18,
+              "p90": 18,
+              "max": 18,
+              "mean": 18
+            },
+            "wrapKg": {
+              "count": 300,
+              "min": 1.9999925000140626,
+              "median": 1.9999925000140626,
+              "p90": 1.9999925000140626,
+              "max": 1.9999925000140626,
+              "mean": 1.9999925000140597
+            },
+            "provisionsKg": {
+              "count": 300,
+              "min": 2.0936369395653163,
+              "median": 2.993857196572347,
+              "p90": 2.9967145670921957,
+              "max": 2.9970887308395016,
+              "mean": 2.9791701496649194
+            },
+            "nourishment": {
+              "count": 300,
+              "min": 62.76249999999983,
+              "median": 90.37999999999988,
+              "p90": 97.39999999999998,
+              "max": 100,
+              "mean": 88.39404999999991
+            },
+            "health": {
+              "count": 300,
+              "min": 99.64911789297773,
+              "median": 100,
+              "p90": 100,
+              "max": 100,
+              "mean": 99.98099312987729
+            },
+            "distanceFromCampMetres": {
+              "count": 300,
+              "min": 0,
+              "median": 28.28427488836759,
+              "p90": 40.00151694463171,
+              "max": 41.23240800727507,
+              "mean": 26.29939318600182
+            },
+            "rememberedFarthestFromCampMetres": {
+              "count": 300,
+              "min": 50.000568534044,
+              "median": 86.02236246792272,
+              "p90": 86.02236246792272,
+              "max": 86.02236246792272,
+              "mean": 80.27237983325236
+            },
+            "knownFreshFoodPlaces": {
+              "count": 300,
+              "min": 0,
+              "median": 3,
+              "p90": 4,
+              "max": 4,
+              "mean": 2.8633333333333333
+            },
+            "tasks": {
+              "rest": 300
+            }
+          },
+          "children": {
+            "people": 0,
+            "bodyKg": null,
+            "wrapKg": null,
+            "provisionsKg": null,
+            "nourishment": null,
+            "health": null,
+            "distanceFromCampMetres": null,
+            "rememberedFarthestFromCampMetres": null,
+            "knownFreshFoodPlaces": null,
+            "tasks": {}
+          }
+        },
+        {
+          "id": "civ-11",
+          "name": "Amber Hollow",
+          "population": 300,
+          "births": 0,
+          "deaths": 7,
+          "focus": "discover",
+          "policies": {
+            "sharing": 0.7,
+            "effort": 0.5,
+            "extraction": 0.4
+          },
+          "stockKg": {
+            "biomass": 113445.57660282751,
+            "wood": 12094.492844768436,
+            "fiber": 138.73451357051147,
+            "stone": 1220.4343350535135,
+            "clay": 226.72074499696592
+          },
+          "personalFoodKg": 897.4001124569446,
+          "carriedFoodKg": 0,
+          "cumulativeHarvestKg": 29141.362978506764,
+          "housingPlaces": 11.071389058321996,
+          "campCells": 48,
+          "campTemperatureC": {
+            "count": 48,
+            "min": -7.584020017314774,
+            "median": -5.910594607256396,
+            "p90": -4.144396080365331,
+            "max": -3.5548634809796598,
+            "mean": -5.760799797968605
+          },
+          "wholeConnectedLandHectares": 36.83,
+          "catchments": [
+            {
+              "radiusMetres": 120,
+              "representedCells": 439,
+              "landCells": 439,
+              "connectedLandCells": 439,
+              "connectedLandHectares": 4.39,
+              "edibleTissueKg": 288.2681459843367,
+              "organicPlantKg": 2502.9050116781186,
+              "edibleCellsOver2Kg": 0,
+              "liquidWaterCells": 13,
+              "temperatureC": {
+                "count": 439,
+                "min": -8.69094741924615,
+                "median": -8.414078067955511,
+                "p90": -6.753652163102338,
+                "max": -3.5548634809796598,
+                "mean": -8.006542170857704
+              },
+              "competingCommunityIds": [
+                "civ-11"
+              ]
+            },
+            {
+              "radiusMetres": 480,
+              "representedCells": 7211,
+              "landCells": 3843,
+              "connectedLandCells": 3327,
+              "connectedLandHectares": 33.27,
+              "edibleTissueKg": 8788.895490847532,
+              "organicPlantKg": 24643.347493919926,
+              "edibleCellsOver2Kg": 619,
+              "liquidWaterCells": 58,
+              "temperatureC": {
+                "count": 3327,
+                "min": -8.938704249292266,
+                "median": -8.02977260468642,
+                "p90": -5.824526032340808,
+                "max": -2.0615345777405714,
+                "mean": -7.670181249836937
+              },
+              "competingCommunityIds": [
+                "civ-1",
+                "civ-11",
+                "civ-21"
+              ]
+            },
+            {
+              "radiusMetres": 900,
+              "representedCells": 20342,
+              "landCells": 13720,
+              "connectedLandCells": 3683,
+              "connectedLandHectares": 36.83,
+              "edibleTissueKg": 9367.065643986212,
+              "organicPlantKg": 26132.393600698844,
+              "edibleCellsOver2Kg": 663,
+              "liquidWaterCells": 65,
+              "temperatureC": {
+                "count": 3683,
+                "min": -10.483073054927349,
+                "median": -8.068896957415872,
+                "p90": -5.7668454287735145,
+                "max": -2.0615345777405714,
+                "mean": -7.680992644648951
+              },
+              "competingCommunityIds": [
+                "civ-1",
+                "civ-11",
+                "civ-21"
+              ]
+            }
+          ],
+          "adults": {
+            "people": 300,
+            "bodyKg": {
+              "count": 300,
+              "min": 18,
+              "median": 18,
+              "p90": 18,
+              "max": 18,
+              "mean": 18
+            },
+            "wrapKg": {
+              "count": 300,
+              "min": 1.9999925000140626,
+              "median": 1.9999925000140626,
+              "p90": 1.9999925000140626,
+              "max": 1.9999925000140626,
+              "mean": 1.9999925000140597
+            },
+            "provisionsKg": {
+              "count": 300,
+              "min": 2.0939777920055613,
+              "median": 2.9939441924515178,
+              "p90": 2.997073505445154,
+              "max": 2.9986796389003954,
+              "mean": 2.9913337081898157
+            },
+            "nourishment": {
+              "count": 300,
+              "min": 62.074999999999775,
+              "median": 77.83749999999986,
+              "p90": 92.19999999999993,
+              "max": 100,
+              "mean": 78.84299999999988
+            },
+            "health": {
+              "count": 300,
+              "min": 98.7887500000037,
+              "median": 100,
+              "p90": 100,
+              "max": 100,
+              "mean": 99.97245252229646
+            },
+            "distanceFromCampMetres": {
+              "count": 300,
+              "min": 0,
+              "median": 28.28427489515545,
+              "p90": 39.998493286023006,
+              "max": 41.232522206273835,
+              "mean": 26.435832133272385
+            },
+            "rememberedFarthestFromCampMetres": {
+              "count": 300,
+              "min": 50.00054655603603,
+              "median": 63.243251971699834,
+              "p90": 67.08360077029225,
+              "max": 70.71351917671191,
+              "mean": 61.15627621144778
+            },
+            "knownFreshFoodPlaces": {
+              "count": 300,
+              "min": 0,
+              "median": 0,
+              "p90": 0,
+              "max": 0,
+              "mean": 0
+            },
+            "tasks": {
+              "rest": 300
+            }
+          },
+          "children": {
+            "people": 0,
+            "bodyKg": null,
+            "wrapKg": null,
+            "provisionsKg": null,
+            "nourishment": null,
+            "health": null,
+            "distanceFromCampMetres": null,
+            "rememberedFarthestFromCampMetres": null,
+            "knownFreshFoodPlaces": null,
+            "tasks": {}
+          }
+        },
+        {
+          "id": "civ-21",
+          "name": "Stonebrook",
+          "population": 300,
+          "births": 0,
+          "deaths": 8,
+          "focus": "build",
+          "policies": {
+            "sharing": 0.7,
+            "effort": 0.5,
+            "extraction": 0.4
+          },
+          "stockKg": {
+            "biomass": 110019.31232231113,
+            "wood": 20740.714177027377,
+            "fiber": 27.61220266801588,
+            "stone": 1404.123586987016,
+            "clay": 630.282241039712
+          },
+          "personalFoodKg": 898.3183774067628,
+          "carriedFoodKg": 0,
+          "cumulativeHarvestKg": 25124.754377963687,
+          "housingPlaces": 9.522745508736142,
+          "campCells": 48,
+          "campTemperatureC": {
+            "count": 48,
+            "min": -7.337577597430119,
+            "median": -5.541515703310221,
+            "p90": -4.432978732140505,
+            "max": -3.4886356802239806,
+            "mean": -5.528677995350634
+          },
+          "wholeConnectedLandHectares": 36.83,
+          "catchments": [
+            {
+              "radiusMetres": 120,
+              "representedCells": 439,
+              "landCells": 408,
+              "connectedLandCells": 408,
+              "connectedLandHectares": 4.08,
+              "edibleTissueKg": 311.29449400311665,
+              "organicPlantKg": 2196.356369140426,
+              "edibleCellsOver2Kg": 12,
+              "liquidWaterCells": 12,
+              "temperatureC": {
+                "count": 408,
+                "min": -8.749424990846375,
+                "median": -7.955682123859097,
+                "p90": -5.835866691170441,
+                "max": -3.4886356802239806,
+                "mean": -7.579168575268258
+              },
+              "competingCommunityIds": [
+                "civ-21"
+              ]
+            },
+            {
+              "radiusMetres": 480,
+              "representedCells": 7161,
+              "landCells": 4281,
+              "connectedLandCells": 3578,
+              "connectedLandHectares": 35.78,
+              "edibleTissueKg": 9048.331208638941,
+              "organicPlantKg": 25619.46789116515,
+              "edibleCellsOver2Kg": 638,
+              "liquidWaterCells": 56,
+              "temperatureC": {
+                "count": 3578,
+                "min": -10.483073054927349,
+                "median": -8.107741953769601,
+                "p90": -6.0315015379005015,
+                "max": -2.0615345777405714,
+                "mean": -7.749412138642766
+              },
+              "competingCommunityIds": [
+                "civ-1",
+                "civ-11",
+                "civ-21"
+              ]
+            },
+            {
+              "radiusMetres": 900,
+              "representedCells": 17872,
+              "landCells": 11377,
+              "connectedLandCells": 3683,
+              "connectedLandHectares": 36.83,
+              "edibleTissueKg": 9367.065643986212,
+              "organicPlantKg": 26132.393600698844,
+              "edibleCellsOver2Kg": 663,
+              "liquidWaterCells": 65,
+              "temperatureC": {
+                "count": 3683,
+                "min": -10.483073054927349,
+                "median": -8.068896957415872,
+                "p90": -5.7668454287735145,
+                "max": -2.0615345777405714,
+                "mean": -7.680992644648951
+              },
+              "competingCommunityIds": [
+                "civ-1",
+                "civ-11",
+                "civ-21"
+              ]
+            }
+          ],
+          "adults": {
+            "people": 300,
+            "bodyKg": {
+              "count": 300,
+              "min": 18,
+              "median": 18,
+              "p90": 18,
+              "max": 18,
+              "mean": 18
+            },
+            "wrapKg": {
+              "count": 300,
+              "min": 1.9999925000140626,
+              "median": 1.9999925000140626,
+              "p90": 1.9999925000140626,
+              "max": 1.9999925000140626,
+              "mean": 1.9999925000140597
+            },
+            "provisionsKg": {
+              "count": 300,
+              "min": 2.993494093673334,
+              "median": 2.994107134917803,
+              "p90": 2.9947076676210025,
+              "max": 2.9979297259836373,
+              "mean": 2.9943945913558747
+            },
+            "nourishment": {
+              "count": 300,
+              "min": 62.14999999999968,
+              "median": 83.74999999999986,
+              "p90": 89.59999999999991,
+              "max": 99.63,
+              "mean": 83.46533333333315
+            },
+            "health": {
+              "count": 300,
+              "min": 97.89448578595055,
+              "median": 100,
+              "p90": 100,
+              "max": 100,
+              "mean": 99.96114792363419
+            },
+            "distanceFromCampMetres": {
+              "count": 300,
+              "min": 0,
+              "median": 28.28427498525067,
+              "p90": 39.99698679889319,
+              "max": 41.233664164465004,
+              "mean": 26.18705420981813
+            },
+            "rememberedFarthestFromCampMetres": {
+              "count": 300,
+              "min": 44.71934064047949,
+              "median": 70.71068744091366,
+              "p90": 78.10347037544959,
+              "max": 78.10358097120341,
+              "mean": 67.55032400971749
+            },
+            "knownFreshFoodPlaces": {
+              "count": 300,
+              "min": 0,
+              "median": 0,
+              "p90": 0,
+              "max": 0,
+              "mean": 0
+            },
+            "tasks": {
+              "rest": 300
+            }
+          },
+          "children": {
+            "people": 0,
+            "bodyKg": null,
+            "wrapKg": null,
+            "provisionsKg": null,
+            "nourishment": null,
+            "health": null,
+            "distanceFromCampMetres": null,
+            "rememberedFarthestFromCampMetres": null,
+            "knownFreshFoodPlaces": null,
+            "tasks": {}
+          }
+        },
+        {
+          "id": "civ-3118",
+          "name": "Adonis",
+          "population": 300,
+          "births": 0,
+          "deaths": 8,
+          "focus": "nourish",
+          "policies": {
+            "sharing": 0.9,
+            "effort": 0.6,
+            "extraction": 0.5
+          },
+          "stockKg": {
+            "biomass": 130120.88317461526,
+            "wood": 18283.347846249406,
+            "fiber": 84.12771262051248,
+            "stone": 1521.488427978847,
+            "clay": 502.6274025822407
+          },
+          "personalFoodKg": 891.0589558427281,
+          "carriedFoodKg": 0,
+          "cumulativeHarvestKg": 47479.13598573674,
+          "housingPlaces": 6.759940559526825,
+          "campCells": 48,
+          "campTemperatureC": {
+            "count": 48,
+            "min": -7.868540071101497,
+            "median": -5.779628371284777,
+            "p90": -4.17619228532707,
+            "max": -3.6472184975936166,
+            "mean": -5.721790952142675
+          },
+          "wholeConnectedLandHectares": 280.46,
+          "catchments": [
+            {
+              "radiusMetres": 120,
+              "representedCells": 439,
+              "landCells": 439,
+              "connectedLandCells": 439,
+              "connectedLandHectares": 4.39,
+              "edibleTissueKg": 323.78421835405584,
+              "organicPlantKg": 2515.7407476927165,
+              "edibleCellsOver2Kg": 2,
+              "liquidWaterCells": 14,
+              "temperatureC": {
+                "count": 439,
+                "min": -8.72392648835212,
+                "median": -8.569895184881034,
+                "p90": -6.7744123574288615,
+                "max": -3.6472184975936166,
+                "mean": -8.14844094876903
+              },
+              "competingCommunityIds": [
+                "civ-3118"
+              ]
+            },
+            {
+              "radiusMetres": 480,
+              "representedCells": 7209,
+              "landCells": 6933,
+              "connectedLandCells": 6933,
+              "connectedLandHectares": 69.33,
+              "edibleTissueKg": 67286.62352377428,
+              "organicPlantKg": 127145.04045010278,
+              "edibleCellsOver2Kg": 5545,
+              "liquidWaterCells": 14,
+              "temperatureC": {
+                "count": 6933,
+                "min": -8.884007768300698,
+                "median": -7.911865725109401,
+                "p90": -7.3800389817650975,
+                "max": -3.6472184975936166,
+                "mean": -7.877294828656649
+              },
+              "competingCommunityIds": [
+                "civ-3118"
+              ]
+            },
+            {
+              "radiusMetres": 900,
+              "representedCells": 12767,
+              "landCells": 12362,
+              "connectedLandCells": 12362,
+              "connectedLandHectares": 123.62,
+              "edibleTissueKg": 67373.23477147544,
+              "organicPlantKg": 127289.27545759386,
+              "edibleCellsOver2Kg": 5547,
+              "liquidWaterCells": 40,
+              "temperatureC": {
+                "count": 12362,
+                "min": -9.12036202203652,
+                "median": -8.32662686142572,
+                "p90": -7.445562876456659,
+                "max": -2.861332635131257,
+                "mean": -8.166688600866534
+              },
+              "competingCommunityIds": [
+                "civ-3118"
+              ]
+            }
+          ],
+          "adults": {
+            "people": 300,
+            "bodyKg": {
+              "count": 300,
+              "min": 18,
+              "median": 18,
+              "p90": 18,
+              "max": 18,
+              "mean": 18
+            },
+            "wrapKg": {
+              "count": 300,
+              "min": 1.9999925000140626,
+              "median": 1.9999925000140626,
+              "p90": 1.9999925000140626,
+              "max": 1.9999925000140626,
+              "mean": 1.9999925000140597
+            },
+            "provisionsKg": {
+              "count": 300,
+              "min": 2.093711982390039,
+              "median": 2.9939925288242106,
+              "p90": 2.9946000535821127,
+              "max": 2.9975058988921686,
+              "mean": 2.9701965194757607
+            },
+            "nourishment": {
+              "count": 300,
+              "min": 62.03499999999974,
+              "median": 91.54999999999993,
+              "p90": 98.37499999999999,
+              "max": 100,
+              "mean": 86.0754499999999
+            },
+            "health": {
+              "count": 300,
+              "min": 98.96626672241312,
+              "median": 100,
+              "p90": 100,
+              "max": 100,
+              "mean": 99.97321524526194
+            },
+            "distanceFromCampMetres": {
+              "count": 300,
+              "min": 0,
+              "median": 28.28427486042937,
+              "p90": 36.05584560965247,
+              "max": 41.23195120573325,
+              "mean": 25.455690496441488
+            },
+            "rememberedFarthestFromCampMetres": {
+              "count": 300,
+              "min": 50.000392713835474,
+              "median": 58.308941474321024,
+              "p90": 72.11046526663532,
+              "max": 72.11046526663532,
+              "mean": 61.45369147290191
+            },
+            "knownFreshFoodPlaces": {
+              "count": 300,
+              "min": 0,
+              "median": 1,
+              "p90": 2,
+              "max": 2,
+              "mean": 1.1933333333333334
+            },
+            "tasks": {
+              "rest": 300
+            }
+          },
+          "children": {
+            "people": 0,
+            "bodyKg": null,
+            "wrapKg": null,
+            "provisionsKg": null,
+            "nourishment": null,
+            "health": null,
+            "distanceFromCampMetres": null,
+            "rememberedFarthestFromCampMetres": null,
+            "knownFreshFoodPlaces": null,
+            "tasks": {}
+          }
+        }
+      ]
+    },
+    {
+      "file": "output/backups/before-construction-planning-20261008.sqlite",
+      "sha256": "a973f2a1e4e3df17eab5d11e63467b635c13eddfed8124ef6b53d480f5da94ce",
+      "metadataSha256": "e8266b33318294df970e457e21ed0db3765c4f935753c6e5b224f45968e32c4a",
+      "tick": 228436,
+      "daysAfterRenewal": 339.3333333333333,
+      "people": 1439,
+      "births": 239,
+      "deaths": 32,
+      "regions": 38,
+      "totalAreaHectares": 389.12,
+      "landAreaHectares": 317.93,
+      "globalEdibleTissueKg": 555501.2774078719,
+      "globalOrganicPlantKg": 769131.0070313605,
+      "communities": [
+        {
+          "id": "civ-1",
+          "name": "Fernhaven",
+          "population": 355,
+          "births": 55,
+          "deaths": 9,
+          "focus": "nourish",
+          "policies": {
+            "sharing": 0.7,
+            "effort": 0.5,
+            "extraction": 0.4
+          },
+          "stockKg": {
+            "biomass": 5678.562817186981,
+            "wood": 23590.160336544057,
+            "fiber": 192.98028393977162,
+            "stone": 1462.2168917002716,
+            "clay": 426.9282761000487
+          },
+          "personalFoodKg": 1009.0210943111775,
+          "carriedFoodKg": 0.5822163628466037,
+          "cumulativeHarvestKg": 47493.208626535044,
+          "housingPlaces": 11.300740887820682,
+          "campCells": 57,
+          "campTemperatureC": {
+            "count": 57,
+            "min": 14.486104901533567,
+            "median": 15.80395176209806,
+            "p90": 16.300052839905568,
+            "max": 16.75368518767508,
+            "mean": 15.755002661448922
+          },
+          "wholeConnectedLandHectares": 36.83,
+          "catchments": [
+            {
+              "radiusMetres": 120,
+              "representedCells": 439,
+              "landCells": 437,
+              "connectedLandCells": 437,
+              "connectedLandHectares": 4.37,
+              "edibleTissueKg": 448.6307098979051,
+              "organicPlantKg": 3955.3160801800423,
+              "edibleCellsOver2Kg": 47,
+              "liquidWaterCells": 437,
+              "temperatureC": {
+                "count": 437,
+                "min": 13.944890663901383,
+                "median": 14.773932105737826,
+                "p90": 15.769229730623842,
+                "max": 17.058055739458148,
+                "mean": 14.938394835288237
+              },
+              "competingCommunityIds": [
+                "civ-1"
+              ]
+            },
+            {
+              "radiusMetres": 480,
+              "representedCells": 7210,
+              "landCells": 3820,
+              "connectedLandCells": 3379,
+              "connectedLandHectares": 33.79,
+              "edibleTissueKg": 35739.01050944963,
+              "organicPlantKg": 63364.72035000472,
+              "edibleCellsOver2Kg": 922,
+              "liquidWaterCells": 3377,
+              "temperatureC": {
+                "count": 3379,
+                "min": 12.146278563861548,
+                "median": 14.844667303572889,
+                "p90": 16.350940199151836,
+                "max": 18.417779392368164,
+                "mean": 14.86383989908935
+              },
+              "competingCommunityIds": [
+                "civ-1",
+                "civ-11",
+                "civ-21"
+              ]
+            },
+            {
+              "radiusMetres": 900,
+              "representedCells": 16862,
+              "landCells": 10385,
+              "connectedLandCells": 3683,
+              "connectedLandHectares": 36.83,
+              "edibleTissueKg": 47265.90119351091,
+              "organicPlantKg": 77611.32237991679,
+              "edibleCellsOver2Kg": 1066,
+              "liquidWaterCells": 3681,
+              "temperatureC": {
+                "count": 3683,
+                "min": 12.146278563861548,
+                "median": 14.845944668786158,
+                "p90": 16.39898722311297,
+                "max": 18.417779392368164,
+                "mean": 14.854986938126178
+              },
+              "competingCommunityIds": [
+                "civ-1",
+                "civ-11",
+                "civ-21"
+              ]
+            }
+          ],
+          "adults": {
+            "people": 300,
+            "bodyKg": {
+              "count": 300,
+              "min": 18,
+              "median": 18,
+              "p90": 18,
+              "max": 18,
+              "mean": 18
+            },
+            "wrapKg": {
+              "count": 300,
+              "min": 1.9997675135135418,
+              "median": 1.9997675135135418,
+              "p90": 1.9999550005062467,
+              "max": 1.9999925000140626,
+              "mean": 1.999838358121271
+            },
+            "provisionsKg": {
+              "count": 300,
+              "min": 2.0989086370940973,
+              "median": 2.999322060098372,
+              "p90": 3,
+              "max": 3,
+              "mean": 2.8165342271799627
+            },
+            "nourishment": {
+              "count": 300,
+              "min": 62.087499999999864,
+              "median": 79.19999999999992,
+              "p90": 96.62249999999999,
+              "max": 100,
+              "mean": 80.64358333333314
+            },
+            "health": {
+              "count": 300,
+              "min": 99.32353260869341,
+              "median": 100,
+              "p90": 100,
+              "max": 100,
+              "mean": 99.97723864269783
+            },
+            "distanceFromCampMetres": {
+              "count": 300,
+              "min": 0,
+              "median": 100.00093926715816,
+              "p90": 199.99720626482872,
+              "max": 220.00834318490547,
+              "mean": 105.74400958883079
+            },
+            "rememberedFarthestFromCampMetres": {
+              "count": 300,
+              "min": 58.30838168570559,
+              "median": 136.01350032207569,
+              "p90": 222.03243743517748,
+              "max": 240.8405264597142,
+              "mean": 145.48903188121142
+            },
+            "knownFreshFoodPlaces": {
+              "count": 300,
+              "min": 0,
+              "median": 4,
+              "p90": 11,
+              "max": 16,
+              "mean": 5.08
+            },
+            "tasks": {
+              "explore": 21,
+              "gather": 260,
+              "none": 18,
+              "deliver": 1
+            }
+          },
+          "children": {
+            "people": 55,
+            "bodyKg": {
+              "count": 55,
+              "min": 2.2275,
+              "median": 8.824999999999998,
+              "p90": 14.739999999999975,
+              "max": 15.422499999999973,
+              "mean": 9.296545454545447
+            },
+            "wrapKg": {
+              "count": 55,
+              "min": 0,
+              "median": 0,
+              "p90": 0,
+              "max": 0,
+              "mean": 0
+            },
+            "provisionsKg": {
+              "count": 55,
+              "min": 2.3425674809804873,
+              "median": 2.994127688681391,
+              "p90": 2.9992688021472587,
+              "max": 3,
+              "mean": 2.982924111948873
+            },
+            "nourishment": {
+              "count": 55,
+              "min": 62.475128589857164,
+              "median": 79.33718275074142,
+              "p90": 88.2137887525699,
+              "max": 92.95764916294908,
+              "mean": 77.71105357148558
+            },
+            "health": {
+              "count": 55,
+              "min": 99.97,
+              "median": 100,
+              "p90": 100,
+              "max": 100,
+              "mean": 99.98909090909092
+            },
+            "distanceFromCampMetres": {
+              "count": 55,
+              "min": 9.999615475347557,
+              "median": 29.998799343081252,
+              "p90": 40.00151694463171,
+              "max": 49.99831278093503,
+              "mean": 27.646567945266696
+            },
+            "rememberedFarthestFromCampMetres": {
+              "count": 55,
+              "min": 31.6217649374301,
+              "median": 50.992017563580085,
+              "p90": 60.829852993724856,
+              "max": 70.7133060951613,
+              "mean": 51.03512388409677
+            },
+            "knownFreshFoodPlaces": {
+              "count": 55,
+              "min": 0,
+              "median": 1,
+              "p90": 2,
+              "max": 2,
+              "mean": 1.018181818181818
+            },
+            "tasks": {
+              "social": 45,
+              "none": 10
+            }
+          }
+        },
+        {
+          "id": "civ-11",
+          "name": "Amber Hollow",
+          "population": 362,
+          "births": 62,
+          "deaths": 7,
+          "focus": "discover",
+          "policies": {
+            "sharing": 0.7,
+            "effort": 0.5,
+            "extraction": 0.4
+          },
+          "stockKg": {
+            "biomass": 3395.272266214988,
+            "wood": 10677.860640213567,
+            "fiber": 323.55026624502256,
+            "stone": 0.0047745792513092696,
+            "clay": 0.0021940097964663853
+          },
+          "personalFoodKg": 1046.0032336462089,
+          "carriedFoodKg": 0.29891102779578765,
+          "cumulativeHarvestKg": 45252.55655666311,
+          "housingPlaces": 10.895301702899081,
+          "campCells": 58,
+          "campTemperatureC": {
+            "count": 58,
+            "min": 15.23790067684217,
+            "median": 15.954881243833556,
+            "p90": 16.772128708746507,
+            "max": 18.417779392368164,
+            "mean": 16.05669587454211
+          },
+          "wholeConnectedLandHectares": 36.83,
+          "catchments": [
+            {
+              "radiusMetres": 120,
+              "representedCells": 439,
+              "landCells": 439,
+              "connectedLandCells": 439,
+              "connectedLandHectares": 4.39,
+              "edibleTissueKg": 613.2720107816292,
+              "organicPlantKg": 2915.804629518306,
+              "edibleCellsOver2Kg": 57,
+              "liquidWaterCells": 437,
+              "temperatureC": {
+                "count": 439,
+                "min": 12.890789035651002,
+                "median": 14.992228500177932,
+                "p90": 15.758769840142854,
+                "max": 18.417779392368164,
+                "mean": 14.978777825639156
+              },
+              "competingCommunityIds": [
+                "civ-11"
+              ]
+            },
+            {
+              "radiusMetres": 480,
+              "representedCells": 7211,
+              "landCells": 3843,
+              "connectedLandCells": 3327,
+              "connectedLandHectares": 33.27,
+              "edibleTissueKg": 44925.864520931376,
+              "organicPlantKg": 73185.44903496561,
+              "edibleCellsOver2Kg": 959,
+              "liquidWaterCells": 3325,
+              "temperatureC": {
+                "count": 3327,
+                "min": 12.146278563861548,
+                "median": 14.81062399967525,
+                "p90": 16.36071292506334,
+                "max": 18.417779392368164,
+                "mean": 14.810608678051054
+              },
+              "competingCommunityIds": [
+                "civ-1",
+                "civ-11",
+                "civ-21"
+              ]
+            },
+            {
+              "radiusMetres": 900,
+              "representedCells": 20342,
+              "landCells": 13720,
+              "connectedLandCells": 3683,
+              "connectedLandHectares": 36.83,
+              "edibleTissueKg": 47265.90119351091,
+              "organicPlantKg": 77611.32237991679,
+              "edibleCellsOver2Kg": 1066,
+              "liquidWaterCells": 3681,
+              "temperatureC": {
+                "count": 3683,
+                "min": 12.146278563861548,
+                "median": 14.845944668786158,
+                "p90": 16.39898722311297,
+                "max": 18.417779392368164,
+                "mean": 14.854986938126178
+              },
+              "competingCommunityIds": [
+                "civ-1",
+                "civ-11",
+                "civ-21"
+              ]
+            }
+          ],
+          "adults": {
+            "people": 300,
+            "bodyKg": {
+              "count": 300,
+              "min": 18,
+              "median": 18,
+              "p90": 18,
+              "max": 18,
+              "mean": 18
+            },
+            "wrapKg": {
+              "count": 300,
+              "min": 1.9997675135135418,
+              "median": 1.9999100020249707,
+              "p90": 1.9999550005062467,
+              "max": 1.99998500005625,
+              "mean": 1.9998837545680992
+            },
+            "provisionsKg": {
+              "count": 300,
+              "min": 2.0989137443364836,
+              "median": 3,
+              "p90": 3,
+              "max": 3,
+              "mean": 2.867773610407725
+            },
+            "nourishment": {
+              "count": 300,
+              "min": 62.22499999999991,
+              "median": 81.47499999999997,
+              "p90": 97.1225,
+              "max": 100,
+              "mean": 81.78686666666663
+            },
+            "health": {
+              "count": 300,
+              "min": 98.89125000000098,
+              "median": 100,
+              "p90": 100,
+              "max": 100,
+              "mean": 99.97455271739128
+            },
+            "distanceFromCampMetres": {
+              "count": 300,
+              "min": 0,
+              "median": 67.08058984793686,
+              "p90": 152.64128069825236,
+              "max": 180.2755647014997,
+              "mean": 79.54173243563396
+            },
+            "rememberedFarthestFromCampMetres": {
+              "count": 300,
+              "min": 50.00054655603603,
+              "median": 114.02134689104807,
+              "p90": 178.04632168531745,
+              "max": 220.2284483371711,
+              "mean": 123.6226102041528
+            },
+            "knownFreshFoodPlaces": {
+              "count": 300,
+              "min": 0,
+              "median": 0,
+              "p90": 3,
+              "max": 15,
+              "mean": 1.1433333333333333
+            },
+            "tasks": {
+              "explore": 130,
+              "none": 23,
+              "experiment": 72,
+              "gather": 66,
+              "extract": 8,
+              "deliver": 1
+            }
+          },
+          "children": {
+            "people": 62,
+            "bodyKg": {
+              "count": 62,
+              "min": 2.91,
+              "median": 10.417499999999992,
+              "p90": 14.739999999999975,
+              "max": 15.877499999999971,
+              "mean": 9.980846774193541
+            },
+            "wrapKg": {
+              "count": 62,
+              "min": 0,
+              "median": 0,
+              "p90": 0,
+              "max": 0,
+              "mean": 0
+            },
+            "provisionsKg": {
+              "count": 62,
+              "min": 2.9920363978671225,
+              "median": 2.9942294151097855,
+              "p90": 2.9963806501221426,
+              "max": 3,
+              "mean": 2.99469597619179
+            },
+            "nourishment": {
+              "count": 62,
+              "min": 62.117429847901285,
+              "median": 77.23660855475758,
+              "p90": 89.88083057968683,
+              "max": 92.35373670014675,
+              "mean": 77.36545768910456
+            },
+            "health": {
+              "count": 62,
+              "min": 99.46253632053761,
+              "median": 100,
+              "p90": 100,
+              "max": 100,
+              "mean": 99.97476112858003
+            },
+            "distanceFromCampMetres": {
+              "count": 62,
+              "min": 2.4869920995049974,
+              "median": 31.621685535585446,
+              "p90": 41.229686513688364,
+              "max": 50.002053129696264,
+              "mean": 29.242173379287895
+            },
+            "rememberedFarthestFromCampMetres": {
+              "count": 62,
+              "min": 22.361242373505668,
+              "median": 53.85021169117056,
+              "p90": 70.708281306092,
+              "max": 70.71351917671191,
+              "mean": 52.80255451234705
+            },
+            "knownFreshFoodPlaces": {
+              "count": 62,
+              "min": 0,
+              "median": 0,
+              "p90": 0,
+              "max": 0,
+              "mean": 0
+            },
+            "tasks": {
+              "none": 15,
+              "social": 47
+            }
+          }
+        },
+        {
+          "id": "civ-21",
+          "name": "Stonebrook",
+          "population": 354,
+          "births": 54,
+          "deaths": 8,
+          "focus": "build",
+          "policies": {
+            "sharing": 0.7,
+            "effort": 0.5,
+            "extraction": 0.4
+          },
+          "stockKg": {
+            "biomass": 12930.723289871832,
+            "wood": 20623.84491054388,
+            "fiber": 93.05148398165058,
+            "stone": 1328.9662571079787,
+            "clay": 537.1804980852183
+          },
+          "personalFoodKg": 1021.0840508976738,
+          "carriedFoodKg": 5.04471645067613,
+          "cumulativeHarvestKg": 55143.2342054144,
+          "housingPlaces": 9.356359112321389,
+          "campCells": 57,
+          "campTemperatureC": {
+            "count": 57,
+            "min": 15.347752603133772,
+            "median": 16.132190030650804,
+            "p90": 16.740112064769693,
+            "max": 17.402631664255082,
+            "mean": 16.201093629742836
+          },
+          "wholeConnectedLandHectares": 36.83,
+          "catchments": [
+            {
+              "radiusMetres": 120,
+              "representedCells": 439,
+              "landCells": 408,
+              "connectedLandCells": 408,
+              "connectedLandHectares": 4.08,
+              "edibleTissueKg": 439.23185290292105,
+              "organicPlantKg": 2950.256577222772,
+              "edibleCellsOver2Kg": 39,
+              "liquidWaterCells": 408,
+              "temperatureC": {
+                "count": 408,
+                "min": 13.901444367578728,
+                "median": 15.149036331863291,
+                "p90": 16.518005469457254,
+                "max": 17.402631664255082,
+                "mean": 15.352879701228131
+              },
+              "competingCommunityIds": [
+                "civ-21"
+              ]
+            },
+            {
+              "radiusMetres": 480,
+              "representedCells": 7161,
+              "landCells": 4281,
+              "connectedLandCells": 3578,
+              "connectedLandHectares": 35.78,
+              "edibleTissueKg": 45252.65133469735,
+              "organicPlantKg": 75195.12003122519,
+              "edibleCellsOver2Kg": 1041,
+              "liquidWaterCells": 3576,
+              "temperatureC": {
+                "count": 3578,
+                "min": 12.146278563861548,
+                "median": 14.82806325373235,
+                "p90": 16.33257639120097,
+                "max": 18.417779392368164,
+                "mean": 14.823234423088667
+              },
+              "competingCommunityIds": [
+                "civ-1",
+                "civ-11",
+                "civ-21"
+              ]
+            },
+            {
+              "radiusMetres": 900,
+              "representedCells": 17872,
+              "landCells": 11377,
+              "connectedLandCells": 3683,
+              "connectedLandHectares": 36.83,
+              "edibleTissueKg": 47265.90119351091,
+              "organicPlantKg": 77611.32237991679,
+              "edibleCellsOver2Kg": 1066,
+              "liquidWaterCells": 3681,
+              "temperatureC": {
+                "count": 3683,
+                "min": 12.146278563861548,
+                "median": 14.845944668786158,
+                "p90": 16.39898722311297,
+                "max": 18.417779392368164,
+                "mean": 14.854986938126178
+              },
+              "competingCommunityIds": [
+                "civ-1",
+                "civ-11",
+                "civ-21"
+              ]
+            }
+          ],
+          "adults": {
+            "people": 300,
+            "bodyKg": {
+              "count": 300,
+              "min": 18,
+              "median": 18,
+              "p90": 18,
+              "max": 18,
+              "mean": 18
+            },
+            "wrapKg": {
+              "count": 300,
+              "min": 1.9997675135135418,
+              "median": 1.999865004556149,
+              "p90": 1.9999550005062467,
+              "max": 1.99998500005625,
+              "mean": 1.999857431857989
+            },
+            "provisionsKg": {
+              "count": 300,
+              "min": 2.0989931952172096,
+              "median": 2.999682898694914,
+              "p90": 3,
+              "max": 3,
+              "mean": 2.8646341175551764
+            },
+            "nourishment": {
+              "count": 300,
+              "min": 62.08749999999971,
+              "median": 77.99999999999991,
+              "p90": 95.3,
+              "max": 100,
+              "mean": 79.49068333333318
+            },
+            "health": {
+              "count": 300,
+              "min": 99.24629180601927,
+              "median": 100,
+              "p90": 100,
+              "max": 100,
+              "mean": 99.97301708472675
+            },
+            "distanceFromCampMetres": {
+              "count": 300,
+              "min": 0,
+              "median": 122.06287833625119,
+              "p90": 237.7113408879565,
+              "max": 272.9335586398543,
+              "mean": 117.22208436621155
+            },
+            "rememberedFarthestFromCampMetres": {
+              "count": 300,
+              "min": 49.99903802658092,
+              "median": 149.99737760244497,
+              "p90": 259.62996059023953,
+              "max": 308.86060011753284,
+              "mean": 152.41083836722868
+            },
+            "knownFreshFoodPlaces": {
+              "count": 300,
+              "min": 0,
+              "median": 3,
+              "p90": 8,
+              "max": 25,
+              "mean": 3.5
+            },
+            "tasks": {
+              "gather": 241,
+              "none": 32,
+              "explore": 23,
+              "deliver": 4
+            }
+          },
+          "children": {
+            "people": 54,
+            "bodyKg": {
+              "count": 54,
+              "min": 2.455,
+              "median": 9.279999999999996,
+              "p90": 14.967499999999974,
+              "max": 15.422499999999973,
+              "mean": 9.191527777777772
+            },
+            "wrapKg": {
+              "count": 54,
+              "min": 0,
+              "median": 0,
+              "p90": 0,
+              "max": 0,
+              "mean": 0
+            },
+            "provisionsKg": {
+              "count": 54,
+              "min": 2.992070130072562,
+              "median": 2.994265896701566,
+              "p90": 2.9960000509500824,
+              "max": 3,
+              "mean": 2.9943299190948265
+            },
+            "nourishment": {
+              "count": 54,
+              "min": 62.18055908820981,
+              "median": 79.8762937655735,
+              "p90": 90.18619370396489,
+              "max": 92.85978832527535,
+              "mean": 78.25735984021286
+            },
+            "health": {
+              "count": 54,
+              "min": 99.60115774965395,
+              "median": 100,
+              "p90": 100,
+              "max": 100,
+              "mean": 99.9815029212899
+            },
+            "distanceFromCampMetres": {
+              "count": 54,
+              "min": 9.999270236606407,
+              "median": 31.62101067291591,
+              "p90": 41.228316380529044,
+              "max": 49.99619426977064,
+              "mean": 30.687889814666597
+            },
+            "rememberedFarthestFromCampMetres": {
+              "count": 54,
+              "min": 31.62463019358479,
+              "median": 58.311446512451816,
+              "p90": 63.24914127265301,
+              "max": 70.71564992451508,
+              "mean": 54.948729960874786
+            },
+            "knownFreshFoodPlaces": {
+              "count": 54,
+              "min": 0,
+              "median": 1,
+              "p90": 3,
+              "max": 4,
+              "mean": 1.2222222222222223
+            },
+            "tasks": {
+              "social": 42,
+              "none": 12
+            }
+          }
+        },
+        {
+          "id": "civ-3118",
+          "name": "Adonis",
+          "population": 368,
+          "births": 68,
+          "deaths": 8,
+          "focus": "nourish",
+          "policies": {
+            "sharing": 0.9,
+            "effort": 0.6,
+            "extraction": 0.5
+          },
+          "stockKg": {
+            "biomass": 33108.680988791006,
+            "wood": 17782.594456766048,
+            "fiber": 172.70678432608668,
+            "stone": 1462.661542927744,
+            "clay": 442.0304420437249
+          },
+          "personalFoodKg": 1044.9811819904191,
+          "carriedFoodKg": 2.5142628988330222,
+          "cumulativeHarvestKg": 105145.29628179557,
+          "housingPlaces": 7.534937496725753,
+          "campCells": 59,
+          "campTemperatureC": {
+            "count": 59,
+            "min": 14.895739055959233,
+            "median": 16.027832002769152,
+            "p90": 16.770162588212333,
+            "max": 17.326928242773285,
+            "mean": 16.02710966418066
+          },
+          "wholeConnectedLandHectares": 280.46,
+          "catchments": [
+            {
+              "radiusMetres": 120,
+              "representedCells": 439,
+              "landCells": 439,
+              "connectedLandCells": 439,
+              "connectedLandHectares": 4.39,
+              "edibleTissueKg": 501.60360151599804,
+              "organicPlantKg": 4096.024590510491,
+              "edibleCellsOver2Kg": 58,
+              "liquidWaterCells": 439,
+              "temperatureC": {
+                "count": 439,
+                "min": 13.892042022023945,
+                "median": 14.727011218763174,
+                "p90": 15.56741560294756,
+                "max": 17.326928242773285,
+                "mean": 14.864367768768574
+              },
+              "competingCommunityIds": [
+                "civ-3118"
+              ]
+            },
+            {
+              "radiusMetres": 480,
+              "representedCells": 7209,
+              "landCells": 6933,
+              "connectedLandCells": 6933,
+              "connectedLandHectares": 69.33,
+              "edibleTissueKg": 343643.92990599415,
+              "organicPlantKg": 481496.92308003426,
+              "edibleCellsOver2Kg": 6120,
+              "liquidWaterCells": 6933,
+              "temperatureC": {
+                "count": 6933,
+                "min": 11.693100645263373,
+                "median": 12.855236687965693,
+                "p90": 14.828954566805873,
+                "max": 17.69411380435197,
+                "mean": 13.36576150359477
+              },
+              "competingCommunityIds": [
+                "civ-3118"
+              ]
+            },
+            {
+              "radiusMetres": 900,
+              "representedCells": 12767,
+              "landCells": 12362,
+              "connectedLandCells": 12362,
+              "connectedLandHectares": 123.62,
+              "edibleTissueKg": 389207.3335046957,
+              "organicPlantKg": 538598.5408768918,
+              "edibleCellsOver2Kg": 7287,
+              "liquidWaterCells": 12362,
+              "temperatureC": {
+                "count": 12362,
+                "min": 11.693100645263373,
+                "median": 14.393525978086206,
+                "p90": 15.161122699695332,
+                "max": 17.720299287721364,
+                "mean": 13.979944773396435
+              },
+              "competingCommunityIds": [
+                "civ-3118"
+              ]
+            }
+          ],
+          "adults": {
+            "people": 300,
+            "bodyKg": {
+              "count": 300,
+              "min": 18,
+              "median": 18,
+              "p90": 18,
+              "max": 18,
+              "mean": 18
+            },
+            "wrapKg": {
+              "count": 300,
+              "min": 1.9997675135135418,
+              "median": 1.9997675135135418,
+              "p90": 1.99998500005625,
+              "max": 1.9999925000140626,
+              "mean": 1.999831758788642
+            },
+            "provisionsKg": {
+              "count": 300,
+              "min": 2.099047651912817,
+              "median": 2.999387747981046,
+              "p90": 3,
+              "max": 3,
+              "mean": 2.804602385304996
+            },
+            "nourishment": {
+              "count": 300,
+              "min": 62.087499999999714,
+              "median": 81.57499999999995,
+              "p90": 97.8125,
+              "max": 100,
+              "mean": 81.9019166666665
+            },
+            "health": {
+              "count": 300,
+              "min": 99.14272993311296,
+              "median": 100,
+              "p90": 100,
+              "max": 100,
+              "mean": 99.98324731047934
+            },
+            "distanceFromCampMetres": {
+              "count": 300,
+              "min": 0,
+              "median": 99.99948181547681,
+              "p90": 152.64469903205014,
+              "max": 186.01170461930883,
+              "mean": 98.99187832324503
+            },
+            "rememberedFarthestFromCampMetres": {
+              "count": 300,
+              "min": 50.98882897083077,
+              "median": 133.4124073808604,
+              "p90": 180.27217255099995,
+              "max": 208.08764954508914,
+              "mean": 134.10812732413837
+            },
+            "knownFreshFoodPlaces": {
+              "count": 300,
+              "min": 0,
+              "median": 5,
+              "p90": 8,
+              "max": 24,
+              "mean": 5.726666666666667
+            },
+            "tasks": {
+              "gather": 263,
+              "none": 33,
+              "explore": 3,
+              "deliver": 1
+            }
+          },
+          "children": {
+            "people": 68,
+            "bodyKg": {
+              "count": 68,
+              "min": 2.6825,
+              "median": 10.417499999999992,
+              "p90": 14.512499999999976,
+              "max": 15.649999999999972,
+              "mean": 10.11974264705881
+            },
+            "wrapKg": {
+              "count": 68,
+              "min": 0,
+              "median": 0,
+              "p90": 0,
+              "max": 0,
+              "mean": 0
+            },
+            "provisionsKg": {
+              "count": 68,
+              "min": 2.9920553828201966,
+              "median": 2.9937246199996173,
+              "p90": 2.9959526198187727,
+              "max": 3,
+              "mean": 2.994124505866486
+            },
+            "nourishment": {
+              "count": 68,
+              "min": 62.04720847449507,
+              "median": 78.55638702848586,
+              "p90": 88.90158709842603,
+              "max": 92.72859888641901,
+              "mean": 78.03650227191983
+            },
+            "health": {
+              "count": 68,
+              "min": 99.08883981565216,
+              "median": 100,
+              "p90": 100,
+              "max": 100,
+              "mean": 99.97129253324064
+            },
+            "distanceFromCampMetres": {
+              "count": 68,
+              "min": 0.3364300848466521,
+              "median": 31.62208255335936,
+              "p90": 41.23195120573278,
+              "max": 50.00126837507866,
+              "mean": 28.104029793061738
+            },
+            "rememberedFarthestFromCampMetres": {
+              "count": 68,
+              "min": 22.36103178975575,
+              "median": 53.85257799780678,
+              "p90": 70.70934667422557,
+              "max": 70.71245375574875,
+              "mean": 53.221835154295896
+            },
+            "knownFreshFoodPlaces": {
+              "count": 68,
+              "min": 1,
+              "median": 2,
+              "p90": 3,
+              "max": 4,
+              "mean": 1.9705882352941178
+            },
+            "tasks": {
+              "social": 61,
+              "none": 7
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "output/backups/before-work-planning-release-20261008.sqlite",
+      "sha256": "4beed425fdc4ba9b4bd70d84b1054977a88571caff72be30582df7dd28681811",
+      "metadataSha256": "1cc1b176c6f16de88e4eb1f4a9911491108ad0f8d8f7422255a80cd124945a7a",
+      "tick": 289492,
+      "daysAfterRenewal": 975.3333333333334,
+      "people": 0,
+      "births": 407,
+      "deaths": 1639,
+      "regions": 38,
+      "totalAreaHectares": 389.12,
+      "landAreaHectares": 317.93,
+      "globalEdibleTissueKg": 493896.6016409057,
+      "globalOrganicPlantKg": 711589.683329513,
+      "communities": [
+        {
+          "id": "civ-1",
+          "name": "Fernhaven",
+          "population": 0,
+          "births": 84,
+          "deaths": 390,
+          "focus": "nourish",
+          "policies": {
+            "sharing": 0.7,
+            "effort": 0.5,
+            "extraction": 0.4
+          },
+          "stockKg": {
+            "biomass": 0,
+            "wood": 23358.88404947872,
+            "fiber": 174.03776767571355,
+            "stone": 1461.9287959425683,
+            "clay": 410.43058114070925
+          },
+          "personalFoodKg": 0,
+          "carriedFoodKg": 0,
+          "cumulativeHarvestKg": 60207.436713956515,
+          "housingPlaces": 10.915257969639633,
+          "campCells": 1,
+          "campTemperatureC": {
+            "count": 1,
+            "min": 19.089179086504245,
+            "median": 19.089179086504245,
+            "p90": 19.089179086504245,
+            "max": 19.089179086504245,
+            "mean": 19.089179086504245
+          },
+          "wholeConnectedLandHectares": 36.83,
+          "catchments": [
+            {
+              "radiusMetres": 120,
+              "representedCells": 439,
+              "landCells": 437,
+              "connectedLandCells": 437,
+              "connectedLandHectares": 4.37,
+              "edibleTissueKg": 10174.64838559941,
+              "organicPlantKg": 14666.32326133574,
+              "edibleCellsOver2Kg": 392,
+              "liquidWaterCells": 437,
+              "temperatureC": {
+                "count": 437,
+                "min": 15.283933955801569,
+                "median": 17.47555967936533,
+                "p90": 19.407007459858544,
+                "max": 22.06068304852089,
+                "mean": 17.703603774092397
+              },
+              "competingCommunityIds": [
+                "civ-1"
+              ]
+            },
+            {
+              "radiusMetres": 480,
+              "representedCells": 7210,
+              "landCells": 3820,
+              "connectedLandCells": 3379,
+              "connectedLandHectares": 33.79,
+              "edibleTissueKg": 53914.004579922694,
+              "organicPlantKg": 79881.56720872028,
+              "edibleCellsOver2Kg": 2422,
+              "liquidWaterCells": 3377,
+              "temperatureC": {
+                "count": 3379,
+                "min": 7.535609818812371,
+                "median": 17.97536383579004,
+                "p90": 19.66090806102177,
+                "max": 22.342070951068095,
+                "mean": 18.021179350833535
+              },
+              "competingCommunityIds": [
+                "civ-1",
+                "civ-11",
+                "civ-21"
+              ]
+            },
+            {
+              "radiusMetres": 900,
+              "representedCells": 16862,
+              "landCells": 10385,
+              "connectedLandCells": 3683,
+              "connectedLandHectares": 36.83,
+              "edibleTissueKg": 57161.01334420587,
+              "organicPlantKg": 84476.0847080183,
+              "edibleCellsOver2Kg": 2562,
+              "liquidWaterCells": 3681,
+              "temperatureC": {
+                "count": 3683,
+                "min": 7.535609818812371,
+                "median": 17.955315932278847,
+                "p90": 19.622745109559215,
+                "max": 22.342070951068095,
+                "mean": 17.979727713736402
+              },
+              "competingCommunityIds": [
+                "civ-1",
+                "civ-11",
+                "civ-21"
+              ]
+            }
+          ],
+          "adults": {
+            "people": 0,
+            "bodyKg": null,
+            "wrapKg": null,
+            "provisionsKg": null,
+            "nourishment": null,
+            "health": null,
+            "distanceFromCampMetres": null,
+            "rememberedFarthestFromCampMetres": null,
+            "knownFreshFoodPlaces": null,
+            "tasks": {}
+          },
+          "children": {
+            "people": 0,
+            "bodyKg": null,
+            "wrapKg": null,
+            "provisionsKg": null,
+            "nourishment": null,
+            "health": null,
+            "distanceFromCampMetres": null,
+            "rememberedFarthestFromCampMetres": null,
+            "knownFreshFoodPlaces": null,
+            "tasks": {}
+          }
+        },
+        {
+          "id": "civ-11",
+          "name": "Amber Hollow",
+          "population": 0,
+          "births": 93,
+          "deaths": 400,
+          "focus": "discover",
+          "policies": {
+            "sharing": 0.7,
+            "effort": 0.5,
+            "extraction": 0.4
+          },
+          "stockKg": {
+            "biomass": 0,
+            "wood": 10468.616932369327,
+            "fiber": 299.43294117685593,
+            "stone": 13.475501668505931,
+            "clay": 0.0021099735115319112
+          },
+          "personalFoodKg": 0,
+          "carriedFoodKg": 0,
+          "cumulativeHarvestKg": 58466.395650471386,
+          "housingPlaces": 10.557722092011574,
+          "campCells": 1,
+          "campTemperatureC": {
+            "count": 1,
+            "min": 20.189894191690573,
+            "median": 20.189894191690573,
+            "p90": 20.189894191690573,
+            "max": 20.189894191690573,
+            "mean": 20.189894191690573
+          },
+          "wholeConnectedLandHectares": 36.83,
+          "catchments": [
+            {
+              "radiusMetres": 120,
+              "representedCells": 439,
+              "landCells": 439,
+              "connectedLandCells": 439,
+              "connectedLandHectares": 4.39,
+              "edibleTissueKg": 9398.893074990994,
+              "organicPlantKg": 13660.122070601745,
+              "edibleCellsOver2Kg": 376,
+              "liquidWaterCells": 439,
+              "temperatureC": {
+                "count": 439,
+                "min": 14.962557064665024,
+                "median": 17.56879176046582,
+                "p90": 19.453120112067356,
+                "max": 20.319841350968115,
+                "mean": 17.706894059660023
+              },
+              "competingCommunityIds": [
+                "civ-11"
+              ]
+            },
+            {
+              "radiusMetres": 480,
+              "representedCells": 7211,
+              "landCells": 3843,
+              "connectedLandCells": 3327,
+              "connectedLandHectares": 33.27,
+              "edibleTissueKg": 55387.41038111791,
+              "organicPlantKg": 81762.08019888573,
+              "edibleCellsOver2Kg": 2435,
+              "liquidWaterCells": 3325,
+              "temperatureC": {
+                "count": 3327,
+                "min": 7.535609818812371,
+                "median": 17.927831305664792,
+                "p90": 19.67714879512174,
+                "max": 22.342070951068095,
+                "mean": 17.98816214289214
+              },
+              "competingCommunityIds": [
+                "civ-1",
+                "civ-11",
+                "civ-21"
+              ]
+            },
+            {
+              "radiusMetres": 900,
+              "representedCells": 20342,
+              "landCells": 13720,
+              "connectedLandCells": 3683,
+              "connectedLandHectares": 36.83,
+              "edibleTissueKg": 57161.01334420587,
+              "organicPlantKg": 84476.0847080183,
+              "edibleCellsOver2Kg": 2562,
+              "liquidWaterCells": 3681,
+              "temperatureC": {
+                "count": 3683,
+                "min": 7.535609818812371,
+                "median": 17.955315932278847,
+                "p90": 19.622745109559215,
+                "max": 22.342070951068095,
+                "mean": 17.979727713736402
+              },
+              "competingCommunityIds": [
+                "civ-1",
+                "civ-11",
+                "civ-21"
+              ]
+            }
+          ],
+          "adults": {
+            "people": 0,
+            "bodyKg": null,
+            "wrapKg": null,
+            "provisionsKg": null,
+            "nourishment": null,
+            "health": null,
+            "distanceFromCampMetres": null,
+            "rememberedFarthestFromCampMetres": null,
+            "knownFreshFoodPlaces": null,
+            "tasks": {}
+          },
+          "children": {
+            "people": 0,
+            "bodyKg": null,
+            "wrapKg": null,
+            "provisionsKg": null,
+            "nourishment": null,
+            "health": null,
+            "distanceFromCampMetres": null,
+            "rememberedFarthestFromCampMetres": null,
+            "knownFreshFoodPlaces": null,
+            "tasks": {}
+          }
+        },
+        {
+          "id": "civ-21",
+          "name": "Stonebrook",
+          "population": 0,
+          "births": 96,
+          "deaths": 407,
+          "focus": "build",
+          "policies": {
+            "sharing": 0.7,
+            "effort": 0.5,
+            "extraction": 0.4
+          },
+          "stockKg": {
+            "biomass": 0,
+            "wood": 20416.97229560994,
+            "fiber": 83.60297282156822,
+            "stone": 1293.5622193261038,
+            "clay": 515.9493371004725
+          },
+          "personalFoodKg": 0,
+          "carriedFoodKg": 0,
+          "cumulativeHarvestKg": 72800.49171581537,
+          "housingPlaces": 9.056132223866745,
+          "campCells": 1,
+          "campTemperatureC": {
+            "count": 1,
+            "min": 19.926926399293997,
+            "median": 19.926926399293997,
+            "p90": 19.926926399293997,
+            "max": 19.926926399293997,
+            "mean": 19.926926399293997
+          },
+          "wholeConnectedLandHectares": 36.83,
+          "catchments": [
+            {
+              "radiusMetres": 120,
+              "representedCells": 439,
+              "landCells": 408,
+              "connectedLandCells": 408,
+              "connectedLandHectares": 4.08,
+              "edibleTissueKg": 5878.12380932821,
+              "organicPlantKg": 8720.539819810207,
+              "edibleCellsOver2Kg": 271,
+              "liquidWaterCells": 406,
+              "temperatureC": {
+                "count": 408,
+                "min": 15.52788590382196,
+                "median": 19.346557793424903,
+                "p90": 21.215251311042035,
+                "max": 22.171584664434832,
+                "mean": 19.031622620334137
+              },
+              "competingCommunityIds": [
+                "civ-21"
+              ]
+            },
+            {
+              "radiusMetres": 480,
+              "representedCells": 7161,
+              "landCells": 4281,
+              "connectedLandCells": 3578,
+              "connectedLandHectares": 35.78,
+              "edibleTissueKg": 56646.97857291396,
+              "organicPlantKg": 83697.1818878915,
+              "edibleCellsOver2Kg": 2539,
+              "liquidWaterCells": 3576,
+              "temperatureC": {
+                "count": 3578,
+                "min": 7.535609818812371,
+                "median": 17.976523783485696,
+                "p90": 19.649503415385713,
+                "max": 22.342070951068095,
+                "mean": 18.0166194589913
+              },
+              "competingCommunityIds": [
+                "civ-1",
+                "civ-11",
+                "civ-21"
+              ]
+            },
+            {
+              "radiusMetres": 900,
+              "representedCells": 17872,
+              "landCells": 11377,
+              "connectedLandCells": 3683,
+              "connectedLandHectares": 36.83,
+              "edibleTissueKg": 57161.01334420587,
+              "organicPlantKg": 84476.0847080183,
+              "edibleCellsOver2Kg": 2562,
+              "liquidWaterCells": 3681,
+              "temperatureC": {
+                "count": 3683,
+                "min": 7.535609818812371,
+                "median": 17.955315932278847,
+                "p90": 19.622745109559215,
+                "max": 22.342070951068095,
+                "mean": 17.979727713736402
+              },
+              "competingCommunityIds": [
+                "civ-1",
+                "civ-11",
+                "civ-21"
+              ]
+            }
+          ],
+          "adults": {
+            "people": 0,
+            "bodyKg": null,
+            "wrapKg": null,
+            "provisionsKg": null,
+            "nourishment": null,
+            "health": null,
+            "distanceFromCampMetres": null,
+            "rememberedFarthestFromCampMetres": null,
+            "knownFreshFoodPlaces": null,
+            "tasks": {}
+          },
+          "children": {
+            "people": 0,
+            "bodyKg": null,
+            "wrapKg": null,
+            "provisionsKg": null,
+            "nourishment": null,
+            "health": null,
+            "distanceFromCampMetres": null,
+            "rememberedFarthestFromCampMetres": null,
+            "knownFreshFoodPlaces": null,
+            "tasks": {}
+          }
+        },
+        {
+          "id": "civ-3118",
+          "name": "Adonis",
+          "population": 0,
+          "births": 134,
+          "deaths": 442,
+          "focus": "nourish",
+          "policies": {
+            "sharing": 0.9,
+            "effort": 0.6,
+            "extraction": 0.5
+          },
+          "stockKg": {
+            "biomass": 0,
+            "wood": 17310.41025120622,
+            "fiber": 18.61416586067345,
+            "stone": 1366.254123175566,
+            "clay": 334.6427787946752
+          },
+          "personalFoodKg": 0,
+          "carriedFoodKg": 0,
+          "cumulativeHarvestKg": 205246.79637671963,
+          "housingPlaces": 7.204390074494693,
+          "campCells": 1,
+          "campTemperatureC": {
+            "count": 1,
+            "min": 20.339774268819998,
+            "median": 20.339774268819998,
+            "p90": 20.339774268819998,
+            "max": 20.339774268819998,
+            "mean": 20.339774268819998
+          },
+          "wholeConnectedLandHectares": 280.46,
+          "catchments": [
+            {
+              "radiusMetres": 120,
+              "representedCells": 439,
+              "landCells": 439,
+              "connectedLandCells": 439,
+              "connectedLandHectares": 4.39,
+              "edibleTissueKg": 9839.769137997448,
+              "organicPlantKg": 14009.616678675864,
+              "edibleCellsOver2Kg": 401,
+              "liquidWaterCells": 439,
+              "temperatureC": {
+                "count": 439,
+                "min": 14.715654925404145,
+                "median": 17.08921235314564,
+                "p90": 19.751436468396754,
+                "max": 20.339774268819998,
+                "mean": 17.394170796122374
+              },
+              "competingCommunityIds": [
+                "civ-3118"
+              ]
+            },
+            {
+              "radiusMetres": 480,
+              "representedCells": 7209,
+              "landCells": 6933,
+              "connectedLandCells": 6933,
+              "connectedLandHectares": 69.33,
+              "edibleTissueKg": 151167.31702506664,
+              "organicPlantKg": 232099.16676518647,
+              "edibleCellsOver2Kg": 6714,
+              "liquidWaterCells": 6932,
+              "temperatureC": {
+                "count": 6933,
+                "min": 13.84005750998376,
+                "median": 17.495463098937925,
+                "p90": 19.252695226331248,
+                "max": 21.980835207583247,
+                "mean": 17.56847527195729
+              },
+              "competingCommunityIds": [
+                "civ-3118"
+              ]
+            },
+            {
+              "radiusMetres": 900,
+              "representedCells": 12767,
+              "landCells": 12362,
+              "connectedLandCells": 12362,
+              "connectedLandHectares": 123.62,
+              "edibleTissueKg": 269503.655729987,
+              "organicPlantKg": 394470.6558030774,
+              "edibleCellsOver2Kg": 9863,
+              "liquidWaterCells": 12361,
+              "temperatureC": {
+                "count": 12362,
+                "min": 11.091046000923976,
+                "median": 17.520236546062073,
+                "p90": 19.559590965840613,
+                "max": 22.183987976441696,
+                "mean": 17.341911364369043
+              },
+              "competingCommunityIds": [
+                "civ-3118"
+              ]
+            }
+          ],
+          "adults": {
+            "people": 0,
+            "bodyKg": null,
+            "wrapKg": null,
+            "provisionsKg": null,
+            "nourishment": null,
+            "health": null,
+            "distanceFromCampMetres": null,
+            "rememberedFarthestFromCampMetres": null,
+            "knownFreshFoodPlaces": null,
+            "tasks": {}
+          },
+          "children": {
+            "people": 0,
+            "bodyKg": null,
+            "wrapKg": null,
+            "provisionsKg": null,
+            "nourishment": null,
+            "health": null,
+            "distanceFromCampMetres": null,
+            "rememberedFarthestFromCampMetres": null,
+            "knownFreshFoodPlaces": null,
+            "tasks": {}
+          }
+        }
+      ]
+    }
+  ]
+}

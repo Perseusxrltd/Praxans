@@ -1,0 +1,1132 @@
+{
+  "source": "output/backups/before-work-planning-release-20261008.sqlite",
+  "sha256": "4beed425fdc4ba9b4bd70d84b1054977a88571caff72be30582df7dd28681811",
+  "sourceBytes": 225030144,
+  "method": "SQLite immutable/read-only and query_only; selected public world_events/world_history and metadata scalars. No full world loaded or advanced. SHA verified before and after.",
+  "metadata": {
+    "tick": 289492,
+    "population": 0,
+    "births": 407,
+    "deaths": 1639,
+    "lawsVersion": "biosphere-1.3",
+    "regions": 38
+  },
+  "renewalTick": 195860,
+  "newBirthEvents": 407,
+  "newDeathEvents": 1607,
+  "firstNewDeath": {
+    "tick": 231549,
+    "dayAfterRenewal": 371.7604166666667,
+    "civId": "civ-11",
+    "ageYearsFloor": 0,
+    "group": "child",
+    "birthTick": 223872,
+    "ageDaysFromBirthEvent": 79.96875,
+    "nourishmentPercent": 62.243991178266036,
+    "restPercent": 100,
+    "hydrationKg": 5.298228740187476,
+    "temperatureC": 6.940471937138853,
+    "sickness": 0,
+    "oxygenFraction": 0.209404366105103,
+    "eventFieldNames": [
+      "category",
+      "citizenId",
+      "civId",
+      "detail",
+      "id",
+      "lifeState",
+      "tick",
+      "title",
+      "x",
+      "y"
+    ]
+  },
+  "lastNewDeath": {
+    "tick": 248627,
+    "dayAfterRenewal": 549.65625,
+    "civId": "civ-11",
+    "ageYearsFloor": 27,
+    "group": "adult",
+    "birthTick": null,
+    "ageDaysFromBirthEvent": null,
+    "nourishmentPercent": 0,
+    "restPercent": 91.93750000000037,
+    "hydrationKg": 7.525906958363947,
+    "temperatureC": -0.8754491636387861,
+    "sickness": 0,
+    "oxygenFraction": 0.209392330867615,
+    "eventFieldNames": [
+      "category",
+      "citizenId",
+      "civId",
+      "detail",
+      "id",
+      "lifeState",
+      "tick",
+      "title",
+      "x",
+      "y"
+    ]
+  },
+  "byAgeGroup": {
+    "child": {
+      "count": 407,
+      "firstTick": 231549,
+      "lastTick": 248291,
+      "ageYearsFloor": {
+        "0": 407
+      },
+      "ageDaysForRecordedBirths": {
+        "min": 2.0416666666666665,
+        "median": 85.3125,
+        "mean": 100.76202907452908,
+        "max": 264.2291666666667
+      },
+      "temperatureC": {
+        "min": -8.350873310527561,
+        "median": 3.569179553921001,
+        "mean": 3.932683480141519,
+        "max": 10.500752083739904
+      },
+      "temperatureBands": {
+        "0to10": 370,
+        "below0": 36,
+        "10to20": 1
+      },
+      "nourishmentPercent": {
+        "min": 0,
+        "median": 44.37174783794793,
+        "mean": 41.920077812390346,
+        "max": 82.55127404697868
+      },
+      "nourishmentBands": {
+        "62plus": 33,
+        "40to62": 219,
+        "12to40": 119,
+        "above0below12": 31,
+        "exactly0": 5
+      },
+      "hydrationBelow0_15Kg": 0,
+      "hydrationKg": {
+        "min": 1.214687499999999,
+        "median": 4.541249999999981,
+        "mean": 4.040062196036788,
+        "max": 5.5
+      },
+      "restPercent": {
+        "min": 99.00000000000006,
+        "median": 100,
+        "mean": 99.78304668304669,
+        "max": 100
+      },
+      "restBelow23Percent": 0,
+      "oxygenFraction": {
+        "min": 0.20939250149223743,
+        "median": 0.20940106266351396,
+        "mean": 0.20939957779258825,
+        "max": 0.20940445152685033
+      },
+      "oxygenBelow0_15": 0,
+      "sickness": {
+        "min": 0,
+        "median": 0,
+        "mean": 5.175397151979651,
+        "max": 30
+      },
+      "sicknessBands": {
+        "zero": 282,
+        "above20": 53,
+        "positiveAtMost20": 72
+      },
+      "nourishmentBandsWhenSicknessZero": {
+        "62plus": 19,
+        "40to62": 146,
+        "12to40": 88,
+        "above0below12": 25,
+        "exactly0": 4
+      }
+    },
+    "adult": {
+      "count": 1200,
+      "firstTick": 231947,
+      "lastTick": 248627,
+      "ageYearsFloor": {
+        "19": 48,
+        "20": 48,
+        "21": 48,
+        "22": 48,
+        "23": 48,
+        "24": 48,
+        "25": 48,
+        "26": 48,
+        "27": 48,
+        "28": 48,
+        "29": 48,
+        "30": 48,
+        "31": 48,
+        "32": 48,
+        "33": 48,
+        "34": 48,
+        "35": 48,
+        "36": 48,
+        "37": 48,
+        "38": 48,
+        "39": 48,
+        "40": 48,
+        "41": 48,
+        "42": 48,
+        "43": 48
+      },
+      "ageDaysForRecordedBirths": null,
+      "temperatureC": {
+        "min": -8.916039915679885,
+        "median": 1.2185174292463206,
+        "mean": 1.7114730992039409,
+        "max": 10.866942056086245
+      },
+      "temperatureBands": {
+        "0to10": 806,
+        "below0": 390,
+        "10to20": 4
+      },
+      "nourishmentPercent": {
+        "min": 0,
+        "median": 0.0,
+        "mean": 3.445788063160044,
+        "max": 90.03321076206232
+      },
+      "nourishmentBands": {
+        "exactly0": 1037,
+        "above0below12": 82,
+        "62plus": 22,
+        "12to40": 38,
+        "40to62": 21
+      },
+      "hydrationBelow0_15Kg": 0,
+      "hydrationKg": {
+        "min": 4.3270068072389565,
+        "median": 7.23113595867493,
+        "mean": 7.188778636636883,
+        "max": 8
+      },
+      "restPercent": {
+        "min": 83.06999999999991,
+        "median": 99.74375000000029,
+        "mean": 96.81674959199046,
+        "max": 100
+      },
+      "restBelow23Percent": 0,
+      "oxygenFraction": {
+        "min": 0.209392330867615,
+        "median": 0.20940025383605623,
+        "mean": 0.2093993950112307,
+        "max": 0.20940439164925276
+      },
+      "oxygenBelow0_15": 0,
+      "sickness": {
+        "min": 0,
+        "median": 0.0,
+        "mean": 5.190557370052952,
+        "max": 29.60035535117057
+      },
+      "sicknessBands": {
+        "above20": 133,
+        "zero": 786,
+        "positiveAtMost20": 281
+      },
+      "nourishmentBandsWhenSicknessZero": {
+        "exactly0": 674,
+        "above0below12": 60,
+        "62plus": 12,
+        "40to62": 15,
+        "12to40": 25
+      }
+    }
+  },
+  "byCommunity": [
+    {
+      "id": "civ-1",
+      "name": "Fernhaven",
+      "allHistoryBirths": 84,
+      "allHistoryDeaths": 390,
+      "endCommunalFoodKg": 0,
+      "newDeaths": 381,
+      "firstDeathTick": 231840,
+      "lastDeathTick": 239109,
+      "firstDeathDay": 374.7916666666667,
+      "lastDeathDay": 450.5104166666667,
+      "deathSpanDays": 75.71875,
+      "children": {
+        "count": 84,
+        "firstTick": 231840,
+        "lastTick": 238580,
+        "ageYearsFloor": {
+          "0": 84
+        },
+        "ageDaysForRecordedBirths": {
+          "min": 2.34375,
+          "median": 53.84375,
+          "mean": 53.79935515873016,
+          "max": 123.42708333333333
+        },
+        "temperatureC": {
+          "min": -8.350873310527561,
+          "median": 6.063731916148171,
+          "mean": 5.963792982793933,
+          "max": 9.336016614477424
+        },
+        "temperatureBands": {
+          "0to10": 81,
+          "below0": 3
+        },
+        "nourishmentPercent": {
+          "min": 0,
+          "median": 39.310073453373136,
+          "mean": 36.416703243748906,
+          "max": 64.90890084231798
+        },
+        "nourishmentBands": {
+          "40to62": 32,
+          "62plus": 6,
+          "12to40": 33,
+          "above0below12": 12,
+          "exactly0": 1
+        },
+        "hydrationBelow0_15Kg": 0,
+        "hydrationKg": {
+          "min": 1.2562499999999985,
+          "median": 3.730203768854903,
+          "mean": 3.4882950140701166,
+          "max": 5.48375
+        },
+        "restPercent": {
+          "min": 99.00000000000006,
+          "median": 99.9,
+          "mean": 99.7404761904762,
+          "max": 100
+        },
+        "restBelow23Percent": 0,
+        "oxygenFraction": {
+          "min": 0.2093943899982592,
+          "median": 0.20940428702349795,
+          "mean": 0.20940401499871092,
+          "max": 0.2094044155382159
+        },
+        "oxygenBelow0_15": 0,
+        "sickness": {
+          "min": 0,
+          "median": 0.0,
+          "mean": 4.771568158444661,
+          "max": 29.138210536770107
+        },
+        "sicknessBands": {
+          "above20": 11,
+          "positiveAtMost20": 12,
+          "zero": 61
+        },
+        "nourishmentBandsWhenSicknessZero": {
+          "40to62": 26,
+          "62plus": 4,
+          "12to40": 22,
+          "above0below12": 8,
+          "exactly0": 1
+        }
+      },
+      "adults": {
+        "count": 297,
+        "firstTick": 232247,
+        "lastTick": 239109,
+        "ageYearsFloor": {
+          "19": 11,
+          "20": 12,
+          "21": 12,
+          "22": 12,
+          "23": 12,
+          "24": 12,
+          "25": 12,
+          "26": 12,
+          "27": 12,
+          "28": 12,
+          "29": 12,
+          "30": 12,
+          "31": 12,
+          "32": 12,
+          "33": 12,
+          "34": 12,
+          "35": 12,
+          "36": 12,
+          "37": 12,
+          "38": 12,
+          "39": 12,
+          "40": 12,
+          "41": 12,
+          "42": 11,
+          "43": 11
+        },
+        "ageDaysForRecordedBirths": null,
+        "temperatureC": {
+          "min": -8.916039915679885,
+          "median": 1.5553016663890582,
+          "mean": 1.841676297134858,
+          "max": 9.465043129399165
+        },
+        "temperatureBands": {
+          "0to10": 258,
+          "below0": 39
+        },
+        "nourishmentPercent": {
+          "min": 0,
+          "median": 0,
+          "mean": 3.9324840095070868,
+          "max": 69.23156098478131
+        },
+        "nourishmentBands": {
+          "exactly0": 244,
+          "above0below12": 27,
+          "40to62": 8,
+          "62plus": 4,
+          "12to40": 14
+        },
+        "hydrationBelow0_15Kg": 0,
+        "hydrationKg": {
+          "min": 4.821495452712471,
+          "median": 7.210578709598892,
+          "mean": 7.16257741822745,
+          "max": 8
+        },
+        "restPercent": {
+          "min": 88.10000000000025,
+          "median": 100,
+          "mean": 97.49288486736674,
+          "max": 100
+        },
+        "restBelow23Percent": 0,
+        "oxygenFraction": {
+          "min": 0.20939425807032847,
+          "median": 0.20940216227666303,
+          "mean": 0.20940223555083406,
+          "max": 0.20940428978800787
+        },
+        "oxygenBelow0_15": 0,
+        "sickness": {
+          "min": 0,
+          "median": 0,
+          "mean": 4.798495933414406,
+          "max": 29.451818561872898
+        },
+        "sicknessBands": {
+          "zero": 201,
+          "positiveAtMost20": 73,
+          "above20": 23
+        },
+        "nourishmentBandsWhenSicknessZero": {
+          "exactly0": 165,
+          "40to62": 5,
+          "above0below12": 21,
+          "12to40": 9,
+          "62plus": 1
+        }
+      }
+    },
+    {
+      "id": "civ-11",
+      "name": "Amber Hollow",
+      "allHistoryBirths": 93,
+      "allHistoryDeaths": 400,
+      "endCommunalFoodKg": 0,
+      "newDeaths": 393,
+      "firstDeathTick": 231549,
+      "lastDeathTick": 248627,
+      "firstDeathDay": 371.7604166666667,
+      "lastDeathDay": 549.65625,
+      "deathSpanDays": 177.89583333333334,
+      "children": {
+        "count": 93,
+        "firstTick": 231549,
+        "lastTick": 248291,
+        "ageYearsFloor": {
+          "0": 93
+        },
+        "ageDaysForRecordedBirths": {
+          "min": 2.2708333333333335,
+          "median": 56.885416666666664,
+          "mean": 55.894041218637994,
+          "max": 169.36458333333334
+        },
+        "temperatureC": {
+          "min": -4.003339838911619,
+          "median": 6.491406614094858,
+          "mean": 6.528802163996686,
+          "max": 9.881017065916337
+        },
+        "temperatureBands": {
+          "0to10": 92,
+          "below0": 1
+        },
+        "nourishmentPercent": {
+          "min": 0,
+          "median": 36.251081999984656,
+          "mean": 32.66543692643515,
+          "max": 64.56946474040788
+        },
+        "nourishmentBands": {
+          "62plus": 2,
+          "40to62": 35,
+          "12to40": 40,
+          "above0below12": 12,
+          "exactly0": 4
+        },
+        "hydrationBelow0_15Kg": 0,
+        "hydrationKg": {
+          "min": 1.214687499999999,
+          "median": 3.91312499999999,
+          "mean": 3.6075319519782214,
+          "max": 5.5
+        },
+        "restPercent": {
+          "min": 99.00000000000006,
+          "median": 100,
+          "mean": 99.75161290322582,
+          "max": 100
+        },
+        "restBelow23Percent": 0,
+        "oxygenFraction": {
+          "min": 0.20939250149223743,
+          "median": 0.20940433969550457,
+          "mean": 0.20940414169596994,
+          "max": 0.20940445152685033
+        },
+        "oxygenBelow0_15": 0,
+        "sickness": {
+          "min": 0,
+          "median": 0,
+          "mean": 4.8089620515959615,
+          "max": 30
+        },
+        "sicknessBands": {
+          "zero": 67,
+          "above20": 12,
+          "positiveAtMost20": 14
+        },
+        "nourishmentBandsWhenSicknessZero": {
+          "62plus": 2,
+          "40to62": 22,
+          "12to40": 30,
+          "above0below12": 10,
+          "exactly0": 3
+        }
+      },
+      "adults": {
+        "count": 300,
+        "firstTick": 231947,
+        "lastTick": 248627,
+        "ageYearsFloor": {
+          "19": 13,
+          "20": 12,
+          "21": 12,
+          "22": 12,
+          "23": 12,
+          "24": 12,
+          "25": 13,
+          "26": 12,
+          "27": 12,
+          "28": 12,
+          "29": 12,
+          "30": 12,
+          "31": 12,
+          "32": 12,
+          "33": 12,
+          "34": 12,
+          "35": 12,
+          "36": 12,
+          "37": 12,
+          "38": 12,
+          "39": 13,
+          "40": 10,
+          "41": 11,
+          "42": 12,
+          "43": 12
+        },
+        "ageDaysForRecordedBirths": null,
+        "temperatureC": {
+          "min": -7.427137326234635,
+          "median": 3.788904129163578,
+          "mean": 3.2058513734996983,
+          "max": 8.04397251011327
+        },
+        "temperatureBands": {
+          "0to10": 262,
+          "below0": 38
+        },
+        "nourishmentPercent": {
+          "min": 0,
+          "median": 0.0,
+          "mean": 6.883219104256549,
+          "max": 84.0374999999999
+        },
+        "nourishmentBands": {
+          "exactly0": 227,
+          "above0below12": 34,
+          "62plus": 14,
+          "12to40": 17,
+          "40to62": 8
+        },
+        "hydrationBelow0_15Kg": 0,
+        "hydrationKg": {
+          "min": 4.3270068072389565,
+          "median": 7.209797894078978,
+          "mean": 7.163147899776923,
+          "max": 8
+        },
+        "restPercent": {
+          "min": 88.96250000000023,
+          "median": 100.0,
+          "mean": 97.5336697717944,
+          "max": 100
+        },
+        "restBelow23Percent": 0,
+        "oxygenFraction": {
+          "min": 0.209392330867615,
+          "median": 0.20940373633115392,
+          "mean": 0.20940293514593905,
+          "max": 0.20940439164925276
+        },
+        "oxygenBelow0_15": 0,
+        "sickness": {
+          "min": 0,
+          "median": 0.0,
+          "mean": 4.790143464325526,
+          "max": 29.200951086956515
+        },
+        "sicknessBands": {
+          "above20": 33,
+          "zero": 207,
+          "positiveAtMost20": 60
+        },
+        "nourishmentBandsWhenSicknessZero": {
+          "exactly0": 157,
+          "above0below12": 22,
+          "62plus": 8,
+          "40to62": 8,
+          "12to40": 12
+        }
+      }
+    },
+    {
+      "id": "civ-21",
+      "name": "Stonebrook",
+      "allHistoryBirths": 96,
+      "allHistoryDeaths": 407,
+      "endCommunalFoodKg": 0,
+      "newDeaths": 399,
+      "firstDeathTick": 234778,
+      "lastDeathTick": 247063,
+      "firstDeathDay": 405.3958333333333,
+      "lastDeathDay": 533.3645833333334,
+      "deathSpanDays": 127.96875,
+      "children": {
+        "count": 96,
+        "firstTick": 234778,
+        "lastTick": 235816,
+        "ageYearsFloor": {
+          "0": 96
+        },
+        "ageDaysForRecordedBirths": {
+          "min": 2.0416666666666665,
+          "median": 78.6875,
+          "mean": 73.66134982638889,
+          "max": 143.41666666666666
+        },
+        "temperatureC": {
+          "min": -1.437180663635505,
+          "median": 1.2512238023232878,
+          "mean": 0.9197030561554391,
+          "max": 2.4985030060770326
+        },
+        "temperatureBands": {
+          "0to10": 66,
+          "below0": 30
+        },
+        "nourishmentPercent": {
+          "min": 9.714409988707661,
+          "median": 49.00908227486164,
+          "mean": 49.13768570707047,
+          "max": 82.55127404697868
+        },
+        "nourishmentBands": {
+          "40to62": 58,
+          "62plus": 17,
+          "12to40": 20,
+          "above0below12": 1
+        },
+        "hydrationBelow0_15Kg": 0,
+        "hydrationKg": {
+          "min": 1.4187499999999995,
+          "median": 4.4506249999999845,
+          "mean": 4.002414119614846,
+          "max": 5.434999999999999
+        },
+        "restPercent": {
+          "min": 99.00000000000006,
+          "median": 100.0,
+          "mean": 99.78229166666668,
+          "max": 100
+        },
+        "restBelow23Percent": 0,
+        "oxygenFraction": {
+          "min": 0.2093989197580779,
+          "median": 0.20940092019565104,
+          "mean": 0.20940089635585635,
+          "max": 0.2094011032901464
+        },
+        "oxygenBelow0_15": 0,
+        "sickness": {
+          "min": 0,
+          "median": 0.0,
+          "mean": 6.425259702192336,
+          "max": 29.830635488962663
+        },
+        "sicknessBands": {
+          "positiveAtMost20": 25,
+          "zero": 58,
+          "above20": 13
+        },
+        "nourishmentBandsWhenSicknessZero": {
+          "40to62": 33,
+          "62plus": 8,
+          "12to40": 16,
+          "above0below12": 1
+        }
+      },
+      "adults": {
+        "count": 303,
+        "firstTick": 235104,
+        "lastTick": 247063,
+        "ageYearsFloor": {
+          "19": 12,
+          "20": 12,
+          "21": 12,
+          "22": 12,
+          "23": 12,
+          "24": 12,
+          "25": 11,
+          "26": 12,
+          "27": 12,
+          "28": 12,
+          "29": 12,
+          "30": 12,
+          "31": 12,
+          "32": 12,
+          "33": 12,
+          "34": 12,
+          "35": 12,
+          "36": 12,
+          "37": 12,
+          "38": 12,
+          "39": 11,
+          "40": 14,
+          "41": 13,
+          "42": 13,
+          "43": 13
+        },
+        "ageDaysForRecordedBirths": null,
+        "temperatureC": {
+          "min": -8.255095602624761,
+          "median": -0.6327559396294229,
+          "mean": -0.6440162462106648,
+          "max": 1.4738774708113223
+        },
+        "temperatureBands": {
+          "below0": 216,
+          "0to10": 87
+        },
+        "nourishmentPercent": {
+          "min": 0,
+          "median": 0,
+          "mean": 2.9770039395758534,
+          "max": 90.03321076206232
+        },
+        "nourishmentBands": {
+          "exactly0": 266,
+          "40to62": 5,
+          "above0below12": 21,
+          "12to40": 7,
+          "62plus": 4
+        },
+        "hydrationBelow0_15Kg": 0,
+        "hydrationKg": {
+          "min": 6.218999999999985,
+          "median": 7.2167499999999905,
+          "mean": 7.199105718740991,
+          "max": 8
+        },
+        "restPercent": {
+          "min": 88.96250000000023,
+          "median": 100,
+          "mean": 97.52501566699182,
+          "max": 100
+        },
+        "restBelow23Percent": 0,
+        "oxygenFraction": {
+          "min": 0.20939272807501183,
+          "median": 0.2094000173005011,
+          "mean": 0.20939979270527692,
+          "max": 0.20940041847824226
+        },
+        "oxygenBelow0_15": 0,
+        "sickness": {
+          "min": 0,
+          "median": 0,
+          "mean": 4.634790231740559,
+          "max": 29.60035535117057
+        },
+        "sicknessBands": {
+          "zero": 205,
+          "positiveAtMost20": 65,
+          "above20": 33
+        },
+        "nourishmentBandsWhenSicknessZero": {
+          "exactly0": 179,
+          "40to62": 2,
+          "above0below12": 17,
+          "12to40": 4,
+          "62plus": 3
+        }
+      }
+    },
+    {
+      "id": "civ-3118",
+      "name": "Adonis",
+      "allHistoryBirths": 134,
+      "allHistoryDeaths": 442,
+      "endCommunalFoodKg": 0,
+      "newDeaths": 434,
+      "firstDeathTick": 247267,
+      "lastDeathTick": 247876,
+      "firstDeathDay": 535.4895833333334,
+      "lastDeathDay": 541.8333333333334,
+      "deathSpanDays": 6.34375,
+      "children": {
+        "count": 134,
+        "firstTick": 247267,
+        "lastTick": 247824,
+        "ageYearsFloor": {
+          "0": 134
+        },
+        "ageDaysForRecordedBirths": {
+          "min": 2.5,
+          "median": 200.59895833333331,
+          "mean": 180.75645211442787,
+          "max": 264.2291666666667
+        },
+        "temperatureC": {
+          "min": -0.8215157899968605,
+          "median": 2.540534305502618,
+          "mean": 3.0162199344798046,
+          "max": 10.500752083739904
+        },
+        "temperatureBands": {
+          "0to10": 131,
+          "below0": 2,
+          "10to20": 1
+        },
+        "nourishmentPercent": {
+          "min": 1.5474059884927995,
+          "median": 48.72638914783586,
+          "mean": 46.62212787410992,
+          "max": 71.51793841672004
+        },
+        "nourishmentBands": {
+          "40to62": 94,
+          "62plus": 8,
+          "12to40": 26,
+          "above0below12": 6
+        },
+        "hydrationBelow0_15Kg": 0,
+        "hydrationKg": {
+          "min": 1.321249999999999,
+          "median": 4.898749999999988,
+          "mean": 4.713106758120024,
+          "max": 5.5
+        },
+        "restPercent": {
+          "min": 99.00000000000006,
+          "median": 100.0,
+          "mean": 99.83208955223881,
+          "max": 100
+        },
+        "restBelow23Percent": 0,
+        "oxygenFraction": {
+          "min": 0.20939262507778614,
+          "median": 0.20939268577989506,
+          "mean": 0.20939268413286782,
+          "max": 0.20939269351321507
+        },
+        "oxygenBelow0_15": 0,
+        "sickness": {
+          "min": 0,
+          "median": 0.0,
+          "mean": 4.787436666697596,
+          "max": 29.940175312483603
+        },
+        "sicknessBands": {
+          "zero": 96,
+          "above20": 17,
+          "positiveAtMost20": 21
+        },
+        "nourishmentBandsWhenSicknessZero": {
+          "40to62": 65,
+          "62plus": 5,
+          "12to40": 20,
+          "above0below12": 6
+        }
+      },
+      "adults": {
+        "count": 300,
+        "firstTick": 247650,
+        "lastTick": 247876,
+        "ageYearsFloor": {
+          "19": 12,
+          "20": 12,
+          "21": 12,
+          "22": 12,
+          "23": 12,
+          "24": 12,
+          "25": 12,
+          "26": 12,
+          "27": 12,
+          "28": 12,
+          "29": 12,
+          "30": 12,
+          "31": 12,
+          "32": 12,
+          "33": 12,
+          "34": 12,
+          "35": 12,
+          "36": 12,
+          "37": 12,
+          "38": 12,
+          "39": 12,
+          "40": 12,
+          "41": 12,
+          "42": 12,
+          "43": 12
+        },
+        "ageDaysForRecordedBirths": null,
+        "temperatureC": {
+          "min": -3.5447273155345704,
+          "median": 2.7794852653293525,
+          "mean": 2.4672378978253273,
+          "max": 10.866942056086245
+        },
+        "temperatureBands": {
+          "below0": 97,
+          "0to10": 199,
+          "10to20": 4
+        },
+        "nourishmentPercent": {
+          "min": 0,
+          "median": 0.0,
+          "mean": 0,
+          "max": 0
+        },
+        "nourishmentBands": {
+          "exactly0": 300
+        },
+        "hydrationBelow0_15Kg": 0,
+        "hydrationKg": {
+          "min": 5.880999999999986,
+          "median": 7.319413539586794,
+          "mean": 7.229918226797032,
+          "max": 8
+        },
+        "restPercent": {
+          "min": 83.06999999999991,
+          "median": 96.43999999999998,
+          "mean": 94.7151067538126,
+          "max": 100
+        },
+        "restBelow23Percent": 0,
+        "oxygenFraction": {
+          "min": 0.20939261633220474,
+          "median": 0.20939264080886708,
+          "mean": 0.20939264107132832,
+          "max": 0.20939265408588012
+        },
+        "oxygenBelow0_15": 0,
+        "sickness": {
+          "min": 0,
+          "median": 0.0,
+          "mean": 6.540436907748056,
+          "max": 29.26241638795986
+        },
+        "sicknessBands": {
+          "above20": 44,
+          "positiveAtMost20": 83,
+          "zero": 173
+        },
+        "nourishmentBandsWhenSicknessZero": {
+          "exactly0": 173
+        }
+      }
+    }
+  ],
+  "thirtyDayDeathBins": [
+    {
+      "fromDayInclusive": 360,
+      "toDayExclusive": 390,
+      "child": 166,
+      "adult": 278
+    },
+    {
+      "fromDayInclusive": 390,
+      "toDayExclusive": 420,
+      "adult": 597,
+      "child": 104
+    },
+    {
+      "fromDayInclusive": 420,
+      "toDayExclusive": 450,
+      "adult": 14,
+      "child": 2
+    },
+    {
+      "fromDayInclusive": 450,
+      "toDayExclusive": 480,
+      "adult": 6
+    },
+    {
+      "fromDayInclusive": 510,
+      "toDayExclusive": 540,
+      "adult": 81,
+      "child": 133
+    },
+    {
+      "fromDayInclusive": 540,
+      "toDayExclusive": 570,
+      "adult": 224,
+      "child": 2
+    }
+  ],
+  "historyPoints": {
+    "firstAfterRenewal": {
+      "tick": 195936,
+      "population": 1200,
+      "food": 575047.4773767409,
+      "forest": 26.144130993485632,
+      "happiness": 77.90577287538554,
+      "civilizations": 4,
+      "carbon": 12924549.483582139,
+      "biodiversity": 31
+    },
+    "peakPopulation": {
+      "tick": 231552,
+      "population": 1525,
+      "food": 32701.24122751812,
+      "forest": 28.827505764597944,
+      "happiness": 90.48119606088432,
+      "civilizations": 4,
+      "carbon": 13009456.643549161,
+      "biodiversity": 41
+    },
+    "lastDailyBeforeFirstDeath": {
+      "tick": 231456,
+      "population": 1519,
+      "food": 33566.00282563806,
+      "forest": 28.839345668720128,
+      "happiness": 90.55610079762582,
+      "civilizations": 4,
+      "carbon": 13009455.587826759,
+      "biodiversity": 41
+    },
+    "firstZeroPopulationDailySample": {
+      "tick": 248640,
+      "population": 0,
+      "food": 0,
+      "forest": 3.0922975265832218,
+      "happiness": 0,
+      "civilizations": 4,
+      "carbon": 13467630.781044792,
+      "biodiversity": 41
+    },
+    "firstCommunalFoodBelow400000Kg": {
+      "tick": 207168,
+      "population": 1200,
+      "food": 399512.95146475895,
+      "forest": 7.72361343620523,
+      "happiness": 97.69473136397364,
+      "civilizations": 4,
+      "carbon": 13189753.653702337,
+      "biodiversity": 35
+    },
+    "firstCommunalFoodBelow200000Kg": {
+      "tick": 216192,
+      "population": 1200,
+      "food": 198080.42587519228,
+      "forest": 5.497068650670482,
+      "happiness": 87.30971868452531,
+      "civilizations": 4,
+      "carbon": 13629687.79720273,
+      "biodiversity": 37
+    },
+    "firstCommunalFoodBelow100000Kg": {
+      "tick": 222816,
+      "population": 1250,
+      "food": 99871.35709581527,
+      "forest": 17.415206206875645,
+      "happiness": 87.70674131103391,
+      "civilizations": 4,
+      "carbon": 13389788.393322546,
+      "biodiversity": 38
+    },
+    "firstCommunalFoodBelow50000Kg": {
+      "tick": 229536,
+      "population": 1466,
+      "food": 49457.064761307614,
+      "forest": 27.907038943484697,
+      "happiness": 90.10477181729809,
+      "civilizations": 4,
+      "carbon": 13038084.644069973,
+      "biodiversity": 40
+    },
+    "firstCommunalFoodBelow10000Kg": {
+      "tick": 245664,
+      "population": 431,
+      "food": 9824.588302463337,
+      "forest": 3.8994457236344515,
+      "happiness": 97.96194806961411,
+      "civilizations": 4,
+      "carbon": 13443053.123423375,
+      "biodiversity": 41
+    },
+    "firstCommunalFoodBelow1000Kg": {
+      "tick": 247008,
+      "population": 436,
+      "food": 573.2181811036854,
+      "forest": 3.4200783374362795,
+      "happiness": 91.40525588980724,
+      "civilizations": 4,
+      "carbon": 13452436.000720276,
+      "biodiversity": 41
+    },
+    "firstCommunalFoodBelow1Kg": {
+      "tick": 248064,
+      "population": 2,
+      "food": 0.18294214374944062,
+      "forest": 3.164454616400724,
+      "happiness": 94.70293004477965,
+      "civilizations": 4,
+      "carbon": 13458307.030986287,
+      "biodiversity": 41
+    }
+  },
+  "structuredLifeStateRecords": 1607,
+  "correction": "An initial prose-only summary incorrectly said sickness was unavailable. Every death has structured lifeState; this corrected report uses its exact nourishment/rest/hydration/temperature/oxygen/sickness values.",
+  "limitations": [
+    "Age is floored in prose; newborn ages are reconstructed from birth events. Other reported physical values come from structured lifeState, not the rounded prose.",
+    "Sickness and oxygen are present. Health-loss components, body mass, wraps, carried food, exact stock access and task are absent; no medical or single-factor cause is recorded.",
+    "world_history.food is communal stock only, excluding carried rations/cargo; samples are daily and global, not per-community or per-person.",
+    "Population/food chronology and mechanism reproductions do not by themselves identify each causal contribution. No old-runtime historical replay was performed.",
+    "The parent's work-planning activation began after extinction; later source choices must not be attributed to historical residents."
+  ]
+}
