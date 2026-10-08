@@ -12,7 +12,7 @@ The [400-day ecological trial](seasonal-recovery.json) stayed between **−11.92
 
 Performance changes have separate continuity evidence: [elemental accounting](element-kernel-continuity.json), [stable pathfinding](pathfinding-continuity.json) and [weather buffers](weather-kernel-continuity.json). Exact-result checks matter more than single-machine speed ratios. The actual 38-region continuation took about 504 seconds while other heavy tests ran; it does not establish live-host capacity.
 
-Local logs and browser artifacts are under `output/validation/` and `output/playwright/` and remain outside Git. The [release record](../releases/world-recovery-0.2.md) identifies actual deployment status. Historical runs below describe the preceding model and must not be substituted for this release's checks.
+Local logs and browser artifacts are under `output/validation/` and `output/playwright/` and remain outside Git. The [release record](../releases/world-recovery-0.2.md) identifies the successful Railway/Vercel artifacts and passing independent GitHub checks. [Live continuity evidence](live-recovery-continuity.json) verifies the exact original archive, unchanged ownership/keys/receipts and clock arithmetic while the same world catches up. Historical runs below describe the preceding model and must not be substituted for this release's checks.
 
 ```sh
 npm ci

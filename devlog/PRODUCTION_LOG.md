@@ -7,6 +7,19 @@
 
 ## Log
 
+### [2026-10-08] Recovery Released to the Original World
+
+- **type**: milestone
+- **systems**: world_hosting, world_storage, runtime_handover, browser_validation
+- **files**: `world-recovery-0.2.md`, `live-recovery-continuity.json`, `roadmap.md`, `progress.md`
+- **agent**: Codex
+
+Railway built and deployed `world-recovery-20261008` to the existing service and volume; the compatible Vercel production artifact is READY. The live world passed its old failing tick and continued under format 8 / biosphere-1.2. A transactional inspection verified the exact original archive, four community identities, ownership, agent keys, receipts, and clock advancement with no debt skipped. Independent push and pull-request GitHub runs passed for `64d4b76`.
+
+The world remains in catch-up with substantial elapsed time to process; new founding/advice is temporarily restricted. Older backups were verified against independent copies and retained compressed to reclaim space. No people or animals were resurrected, and natural ecological recovery remains conditional on surviving carriers and resources. Provider IDs, runtime samples and test limits are in the release record.
+
+---
+
 ### [2026-10-08] Saved-World Recovery and Runtime Handover
 
 - **type**: bugfix

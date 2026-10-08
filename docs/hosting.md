@@ -82,6 +82,8 @@ The volume file API uses paths relative to its mount: `/backups/...` corresponds
 
 Store durable backup copies outside the service volume as well. A retained volume and the in-database migration archive are not independent protection against losing that volume. Host snapshots or an operator-managed backup schedule should cover the chosen retention period; this code does not configure an external backup service automatically.
 
+Allow temporary disk and memory headroom for the online backup, migration archive, WAL and candidate preflight copy. On a small volume, retain verified compressed backups and independent full copies instead of accumulating redundant raw files. Verify the decompressed SHA-256 and independent copy before removing only a redundant backup representation. Never remove or compress the active SQLite file in place. A healthy current checkpoint does not by itself prove that enough capacity remains for the next update.
+
 The production smoke test creates an online backup, stops its disposable source, waits for the copied ownership lease to expire, and actually resumes the backup with the original browser owner and agent key.
 
 ## Hotfix procedure
