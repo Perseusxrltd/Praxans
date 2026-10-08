@@ -7,6 +7,23 @@
 
 ## Log
 
+### [2026-10-08] Feasible Work Published; Collapse and Storage Failures Retained
+
+- **type**: bugfix
+- **systems**: civilization_intelligence, world_state, civic_relations, browser_validation
+- **files**: `engine.ts`, `citizens.ts`, `random.ts`, `construction-planning.test.ts`, `numerics.test.ts`, `roadmap.md`
+- **agent**: Codex
+
+Reproduced a preferred-design dead end and a shared-draw exclusion of new builders, then added authoritative alternative selection and conditional work sampling. Published `work-planning-20261008-2` at tick 290260 after 121 model/server checks, 21 hotfix checks and twelve exact-artifact handover checks on the inhabited backup. Bounded, owned validation rejects heap failure without moving the continuing owner. → ADR-030; → ADR-031.
+
+The independent tick-228436 backup has 1,439 people and 239 births; a later live overview at tick 287132 has zero people, 407 births and 1,639 cumulative deaths under the preceding runtime. This is renewed demographic collapse, not successful long-term balance. Histories and the continuing planet remain intact; diagnosis precedes any new physical restoration.
+
+Recorded the owner's free political/social emergence requirement as H06. The research review separates overlapping membership, custody, consent, scoped authority and communicated revocation; these remain subsequent mechanism work requiring explicit state migration and measured capacity.
+
+The fresh tick-289492 backup is independently verified. During publication, candidate copying retained WAL while the old runtime saved, exhausting disk despite roughly 175 MB initial headroom. The new runtime recovered the last committed state; the continuing external stream showed a fault and 24 repeated ticks. At saved tick 291060, identity, clock arithmetic, ownership, keys, receipts and archive checksums remain, with no new OOM kill. The release record preserves this failed seamless-update criterion and required storage follow-up.
+
+---
+
 ### [2026-10-08] Planet Return Preserves the Current Observation
 
 - **type**: bugfix

@@ -1,0 +1,532 @@
+{
+  "schema_version": 1,
+  "reviewed_at_utc": "2026-10-08T15:40:13.418007+00:00",
+  "report": "shelter-family-review.md",
+  "scope": "Read-only source and existing-note review, parent-supplied aggregate artifact inspection and independent arithmetic. No live host request, database access, simulation mutation, runtime edit, test execution or Git operation. Report files only in output/research.",
+  "parent_reported_active_runtime": {
+    "release": "advisor-recovery-20261008-2",
+    "artifact_sha256": "23958276a28a7f01a18d93138529c3dca6856c53c960fda9a119b627014a50b0",
+    "research_independently_verified_deployment": false
+  },
+  "historical_sources": {
+    "register": "docs/research/source-register.json",
+    "source_ids": ["A04", "A03", "A11", "A09"],
+    "use": "Existing consulted passages motivate questions about provisions, local environment, physical support, complementary work and tools. They do not establish physical equations, fertility calibration, mandatory family forms or a population target. No new external source claimed."
+  },
+  "evidence": {
+    "renewal_tick": 195860,
+    "arrivals_per_community": 300,
+    "historical_deaths": 32,
+    "pregnancy_sample": {
+      "path": "output/research/renewal-pregnancy-sample.json",
+      "sha256": "5719ad24689b084b039de8e8708be4ca90182871f1cccad57d4e2b3d516b87da",
+      "provenance": "Parent read historical verified backup metadata; research read only this aggregate JSON.",
+      "tick": 204116,
+      "days_since_renewal": 86.0,
+      "metadata_sha256_reported_by_parent": "de5ca9c84a4d23897c6223bcd5e0c97cdc5f88db756b73d29ab317c8c43c5056",
+      "communities": [
+        {
+          "civilizationId": "civ-1",
+          "population": 300,
+          "pregnancies": 63,
+          "earliestDueTick": 221952,
+          "latestDueTick": 230016
+        },
+        {
+          "civilizationId": "civ-11",
+          "population": 300,
+          "pregnancies": 72,
+          "earliestDueTick": 221856,
+          "latestDueTick": 230016
+        },
+        {
+          "civilizationId": "civ-21",
+          "population": 300,
+          "pregnancies": 64,
+          "earliestDueTick": 222048,
+          "latestDueTick": 229920
+        },
+        {
+          "civilizationId": "civ-3118",
+          "population": 300,
+          "pregnancies": 79,
+          "earliestDueTick": 221952,
+          "latestDueTick": 230016
+        }
+      ],
+      "total_pregnancies": 278,
+      "housing_places_per_community_reported_range": [8, 13],
+      "current_census": false
+    },
+    "earlier_overview": {
+      "provenance": "Parent-reported public observation; no research host read.",
+      "tick": 219444,
+      "days_since_renewal": 245.66666666666666,
+      "population": 1200,
+      "births": 0,
+      "deaths": 32
+    },
+    "postgestation": {
+      "path": "output/research/renewal-postgestation.json",
+      "sha256": "853f74e4916a5c9536802b671170d742e32f334265e2c71fe41c1eaeaf1122e1",
+      "provenance": "Parent-reported public observation; research read only the aggregate file.",
+      "tick": 222772,
+      "days_since_renewal": 280.3333333333333,
+      "population": 1245,
+      "births": 45,
+      "deaths": 32,
+      "communities": [
+        {
+          "id": "civ-1",
+          "name": "Fernhaven",
+          "population": 311
+        },
+        {
+          "id": "civ-11",
+          "name": "Amber Hollow",
+          "population": 313
+        },
+        {
+          "id": "civ-21",
+          "name": "Stonebrook",
+          "population": 310
+        },
+        {
+          "id": "civ-3118",
+          "name": "Adonis",
+          "population": 311
+        }
+      ],
+      "parent_reports_no_additional_intervention_or_runtime_replacement": true,
+      "long_term_child_survival_established": false
+    }
+  },
+  "demographic_contract": {
+    "update_interval_ticks": 96,
+    "tick_hours": 0.25,
+    "first_postrenewal_daily_check": 195936,
+    "gestation_days": 270,
+    "gestation_ticks": 25920,
+    "earliest_possible_birth_tick": 221856,
+    "days_after_zero_birth_overview_until_first_possible_birth": 25.125,
+    "founder_ages_years": [18, 42],
+    "founder_pairing": "Adjacent initialization entries; no pregnancies on creation.",
+    "later_pairing": {
+      "minimum_age": 18,
+      "maximum_distance_coordinate_cells_exclusive": 3,
+      "kin_exclusions": ["direct parent/child", "shared parent"],
+      "daily_probability": "initiator sociability * 0.15",
+      "both_unpartnered": true
+    },
+    "conception": {
+      "communal_biomass_kg_strictly_greater_than": "2 * population + 2",
+      "gestator_selection": "Lexicographically lower partner ID",
+      "gestator_age_years_inclusive": [18, 45],
+      "gestator_min_health": 80,
+      "gestator_min_happiness": 58,
+      "gestator_min_body_kg": 12,
+      "days_since_last_birth_at_least": 365,
+      "daily_probability_given_gates": 0.007,
+      "housing_direct_gate": false,
+      "pair_distance_rechecked": false,
+      "partner_health_rechecked": false,
+      "both_must_not_already_be_pregnant": true
+    },
+    "delivery": {
+      "due_date_reached": true,
+      "gestator_min_body_kg": 4,
+      "gestator_hydration_plus_camp_liquid_water_min_kg": 1,
+      "child_body_kg": 2,
+      "child_hydration_kg": 1,
+      "sources": "Communal food then gestator body; camp-center water then gestator hydration. Child created near camp center.",
+      "both_parent_last_birth_ticks_reset": true,
+      "minimum_birth_to_next_birth_days_for_continuing_pair": 635
+    },
+    "conditional_86_day_arithmetic": {
+      "pairs_if_all_founders_remain_paired": 600,
+      "assumes_all_gates_open_for_checks": 86,
+      "probability_conceived": 0.45344311361061385,
+      "expected_pregnancies": 272.0658681663683,
+      "observed_historical_pregnancies": 278,
+      "fertility_calibration_claimed": false
+    }
+  },
+  "next_hotfix_candidate": {
+    "id": "SF01",
+    "status": "source_established_failure_mode_not_live_cause",
+    "title": "Try a buildable known alternative when the top design is blocked",
+    "anchors": [
+      {
+        "path": "src/simulation/engine.ts",
+        "lines": [167, 189, 199, 202, 205]
+      },
+      {
+        "path": "src/simulation/economy.ts",
+        "lines": [293, 298, 299, 327, 337]
+      }
+    ],
+    "failure": "Planner filters stable useful affordable remembered observations but omits 1600 kg bound, attempts only top score, and applies retry delay after rejection.",
+    "preserved_mass_limit_kg": 1600,
+    "safe_direction": "Filter oversized known observations, attempt ranked eligible alternatives after RuleError, stop at first success. Preserve stock/site/knowledge constraints and failed-attempt cooldown; propagate other errors.",
+    "rejection_side_effects": {
+      "all_current_RuleError_checks_precede_authoritative_mutation": true,
+      "first_authoritative_mutation": "stock debit at economy.ts:327",
+      "simulation_rng_consumed": false,
+      "material_samples_or_work_spent": false,
+      "ids_allocated": false,
+      "non_authoritative_cost": "CPU and derived geometry/terrain lookup caches",
+      "planner_catch_separately_mutates_lastBuildingTick": true
+    },
+    "successful_request": "Reserve actual material once, transfer cleared vegetation conservatively, allocate normal ID/event, start progress at zero. Later labor and food still required.",
+    "does_not_prove": [
+      "Cause of current live housing count",
+      "Viability of later generations",
+      "Unchanged downstream replay after newly possible construction"
+    ],
+    "small_test": "Two evaluated stable known affordable designs; highest score >1600 kg, runner-up <=1600 kg. Assert rejected request is state/RNG/ID neutral, then exactly one eligible project begins with a single cost debit and progress zero; add all-blocked and changed-affordability controls."
+  },
+  "remaining_findings": [
+    {
+      "id": "SF06",
+      "kind": "source_established_conditional_exclusion_not_live_cause",
+      "title": "Shared food/assembly random draw can exclude all new non-build assembly choices",
+      "anchors": [
+        {
+          "path": "src/simulation/citizens.ts",
+          "lines": [255, 265, 267, 321, 324]
+        },
+        {
+          "path": "src/simulation/cognition.ts",
+          "lines": [173, 174]
+        },
+        {
+          "path": "src/simulation/subsistence.ts",
+          "lines": [5, 58, 61]
+        }
+      ],
+      "conditions": [
+        "Current focus is not build",
+        "Communal biomass is below seasonal reserve target",
+        "Food gatherTask can successfully assign work",
+        "The person is making a new task decision"
+      ],
+      "mechanism": "Food branch returns at chance <0.65 (0.85 under nourish); later assembly needs the same chance <0.4*disposition. Disposition <=1.55 gives threshold <=0.62, a strict subset of the earlier successful-return range.",
+      "limits": [
+        "Existing assembly tasks can continue.",
+        "Food-search failure, meeting the reserve goal or build focus changes this condition.",
+        "Current live eligibility and task distribution were not inspected."
+      ],
+      "next_check": "Bounded choice fixture with bodily needs satisfied, feasible food and active reachable project; trace eligibility before revising arbitration. Preserve urgent survival needs and explicitly review global RNG semantics."
+    },
+    {
+      "id": "SF02",
+      "kind": "code_observation_and_model_limit",
+      "title": "Fixed utility and labor allocation",
+      "anchors": [
+        {
+          "path": "src/simulation/economy.ts",
+          "lines": [35, 57, 263]
+        },
+        {
+          "path": "src/simulation/engine.ts",
+          "lines": [172, 183, 189]
+        },
+        {
+          "path": "src/simulation/citizens.ts",
+          "lines": [259, 318, 711]
+        }
+      ],
+      "finding": "Universal cover/storage/work weights 8/6/2; one autonomous active project and 48-tick start delay; other activities compete. Automatic planner lacks advised-assembly food-reserve veto. Current binding state unobserved.",
+      "next_check": "Log aggregate blocking reasons, active work, known/feasible candidates and actual material debits before revising preferences."
+    },
+    {
+      "id": "SF03",
+      "kind": "code_observation_and_independent_arithmetic",
+      "title": "Fixed construction annulus and persistent occupancy",
+      "anchors": [
+        {
+          "path": "src/simulation/economy.ts",
+          "lines": [312, 319]
+        },
+        {
+          "path": "src/simulation/weathering.ts",
+          "lines": [253, 256]
+        }
+      ],
+      "finding": "Annulus 1.5<r<6 coordinate cells, exclusion distance <1.8 from any structure including ruins. Ideal integer land lattice supports at most 28 centers, fewer with real exclusions.",
+      "next_check": "Count free/reachable sites, ruin occupancy and required area; later expose actual site operations and clearance instead of raising mass bound or supplying a house recipe."
+    },
+    {
+      "id": "SF04",
+      "kind": "code_observation_and_model_limit",
+      "title": "Different shelter-capacity conventions and first-match access",
+      "anchors": [
+        {
+          "path": "src/simulation/world.ts",
+          "lines": [52]
+        },
+        {
+          "path": "src/simulation/citizens.ts",
+          "lines": [228, 233, 238, 240, 605, 613, 654]
+        }
+      ],
+      "finding": "Housing scales capacity by condition; night assignment floors raw capacity; thermal shelter divides raw capacity among nearby people. First selected shelter can fail pathing without trying another.",
+      "next_check": "Small route/condition/occupancy fixture; choose and document one usable-capacity/access rule, maintaining real materials and heat costs."
+    },
+    {
+      "id": "SF05",
+      "kind": "code_observation_and_independent_arithmetic",
+      "title": "Infant growth and care carriers are incomplete",
+      "anchors": [
+        {
+          "path": "src/simulation/world.ts",
+          "lines": [289, 302, 303]
+        },
+        {
+          "path": "src/simulation/engine.ts",
+          "lines": [77, 80, 82]
+        },
+        {
+          "path": "src/simulation/citizens.ts",
+          "lines": [244, 545, 568, 583]
+        },
+        {
+          "path": "src/simulation/movement.ts",
+          "lines": [19]
+        },
+        {
+          "path": "src/simulation/physiology.ts",
+          "lines": [24, 34]
+        }
+      ],
+      "finding": "Birth draws from camp stocks/water and places the child near camp regardless of gestator location; newborns can take food, drink and walk without a care carrier. Age-independent 35% retention toward 18 kg permits roughly 80-day tissue growth in baseline arithmetic.",
+      "next_check": "Define bounded age-dependent growth, local feeding/carrying and caregiver work transfers. Preserve parentage, current pregnancies and total matter; no universal birth quota."
+    }
+  ],
+  "arithmetic": {
+    "ideal_site_packing": {
+      "units": "integer coordinate-cell centers; not a ground-metre radius claim",
+      "all_candidate_points_count": 100,
+      "inner_radius_exclusive": 1.5,
+      "outer_radius_exclusive": 6,
+      "minimum_pair_distance": 1.8,
+      "maximum_points": 28,
+      "method": "Enumerate every no-horizontal-adjacency bit mask on each integer y row -5..5. Keep the maximum count for each mask compatible with prior-row vertical and diagonal exclusions. These exclusions exactly match distance<1.8 on the integer grid.",
+      "witness": [
+        [-3, -5],
+        [-1, -5],
+        [1, -5],
+        [3, -5],
+        [-5, -3],
+        [-3, -3],
+        [-1, -3],
+        [1, -3],
+        [3, -3],
+        [5, -3],
+        [-5, -1],
+        [-3, -1],
+        [2, -1],
+        [4, -1],
+        [-5, 1],
+        [-3, 1],
+        [3, 1],
+        [5, 1],
+        [-1, 2],
+        [1, 2],
+        [-5, 3],
+        [-3, 3],
+        [3, 3],
+        [5, 3],
+        [-1, 4],
+        [1, 4],
+        [-3, 5],
+        [3, 5]
+      ],
+      "terrain_and_existing_structures_included": false
+    },
+    "shelter": {
+      "people": 300,
+      "covered_m2_per_person_assumption": 1.7,
+      "condition_percent": 100,
+      "total_covered_m2": 510,
+      "people_per_site_at_28_sites": 10.714285714285714,
+      "covered_m2_per_site_at_28_sites": 18.214285714285715,
+      "minimum_wood_roof_thickness_m": 0.025,
+      "wood_density_kg_m3_assumption": 520,
+      "wood_roof_only_lower_bound_kg": 6630.0,
+      "renewal_wood_kg_before_retained_stock": 24000,
+      "ordinary_founding_wood_kg": 3600,
+      "load_support_or_sufficient_labor_proven": false
+    },
+    "infant_growth": {
+      "hunger_points_per_hour": 1.15,
+      "hunger_points_per_kg_food": 48,
+      "retained_fraction_until_target": 0.35,
+      "starting_body_kg": 2,
+      "target_body_kg": 18,
+      "steady_baseline_food_kg_day": 0.575,
+      "steady_baseline_retained_kg_day": 0.20124999999999998,
+      "days_for_16_kg_at_that_rate": 79.50310559006212,
+      "simulation_executed": false,
+      "limits": "Steady baseline arithmetic; ignores initial hunger phase, food/oxygen shortages, catabolism, interruptions and death. This is represented dry tissue, not complete anatomical mass."
+    },
+    "work_choice": {
+      "random_draw_shared": true,
+      "disposition_range": [0.55, 1.55],
+      "non_build_assembly_base_threshold": 0.4,
+      "maximum_non_build_assembly_threshold": 0.6200000000000001,
+      "earlier_food_threshold": 0.65,
+      "nourish_food_threshold": 0.85,
+      "strict_subset": true,
+      "maximum_seasonal_term_per_person_kg": 518.581213617473,
+      "seasonal_term_for_300_kg": 155574.36408524192,
+      "opening_renewal_food_kg_before_retained_stocks_and_ration_packing": 144000,
+      "actual_live_target_measured": false
+    }
+  },
+  "proposed_acceptance_experiments": [
+    {
+      "id": "T1",
+      "priority": 1,
+      "scope": "Planner alternatives and rejection atomicity",
+      "cases": 3,
+      "requires_long_simulation": false,
+      "executed": false
+    },
+    {
+      "id": "T5",
+      "priority": 2,
+      "scope": "Same-draw work-choice eligibility below a reserve target with feasible food and an active reachable project; compare balance/build and preserve immediate bodily needs.",
+      "requires_new_selection_and_rng_contract_before_fix": true,
+      "requires_long_simulation": false,
+      "executed": false
+    },
+    {
+      "id": "T2",
+      "priority": 2,
+      "scope": "Tiny fixtures on due daily boundary; body/water gates and matter/ancestry; separated camp is a documented current limitation",
+      "requires_long_simulation": false,
+      "executed": false,
+      "existing_evidence_limit": "planet.test.ts forces a pregnancy due and checks one birth, not natural conception or long-term survival."
+    },
+    {
+      "id": "T3",
+      "priority": 2,
+      "scope": "Few people and two shelters; blocked route, condition and crowding; measure heat and resource access",
+      "requires_long_simulation": false,
+      "executed": false
+    },
+    {
+      "id": "T4",
+      "priority": 2,
+      "scope": "Newborn and carers with finite supply; define growth/carrying/feeding assumptions and trace material/labor transfers",
+      "requires_new_model_definition": true,
+      "executed": false
+    }
+  ],
+  "source_fingerprints": [
+    {
+      "path": "src/simulation/engine.ts",
+      "sha256": "bed898148082350fada773d56668aaf75238ed167004ba0cbe376da02d8b48a8"
+    },
+    {
+      "path": "src/simulation/world.ts",
+      "sha256": "d346c84217a952f14794ae747aeb1672f5f2b15a2f454e06a1ffa99f0c063473"
+    },
+    {
+      "path": "src/simulation/economy.ts",
+      "sha256": "10f6a6f99f7668b8b7abbc3c3a55b203305573a73bd91d6be1568d5e5a5ce8ae"
+    },
+    {
+      "path": "src/simulation/laws.ts",
+      "sha256": "9f9ac36bfa087cf0919d6ded6e1356f840898be35648c8fd6484ee9ac3b02318"
+    },
+    {
+      "path": "src/simulation/citizens.ts",
+      "sha256": "f267959787ea754b60bbaf296a4e2dca5e7f982e174f44984292913bf0c2fd0a"
+    },
+    {
+      "path": "src/simulation/physiology.ts",
+      "sha256": "f42014137c544f7e726411cee66b5e3967e2f0a491f4af8be80dca15ada4bed3"
+    },
+    {
+      "path": "src/simulation/movement.ts",
+      "sha256": "915973703e927479acd5dd21beefdefcaaeeab3f3c6a5430338aaba5851d726a"
+    },
+    {
+      "path": "src/simulation/settlement.ts",
+      "sha256": "6e9e72c7f3f7394edd10204caefaa32af6a9b2ca4614ad85ef76d13bf2c8af91"
+    },
+    {
+      "path": "src/simulation/society.ts",
+      "sha256": "774e3eb222f56380c3f461fc12ea7e754749a8a7c1497a97f50134bf7795421d"
+    },
+    {
+      "path": "src/simulation/cognition.ts",
+      "sha256": "e6da762851f1373cc15af1b295a63b07c8f0da6de0bbbfa7775f6b3b693ef45a"
+    },
+    {
+      "path": "src/simulation/subsistence.ts",
+      "sha256": "c128acc69066bcb8e8d4ec4457bea81370962b66517dc858c27be9cd6884e123"
+    },
+    {
+      "path": "src/simulation/geometry.ts",
+      "sha256": "bfaec32d5ae35fdaa63df8c9ad6af600aa651e89d04e66d502c4ca37eb6bd5ac"
+    },
+    {
+      "path": "src/simulation/renewal.ts",
+      "sha256": "5f460b6cd0106b599e1379a244126fd74bc307f6ef8dcf502f48d6b21a5f3a42"
+    },
+    {
+      "path": "src/simulation/founding.ts",
+      "sha256": "36e909fa53b200317fab2ca8169a5b67517af677c70f179c017197683e82cb2f"
+    },
+    {
+      "path": "src/simulation/content.ts",
+      "sha256": "22cf13ee58c69f41a94bb31bdd7e78c16f1f1764a5e5aea63de5cdfcbedf39f3"
+    },
+    {
+      "path": "src/simulation/types.ts",
+      "sha256": "5a997888179b34e385b08e2fe8675483f1f3e4860d9b7ee8187ff160a2694bc2"
+    },
+    {
+      "path": "src/simulation/weathering.ts",
+      "sha256": "2c4819d2601c4f1e863e094c3a2bbf3da7bca26610e1d8709409ef8d5ceb7bb7"
+    },
+    {
+      "path": "src/simulation/progress.ts",
+      "sha256": "ddbc95da6640f91bb359468fb5d2ab2addf2cdc313586d3d4aae85c9d77c3007"
+    },
+    {
+      "path": "tests/web/planet.test.ts",
+      "sha256": "fdeef3705cf9b35e5f0d02903164a7060c65c5d69bffdac9ae121d315d1484b9"
+    },
+    {
+      "path": "docs/research/source-register.json",
+      "sha256": "86ec6815db91f163ddf8fdc75f4a2e745fca5f41757c3e76f96a9e24f8225848"
+    },
+    {
+      "path": "docs/model.md",
+      "sha256": "e68b1f9a9c71fd29c7fe6fb8a379b3ce04051bf3f2726b686525812faf476e47"
+    },
+    {
+      "path": "docs/architecture.md",
+      "sha256": "33b71687b377ec6f0c232c327266325ee5585079862ae8b8148e5c36fc572422"
+    },
+    {
+      "path": "docs/roadmap.md",
+      "sha256": "08d2227105b2f445d6f4923cf6f07bcfcd09100619684d2e5b508a2090256f4a"
+    },
+    {
+      "path": "docs/validation/community-renewal-2026-10-08.md",
+      "sha256": "d54cd1dbc951dbb88265d3d449ee72e98f994a368ca63ea1088da00d7e931b6c"
+    }
+  ],
+  "limitations": [
+    "No current pregnancy or housing census independently obtained.",
+    "Working-tree fingerprints identify inspected source, not proof of deployed artifact contents.",
+    "Source failure mode is not an attribution for the live shelter count.",
+    "Pregnancy sample is historical; later public aggregate confirms births only over a short interval.",
+    "No costly trials, fixture execution, production changes or prescription of a house/technology recipe."
+  ]
+}

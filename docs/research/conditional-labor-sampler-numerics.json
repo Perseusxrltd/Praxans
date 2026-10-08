@@ -1,0 +1,106 @@
+{
+  "kind": "pure_number_arithmetic_not_simulation",
+  "gridSize": 10000,
+  "grid": "midpoints (i+0.5)/10000",
+  "foodProbability": 0.65,
+  "assemblyConditionalProbability": 0.42,
+  "successfulFoodCounts": {
+    "food": 6500,
+    "assemble": 1470,
+    "neither": 2030
+  },
+  "alwaysFailedFoodCounts": {
+    "assemble": 4200,
+    "neither": 5800
+  },
+  "generatorScalarCheck": {
+    "startingRng": 3,
+    "firstValue": 0.7202267837710679,
+    "afterFoodRejection": 0.2006479536316224,
+    "maximumForCertainAssemblyAcrossValidDispositions": 0.22
+  },
+  "roundingCounterexample": {
+    "initialGridU": 0.49999999976716936,
+    "firstP": 0.4999999997671694,
+    "first": {
+      "selected": true,
+      "u": 0.9999999999999999
+    },
+    "secondP": 0.35000000000000003,
+    "second": {
+      "selected": false,
+      "u": 1
+    },
+    "safeguarded": {
+      "selected": false,
+      "u": 0.9999999999999999
+    }
+  },
+  "endpointProbes": [
+    {
+      "u": 0,
+      "p": 0,
+      "selected": false
+    },
+    {
+      "u": 0.5,
+      "p": 0,
+      "selected": false
+    },
+    {
+      "u": 0.9999999999999999,
+      "p": 0,
+      "selected": false
+    },
+    {
+      "u": 0,
+      "p": 1,
+      "selected": true
+    },
+    {
+      "u": 0.5,
+      "p": 1,
+      "selected": true
+    },
+    {
+      "u": 0.9999999999999999,
+      "p": 1,
+      "selected": true
+    }
+  ],
+  "finiteSourceCaveat": "Actual random values have 32-bit quantization and deterministic PRNG dependence; grid counts are arithmetic checks, not an empirical PRNG-quality test.",
+  "reviewed_at_utc": "2026-10-08T15:52:02.067929+00:00",
+  "report": "conditional-labor-sampler-review.md",
+  "source_fingerprints": [
+    {
+      "path": "src/simulation/random.ts",
+      "sha256": "369b630db6331391c12ed14b246384e16b0f280bd46b235385fe745311843bc2"
+    },
+    {
+      "path": "src/simulation/citizens.ts",
+      "sha256": "f267959787ea754b60bbaf296a4e2dca5e7f982e174f44984292913bf0c2fd0a"
+    },
+    {
+      "path": "src/simulation/cognition.ts",
+      "sha256": "e6da762851f1373cc15af1b295a63b07c8f0da6de0bbbfa7775f6b3b693ef45a"
+    },
+    {
+      "path": "src/simulation/settlement.ts",
+      "sha256": "6e9e72c7f3f7394edd10204caefaa32af6a9b2ca4614ad85ef76d13bf2c8af91"
+    },
+    {
+      "path": "src/simulation/world.ts",
+      "sha256": "d346c84217a952f14794ae747aeb1672f5f2b15a2f454e06a1ffa99f0c063473"
+    }
+  ],
+  "scope": "Pure JavaScript number arithmetic, scalar first-output PRNG calculation, and read-only source review. No world or database loaded, no simulation stepped, no production code edited, no Git operation.",
+  "implementation_status": "Parent has implemented candidate in source; targeted checks were running at this addendum. Original numerical evidence and pre-correction source hashes are retained. No deployment or complete candidate-test pass is asserted.",
+  "parent_reported_follow_up": {
+    "reported_on": "2026-10-08",
+    "kind": "parent_supplied_behavioral_test_report_not_rerun_by_research",
+    "original_rng3_fixture": "Reproduced exclusion: gather rather than assemble.",
+    "urgent_food_control": "Passed.",
+    "planner_alternative_regression": "Passed; separate correction.",
+    "candidate": "Conditional sampler and success-only social/experiment returns implemented in source; targeted checks in progress when reported."
+  }
+}

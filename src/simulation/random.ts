@@ -6,6 +6,33 @@ export function random(world: Pick<World, "rng">): number {
   t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
   return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
 }
+
+/**
+ * Give each reached branch its conditional probability from one initial draw.
+ * Rescale both outcomes so a selected but infeasible task can also fall through.
+ * This partitions finite PRNG precision; it does not create additional entropy.
+ */
+export function conditionalChoice(
+  draw: number,
+): (probability: number) => boolean {
+  if (!Number.isFinite(draw) || draw < 0 || draw >= 1)
+    throw new RangeError("A choice draw must be finite and in [0, 1)");
+  let remainder = draw;
+  return (probability) => {
+    if (!Number.isFinite(probability))
+      throw new RangeError("A choice probability must be finite");
+    const p = clamp(probability, 0, 1);
+    if (p === 0) return false;
+    if (p === 1) return true;
+    const selected = remainder < p;
+    remainder = Math.min(
+      1 - Number.EPSILON / 2,
+      selected ? remainder / p : (remainder - p) / (1 - p),
+    );
+    return selected;
+  };
+}
+
 export function between(world: Pick<World, "rng">, min: number, max: number) {
   return min + random(world) * (max - min);
 }

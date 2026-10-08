@@ -205,6 +205,35 @@ try {
     "the world continues while an invalid hotfix is rejected",
     (await (await request("/api/health")).json()).tick > beforeRejected,
   );
+  const memoryMarker = join(temporary, "validation-memory-directory.txt");
+  const memoryHog = await artifact(
+    "handover-memory-rejected",
+    `{
+      const { isMainThread, workerData } = await import("node:worker_threads");
+      if (!isMainThread) {
+        const fs = await import("node:fs");
+        fs.writeFileSync(${JSON.stringify(memoryMarker)}, workerData.directory);
+        fs.writeFileSync(workerData.directory + "/private-trial", "disposable");
+        const retained = [];
+        for (;;) retained.push(new Array(65536).fill(0));
+      }
+    }\n`,
+  );
+  const beforeMemoryRejection = (await (await request("/api/health")).json())
+    .tick;
+  await assert.rejects(
+    gateway.activate(memoryHog),
+    /Candidate validation failed/,
+  );
+  check(
+    "validation heap exhaustion leaves the continuing runtime alive and advancing",
+    gateway.status().runtimePid === oldPid &&
+      (await (await request("/api/health")).json()).tick >
+        beforeMemoryRejection,
+  );
+  const exhaustedDirectory = await readFile(memoryMarker, "utf8");
+  await assert.rejects(stat(exhaustedDirectory), { code: "ENOENT" });
+  check("heap failure removes only the candidate's private copy", true);
   const candidate = await artifact("handover-accepted");
   const activation = gateway.activate(candidate);
   let activationEnded = false;
@@ -238,6 +267,13 @@ try {
   };
   const queued = fetch(`${base}/api/agent/actions`, adviceOptions);
   const activationResult = await activation;
+  check(
+    "candidate validation has an effective bounded heap even with host V8 flags",
+    "validationHeapLimitBytes" in activationResult &&
+      typeof activationResult.validationHeapLimitBytes === "number" &&
+      activationResult.validationHeapLimitBytes > 0 &&
+      activationResult.validationHeapLimitBytes <= 224 * 1024 ** 2,
+  );
   console.log(`Activation completed: ${JSON.stringify(gateway.status())}`);
   let queuedReply = await queued;
   let catchupDeferrals = 0;
@@ -345,23 +381,44 @@ try {
     `the browser reports no errors during runtime replacement: ${errors.join("; ")}`,
     errors.length === 0,
   );
+  const shutdownMarker = join(temporary, "validation-shutdown-directory.txt");
   const slow = await artifact(
     "handover-shutdown",
-    'if (process.argv.includes("--preflight")) await new Promise((done) => setTimeout(done, 60000));\n',
+    `{
+      const { isMainThread, workerData } = await import("node:worker_threads");
+      if (!isMainThread) {
+        const fs = await import("node:fs");
+        fs.writeFileSync(${JSON.stringify(shutdownMarker)}, workerData.directory);
+        fs.writeFileSync(workerData.directory + "/private-trial", "disposable");
+        await new Promise((done) => setTimeout(done, 60000));
+      }
+    }\n`,
   );
   const interrupted = gateway.activate(slow);
   const rejected = assert.rejects(interrupted, /validation failed|stopping/);
-  for (let n = 0; gateway.status().managedProcesses < 2 && n < 200; n++)
-    await sleep(25);
+  let validationStarted = false;
+  for (let n = 0; !validationStarted && n < 1000; n++) {
+    validationStarted = await stat(shutdownMarker).then(
+      () => true,
+      () => false,
+    );
+    if (!validationStarted) await sleep(25);
+  }
   check(
     "the next candidate validates while the active world remains running",
-    gateway.status().managedProcesses === 2,
+    validationStarted && gateway.status().managedProcesses === 2,
   );
   await gateway.close();
   await rejected;
   check(
     "shutdown during validation leaves no candidate or runtime orphan",
     gateway.status().managedProcesses === 0,
+  );
+  const interruptedDirectory = await readFile(shutdownMarker, "utf8");
+  await assert.rejects(stat(interruptedDirectory), { code: "ENOENT" });
+  check(
+    "shutdown removes the terminated validation worker's private copy",
+    true,
   );
   const report = {
     checks,

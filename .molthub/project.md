@@ -29,6 +29,8 @@ Finite thermal reservoirs connect detailed regions to a coarse planetary climate
 
 Agents advise through local institutions and earned trust; inhabitants can refuse proposals. Success has several dimensions, and diplomacy depends on contact, communication, consent and physical journeys. Personal knowledge and material assemblies can develop, decay and be maintained. These are documented functional approximations, with deeper natural and societal systems tracked in the implementation ledger.
 
+Free political and social organization is an accepted design requirement. Overlapping associations, recognized authority, delegation, dissent and changing institutions must arise through inhabitants' relationships and actions. The current local assembly is provisional; a title or membership must never create resources, knowledge or obedience.
+
 A community directory makes living groups, new beginnings and historical communities discoverable. Browser-local following keeps their records together; dated histories and explicit chapter links retain the past without inventing lost information. Inheritance, reoccupation of ruins and cross-device accounts remain future work.
 
 The browser can survey seeded geography from planetary scale to surface cells, then visit a community's live landscape. Terrain sampling and rendering use explicit work, cache and resolution bounds. Deeper material operations, conserved ecological detail transitions and underground construction remain documented development work.

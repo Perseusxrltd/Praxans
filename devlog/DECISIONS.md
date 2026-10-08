@@ -324,3 +324,25 @@
 - **decision**: Provide a private scoped briefing with HTTP/MCP paths, key, schema/consent instructions and idempotent retries, using copy, device sharing or email drafts. Accept bounded proposals at the current logical tick during catch-up; local consent, later feasibility/work and shared decision budgets still apply. Stage only affected advisory records before the atomic save/receipt commit; replay committed receipts even during a halt.
 - **alternatives**: Resetting the clock erases unprocessed history. Directly executing advice bypasses inhabitants. Issuing keys without a usable briefing leaves avoidable setup work. Putting credentials in public URLs or persistent browser storage expands their exposure.
 - **consequences**: No messages are sent automatically and no agent can mint resources. `acceptingProposals`, `WORLD_HALTED` and `WORLD_CATCHING_UP` distinguish service state from a proposal's outcome. New founding remains gated during backlog; model-only callers retain isolated simulation branches. Stored credentials remain hashes, and account recovery is still unresolved.
+
+---
+
+### ADR-030: Feasible Alternatives and Conditional Work Selection
+
+- **date**: 2026-10-08
+- **status**: accepted
+- **context**: The planner could repeatedly try an oversized preferred observation while ignoring a feasible remembered alternative. Successive work gates also reused one unconditioned random value, so ordinary food-reserve gathering could exclude every new non-build assembly choice.
+- **decision**: Try ranked, known, useful and affordable observations through the authoritative assembly validator, stopping after the first success and retaining the failed-attempt cooldown. After urgent needs, give each reached eligible probabilistic branch its stated conditional chance by rescaling the selected or rejected interval of one initial draw; continue after infeasible assignment and keep the remainder below one.
+- **alternatives**: Increasing assembly limits or supplying structures/resources does not correct selection. Trying only the highest score preserves the dead end. Reusing the raw value makes later probabilities depend accidentally on earlier thresholds; separate new random draws are unnecessary for the bounded decision tree.
+- **consequences**: Future actions and downstream trajectories change, while existing tick/RNG/state are preserved on activation. Same-candidate replay remains deterministic. Finite input precision is not independent unlimited randomness. Material, work, knowledge and site checks still constrain every request; the universal score, seasonal heuristic and spatial construction ceiling remain explicit model limits. No saved-state migration or physical-law change is involved.
+
+---
+
+### ADR-031: Owned and Bounded Candidate Validation
+
+- **date**: 2026-10-08
+- **status**: accepted
+- **context**: A copied-world handover passed logically but sampled live-plus-validation memory exceeded the small service's budget. Merely completing offline checks does not establish safe simultaneous validation headroom.
+- **decision**: Keep a lightweight disposable supervisor and run its preflight in an owned worker thread with explicit V8 generation limits, checked before world loading. Set construction flags only in that supervisor before creating the isolate so inherited NODE_OPTIONS cannot silently expand the worker's effective heap. The supervisor owns cleanup after heap failure or cancellation; the existing gateway still owns the process and authoritative handover.
+- **alternatives**: Unbounded simultaneous copies can displace the continuing world. Skipping forward validation removes a continuity check. An unmanaged child process can survive its supervisor. Reducing the budget to 160 MiB failed on the sampled inhabited world; 192 MiB passed.
+- **consequences**: The tested Node-22 worker has a 216 MiB effective total heap. Native memory and file cache remain outside this heap limit and need measurement. Budget exhaustion rejects a hotfix instead of changing or resetting the world. A growing world or migration may require another reviewed budget/hosting change. Runtime simulation, physics and saved-state format are unchanged by the validation mechanism.

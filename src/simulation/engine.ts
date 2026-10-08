@@ -165,7 +165,8 @@ function updateFamilies(world: World, civ: Civilization): void {
   }
 }
 function planCommunity(world: World, civ: Civilization): void {
-  const population = peopleOf(world, civ.id).length;
+  const people = peopleOf(world, civ.id),
+    population = people.length;
   const built = world.structures.filter(
     (s) => s.civId === civ.id && s.progress >= 1 && !s.collapsed,
   );
@@ -186,25 +187,28 @@ function planCommunity(world: World, civ: Civilization): void {
     (!needsShelter && !needsWork && !needsStorage)
   )
     return;
-  const best = [...civ.observations]
+  const candidates = [...civ.observations]
     .filter(
       (o) =>
-        peopleOf(world, civ.id).some((p) => knows(p, o.id)) &&
+        people.some((p) => knows(p, o.id)) &&
         o.properties.stable &&
         ((needsShelter && o.properties.coveredArea > 0.5) ||
           (needsStorage && o.properties.storageVolume > 0.05) ||
           (needsWork && o.properties.workSurface > 0.5)) &&
         canAfford(civ.stock, o.properties.cost),
     )
-    .sort((a, b) => designScore(b.properties) - designScore(a.properties))[0];
-  if (best) {
+    .sort((a, b) => designScore(b.properties) - designScore(a.properties));
+  for (const candidate of candidates) {
     try {
-      requestAssembly(world, civ, best.design);
+      requestAssembly(world, civ, candidate.design);
+      return;
     } catch (error) {
       if (!(error instanceof RuleError)) throw error;
-      civ.lastBuildingTick = world.tick;
+      // Current geometry, limits or access can invalidate an earlier estimate.
+      // Rejection spends no material; another remembered idea may still work.
     }
   }
+  if (candidates.length) civ.lastBuildingTick = world.tick;
 }
 function autonomousTrade(world: World, civ: Civilization): void {
   if (world.tick - civ.lastTradeTick < (civ.focus === "connect" ? 192 : 384))

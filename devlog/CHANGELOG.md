@@ -8,6 +8,7 @@
 ## [Renewal, Scale and Agent Recovery 0.2] — 2026-10-08
 
 ### Added
+- H06 and a reviewed contract for open political/social organization, plus source-backed shelter/family and conditional labor investigations; proposed political mechanisms are not yet implemented.
 - Three hundred individually represented founders with finite proportional supplies and population-scaled habitat screening; explicit one-time renewal of the four historical communities (→ world_renewal).
 - Food-funded thermal protection and ice melting, real fiber wraps, carried provisions, remembered water and a stated seasonal reserve heuristic (→ human_physiology).
 - Connected camp footprints, distributed resting/stock decay, spherical walking distance and bounded general component geometry/search (→ settlement_space; → material_geometry).
@@ -16,6 +17,7 @@
 - Antiquity-first source register, scale audits, failed-candidate evidence, measured CPU baseline and explicit large-world acceptance targets.
 
 ### Fixed
+- Autonomous construction tries feasible remembered alternatives; conditional task selection leaves later work reachable after reserve-food choices while urgent subsistence retains priority. Live `work-planning-20261008-2` also bounds private validation; its release record retains the actual disk-full/24-tick-repeat handover failure (→ civilization_intelligence; → runtime_handover; → ADR-030).
 - Returning home after an observer reload immediately retains the latest clock and population; older cached overview responses cannot move that view backwards (→ browser_observer).
 - Cold-tolerant frozen dormancy is distinct from drought damage; food decay has no temperature-independent biological floor.
 - Disconnected or open geometry cannot grant unsupported bulk enclosure; conflicting trial results and construction evidence remain distinct.
@@ -23,7 +25,7 @@
 - SQLite retains the original disk-full cause when it has already rolled back; reusable WAL retention is limited without discarding active reader history.
 
 ### Validation and limits
-- All 112 model/server tests pass locally, with explicit browser and full-backup continuity evidence. Live memory/disk incidents and visible checkpoint rollback remain recorded; no uninterrupted-infrastructure claim.
+- The work-planning candidate passes 121 model/server tests locally; previous deployed releases and their browser/full-backup evidence remain distinct. Live memory/disk incidents and visible checkpoint rollback remain recorded; no uninterrupted-infrastructure claim.
 - A measured molar-mass/sediment allocation candidate was reverted after slower timings despite exact replay. Massive civilizations, sustainable multi-generation populations, general material chemistry, durable knowledge carriers and underground construction remain open work.
 
 ---

@@ -38,7 +38,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `citizens.ts`, `economy.ts`, `engine.ts`, `actions.ts`, `founding.ts`
 - **dependencies**: world_state, natural_systems, human_cognition, civic_relations, human_physiology, settlement_space, material_geometry
 - **dependents**: agent_gateway, browser_observer
-- **known_issues**: Short-run founding/construction validation; no established multi-generation or genetic equilibrium.
+- **known_issues**: Fixed design score and site radius/spacing constrain invention despite feasible-alternative and conditional-work selection. Short-run founding/construction validation does not establish multi-generation or genetic equilibrium.
 - **last_touched**: 2026-10-08
 
 ### world_storage

@@ -35,7 +35,7 @@ import {
   oxygenFraction,
 } from "./chemistry";
 import { astronomy, groundDistanceMetres } from "./planet";
-import { clamp, random } from "./random";
+import { clamp, conditionalChoice, random } from "./random";
 import {
   DAYS_PER_YEAR,
   HOURS_PER_TICK,
@@ -252,7 +252,7 @@ function decide(
     );
     return;
   }
-  const chance = random(world);
+  const choose = conditionalChoice(random(world));
   const project = world.structures.find(
     (s) => s.civId === civ.id && s.progress < 1 && !s.collapsed,
   );
@@ -264,7 +264,7 @@ function decide(
   const foodTarget = population * foodReservePerPerson(world, civ);
   if (
     civ.stock.biomass < foodTarget &&
-    chance < (civ.focus === "nourish" ? 0.85 : 0.65) &&
+    choose(civ.focus === "nourish" ? 0.85 : 0.65) &&
     gatherTask(world, person, civ, "biomass")
   )
     return;
@@ -272,7 +272,7 @@ function decide(
     civ.focus === "connect" &&
     person.energy > 65 &&
     person.hunger > 65 &&
-    chance < 0.3 * disposition(person, "explore")
+    choose(0.3 * disposition(person, "explore"))
   ) {
     const frontiers = nearbyTiles(world, civ, 22).filter(
       (tile) =>
@@ -297,7 +297,7 @@ function decide(
       s.progress >= 1 &&
       (s.maintenance || (s.condition < 88 && distance(s, person) < 3)),
   );
-  if (damaged && chance < 0.65 * disposition(person, "repair")) {
+  if (damaged && choose(0.65 * disposition(person, "repair"))) {
     const needs = repairNeeds(damaged);
     if (
       Object.entries(needs).some(
@@ -320,8 +320,9 @@ function decide(
   }
   if (
     project &&
-    chance <
-      (civ.focus === "build" ? 0.72 : 0.4) * disposition(person, "assemble") &&
+    choose(
+      (civ.focus === "build" ? 0.72 : 0.4) * disposition(person, "assemble"),
+    ) &&
     assignTask(world, person, "assemble", project.x, project.y, {
       structureId: project.id,
     })
@@ -336,14 +337,13 @@ function decide(
   const materialNeeds = best?.properties.cost;
   if (
     person.mind.socialNeed > 0.65 &&
-    chance < 0.5 * disposition(person, "social")
-  ) {
-    assignTask(world, person, "social", civ.x, civ.y);
+    choose(0.5 * disposition(person, "social")) &&
+    assignTask(world, person, "social", civ.x, civ.y)
+  )
     return;
-  }
   if (
     civ.stock.wood < Math.min(1600, Math.max(30, materialNeeds?.wood ?? 0)) &&
-    chance < 0.6 &&
+    choose(0.6) &&
     gatherTask(world, person, civ, "wood")
   )
     return;
@@ -352,14 +352,14 @@ function decide(
     gatherTask(world, person, civ, "fiber")
   )
     return;
-  if (materialNeeds && chance < 0.55)
+  if (materialNeeds && choose(0.55))
     for (const material of ["stone", "clay"] as const)
       if (
         civ.stock[material] < Math.min(1600, materialNeeds[material]) &&
         gatherTask(world, person, civ, material)
       )
         return;
-  if ((civ.focus === "preserve" || civ.focus === "nourish") && chance < 0.35) {
+  if ((civ.focus === "preserve" || civ.focus === "nourish") && choose(0.35)) {
     const patches = nearbyTiles(world, civ, 7).filter(
       (t) =>
         distance(t, civ) < 7 &&
@@ -375,11 +375,12 @@ function decide(
   }
   if (
     civ.hypothesis ||
-    chance <
+    choose(
       (0.25 +
         person.traits.curiosity * 0.3 +
         (civ.focus === "discover" ? 0.25 : 0)) *
-        disposition(person, "experiment")
+        disposition(person, "experiment"),
+    )
   ) {
     const place = world.structures.find(
       (s) =>
@@ -389,8 +390,7 @@ function decide(
         s.properties.workSurface > 0.2,
     );
     const location = place ?? campRestPlace(world, civ, person, population);
-    assignTask(world, person, "experiment", location.x, location.y);
-    return;
+    if (assignTask(world, person, "experiment", location.x, location.y)) return;
   }
   if (
     civ.stock.biomass < foodTarget &&

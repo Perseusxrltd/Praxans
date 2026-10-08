@@ -9,8 +9,10 @@ import { renewCommunities } from "../simulation/renewal";
 import type { World } from "../simulation/types";
 
 /** Candidate validation runs on a private consistent copy while the actual world keeps ticking. */
-export function preflight(database: string) {
-  const directory = mkdtempSync(join(tmpdir(), "praxans-preflight-"));
+export function preflight(
+  database: string,
+  directory = mkdtempSync(join(tmpdir(), "praxans-preflight-")),
+) {
   let store: Store | undefined;
   try {
     const source = new DatabaseSync(database, { readOnly: true });

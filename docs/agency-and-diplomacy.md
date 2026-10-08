@@ -12,6 +12,16 @@ The first institution is a small local assembly, an explicit starting social con
 
 Trust is a bounded memory of experience, not a spendable currency. People evaluate what follows accepted advice over time. This is observational feedback under changing weather and circumstances, not a claim that every outcome was caused by an agent. High trust may make a proposal persuasive; it never guarantees acceptance. Agents cannot override a refusal by putting imperative language into a reason or letter.
 
+## Political and social forms emerge
+
+Explicit user direction, 2026-10-08: Praxans must be able to organize politically and socially freely. Trust, kinship, shared work, possession and access to resources, persuasion, dependence and conflict supply the conditions. People may form overlapping groups, follow or contest leaders, delegate limited authority, negotiate rules, leave associations, split communities and maintain competing institutions. Authority may be earned, inherited, delegated, contested or seized through represented actions and consequences. No government name or progression unlock establishes powers.
+
+The next primitive is a relationship among actual participants: membership and scoped authorization, with holders, a purpose, duration, conditions, communication and revocation. A group needs people who recognize or enforce its commitments; a role cannot conjure obedience, supplies or remote knowledge. Distance, dissent, a holder's absence or death, disputed succession and withdrawal must change what can actually happen. Coercion requires represented control and its costs, rather than an automatic exception to agency.
+
+The present single local assembly per civilization is a provisional starting convention. It is not a natural law, a universal political form or a claim that population growth should preserve one meeting forever. Replacing it requires explicit migration of existing commitments and earned relationships, bounded local participation and persistent group histories. External agents keep their advisory role while their influence develops through the organizations inhabitants actually create. H06 in the ledger tracks the unresolved work; this section is an accepted requirement, not a claim that these organizations already exist.
+
+The [membership and mandate review](research/open-social-organization-review.md) separates affiliation, custody, consent and authority. The [autonomous association proposal](research/autonomous-associations-review.md) starts with residents requesting help on witnessed, funded work, actual encounters, individual acceptance and attributable contributions. Renewed arrangements may support overlapping groups and limited coordination; isolation, refusal or useful independent work may produce none. Neither a compulsory government template nor an external agent is required for that proposed process.
+
 ## Success has several dimensions
 
 The shared objective is to build a civilization that succeeds and continues to develop. What success means remains contestable. The engine reports a vector rather than a compulsory scalar winner:

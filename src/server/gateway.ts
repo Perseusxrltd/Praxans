@@ -47,6 +47,7 @@ interface CandidateReport {
   tick: number;
   format: number;
   laws: string;
+  validationHeapLimitBytes?: number;
 }
 const noFile = (error: unknown) =>
   (error as NodeJS.ErrnoException).code === "ENOENT";

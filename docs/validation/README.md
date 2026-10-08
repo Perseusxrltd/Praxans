@@ -1,8 +1,16 @@
 # Browser world validation
 
+## Construction, work choice and bounded validation — 2026-10-08
+
+The [work-planning candidate](../releases/work-planning-0.2.md) passes **121/121 model/server tests**, **40 general browser checks**, **12 compiled-production checks** and **21 hotfix checks**. Twelve targeted lifecycle tests also pass after the worker changes. The final hotfix checks deliberately exhaust the private validation heap and interrupt an active validation thread; both preserve the continuing owner and remove only the private copy. The effective validation heap remains bounded under the same 768 MiB host option used in CI.
+
+The exact final artifact passes twelve continuity checks on the verified tick-228436 backup with 1,439 people, including the same compressed stream, existing people, keys, receipts, old archives, prior journal and clock debt. The supplied unmodified game client and inspected desktop/mobile screenshots show no browser errors. These are separate bounded scenarios; their success does not establish ecological balance or massive-population capacity. The later live tick-287132 population is zero under the preceding runtime, and that collapse is recorded for investigation. Local checks, live activation and GitHub results remain separate evidence.
+
+Both independent GitHub runs for the preceding `4ed610b` head passed, including the Home-after-reload correction. The new work's CI status belongs to its eventual pushed head.
+
 ## Renewal, observation and agent recovery — 2026-10-08
 
-The current format-9 / biosphere-1.3 tree passes **112/112 model/server tests locally**, plus TypeScript/build and formatting. These include 300-person founding, connected geometry, contradictory experimental evidence, finite idempotent renewal, thermal/carrying/movement mechanisms, observer projections, clock-debt advisory input, failed transaction isolation, receipt replay during a halt and held-reader/WAL retention. No tests were skipped or cancelled. GitHub runs for each pushed head are listed on [draft PR #1](https://github.com/Perseusxrltd/Praxans/pull/1); local validation and deployment evidence are distinct from CI status.
+The preceding format-9 / biosphere-1.3 release passes **112/112 model/server tests locally**, plus TypeScript/build and formatting. These include 300-person founding, connected geometry, contradictory experimental evidence, finite idempotent renewal, thermal/carrying/movement mechanisms, observer projections, clock-debt advisory input, failed transaction isolation, receipt replay during a halt and held-reader/WAL retention. No tests were skipped or cancelled. GitHub runs for each pushed head are listed on [draft PR #1](https://github.com/Perseusxrltd/Praxans/pull/1); local validation and deployment evidence are distinct from CI status.
 
 The corresponding completed local browser scenarios pass **40 general checks, 22 community/extinction checks, 9 renewal checks, 17 exploration checks, 16 connection checks and 12 startup checks**. The compiled-production scenario passes 12 checks and the isolated hotfix scenario 17. Newer 1,200-person copied-world handovers provide nine checks for observer replacement and ten for the final advisory/WAL release, including the same compressed connection, ownership, history, both archives, exact clock debt and idempotent restart. Browser screenshots and the supplied game-client output were inspected. These are separate bounded scenarios, not a single continuous load experiment.
 
