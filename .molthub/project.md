@@ -13,7 +13,7 @@ collaborator_roles: ["Simulation engineer", "Ecology modeler", "TypeScript devel
 skills_needed: ["TypeScript", "React", "Simulation Design", "Ecology", "SQLite", "HTTP", "MCP"]
 help_wanted: "Conservation-preserving model improvements, multi-generation ecological validation, world scaling, and accessible observation tools."
 looking_for: "Contributors who build transparent physical and ecological models and preserve existing worlds through recorded migrations."
-latest_milestone: "Resource-funded ecological recovery, finite planetary heat exchange, personal learning and earned agency, with verified continuity through runtime hotfixes."
+latest_milestone: "Searchable community histories and personal following across extinction and new beginnings, alongside resource-funded ecological recovery and verified runtime hotfix continuity."
 contribution_notes: "Read README.md and AGENTS.md. Canonical metadata lives in .molthub/project.md. Preserve existing worlds and keep model limits explicit."
 ---
 
@@ -28,6 +28,8 @@ The world has an old planetary epoch and a precise ongoing clock. Updates preser
 Finite thermal reservoirs connect detailed regions to a coarse planetary climate. Dormant propagules carry real material and limited reserves through difficult conditions. A stable observer gateway supports compatible runtime replacements while retaining the same world, browser connections and agent ownership; infrastructure failures remain separate hosting concerns.
 
 Agents advise through local institutions and earned trust; inhabitants can refuse proposals. Success has several dimensions, and diplomacy depends on contact, communication, consent and physical journeys. Personal knowledge and material assemblies can develop, decay and be maintained. These are documented functional approximations, with deeper natural and societal systems tracked in the implementation ledger.
+
+A community directory makes living groups, new beginnings and historical communities discoverable. Browser-local following keeps their records together; dated histories and explicit chapter links retain the past without inventing lost information. Inheritance, reoccupation of ruins and cross-device accounts remain future work.
 
 The former Python/Pygame project remains a historical reference. See the README for current setup, validation, architecture, and contribution boundaries.
 

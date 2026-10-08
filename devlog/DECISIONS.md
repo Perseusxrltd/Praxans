@@ -269,3 +269,14 @@
 - **decision**: Preserve historical ledgers and use compensated future energy/atmosphere transfers with a throughput-scaled numerical tolerance. Fund atmospheric radiation, distinguish frozen ground from snowfall, and connect detailed regions to finite planetary thermal reservoirs. Correct plant energy response and structural turnover; represent parent-funded dormant propagules whose reserves, viability and germination obey their environment.
 - **alternatives**: Disabling conservation masks real violations. Resetting time or rebasing counters rewrites history. Temperature clamps replace physical causes. Scripted respawning invents organisms and material. Short summer checks failed to expose the tested winter collapse.
 - **consequences**: Existing populations, material and recorded deaths survive the migration unchanged; old seed banks are empty because their history was not represented. Natural recovery needs surviving carriers or immigration and is not guaranteed. The thermal bands are an explicit Earth-analogue approximation, with complete global moisture, material transport, ecology and demographic stability still unresolved.
+
+---
+
+### ADR-025: Community Lifecycles as Evidence-Based Observer Records
+
+- **date**: 2026-10-08
+- **status**: accepted
+- **context**: The owner requested better following of communities, new arrivals and extinct groups. The existing journal already retains their events, but a live-looking list and global pagination hide their distinct histories.
+- **decision**: Provide a searchable lifecycle directory, browser-local following and community/category archive filters applied before pagination. Derive an ending date only from complete recorded death evidence and current absence of inhabitants; use explicit existing event links for branches and later beginnings. Keep observation separate from physical simulation and retain historical groups in the directory and follow list.
+- **alternatives**: Removing empty groups erases the user's route to their history. Filtering only the latest global journal page hides quieter communities. Inventing dates or ancestry fills gaps with unsupported events. A shared follow list would expose personal observer choices.
+- **consequences**: Public history reads use parameterized indexed queries and contain no management credentials. Following survives reloads in the same browser; accounts, cross-device synchronization, notifications, inheritance and detailed genealogy remain explicit future work. The change uses compatible format-8 event fields and leaves the natural laws unchanged.

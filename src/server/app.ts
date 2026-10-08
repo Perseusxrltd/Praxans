@@ -124,7 +124,7 @@ export function createGameServer(options: AppOptions) {
       return next(
         new HttpError(
           503,
-          "The world is catching up after an interruption. Observe while its clock recovers; new decisions will resume shortly.",
+          "The world is catching up after an interruption. You can keep observing; new decisions resume when its clock has caught up.",
         ),
       );
     next();
@@ -544,7 +544,67 @@ export function createGameServer(options: AppOptions) {
       req.query.before === undefined ? undefined : Number(req.query.before);
     if (before !== undefined && (!Number.isSafeInteger(before) || before < 1))
       throw new HttpError(400, "Journal cursor must be a positive integer.");
-    res.json(store.journal(before));
+    const civilizationIds =
+      req.query.communities === undefined
+        ? undefined
+        : typeof req.query.communities === "string"
+          ? [...new Set(req.query.communities.split(",").filter(Boolean))]
+          : [];
+    if (
+      civilizationIds &&
+      (!civilizationIds.length ||
+        civilizationIds.length > 64 ||
+        civilizationIds.some(
+          (id) => !world.civilizations.some((c) => c.id === id),
+        ))
+    )
+      throw new HttpError(400, "Choose up to 64 existing communities.");
+    const category = req.query.category;
+    if (
+      category !== undefined &&
+      (typeof category !== "string" ||
+        ![
+          "all",
+          "founding",
+          "life",
+          "building",
+          "discovery",
+          "trade",
+          "nature",
+          "agent",
+          "culture",
+          "diplomacy",
+        ].includes(category))
+    )
+      throw new HttpError(400, "Choose a journal category.");
+    const throughTick =
+      req.query.through === undefined ? world.tick : Number(req.query.through);
+    if (
+      !Number.isSafeInteger(throughTick) ||
+      throughTick < 0 ||
+      throughTick > world.tick
+    )
+      throw new HttpError(400, "Journal time must be an existing world tick.");
+    res.json(
+      store.journal(before, 60, { civilizationIds, category, throughTick }),
+    );
+  });
+  app.get("/api/communities/:id/record", (req, res) => {
+    const civ = world.civilizations.find((c) => c.id === req.params.id);
+    if (!civ)
+      throw new HttpError(404, "This community is not in the world's record.");
+    const throughTick =
+      req.query.through === undefined ? world.tick : Number(req.query.through);
+    if (
+      !Number.isSafeInteger(throughTick) ||
+      throughTick < civ.foundedTick ||
+      throughTick > world.tick
+    )
+      throw new HttpError(
+        400,
+        "Choose a recorded time in this community's life.",
+      );
+    res.json(store.communityRecord(civ.id, throughTick));
   });
   app.get("/api/interventions", (_req, res) =>
     res.json({ interventions: store.interventions() }),

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ArrowDownLeft,
   FlaskConical,
@@ -86,48 +86,79 @@ export function ArchivedJournal({
   world,
   onEvent,
   filter,
-}: JournalProps & { filter: string }) {
+  communityIds,
+}: JournalProps & { filter: string; communityIds?: string[] }) {
   const [archive, setArchive] = useState<WorldEvent[]>([]);
   const [cursor, setCursor] = useState<number | null | undefined>();
   const [loading, setLoading] = useState(true),
     [error, setError] = useState("");
+  const scope = communityIds
+    ? [...new Set(communityIds)].sort().join(",")
+    : undefined;
+  const requestVersion = useRef(0);
+  const url = (before?: number) => {
+    const query = new URLSearchParams({
+      category: filter,
+      through: String(world.tick),
+    });
+    if (scope) query.set("communities", scope);
+    if (before) query.set("before", String(before));
+    return `/api/journal?${query}`;
+  };
   const accept = (page: JournalPage) => {
     setArchive((current) => [...[...page.events].reverse(), ...current]);
     setCursor(page.events.length < 60 ? null : page.next);
   };
   useEffect(() => {
+    const version = ++requestVersion.current;
+    setArchive([]);
+    setCursor(undefined);
+    setError("");
+    setLoading(true);
+    if (scope === "") {
+      setCursor(null);
+      setLoading(false);
+      return;
+    }
     const controller = new AbortController();
-    fetch("/api/journal", { signal: controller.signal })
+    fetch(url(), { signal: controller.signal })
       .then(async (response) => {
         if (!response.ok)
           throw new Error("The archive is temporarily unavailable.");
         return response.json() as Promise<JournalPage>;
       })
-      .then(accept)
+      .then((page) => {
+        if (version === requestVersion.current) accept(page);
+      })
       .catch((error) => {
-        if (!controller.signal.aborted) setError(error.message);
+        if (!controller.signal.aborted && version === requestVersion.current)
+          setError(error.message);
       })
       .finally(() => {
-        if (!controller.signal.aborted) setLoading(false);
+        if (!controller.signal.aborted && version === requestVersion.current)
+          setLoading(false);
       });
     return () => controller.abort();
-  }, []);
+  }, [scope, filter, world.id]);
   const loadOlder = async () => {
+    const version = requestVersion.current;
     setLoading(true);
     setError("");
     try {
-      const response = await fetch(
-        `/api/journal${cursor ? `?before=${cursor}` : ""}`,
-      );
+      const response = await fetch(url(cursor ?? undefined));
       if (!response.ok)
         throw new Error("The archive is temporarily unavailable.");
-      accept(await response.json());
+      const page = await response.json();
+      if (version === requestVersion.current) accept(page);
     } catch (error) {
-      setError(
-        error instanceof Error ? error.message : "Could not read the archive.",
-      );
+      if (version === requestVersion.current)
+        setError(
+          error instanceof Error
+            ? error.message
+            : "Could not read the archive.",
+        );
     } finally {
-      setLoading(false);
+      if (version === requestVersion.current) setLoading(false);
     }
   };
   const newestArchivedTick = archive.reduce(
@@ -145,7 +176,12 @@ export function ArchivedJournal({
     .filter((event) => event.tick <= world.tick)
     .sort((a, b) => a.tick - b.tick);
   const filtered = entries.filter(
-    (event) => filter === "all" || event.category === filter,
+    (event) =>
+      (filter === "all" || event.category === filter) &&
+      (communityIds === undefined ||
+        communityIds.some(
+          (id) => event.civId === id || event.relatedId === id,
+        )),
   );
   return (
     <>
@@ -157,7 +193,11 @@ export function ArchivedJournal({
       />
       {!filtered.length && (
         <p className="quiet-note">
-          No matching notes in these pages. Earlier chapters may hold more.
+          {scope === ""
+            ? "Follow a community to gather its stories here."
+            : loading
+              ? "Reading this part of the world's history…"
+              : "No matching notes in these pages. Earlier chapters may hold more."}
         </p>
       )}
       {error && (

@@ -38,6 +38,7 @@ Docker is also supported: `docker compose up --build -d` starts the application 
 - **Connect your AI** establishes a community in habitable wilderness away from existing settlements. Each new community starts with **eight adults**, comparable trait distributions, and equal supplies per person.
 - Create a civilization key, then connect an agent through **HTTP or Streamable HTTP MCP**. Agents propose priorities, experiments, assemblies, repairs, journeys and diplomacy. A local assembly can accept or refuse advice; trust grows from experience.
 - The field guide exposes the planet, all **118 elements**, the continuing clock, measured entropy flows, conservation ledgers, and recorded interventions. The journal can load older chapters.
+- **Communities** lists living and historical groups, with search, newest beginnings and a personal follow list. Read one community's archive or the combined stories of those you follow. Extinct groups retain their record and links to later beginnings. See [community tracking and its limits](docs/communities.md).
 
 Any agent capable of authenticated HTTP or MCP can participate. The game does not require a particular model provider or run paid model inference on the server. See [the agent protocol and runnable example](docs/agent-protocol.md).
 

@@ -534,6 +534,22 @@ export interface HistoryPoint {
   carbon: number;
   biodiversity: number;
 }
+/** Read-only facts from the permanent journal, separate from physical state. */
+export interface CommunityRecord {
+  communityId: string;
+  throughTick: number;
+  eventCount: number;
+  recordedDeaths: number;
+  lastDeath: WorldEvent | null;
+  firstEvent: WorldEvent | null;
+  lastEvent: WorldEvent | null;
+  connections: {
+    communityId: string;
+    relationship:
+      "branched-from" | "branch" | "earlier-chapter" | "later-chapter";
+    tick: number;
+  }[];
+}
 export interface EnergyLedger {
   captured: number;
   released: number;

@@ -5,6 +5,20 @@
 
 ---
 
+## [Community Following 0.2] — 2026-10-08
+
+### Added
+- Searchable community directory, dated new beginnings, living/history filters and a persistent personal browser follow list (→ community_history).
+- Individual and followed-community journals with indexed filters applied before pagination; read-only lifecycle dates from complete historical evidence (→ world_storage).
+- Historical pages with material remains and bidirectional links to explicitly recorded branches and later beginnings; extinct communities remain followed and discoverable (→ browser_observer).
+- Scoped archive/time-boundary tests and 22 browser checks for extinction, new chapters, following, mobile layout and key continuity (→ browser_validation).
+
+### Changed
+- Living-community totals exclude historical groups; extinct groups show their record instead of active governance.
+- Future branch events record their actual source community in the existing event schema. Existing history, natural laws and the clock are unchanged.
+
+---
+
 ## [World Recovery and Seamless Runtime Updates 0.2] — 2026-10-08
 
 ### Added

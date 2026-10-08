@@ -433,6 +433,7 @@ export function branchCivilization(world: World, name: string): Civilization {
     title: `${name} branches into the world`,
     detail: `Six adults leave ${source.name}, carrying a share of its supplies.`,
     civId: civ.id,
+    relatedId: source.id,
     ...site,
   });
   return civ;

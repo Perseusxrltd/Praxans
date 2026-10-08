@@ -778,7 +778,7 @@ export class WorldRenderer {
       const selected =
         this.selection?.type === "civilization" && this.selection.id === civ.id;
       ctx.font = '500 11px "Segoe UI", sans-serif';
-      const label = `${civ.name}  ·  ${population}`,
+      const label = `${civ.name}  ·  ${population || "remembered"}`,
         w = ctx.measureText(label).width + 25;
       const anchorY = p.y;
       for (

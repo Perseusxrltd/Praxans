@@ -1,5 +1,13 @@
 # Browser world validation
 
+## Community following — 2026-10-08
+
+The community update passes **13 targeted model/server tests**, covering scoped pagination, historical time bounds, complete/incomplete death records, read-only history, extinction, ownership and persistence. It also passes **40 general browser checks, 22 community/extinction browser checks, 12 compiled-production checks and 17 runtime-hotfix checks**, plus TypeScript/build and formatting. Browser scenarios reported no page or console errors; directory, memorial, followed-journal and mobile screenshots were opened and inspected.
+
+The community scenario follows an extinct group, reads its final date, starts a separate community with the same owner, verifies old-key retirement and both historical links, filters followed founding stories, observes the new group's extinction, and retains both histories across reloads. These checks exercise disposable worlds; they never advance the live planet. The physical model is unchanged from the recovery release below.
+
+The backup and deployed release evidence are recorded in [community records](../releases/community-records-0.2.md). Browser-local following is not an account or notification service; incomplete historical evidence remains explicitly unknown.
+
 ## Recovery and depth release — 2026-10-08
 
 The current format-8 / biosphere-1.2 build passed **85 model/server tests, 40 browser checks, 12 compiled-production checks, 9 extinction/rebeginning checks, and 17 runtime-hotfix checks**. TypeScript, both application bundles and formatting passed. The supplied web-game interaction client also exercised the observer and manual test clock against a disposable local world. Current screenshots were opened and inspected; the browser scenarios reported no console or page errors.

@@ -102,6 +102,21 @@ test("a new beginning preserves the extinct community and scopes new ownership a
     assert.ok(
       journal.some((e) => e.relatedId === oldId && e.civId === civilizationId),
     );
+    const oldRecord = game.store.communityRecord(oldId, next.tick);
+    const newRecord = game.store.communityRecord(civilizationId, next.tick);
+    assert.ok(
+      oldRecord.connections.some(
+        (link) =>
+          link.communityId === civilizationId &&
+          link.relationship === "later-chapter",
+      ),
+    );
+    assert.ok(
+      newRecord.connections.some(
+        (link) =>
+          link.communityId === oldId && link.relationship === "earlier-chapter",
+      ),
+    );
     const restored = game.store.load(0, true);
     for (const field of Object.keys(next) as (keyof typeof next)[])
       if (field !== "changedTiles")

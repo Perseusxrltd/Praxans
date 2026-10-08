@@ -52,6 +52,12 @@ import { FieldGuide } from "./FieldGuide";
 import { ago, EventIcon, Journal, ArchivedJournal } from "./Archive";
 import { Dialog } from "./Dialog";
 import { MindPanel, SocietyPanel } from "./DevelopmentPanel";
+import {
+  CommunityDirectory,
+  CommunityLifeStory,
+  FollowCommunity,
+  useFollowing,
+} from "./Communities";
 import "./style.css";
 
 type View = "world" | "communities" | "journal" | "laws" | "ecology";
@@ -186,6 +192,7 @@ function App() {
   };
   const [world, setWorld] = useState<WorldSnapshot | null>(null),
     [session, setSession] = useState<SessionView>({ civilizationId: null });
+  const { followed, toggle: toggleFollowing } = useFollowing(world);
   const latest = useRef<WorldSnapshot | null>(null),
     pausedRef = useRef(false),
     testControls = useRef(false),
@@ -206,6 +213,7 @@ function App() {
     [historyMode, setHistoryMode] = useState<"population" | "forest">(
       "population",
     );
+  const [journalCommunity, setJournalCommunity] = useState("all");
   const canvas = useRef<HTMLCanvasElement>(null),
     stage = useRef<HTMLDivElement>(null),
     renderer = useRef<WorldRenderer | null>(null);
@@ -217,8 +225,18 @@ function App() {
     view,
     connected,
     arrived,
+    followed,
   });
-  ui.current = { world, paused, selection, layer, view, connected, arrived };
+  ui.current = {
+    world,
+    paused,
+    selection,
+    layer,
+    view,
+    connected,
+    arrived,
+    followed,
+  };
   const accept = (snapshot: WorldSnapshot) => {
     latest.current = snapshot;
     if (!pausedRef.current) setWorld(snapshot);
@@ -327,6 +345,7 @@ function App() {
       )
         return;
       if (event.code === "Space") {
+        if ((event.target as HTMLElement)?.closest("button,a")) return;
         event.preventDefault();
         togglePause();
       }
@@ -360,6 +379,7 @@ function App() {
               tick: w.tick,
               time: w.summary,
               selection: state.selection,
+              following: state.followed,
               communities: w.civilizations.map((c) => ({
                 id: c.id,
                 name: c.name,
@@ -475,10 +495,11 @@ function App() {
       setSelection({ type: "citizen", id: event.citizenId });
       setView("world");
     } else if (event.civId) {
-      setSelection({ type: "civilization", id: event.civId });
-      setView("world");
+      const community = world?.civilizations.find((c) => c.id === event.civId);
+      if (community) chooseCiv(community);
     } else {
       setView("journal");
+      setJournalCommunity("all");
       setJournalFilter(event.category);
     }
     if (event.x !== undefined && event.y !== undefined)
@@ -505,6 +526,20 @@ function App() {
   const ownCiv = world?.civilizations.find(
     (c) => c.id === session.civilizationId,
   );
+  const journalCiv = world?.civilizations.find(
+    (c) => c.id === journalCommunity,
+  );
+  const journalCommunities =
+    journalCommunity === "all"
+      ? undefined
+      : journalCommunity === "following"
+        ? followed.filter((id) => world?.civilizations.some((c) => c.id === id))
+        : [journalCommunity];
+  const readCommunityHistory = (id: string) => {
+    setJournalCommunity(id);
+    setJournalFilter("all");
+    setView("journal");
+  };
   const switchView = (next: View) => {
     setView(next);
     setSelection(null);
@@ -822,8 +857,19 @@ function App() {
                     <Sprout size={15} /> Communities
                   </span>
                   <strong>
-                    {world.civilizations.length}
-                    <small>growing together</small>
+                    {
+                      world.civilizations.filter((c) =>
+                        world.citizens.some((p) => p.civId === c.id),
+                      ).length
+                    }
+                    <small>
+                      {
+                        world.civilizations.filter(
+                          (c) => !world.citizens.some((p) => p.civId === c.id),
+                        ).length
+                      }{" "}
+                      remembered · living now
+                    </small>
                   </strong>
                 </div>
                 <div>
@@ -871,7 +917,13 @@ function App() {
                 </div>
               </div>
               <div className="section-heading">
-                <h3>Across the world</h3>
+                <h3>
+                  {followed.some((id) =>
+                    world.civilizations.some((c) => c.id === id),
+                  )
+                    ? "Following their stories"
+                    : "Across the world"}
+                </h3>
                 <button
                   className="small-link"
                   onClick={() => switchView("communities")}
@@ -880,15 +932,23 @@ function App() {
                 </button>
               </div>
               <div className="community-list">
-                {world.civilizations.map((civ) => (
-                  <CommunityRow
-                    key={civ.id}
-                    civ={civ}
-                    world={world}
-                    onClick={() => chooseCiv(civ)}
-                    yours={civ.id === session.civilizationId}
-                  />
-                ))}
+                {world.civilizations
+                  .filter(
+                    (c) =>
+                      !followed.some((id) =>
+                        world.civilizations.some((value) => value.id === id),
+                      ) || followed.includes(c.id),
+                  )
+                  .slice(0, 6)
+                  .map((civ) => (
+                    <CommunityRow
+                      key={civ.id}
+                      civ={civ}
+                      world={world}
+                      onClick={() => chooseCiv(civ)}
+                      yours={civ.id === session.civilizationId}
+                    />
+                  ))}
               </div>
               <div className="invitation">
                 <span className="invitation-mark">
@@ -928,6 +988,10 @@ function App() {
                   }}
                   onConnect={() => setConnectOpen(true)}
                   onEvent={onEvent}
+                  followed={followed.includes(selectedCiv.id)}
+                  onToggleFollow={() => toggleFollowing(selectedCiv.id)}
+                  onHistory={() => readCommunityHistory(selectedCiv.id)}
+                  onCommunity={chooseCiv}
                 />
               )}
               {selectedAnimal && <AnimalPanel animal={selectedAnimal} />}
@@ -1246,72 +1310,90 @@ function App() {
           )}
           {world && view === "communities" && (
             <>
-              <span className="eyebrow">NEIGHBORS IN ONE WORLD</span>
-              <h2>Ways of living.</h2>
-              <p className="panel-lede">Shared earth. Different experiences.</p>
-              {world.civilizations.map((civ) => (
-                <div className="community-card" key={civ.id}>
-                  <CommunityRow
-                    civ={civ}
-                    world={world}
-                    onClick={() => chooseCiv(civ)}
-                    yours={civ.id === session.civilizationId}
-                  />
-                  <p>{civ.motto}</p>
-                  <div className="community-detail">
-                    <span>{FOCUSES[civ.focus].name}</span>
-                    <span>{civ.trades} exchanges</span>
-                  </div>
-                  <div className="relationship-line">
-                    {Object.entries(civ.relations).map(([id, relation]) => (
-                      <span
-                        key={id}
-                        title={`${world.civilizations.find((c) => c.id === id)?.name}: trust ${round(relation.affinity)}`}
-                      >
-                        <i
-                          style={{
-                            background: world.civilizations.find(
-                              (c) => c.id === id,
-                            )?.color,
-                          }}
-                        />
-                        {relation.affinity > 35
-                          ? "Friendly"
-                          : relation.affinity < 0
-                            ? "Uneasy"
-                            : "Open"}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-              <p className="quiet-note">
-                Trade moves existing goods. Ideas travel through contact.
-                Scarcity can lead people to seek a home elsewhere.
-              </p>
+              <CommunityDirectory
+                world={world}
+                yours={session.civilizationId}
+                followed={followed}
+                onToggle={toggleFollowing}
+                onSelect={chooseCiv}
+                onHistory={readCommunityHistory}
+                onFollowedStories={() => readCommunityHistory("following")}
+              />
               <button
                 className="button secondary wide"
                 onClick={() => setConnectOpen(true)}
               >
-                <Link2 size={15} />
-                Find your place
+                <Link2 size={15} /> Find your place
               </button>
             </>
           )}
           {world && view === "journal" && (
             <>
               <span className="eyebrow">THE STORY SO FAR</span>
-              <h2>Field notes.</h2>
+              <h2>
+                {journalCiv
+                  ? journalCiv.name
+                  : journalCommunity === "following"
+                    ? "Stories you follow."
+                    : "Field notes."}
+              </h2>
               <p className="panel-lede">
-                A record of things that actually happened.
+                {journalCiv
+                  ? "Their beginnings, lives and lasting record."
+                  : "A record of things that actually happened."}
               </p>
+              <div className="community-journal-scope">
+                <label htmlFor="journal-community">Whose story</label>
+                <select
+                  id="journal-community"
+                  className="filter-select"
+                  aria-label="Journal community"
+                  value={journalCommunity}
+                  onChange={(event) => setJournalCommunity(event.target.value)}
+                >
+                  <option value="all">The whole world</option>
+                  <option value="following">Communities I follow</option>
+                  {world.civilizations.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.name}
+                      {world.citizens.some((p) => p.civId === c.id)
+                        ? ""
+                        : " · remembered"}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {journalCiv && (
+                <div className="community-archive-heading">
+                  <FollowCommunity
+                    civ={journalCiv}
+                    followed={followed.includes(journalCiv.id)}
+                    onToggle={() => toggleFollowing(journalCiv.id)}
+                  />
+                  <CommunityLifeStory
+                    civ={journalCiv}
+                    world={world}
+                    onSelect={chooseCiv}
+                  />
+                  <button
+                    className="button secondary wide"
+                    onClick={() => chooseCiv(journalCiv)}
+                  >
+                    {world.citizens.some((p) => p.civId === journalCiv.id)
+                      ? "Visit their home"
+                      : "Visit their former home"}
+                    <ArrowRight size={14} />
+                  </button>
+                </div>
+              )}
               <select
                 className="filter-select"
                 aria-label="Journal category"
                 value={journalFilter}
                 onChange={(e) => setJournalFilter(e.target.value)}
               >
-                <option value="all">Every kind of beginning</option>
+                <option value="all">Every kind of moment</option>
+                <option value="founding">New communities</option>
                 <option value="life">Lives & families</option>
                 <option value="building">Making & building</option>
                 <option value="discovery">Observations</option>
@@ -1325,6 +1407,7 @@ function App() {
                 world={world}
                 onEvent={onEvent}
                 filter={journalFilter}
+                communityIds={journalCommunities}
               />
             </>
           )}
@@ -1469,6 +1552,10 @@ function CivilizationPanel({
   onPerson,
   onConnect,
   onEvent,
+  followed,
+  onToggleFollow,
+  onHistory,
+  onCommunity,
 }: {
   civ: Civilization;
   world: WorldSnapshot;
@@ -1476,6 +1563,10 @@ function CivilizationPanel({
   onPerson: (p: Citizen) => void;
   onConnect: () => void;
   onEvent: (e: WorldEvent) => void;
+  followed: boolean;
+  onToggleFollow: () => void;
+  onHistory: () => void;
+  onCommunity: (civ: Civilization) => void;
 }) {
   const people = world.citizens.filter((p) => p.civId === civ.id),
     shelter = world.structures
@@ -1484,10 +1575,22 @@ function CivilizationPanel({
   return (
     <>
       <span className="eyebrow" style={{ color: civ.color }}>
-        A COMMUNITY TAKING SHAPE {yours ? "· YOURS" : ""}
+        {people.length ? "A COMMUNITY TAKING SHAPE" : "A COMMUNITY REMEMBERED"}{" "}
+        {yours ? "· YOURS" : ""}
       </span>
       <h2>{civ.name}</h2>
       <p className="panel-lede">{civ.motto}</p>
+      <div className="community-heading-actions">
+        <FollowCommunity
+          civ={civ}
+          followed={followed}
+          onToggle={onToggleFollow}
+        />
+        <button className="community-history-link" onClick={onHistory}>
+          <BookOpen size={14} /> Read their history
+        </button>
+      </div>
+      <CommunityLifeStory civ={civ} world={world} onSelect={onCommunity} />
       <div className="civ-metrics">
         <div>
           <strong>{people.length}</strong>
@@ -1499,17 +1602,23 @@ function CivilizationPanel({
         </div>
         <div>
           <strong>{civ.births}</strong>
-          <span>new lives</span>
+          <span>recorded births</span>
         </div>
       </div>
-      <div className="focus-note">
-        <Leaf size={16} />
-        <span>
-          {FOCUSES[civ.focus].name}
-          <small>{civ.lastIntent || FOCUSES[civ.focus].description}</small>
-        </span>
-      </div>
-      <h3>What they have gathered</h3>
+      {people.length > 0 && (
+        <div className="focus-note">
+          <Leaf size={16} />
+          <span>
+            {FOCUSES[civ.focus].name}
+            <small>{civ.lastIntent || FOCUSES[civ.focus].description}</small>
+          </span>
+        </div>
+      )}
+      <h3>
+        {people.length
+          ? "What they have gathered"
+          : "Material left at their home"}
+      </h3>
       <div className="stocks">
         {Object.entries(civ.stock).map(([m, n]) => (
           <div key={m}>
@@ -1526,27 +1635,34 @@ function CivilizationPanel({
           </div>
         ))}
       </div>
-      <div className="section-heading">
-        <h3>A few of their stories</h3>
-        <span className="muted">{people.length} lives</span>
-      </div>
-      <div className="people-list">
-        {people.slice(0, 12).map((person) => (
-          <button key={person.id} onClick={() => onPerson(person)}>
-            <span className="person-initial" style={{ background: civ.accent }}>
-              {person.name[0]}
-            </span>
-            <span>
-              <strong>{person.name}</strong>
-              <small>
-                {Math.floor(person.age)} years ·{" "}
-                {person.task?.kind ?? "Taking a moment"}
-              </small>
-            </span>
-            <ChevronRight size={13} />
-          </button>
-        ))}
-      </div>
+      {people.length > 0 && (
+        <>
+          <div className="section-heading">
+            <h3>A few of their stories</h3>
+            <span className="muted">{people.length} lives</span>
+          </div>
+          <div className="people-list">
+            {people.slice(0, 12).map((person) => (
+              <button key={person.id} onClick={() => onPerson(person)}>
+                <span
+                  className="person-initial"
+                  style={{ background: civ.accent }}
+                >
+                  {person.name[0]}
+                </span>
+                <span>
+                  <strong>{person.name}</strong>
+                  <small>
+                    {Math.floor(person.age)} years ·{" "}
+                    {person.task?.kind ?? "Taking a moment"}
+                  </small>
+                </span>
+                <ChevronRight size={13} />
+              </button>
+            ))}
+          </div>
+        </>
+      )}
       {civ.observations.length > 0 && (
         <>
           <h3>Learned through experience</h3>
@@ -1573,18 +1689,21 @@ function CivilizationPanel({
           ))}
         </div>
       )}
-      <SocietyPanel civ={civ} world={world} />
-      <h3>Recent moments</h3>
+      {people.length > 0 && <SocietyPanel civ={civ} world={world} />}
+      <h3>Recent records</h3>
       <Journal
         events={world.events.filter((e) => e.civId === civ.id)}
         world={world}
         onEvent={onEvent}
         limit={4}
       />
+      <button className="button secondary wide" onClick={onHistory}>
+        <BookOpen size={15} /> Read the community archive
+      </button>
       {yours && (
         <button className="button secondary wide" onClick={onConnect}>
           <Link2 size={15} />
-          Manage your agent
+          {people.length ? "Manage your agent" : "Begin a new chapter"}
         </button>
       )}
     </>

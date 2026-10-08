@@ -48,7 +48,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **package**: src/server/
 - **files**: `store.ts`, `migrations.ts`, `startup.ts`, `scripts/world-maintenance.ts`, `scripts/verify-upgrade.ts`
 - **dependencies**: world_state, natural_systems
-- **dependents**: agent_gateway, world_hosting
+- **dependents**: agent_gateway, world_hosting, community_history
 - **known_issues**: One writer/volume; external backup scheduling is an operator responsibility. Anonymous browser management has no account recovery yet.
 - **last_touched**: 2026-10-08
 
@@ -68,10 +68,21 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **name**: Planet Entrance and Living Landscape
 - **status**: active
 - **package**: src/client/
-- **files**: `main.tsx`, `renderer.ts`, `PlanetWelcome.tsx`, `FieldGuide.tsx`, `LifePanel.tsx`, `DevelopmentPanel.tsx`, `Archive.tsx`, `Dialog.tsx`, `style.css`, `planet.css`, `development.css`
-- **dependencies**: agent_gateway, world_state, natural_systems
+- **files**: `main.tsx`, `renderer.ts`, `PlanetWelcome.tsx`, `FieldGuide.tsx`, `LifePanel.tsx`, `DevelopmentPanel.tsx`, `Archive.tsx`, `Communities.tsx`, `Dialog.tsx`, `style.css`, `planet.css`, `development.css`, `communities.css`
+- **dependencies**: agent_gateway, world_state, natural_systems, community_history
 - **dependents**: none
 - **known_issues**: Globe requires WebGL for its full visual; current service caps observer streams at 100.
+- **last_touched**: 2026-10-08
+
+### community_history
+
+- **name**: Community Following and Lasting Records
+- **status**: active
+- **package**: src/client/, src/server/
+- **files**: `Communities.tsx`, `communities.css`, `Archive.tsx`, `app.ts`, `store.ts`, `tests/web/community-record.test.ts`, `scripts/extinction-smoke.ts`
+- **dependencies**: world_state, world_storage, agent_gateway
+- **dependents**: browser_observer, browser_validation
+- **known_issues**: Following is browser-local, limited to 64 groups; no account synchronization or notifications. Incomplete death records leave final dates unknown. Earlier unrecorded branches, inheritance and ruin reoccupation remain unresolved.
 - **last_touched**: 2026-10-08
 
 ### world_hosting

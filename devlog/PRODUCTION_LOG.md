@@ -7,6 +7,19 @@
 
 ## Log
 
+### [2026-10-08] Follow Communities Through Their Lives and History
+
+- **type**: feature
+- **systems**: community_history, browser_observer, world_storage, agent_gateway, world_state, browser_validation
+- **files**: `Communities.tsx`, `communities.css`, `Archive.tsx`, `main.tsx`, `app.ts`, `store.ts`, `community-record.test.ts`, `extinction-smoke.ts`, `communities.md`
+- **agent**: Codex
+
+Added a searchable lifecycle directory, personal following and scoped permanent journals. Extinct communities retain historical pages, materials and recorded links to later beginnings; final-loss dates require a complete match to archived individual deaths. No earlier provenance or biography is fabricated. → ADR-025.
+
+Thirteen targeted model/server tests, 40 general browser checks, 22 community/extinction checks, 12 compiled-production checks and 17 runtime-handover checks pass. Following survives reload and extinction; current desktop/mobile screenshots were inspected without browser errors. Deployment and continuing-world verification are recorded separately after activation.
+
+---
+
 ### [2026-10-08] Recovery Released to the Original World
 
 - **type**: milestone

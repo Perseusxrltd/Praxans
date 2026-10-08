@@ -9,7 +9,12 @@ import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { validateWorld } from "../simulation/engine";
 import { createWorld } from "../simulation/world";
-import type { AgentPublic, World } from "../simulation/types";
+import type {
+  AgentPublic,
+  CommunityRecord,
+  World,
+  WorldEvent,
+} from "../simulation/types";
 import { CHUNK_SIZE, TICK_MS, WORLD_VERSION } from "../simulation/types";
 import { migrateWorld } from "./migrations";
 
@@ -49,6 +54,8 @@ export class Store {
       CREATE TABLE IF NOT EXISTS agents (id TEXT PRIMARY KEY, hash TEXT NOT NULL UNIQUE, civ_id TEXT NOT NULL, name TEXT NOT NULL, provider TEXT NOT NULL, last_seen INTEGER, actions INTEGER NOT NULL DEFAULT 0);
       CREATE TABLE IF NOT EXISTS receipts (agent_id TEXT NOT NULL, request_id TEXT NOT NULL, payload_hash TEXT NOT NULL, response TEXT NOT NULL, created_at INTEGER NOT NULL, PRIMARY KEY(agent_id,request_id));
       CREATE TABLE IF NOT EXISTS world_events (sequence INTEGER PRIMARY KEY AUTOINCREMENT, id TEXT NOT NULL UNIQUE, tick INTEGER NOT NULL, json TEXT NOT NULL);
+      CREATE INDEX IF NOT EXISTS world_events_community ON world_events(json_extract(json,'$.civId'),sequence);
+      CREATE INDEX IF NOT EXISTS world_events_related ON world_events(json_extract(json,'$.relatedId'),sequence);
       CREATE TABLE IF NOT EXISTS world_history (tick INTEGER PRIMARY KEY, json TEXT NOT NULL);
       CREATE TABLE IF NOT EXISTS world_backups (id TEXT PRIMARY KEY, json TEXT NOT NULL, checksum TEXT NOT NULL, created_at INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS interventions (sequence INTEGER PRIMARY KEY AUTOINCREMENT, id TEXT NOT NULL UNIQUE, tick INTEGER NOT NULL, description TEXT NOT NULL, before_checksum TEXT NOT NULL, after_checksum TEXT NOT NULL, created_at INTEGER NOT NULL);
@@ -249,21 +256,110 @@ export class Store {
     if (this.inTransaction) write();
     else this.transaction(write);
   }
-  journal(before?: number, limit = 60) {
+  journal(
+    before?: number,
+    limit = 60,
+    filter: {
+      civilizationIds?: string[];
+      category?: string;
+      throughTick?: number;
+    } = {},
+  ) {
+    const ids = [...new Set(filter.civilizationIds ?? [])];
+    const clauses = ["sequence < ?", "tick <= ?"];
+    const values: (string | number)[] = [
+      before ?? Number.MAX_SAFE_INTEGER,
+      filter.throughTick ?? Number.MAX_SAFE_INTEGER,
+    ];
+    if (ids.length) {
+      const placeholders = ids.map(() => "?").join(",");
+      clauses.push(
+        `(json_extract(json,'$.civId') IN (${placeholders}) OR json_extract(json,'$.relatedId') IN (${placeholders}))`,
+      );
+      values.push(...ids, ...ids);
+    }
+    if (filter.category && filter.category !== "all") {
+      clauses.push("json_extract(json,'$.category') = ?");
+      values.push(filter.category);
+    }
     const rows = this.db
       .prepare(
-        "SELECT sequence,json FROM world_events WHERE sequence < ? ORDER BY sequence DESC LIMIT ?",
+        `SELECT sequence,json FROM world_events WHERE ${clauses.join(" AND ")} ORDER BY sequence DESC LIMIT ?`,
       )
-      .all(
-        before ?? Number.MAX_SAFE_INTEGER,
-        Math.max(1, Math.min(100, limit)),
-      ) as { sequence: number; json: string }[];
+      .all(...values, Math.max(1, Math.min(100, limit))) as {
+      sequence: number;
+      json: string;
+    }[];
     return {
       events: rows.map((row) => ({
         sequence: row.sequence,
         ...JSON.parse(row.json),
       })),
       next: rows.at(-1)?.sequence ?? null,
+    };
+  }
+  communityRecord(communityId: string, throughTick: number): CommunityRecord {
+    const scope =
+      "tick <= ? AND (json_extract(json,'$.civId') = ? OR json_extract(json,'$.relatedId') = ?)";
+    const values = [throughTick, communityId, communityId];
+    const event = (order: "ASC" | "DESC") => {
+      const row = this.db
+        .prepare(
+          `SELECT json FROM world_events WHERE ${scope} ORDER BY sequence ${order} LIMIT 1`,
+        )
+        .get(...values) as { json: string } | undefined;
+      return row ? (JSON.parse(row.json) as WorldEvent) : null;
+    };
+    // Older releases already recorded every death with this title. A complete
+    // match against the civilization's death counter can date its final loss;
+    // missing records must remain an unknown date, not an invented history.
+    const deathScope =
+      "tick <= ? AND json_extract(json,'$.civId') = ? AND json_extract(json,'$.category') = 'life' AND json_extract(json,'$.citizenId') IS NOT NULL AND json_extract(json,'$.title') LIKE '% is remembered'";
+    const deaths = this.db
+      .prepare(`SELECT count(*) AS count FROM world_events WHERE ${deathScope}`)
+      .get(throughTick, communityId) as { count: number };
+    const death = this.db
+      .prepare(
+        `SELECT json FROM world_events WHERE ${deathScope} ORDER BY sequence DESC LIMIT 1`,
+      )
+      .get(throughTick, communityId) as { json: string } | undefined;
+    const linked = this.db
+      .prepare(
+        `SELECT json FROM world_events WHERE ${scope} AND json_extract(json,'$.relatedId') IS NOT NULL AND json_extract(json,'$.category') IN ('founding','culture') ORDER BY sequence LIMIT 100`,
+      )
+      .all(...values) as { json: string }[];
+    const connections: CommunityRecord["connections"] = [];
+    for (const row of linked) {
+      const e = JSON.parse(row.json) as WorldEvent;
+      const previous = e.civId === communityId;
+      const other = previous ? e.relatedId : e.civId;
+      if (!other?.startsWith("civ-")) continue;
+      connections.push({
+        communityId: other,
+        relationship:
+          e.category === "founding"
+            ? previous
+              ? "branched-from"
+              : "branch"
+            : previous
+              ? "earlier-chapter"
+              : "later-chapter",
+        tick: e.tick,
+      });
+    }
+    return {
+      communityId,
+      throughTick,
+      eventCount: (
+        this.db
+          .prepare(`SELECT count(*) AS count FROM world_events WHERE ${scope}`)
+          .get(...values) as { count: number }
+      ).count,
+      recordedDeaths: deaths.count,
+      lastDeath: death ? (JSON.parse(death.json) as WorldEvent) : null,
+      firstEvent: event("ASC"),
+      lastEvent: event("DESC"),
+      connections,
     };
   }
   interventions() {
