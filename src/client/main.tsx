@@ -250,6 +250,16 @@ function App() {
     latest.current = snapshot;
     if (!pausedRef.current) setWorld(snapshot);
   };
+  const acceptOverview = (value: WorldOverview) => {
+    setOverview((current) =>
+      current &&
+      current.id === value.id &&
+      current.seed === value.seed &&
+      current.tick > value.tick
+        ? current
+        : value,
+    );
+  };
   useEffect(() => {
     let alive = true;
     api<SessionView & { testControls: boolean }>("/api/session")
@@ -277,7 +287,7 @@ function App() {
           throw new Error("The world overview is temporarily unavailable.");
         const value = (await response.json()) as WorldOverview;
         if (abort.signal.aborted) return;
-        setOverview(value);
+        acceptOverview(value);
         setConnected(true);
         setFault("");
       } catch (error) {
@@ -370,6 +380,34 @@ function App() {
     pausedRef.current = next;
     setPaused(next);
     if (!next && latest.current) setWorld(latest.current);
+  };
+  const returnToPlanet = () => {
+    const snapshot = latest.current;
+    if (snapshot) {
+      // A reload can enter directly into observation without an overview.
+      // Reuse the latest received state while the lighter planet poll resumes.
+      const populations = new Map<string, number>();
+      for (const person of snapshot.citizens)
+        populations.set(person.civId, (populations.get(person.civId) ?? 0) + 1);
+      acceptOverview({
+        id: snapshot.id,
+        name: snapshot.name,
+        seed: snapshot.seed,
+        tick: snapshot.tick,
+        lawsVersion: snapshot.lawsVersion,
+        summary: snapshot.summary,
+        civilizations: snapshot.civilizations.map(({ id, name, x, y }) => ({
+          id,
+          name,
+          x,
+          y,
+          population: populations.get(id) ?? 0,
+        })),
+      });
+    }
+    if (pausedRef.current) togglePause();
+    sessionStorage.removeItem("praxans_observing");
+    setArrived(false);
   };
   const fullscreen = async () => {
     try {
@@ -654,11 +692,7 @@ function App() {
       <header className="topbar">
         <button
           className="brand"
-          onClick={() => {
-            if (pausedRef.current) togglePause();
-            sessionStorage.removeItem("praxans_observing");
-            setArrived(false);
-          }}
+          onClick={returnToPlanet}
           aria-label="Praxans home"
         >
           <span className="brand-symbol">

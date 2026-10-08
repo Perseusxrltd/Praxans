@@ -7,6 +7,17 @@
 
 ## Log
 
+### [2026-10-08] Planet Return Preserves the Current Observation
+
+- **type**: bugfix
+- **systems**: browser_observer, browser_validation
+- **files**: `main.tsx`, `startup-smoke.ts`
+- **agent**: Codex
+
+GitHub exposed a missing overview after reloading directly into observation. Home now derives its small planet view from the latest received snapshot and ignores older cached summaries for that world. Forty general browser checks and twelve startup checks pass, including held/stale responses, with inspected desktop/mobile screenshots. Vercel `dpl_CSVR78ah5Q5UUGmabnfeEGVqsvQd` is READY at the canonical website; the simulation runtime, clock and restoration are unchanged. See the follow-up in `docs/releases/observer-scaling-0.2.md`.
+
+---
+
 ### [2026-10-08] Advisory Recovery and SQLite Retention Published
 
 - **type**: bugfix

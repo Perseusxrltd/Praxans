@@ -16,6 +16,7 @@
 - Antiquity-first source register, scale audits, failed-candidate evidence, measured CPU baseline and explicit large-world acceptance targets.
 
 ### Fixed
+- Returning home after an observer reload immediately retains the latest clock and population; older cached overview responses cannot move that view backwards (→ browser_observer).
 - Cold-tolerant frozen dormancy is distinct from drought damage; food decay has no temperature-independent biological floor.
 - Disconnected or open geometry cannot grant unsupported bulk enclosure; conflicting trial results and construction evidence remain distinct.
 - Agent submission staging leaves physical state shared read-only until atomic commit; failed saves do not leak proposals, and halted service permits committed receipt replay.

@@ -8,6 +8,7 @@ import express from "express";
 import { chromium } from "playwright";
 import { createGameServer } from "../src/server/app";
 import { digest } from "../src/server/store";
+import { stepWorld } from "../src/simulation/engine";
 
 const temporary = await mkdtemp(join(tmpdir(), "praxans-startup-")),
   output = "output/playwright/startup-smoke";
@@ -31,6 +32,7 @@ const check = (label: string, condition: unknown) => {
   console.log(`Verified: ${label}`);
 };
 let browser: Awaited<ReturnType<typeof chromium.launch>> | undefined;
+let releaseOverview: (() => void) | undefined;
 try {
   const before = digest(JSON.stringify(game.getWorld()));
   browser = await chromium.launch({ headless: true });
@@ -43,11 +45,13 @@ try {
     if (message.type() === "error") errors.push(message.text());
   });
   let streams = 0,
-    detailedWorldRequests = 0;
+    detailedWorldRequests = 0,
+    overviewRequests = 0;
   page.on("request", (request) => {
     if (new URL(request.url()).pathname === "/api/stream") streams++;
     if (new URL(request.url()).pathname === "/api/world")
       detailedWorldRequests++;
+    if (new URL(request.url()).pathname === "/api/overview") overviewRequests++;
   });
   const started = performance.now();
   await page.goto(base);
@@ -110,15 +114,96 @@ try {
     streams === 1,
   );
   await page.screenshot({ path: `${output}/03-surface.png`, fullPage: true });
-  await page.getByRole("button", { name: "Praxans home", exact: true }).click();
-  await page.locator(".planet-view.ready").waitFor();
-  check(
-    "returning to the planet does not open another detailed stream",
-    streams === 1,
-  );
   check(
     "browsing leaves the authoritative world unchanged",
     digest(JSON.stringify(game.getWorld())) === before,
+  );
+
+  const olderOverview = await (
+    await page.request.get(`${base}/api/overview`)
+  ).json();
+  // Advance only this disposable fixture, then reload directly into observation.
+  const world = game.getWorld();
+  stepWorld(world, 8);
+  game.store.advanceClock(world.tick);
+  game.store.save(world);
+  const afterAdvance = digest(JSON.stringify(world)),
+    overviewsBeforeReload = overviewRequests;
+  await page.reload();
+  await page.waitForFunction(
+    (tick) => {
+      const state = JSON.parse(window.render_game_to_text());
+      return state.mode === "shared-world" && state.tick === tick;
+    },
+    world.tick,
+    { timeout: 60000 },
+  );
+  const observed = await page.evaluate(() =>
+    JSON.parse(window.render_game_to_text()),
+  );
+  check(
+    "an observer reload obtains current detail without an entrance request",
+    streams === 2 && overviewRequests === overviewsBeforeReload,
+  );
+  const withheldOverview = new Promise<void>((resolve) => {
+    releaseOverview = resolve;
+  });
+  await page.route("**/api/overview", async (route) => {
+    await withheldOverview;
+    await route.fulfill({ json: olderOverview });
+  });
+  const overviewRequested = page.waitForRequest("**/api/overview");
+  await page.getByRole("button", { name: "Praxans home", exact: true }).click();
+  await overviewRequested;
+  const returned = await page.evaluate(() =>
+    JSON.parse(window.render_game_to_text()),
+  );
+  check(
+    "home immediately retains the observed clock and population while its request waits",
+    returned.mode === "planet-onboarding" &&
+      returned.tick === observed.tick &&
+      JSON.stringify(returned.time) === JSON.stringify(observed.time) &&
+      returned.communities.every((community: { id: string; people: number }) =>
+        observed.communities.some(
+          (previous: { id: string; people: number }) =>
+            community.id === previous.id &&
+            community.people === previous.people,
+        ),
+      ) &&
+      returned.communities.length === observed.communities.length,
+  );
+  await page.locator(".planet-view.ready").waitFor();
+  await page.screenshot({
+    path: `${output}/04-returned-planet.png`,
+    fullPage: true,
+  });
+  const staleResponse = page.waitForResponse("**/api/overview");
+  assert.ok(releaseOverview);
+  releaseOverview();
+  await (await staleResponse).finished();
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) => {
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+      }),
+  );
+  const afterStale = await page.evaluate(() =>
+    JSON.parse(window.render_game_to_text()),
+  );
+  check(
+    "an older cached overview cannot move the displayed clock or totals backwards",
+    afterStale.tick === returned.tick &&
+      JSON.stringify(afterStale.time) === JSON.stringify(returned.time) &&
+      JSON.stringify(afterStale.communities) ===
+        JSON.stringify(returned.communities),
+  );
+  check(
+    "returning to the planet does not open another detailed stream",
+    streams === 2 && detailedWorldRequests === 0,
+  );
+  check(
+    "reloading and returning home leave the advanced fixture unchanged",
+    digest(JSON.stringify(game.getWorld())) === afterAdvance,
   );
   check("no browser errors occurred", errors.length === 0);
   await writeFile(
@@ -126,6 +211,7 @@ try {
     JSON.stringify({ checks, errors, firstPlanetMs }, null, 2) + "\n",
   );
 } finally {
+  releaseOverview?.();
   await browser?.close();
   game.close();
   server.closeAllConnections();
