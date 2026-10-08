@@ -5,6 +5,49 @@
 
 ---
 
+## [World Recovery and Seamless Runtime Updates 0.2] — 2026-10-08
+
+### Added
+- Finite planetary thermal bands with stellar forcing, outgoing radiation and conservative regional/meridional exchange (→ natural_systems).
+- Parent-funded dormant propagules, finite reserves and environment-dependent germination; no retroactive seed population (→ natural_systems).
+- Stable HTTP/SSE gateway, private operator socket, immutable compatible artifacts, copied-world preflight, request queue and durable activation pointers (→ runtime_handover).
+- Explicit owner-led beginnings after extinction with old community history preserved and old keys retired (→ agent_gateway).
+- Causal recovery, numeric, seasonal, artifact and stream tests; actual stopped-world continuation and live-handover browser checks (→ browser_validation).
+
+### Fixed
+- Conservation tolerances account for processed energy; compensated accumulation preserves small future transfers without rebasing past errors.
+- Atmospheric radiation has a represented energy source; frozen ground is distinguished from snow and isolated regions exchange finite heat with the planet.
+- Small plants no longer lose their light response twice; structural wood has separate turnover and cold-season respiration slows.
+- Urgent hunger interrupts work, and fractional/carried meals can be consumed. Agent observations expose the unambiguous nourishment field.
+- Stable heap pathfinding, reused weather buffers and avoidance of empty expeditions reduce work while retaining deterministic results.
+- Stream records survive split UTF-8 and delimiters; compressed observer connections persist across runtime replacement.
+
+---
+
+## [Material Memory and Agency 0.2] — 2026-10-07
+
+### Added
+- Conserved erosion/deposition, changing surfaces, environmental fabric damage, ruins, material repair and salvage (→ natural_systems).
+- Geometry-derived work surfaces and enclosed bulk storage, with material gathering directed by usable ideas (→ civilization_intelligence).
+- Personal sensory/knowledge memory, experimental evidence, nearby teaching, adaptive preferences and sleep consolidation (→ human_cognition).
+- Locally deliberated proposals, institutional consent, experiential trust, six outcome dimensions and durable milestones (→ civic_relations).
+- Dated contacts, provisioned message/trade journeys, reciprocal commitments, observed breach and limited raids (→ civic_relations).
+- Browser views of cognition, outcomes, advice, contacts and weathered structures; one canonical implementation ledger (→ browser_observer).
+- Format-8 / biosphere-1.2 continuity migration, actual-backup verification and causal depth/agency tests (→ world_storage, browser_validation).
+
+### Changed
+- HTTP/MCP submission now queues advice; acceptance and execution follow the local decision process.
+- Outcome feedback is sampled in world time, with community-selected priorities and no resource rewards.
+
+### Fixed
+- Exact surface integration prevents thin or shifted geometry from gaining sampling bonuses.
+- Useful expensive designs remain reachable through retained knowledge and appropriate gathering targets.
+- Round-trip expeditions provision both legs, including rest and difficult terrain.
+- Startup waits briefly for an interrupted ownership lease without clearing it or exhausting rapid host retries.
+- Recovery promptly reschedules overdue batches. Elemental accounting avoids repeated temporary allocations; a real-backup comparison checks identical resulting world state.
+
+---
+
 ## [Browser Foundation 0.1] — 2026-10-07
 
 ### Added

@@ -20,10 +20,13 @@ flowchart LR
 | `world.ts`, `terrain.ts`, `surface.ts` | Initial conditions, seeded planet, region materialization, frontier founding |
 | `planet.ts`, `chronology.ts` | Orbits, solar position, moon, calendar, geological epoch |
 | `chemistry.ts`, `laws.ts`, `thermodynamics.ts` | Element identities, material balances, biochemical energy, statics, selected entropy flows |
-| `weather.ts`, `geology.ts`, `ecology.ts`, `fauna.ts` | Coupled environmental and living processes |
+| `climate.ts`, `weather.ts`, `geology.ts`, `ecology.ts`, `fauna.ts` | Planetary heat exchange, local environment, dormant propagules and living processes |
+| `landscape.ts`, `weathering.ts` | Sediment/surface evolution, fabric loss, repair, salvage and storage exposure |
+| `cognition.ts`, `society.ts`, `diplomacy.ts`, `progress.ts` | Personal learning, local assemblies, journeys/commitments and civilization outcome feedback |
 | `citizens.ts`, `economy.ts`, `engine.ts`, `actions.ts` | Needs, learning, work, relationships, ordered updates, bounded agent intervention |
 | `src/server/app.ts`, `schema.ts` | HTTP/MCP, scoped authorization, action validation, public snapshots and event streams |
 | `store.ts`, `migrations.ts` | Atomic SQLite storage, checksums, archives, ownership lease, recovery clock |
+| `gateway.ts`, `runtime.ts`, `worker.ts`, `artifact.ts`, `preflight.ts` | Stable HTTP/SSE transport, replaceable sole-writer runtime, verified artifacts, private candidate validation and durable activation |
 | `src/client/` | Planet entrance, landscape rendering, inspection, history, and agent onboarding |
 
 The historical Python modules and authored content definitions do not participate in the browser runtime.
@@ -34,7 +37,11 @@ The world stores a nonnegative integer tick and the seeded PRNG state. One tick 
 
 A persisted wall-clock checkpoint records how much real time has been processed. After interruption, the server advances every missed tick in bounded batches. It does not jump over hunger, metabolism, births, weather, or other consequences. The public health response reports lag and recovery state; new decisions wait when recovery is more than ten real seconds behind. Very large backlogs and growing worlds can take time to recover.
 
+Recovery yields between work batches and promptly schedules further overdue ticks. It does not add an ordinary tick delay to every recovery batch. Observer broadcasts have a wall-time ceiling so accelerated recovery need not transmit every intermediate frame; simulation time and the persistent checkpoint retain all processed steps.
+
 A database lease prevents two processes from advancing the same saved world. The owner renews it every five seconds; an interrupted owner's lease expires after thirty seconds. Save and clock checkpoint commit together. A graceful stop saves and releases ownership. A fault preserves the last valid checkpoint and makes health fail.
+
+In production, the gateway retains public observer connections while a compiled runtime owns the database and clock. A hotfix first validates its migration and forward steps on a private consistent copy. The gateway then drains current requests, queues arrivals, checkpoints/stops the old owner, and starts the prepared candidate. Complete compressed SSE records continue over the existing browser connection. A durable activation pointer survives gateway restarts; incompatible or missing referenced artifacts fail closed. An actual container/host replacement still interrupts this single-host transport.
 
 Deterministic replay means the same state, tick sequence, PRNG, laws, and ordered actions produce the same result. Network arrival times and different agent choices are external inputs, not deterministic predictions.
 
@@ -50,9 +57,11 @@ The current engine runs all active regions in one Node process. A vast address s
 
 ## Learning and agents
 
-People choose work from their needs, policy, local opportunities, and experience. Material experiments vary geometric primitives and evaluate their loads. Communities retain useful and recent hypotheses across material/orientation families; this avoids discarding a strong intermediate support just because a weaker object weighs less. Material shortages affect which experiments look practical. No named building template grants shelter: stable covered free space determines it.
+People choose work from bodily drives, policy, locally remembered opportunities, attention and experience. A bounded adaptive network changes activity preferences after real outcomes. Sleep consolidates personal knowledge; teaching needs a nearby holder. Experiments spend actual samples and record predictions, failures and uncertainty. Construction supplies stronger evidence. Useful ideas guide material gathering; scarcity changes practicality without an arbitrary gathering cap making every costly idea unreachable. No named template grants a physical affordance.
 
-An external agent receives an observation and submits one to six typed actions. A transaction applies the entire batch to a candidate world, validates its invariants, and commits only if all actions succeed. The receipt and resulting state commit atomically. Retrying the same request ID and body returns the prior outcome within the retained receipt window.
+An external agent receives an observation and submits one to six typed proposals. A transaction validates and queues the whole batch atomically with its receipt. A receipt confirms submission, not acceptance. Local adults deliberate; quorum, consent, bodily needs, trust and feasibility constrain later execution. All keys share a community's six-pending-proposal capacity and four-simulated-hour interval. Retrying the same request ID and body returns the prior receipt within its retained window. Votes, decisions and subsequent observational reviews persist.
+
+Contacts are per-community, dated reports. New correspondence travels with living volunteers who eat, rest and leave work behind. Trade reserves only the sender's cargo; a recipient can decline on arrival. Return cargo needs the homeward leg. Free-form letters are inert data; supported commitment primitives need reciprocal assent and actual fulfillment. Existing pre-format-8 escrowed exchanges retain their original terms. Outcome feedback is a vector of state potentials sampled once per world day; reads do not create rewards.
 
 Agent execution happens outside the world process. The server stores a hash of each civilization key and exposes no arbitrary code execution endpoint. Model outages do not block autonomous local behavior.
 

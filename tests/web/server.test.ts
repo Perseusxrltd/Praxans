@@ -11,6 +11,16 @@ import { createGameServer } from "../../src/server/app";
 import { Store } from "../../src/server/store";
 import { stepWorld } from "../../src/simulation/engine";
 
+async function advanceWithIO(
+  world: Parameters<typeof stepWorld>[0],
+  ticks: number,
+) {
+  for (let i = 0; i < ticks; i += 4) {
+    stepWorld(world, Math.min(4, ticks - i));
+    await new Promise<void>((resolve) => setImmediate(resolve));
+  }
+}
+
 test("SQLite restores the exact world and rejects a modified checkpoint", () => {
   const directory = mkdtempSync(join(tmpdir(), "praxans-save-")),
     path = join(directory, "world.sqlite");
@@ -91,6 +101,9 @@ test("HTTP and actual MCP clients share scoped, atomic, idempotent world actions
       await call("/api/agent/observe", "GET", undefined, bearer)
     ).json();
     assert.equal(observed.civilization.id, civId);
+    assert.equal(observed.protocol, "praxans/2");
+    assert.equal(observed.neighbors.length, 0);
+    assert.ok(observed.progress && observed.authority);
     const batch = {
       requestId: "test-action-0001",
       actions: [
@@ -103,7 +116,10 @@ test("HTTP and actual MCP clients share scoped, atomic, idempotent world actions
     };
     const applied = await call("/api/agent/actions", "POST", batch, bearer);
     assert.equal(applied.status, 200);
-    assert.equal((await applied.json()).replayed, false);
+    const receipt = await applied.json();
+    assert.equal(receipt.replayed, false);
+    assert.equal(receipt.proposals[0].status, "pending");
+    assert.equal(game.getWorld().civilizations[0].focus, "nourish");
     assert.equal(
       (await (await call("/api/agent/actions", "POST", batch, bearer)).json())
         .replayed,
@@ -132,6 +148,12 @@ test("HTTP and actual MCP clients share scoped, atomic, idempotent world actions
       400,
     );
     assert.equal(game.getWorld().civilizations[1].focus, "discover");
+    await advanceWithIO(game.getWorld(), 96);
+    assert.equal(
+      game.getWorld().civilizations[0].civics.proposals[0].status,
+      "accepted",
+    );
+    assert.equal(game.getWorld().civilizations[0].focus, "preserve");
     const pub = JSON.stringify(await (await call("/api/world")).json());
     assert.ok(!pub.includes(created.token));
     assert.ok(!pub.includes('"hash"'));
@@ -178,14 +200,24 @@ test("HTTP and actual MCP clients share scoped, atomic, idempotent world actions
           {
             type: "policy",
             policy: "sharing",
-            value: 0.9,
+            value: 0.75,
             reason: "Share food with those who need it.",
           },
         ],
       },
     });
     assert.notEqual(result.isError, true);
-    assert.equal(game.getWorld().civilizations[0].policies.sharing, 0.9);
+    assert.equal(game.getWorld().civilizations[0].policies.sharing, 0.7);
+    assert.equal(
+      game.getWorld().civilizations[0].civics.proposals.at(-1)!.status,
+      "pending",
+    );
+    await advanceWithIO(game.getWorld(), 96);
+    const finalProposal = game
+      .getWorld()
+      .civilizations[0].civics.proposals.at(-1)!;
+    assert.equal(finalProposal.status, "accepted");
+    assert.equal(game.getWorld().civilizations[0].policies.sharing, 0.75);
     await mcp.close();
     mcp = undefined;
     assert.equal(

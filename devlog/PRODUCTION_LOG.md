@@ -7,6 +7,34 @@
 
 ## Log
 
+### [2026-10-08] Saved-World Recovery and Runtime Handover
+
+- **type**: bugfix
+- **systems**: natural_systems, world_state, civilization_intelligence, world_storage, runtime_handover, browser_validation, browser_observer
+- **files**: `climate.ts`, `chemistry.ts`, `ecology.ts`, `weather.ts`, `thermodynamics.ts`, `citizens.ts`, `gateway.ts`, `artifact.ts`, `sse.ts`, `recovery-2026-10-08.md`
+- **agent**: Codex
+
+Reproduced the live halt from its unchanged checkpoint: a shrinking biochemical tolerance rejected accumulated rounding error. The prior heat model separately caused lethal overheating; 132 small plant cohorts still survived at the saved tick. Added compensated transfers, funded radiation, finite planetary heat exchange, ice/snow separation, viable small-plant/wood turnover and parent-funded dormancy. Preserved all recorded deaths, matter, identities and missed time. → ADR-024.
+
+Implemented the stable observer gateway, private activation socket, immutable artifacts, copied-checkpoint preflight, queued-request/lease handover and durable runtime pointers. Seventeen hotfix checks pass, including stream continuity, invalid candidate rejection and complete gateway restart. Initial installation still needs a container deployment. → ADR-023.
+
+The current local suite passes 85 model/server, 40 browser, 12 compiled-production and nine extinction checks, plus build/format. A 400-day ecological trial retains 11 plant lineages, and the actual stopped-world backup advances 3,000 ticks with exact reload. Neither proves demographic equilibrium or recovery of extinct animals. A fresh identical consistent backup precedes the release; actual provider status is tracked in `docs/releases/world-recovery-0.2.md`.
+
+---
+
+### [2026-10-07] Material Memory, Earned Influence and Contact
+
+- **type**: feature
+- **systems**: natural_systems, human_cognition, civilization_intelligence, civic_relations, world_storage, agent_gateway, browser_observer, browser_validation
+- **files**: `landscape.ts`, `weathering.ts`, `cognition.ts`, `society.ts`, `diplomacy.ts`, `progress.ts`, `migrations.ts`, `DevelopmentPanel.tsx`, `roadmap.md`
+- **agent**: Codex
+
+Implemented conserved landscape/fabric aging, repair and salvage; exact geometric work/storage affordances; personal experiments, memory, sleep and teaching. Added locally deliberated advice with refusal, six outcome dimensions, carried correspondence/exchanges, reciprocal commitments and limited physical raids. The canonical requirement ledger preserves the owner's accepted scope and distinguishes implemented approximations from unresolved foundations. → ADR-021, ADR-022.
+
+The format-8 / biosphere-1.2 migration preserves the prior world's matter, people, time and identity while starting honest measurement epochs. During release checks, the existing host was found stopped after rapid lease rejections exhausted its restart allowance. Restarted the same deployment, saved a fresh backup and added a bounded startup wait that leaves the existing lease intact. The original interruption's cause is not established by the available logs; release validation remains recorded separately.
+
+---
+
 ### [2026-10-07] Live Browser Launch and Core-Systems Review
 
 - **type**: milestone

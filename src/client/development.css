@@ -1,0 +1,132 @@
+.development-panel {
+  margin: 24px 0;
+}
+.development-panel .ambition {
+  font-style: italic;
+}
+.outcome-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 18px;
+  margin-top: 18px;
+}
+.outcome > div:first-child {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11px;
+}
+.outcome strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+.outcome strong small {
+  font-size: 9px;
+  opacity: 0.55;
+  margin-left: 2px;
+}
+.outcome-track {
+  height: 4px;
+  background: #dae0d2;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 7px 0 5px;
+}
+.outcome-track i {
+  display: block;
+  height: 100%;
+  background: #678c65;
+  border-radius: inherit;
+  transition: width 0.6s ease;
+}
+.outcome > small {
+  display: block;
+  font-size: 9px;
+  line-height: 1.4;
+}
+.outcome-loss {
+  color: #9d6156;
+}
+.development-detail {
+  border-top: 1px solid #dce2d4;
+  padding: 16px 0 4px;
+  margin-top: 12px;
+}
+.development-detail summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.development-detail summary > span {
+  font-size: 10px;
+  font-weight: 400;
+  opacity: 0.6;
+  margin-left: 6px;
+}
+.civic-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 13px;
+  margin: 15px 0;
+}
+.civic-facts > span {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 10px;
+  color: #76816f;
+}
+.civic-facts strong {
+  font-size: 22px;
+  font-weight: 500;
+  color: #3d5540;
+}
+.civic-records article {
+  padding: 12px 0;
+  border-bottom: 1px solid #e0e5da;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+.civic-records article > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+.civic-records article > div strong {
+  font-size: 11px;
+  text-transform: capitalize;
+}
+.civic-records article > div span {
+  font-size: 9px;
+  color: #76816f;
+  text-transform: capitalize;
+}
+.civic-records article p {
+  font-size: 11px;
+  line-height: 1.7;
+  margin: 7px 0;
+}
+.civic-records article small {
+  display: block;
+  color: #7a8271;
+  font-size: 9px;
+  line-height: 1.6;
+}
+.civic-records .letter-text {
+  white-space: pre-wrap;
+}
+.civic-records .decision-status.refused,
+.civic-records .decision-status.failed {
+  color: #a16656;
+}
+.civic-records .decision-status.accepted {
+  color: #587d52;
+}
+.development-detail h4 {
+  margin: 18px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+}

@@ -8,6 +8,31 @@ import {
 } from "./elements";
 import type { ElementMass, Material, Tile, World } from "./types";
 
+/** Retain small molecular transfers when an atmospheric reservoir is very large. */
+export function accumulateAtmosphere(
+  world: World,
+  kind: keyof World["atmosphere"],
+  amount: number,
+): void {
+  if (amount === 0) return;
+  if (!Number.isFinite(amount))
+    throw new Error("Invalid atmospheric transfer.");
+  const previous = world.atmosphere[kind];
+  const increment = amount - (world.atmosphereCompensation[kind] ?? 0);
+  const next = previous + increment;
+  if (
+    amount < 0 &&
+    Math.abs(next) < Number.EPSILON * Math.max(1, previous) &&
+    amount >= -previous
+  ) {
+    world.atmosphere[kind] = 0;
+    world.atmosphereCompensation[kind] = 0;
+  } else {
+    world.atmosphereCompensation[kind] = next - previous - increment;
+    world.atmosphere[kind] = next;
+  }
+}
+
 // Organic matrix is a carbohydrate equivalent, NOT pure carbon. Mineral tissue is an
 // explicit coarse elemental mixture. This is atom accounting, not protein biochemistry.
 export const ORGANIC = Object.freeze(composition("C6H10O5"));
@@ -90,12 +115,15 @@ export function materialElements(
 }
 export function availableMixture(tile: Tile, mixture: ElementMass): number {
   let possible = Infinity;
-  for (const [symbol, fraction] of Object.entries(mixture))
+  for (const symbol in mixture) {
+    if (!Object.hasOwn(mixture, symbol)) continue;
+    const fraction = mixture[symbol];
     if (fraction > 0)
       possible = Math.min(
         possible,
         Math.max(0, tile.nutrients[symbol] ?? 0) / fraction,
       );
+  }
   return Number.isFinite(possible) ? possible : 0;
 }
 export function addNutrients(
@@ -103,6 +131,7 @@ export function addNutrients(
   mixture: ElementMass,
   amount: number,
 ): void {
+  if (amount === 0) return;
   addElements(tile.nutrients, mixture, amount);
   tile.mineral += totalElements(mixture) * amount;
 }
@@ -115,11 +144,12 @@ export function takeNutrients(
     0,
     Math.min(requested, availableMixture(tile, mixture)),
   );
-  for (const [symbol, fraction] of Object.entries(mixture))
-    tile.nutrients[symbol] = Math.max(
-      0,
-      (tile.nutrients[symbol] ?? 0) - fraction * amount,
-    );
+  for (const symbol in mixture)
+    if (Object.hasOwn(mixture, symbol))
+      tile.nutrients[symbol] = Math.max(
+        0,
+        (tile.nutrients[symbol] ?? 0) - mixture[symbol] * amount,
+      );
   tile.mineral = totalElements(tile.nutrients);
   return amount;
 }
@@ -166,9 +196,14 @@ export function elementLedger(world: World): ElementMass {
       tile.detritus.mineral +
       (tile.plant?.mineral ?? 0) +
       (tile.groundcover?.mineral ?? 0);
+    for (const seed of tile.seedBank) {
+      organic += seed.carbon;
+      biological += seed.mineral;
+    }
     result.O += tile.dissolvedOxygen;
-    water += tile.water + tile.air.vapor + tile.air.cloud + tile.air.snow;
-    rock += tile.rock + tile.air.dust;
+    water +=
+      tile.water + tile.ice + tile.air.vapor + tile.air.cloud + tile.air.snow;
+    rock += tile.rock + tile.sediment + tile.air.dust;
     addElements(result, tile.nutrients);
   }
   const addMaterial = (material: Material, amount: number) =>
@@ -191,6 +226,7 @@ export function elementLedger(world: World): ElementMass {
   for (const caravan of world.caravans) {
     addMaterial(caravan.offer.material, caravan.offer.amount);
     addMaterial(caravan.receive.material, caravan.receive.amount);
+    addMaterial("biomass", caravan.provisions);
   }
   for (const chunk of world.chunks) {
     addElements(result, chunk.geology.buried);

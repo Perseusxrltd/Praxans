@@ -1,17 +1,44 @@
 import { LAWS } from "./laws";
 import { recordEvent } from "./events";
-import { recordRadiation, passiveHeat } from "./thermodynamics";
+import {
+  recordRadiation,
+  passiveHeat,
+  infraredColumn,
+  radiationEntropy,
+  heatCapacity as thermalCapacity,
+} from "./thermodynamics";
+import { advancePlanetaryClimate, exchangeRegionalHeat } from "./climate";
 import {
   astronomy,
   cloudCover,
   PLANET,
+  STAR,
   saturationVapor,
   prevailingWind,
 } from "./planet";
-import { ROCK, addNutrients } from "./chemistry";
+import { ROCK, addNutrients, accumulateAtmosphere } from "./chemistry";
 import { clamp } from "./random";
 import { getTile, tileIndex } from "./terrain";
 import { CHUNK_SIZE, type Tile, type Weather, type World } from "./types";
+import {
+  depositSediment,
+  displaceSurface,
+  entrainSediment,
+  type SedimentTransfer,
+} from "./landscape";
+
+const fluxBuffers = new WeakMap<World, Float64Array[]>();
+function reusableFluxes(world: World) {
+  let buffers = fluxBuffers.get(world);
+  if (!buffers || buffers[0].length !== world.tiles.length) {
+    buffers = Array.from(
+      { length: 6 },
+      () => new Float64Array(world.tiles.length),
+    );
+    fluxBuffers.set(world, buffers);
+  } else for (const buffer of buffers) buffer.fill(0);
+  return buffers;
+}
 
 export function localWeather(tile: Tile): Weather {
   if (tile.air.rain > 0.05)
@@ -24,6 +51,24 @@ export function localWeather(tile: Tile): Weather {
   return tile.water < LAWS.waterCapacity * 0.07 && tile.temperature > 26
     ? "drought"
     : "clear";
+}
+/** Buried frozen water is not a bright blanket of snow; foliage masks ground snow. */
+export function surfaceAlbedo(tile: Tile): number {
+  const canopy = tile.plant
+    ? 1 -
+      Math.exp(
+        -tile.plant.carbon *
+          (1 - tile.plant.genome.woodiness) *
+          0.08 *
+          (1 -
+            tile.plant.genome.deciduous *
+              clamp((8 - tile.temperature) / 14, 0, 1)),
+      )
+    : 0;
+  const ground =
+    tile.terrain === "water" ? 0.08 + Math.min(1, tile.ice / 1000) * 0.4 : 0.22;
+  const snow = Math.min(1, tile.air.snow / 300);
+  return canopy * 0.18 + (1 - canopy) * (snow * 0.7 + (1 - snow) * ground);
 }
 /** Condensation and evaporation change saturation through latent heat; solve them together. */
 export function equilibrateCloud(tile: Tile, heatCapacity: number): void {
@@ -56,13 +101,17 @@ export function equilibrateCloud(tile: Tile, heatCapacity: number): void {
  * Flux limiting keeps coarse transport stable; this is not a Navier–Stokes atmosphere.
  */
 export function updateWeather(world: World): void {
-  const length = world.tiles.length,
-    vaporDelta = new Float64Array(length),
-    cloudDelta = new Float64Array(length),
-    waterDelta = new Float64Array(length),
-    oxygenDelta = new Float64Array(length),
-    dustDelta = new Float64Array(length),
-    heatDelta = new Float64Array(length);
+  advancePlanetaryClimate(world);
+  const sediments: SedimentTransfer[] = [];
+  const length = world.tiles.length;
+  const [
+    vaporDelta,
+    cloudDelta,
+    waterDelta,
+    oxygenDelta,
+    dustDelta,
+    heatDelta,
+  ] = reusableFluxes(world);
   // One astronomical sample per 320 m region; sub-kilometre sky differences are negligible here.
   const skies = world.chunks.map((c) =>
     astronomy(world.tick, c.x * CHUNK_SIZE + 16, c.y * CHUNK_SIZE + 16),
@@ -73,18 +122,24 @@ export function updateWeather(world: World): void {
     const sky = skies[Math.floor(i / CHUNK_SIZE ** 2)];
     air.tide = sky.tide;
     const cover = cloudCover(air.cloud),
-      snowCover = Math.min(1, air.snow / 300);
-    const albedo =
-      snowCover * 0.7 +
-      (1 - snowCover) *
-        (tile.terrain === "water" ? 0.08 : 0.22 - (tile.plant ? 0.04 : 0));
+      albedo = surfaceAlbedo(tile);
     air.sunlight = sky.irradiance * 0.72 * (1 - cover * 0.65);
     const absorbed = air.sunlight * (1 - albedo) * LAWS.tileArea * 3.6;
+    const atmosphericAbsorption =
+      sky.irradiance * 0.18 * (1 - cover * 0.3) * LAWS.tileArea * 3.6;
     const kelvin = tile.temperature + 273.15;
     const emissionFactor = 0.96 * PLANET.stefanBoltzmann * LAWS.tileArea * 3.6;
-    const airKelvin = Math.max(140, kelvin - 14);
     const emitted = emissionFactor * kelvin ** 4;
-    const returned = emissionFactor * (0.76 + cover * 0.2) * airKelvin ** 4;
+    // Infrared return must be funded by absorbed emission. A fixed
+    // surface-minus-14 K emitter overheated the original living world.
+    // Opacity describes the whole reduced column, not repeated opaque layers.
+    const column = infraredColumn(
+        emitted,
+        kelvin,
+        0.76 + cover * 0.2,
+        atmosphericAbsorption,
+      ),
+      returned = column.returned;
     const radiated = emitted - returned;
     recordRadiation(
       world,
@@ -92,16 +147,21 @@ export function updateWeather(world: World): void {
       emitted,
       returned,
       tile.temperature,
-      airKelvin,
+      column.temperatureK,
+    );
+    world.entropy.solarIn += radiationEntropy(
+      atmosphericAbsorption,
+      STAR.temperature,
     );
     const geothermal =
       world.chunks[Math.floor(i / CHUNK_SIZE ** 2)].geology.heatFlux *
       LAWS.tileArea *
       3.6;
-    const heatCapacity = 105000 + tile.water * PLANET.waterHeatCapacity;
+    const heatCapacity = thermalCapacity(tile);
     tile.temperature += (absorbed - radiated + geothermal) / heatCapacity;
-    world.climate.solarInput += absorbed;
-    world.climate.thermalOutput += radiated;
+    exchangeRegionalHeat(world, tile);
+    world.climate.solarInput += absorbed + atmosphericAbsorption;
+    world.climate.thermalOutput += column.escaped;
     world.climate.geothermalInput += geothermal;
     const saturation = saturationVapor(tile.temperature);
     // Evaporation is limited by water, atmospheric deficit, and surface heat.
@@ -133,13 +193,22 @@ export function updateWeather(world: World): void {
       tile.water += melt;
       tile.temperature -= (melt * PLANET.fusionHeat) / heatCapacity;
     }
+    if (tile.temperature > 0 && tile.ice > 0) {
+      const melt = Math.min(
+        tile.ice,
+        ((tile.temperature * heatCapacity) / PLANET.fusionHeat) * 0.03,
+      );
+      tile.ice -= melt;
+      tile.water += melt;
+      tile.temperature -= (melt * PLANET.fusionHeat) / heatCapacity;
+    }
     if (tile.temperature < -0.5 && tile.water > 0) {
       const frozen = Math.min(
         tile.water,
         ((-tile.temperature * heatCapacity) / PLANET.fusionHeat) * 0.02,
       );
       tile.water -= frozen;
-      air.snow += frozen;
+      tile.ice += frozen;
       tile.temperature += (frozen * PLANET.fusionHeat) / heatCapacity;
     }
     air.humidity = clamp(air.vapor / saturationVapor(tile.temperature), 0, 2);
@@ -184,6 +253,7 @@ export function updateWeather(world: World): void {
             0.00015 * (air.windX ** 2 + air.windY ** 2) * bare * dry,
           );
     tile.rock -= erosion;
+    displaceSurface(world, tile, -erosion);
     air.dust += erosion;
     world.climate.dustLifted += erosion;
     const flow = (target: Tile, velocity: number) => {
@@ -249,8 +319,13 @@ export function updateWeather(world: World): void {
         tile.water > 0 ? (tile.dissolvedOxygen * amount) / tile.water : 0;
       oxygenDelta[i] -= dissolved;
       oxygenDelta[lowerIndex] += dissolved;
+      if (amount > 0)
+        sediments.push(
+          entrainSediment(world, tile, lower, amount, head - lowerHead),
+        );
     }
   }
+  for (const transfer of sediments) depositSediment(world, transfer);
   // Mixed background vapor exchanges with local columns. Sealed outer edges do not invent water.
   const backgroundShare = world.atmosphere.water / Math.max(1, length),
     dustShare = world.atmosphere.dust / Math.max(1, length);
@@ -261,11 +336,10 @@ export function updateWeather(world: World): void {
     tile.water += waterDelta[i];
     tile.dissolvedOxygen += oxygenDelta[i];
     tile.air.dust += dustDelta[i];
-    tile.temperature +=
-      heatDelta[i] / (105000 + tile.water * PLANET.waterHeatCapacity);
+    tile.temperature += heatDelta[i] / thermalCapacity(tile);
     const exchange = (backgroundShare - tile.air.vapor) * 0.005;
     tile.air.vapor += exchange;
-    world.atmosphere.water -= exchange;
+    accumulateAtmosphere(world, "water", -exchange);
     // The upper atmosphere is a well-mixed global reservoir in this first reduced model.
     // Mixing is wind-dependent; local eddy exchange above follows the wind axes.
     const mixing = Math.min(
@@ -274,7 +348,7 @@ export function updateWeather(world: World): void {
     );
     const dustExchange = (dustShare - tile.air.dust) * mixing;
     tile.air.dust += dustExchange;
-    world.atmosphere.dust -= dustExchange;
+    accumulateAtmosphere(world, "dust", -dustExchange);
     const deposited =
       tile.air.dust *
       Math.min(
@@ -283,6 +357,7 @@ export function updateWeather(world: World): void {
       );
     tile.air.dust -= deposited;
     addNutrients(tile, ROCK, deposited);
+    displaceSurface(world, tile, deposited);
     world.climate.dustDeposited += deposited;
     tile.air.humidity = clamp(
       tile.air.vapor / saturationVapor(tile.temperature),

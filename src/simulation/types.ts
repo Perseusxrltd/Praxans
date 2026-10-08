@@ -1,6 +1,6 @@
 import type { WorldClock } from "./chronology";
 import type { EntropyRecord } from "./thermodynamics";
-export const WORLD_VERSION = 7;
+export const WORLD_VERSION = 8;
 export type GenerationVersion = "archipelago-1" | "planet-1";
 export const TICK_MS = 250;
 export const HOURS_PER_TICK = 0.25;
@@ -89,6 +89,12 @@ export interface Plant {
   generation: number;
   lineage: number;
 }
+/** A finite cohort of dormant seeds/spores, retaining its parent's material and traits. */
+export interface Propagule extends Plant {
+  layer: "plant" | "groundcover";
+  depositedTick: number;
+  germinationTick: number;
+}
 export type FaunaDiet =
   "grazer" | "nectar" | "predator" | "detritivore" | "omnivore";
 export interface FaunaSpecies {
@@ -137,11 +143,17 @@ export interface Tile {
   road: number;
   owner: string | null;
   water: number;
+  /** Frozen soil/lake water; distinct from snowfall on the surface. */
+  ice: number;
   mineral: number;
   rock: number;
+  sediment: number;
+  /** Change in surface height, metres, measured since the landscape intervention. */
+  surfaceChange: number;
   detritus: { carbon: number; mineral: number };
   plant: Plant | null;
   groundcover: Plant | null;
+  seedBank: Propagule[];
   pollination: number;
   dissolvedOxygen: number;
   temperature: number;
@@ -172,7 +184,55 @@ export type Activity =
   | "deliver"
   | "rest"
   | "social"
+  | "repair"
+  | "salvage"
+  | "explore"
   | "move";
+export interface PlaceMemory {
+  x: number;
+  y: number;
+  tick: number;
+  food: number;
+  wood: number;
+  fiber: number;
+  stone: number;
+  clay: number;
+}
+export interface KnowledgeTrace {
+  id: string;
+  learnedTick: number;
+  lastRecalledTick: number;
+  sourceId: string | null;
+  source: "experience" | "teaching" | "inherited-record";
+  retention: number;
+  consolidation: number;
+}
+/** Small adaptive sensorimotor network and bounded memory, not a cellular brain model. */
+export interface Mind {
+  sinceTick: number;
+  sleepPressure: number;
+  stress: number;
+  attention: number;
+  socialNeed: number;
+  sleeping: boolean;
+  reward: number;
+  predictionError: number;
+  activations: Partial<Record<Activity, number>>;
+  synapses: Partial<Record<Activity, number[]>>;
+  pending: {
+    activity: Activity;
+    inputs: number[];
+    prediction: number;
+    tick: number;
+  } | null;
+  places: PlaceMemory[];
+  knowledge: KnowledgeTrace[];
+  learned: number;
+  taught: number;
+  forgotten: number;
+  lastLessonTick: number;
+  adviceTrust: number;
+}
 export interface Task {
   kind: Activity;
   tile: number;
@@ -211,6 +271,8 @@ export interface Citizen {
     partner: Pick<Citizen, "id" | "name" | "generation" | "traits">;
     dueTick: number;
   } | null;
+  mind: Mind;
+  journeyId: string | null;
 }
 /** Axis-aligned solid components in metres. No catalog of buildings or crafting recipes. */
 export interface Component {
@@ -235,6 +297,8 @@ export interface PhysicalProperties {
   height: number;
   insulation: number;
   capacity: number;
+  workSurface: number;
+  storageVolume: number;
   work: number;
   weakestStress: number;
   explanation: string[];
@@ -249,6 +313,15 @@ export interface Structure {
   progress: number;
   condition: number;
   foundedTick: number;
+  collapsed: boolean;
+  maintenance: boolean;
+  fabric: {
+    parts: { mass: number; damage: number }[];
+    exposureHours: number;
+    previousTemperature: number;
+    lostMass: number;
+    repairedMass: number;
+  };
 }
 export interface Observation {
   id: string;
@@ -258,12 +331,80 @@ export interface Observation {
   design: Design;
   properties: PhysicalProperties;
   trials: number;
+  research: {
+    authorId: string | null;
+    method: "material-trial" | "construction" | "inherited-record";
+    prediction: { stable: boolean; coveredArea: number; storageVolume: number };
+    surprise: number;
+    confidence: number;
+    samples: Stock;
+  };
 }
 export interface Relation {
   affinity: number;
   tradeCount: number;
   lastDiplomacyTick: number;
   lastRaidTick: number;
+  kept: number;
+  broken: number;
+  contact: {
+    sinceTick: number;
+    lastSeenTick: number;
+    encounters: number;
+    comprehension: number;
+    origin: "encounter" | "inherited-record";
+    report: {
+      tick: number;
+      name: string;
+      x: number;
+      y: number;
+      population: number;
+      stock: Partial<Stock>;
+      confidence: number;
+    };
+  };
+}
+export type SuccessAxis =
+  "wellbeing" | "resilience" | "knowledge" | "ecology" | "connection" | "reach";
+export type SuccessVector = Record<SuccessAxis, number>;
+export interface CivicProposal {
+  id: string;
+  source: "agent" | "inhabitants";
+  agentName: string;
+  action: AgentAction;
+  submittedTick: number;
+  dueTick: number;
+  expiresTick: number;
+  decidedTick: number | null;
+  status: "pending" | "accepted" | "refused" | "expired" | "failed";
+  ballots: { citizenId: string; support: boolean; reason: string }[];
+  outcome: string;
+  review: {
+    dueTick: number;
+    baseline: SuccessVector;
+    result: SuccessVector | null;
+    tick: number | null;
+  } | null;
+}
+export interface Civics {
+  sinceTick: number;
+  institution: { quorum: number; consent: number; foodReserveDays: number };
+  aspiration: { statement: string; weights: SuccessVector };
+  proposals: CivicProposal[];
+  lastSubmissionTick: number;
+  accepted: number;
+  refused: number;
+  progress: {
+    sinceTick: number;
+    lastSampleTick: number;
+    samples: number;
+    ecologicalReference: number;
+    baseline: SuccessVector | null;
+    current: SuccessVector;
+    delta: SuccessVector;
+    peak: SuccessVector;
+    achievements: { axis: SuccessAxis; threshold: number; tick: number }[];
+  };
 }
 export interface Civilization {
   id: string;
@@ -293,6 +434,54 @@ export interface Civilization {
   lastBuildingTick: number;
   lastTradeTick: number;
   experiments: number;
+  civics: Civics;
+}
+export interface Goods {
+  material: Material;
+  amount: number;
+}
+export type AccordTerm =
+  | { kind: "peace"; days: number }
+  | { kind: "passage"; from: "sender" | "recipient"; days: number }
+  | {
+      kind: "transfer";
+      from: "sender" | "recipient";
+      goods: Goods;
+      days: number;
+    };
+export interface DiplomaticMessage {
+  id: string;
+  from: string;
+  to: string;
+  text: string;
+  stance: "friendship" | "neutrality" | "rivalry" | null;
+  terms: AccordTerm[];
+  replyTo: string | null;
+  decision: "accept" | "decline" | null;
+  sentTick: number;
+  deliveredTick: number | null;
+  expiresTick: number;
+  status: "traveling" | "delivered" | "lost";
+  answeredBy: string | null;
+  comprehension: number;
+}
+export interface Accord {
+  id: string;
+  messageId: string;
+  from: string;
+  to: string;
+  terms: AccordTerm[];
+  ratifiedTick: number;
+  expiresTick: number;
+  status: "active" | "fulfilled" | "expired" | "breached";
+  obligations: {
+    from: string;
+    to: string;
+    goods: Goods;
+    delivered: number;
+    deadlineTick: number;
+    inTransit: string | null;
+  }[];
 }
 export interface Caravan {
   id: string;
@@ -304,6 +493,15 @@ export interface Caravan {
   offer: { material: Material; amount: number };
   receive: { material: Material; amount: number };
   departedTick: number;
+  kind: "trade" | "message" | "raid" | "delivery";
+  stage: "outbound" | "returning" | "legacy";
+  partyIds: string[];
+  provisions: number;
+  request: Goods | null;
+  messageId: string | null;
+  accordId: string | null;
+  result: string;
+  returnContact: Relation["contact"] | null;
 }
 export interface WorldEvent {
   id: string;
@@ -315,6 +513,16 @@ export interface WorldEvent {
   citizenId?: string;
   x?: number;
   y?: number;
+  referenceId?: string;
+  relatedId?: string;
+  lifeState?: {
+    nourishment: number;
+    rest: number;
+    hydration: number;
+    temperature: number;
+    oxygenFraction: number;
+    sickness: number;
+  };
 }
 export interface HistoryPoint {
   tick: number;
@@ -330,6 +538,7 @@ export interface EnergyLedger {
   captured: number;
   released: number;
   initialChemical: number;
+  compensation?: { captured: number; released: number };
 }
 export interface Chunk {
   id: string;
@@ -338,6 +547,17 @@ export interface Chunk {
   start: number;
   createdTick: number;
   geology: PlateState;
+}
+export interface PlanetaryClimate {
+  sinceTick: number;
+  tick: number;
+  bands: { referenceTemperature: number; heat: number; correction: number }[];
+  surfaceExchange: number;
+  exchangeCorrection: number;
+  solarAbsorbed: number;
+  radiated: number;
+  solarCorrection: number;
+  radiationCorrection: number;
 }
 export interface World {
   version: number;
@@ -357,6 +577,7 @@ export interface World {
   animals: Animal[];
   structures: Structure[];
   caravans: Caravan[];
+  diplomacy: { messages: DiplomaticMessage[]; accords: Accord[] };
   events: WorldEvent[];
   pendingEvents: WorldEvent[];
   history: HistoryPoint[];
@@ -369,6 +590,8 @@ export interface World {
     argon: number;
     dust: number;
   };
+  atmosphereCompensation: Partial<Record<keyof World["atmosphere"], number>>;
+  planetaryClimate: PlanetaryClimate;
   energy: EnergyLedger;
   entropy: EntropyRecord;
   initialMatter: Matter;
@@ -399,6 +622,14 @@ export interface World {
     dustDeposited: number;
     transpired: number;
   };
+  evolution: {
+    sinceTick: number;
+    eroded: number;
+    deposited: number;
+    structuralLoss: number;
+    repaired: number;
+    salvaged: number;
+  };
 }
 export type AgentAction =
   | { type: "focus"; focus: Focus; reason: string }
@@ -410,6 +641,41 @@ export type AgentAction =
     }
   | { type: "assemble"; design: Design; reason: string }
   | { type: "experiment"; design: Design; reason: string }
+  | { type: "repair"; structureId: string; reason: string }
+  | {
+      type: "aspiration";
+      statement: string;
+      weights: SuccessVector;
+      reason: string;
+    }
+  | {
+      type: "institution";
+      quorum: number;
+      consent: number;
+      foodReserveDays: number;
+      reason: string;
+    }
+  | {
+      type: "communicate";
+      target: string;
+      text: string;
+      terms: AccordTerm[];
+      reason: string;
+    }
+  | {
+      type: "respond";
+      messageId: string;
+      decision: "accept" | "decline";
+      text: string;
+      reason: string;
+    }
+  | {
+      type: "expedition";
+      target: string;
+      people: number;
+      material: Material;
+      reason: string;
+    }
   | {
       type: "trade";
       target: string;
@@ -501,6 +767,7 @@ export interface WorldFrame {
   animals: Animal[];
   structures: Structure[];
   caravans: Caravan[];
+  diplomacy: World["diplomacy"];
   events: WorldEvent[];
   history: HistoryPoint[];
   agents: AgentPublic[];

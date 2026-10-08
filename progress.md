@@ -2,46 +2,39 @@ Original prompt: let's rebuild the whole game, from the ground up, as an interne
 
 ## Accepted direction
 
-- One persistent shared world. People can observe or connect an agent to a community; the world continues while everyone is offline.
-- Fixed, inspectable natural constraints; no building recipes or technology unlock tree. Outcomes arise from coupled processes, resources, geometry, and behavior.
-- An old Earth-like planet with a star and moon, an immense frontier, diverse ecosystems, and small initial human groups.
-- Elements, weather, geology, seasons, day/night, age, precise time, and explicit entropy mechanisms. Spend complexity on mechanics and intelligence.
-- Keep the same world through hotfixes, recorded as interventions. Vercel hosts the browser; one Railway service and persistent volume own the simulation.
-- Eight founders is a provisional opening balance, not a demonstrated minimum viable population.
+- One persistent shared world: observe or connect a model-neutral HTTP/MCP agent to a small human community. Everyone's communities coexist; inhabitants continue without their agents.
+- Fixed, inspectable natural constraints and coupled processes. No building recipes, compulsory technology tree or unlimited matter.
+- An old Earth-like planet, star and moon, immense frontier, varied ecosystems, material elements, weather, tectonics, seasons, day/night, age and entropy.
+- Preserve the same world through recorded interventions. Vercel hosts the observer; one Railway service and volume own the clock and database. Compatible runtime hotfixes must retain observation and ownership.
+- Eight founders is provisional, not proven multi-generation viability. An extinct community's owner may explicitly begin anew in wilderness while retaining its history.
+- Agent influence develops through earned trust and local institutions; inhabitants can refuse. Success has several dimensions. Diplomacy depends on contact, information, consent and physical journeys.
 
-## Implemented foundation
+## Recovery release — 2026-10-08
 
-The active runtime is TypeScript: `src/simulation/`, `src/server/`, and `src/client/`. Python/Pygame code is retained as historical reference, with its independent assessment under `docs/assessment-2026-10-07/`. The rebuild integrates the formerly unrelated runtime and documentation histories.
+The live format-7 / biosphere-1.1 world halted at tick 20276; its last valid saved checkpoint is **20244**. Four historical communities remain, with no living people or animal cohorts and **132 surviving plant cohorts** (6.3319 kg organic tissue). The biochemical guard tripped on accumulated rounding error. Earlier overheating and fragile plant/food mechanisms caused the preceding ecological collapse. Never reset the database, reseed, restore an earlier live state or erase clock debt to recover it.
 
-Current state format: **7**. Natural-law version: **biosphere-1.1**. The model includes elemental ledgers, reduced weather and geology, 18 plant and 20 animal lineages, inherited traits, autonomous needs and material experimentation, geometry-derived shelter, and scoped HTTP/MCP actions. The observer has actual seeded-planet onboarding, landscape inspection, a periodic/clock/entropy field guide, persistent journal, and recorded interventions.
+The candidate **world-recovery-20261008** is format **8** / **biosphere-1.2**. It adds compensated energy/atmosphere accounting, funded atmospheric radiation, conservative exchange with finite planetary thermal bands, ice/snow separation, corrected small-plant growth and structural turnover, finite parent-funded dormancy and usable urgent food. It preserves historical deaths and starts empty seed banks because no earlier propagule history was represented. See `docs/validation/recovery-2026-10-08.md` for the causes, rejected candidates and limits.
 
-SQLite stores region checksums, ownership, agent keys, events, migrations, and the clock checkpoint. One-writer leases, bounded missed-time recovery, an expected-world safeguard, and consistent online backups preserve continuity. Unknown or corrupt state never triggers an automatic replacement world.
+This release also includes landscape/fabric aging, repair/salvage, exact material geometry, functional personal memory/learning/sleep, locally deliberated advice, plural progress, carried diplomacy and explicit owner-led rebeginning after extinction. The stable HTTP/SSE gateway validates immutable compatible candidates on copied checkpoints, drains/queues requests, hands off the sole lease and persists active/pending runtime pointers. It retains compressed browser streams. Host, gateway, dependency or volume failures still require platform operations.
+
+**Current local validation:** 85 model/server tests, 40 browser checks, 12 compiled-production checks, nine extinction checks and 17 runtime-hotfix checks pass. Build and formatting pass; current browser screenshots and supplied game-loop output were inspected, with no browser errors. The hotfix checks include invalid candidate rejection, one release record, retained camera/connection/key, a full gateway restart and shutdown during preflight without an orphan.
+
+The actual incident backup migrates with zero inventory changes and advances **3,000 ticks** (31.25 days), with exact reload at **23244**. It retains **58 plants**, 3.1717 kg tissue and no people/animals; final temperatures are −1.24 to 4.16°C. Its approximately 2.02 kg oxygen residual was inherited, not erased. The **400-day** seasonal trial retains 11 plant lineages and 3,192 dormant cohorts, with temperatures −11.92 to 27.49°C. Biomass falls substantially; neither trial proves ecological equilibrium or multi-generation human survival.
+
+Fresh backup `before-recovery-release-20261008.sqlite` is byte-identical to the validated incident backup: **a8bbb992dfbfbc5866490479d71294e787e088f138108b7e0473d577b2dbeeed**, 47,329,280 bytes. Local/remote gzip copies and a local raw copy passed integrity, metadata and region checksums. Only the newly created redundant remote raw copy was removed after verifying both compressed and off-service copies; older backups and the live database remain.
+
+**Deployment is in progress, not yet verified.** The candidate is staged without credentials or data and the same service/volume is retained. Finish Railway rollout and verify law/version, identity, historical migration, tick progression, clock debt, memory/disk; publish the compatible Vercel client; record actual artifacts in `docs/releases/world-recovery-0.2.md`; commit/push and update draft PR #1. Do not claim the world has recovered before real runtime checks pass.
 
 ## Hosting and continuity
 
-The website is **https://praxans.vercel.app**. The world runs on Railway with `/data/praxans.sqlite` on the existing persistent volume. Production must retain `PRAXANS_REQUIRE_EXISTING_WORLD=1`, one replica, and server sleeping disabled.
+Website: **https://praxans.vercel.app**. Railway world: **https://world-production-8384.up.railway.app**, `/data/praxans.sqlite` on its existing volume. Keep `PRAXANS_REQUIRE_EXISTING_WORLD=1`, one replica and sleeping disabled. `.railway/railway.ts` preserves operator values and the existing volume. Never apply a plan dropping either.
 
-The first live off-service backup passed SQLite integrity and world/region checksum inspection at tick 4736: seed 1847, 24 people, three communities, nine regions. The world resumed after the hosting update and recorded `browser-foundation-1-hosting` at tick 5972. Never use this live universe for automated mutation tests or create another public copy to test a change.
+Backups, databases, credentials, provider links, generated screenshots and local validation logs remain outside Git. `docs/hosting.md` describes backup, hotfix and restoration procedures. The foundation release and historical validation remain in `docs/releases/browser-foundation-0.1.md` and the clearly labeled historical section of `docs/validation/README.md`.
 
-The infrastructure definition is `.railway/railway.ts`; it preserves existing variables and explicitly retains the volume attachment. Review a plan before applying. Authentication state, local host links, world databases, backup files, and generated screenshots remain outside Git.
+## Ongoing scope
 
-See `docs/hosting.md` for procedures and `docs/releases/browser-foundation-0.1.md` for provider artifacts and final verification scope.
+The canonical implementation ledger is `docs/roadmap.md`; the agency contract is `docs/agency-and-diplomacy.md`. Every accepted requirement must remain tracked, with implemented approximations separated from planned depth. The broad rebuild goal remains active.
 
-## Validation
+Only materialized regions run detailed ecology. Planetary thermal bands represent heat continuity, not a complete global fluid, water, mineral or ecological system. General chemistry, microbial life, animal resting stages, durable language/writing, open-ended speciation, multi-generation genetic viability, larger-world scheduling and recoverable player accounts remain unresolved. Do not imply that functional cognition is cellular neuroscience or that all life necessarily survives.
 
-- 43/43 model and server tests passed in the final local run.
-- 36/36 browser checks passed, with actual screenshots opened and inspected.
-- 10/10 compiled production checks passed, including restart, downtime recovery, agent continuity, and actual backup restoration.
-- Nine 14-day founding trials passed their opening survival checks; results include current model versions in `docs/validation/founding-trials.json`.
-- Production build and formatting checks passed. The container was built on Railway; local Docker is unavailable.
-- The supplied develop-web-game client ran against a disposable local save. `render_game_to_text` and test-only `advanceTime` remain available; production refuses manual clock controls.
-
-Validation details and practical limits are in `docs/validation/README.md`. A short deterministic run is not proof of long-term ecological or demographic stability.
-
-## Next core work
-
-The latest user question asks what fundamentals remain missing. `docs/fundamentals.md` is a proposal, not a physical intervention. Priority contracts are full represented energy accounting, useful material transformations and chemical form, continuous planetary state across levels of detail, local information, demographic viability, ecological regulators, transport, and external-agent authority/decision time.
-
-Only materialized regions currently run detailed simulation. There is no general chemical solver, complete planetary entropy ledger, open-ended speciation, demonstrated multi-generation population viability, or recoverable player account yet. Do not imply otherwise in product copy or release notes.
-
-Future changes must start from the living world's current history, with targeted causal tests, longer seasonal/generational ensembles, a migration argument where needed, a verified backup, and a recorded intervention. Do not replay or rewrite its creation to fix new assumptions.
+Future changes must preserve current history and use causal tests, seasonal/generational ensembles, explicit migrations, independent verified backups and recorded interventions. The active TypeScript runtime is in `src/simulation/`, `src/server/` and `src/client/`; Python/Pygame remains historical reference.

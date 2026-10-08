@@ -14,6 +14,8 @@ export const THERMODYNAMICS = Object.freeze({
   absoluteZeroCelsius: -273.15,
   radiation:
     "Approximate blackbody entropy flow: 4 E / (3 T). Solar, outgoing surface longwave, and implicit atmospheric return are recorded separately.",
+  atmosphere:
+    "One effective grey infrared column in radiative equilibrium. Upward and downward emission are funded by absorbed surface infrared and atmospheric shortwave absorption. Its radiating temperature is distinct from the surface temperature. Atmospheric heat storage, vertical convection and ocean heat transport remain unresolved.",
   heat: "Passive heat moves from higher to lower temperature. Each pair's finite-capacity exchange produces C1 ln(T1'/T1) + C2 ln(T2'/T2) >= 0; simultaneous local exchanges remain a reduced approximation.",
   metabolism:
     "Respiratory energy becomes heat. Q/T estimates entropy delivered to the thermal surroundings; it is not a complete biochemical reaction entropy.",
@@ -34,6 +36,10 @@ export function kelvin(celsius: number): number {
     throw new Error("Thermal state is at or below absolute zero.");
   return t;
 }
+export const heatCapacity = (tile: Tile) =>
+  105000 +
+  tile.water * PLANET.waterHeatCapacity +
+  (tile.ice + tile.air.snow) * 2.1;
 export function radiationEntropy(
   energyKJ: number,
   temperatureK: number,
@@ -46,6 +52,32 @@ export function radiationEntropy(
   )
     throw new Error("Invalid radiative energy or temperature.");
   return (4 * energyKJ) / (3 * temperatureK);
+}
+
+/** A diagnostic grey column: absorption funds equal upward/downward emission. */
+export function infraredColumn(
+  emitted: number,
+  surfaceK: number,
+  opacity: number,
+  absorbedShortwave = 0,
+) {
+  if (opacity < 0 || opacity > 1 || !Number.isFinite(opacity))
+    throw new Error("Invalid infrared opacity.");
+  if (
+    !Number.isFinite(emitted) ||
+    emitted <= 0 ||
+    !Number.isFinite(absorbedShortwave) ||
+    absorbedShortwave < 0 ||
+    (!opacity && absorbedShortwave)
+  )
+    throw new Error("Invalid atmospheric radiation source.");
+  const returned = (emitted * opacity + absorbedShortwave) * 0.5;
+  return {
+    returned,
+    escaped: emitted * (1 - opacity) + returned,
+    temperatureK:
+      surfaceK * (opacity ? returned / (emitted * opacity) : 0.5) ** 0.25,
+  };
 }
 export function recordRadiation(
   world: World,
@@ -71,8 +103,8 @@ export function passiveHeat(
 ): number {
   const a = kelvin(source.temperature),
     b = kelvin(target.temperature);
-  const ca = 105000 + source.water * PLANET.waterHeatCapacity,
-    cb = 105000 + target.water * PLANET.waterHeatCapacity;
+  const ca = heatCapacity(source),
+    cb = heatCapacity(target);
   const equilibrium = Math.abs(a - b) / (1 / ca + 1 / cb);
   const heat =
     Math.sign(a - b) *

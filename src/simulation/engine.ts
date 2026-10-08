@@ -1,7 +1,15 @@
 import { MATERIALS } from "./content";
 import { processDeaths, updateCitizen } from "./citizens";
+import { knows, learnObservation } from "./cognition";
+import { detectContacts, updateJourneys, updateAccords } from "./diplomacy";
+import { updateCouncils, autonomousDiplomacy } from "./society";
+import { executeProposal } from "./actions";
+import { sampleProgress } from "./progress";
+import { validateDepth } from "./validation";
+import { decayStocks } from "./weathering";
 import { updateEcology } from "./ecology";
 import { updateFauna } from "./fauna";
+import { CLIMATE_MODEL, regionalTemperature } from "./climate";
 import { FAUNA_BY_ID, FLORA } from "./life";
 import {
   canAfford,
@@ -156,17 +164,35 @@ function updateFamilies(world: World, civ: Civilization): void {
   }
 }
 function planCommunity(world: World, civ: Civilization): void {
+  const population = peopleOf(world, civ.id).length;
+  const built = world.structures.filter(
+    (s) => s.civId === civ.id && s.progress >= 1 && !s.collapsed,
+  );
+  const needsShelter = housing(world, civ.id) < population + 2;
+  const needsWork =
+    built.reduce((sum, s) => sum + s.properties.workSurface, 0) <
+    population * 0.25;
+  const bulk = Object.entries(civ.stock).reduce(
+    (sum, [m, n]) => sum + n / MATERIALS[m as Material].density,
+    0,
+  );
+  const needsStorage =
+    built.reduce((sum, s) => sum + s.properties.storageVolume, 0) < bulk;
   if (
     world.tick - civ.lastBuildingTick < 48 ||
     world.structures.some((s) => s.civId === civ.id && s.progress < 1) ||
-    housing(world, civ.id) >= peopleOf(world, civ.id).length + 2
+    !population ||
+    (!needsShelter && !needsWork && !needsStorage)
   )
     return;
   const best = [...civ.observations]
     .filter(
       (o) =>
+        peopleOf(world, civ.id).some((p) => knows(p, o.id)) &&
         o.properties.stable &&
-        o.properties.coveredArea > 0.5 &&
+        ((needsShelter && o.properties.coveredArea > 0.5) ||
+          (needsStorage && o.properties.storageVolume > 0.05) ||
+          (needsWork && o.properties.workSurface > 0.5)) &&
         canAfford(civ.stock, o.properties.cost),
     )
     .sort((a, b) => designScore(b.properties) - designScore(a.properties))[0];
@@ -183,6 +209,7 @@ function autonomousTrade(world: World, civ: Civilization): void {
   if (world.tick - civ.lastTradeTick < (civ.focus === "connect" ? 192 : 384))
     return;
   const population = peopleOf(world, civ.id).length;
+  if (!population) return;
   const reserve = {
     biomass: population * 3,
     wood: 50,
@@ -197,7 +224,7 @@ function autonomousTrade(world: World, civ: Civilization): void {
     (m) => civ.stock[m] < reserve[m] * 0.7,
   );
   for (const other of [...world.civilizations]
-    .filter((c) => c !== civ && civ.relations[c.id].affinity > 0)
+    .filter((c) => c !== civ && (civ.relations[c.id]?.affinity ?? -100) > 0)
     .sort((a, b) => distance(a, civ) - distance(b, civ))) {
     for (const offer of exports)
       for (const receive of imports) {
@@ -212,7 +239,14 @@ function autonomousTrade(world: World, civ: Civilization): void {
             },
             {
               material: receive,
-              amount: Math.min(5, other.stock[receive] * 0.18),
+              amount: Math.max(
+                1,
+                Math.min(
+                  5,
+                  (civ.relations[other.id].contact.report.stock[receive] ??
+                    20) * 0.18,
+                ),
+              ),
             },
           );
           return;
@@ -222,62 +256,20 @@ function autonomousTrade(world: World, civ: Civilization): void {
       }
   }
 }
-function updateCaravans(world: World): void {
-  const arrived = new Set<string>();
-  for (const caravan of world.caravans) {
-    const next = world.tiles[caravan.path[0]];
-    if (next) {
-      const length = distance(caravan, next),
-        pace = 0.32 * (world.weather === "storm" ? 0.7 : 1);
-      if (length < pace) {
-        caravan.x = next.x;
-        caravan.y = next.y;
-        caravan.path.shift();
-      } else {
-        caravan.x += ((next.x - caravan.x) / length) * pace;
-        caravan.y += ((next.y - caravan.y) / length) * pace;
-      }
-    } else {
-      const from = world.civilizations.find((c) => c.id === caravan.from)!,
-        to = world.civilizations.find((c) => c.id === caravan.to)!;
-      from.stock[caravan.receive.material] += caravan.receive.amount;
-      to.stock[caravan.offer.material] += caravan.offer.amount;
-      from.trades++;
-      to.trades++;
-      from.relations[to.id].tradeCount++;
-      to.relations[from.id].tradeCount++;
-      updateRelations(from, to, 5);
-      // Experiences can spread along real contact, without a global unlock tree.
-      const idea = to.observations.at(-1);
-      if (idea && !from.observations.some((o) => o.id === idea.id)) {
-        from.observations.push(structuredClone(idea));
-        if (from.observations.length > 18) from.observations.shift();
-      }
-      recordEvent(world, {
-        category: "trade",
-        title: "A journey becomes a connection",
-        detail: `${from.name} and ${to.name} receive their reserved goods. Trust grows through exchange.`,
-        civId: from.id,
-        x: to.x,
-        y: to.y,
-      });
-      arrived.add(caravan.id);
-    }
-  }
-  world.caravans = world.caravans.filter((c) => !arrived.has(c.id));
-}
 function migration(world: World, civ: Civilization): void {
   const people = peopleOf(world, civ.id);
   if (people.length < 5 || civ.stock.biomass > people.length) return;
   const target = world.civilizations.find(
     (c) =>
       c !== civ &&
-      civ.relations[c.id].affinity > 12 &&
-      c.stock.biomass > peopleOf(world, c.id).length * 4,
+      (civ.relations[c.id]?.affinity ?? -100) > 12 &&
+      (civ.relations[c.id].contact.report.stock.biomass ?? 0) >
+        civ.relations[c.id].contact.report.population * 4,
   );
   const person = people.find(
     (p) =>
       p.age >= 18 &&
+      !p.journeyId &&
       !p.partnerId &&
       !world.citizens.some(
         (child) => child.age < 14 && child.parentIds.includes(p.id),
@@ -324,19 +316,23 @@ export function stepWorld(world: World, ticks = 1): void {
         populations.get(person.civId)!,
       );
     processDeaths(world);
-    updateCaravans(world);
+    updateJourneys(world);
+    if (world.tick % 4 === 0) {
+      detectContacts(world);
+      updateCouncils(world, executeProposal);
+      updateAccords(world);
+    }
     if (world.tick % 16 === 0)
       for (const civ of world.civilizations) planCommunity(world, civ);
     if (world.tick % 96 === 0) {
       for (const civ of world.civilizations) {
-        const home = getTile(world, civ.x, civ.y)!,
-          spoilage = civ.stock.biomass * 0.018;
-        civ.stock.biomass -= spoilage;
-        returnMaterial(world, home, "biomass", spoilage);
+        decayStocks(world, civ);
         updateFamilies(world, civ);
         autonomousTrade(world, civ);
         migration(world, civ);
       }
+      autonomousDiplomacy(world);
+      for (const civ of world.civilizations) sampleProgress(world, civ);
       const summary = summarizeWorld(world);
       world.history.push({
         tick: world.tick,
@@ -384,6 +380,52 @@ export function validateWorld(world: World): void {
     fail("world clock or entropy epoch");
   for (const amount of Object.values(world.entropy))
     if (!Number.isFinite(amount) || amount < 0) fail("entropy accounting");
+  const planetary = world.planetaryClimate;
+  if (
+    !planetary ||
+    !Array.isArray(planetary.bands) ||
+    planetary.bands.length !== CLIMATE_MODEL.bands ||
+    !Number.isSafeInteger(planetary.sinceTick) ||
+    planetary.sinceTick < 0 ||
+    planetary.sinceTick > world.tick ||
+    !Number.isSafeInteger(planetary.tick) ||
+    planetary.tick < planetary.sinceTick ||
+    planetary.tick > world.tick
+  )
+    fail("planetary climate epoch or grid");
+  for (const [key, value] of Object.entries(planetary))
+    if (key !== "bands" && !Number.isFinite(value))
+      fail("planetary climate accounting");
+  for (let i = 0; i < planetary.bands.length; i++) {
+    const band = planetary.bands[i];
+    if (
+      !Object.values(band).every(Number.isFinite) ||
+      regionalTemperature(planetary, i) <= -273.15 ||
+      Math.abs(band.correction) >
+        Math.max(1e-9, Math.abs(band.heat) * Number.EPSILON * 2)
+    )
+      fail("planetary thermal reservoir");
+  }
+  const storedPlanetaryHeat = planetary.bands.reduce(
+    (sum, band) => sum + band.heat,
+    0,
+  );
+  const expectedPlanetaryHeat =
+    planetary.solarAbsorbed - planetary.radiated + planetary.surfaceExchange;
+  if (
+    planetary.solarAbsorbed < 0 ||
+    planetary.radiated < 0 ||
+    Math.abs(storedPlanetaryHeat - expectedPlanetaryHeat) >
+      Math.max(
+        0.05,
+        Math.max(
+          planetary.solarAbsorbed,
+          planetary.radiated,
+          Math.abs(planetary.surfaceExchange),
+        ) * 1e-11,
+      )
+  )
+    fail("planetary heat conservation");
   for (const tile of world.tiles)
     if (tile.temperature <= -273.15) fail("temperature below absolute zero");
   for (let n = 0; n < world.chunks.length; n++) {
@@ -434,6 +476,7 @@ export function validateWorld(world: World): void {
       fail("tile position or temperature");
     for (const value of [
       t.water,
+      t.ice,
       t.mineral,
       t.rock,
       t.detritus.carbon,
@@ -465,7 +508,20 @@ export function validateWorld(world: World): void {
       fail("wind, tide, or elevation");
     positive(t.dissolvedOxygen, "dissolved oxygen");
     positive(t.pollination, "pollination state");
-    for (const plant of [t.plant, t.groundcover])
+    if (!Array.isArray(t.seedBank) || t.seedBank.length > 4)
+      fail("dormant seed bank");
+    for (const seed of t.seedBank) {
+      if (
+        !["plant", "groundcover"].includes(seed.layer) ||
+        !Number.isSafeInteger(seed.depositedTick) ||
+        seed.depositedTick < 0 ||
+        seed.depositedTick > world.tick ||
+        !Number.isSafeInteger(seed.germinationTick) ||
+        seed.germinationTick < seed.depositedTick
+      )
+        fail("dormant seed history");
+    }
+    for (const plant of [t.plant, t.groundcover, ...t.seedBank])
       if (plant) {
         positive(plant.carbon, "plant tissue");
         positive(plant.mineral, "plant mineral");
@@ -556,6 +612,34 @@ export function validateWorld(world: World): void {
     world.energy.initialChemical,
   ])
     positive(value, "global reservoir");
+  if (world.energy.compensation)
+    for (const kind of ["captured", "released"] as const) {
+      const value = world.energy.compensation[kind];
+      if (
+        !Number.isFinite(value) ||
+        Math.abs(value) >
+          Math.max(1e-12, world.energy[kind] * Number.EPSILON * 2)
+      )
+        fail("energy counter compensation");
+    }
+  if (
+    !world.atmosphereCompensation ||
+    typeof world.atmosphereCompensation !== "object"
+  )
+    fail("atmospheric compensation");
+  for (const [key, value] of Object.entries(world.atmosphereCompensation))
+    if (
+      !(key in world.atmosphere) ||
+      !Number.isFinite(value) ||
+      Math.abs(value) >
+        Math.max(
+          1e-12,
+          world.atmosphere[key as keyof World["atmosphere"]] *
+            Number.EPSILON *
+            2,
+        )
+    )
+      fail("atmospheric compensation");
   for (const chunk of world.chunks) {
     for (const values of [chunk.geology.buried, chunk.geology.exposed])
       for (const [symbol, mass] of Object.entries(values)) {
@@ -574,6 +658,7 @@ export function validateWorld(world: World): void {
     )
       fail("tectonic state");
   }
+  validateDepth(world, fail);
   const elements = elementLedger(world),
     errors = elementalErrors(world, elements);
   if (!Number.isFinite(errors.relative) || errors.relative > 1e-9)
@@ -587,6 +672,16 @@ export function validateWorld(world: World): void {
         Math.max(1e-4, (world.initialMatter[key] + world.boundary[key]) * 1e-9)
     )
       fail(`${key} conservation`);
+  // Numerical error is relative to the accumulated inputs/outputs, not just
+  // the fuel left today. The latter approaches zero after a die-off and made
+  // a < 2e-11 relative historical discrepancy halt the original live world.
+  const energyScale = Math.max(
+    world.energy.initialChemical +
+      Math.abs(world.boundary.chemical) +
+      world.energy.captured,
+    world.energy.released,
+    total.chemical,
+  );
   if (
     !Number.isFinite(world.boundary.chemical) ||
     Math.abs(
@@ -595,7 +690,7 @@ export function validateWorld(world: World): void {
         world.energy.captured -
         world.energy.released -
         total.chemical,
-    ) > Math.max(0.05, total.chemical * 1e-8)
+    ) > Math.max(0.05, energyScale * 1e-10)
   )
     fail("biochemical energy conservation");
 }

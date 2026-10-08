@@ -161,12 +161,45 @@ try {
     "community inspection selects an actual community",
     (await state(page)).selection.type === "civilization",
   );
+  await page
+    .getByRole("heading", { name: "What they are becoming", exact: true })
+    .scrollIntoViewIfNeeded();
+  check(
+    "the community exposes six dimensions of success",
+    (await page
+      .locator('[aria-label="Civilization outcomes"] [role="meter"]')
+      .count()) === 6,
+  );
+  await page.screenshot({
+    path: `${output}/02-community-outcomes.png`,
+    fullPage: true,
+  });
+  await page.getByText("Beyond their home", { exact: false }).click();
+  check(
+    "the observer exposes contact-dependent diplomacy",
+    await page
+      .getByText("Letters and goods travel with people.", { exact: false })
+      .isVisible(),
+  );
   await page.locator(".people-list button").first().click();
   check(
     "citizen inspection reveals a real individual",
     (await state(page)).selection.type === "citizen",
   );
   await page.screenshot({ path: `${output}/02-a-life.png`, fullPage: true });
+  await page
+    .getByRole("heading", { name: "A mind at work", exact: true })
+    .scrollIntoViewIfNeeded();
+  check(
+    "an inhabitant's actual memory and attention are observable",
+    (await state(page)).people.some(
+      (p) => typeof p.attention === "number" && p.rememberedIdeas > 0,
+    ),
+  );
+  await page.screenshot({
+    path: `${output}/02-personal-memory.png`,
+    fullPage: true,
+  });
   await page.getByRole("button", { name: "Natural laws", exact: true }).click();
   await page.getByText("Conservation, measured live").waitFor();
   check(
@@ -251,10 +284,22 @@ try {
     "journal filters actual discoveries",
     (await page.locator(".journal-entry").count()) > 0,
   );
-  await page.locator(".journal-entry").first().click();
+  const entry = page.locator(".journal-entry").first();
+  const entryTitle = await entry.locator("strong").textContent();
+  const entryDetail = await entry.locator("p").textContent();
+  const journal = await (await fetch(`${base}/api/journal`)).json();
+  const discovery = journal.events.find(
+    (event) => event.title === entryTitle && event.detail === entryDetail,
+  );
+  assert.ok(
+    discovery?.citizenId,
+    "the visible discovery records its actual author",
+  );
+  await entry.click();
   check(
-    "a journal event leads back to its community",
-    (await state(page)).selection.type === "civilization",
+    "a discovery journal event leads back to the person who made it",
+    (await state(page)).selection.type === "citizen" &&
+      (await state(page)).selection.id === discovery.citizenId,
   );
   await page.getByRole("button", { name: "Connect an agent" }).click();
   await page.getByRole("dialog").waitFor();
@@ -325,6 +370,13 @@ try {
     fullPage: true,
   });
   await page.getByRole("button", { name: "Back to watching" }).click();
+  check(
+    "the HTTP receipt queues advice without imposing policy",
+    (await state(other)).communities.find(
+      (c) => c.id === observed.civilization.id,
+    )?.focus !== "preserve",
+  );
+  await page.evaluate(() => window.advanceTime(96 * 250));
   await other.waitForFunction(
     (id) =>
       JSON.parse(window.render_game_to_text()).communities.find(
@@ -333,7 +385,7 @@ try {
     observed.civilization.id,
   );
   check(
-    "agent decisions reach other observers",
+    "accepted local decisions reach other observers after deliberation",
     (await state(other)).communities.find(
       (c) => c.id === observed.civilization.id,
     ).focus === "preserve",

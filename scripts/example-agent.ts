@@ -48,6 +48,13 @@ async function request<T>(path: string, body?: unknown): Promise<T> {
 function decide(observation: Observation): AgentAction[] {
   const people = observation.people.length;
   if (!people) return [];
+  const civic = observation.civilization.civics;
+  if (
+    civic &&
+    (civic.proposals.some((p) => p.status === "pending") ||
+      observation.tick - civic.lastSubmissionTick < 16)
+  )
+    return [];
   const perPerson = observation.civilization.stock.biomass / people;
   const focus =
     perPerson < 3 ? "nourish" : perPerson > 8 ? "discover" : "balance";

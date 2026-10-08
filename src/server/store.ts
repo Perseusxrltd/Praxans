@@ -22,6 +22,14 @@ export interface Session {
 export interface Agent extends AgentPublic {
   hash: string;
 }
+export class WorldLeaseError extends Error {
+  constructor(public readonly expiresAt: number) {
+    super(
+      "Another server owns this world. Run one simulation replica for this volume; an interrupted owner's lease expires within 30 seconds.",
+    );
+    this.name = "WorldLeaseError";
+  }
+}
 export class Store {
   readonly db: DatabaseSync;
   private inTransaction = false;
@@ -54,10 +62,12 @@ export class Store {
         "INSERT INTO world_lease VALUES(1,?,?) ON CONFLICT(id) DO UPDATE SET token=excluded.token,expires_at=excluded.expires_at WHERE world_lease.expires_at<=?",
       )
       .run(token, now + 30000, now);
-    if (!result.changes)
-      throw new Error(
-        "Another server owns this world. Run one simulation replica for this volume; an interrupted owner's lease expires within 30 seconds.",
-      );
+    if (!result.changes) {
+      const held = this.db
+        .prepare("SELECT expires_at FROM world_lease WHERE id=1")
+        .get() as { expires_at: number } | undefined;
+      throw new WorldLeaseError(held?.expires_at ?? now + 1000);
+    }
     this.leaseToken = token;
     this.lastHeartbeat = now;
   }
@@ -312,9 +322,15 @@ export class Store {
   claim(session: Session, civId: string, world: World): void {
     this.transaction(() => {
       this.save(world);
-      this.db
-        .prepare("UPDATE sessions SET civ_id=? WHERE hash=? AND civ_id IS NULL")
-        .run(civId, session.hash);
+      const claimed = this.db
+        .prepare("UPDATE sessions SET civ_id=? WHERE hash=? AND civ_id IS ?")
+        .run(civId, session.hash, session.civId);
+      if (claimed.changes !== 1)
+        throw new Error(
+          "The browser's stewardship changed. Read its session before trying again.",
+        );
+      if (session.civId)
+        this.db.prepare("DELETE FROM agents WHERE civ_id=?").run(session.civId);
     });
   }
   createAgent(

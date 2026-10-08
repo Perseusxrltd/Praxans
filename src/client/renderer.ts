@@ -516,16 +516,29 @@ export class WorldRenderer {
     )) {
       const center = this.projectRaw(structure.x, structure.y);
       const progress = Math.max(0.08, structure.progress);
-      for (const part of [...structure.design.components].sort(
-        (a, b) => a.z - b.z,
-      )) {
+      for (const [partIndex, part] of [...structure.design.components]
+        .sort((a, b) => a.z - b.z)
+        .entries()) {
         const s = 5,
-          x = center.x + (part.x - part.y) * s,
-          y = center.y + (part.x + part.y) * s * 0.5 - part.z * s;
+          x =
+            center.x +
+            (part.x - part.y) * s +
+            (structure.collapsed ? Math.sin(partIndex * 3) * 4 : 0),
+          y =
+            center.y +
+            (part.x + part.y) * s * 0.5 -
+            (structure.collapsed ? 0 : part.z * s);
         const w = part.width * s,
           d = part.depth * s,
-          h = part.height * s * progress,
-          c = MATERIALS[part.material].color;
+          h =
+            (structure.collapsed ? Math.min(0.12, part.height) : part.height) *
+            s *
+            progress,
+          c = mix(
+            MATERIALS[part.material].color,
+            "#7a8070",
+            (1 - structure.condition / 100) * 0.6,
+          );
         ctx.globalAlpha = structure.progress < 1 ? 0.65 : 1;
         this.polygon(
           ctx,

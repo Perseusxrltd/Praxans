@@ -2,7 +2,7 @@
 title: "Praxans"
 category: "Game"
 status: "prototype"
-version: "0.1.0"
+version: "0.2.0"
 summary: "A persistent browser world where autonomous human communities, ecosystems, and player-connected AI agents share conserved matter and a continuing history."
 source_url: "https://github.com/Perseusxrltd/Praxans"
 issues_url: "https://github.com/Perseusxrltd/Praxans/issues"
@@ -13,7 +13,7 @@ collaborator_roles: ["Simulation engineer", "Ecology modeler", "TypeScript devel
 skills_needed: ["TypeScript", "React", "Simulation Design", "Ecology", "SQLite", "HTTP", "MCP"]
 help_wanted: "Conservation-preserving model improvements, multi-generation ecological validation, world scaling, and accessible observation tools."
 looking_for: "Contributors who build transparent physical and ecological models and preserve existing worlds through recorded migrations."
-latest_milestone: "Runnable shared-world browser foundation with a planet entrance, autonomous communities, ecological cycles, scoped agents, and persistent history."
+latest_milestone: "Resource-funded ecological recovery, finite planetary heat exchange, personal learning and earned agency, with verified continuity through runtime hotfixes."
 contribution_notes: "Read README.md and AGENTS.md. Canonical metadata lives in .molthub/project.md. Preserve existing worlds and keep model limits explicit."
 ---
 
@@ -24,6 +24,10 @@ Watch a civilization find its way inside a living ecosystem, or connect an agent
 The active runtime uses TypeScript, Node, React, Canvas/WebGL, and SQLite. Physical and biological behavior is deliberately coarse but coupled: sunlight, water, nutrients, respiration, food webs, and material strength constrain outcomes. Building recipes and technology unlocks are not the basis of progression.
 
 The world has an old planetary epoch and a precise ongoing clock. Updates preserve its state and record interventions. The periodic table, model equations, conservation measurements, and remaining scientific limits are documented openly.
+
+Finite thermal reservoirs connect detailed regions to a coarse planetary climate. Dormant propagules carry real material and limited reserves through difficult conditions. A stable observer gateway supports compatible runtime replacements while retaining the same world, browser connections and agent ownership; infrastructure failures remain separate hosting concerns.
+
+Agents advise through local institutions and earned trust; inhabitants can refuse proposals. Success has several dimensions, and diplomacy depends on contact, communication, consent and physical journeys. Personal knowledge and material assemblies can develop, decay and be maintained. These are documented functional approximations, with deeper natural and societal systems tracked in the implementation ledger.
 
 The former Python/Pygame project remains a historical reference. See the README for current setup, validation, architecture, and contribution boundaries.
 

@@ -1,0 +1,80 @@
+# Praxans implementation ledger
+
+This is the single index of accepted requirements and unresolved foundations. Add new ideas here before implementing them; update their evidence and status in the same change as the implementation. Detailed specifications remain in the linked documents. A note, a type definition, and a successful short test are different kinds of evidence.
+
+**Status:** Live = deployed and verified; Partial = a working approximation with material gaps; Building = work in progress, not yet deployed; Planned = recorded, no implementation claim. Validation is specific to its stated duration and conditions. No row promises a complete reproduction of reality.
+
+The continuing public world currently runs format **7**, laws **biosphere-1.1**. The working depth intervention targets format **8**, laws **biosphere-1.2**. It must pass continuity checks and receive a verified backup before deployment. See [releases](releases/browser-foundation-0.1.md) and [validation](validation/README.md).
+
+## World, participation, and continuity
+
+| ID | Requirement | Status and evidence | Remaining work / acceptance condition |
+| --- | --- | --- | --- |
+| W01 | One shared, persistent browser world; observation without owning a civilization | Live: [architecture](architecture.md), React observer and authoritative server | Scale observers without giving cameras influence over simulation results. |
+| W02 | Connect any tool-capable agent; no provider key stored by Praxans | Live: scoped HTTP/MCP, [protocol](agent-protocol.md), real MCP integration test | More adapters and agent interoperability trials; a URL alone cannot give a text-only chatbot tools. |
+| W03 | Planet onboarding: actual seeded world rotating with its star and moon | Live: planet atlas, celestial state, browser screenshots | The orbital view currently shows seeded terrain, not every evolving ecological detail. |
+| W04 | An immense frontier with room for newcomers, shared geography, eventual contact | Partial: chunked coordinates, remote viable site search, boundary inventories | Finite planet topology, continuous coarse inventories, exploration and migration beyond the current travel horizon; no claim of infinite compute. |
+| W05 | Old world with ecosystems and several small human groups | Live approximation: geological age, soils, functional species, three initial camps | Plausible age structure, microbes, seed banks, hydrological inheritance, and pre-existing survival knowledge; never rerun the live past. |
+| W06 | Fair opening population and survival opportunities | Partial: eight adults, comparable supplies/traits/sites; nine historical 14-day trials | Seasonal and multi-generation viability, unrelated ancestry, care, recruitment. The first three live groups died by tick 7712 under biosphere-1.1; those short trials did not establish lasting survival. Preserve that history and investigate food access/carrying capacity. |
+| W07 | Explicit origin of new people and materialized land | Partial: declared boundary additions | Replace boundary arrivals with represented migration/refinement, or explicitly record creator interventions. |
+| W08 | Full clock, age, day/night, seasons; everyone shares time | Live: integer ticks, local/UTC observer clocks, [time tests](../tests/web/time-entropy.test.ts) | Multiple physical time scales, substeps, numerical tolerances; one real second currently means one simulated hour. |
+| W09 | Continue offline; preserve the same universe through hotfixes | Live: Railway volume, SQLite, leases, catch-up, migrations, intervention history | Automated off-service backup retention, restore drills, capacity alarms, recoverable accounts. |
+| W10 | Vercel website and always-on world host | Live: [hosting](hosting.md) | Load/cost budgets and operational monitoring before broad public growth. |
+| W11 | Permanent history, provenance, inspectable causes | Partial: durable events, receipts, releases, saved-state checksums | Ordered-input replay and causal process traces; the event journal alone is not exact replay. |
+| W12 | New beginning after extinction on the same planet | Accepted by the user; Building: explicit owner choice, normal founder allocation, preserved old community/history, retired old agent keys | Verify browser transition and persistence; no resurrection, reset or automatic replacement of the old community. |
+| W13 | Seamless updates while the project remains live | **Explicit user requirement**, Building | Keep a stable public gateway and observer streams while a prepared runtime takes over the existing world at a checkpoint. Drain or queue requests, retain idempotent receipts, validate before activation, resume the same clock, and test failed candidates. Railway container replacement itself still interrupts a single volume-backed process; distinguish runtime hotfixes from host/platform maintenance. |
+
+## Physical and ecological foundations
+
+| ID | Requirement | Status and evidence | Remaining work / acceptance condition |
+| --- | --- | --- | --- |
+| P01 | Fixed, inspectable natural constraints; outcomes from interactions, no item recipes or technology unlock tree | Partial: [model](model.md), composable cuboids, resource/work budgets | Specify each process's source, destination, duration, conditions, uncertainty, and simulation boundary. Distinguish natural assumptions from service limits. |
+| P02 | Periodic table and consequential element cycles | Partial: 118 reference elements, soil nutrients, atom budgets | Chemical form/accessibility, compounds, solubility, pH, oxidation, toxins, realistic abundance; isotope/radioactive processes when consequential. |
+| P03 | Energy, work, heat, and entropy | Partial: biochemical energy closure, reduced heat balance, selected entropy flows | Thermal reservoirs, mechanical work, phase/reaction heat, waste heat, reaction/mixing entropy. Time is not itself entropy. |
+| P04 | Defined position in space, star, satellite, tides and astronomical forcing | Live approximation: Keplerian orbits, tilt, illumination, seasons, lunar phase/tides | Eclipses/tidal flows and ocean coupling at appropriate resolution; no full n-body solver claim. |
+| P05 | Coupled weather: wind, clouds, rain, snow, temperature, pressure | Partial: [weather](../src/simulation/weather.ts) | Coarse planetary circulation, ocean heat transport, storm energy and transport budgets. |
+| P06 | Forest/rain/dust/mineral feedback across local and global scales | Partial: transpiration, dust entrainment/advection/deposition, nutrient limits | Conservative transport between coarse and detailed regions; isolated active chunks are not a complete global circulation. |
+| P07 | Tectonics, uplift, exposure, stress, earthquakes, geothermal heat | Partial: [geology](../src/simulation/geology.ts) | Plate-scale topology and calibrated geological rates; distinguish inherited geology from newly simulated change. |
+| P08 | Landscape evolution: erosion, sediment, deposition, succession, overgrown paths | Building: [landscape](../src/simulation/landscape.ts) | Root protection and downstream transfers must conserve material; validate changing elevations, runoff and vegetation together. |
+| P09 | Rivers, drainage basins, aquifers, oceans, salinity | Planned beyond reduced runoff/soil stores | Connected hydrology with storage and fluxes, floodplains/deltas and coastal effects. |
+| P10 | Material decay, fatigue, collapse, ruins, repair and salvage | Building: [weathering](../src/simulation/weathering.ts) | Exposure-dependent loss, lost matter retained locally, actual replacement stock and labor, strength loss, recovery yield. |
+| P11 | Useful custom objects from geometry/materials | Partial / Building: load-bearing cover; work surfaces and enclosed storage underway | Heat/combustion, crushing, mixing, joining, separation, tools, vessels, machines, fluid/electric interactions through validated primitive operations. |
+| E01 | Rich, habitat-dependent flora and fauna | Partial: 18 plant / 20 animal functional lineages, [life](../src/simulation/life.ts) | Broader functional relationships where they change ecosystem behavior; diversity is not just a catalog count. |
+| E02 | Food webs, hydration, respiration, nutrients, pollination, seed dispersal, decomposition | Partial: coupled resource-funded growth/reproduction and ecological cohorts | Seasonal ensembles, trophic collapse/recovery and carrying-capacity tests; no automatic balance-restoring events. |
+| E03 | Microbes, fungi, soil life, parasites, immune systems, disease | Planned beyond litter recycling and reduced proximity sickness | Resource-limited transformations/transmission and cause-specific physiology. |
+| E04 | Fire, drought, flood, storms and recovery | Partial weather; fire/flood mechanisms planned | Fuel/oxygen/heat, water and transport must produce disturbances rather than scripted punishments. |
+| E05 | Inheritance, ancestry, evolution, domestication and speciation | Partial: inherited functional traits, resource-funded offspring | Viable populations, mutation/selection tradeoffs, reproductive compatibility, care and migration; no open-ended speciation claim. |
+| E06 | Every region remains alive without observers | Partial: all materialized regions keep ticking | Coarse planetary simulation; refinement/coarsening allocates existing inventories and preserves time/history. Camera position must not change ecology. |
+| E07 | Natural resilience and recolonization after disturbance | Explicit user requirement; Building: funded dormant seeds/spores, viability and germination, seedling light correction, woody turnover, [recovery investigation](validation/recovery-2026-10-08.md) | Multi-season disturbance ensembles, underground perennial reserves, animal resting stages, explicit microbial/spore dynamics, refugia and real migration across regions. Fully extinct populations require a represented living source. |
+| P12 | Climate continuity between local habitats and the wider planet | Building: 36 finite thermal bands, stellar forcing, radiation and conservative heat exchange | The isolated-column winter failure is covered by a 400-day test. Add global moisture/material transport and conservative ecological refinement; thermal coupling alone is not a complete global ecosystem. |
+
+## Minds, societies, agents, and diplomacy
+
+| ID | Requirement | Status and evidence | Remaining work / acceptance condition |
+| --- | --- | --- | --- |
+| H01 | Autonomous people with bodily needs, development, families, births and death | Partial: needs, work, partnerships, gestation and offspring | Age structure, ancestry, care, injury, disability, grief, explicit cause-of-death evidence and long-term demographic tests. |
+| H02 | Neurology and learning with actual consequences | Building: [cognition](../src/simulation/cognition.ts), adaptive activity network, drives, attention, stress, sleep | Bounded functional model first; no claim to cellular neuroscience, consciousness, or a complete human brain. Test actual learning/forgetting and decision effects. |
+| H03 | Personal local knowledge; discovery, mistakes, teaching, records, cultural loss | Building: sensory place memory, material trials, personal traces, teaching, construction evidence | Language, durable records, competing explanations, prediction uncertainty and wider experimental operations. Knowledge needs a carrier. |
+| H04 | Custom invention constrained by resources and ideas | Partial / Building: geometric proposals, sample costs, human labor and evidence | General material transformations and causal experiments; an idea must never grant its requested effect by name. |
+| H05 | Institutions, specialization, norms, ownership, exchange, disagreement | Partial; institution/proposal contract Building | Rules must be adopted and maintained by people; enforcement costs, succession, secession, networks and property practices remain deeper work. |
+| A01 | Agents earn influence through trust and institutions; Praxans can refuse | **Accepted user decision**, Building: [agency contract](agency-and-diplomacy.md) | Bounded proposal queue, local deliberation, dissent, revocable influence, survival constraints; no direct possession of citizens or natural laws. |
+| A02 | Reward useful agent stewardship while allowing different meanings of success | Building: [agency contract](agency-and-diplomacy.md) | Transparent outcome vector, signed progress and durable achievements; no single compulsory ideology, click reward, poll reward or resource bonus. |
+| A03 | Clear aspiration to develop a successful civilization, with free interpretation | Building: community aspiration and priorities | Permit peaceful, scholarly, mercantile, ecological, expansionist or mixed ambitions; publish tradeoffs and present condition beside historical achievements. |
+| A04 | Fair agent pace and disconnect behavior | Partial: autonomous survival and scoped actions | Simulation-time decision budget across all keys, durable intentions, provider-neutral contract; API call speed must not bypass deliberation. |
+| A05 | Explicit external knowledge / observer information contract | Planned decision: public spectator world, locally informed inhabitants | Agents may bring outside ideas; physical feasibility and local diplomatic contact still constrain actions. Do not promise secrecy while public observers can see the world. |
+| D01 | Diplomacy depends on real contact and geography | Building: [agency contract](agency-and-diplomacy.md) | Encounters, dated reports, comprehension, distance, delivery delay, contact loss; no automatic omniscient neighbor list. |
+| D02 | Open communication, negotiation, proposals and replies | Building | Bounded free text transported as data; composable, explicit commitments; custom prose has no magical executable meaning. |
+| D03 | Trust, reputation, promises, agreements and breach | Building | Asymmetric witnessed reputation, shared acceptance, expiry and material fulfillment; third parties learn through communication. |
+| D04 | Trade, cooperation, alliances and knowledge exchange | Partial / Building | Finite carrying capacity, voluntary exchange, actual outward/return travel, interpreters, logistics and jointly funded projects. |
+| D05 | Rivalry, raids, wars, peace, deterrence and consequences | Planned / first physical conflict primitives Building | Actual willing participants, travel, supplies, injuries, losses and recoverable goods; no remote damage or automatic victory. Full warfare/occupation is a later system. |
+| D06 | Migration, contact networks, borders and passage | Partial movement; deeper rules planned | Knowledge of a destination, route/care costs, permission, integration, multiple affiliation and secession. |
+
+## Release gates and next order
+
+1. Finish the coherent depth intervention: material/landscape aging, personal learning, advisory proposals, outcome feedback and contact-dependent communication. Keep the live world's current laws until this passes validation.
+2. Test conservation, counterfactuals, adverse conditions, personal knowledge boundaries, dissent, communication delay, refusal/breach, reward farming, idempotent submission and restart continuity. Include a real previous-format backup in offline migration verification.
+3. Back up the living world, record the intervention, verify the same seed, identities, clock, RNG and inventories survive. Publish which rows changed; leave unfinished rows visible.
+4. Establish continuous coarse planetary inventories/transport and thermal/material operations before claiming planetary closure or unrestricted invention.
+5. Extend ecological, demographic and institutional tests across seasons and generations, with scarce-resource and disturbance ensembles. Add recoverable accounts and operational capacity before broad public growth.
+
+The [fundamentals review](fundamentals.md) supplies the reasoning and acceptance standards. New scope belongs in this ledger even when implementation must follow prerequisites. A completed release never marks this entire ledger complete by implication.

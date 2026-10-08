@@ -42,7 +42,7 @@ Railway's current configuration import omits some effective defaults, so a later
 
 Check health and the attached volume after the first successful launch. Then enable `PRAXANS_REQUIRE_EXISTING_WORLD=1` and leave it enabled for subsequent releases. This separates intentional first creation from accidentally starting against an empty or wrong volume.
 
-A volume-backed redeploy can briefly stop the process. The next process loads the same checkpoint and computes missed ticks. The lease prevents overlapping owners; an interrupted process may require up to thirty seconds for its lease to expire. Deployments must tolerate that short delay. The server preserves state rather than forcing past an active lease.
+A volume-backed redeploy can briefly stop the process. The next process loads the same checkpoint and computes missed ticks. The lease prevents overlapping owners; an interrupted process may require up to thirty seconds for its lease to expire. The entrypoint waits up to 35 seconds for ordinary lease expiry, avoiding rapid restarts that exhaust a host's retry allowance. If a different owner keeps renewing, startup fails; it never clears that owner's lease. The configured health-check window includes this delay.
 
 ## Vercel website
 
@@ -86,14 +86,37 @@ The production smoke test creates an online backup, stops its disposable source,
 
 ## Hotfix procedure
 
+Ordinary runtime hotfixes can use the stable production gateway without replacing the host container. Build and verify the candidate first, then prepare a unique immutable artifact:
+
+```sh
+npm run build
+npm run hotfix:prepare -- unique-release-id "Factual changes and their limits." dist/hotfix
+```
+
+After the consistent backup and offline validation, upload that directory to an unused directory on the existing volume:
+
+```sh
+railway volume files --volume <volume-id> upload dist/hotfix /incoming/unique-release-id --json
+railway ssh --service world --identity-file /path/to/your/key -- node dist/server/hotfix.js /data/incoming/unique-release-id
+railway ssh --service world --identity-file /path/to/your/key -- node dist/server/hotfix.js --status
+```
+
+The operator endpoint is a local Unix socket with mode 0600, never a public HTTP route. The gateway checks the artifact's SHA-256, Node major version and installed dependency fingerprint. It validates migration and forward simulation on a private consistent copy while the old world continues. It then drains requests, retains arrivals, saves/stops the old owner, starts the candidate and switches the durable active-runtime pointer. Existing compressed observer streams keep their connection and resume with a fresh snapshot. Requests retain their idempotency receipts.
+
+An invalid candidate leaves the active runtime in place. An interrupted handover retains a durable pending pointer. Missing referenced artifacts and dependency mismatches fail closed; they never choose an older binary silently. Automatic fallback is allowed only when a failed candidate did not change the checkpoint. Shutdown terminates preflight children as well as the active owner.
+
+This path handles simulation and API changes with the same installed dependencies. Gateway changes, dependency/runtime upgrades, host maintenance and volume failure need a prepared container/platform operation; a single host cannot make those failures invisible. Installing the gateway itself requires one normal deployment. Keep the active artifact and its compatible dependency set through future container upgrades; do not assume an uploaded container automatically replaces a persisted runtime pointer.
+
 1. Reproduce the issue with a disposable world or an isolated backup, not by advancing the live world with test controls.
 2. Make the correction. For a saved-state change, bump `WORLD_VERSION` and register its transformation in `src/server/migrations.ts`. For changed physics, also version the law set. Keep old generators available for worlds pinned to them.
 3. Run the relevant model, server, production, and browser checks. Demonstrate that the old state resumes with the same tick, inhabitants, ownership, and conserved matter, apart from an explicitly documented physical intervention.
 4. Take a consistent backup. Preserve a copy outside the live volume.
-5. Give the code release a new `PRAXANS_RELEASE` and factual notes, deploy to the **same service, environment, and volume**, and retain the expected-world safeguard.
-6. Check health, tick progression, conservation measurements, and the recorded intervention. Browsers should reconnect to the same communities.
+5. Give the code release a unique identity and factual notes. Activate the verified runtime artifact, or deploy a required container change to the **same service, environment, and volume**. Retain the expected-world safeguard.
+6. Check health, tick progression, conservation measurements, and the recorded intervention. Routine runtime replacement should retain the same browser stream, camera, community and agent keys.
 
 Registered migrations validate the candidate state and atomically store the transformation, exact pre-migration snapshot, and before/after metadata checksums. Each region has its own checksum. Unknown formats, incompatible laws, missing expected state, and invalid ledgers stop instead of triggering a reset.
+
+For a format-7 to format-8 check on an **offline backup**, `npx tsx scripts/verify-upgrade.ts <backup.sqlite> 288 <report.json>` creates its own disposable copy, verifies checksums, retained rows and inventories, advances three simulated days, and checks an exact save/reload. It never advances the service database. Set Railway release variables with `--skip-deploys` before uploading their matching code so the preceding binary does not record a release intended for a later law set.
 
 ## Recovery and capacity
 

@@ -1,0 +1,9 @@
+{
+  "checkedAt": "2026-10-08T06:18:05.009Z",
+  "routes": 540,
+  "oldMs": 870.5685430000053,
+  "newMs": 376.5843740000014,
+  "speedup": 2.3117489813849845,
+  "resultSha256": "e5ea38cab9fb05b02204fa87d84ced28ace0281fc66cd6fe4797fbe41dcec368",
+  "equality": "exact, including tie order and failed budgeted paths"
+}

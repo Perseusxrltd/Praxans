@@ -1,6 +1,13 @@
-import { LAWS, refreshTile, respire, respirable } from "./laws";
+import {
+  LAWS,
+  refreshTile,
+  respire,
+  respirable,
+  accumulateEnergy,
+} from "./laws";
 import {
   BIO_NUTRIENTS,
+  accumulateAtmosphere,
   CHEMISTRY,
   addNutrients,
   availableMixture,
@@ -9,7 +16,10 @@ import {
 } from "./chemistry";
 import { updateWeather } from "./weather";
 import { updateGeology } from "./geology";
+import { updateWeathering } from "./weathering";
+import { weatherSediment } from "./landscape";
 import { PLANET } from "./planet";
+import { heatCapacity } from "./thermodynamics";
 import { isAquatic } from "./life";
 import { between, clamp, random } from "./random";
 import type { Genome, Plant, Tile, World } from "./types";
@@ -47,7 +57,7 @@ export function seedPlant(
   const parent = source[layer];
   if (
     !parent ||
-    target[layer] ||
+    (vegetative ? target[layer] : target.seedBank.length >= 4) ||
     target.terrain === "shore" ||
     isAquatic(parent) !== (target.terrain === "water") ||
     parent.carbon < 2 ||
@@ -65,18 +75,83 @@ export function seedPlant(
   if (parent.mineral < mineral) return false;
   parent.carbon -= carbon;
   parent.mineral -= mineral;
-  target[layer] = {
+  const offspring: Plant = {
     carbon,
     mineral,
     generation: parent.generation + 1,
     lineage: parent.lineage,
     genome: inheritGenome(world, parent.genome),
   };
+  if (vegetative) target[layer] = offspring;
+  else
+    target.seedBank.push({
+      ...offspring,
+      layer,
+      depositedTick: world.tick,
+      germinationTick:
+        world.tick + Math.ceil(96 * (2 + parent.genome.seedSize * 12)),
+    });
   touchTile(world, tileIndex(world, target.x, target.y));
   return true;
 }
 
-function growPlant(
+/** Dormant life spends stored reserves; it cannot recover a lineage with no living carrier. */
+export function updateSeedBank(
+  world: World,
+  tile: Tile,
+  lightFraction = 1,
+): void {
+  for (let i = tile.seedBank.length - 1; i >= 0; i--) {
+    const seed = tile.seedBank[i],
+      aquatic = isAquatic(seed);
+    const temperatureStress = Math.max(0, tile.temperature - 35) / 15;
+    const wet = tile.water / (tile.water + 2000);
+    const turnover = Math.min(
+      0.01,
+      (0.000008 + wet * 0.00002 + temperatureStress * 0.0001) *
+        2 ** ((tile.temperature - 20) / 15),
+    );
+    const used = respirable(
+      world,
+      seed.carbon * turnover,
+      aquatic ? tile : undefined,
+    );
+    seed.carbon -= used;
+    respire(world, used, tile, aquatic);
+    // Failed viability becomes litter. There is no free seed replenishment.
+    if (
+      seed.carbon < 0.015 ||
+      tile.temperature > 70 ||
+      tile.temperature < -60
+    ) {
+      tile.detritus.carbon += seed.carbon;
+      tile.detritus.mineral += seed.mineral;
+      tile.seedBank.splice(i, 1);
+      continue;
+    }
+    if (
+      world.tick < seed.germinationTick ||
+      tile[seed.layer] ||
+      tile.temperature < 2 ||
+      Math.abs(tile.temperature - seed.genome.temperature) > 12 ||
+      tile.water < (500 + seed.genome.waterNeed * 1500) / seed.genome.roots ||
+      tile.air.sunlight * lightFraction < 15 ||
+      (aquatic ? tile.dissolvedOxygen : world.atmosphere.oxygen) < 0.001
+    )
+      continue;
+    if (random(world) >= 0.035 * wet) continue;
+    const {
+      layer,
+      depositedTick: _deposited,
+      germinationTick: _germination,
+      ...plant
+    } = seed;
+    tile[layer] = plant;
+    tile.seedBank.splice(i, 1);
+  }
+}
+
+export function growPlant(
   world: World,
   tile: Tile,
   plant: Plant,
@@ -93,6 +168,9 @@ function growPlant(
     tile.water / (tile.water + (500 + genome.waterNeed * 2500) / genome.roots);
   const leafFactor =
     1 - genome.deciduous * clamp((8 - tile.temperature) / 14, 0, 1);
+  const livingFraction = 1 - genome.woodiness * 0.9;
+  const intercept =
+    1 - Math.exp(-plant.carbon * (1 - genome.woodiness) * 0.08 * leafFactor);
   const capacity =
     (layer === "groundcover" ? 24 : 160) / (1 + genome.woodiness);
   const lightResponse =
@@ -101,6 +179,7 @@ function growPlant(
     plant.carbon *
     0.012 *
     genome.growth *
+    livingFraction *
     lightResponse *
     leafFactor *
     tempSuitability *
@@ -110,6 +189,7 @@ function growPlant(
   const incidentEnergy =
     tile.air.sunlight *
     lightFraction *
+    intercept *
     LAWS.tileArea *
     3.6 *
     LAWS.photosyntheticEfficiency;
@@ -129,9 +209,10 @@ function growPlant(
     BIO_NUTRIENTS,
     growth * LAWS.nutrientRatio,
   );
-  world.atmosphere.carbon -= growth;
+  accumulateAtmosphere(world, "carbon", -growth);
   if (aquatic) tile.dissolvedOxygen += growth * CHEMISTRY.oxygenPerOrganic;
-  else world.atmosphere.oxygen += growth * CHEMISTRY.oxygenPerOrganic;
+  else
+    accumulateAtmosphere(world, "oxygen", growth * CHEMISTRY.oxygenPerOrganic);
   tile.water -= growth * CHEMISTRY.waterPerOrganic;
   const transpired = aquatic
     ? 0
@@ -145,11 +226,18 @@ function growPlant(
   world.climate.transpired += transpired;
   tile.temperature -=
     (transpired * PLANET.vaporizationHeat + growth * LAWS.chemicalEnergy) /
-    (105000 + tile.water * PLANET.waterHeatCapacity);
-  world.energy.captured += growth * LAWS.chemicalEnergy;
+    heatCapacity(tile);
+  accumulateEnergy(world, "captured", growth * LAWS.chemicalEnergy);
   const respiration = respirable(
     world,
-    plant.carbon * (0.00018 + genome.growth * 0.00012),
+    Math.min(
+      plant.carbon * 0.005,
+      plant.carbon *
+        (0.00018 + genome.growth * 0.00012) *
+        livingFraction *
+        (0.1 + leafFactor * 0.9) *
+        2 ** ((tile.temperature - 20) / 10),
+    ),
     aquatic ? tile : undefined,
   );
   plant.carbon -= respiration;
@@ -157,7 +245,11 @@ function growPlant(
   const stress =
     Math.max(0, 0.15 - waterSuitability) + Math.max(0, 0.25 - tempSuitability);
   const shed = clamp(
-    0.00065 + stress * 0.012 + (1 - leafFactor) * 0.002,
+    // Leaves turn over much faster than structural wood. Applying leaf loss
+    // to the entire tree previously gave even healthy trunks a 44-day half-life.
+    (0.00065 + (1 - leafFactor) * 0.002) * (1 - genome.woodiness) +
+      0.000003 * genome.woodiness +
+      stress * 0.012 * livingFraction,
     0,
     0.03,
   );
@@ -183,9 +275,10 @@ function growPlant(
 export function updateEcology(world: World): void {
   updateWeather(world);
   if (world.tick % 96 === 0) updateGeology(world);
+  updateWeathering(world);
   const shade = new Map<number, number>();
   for (const structure of world.structures)
-    if (structure.progress >= 1) {
+    if (structure.progress >= 1 && !structure.collapsed) {
       const index = tileIndex(world, structure.x, structure.y);
       shade.set(
         index,
@@ -214,7 +307,7 @@ export function updateEcology(world: World): void {
         ? Math.min(exchange, world.atmosphere.oxygen)
         : Math.max(exchange, -tile.dissolvedOxygen);
     tile.dissolvedOxygen += dissolved;
-    world.atmosphere.oxygen -= dissolved;
+    accumulateAtmosphere(world, "oxygen", -dissolved);
     const decay = clamp(
       (0.003 * Math.exp((tile.temperature - 15) / 30) * tile.water) /
         (tile.water + 1500),
@@ -245,7 +338,7 @@ export function updateEcology(world: World): void {
     if (tile.temperature > 2 && tile.water > 300 && fuel > 0) {
       tile.detritus.carbon -= fuel;
       respire(world, fuel, tile, aquatic);
-      world.atmosphere.nitrogen -= fuel * 0.08;
+      accumulateAtmosphere(world, "nitrogen", -fuel * 0.08);
       addNutrients(tile, { N: 1 }, fuel * 0.08);
     }
     const buildingLight = 1 - (shade.get(i) ?? 0);
@@ -263,7 +356,10 @@ export function updateEcology(world: World): void {
         )
       : 0;
     if (tile.plant)
-      growPlant(world, tile, tile.plant, "plant", buildingLight * intercept);
+      // Ambient light drives leaf physiology; self-interception bounds the
+      // actual energy captured inside growPlant. Multiplying both by canopy
+      // size made small survivors and seedlings unable to regrow.
+      growPlant(world, tile, tile.plant, "plant", buildingLight);
     if (tile.groundcover)
       growPlant(
         world,
@@ -272,9 +368,20 @@ export function updateEcology(world: World): void {
         "groundcover",
         buildingLight * (1 - intercept) * (aquatic ? 0.65 : 1),
       );
+    if (tile.seedBank.length)
+      updateSeedBank(world, tile, buildingLight * (1 - intercept));
     tile.pollination *= 0.96;
-    tile.road *= 0.999;
+    weatherSediment(tile);
+    const vegetation =
+      (tile.plant?.carbon ?? 0) + (tile.groundcover?.carbon ?? 0);
+    tile.road *= Math.exp(
+      -0.0002 - Math.min(0.003, vegetation * 0.00003 * tile.moisture),
+    );
     refreshTile(tile);
+    // Land cover follows the living canopy, with hysteresis to avoid flicker.
+    if (tile.terrain === "forest" && tile.trees < 0.35) tile.terrain = "meadow";
+    else if (tile.terrain === "meadow" && tile.trees > 1.2)
+      tile.terrain = "forest";
     touchTile(world, i);
   }
 }

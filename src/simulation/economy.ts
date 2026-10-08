@@ -1,14 +1,18 @@
 import { MATERIALS } from "./content";
-import { evaluateDesign, returnMaterial } from "./laws";
+import { emptyStock, evaluateDesign, returnMaterial } from "./laws";
+import { knows, learnObservation } from "./cognition";
+import { initialFabric } from "./weathering";
 import { between, clamp, pick, random } from "./random";
 import type {
   Civilization,
+  Citizen,
   Component,
   Design,
   Material,
   PhysicalProperties,
   Stock,
   World,
+  Structure,
 } from "./types";
 import {
   distance,
@@ -22,12 +26,18 @@ import {
 } from "./world";
 import { materializeCorridor, nearbyTiles } from "./terrain";
 
-export class RuleError extends Error {}
+export class RuleError extends Error {
+  override name = "RuleError";
+}
 export const canAfford = (stock: Stock, cost: Stock) =>
   (Object.keys(cost) as Material[]).every((m) => stock[m] + 1e-8 >= cost[m]);
 export const designScore = (p: PhysicalProperties) =>
   p.stable
-    ? p.coveredArea * 8 + Math.min(p.height, 1.8) * 0.2 - p.mass * 0.008
+    ? p.coveredArea * 8 +
+      p.storageVolume * 6 +
+      p.workSurface * 2 +
+      Math.min(p.height, 1.8) * 0.2 -
+      p.mass * 0.008
     : -10 - p.mass * 0.008;
 
 // Keep different material/orientation hypotheses alive. A light object may be
@@ -49,7 +59,7 @@ const practicalScore = (properties: PhysicalProperties, stock: Stock) =>
       shortage + Math.max(0, properties.cost[material] - stock[material]),
     0,
   ) *
-    2;
+    0.04;
 
 /** Search a space of cuboids and contact surfaces; there are no named building templates. */
 export function varyDesign(
@@ -86,20 +96,23 @@ export function varyDesign(
       depth: rotated[1],
       height: rotated[2],
     });
-  } else if (components.length < 10 && random(world) < 0.48) {
+  } else if (components.length < 32 && random(world) < 0.48) {
     const anchor = pick(world, components);
     const flat = random(world) < 0.7;
     const width = flat ? between(world, 1.3, 3.2) : between(world, 0.12, 0.4),
       depth = flat ? between(world, 1.3, 3.2) : between(world, 0.12, 0.4),
       height = flat ? between(world, 0.028, 0.07) : between(world, 0.6, 1.8);
-    const z = anchor.z + anchor.height;
+    const beside = random(world) < 0.3;
+    const z = beside ? 0 : anchor.z + anchor.height;
     if (z + height <= 6)
       components.push({
         material,
         width,
         depth,
         height,
-        x: anchor.x + anchor.width / 2 - width / 2,
+        x: beside
+          ? anchor.x + anchor.width
+          : anchor.x + anchor.width / 2 - width / 2,
         y: anchor.y + anchor.depth / 2 - depth / 2,
         z,
       });
@@ -120,97 +133,136 @@ export function varyDesign(
       if (part.z + part.height > 8) part.height = previous;
     }
   }
-  return { name: `Assembly ${serial}`, components };
+  const candidate = { name: `Assembly ${serial}`, components };
+  if (
+    components.some(
+      (p) => Math.abs(p.x) > 5 || Math.abs(p.y) > 5 || p.z + p.height > 8,
+    )
+  )
+    return parent
+      ? { ...structuredClone(parent), name: candidate.name }
+      : candidate;
+  return candidate;
 }
 export function runExperiment(
   world: World,
   civ: Civilization,
   supplied?: Design,
+  investigator?: Citizen,
 ): boolean {
-  if (civ.stock.wood < 0.12 || civ.stock.fiber < 0.02) return false;
-  // Small material samples are spent testing stiffness and attachment. Their matter returns to the soil.
-  const home = getTile(world, civ.x, civ.y)!;
-  civ.stock.wood -= 0.12;
-  civ.stock.fiber -= 0.02;
-  returnMaterial(world, home, "wood", 0.12);
-  returnMaterial(world, home, "fiber", 0.02);
-  civ.experiments++;
+  const actor =
+    investigator ??
+    peopleOf(world, civ.id).find((p) => p.age >= 12 && !p.mind.sleeping);
+  if (!actor || actor.mind.attention < 0.12) return false;
   const value = (properties: PhysicalProperties) =>
     practicalScore(properties, civ.stock);
-  const best = [...civ.observations].sort(
+  const recollections = civ.observations.filter((o) => knows(actor, o.id));
+  const best = [...recollections].sort(
     (a, b) => value(b.properties) - value(a.properties),
   )[0];
-  const trials: { design: Design; properties: PhysicalProperties }[] = [];
-  if (supplied)
-    trials.push({ design: supplied, properties: evaluateDesign(supplied) });
-  else
-    for (let i = 0; i < 5; i++) {
-      const parent =
-        random(world) < 0.6 && civ.observations.length
-          ? pick(world, civ.observations).design
-          : (best?.design ?? null);
-      const next = varyDesign(
-        world,
-        random(world) < 0.2 ? null : parent,
-        civ.experiments,
-      );
-      trials.push({ design: next, properties: evaluateDesign(next) });
+  const parent =
+    recollections.length && random(world) < 0.5
+      ? pick(world, recollections).design
+      : (best?.design ?? null);
+  if (parent) {
+    const recollection = recollections.find((o) => o.design === parent);
+    const trace = actor.mind.knowledge.find((k) => k.id === recollection?.id);
+    if (trace) {
+      trace.retention = 1;
+      trace.lastRecalledTick = world.tick;
     }
-  const known = (design: Design) =>
-    civ.observations.find(
-      (observation) =>
-        hypothesisFamily(observation.design) === hypothesisFamily(design),
-    );
-  const novel = trials.filter(
-    (trial) => trial.properties.stable && !known(trial.design),
+  }
+  const candidate =
+    supplied ??
+    varyDesign(world, random(world) < 0.2 ? null : parent, civ.experiments + 1);
+  const properties = evaluateDesign(candidate);
+  const samples = emptyStock();
+  for (const material of Object.keys(samples) as Material[]) {
+    samples[material] =
+      properties.cost[material] > 0
+        ? Math.min(0.4, Math.max(0.01, properties.cost[material] * 0.004))
+        : 0;
+    if (civ.stock[material] < samples[material]) return false;
+  }
+  const site = getTile(world, actor.x, actor.y)!;
+  for (const material of Object.keys(samples) as Material[]) {
+    civ.stock[material] -= samples[material];
+    returnMaterial(world, site, material, samples[material]);
+  }
+  civ.experiments++;
+  const related = recollections.find(
+    (o) => hypothesisFamily(o.design) === hypothesisFamily(candidate),
   );
-  const pool =
-    !supplied && novel.length && random(world) < 0.65 ? novel : trials;
-  const { design: candidate, properties } = pool.sort(
-    (a, b) => value(b.properties) - value(a.properties),
-  )[0];
-  const previous = known(candidate);
-  if (
-    supplied ||
-    !civ.observations.length ||
-    (!previous && properties.stable) ||
-    (previous && value(properties) > value(previous.properties) + 0.04)
-  ) {
+  const prediction = {
+    stable: related?.properties.stable ?? true,
+    coveredArea: related?.properties.coveredArea ?? 0,
+    storageVolume: related?.properties.storageVolume ?? 0,
+  };
+  const surprise =
+    (prediction.stable === properties.stable ? 0 : 1) +
+    Math.abs(prediction.coveredArea - properties.coveredArea) /
+      (1 + properties.coveredArea) +
+    Math.abs(prediction.storageVolume - properties.storageVolume) /
+      (1 + properties.storageVolume);
+  const previous = civ.observations.find(
+    (o) =>
+      JSON.stringify(o.design.components) ===
+      JSON.stringify(candidate.components),
+  );
+  if (!previous) {
     const statement = properties.stable
-      ? `${properties.coveredArea.toFixed(1)} m² of cover from ${properties.mass.toFixed(1)} kg of material`
+      ? `${properties.coveredArea.toFixed(1)} m² of cover, ${properties.workSurface.toFixed(1)} m² of working surface, and ${properties.storageVolume.toFixed(2)} m³ of enclosed space`
       : "This geometry cannot carry its own weight";
-    if (previous && !supplied)
-      civ.observations.splice(civ.observations.indexOf(previous), 1);
-    civ.observations.push({
+    const observation = {
       id: uid(world, "observation"),
       tick: world.tick,
       statement,
-      evidence: `${properties.explanation.join(" ")} Estimated from material trials and the world’s static-load model.`,
+      evidence: `${actor.name} handled samples of the actual materials. ${properties.explanation.join(" ")} These are idealized static estimates; construction and exposure provide further evidence.`,
       design: candidate,
       properties,
       trials: 1,
-    });
-    if (civ.observations.length > 18) {
-      const useful = [...civ.observations]
-        .sort((a, b) => value(b.properties) - value(a.properties))
-        .slice(0, 12);
-      const recent = civ.observations
-        .filter((observation) => !useful.includes(observation))
-        .slice(-6);
-      const retained = new Set([...useful, ...recent]);
-      civ.observations = civ.observations.filter((observation) =>
-        retained.has(observation),
-      );
+      research: {
+        authorId: actor.id,
+        method: "material-trial" as const,
+        prediction,
+        surprise,
+        confidence: 0.2 + actor.mind.attention * 0.45,
+        samples,
+      },
+    };
+    civ.observations.push(observation);
+    learnObservation(world, actor, observation);
+    if (civ.observations.length > 64) {
+      const removable = civ.observations
+        .filter((o) => o !== observation)
+        .sort((a, b) => value(a.properties) - value(b.properties))[0];
+      civ.observations = civ.observations.filter((o) => o !== removable);
+      for (const person of peopleOf(world, civ.id)) {
+        const old = person.mind.knowledge.length;
+        person.mind.knowledge = person.mind.knowledge.filter(
+          (trace) => trace.id !== removable.id,
+        );
+        person.mind.forgotten += old - person.mind.knowledge.length;
+      }
     }
     recordEvent(world, {
       category: "discovery",
-      title: `${civ.name} learns by trying`,
-      detail: `${candidate.name}: ${statement}.`,
+      title: `${actor.name.split(" ")[0]} tests an idea`,
+      detail: `${candidate.name}: ${statement}. ${surprise > 0.5 ? "The result challenged an expectation." : "The result adds evidence to a working idea."}`,
       civId: civ.id,
-      x: civ.x,
-      y: civ.y,
+      citizenId: actor.id,
+      x: actor.x,
+      y: actor.y,
     });
-  } else if (best) best.trials++;
+  } else {
+    previous.trials++;
+    previous.research.confidence = Math.min(
+      0.9,
+      previous.research.confidence + actor.mind.attention * 0.08,
+    );
+    previous.research.surprise = surprise;
+    learnObservation(world, actor, previous);
+  }
   return true;
 }
 export function requestAssembly(
@@ -258,7 +310,7 @@ export function requestAssembly(
     site.plant = null;
   }
   const id = uid(world, "structure");
-  world.structures.push({
+  const structure: Structure = {
     id,
     civId: civ.id,
     x: site.x,
@@ -268,7 +320,18 @@ export function requestAssembly(
     progress: 0,
     condition: 100,
     foundedTick: world.tick,
-  });
+    collapsed: false,
+    maintenance: false,
+    fabric: {
+      parts: [],
+      exposureHours: 0,
+      previousTemperature: site.temperature,
+      lostMass: 0,
+      repairedMass: 0,
+    },
+  };
+  structure.fabric = initialFabric(structure, site.temperature);
+  world.structures.push(structure);
   site.owner = civ.id;
   touchTile(world, tileIndex(world, site.x, site.y));
   civ.lastBuildingTick = world.tick;
@@ -298,106 +361,4 @@ export function updateRelations(
         100,
       );
 }
-export function dispatchTrade(
-  world: World,
-  civ: Civilization,
-  targetId: string,
-  offer: { material: Material; amount: number },
-  receive: { material: Material; amount: number },
-): string {
-  const target = world.civilizations.find((c) => c.id === targetId);
-  if (!target || target === civ)
-    throw new RuleError("Choose another existing community.");
-  if (offer.material === receive.material)
-    throw new RuleError("An exchange must involve different materials.");
-  for (const item of [offer, receive])
-    if (
-      !MATERIALS[item.material] ||
-      !Number.isFinite(item.amount) ||
-      item.amount < 1 ||
-      item.amount > 80
-    )
-      throw new RuleError("Trade amounts must be between 1 and 80 kg.");
-  if (
-    civ.stock[offer.material] < offer.amount ||
-    target.stock[receive.material] < receive.amount
-  )
-    throw new RuleError(
-      "Both communities must already hold the materials they exchange.",
-    );
-  if (civ.relations[target.id]?.affinity < -20)
-    throw new RuleError(
-      "The other community does not currently trust this exchange.",
-    );
-  if (
-    world.caravans.some(
-      (c) =>
-        (c.from === civ.id && c.to === target.id) ||
-        (c.from === target.id && c.to === civ.id),
-    )
-  )
-    throw new RuleError(
-      "An exchange is already traveling between these communities.",
-    );
-  // Marginal scarcity sets local value. There is no universal currency or fixed resource price.
-  const population = peopleOf(world, target.id).length;
-  const need = (material: Material) =>
-    material === "biomass"
-      ? Math.max(population * 2, 10)
-      : material === "wood"
-        ? 60
-        : 20;
-  const utility = (material: Material, amount: number) =>
-    need(material) * Math.log(1 + amount / Math.max(target.stock[material], 1));
-  const loss =
-    need(receive.material) *
-    Math.log(
-      Math.max(target.stock[receive.material], 1) /
-        Math.max(target.stock[receive.material] - receive.amount, 0.5),
-    );
-  if (
-    utility(offer.material, offer.amount) < loss * 0.85 ||
-    (receive.material === "biomass" &&
-      target.stock.biomass - receive.amount < population)
-  )
-    throw new RuleError(
-      "The other community declines: the exchange would leave it worse off or short of food.",
-    );
-  if (distance(civ, target) > 640)
-    throw new RuleError(
-      "This community is beyond the current overland journey horizon of 640 tiles.",
-    );
-  let path = findPath(world, civ, target, Math.min(world.tiles.length, 12000));
-  if (!path) {
-    materializeCorridor(world, civ, target);
-    path = findPath(world, civ, target, Math.min(world.tiles.length, 12000));
-  }
-  if (!path)
-    throw new RuleError(
-      "There is no traversable route between the communities.",
-    );
-  civ.stock[offer.material] -= offer.amount;
-  target.stock[receive.material] -= receive.amount;
-  const id = uid(world, "caravan");
-  world.caravans.push({
-    id,
-    from: civ.id,
-    to: target.id,
-    x: civ.x,
-    y: civ.y,
-    path,
-    offer: { ...offer },
-    receive: { ...receive },
-    departedTick: world.tick,
-  });
-  civ.lastTradeTick = world.tick;
-  recordEvent(world, {
-    category: "trade",
-    title: `A path between ${civ.name} and ${target.name}`,
-    detail: `${offer.amount.toFixed(1)} kg of ${offer.material} for ${receive.amount.toFixed(1)} kg of ${receive.material}. Both shares are reserved until the journey finishes.`,
-    civId: civ.id,
-    x: civ.x,
-    y: civ.y,
-  });
-  return id;
-}
+export { sendTrade as dispatchTrade } from "./diplomacy";

@@ -12,6 +12,7 @@ import {
   generateTile,
 } from "../../src/simulation/terrain";
 import { elementLedger } from "../../src/simulation/chemistry";
+import { legacyCheckpoint } from "./fixtures";
 
 test("a live service refuses to generate a replacement for a missing world", () => {
   const store = new Store(":memory:");
@@ -40,40 +41,36 @@ test("a registered hotfix preserves an established world and archives its exact 
   try {
     const original = createWorld(42, 64, 64, "archipelago-1");
     stepWorld(original, 8);
-    store.save(original);
-    const row = store.db.prepare("SELECT json FROM world").get() as {
-      json: string;
-    };
-    const legacy = JSON.parse(row.json);
-    legacy.version = 5;
-    legacy.lawsVersion = "biosphere-1.0";
-    delete legacy.entropy;
-    delete legacy.generationVersion;
-    delete legacy.pendingEvents;
-    const json = JSON.stringify(legacy);
-    store.db
-      .prepare("UPDATE world SET json=?,checksum=?")
-      .run(json, digest(json));
+    const legacy = legacyCheckpoint(store, original, 5);
     const upgraded = store.load(999);
-    assert.equal(upgraded.version, 7);
+    assert.equal(upgraded.version, 8);
     assert.equal(upgraded.entropy.sinceTick, original.tick);
     assert.equal(upgraded.generationVersion, "archipelago-1");
     assert.equal(upgraded.tick, original.tick);
     assert.equal(upgraded.seed, original.seed);
-    assert.deepEqual(upgraded.tiles, original.tiles);
-    assert.deepEqual(upgraded.citizens, original.citizens);
+    for (let i = 0; i < upgraded.tiles.length; i++) {
+      const { sediment, surfaceChange, ice, seedBank, ...tile } =
+        upgraded.tiles[i];
+      assert.deepEqual(tile, legacy.tiles[i], `legacy terrain cell ${i}`);
+      assert.equal(ice, 0);
+      assert.deepEqual(seedBank, []);
+    }
+    assert.deepEqual(
+      upgraded.citizens.map(({ mind, journeyId, ...person }) => person),
+      legacy.citizens,
+    );
     assert.deepEqual(elementLedger(upgraded), elementLedger(original));
-    assert.equal(store.interventions().length, 2);
+    assert.equal(store.interventions().length, 3);
     const backup = store.db
       .prepare("SELECT json,checksum FROM world_backups")
       .get() as { json: string; checksum: string };
     assert.equal(digest(backup.json), backup.checksum);
     assert.equal(JSON.parse(backup.json).version, 5);
-    assert.deepEqual(JSON.parse(backup.json).tiles, original.tiles);
+    assert.deepEqual(JSON.parse(backup.json).tiles, legacy.tiles);
     assert.deepEqual(store.load(0), upgraded);
     assert.equal(
       store.interventions().length,
-      2,
+      3,
       "a restart does not apply the migration again",
     );
     materializeChunk(upgraded, 30, 40);

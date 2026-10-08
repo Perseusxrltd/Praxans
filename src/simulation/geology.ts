@@ -152,8 +152,11 @@ export function updateGeology(world: World): void {
       const x = chunk.x * CHUNK_SIZE + CHUNK_SIZE / 2,
         y = chunk.y * CHUNK_SIZE + CHUNK_SIZE / 2;
       for (const structure of world.structures)
-        if (Math.hypot(structure.x - x, structure.y - y) < CHUNK_SIZE)
+        if (Math.hypot(structure.x - x, structure.y - y) < CHUNK_SIZE) {
           structure.condition *= 0.8;
+          for (const part of structure.fabric.parts)
+            part.damage = 1 - (1 - part.damage) * 0.8;
+        }
       recordEvent(world, {
         category: "nature",
         title: "Stored strain is released",

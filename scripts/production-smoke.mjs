@@ -50,7 +50,7 @@ async function start(release, seed) {
   server.stderr.on("data", (chunk) => {
     logs += chunk;
   });
-  for (let attempt = 0; attempt < 150; attempt++) {
+  for (let attempt = 0; attempt < 300; attempt++) {
     if (server.exitCode !== null)
       throw new Error(`Production server exited: ${logs}`);
     try {
@@ -147,7 +147,9 @@ try {
   check(
     "the runnable example agent can observe and guide its community",
     afterAgent.civilization.id === civilizationId &&
-      afterAgent.civilization.focus === "balance",
+      afterAgent.civilization.civics.proposals.some(
+        (p) => p.action.type === "focus" && p.action.focus === "balance",
+      ),
   );
   await command(["dist/server/maintenance.js", "inspect"]);
   await command(["dist/server/maintenance.js", "backup", backup]);
@@ -170,7 +172,13 @@ try {
     continued.seed === initial.seed &&
       JSON.stringify(continued.citizens.map((person) => person.id)) ===
         JSON.stringify(initial.citizens.map((person) => person.id)) &&
-      continued.tiles[0].elevation === initial.tiles[0].elevation,
+      continued.tiles[0].x === initial.tiles[0].x &&
+      continued.tiles[0].y === initial.tiles[0].y &&
+      Math.abs(
+        continued.tiles[0].elevation * 600 -
+          continued.tiles[0].surfaceChange -
+          (initial.tiles[0].elevation * 600 - initial.tiles[0].surfaceChange),
+      ) < 0.0001,
   );
   check(
     "restart simulates missed time instead of erasing the interruption",
@@ -181,15 +189,27 @@ try {
     (await (await request("/api/session", { headers })).json())
       .civilizationId === civilizationId,
   );
+  const resumedAdvice = await (
+    await request("/api/agent/observe", {
+      headers: { Authorization: `Bearer ${connection.token}` },
+    })
+  ).json();
   check(
     "the same agent key survives a process restart",
-    (
-      await (
-        await request("/api/agent/observe", {
-          headers: { Authorization: `Bearer ${connection.token}` },
-        })
-      ).json()
-    ).civilization.id === civilizationId,
+    resumedAdvice.civilization.id === civilizationId,
+  );
+  const submittedProposal = afterAgent.civilization.civics.proposals.find(
+    (proposal) =>
+      proposal.action.type === "focus" && proposal.action.focus === "balance",
+  );
+  check(
+    "the advice retains its identity and content across process restarts",
+    resumedAdvice.civilization.civics.proposals.some(
+      (proposal) =>
+        proposal.id === submittedProposal.id &&
+        JSON.stringify(proposal.action) ===
+          JSON.stringify(submittedProposal.action),
+    ),
   );
   const interventions = await (await request("/api/interventions")).json();
   check(
@@ -197,16 +217,19 @@ try {
     interventions.interventions.length === 2,
   );
   await stop();
-  // A backup may include an active lease. It expires after 30 seconds; never clear
-  // a live owner's lease or edit the snapshot just to make a restore test pass.
+  // A backup can retain its owner's unexpired lease. The actual entrypoint must
+  // wait for expiry, without clearing that lease or spending host restart attempts.
   const leaseDb = new DatabaseSync(backup, { readOnly: true });
   const expiry =
     leaseDb.prepare("SELECT expires_at FROM world_lease WHERE id=1").get()
       ?.expires_at ?? 0;
   leaseDb.close();
-  if (expiry > Date.now()) await sleep(expiry - Date.now() + 50);
   environment.PRAXANS_DB = backup;
   await start("production-smoke-1", "5555");
+  check(
+    "restoring a backup respects the previous ownership lease",
+    Date.now() >= expiry,
+  );
   check(
     "the backup itself can resume with the original owner and key",
     (await (await request("/api/session", { headers })).json())

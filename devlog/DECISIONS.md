@@ -225,3 +225,47 @@
 - **decision**: Start new communities with eight adults, four complementary pairs, matched age/trait distributions, and equal supplies per person. Search unoccupied frontier sites with water, tolerable temperatures, food, timber, and usable land. Account for founders and new terrain as explicit arrivals into the simulated volume.
 - **alternatives**: Taking people from an existing player's community harms that player's starting terms. Unlimited supplies bypass natural constraints. Four, eight, and twelve were compared in nine fourteen-day trials; all survived, so those trials do not establish a unique optimal number.
 - **consequences**: Eight remains a provisional opening balance. Survival is not guaranteed, and genetic or multi-generation viability remains unproven. Future changes to founder policy must respect existing communities and be documented.
+
+---
+
+### ADR-021: Material Aging and Knowledge with Physical Carriers
+
+- **date**: 2026-10-07
+- **status**: accepted
+- **context**: The owner requested changing landscapes, decaying buildings, custom invention, personal learning and deeper cognition. These need consequences beyond named discoveries or permanent shelter bonuses.
+- **decision**: Represent transported sediment and signed surface change, remaining material fabric, exposure damage, collapse, repair and salvage. Derive cover, work surfaces and bulk storage from material geometry. Give people bounded sensory and knowledge memories, adaptive activity preferences, sleep consolidation and nearby teaching; material experiments consume samples and retain both successes and failures.
+- **alternatives**: Scripted decay timers discard environmental causes. Recipe unlocks grant effects without demonstrated feasibility. A complete neural or chemical model is not implemented by adding terminology or more parameters.
+- **consequences**: Format 8 / biosphere-1.2 explicitly migrates existing matter and people without rewriting their past. Knowledge needs a living carrier; useful ideas guide gathering. These remain functional cognition and cuboid/material approximations, with their limits and causal tests documented.
+
+---
+
+### ADR-022: Advisory Agents, Plural Success and Carried Diplomacy
+
+- **date**: 2026-10-07
+- **status**: accepted
+- **context**: The owner explicitly chose authority emerging through trust and institutions, including Praxans' right to refuse. They also requested engaging rewards, freely interpreted success and realistic open diplomacy dependent on contact.
+- **decision**: Queue agent advice for locally attended deliberation with shared simulation-time limits, quorum, consent, individual needs and bounded experiential trust. Expose six outcome dimensions, signed daily changes and once-only historical milestones. Contacts produce dated reports; provisioned volunteers carry messages and goods. Bilateral commitments need reciprocal assent; fulfillment, refusal, breach and limited raids have material consequences.
+- **alternatives**: Direct control bypasses inhabitants. A compulsory scalar score fixes one meaning of success and invites narrow optimization. Instant global diplomacy bypasses knowledge, distance and logistics. Executing arbitrary prose grants effects without supporting mechanics.
+- **consequences**: Submission receipts are not acceptance. More keys or faster polling cannot buy decisions or rewards. Public observation precludes strong competitive secrecy. Free conversation supports peace, cooperation and rivalry, while richer politics, language, warfare, material transformations and institutional enforcement remain explicit future work.
+
+---
+
+### ADR-023: Stable Gateway and Durable Runtime Handover
+
+- **date**: 2026-10-08
+- **status**: accepted
+- **context**: The owner requires the existing world to remain observable while runtime hotfixes are applied. A normal volume-backed container deployment can interrupt both the clock owner and browser connections.
+- **decision**: Keep a stable public HTTP/SSE gateway and one replaceable private simulation worker. Verify immutable artifacts and forward simulation on a private consistent copy, drain requests, save and release the old owner, then activate the candidate through durable pending/current pointers. Preserve stream connections, queued requests, idempotency, clock debt and intervention history.
+- **alternatives**: Two independently ticking replicas create conflicting history. Blind fallback can load an incompatible old binary after migration. Erasing clock debt discards consequences. Public hotfix endpoints unnecessarily expose an operator capability.
+- **consequences**: A local mode-0600 Unix socket controls activation. Hash, Node and dependency compatibility checks fail closed. Automatic fallback requires an unchanged checkpoint. Gateway, dependency and host changes still need a prepared platform deployment; one host cannot conceal every infrastructure failure.
+
+---
+
+### ADR-024: Conditioned Conservation and Funded Ecological Recovery
+
+- **date**: 2026-10-08
+- **status**: accepted
+- **context**: The live world halted when accumulated rounding error crossed a shrinking biochemical tolerance. Separate earlier overheating collapsed its people and animals; surviving plants exposed missing dormancy, light-response and woody-turnover mechanisms. Longer seasonal tests also exposed isolated-region freezing.
+- **decision**: Preserve historical ledgers and use compensated future energy/atmosphere transfers with a throughput-scaled numerical tolerance. Fund atmospheric radiation, distinguish frozen ground from snowfall, and connect detailed regions to finite planetary thermal reservoirs. Correct plant energy response and structural turnover; represent parent-funded dormant propagules whose reserves, viability and germination obey their environment.
+- **alternatives**: Disabling conservation masks real violations. Resetting time or rebasing counters rewrites history. Temperature clamps replace physical causes. Scripted respawning invents organisms and material. Short summer checks failed to expose the tested winter collapse.
+- **consequences**: Existing populations, material and recorded deaths survive the migration unchanged; old seed banks are empty because their history was not represented. Natural recovery needs surviving carriers or immigration and is not guaranteed. The thermal bands are an explicit Earth-analogue approximation, with complete global moisture, material transport, ecology and demographic stability still unresolved.

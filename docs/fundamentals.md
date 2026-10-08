@@ -2,6 +2,8 @@
 
 Design review, 2026-10-07. This is a proposed development order, not a claim that these mechanisms already exist and not a change to the live world's laws. The [model specification](model.md) describes the implementation today.
 
+The [implementation ledger](roadmap.md) is now the canonical status index for these notes and subsequent user requirements. The material/memory/agency intervention addresses parts of erosion, decay, local knowledge, authority, outcome feedback and contact; the larger planetary, thermal, demographic and institutional gaps below remain open.
+
 Praxans has a physical setting, coupled natural processes, autonomous communities, and a continuing history. Its next gains will come from completing causal connections. Adding another animal or another mineral will not compensate for water appearing without a source, information traveling without a carrier, or a forest ceasing to change when nobody observes it.
 
 ## The contract of the universe

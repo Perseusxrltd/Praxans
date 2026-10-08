@@ -19,9 +19,14 @@ jobs:
       - run: npm run test:production
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
+      - run: npm run test:extinction
+      - run: npm run test:hotfix
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: browser-observations
-          path: output/playwright/browser-smoke
+          path: |
+            output/playwright/browser-smoke
+            output/playwright/extinction-smoke
+            output/playwright/hotfix-smoke
           retention-days: 7

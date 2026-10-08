@@ -41,6 +41,7 @@ export function LifePanel({
   const plants = world.tiles
     .flatMap((t) => [t.plant, t.groundcover])
     .filter((p) => p !== null);
+  const seeds = world.tiles.flatMap((tile) => tile.seedBank ?? []);
   return (
     <>
       <span className="eyebrow">LIVES WITHIN LIVES</span>
@@ -146,11 +147,25 @@ export function LifePanel({
       <h3>Connections that leave a trace</h3>
       <div className="facts">
         <div>
+          <span>Dormant seed and spore cohorts here</span>
+          <strong>{n(seeds.length)}</strong>
+        </div>
+        <div>
+          <span>Living reserves in dormant tissue</span>
+          <strong>
+            {n(
+              seeds.reduce((mass, seed) => mass + seed.carbon, 0),
+              3,
+            )}{" "}
+            kg
+          </strong>
+        </div>
+        <div>
           <span>Pollination visits, world</span>
           <strong>{n(world.summary.life.pollinations)}</strong>
         </div>
         <div>
-          <span>Animal-dispersed seedlings</span>
+          <span>Animal-dispersed seeds</span>
           <strong>{n(world.summary.life.dispersedSeeds)}</strong>
         </div>
         <div>

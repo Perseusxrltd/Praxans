@@ -1,0 +1,10 @@
+{
+  "days": 400,
+  "minimum": -11.924315346963262,
+  "maximum": 27.488876887743917,
+  "initialProducerKg": 39225.64146835869,
+  "finalProducerKg": 4246.48284105933,
+  "dormantCohorts": 3192,
+  "finalPlantLineages": 11,
+  "scope": "Controlled ecological region; no demographic equilibrium claim"
+}

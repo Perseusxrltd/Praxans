@@ -1,4 +1,5 @@
 import test from "node:test";
+import { legacyCheckpoint } from "./fixtures";
 import assert from "node:assert/strict";
 import { worldClock } from "../../src/simulation/chronology";
 import {
@@ -94,25 +95,14 @@ test("an entropy hotfix starts an honest measurement epoch while preserving an o
   try {
     const world = createWorld(8, 64, 64);
     world.tick = 9123;
-    store.save(world);
-    const row = store.db.prepare("SELECT json FROM world").get() as {
-      json: string;
-    };
-    const old = JSON.parse(row.json);
-    old.version = 6;
-    old.lawsVersion = "biosphere-1.0";
-    delete old.entropy;
-    const json = JSON.stringify(old);
-    store.db
-      .prepare("UPDATE world SET json=?,checksum=?")
-      .run(json, digest(json));
+    legacyCheckpoint(store, world, 6);
     const restored = store.load(0);
     assert.equal(restored.tick, 9123);
     assert.equal(restored.entropy.sinceTick, 9123);
     assert.equal(restored.entropy.heatMixing, 0);
-    assert.equal(restored.lawsVersion, "biosphere-1.1");
+    assert.equal(restored.lawsVersion, "biosphere-1.2");
     assert.deepEqual(restored.tiles, world.tiles);
-    assert.equal(store.interventions().length, 1);
+    assert.equal(store.interventions().length, 2);
   } finally {
     store.close();
   }

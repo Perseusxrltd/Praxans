@@ -7,6 +7,7 @@ import { seedPlant, updateEcology } from "../../src/simulation/ecology";
 import { applyAgentActions } from "../../src/simulation/actions";
 import { dispatchTrade, requestAssembly } from "../../src/simulation/economy";
 import type { Design } from "../../src/simulation/types";
+import { encounter } from "../../src/simulation/diplomacy";
 
 export const testShelter: Design = {
   name: "Load trial",
@@ -121,9 +122,10 @@ test("seeds inherit with mutation and transfer parental matter", () => {
   const before = ledger(world),
     genome = structuredClone(source.plant!.genome);
   assert.equal(seedPlant(world, source, target), true);
-  assert.equal(target.plant!.generation, 1);
-  assert.equal(target.plant!.lineage, source.plant!.lineage);
-  assert.notDeepEqual(target.plant!.genome, genome);
+  assert.equal(target.plant, null);
+  assert.equal(target.seedBank[0].generation, 1);
+  assert.equal(target.seedBank[0].lineage, source.plant!.lineage);
+  assert.notDeepEqual(target.seedBank[0].genome, genome);
   const after = ledger(world);
   assert.ok(Math.abs(before.carbon - after.carbon) < 1e-6);
   assert.ok(Math.abs(before.mineral - after.mineral) < 1e-6);
@@ -175,10 +177,11 @@ test("construction reserves matter; failed action batches make no change", () =>
   );
   assert.equal(JSON.stringify(world), original);
 });
-test("accepted trade puts both sides into escrow and conserves their matter in transit", () => {
+test("an offered exchange preserves matter without reserving foreign stock before consent", () => {
   const world = createWorld(),
     [from, to] = world.civilizations,
     before = ledger(world);
+  encounter(world, from, to, true);
   dispatchTrade(
     world,
     from,
@@ -187,11 +190,11 @@ test("accepted trade puts both sides into escrow and conserves their matter in t
     { material: "stone", amount: 3 },
   );
   assert.equal(from.stock.wood, 24);
-  assert.equal(to.stock.stone, 15);
+  assert.equal(to.stock.stone, 18);
   assert.equal(world.caravans.length, 1);
   assert.ok(Math.abs(ledger(world).carbon - before.carbon) < 1e-6);
   assert.ok(Math.abs(ledger(world).mineral - before.mineral) < 1e-6);
-  stepWorld(world, 220);
+  for (let day = 0; day < 8 && !from.trades; day++) stepWorld(world, 96);
   validateWorld(world);
   assert.ok(from.trades > 0);
 });

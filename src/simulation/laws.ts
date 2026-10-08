@@ -1,5 +1,6 @@
 import { MATERIALS } from "./content";
 import {
+  accumulateAtmosphere,
   BIO_NUTRIENTS,
   CHEMISTRY,
   CLAY,
@@ -8,7 +9,7 @@ import {
   availableMixture,
 } from "./chemistry";
 import { astronomy, PLANET } from "./planet";
-import { dissipatedHeat } from "./thermodynamics";
+import { dissipatedHeat, heatCapacity } from "./thermodynamics";
 import { geologicalMass } from "./geology";
 import { clamp } from "./random";
 import type {
@@ -24,7 +25,7 @@ import type {
 
 /** Changing these laws requires a new version and an explicit saved-world migration. */
 export const LAWS = Object.freeze({
-  version: "biosphere-1.1",
+  version: "biosphere-1.2",
   gravity: 9.81,
   chemicalEnergy: 17000,
   photosyntheticEfficiency: 0.024,
@@ -48,6 +49,23 @@ export const materialMatter = (material: Material, amount: number): Matter => ({
   water: 0,
 });
 export const solarAt = (tick: number) => astronomy(tick).irradiance / 1361;
+
+/** Retain sub-ULP contributions to old cumulative counters across save/reload. */
+export function accumulateEnergy(
+  world: World,
+  kind: "captured" | "released",
+  amount: number,
+): void {
+  const compensation = (world.energy.compensation ??= {
+    captured: 0,
+    released: 0,
+  });
+  const corrected = amount - compensation[kind],
+    previous = world.energy[kind],
+    total = previous + corrected;
+  compensation[kind] = total - previous - corrected;
+  world.energy[kind] = total;
+}
 
 export function refreshTile(tile: Tile): void {
   tile.moisture = clamp(tile.water / LAWS.waterCapacity, 0, 1);
@@ -99,27 +117,26 @@ export function respire(
     carbon > respirable(world, carbon, aquatic ? tile : undefined) + 1e-9
   )
     throw new Error("Respiration exceeds available oxygen.");
-  world.atmosphere.carbon += carbon;
+  accumulateAtmosphere(world, "carbon", carbon);
   if (aquatic && tile)
     tile.dissolvedOxygen = Math.max(
       0,
       tile.dissolvedOxygen - carbon * CHEMISTRY.oxygenPerOrganic,
     );
   else
-    world.atmosphere.oxygen = Math.max(
-      0,
-      world.atmosphere.oxygen - carbon * CHEMISTRY.oxygenPerOrganic,
+    accumulateAtmosphere(
+      world,
+      "oxygen",
+      -Math.min(world.atmosphere.oxygen, carbon * CHEMISTRY.oxygenPerOrganic),
     );
-  world.atmosphere.water += carbon * CHEMISTRY.waterPerOrganic;
-  world.energy.released += carbon * LAWS.chemicalEnergy;
+  accumulateAtmosphere(world, "water", carbon * CHEMISTRY.waterPerOrganic);
+  accumulateEnergy(world, "released", carbon * LAWS.chemicalEnergy);
   dissipatedHeat(world, carbon * LAWS.chemicalEnergy, tile?.temperature ?? 15);
   if (tile)
-    tile.temperature +=
-      (carbon * LAWS.chemicalEnergy) /
-      (105000 + tile.water * PLANET.waterHeatCapacity);
+    tile.temperature += (carbon * LAWS.chemicalEnergy) / heatCapacity(tile);
 }
 export function ledger(world: World): Matter & { chemical: number } {
-  let carbon = world.atmosphere.carbon,
+  let carbon = 0,
     water = world.atmosphere.water,
     mineral = world.atmosphere.nitrogen + world.atmosphere.dust;
   const add = (material: Material, amount: number) => {
@@ -128,10 +145,12 @@ export function ledger(world: World): Matter & { chemical: number } {
     mineral += m.mineral;
   };
   for (const tile of world.tiles) {
-    water += tile.water + tile.air.vapor + tile.air.cloud + tile.air.snow;
+    water +=
+      tile.water + tile.ice + tile.air.vapor + tile.air.cloud + tile.air.snow;
     mineral +=
       tile.mineral +
       tile.rock +
+      tile.sediment +
       tile.air.dust +
       tile.detritus.mineral +
       (tile.plant?.mineral ?? 0) +
@@ -140,6 +159,10 @@ export function ledger(world: World): Matter & { chemical: number } {
       tile.detritus.carbon +
       (tile.plant?.carbon ?? 0) +
       (tile.groundcover?.carbon ?? 0);
+    for (const seed of tile.seedBank) {
+      carbon += seed.carbon;
+      mineral += seed.mineral;
+    }
   }
   for (const civ of world.civilizations)
     for (const [material, amount] of Object.entries(civ.stock))
@@ -159,15 +182,16 @@ export function ledger(world: World): Matter & { chemical: number } {
   for (const caravan of world.caravans) {
     add(caravan.offer.material, caravan.offer.amount);
     add(caravan.receive.material, caravan.receive.amount);
+    add("biomass", caravan.provisions);
   }
   for (const chunk of world.chunks) mineral += geologicalMass(chunk.geology);
   // Bound H/O in carbohydrate is included in the legacy water-equivalent check.
-  water += (carbon - world.atmosphere.carbon) * CHEMISTRY.waterPerOrganic;
+  water += carbon * CHEMISTRY.waterPerOrganic;
   return {
-    carbon,
+    carbon: carbon + world.atmosphere.carbon,
     mineral,
     water,
-    chemical: (carbon - world.atmosphere.carbon) * LAWS.chemicalEnergy,
+    chemical: carbon * LAWS.chemicalEnergy,
   };
 }
 
@@ -177,9 +201,12 @@ const overlaps = (a: Component, b: Component) =>
 const volume = (part: Component) => part.width * part.height * part.depth;
 
 /** Static vertical load and coarse beam bending. Effects are measured from geometry, never a building name. */
-export function evaluateDesign(design: Design): PhysicalProperties {
-  if (!design.components.length || design.components.length > 16)
-    throw new Error("An assembly must contain 1–16 components.");
+export function evaluateDesign(
+  design: Design,
+  fabric?: { mass: number; damage: number }[],
+): PhysicalProperties {
+  if (!design.components.length || design.components.length > 32)
+    throw new Error("An assembly must contain 1–32 components.");
   const parts = design.components;
   for (const p of parts) {
     if (
@@ -208,7 +235,9 @@ export function evaluateDesign(design: Design): PhysicalProperties {
           1e-5
       )
         intersecting = true;
-  const masses = parts.map((p) => volume(p) * MATERIALS[p.material].density);
+  const masses = parts.map(
+    (p, i) => fabric?.[i]?.mass ?? volume(p) * MATERIALS[p.material].density,
+  );
   const loads = masses.map((m) => m * LAWS.gravity),
     supported = parts.map((p) => p.z < 0.002);
   const order = parts.map((_, i) => i).sort((a, b) => parts[a].z - parts[b].z);
@@ -226,6 +255,14 @@ export function evaluateDesign(design: Design): PhysicalProperties {
   for (const i of [...order].reverse()) {
     const p = parts[i],
       material = MATERIALS[p.material];
+    const integrity = fabric
+      ? clamp(
+          (masses[i] / Math.max(volume(p) * material.density, 1e-9)) *
+            (1 - fabric[i].damage),
+          0,
+          1,
+        )
+      : 1;
     const supports = order.filter(
       (j) =>
         j !== i &&
@@ -238,7 +275,7 @@ export function evaluateDesign(design: Design): PhysicalProperties {
         ? p.width * p.depth
         : supports.reduce((s, j) => s + overlaps(p, parts[j]), 0);
     const stress = loads[i] / Math.max(area, 0.00001);
-    let ratio = material.strength / Math.max(stress, 1);
+    let ratio = (material.strength * integrity ** 2) / Math.max(stress, 1);
     if (!supported[i]) ratio = 0;
     if (supports.length) {
       const minX = Math.min(...supports.map((j) => Math.max(p.x, parts[j].x))),
@@ -267,7 +304,10 @@ export function evaluateDesign(design: Design): PhysicalProperties {
       const bending =
         (loads[i] * span) /
         Math.max((8 * breadth * p.height ** 2) / 6, 0.000001);
-      ratio = Math.min(ratio, material.tensile / Math.max(bending, 1));
+      ratio = Math.min(
+        ratio,
+        (material.tensile * integrity ** 3) / Math.max(bending, 1),
+      );
       for (const j of supports)
         loads[j] +=
           (loads[i] * overlaps(p, parts[j])) / Math.max(area, 0.00001);
@@ -276,20 +316,81 @@ export function evaluateDesign(design: Design): PhysicalProperties {
     stability = Math.min(stability, ratio);
   }
   const stable = stability >= 1;
-  // Sample free, covered floor space so overlapping roofs cannot multiply shelter capacity.
+  // Integrate the exact XY partition of cuboid edges. Thin parts and translations
+  // must not acquire a whole sampling cell's surface or shelter capacity.
   let coveredArea = 0,
-    insulation = 0;
-  for (let x = -5; x < 11; x += 0.25)
-    for (let y = -5; y < 11; y += 0.25) {
+    insulation = 0,
+    workSurface = 0,
+    storageVolume = 0;
+  const xs = [...new Set(parts.flatMap((p) => [p.x, p.x + p.width]))].sort(
+    (a, b) => a - b,
+  );
+  const ys = [...new Set(parts.flatMap((p) => [p.y, p.y + p.depth]))].sort(
+    (a, b) => a - b,
+  );
+  for (let ix = 0; ix < xs.length - 1; ix++)
+    for (let iy = 0; iy < ys.length - 1; iy++) {
+      const x = (xs[ix] + xs[ix + 1]) / 2,
+        y = (ys[iy] + ys[iy + 1]) / 2;
+      const area = (xs[ix + 1] - xs[ix]) * (ys[iy + 1] - ys[iy]);
       const above = parts.filter(
         (p) => x >= p.x && x < p.x + p.width && y >= p.y && y < p.y + p.depth,
       );
-      const roof = above.find((p) => p.z >= 1.6);
+      const roof = above.filter((p) => p.z >= 1.6).sort((a, b) => a.z - b.z)[0];
       if (roof && !above.some((p) => p.z < 1.6 && p.z + p.height > 0.15)) {
-        coveredArea += 0.0625;
+        coveredArea += area;
         insulation +=
-          (roof.height / MATERIALS[roof.material].conductivity) * 0.0625;
+          (roof.height / MATERIALS[roof.material].conductivity) * area;
       }
+      // Sample usable horizontal surfaces and laterally enclosed space. These
+      // are geometric affordances, independent of a design's name or intent.
+      const floor = [...above]
+        .sort((a, b) => b.z + b.height - a.z - a.height)
+        .find((p) => p.z + p.height <= 1.6);
+      if (!floor) continue;
+      const level = floor.z + floor.height;
+      if (
+        above.some(
+          (p) =>
+            p !== floor && p.z <= level + 0.1 && p.z + p.height > level + 0.01,
+        )
+      )
+        continue;
+      if (level >= 0.35 && !above.some((p) => p.z > level && p.z < level + 0.6))
+        workSurface += area;
+      const walls = parts.filter(
+        (p) => p.z <= level + 0.008 && p.z + p.height > level + 0.1,
+      );
+      const top = (part: Component | undefined) =>
+        part ? part.z + part.height : level;
+      const west = top(
+        walls
+          .filter((p) => p.x + p.width <= x && y >= p.y && y < p.y + p.depth)
+          .sort((a, b) => b.x + b.width - a.x - a.width)[0],
+      );
+      const east = top(
+        walls
+          .filter((p) => p.x > x && y >= p.y && y < p.y + p.depth)
+          .sort((a, b) => a.x - b.x)[0],
+      );
+      const north = top(
+        walls
+          .filter((p) => p.y + p.depth <= y && x >= p.x && x < p.x + p.width)
+          .sort((a, b) => b.y + b.depth - a.y - a.depth)[0],
+      );
+      const south = top(
+        walls
+          .filter((p) => p.y > y && x >= p.x && x < p.x + p.width)
+          .sort((a, b) => a.y - b.y)[0],
+      );
+      const ceiling = Math.min(
+        west,
+        east,
+        north,
+        south,
+        ...above.filter((p) => p.z > level).map((p) => p.z),
+      );
+      storageVolume += Math.max(0, ceiling - level) * area;
     }
   const cost = emptyStock();
   parts.forEach((p, i) => {
@@ -306,6 +407,8 @@ export function evaluateDesign(design: Design): PhysicalProperties {
     height: Math.max(...parts.map((p) => p.z + p.height)),
     insulation: stable && coveredArea ? insulation / coveredArea : 0,
     capacity,
+    workSurface: stable ? workSurface : 0,
+    storageVolume: stable ? storageVolume : 0,
     work: mass / 18 + parts.length * 0.7,
     weakestStress,
     explanation: [

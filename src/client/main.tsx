@@ -51,6 +51,7 @@ import { FOUNDING } from "../simulation/founding";
 import { FieldGuide } from "./FieldGuide";
 import { ago, EventIcon, Journal, ArchivedJournal } from "./Archive";
 import { Dialog } from "./Dialog";
+import { MindPanel, SocietyPanel } from "./DevelopmentPanel";
 import "./style.css";
 
 type View = "world" | "communities" | "journal" | "laws" | "ecology";
@@ -242,9 +243,11 @@ function App() {
       setFault("");
     };
     source.onerror = () => setConnected(false);
-    source.addEventListener("snapshot", (event) =>
-      accept(JSON.parse((event as MessageEvent).data)),
-    );
+    source.addEventListener("snapshot", (event) => {
+      setConnected(true);
+      setFault("");
+      accept(JSON.parse((event as MessageEvent).data));
+    });
     source.addEventListener("frame", (event) => {
       const frame = JSON.parse((event as MessageEvent).data) as WorldFrame,
         current = latest.current;
@@ -367,6 +370,13 @@ function App() {
                 observations: c.observations.length,
                 claimed: c.claimed,
                 focus: c.focus,
+                proposals: c.civics?.proposals.slice(-3).map((p) => ({
+                  id: p.id,
+                  type: p.action.type,
+                  status: p.status,
+                })),
+                outcomes: c.civics?.progress.current,
+                contacts: Object.keys(c.relations).length,
               })),
               people: w.citizens.slice(0, 40).map((p) => ({
                 id: p.id,
@@ -376,6 +386,12 @@ function App() {
                 activity: p.task?.kind ?? "deciding",
                 health: round(p.health),
                 generation: p.generation,
+                sleeping: p.mind?.sleeping,
+                attention: p.mind
+                  ? Math.round(p.mind.attention * 100)
+                  : undefined,
+                rememberedIdeas: p.mind?.knowledge.length,
+                journey: p.journeyId,
               })),
               structures: w.structures.map((s) => ({
                 id: s.id,
@@ -384,6 +400,16 @@ function App() {
                 name: s.design.name,
                 progress: +s.progress.toFixed(2),
                 coveredArea: s.properties.coveredArea,
+                condition: Math.round(s.condition),
+                collapsed: s.collapsed,
+                workSurface: s.properties.workSurface,
+                storageVolume: s.properties.storageVolume,
+              })),
+              correspondence: w.diplomacy?.messages.slice(-6).map((m) => ({
+                id: m.id,
+                from: m.from,
+                to: m.to,
+                status: m.status,
               })),
               animals: w.animals
                 .filter(
@@ -929,9 +955,11 @@ function App() {
                       )?.name
                     }{" "}
                     ·{" "}
-                    {selectedStructure.progress < 1
-                      ? "Taking shape"
-                      : "Standing in the world"}
+                    {selectedStructure.collapsed
+                      ? "A ruin returning to the landscape"
+                      : selectedStructure.progress < 1
+                        ? "Taking shape"
+                        : "Standing in the world"}
                   </p>
                   <div className="big-measure">
                     {round(selectedStructure.properties.coveredArea, 1)}
@@ -940,6 +968,10 @@ function App() {
                   <Meter
                     label="Construction"
                     value={selectedStructure.progress * 100}
+                  />
+                  <Meter
+                    label="Remaining integrity"
+                    value={selectedStructure.condition}
                   />
                   <h3>Form follows matter</h3>
                   <p className="body-copy">
@@ -956,6 +988,34 @@ function App() {
                           <strong>{round(n, 1)} kg</strong>
                         </div>
                       ))}
+                    <div>
+                      <span>Usable working surface</span>
+                      <strong>
+                        {round(
+                          selectedStructure.properties.workSurface ?? 0,
+                          2,
+                        )}{" "}
+                        m²
+                      </strong>
+                    </div>
+                    <div>
+                      <span>Enclosed storage</span>
+                      <strong>
+                        {round(
+                          selectedStructure.properties.storageVolume ?? 0,
+                          3,
+                        )}{" "}
+                        m³
+                      </strong>
+                    </div>
+                    {selectedStructure.fabric && (
+                      <div>
+                        <span>Weathered back into the world</span>
+                        <strong>
+                          {round(selectedStructure.fabric.lostMass, 3)} kg
+                        </strong>
+                      </div>
+                    )}
                     <div>
                       <span>Components</span>
                       <strong>
@@ -1023,8 +1083,31 @@ function App() {
                     <div>
                       <span>Living organic matrix</span>
                       <strong>
-                        {round(selectedTile.plant?.carbon ?? 0, 1)} kg
+                        {round(
+                          (selectedTile.plant?.carbon ?? 0) +
+                            (selectedTile.groundcover?.carbon ?? 0),
+                          2,
+                        )}{" "}
+                        kg
                       </strong>
+                    </div>
+                    <div>
+                      <span>Dormant seeds and spores</span>
+                      <strong>
+                        {(selectedTile.seedBank ?? []).length} cohorts ·{" "}
+                        {round(
+                          (selectedTile.seedBank ?? []).reduce(
+                            (mass, seed) => mass + seed.carbon,
+                            0,
+                          ),
+                          3,
+                        )}{" "}
+                        kg
+                      </strong>
+                    </div>
+                    <div>
+                      <span>Frozen soil and lake water</span>
+                      <strong>{round(selectedTile.ice ?? 0, 1)} kg</strong>
                     </div>
                     <div>
                       <span>Organic remains</span>
@@ -1079,6 +1162,19 @@ function App() {
                           <span>Suspended dust</span>
                           <strong>
                             {round(selectedTile.air.dust * 1000, 2)} g
+                          </strong>
+                        </div>
+                        <div>
+                          <span>Loose sediment</span>
+                          <strong>
+                            {round(selectedTile.sediment ?? 0, 3)} kg
+                          </strong>
+                        </div>
+                        <div>
+                          <span>Surface rise / fall</span>
+                          <strong>
+                            {round((selectedTile.surfaceChange ?? 0) * 1000, 4)}{" "}
+                            mm
                           </strong>
                         </div>
                         <div>
@@ -1353,11 +1449,13 @@ function CommunityRow({
         </strong>
         <small>
           {population} people <span>·</span>{" "}
-          {agents.some(active)
-            ? "Agent connected"
-            : agents.length
-              ? "Awaiting agent"
-              : "Finding their own way"}
+          {population === 0
+            ? "A chapter in the world’s history"
+            : agents.some(active)
+              ? "Agent connected"
+              : agents.length
+                ? "Awaiting agent"
+                : "Finding their own way"}
         </small>
       </span>
       <ChevronRight size={15} />
@@ -1381,7 +1479,7 @@ function CivilizationPanel({
 }) {
   const people = world.citizens.filter((p) => p.civId === civ.id),
     shelter = world.structures
-      .filter((s) => s.civId === civ.id && s.progress >= 1)
+      .filter((s) => s.civId === civ.id && !s.collapsed && s.progress >= 1)
       .reduce((n, s) => n + s.properties.capacity, 0);
   return (
     <>
@@ -1475,6 +1573,7 @@ function CivilizationPanel({
           ))}
         </div>
       )}
+      <SocietyPanel civ={civ} world={world} />
       <h3>Recent moments</h3>
       <Journal
         events={world.events.filter((e) => e.civId === civ.id)}
@@ -1547,6 +1646,7 @@ function CitizenPanel({
       <Meter label="Nourishment" value={person.hunger} />
       <Meter label="Rest" value={person.energy} />
       <Meter label="Contentment" value={person.happiness} />
+      <MindPanel person={person} civ={civ} />
       <h3>A way of being</h3>
       <div className="trait-tags">
         {Object.entries(person.traits).map(([trait, value]) => (
@@ -1610,6 +1710,7 @@ function ConnectionDialog({
   const owned = world.civilizations.find(
     (c) => c.id === session.civilizationId,
   );
+  const extinct = !!owned && !world.citizens.some((p) => p.civId === owned.id);
   const execute = async (fn: () => Promise<void>) => {
     setError("");
     setBusy(true);
@@ -1627,7 +1728,10 @@ function ConnectionDialog({
         "/api/claim",
         "POST",
         arrivalMode === "frontier"
-          ? { name: branchName.trim() }
+          ? {
+              name: branchName.trim(),
+              ...(extinct ? { afterExtinction: true } : {}),
+            }
           : { civilizationId: selected },
       );
       setSession(result);
@@ -1659,16 +1763,25 @@ function ConnectionDialog({
   return (
     <Dialog
       title={
-        !owned
-          ? "A whole horizon of your own."
-          : token
-            ? "A connection, ready to grow."
-            : `A steward for ${owned.name}.`
+        extinct
+          ? "A new chapter in this world."
+          : !owned
+            ? "A whole horizon of your own."
+            : token
+              ? "A connection, ready to grow."
+              : `A steward for ${owned.name}.`
       }
       close={close}
     >
-      {!owned ? (
+      {!owned || extinct ? (
         <>
+          {extinct && (
+            <p className="dialog-intro">
+              {owned!.name} has no living inhabitants. Its history and remains
+              stay in this world. You can begin with a new community in fresh
+              wilderness; the earlier agent keys will retire when you begin.
+            </p>
+          )}
           <p className="dialog-intro">
             Begin with {FOUNDING.people} adults in untouched wilderness, far
             beyond other settlements. Every new community receives the same
@@ -1697,50 +1810,56 @@ function ConnectionDialog({
               placeholder="A name for a new beginning"
             />
           </label>
-          <details className="branch-details">
-            <summary>Or care for an existing community</summary>
-            <div className="adopt-options">
-              {world.civilizations
-                .filter((c) => !c.claimed)
-                .map((civ) => (
-                  <button
-                    key={civ.id}
-                    disabled={busy}
-                    className={
-                      selected === civ.id && arrivalMode === "adopt"
-                        ? "chosen"
-                        : ""
-                    }
-                    onClick={() => {
-                      setSelected(civ.id);
-                      setArrivalMode("adopt");
-                    }}
-                  >
-                    <span
-                      className="community-avatar"
-                      style={{ color: civ.color, background: civ.accent }}
+          {!extinct && (
+            <details className="branch-details">
+              <summary>Or care for an existing community</summary>
+              <div className="adopt-options">
+                {world.civilizations
+                  .filter(
+                    (c) =>
+                      !c.claimed &&
+                      world.citizens.some((p) => p.civId === c.id),
+                  )
+                  .map((civ) => (
+                    <button
+                      key={civ.id}
+                      disabled={busy}
+                      className={
+                        selected === civ.id && arrivalMode === "adopt"
+                          ? "chosen"
+                          : ""
+                      }
+                      onClick={() => {
+                        setSelected(civ.id);
+                        setArrivalMode("adopt");
+                      }}
                     >
-                      <Sprout size={25} />
-                    </span>
-                    <span>
-                      <strong>{civ.name}</strong>
-                      <small>
-                        {
-                          world.citizens.filter((p) => p.civId === civ.id)
-                            .length
-                        }{" "}
-                        people · {FOCUSES[civ.focus].name}
-                      </small>
-                    </span>
-                    <span className="radio-choice">
-                      {selected === civ.id && arrivalMode === "adopt" && (
-                        <span />
-                      )}
-                    </span>
-                  </button>
-                ))}
-            </div>
-          </details>
+                      <span
+                        className="community-avatar"
+                        style={{ color: civ.color, background: civ.accent }}
+                      >
+                        <Sprout size={25} />
+                      </span>
+                      <span>
+                        <strong>{civ.name}</strong>
+                        <small>
+                          {
+                            world.citizens.filter((p) => p.civId === civ.id)
+                              .length
+                          }{" "}
+                          people · {FOCUSES[civ.focus].name}
+                        </small>
+                      </span>
+                      <span className="radio-choice">
+                        {selected === civ.id && arrivalMode === "adopt" && (
+                          <span />
+                        )}
+                      </span>
+                    </button>
+                  ))}
+              </div>
+            </details>
+          )}
           <button
             className="button primary wide"
             disabled={
@@ -1751,9 +1870,11 @@ function ConnectionDialog({
           >
             {busy
               ? "Finding your clearing…"
-              : arrivalMode === "frontier"
-                ? "Begin in the wilderness"
-                : "Adopt this community"}
+              : extinct
+                ? "Begin a new community"
+                : arrivalMode === "frontier"
+                  ? "Begin in the wilderness"
+                  : "Adopt this community"}
             <ArrowRight size={16} />
           </button>
           <p className="quiet-note">
@@ -1837,8 +1958,8 @@ function ConnectionDialog({
           </div>
           <p className="body-copy">
             Use <code>Authorization: Bearer YOUR_KEY</code>. Begin by observing.
-            Read the natural laws, then submit decisions with a unique request
-            ID and a reason.
+            Read the natural laws, then submit proposals with a unique request
+            ID and a reason. Observe again to learn what the community accepts.
           </p>
           <div className="waiting-agent">
             <Radio size={17} />
@@ -1858,9 +1979,9 @@ function ConnectionDialog({
       ) : (
         <>
           <p className="dialog-intro">
-            Any agent that can use HTTP or MCP can take part. Each decision
-            follows the world’s laws; its people remain autonomous between
-            decisions.
+            Any agent that can use HTTP or MCP can take part. It offers advice
+            and earns influence through trust. Praxans can accept or refuse each
+            proposal, and their lives continue while it thinks.
           </p>
           <form
             onSubmit={(e) => {

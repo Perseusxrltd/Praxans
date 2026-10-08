@@ -5,6 +5,7 @@ import { STAR, PLANET, MOON, LUNAR_PERIOD, ORBITAL_PERIOD } from "./planet";
 import { BIOTA_MODEL, FAUNA, FLORA } from "./life";
 import { FOUNDING } from "./founding";
 import { THERMODYNAMICS } from "./thermodynamics";
+import { ADVICE_RULES } from "./society";
 
 export const NATURAL_MODEL = Object.freeze({
   laws: LAWS,
@@ -26,7 +27,26 @@ export const NATURAL_MODEL = Object.freeze({
   },
   biosphere: { ...BIOTA_MODEL, fauna: FAUNA, flora: FLORA },
   founding: FOUNDING,
+  humanVitals: {
+    nourishment:
+      "0 means starving; 100 means well fed. Agent observations expose people[].nourishment. The saved field people[].hunger is a historical name for the same high-is-good value, not hunger severity.",
+    energy:
+      "0 means exhausted; 100 means rested. Urgent nourishment and rest can interrupt ongoing work.",
+    feeding:
+      "People eat available fractions at home or from their own carried food/provisions. Food, body growth, respiration and mineral returns remain conserved.",
+  },
   thermodynamics: THERMODYNAMICS,
+  agency: ADVICE_RULES,
+  development: {
+    weathering:
+      "Exposure, moisture, heat and frost change remaining fabric mass and strength. Repair needs replacement stock and work; ruins retain their remaining matter for salvage.",
+    learning:
+      "A bounded adaptive sensorimotor network links drives, attention, fatigue, memory and prediction-error learning. Physical trials use actual samples; knowledge is held and taught by individuals. This is a functional model, not cellular neuroscience.",
+    diplomacy:
+      "Dated contacts, voluntary local deliberation, inert free-text letters, finite provisioned parties, outward/return exchanges, reciprocal commitments and limited physical raids. Comprehension and witnessed conduct affect relationships; there is no arbitrary-text effect interpreter.",
+    success:
+      "Six bounded outcome potentials: wellbeing, resilience, knowledge, ecology, connection and reach. Signed daily changes and once-only milestones grant no resources. Communities can choose their own aspiration and weights.",
+  },
   chronology: {
     epoch: PLANET.epoch,
     planetaryAgeAtEpochYears: PLANET.ageYears,

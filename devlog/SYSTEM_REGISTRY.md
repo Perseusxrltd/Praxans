@@ -17,18 +17,18 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **dependencies**: natural_systems
 - **dependents**: civilization_intelligence, world_storage, agent_gateway, browser_observer
 - **known_issues**: All materialized regions remain resident in one process; unmaterialized geography has priors rather than simulated history.
-- **last_touched**: 2026-10-07
+- **last_touched**: 2026-10-08
 
 ### natural_systems
 
 - **name**: Conserved Matter and Coupled Biosphere
 - **status**: experimental
 - **package**: src/simulation/
-- **files**: `chemistry.ts`, `elements.ts`, `laws.ts`, `thermodynamics.ts`, `weather.ts`, `geology.ts`, `ecology.ts`, `life.ts`, `fauna.ts`
+- **files**: `chemistry.ts`, `elements.ts`, `laws.ts`, `thermodynamics.ts`, `climate.ts`, `weather.ts`, `geology.ts`, `ecology.ts`, `life.ts`, `fauna.ts`, `landscape.ts`, `weathering.ts`
 - **dependencies**: world_state
 - **dependents**: civilization_intelligence, agent_gateway, browser_observer
-- **known_issues**: Reduced thermal/weather/statics/cohort models; no general reaction network, molecular biology, or full planetary entropy. See docs/model.md.
-- **last_touched**: 2026-10-07
+- **known_issues**: Reduced thermal/weather/statics/cohort models. Planetary thermal exchange is represented; full global moisture, materials and ecology are unresolved. No general chemistry, molecular biology or total planetary entropy. See docs/model.md.
+- **last_touched**: 2026-10-08
 
 ### civilization_intelligence
 
@@ -36,21 +36,21 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **status**: experimental
 - **package**: src/simulation/
 - **files**: `citizens.ts`, `economy.ts`, `engine.ts`, `actions.ts`, `founding.ts`
-- **dependencies**: world_state, natural_systems
+- **dependencies**: world_state, natural_systems, human_cognition, civic_relations
 - **dependents**: agent_gateway, browser_observer
 - **known_issues**: Short-run founding/construction validation; no established multi-generation or genetic equilibrium.
-- **last_touched**: 2026-10-07
+- **last_touched**: 2026-10-08
 
 ### world_storage
 
 - **name**: Persistent State and Intervention Archive
 - **status**: active
 - **package**: src/server/
-- **files**: `store.ts`, `migrations.ts`, `scripts/world-maintenance.ts`
+- **files**: `store.ts`, `migrations.ts`, `startup.ts`, `scripts/world-maintenance.ts`, `scripts/verify-upgrade.ts`
 - **dependencies**: world_state, natural_systems
 - **dependents**: agent_gateway, world_hosting
 - **known_issues**: One writer/volume; external backup scheduling is an operator responsibility. Anonymous browser management has no account recovery yet.
-- **last_touched**: 2026-10-07
+- **last_touched**: 2026-10-08
 
 ### agent_gateway
 
@@ -61,18 +61,18 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **dependencies**: world_state, civilization_intelligence, world_storage
 - **dependents**: browser_observer, world_hosting
 - **known_issues**: Agents need HTTP/MCP tool capability; request and receipt retention limits are explicit.
-- **last_touched**: 2026-10-07
+- **last_touched**: 2026-10-08
 
 ### browser_observer
 
 - **name**: Planet Entrance and Living Landscape
 - **status**: active
 - **package**: src/client/
-- **files**: `main.tsx`, `renderer.ts`, `PlanetWelcome.tsx`, `FieldGuide.tsx`, `LifePanel.tsx`, `Archive.tsx`, `Dialog.tsx`, `style.css`, `planet.css`
+- **files**: `main.tsx`, `renderer.ts`, `PlanetWelcome.tsx`, `FieldGuide.tsx`, `LifePanel.tsx`, `DevelopmentPanel.tsx`, `Archive.tsx`, `Dialog.tsx`, `style.css`, `planet.css`, `development.css`
 - **dependencies**: agent_gateway, world_state, natural_systems
 - **dependents**: none
 - **known_issues**: Globe requires WebGL for its full visual; current service caps observer streams at 100.
-- **last_touched**: 2026-10-07
+- **last_touched**: 2026-10-08
 
 ### world_hosting
 
@@ -80,21 +80,54 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **status**: active
 - **package**: root
 - **files**: `Dockerfile`, `compose.yaml`, `.railway/railway.ts`, `vercel.json`, `src/server/index.ts`, `scripts/container-entrypoint.mjs`, `scripts/prepare-website.mjs`
-- **dependencies**: world_storage, agent_gateway, browser_observer
+- **dependencies**: world_storage, agent_gateway, browser_observer, runtime_handover
 - **dependents**: none
 - **known_issues**: Hosting resources and provider limits remain finite; public origin must match the deployed website.
-- **last_touched**: 2026-10-07
+- **last_touched**: 2026-10-08
+
+### runtime_handover
+
+- **name**: Stable Observer Gateway and Runtime Hotfixes
+- **status**: active
+- **package**: src/server/
+- **files**: `gateway.ts`, `runtime.ts`, `worker.ts`, `preflight.ts`, `artifact.ts`, `sse.ts`, `scripts/prepare-hotfix.ts`, `scripts/hotfix.ts`
+- **dependencies**: world_storage, agent_gateway
+- **dependents**: world_hosting, browser_observer, browser_validation
+- **known_issues**: One host and volume. In-place hotfixes require compatible dependencies; gateway/container and infrastructure failures require separate operations. Stream/request queues are finite.
+- **last_touched**: 2026-10-08
 
 ### browser_validation
 
 - **name**: Model, Browser, and Continuity Validation
 - **status**: active
 - **package**: tests/web/
-- **files**: `tests/web/`, `scripts/browser-smoke.mjs`, `scripts/production-smoke.mjs`, `scripts/founding-trials.ts`, `.github/workflows/browser.yml`
+- **files**: `tests/web/`, `scripts/browser-smoke.mjs`, `scripts/production-smoke.mjs`, `scripts/founding-trials.ts`, `scripts/extinction-smoke.ts`, `scripts/hotfix-smoke.ts`, `scripts/verify-upgrade.ts`, `.github/workflows/browser.yml`
 - **dependencies**: world_state, natural_systems, civilization_intelligence, world_storage, agent_gateway, browser_observer
 - **dependents**: none
 - **known_issues**: Local causal and short-run checks do not establish large-world load capacity or century-scale ecological stability.
-- **last_touched**: 2026-10-07
+- **last_touched**: 2026-10-08
+
+### human_cognition
+
+- **name**: Personal Memory and Experimental Learning
+- **status**: experimental
+- **package**: src/simulation/
+- **files**: `cognition.ts`, `citizens.ts`, `economy.ts`, `validation.ts`
+- **dependencies**: world_state, natural_systems
+- **dependents**: civilization_intelligence, civic_relations, browser_observer
+- **known_issues**: Bounded functional cognition, not cellular neuroscience; no full language, durable written records or general material chemistry.
+- **last_touched**: 2026-10-08
+
+### civic_relations
+
+- **name**: Advisory Institutions, Outcome Feedback and Contact
+- **status**: experimental
+- **package**: src/simulation/
+- **files**: `society.ts`, `progress.ts`, `diplomacy.ts`, `actions.ts`, `validation.ts`
+- **dependencies**: world_state, natural_systems, human_cognition
+- **dependents**: civilization_intelligence, agent_gateway, browser_observer
+- **known_issues**: Local assembly and bilateral commitment primitives; simplified travel, comprehension and raids. Rewards are explicit heuristics, not proof against every optimization strategy.
+- **last_touched**: 2026-10-08
 
 ---
 

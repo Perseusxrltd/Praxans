@@ -1,4 +1,32 @@
-# Browser foundation validation
+# Browser world validation
+
+## Recovery and depth release — 2026-10-08
+
+The current format-8 / biosphere-1.2 build passed **85 model/server tests, 40 browser checks, 12 compiled-production checks, 9 extinction/rebeginning checks, and 17 runtime-hotfix checks**. TypeScript, both application bundles and formatting passed. The supplied web-game interaction client also exercised the observer and manual test clock against a disposable local world. Current screenshots were opened and inspected; the browser scenarios reported no console or page errors.
+
+The hotfix scenario retains the same public SSE connection, browser camera/selection, owner and agent key through a runtime replacement. It checks queued decisions, invalid-candidate rejection, one recorded intervention, persistence across a complete gateway restart, and shutdown during preflight without an orphaned simulation owner. This is a single-host runtime handover test, not proof of uninterrupted service during host or volume failure.
+
+The [actual stopped-world continuation](recovery-continuity.json) migrates a consistent copy from tick **20244** and advances **3,000 ticks** (31.25 simulated days). It preserves the original identity, RNG, inventories, ownership, receipts, archives and clock rows, then verifies exact save/reload at tick **23244**. Of the original 132 small plant cohorts, **58 remain**, with organic tissue declining from **6.332 to 3.172 kg**. No people or animals are resurrected. The final temperature range is **−1.24°C to 4.16°C**. The approximately 2.02 kg oxygen residual was already present in the source; the migration does not erase it or rebase historical conservation counters.
+
+The [400-day ecological trial](seasonal-recovery.json) stayed between **−11.92°C and 27.49°C**, retained **11 plant lineages**, and ended with **3,192 dormant cohorts**. Growing tissue declined from approximately **39,226 to 4,246 kg**. This supports survival through the tested seasonal cycle, not a stable long-term biomass, all-biome equilibrium or multi-generation human viability. [The incident investigation](recovery-2026-10-08.md) explains the numerical halt, earlier overheating, rejected climate candidates and physical recovery mechanisms.
+
+Performance changes have separate continuity evidence: [elemental accounting](element-kernel-continuity.json), [stable pathfinding](pathfinding-continuity.json) and [weather buffers](weather-kernel-continuity.json). Exact-result checks matter more than single-machine speed ratios. The actual 38-region continuation took about 504 seconds while other heavy tests ran; it does not establish live-host capacity.
+
+Local logs and browser artifacts are under `output/validation/` and `output/playwright/` and remain outside Git. The [release record](../releases/world-recovery-0.2.md) identifies actual deployment status. Historical runs below describe the preceding model and must not be substituted for this release's checks.
+
+```sh
+npm ci
+NODE_OPTIONS=--max-old-space-size=768 node --import tsx --test --test-concurrency=2 tests/web/*.test.ts
+npm run build
+npm run test:production
+npx playwright install chromium
+npm run test:browser
+npm run test:extinction
+npm run test:hotfix
+npm run format:check
+```
+
+## Historical browser foundation — 2026-10-07
 
 Validated locally on 2026-10-07 with Node 22.22, Chromium/Playwright, native SQLite, and the format-7 / biosphere-1.1 model. The legacy Python assessment has its own [separate evidence](../assessment-2026-10-07/README.md).
 

@@ -1,4 +1,5 @@
 import { FAUNA_BY_ID } from "./life";
+import { initialPlanetaryClimate } from "./climate";
 import { NAMES, PALETTES, SEASONS, SURNAMES } from "./content";
 import { LAWS, emptyStock, ledger, refreshTile, solarAt } from "./laws";
 import { between, clamp, hash, noise, pick, random } from "./random";
@@ -22,6 +23,8 @@ import { recordEvent } from "./events";
 import { FOUNDING } from "./founding";
 import { emptyEntropy } from "./thermodynamics";
 import { worldClock } from "./chronology";
+import { createMind } from "./cognition";
+import { createCivics, sampleProgress } from "./progress";
 export { recordEvent } from "./events";
 
 import {
@@ -47,7 +50,7 @@ export const peopleOf = (world: World, civId: string) =>
   world.citizens.filter((person) => person.civId === civId);
 export const housing = (world: World, civId: string) =>
   world.structures
-    .filter((s) => s.civId === civId && s.progress >= 1)
+    .filter((s) => s.civId === civId && !s.collapsed && s.progress >= 1)
     .reduce((sum, s) => sum + (s.properties.capacity * s.condition) / 100, 0);
 export function touchTile(world: World, index: number) {
   world.changedTiles.push(index);
@@ -82,6 +85,14 @@ export function createWorld(
     version: WORLD_VERSION,
     lawsVersion: LAWS.version,
     generationVersion,
+    evolution: {
+      sinceTick: 0,
+      eroded: 0,
+      deposited: 0,
+      structuralLoss: 0,
+      repaired: 0,
+      salvaged: 0,
+    },
     id: "praxans-world",
     name: "The Verdant Commons",
     seed,
@@ -96,10 +107,13 @@ export function createWorld(
     animals: [],
     structures: [],
     caravans: [],
+    diplomacy: { messages: [], accords: [] },
     events: [],
     pendingEvents: [],
     history: [],
     weather: "clear",
+    atmosphereCompensation: {},
+    planetaryClimate: initialPlanetaryClimate(0),
     atmosphere: {
       carbon: 0,
       water: 0,
@@ -258,7 +272,7 @@ export function createCitizen(
           1,
         )
       : between(world, 0.25, 0.95);
-  const person: Citizen = {
+  const profile: Omit<Citizen, "mind"> = {
     id: uid(world, "person"),
     civId: civ.id,
     name: `${pick(world, NAMES)} ${surname}`,
@@ -292,7 +306,9 @@ export function createCitizen(
     clothing: Math.floor(random(world) * 5),
     experience: {},
     pregnancy: null,
+    journeyId: null,
   };
+  const person: Citizen = { ...profile, mind: createMind(profile, world.tick) };
   remember(
     world,
     person,
@@ -340,22 +356,8 @@ export function createCivilization(
     lastBuildingTick: world.tick,
     lastTradeTick: world.tick,
     experiments: 0,
+    civics: createCivics(world.tick),
   };
-  for (const other of world.civilizations) {
-    const affinity = between(world, 10, 25);
-    civ.relations[other.id] = {
-      affinity,
-      tradeCount: 0,
-      lastDiplomacyTick: -1000,
-      lastRaidTick: -5000,
-    };
-    other.relations[civ.id] = {
-      affinity,
-      tradeCount: 0,
-      lastDiplomacyTick: -1000,
-      lastRaidTick: -5000,
-    };
-  }
   world.civilizations.push(civ);
   for (const tile of world.tiles)
     if (tile.terrain !== "water" && distance(tile, civ) < 5.5 && !tile.owner) {
@@ -393,6 +395,7 @@ export function initializeFounders(
     founders[i].partnerId = founders[i + 1].id;
     founders[i + 1].partnerId = founders[i].id;
   }
+  sampleProgress(world, civ);
 }
 /** New player communities come from existing people and matter, never from a spawn grant. */
 export function branchCivilization(world: World, name: string): Civilization {
@@ -595,6 +598,7 @@ export function findPath(
 ): number[] | null {
   const start = tileIndex(world, from.x, from.y),
     goal = tileIndex(world, to.x, to.y);
+  if (start < 0 || goal < 0) return null;
   if (start === goal) return [];
   if (
     !getTile(world, from.x, from.y) ||
@@ -602,23 +606,56 @@ export function findPath(
     world.tiles[goal].terrain === "water"
   )
     return null;
-  const open = [start],
-    previous = new Map<number, number>(),
+  const previous = new Map<number, number>(),
     scores = new Map([[start, 0]]),
     closed = new Set<number>();
   const heuristic = (index: number) =>
     (Math.abs(world.tiles[index].x - Math.round(to.x)) +
       Math.abs(world.tiles[index].y - Math.round(to.y))) *
     0.8;
+  // Stable heap ordering preserves the former array's insertion-order tie
+  // breaks, including when a queued tile receives a cheaper route.
+  const open = [{ index: start, score: heuristic(start), order: 0 }];
+  const positions = new Map([[start, 0]]);
+  let order = 1;
+  const before = (a: number, b: number) =>
+    open[a].score < open[b].score ||
+    (open[a].score === open[b].score && open[a].order < open[b].order);
+  const swap = (a: number, b: number) => {
+    [open[a], open[b]] = [open[b], open[a]];
+    positions.set(open[a].index, a);
+    positions.set(open[b].index, b);
+  };
+  const improve = (index: number, score: number) => {
+    let at: number = positions.get(index) ?? -1;
+    if (at < 0) {
+      at = open.length;
+      open.push({ index, score, order: order++ });
+      positions.set(index, at);
+    } else open[at].score = score;
+    while (at > 0) {
+      const parent = (at - 1) >> 1;
+      if (!before(at, parent)) break;
+      swap(at, parent);
+      at = parent;
+    }
+  };
   while (open.length && budget-- > 0) {
-    let best = 0;
-    for (let i = 1; i < open.length; i++)
-      if (
-        scores.get(open[i])! + heuristic(open[i]) <
-        scores.get(open[best])! + heuristic(open[best])
-      )
-        best = i;
-    const current = open.splice(best, 1)[0];
+    const current = open[0].index;
+    positions.delete(current);
+    const last = open.pop()!;
+    if (open.length) {
+      open[0] = last;
+      positions.set(last.index, 0);
+      let at = 0;
+      while (at * 2 + 1 < open.length) {
+        let child = at * 2 + 1;
+        if (child + 1 < open.length && before(child + 1, child)) child++;
+        if (!before(child, at)) break;
+        swap(child, at);
+        at = child;
+      }
+    }
     if (current === goal) {
       const result: number[] = [];
       let cursor = goal;
@@ -636,9 +673,9 @@ export function findPath(
       [0, 1],
       [-1, 0],
     ]) {
-      const next = getTile(world, tile.x + dx, tile.y + dy);
+      const index = tileIndex(world, tile.x + dx, tile.y + dy);
+      const next = world.tiles[index];
       if (!next || next.terrain === "water") continue;
-      const index = tileIndex(world, next.x, next.y);
       if (closed.has(index)) continue;
       const cost =
         scores.get(current)! +
@@ -647,7 +684,7 @@ export function findPath(
       if (cost < (scores.get(index) ?? Infinity)) {
         previous.set(index, current);
         scores.set(index, cost);
-        if (!open.includes(index)) open.push(index);
+        improve(index, cost + heuristic(index));
       }
     }
   }

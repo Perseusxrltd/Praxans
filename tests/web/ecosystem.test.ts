@@ -61,7 +61,7 @@ test("pollinator visits enable flowering reproduction, funded by the parent plan
   assert.ok(source.pollination >= 0.2);
   assert.equal(seedPlant(world, source, target), true);
   assert.ok(source.plant!.carbon < carbon);
-  assert.equal(target.plant!.generation, source.plant!.generation + 1);
+  assert.equal(target.seedBank[0].generation, source.plant!.generation + 1);
   conserved(world, before);
 });
 test("grazing and predation transfer finite tissue, water and waste through the food web", () => {
@@ -139,7 +139,7 @@ test("animal offspring share existing stored tissue instead of adding biological
     ) < 0.1,
   );
 });
-test("foraging birds carry inherited seedlings into real gaps in vegetation", () => {
+test("foraging birds carry inherited propagules into real gaps in vegetation", () => {
   const world = createWorld(1847, 64, 64),
     bird = world.animals.find((a) => a.species === "songbird")!;
   assert.ok(bird);
@@ -167,10 +167,7 @@ test("foraging birds carry inherited seedlings into real gaps in vegetation", ()
   assert.ok(world.ecology.dispersedSeeds > 0);
   assert.ok(
     world.tiles.some(
-      (t) =>
-        t !== source &&
-        ((t.plant?.generation ?? 0) > 0 ||
-          (t.groundcover?.generation ?? 0) > 0),
+      (t) => t !== source && t.seedBank.some((seed) => seed.generation > 0),
     ),
   );
   conserved(world, before);

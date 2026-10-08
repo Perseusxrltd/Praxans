@@ -63,11 +63,18 @@ export function addElements(
   source: ElementMass,
   amount = 1,
 ): void {
-  for (const [symbol, mass] of Object.entries(source))
-    target[symbol] = (target[symbol] ?? 0) + mass * amount;
+  // Keep enumeration order and own-property semantics without allocating a pair
+  // for every element on every soil/plant exchange.
+  for (const symbol in source)
+    if (Object.hasOwn(source, symbol))
+      target[symbol] = (target[symbol] ?? 0) + source[symbol] * amount;
 }
-export const totalElements = (mass: ElementMass) =>
-  Object.values(mass).reduce((sum, value) => sum + value, 0);
+export function totalElements(mass: ElementMass): number {
+  let sum = 0;
+  for (const symbol in mass)
+    if (Object.hasOwn(mass, symbol)) sum += mass[symbol];
+  return sum;
+}
 export function normalize(mass: ElementMass): ElementMass {
   const total = totalElements(mass);
   return Object.fromEntries(

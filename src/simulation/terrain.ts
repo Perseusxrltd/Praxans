@@ -11,6 +11,7 @@ import {
 } from "./types";
 import {
   BIO_NUTRIENTS,
+  accumulateAtmosphere,
   CHEMISTRY,
   ROCK,
   CLAY,
@@ -108,7 +109,10 @@ export function generateTile(
     road: 0,
     owner: null,
     water: terrain === "water" ? 200000 : moisture * LAWS.waterCapacity,
+    ice: 0,
     mineral: 0,
+    sediment: 0,
+    surfaceChange: 0,
     nutrients: {},
     rock: terrain === "hill" ? between(rng, 200, 600) : between(rng, 20, 100),
     air: {
@@ -132,6 +136,7 @@ export function generateTile(
     forage: 0,
     plant: null,
     groundcover: null,
+    seedBank: [],
     pollination: 0,
     dissolvedOxygen: terrain === "water" ? 1.6 : 0,
   };
@@ -197,6 +202,7 @@ export function materializeChunk(
         INITIAL_AIR.nitrogen;
       water +=
         tile.water +
+        tile.ice +
         tile.air.vapor +
         tile.air.cloud +
         tile.air.snow +
@@ -206,7 +212,7 @@ export function materializeChunk(
       for (const key of Object.keys(
         INITIAL_AIR,
       ) as (keyof typeof INITIAL_AIR)[])
-        world.atmosphere[key] += INITIAL_AIR[key];
+        accumulateAtmosphere(world, key, INITIAL_AIR[key]);
       world.initialTrees += tile.trees;
       world.changedTiles.push(world.tiles.length);
       world.tiles.push(tile);
