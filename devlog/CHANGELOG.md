@@ -8,6 +8,7 @@
 ## [Renewal, Scale and Agent Recovery 0.2] — 2026-10-08
 
 ### Added
+- Independently versioned, verified compressed migration archives and offline archive verification. Existing plaintext history remains intact (→ world_storage; → ADR-033).
 - Preserved-world collapse study: 1,607 deaths reconciled, exact first-infant thermal replay, finite-fiber/ration-order controls, connected habitat measurements and an exported chronology. Corrective care, growth and allocation work remains open (→ human_physiology; → settlement_space).
 - H06 and a reviewed contract for open political/social organization, plus source-backed shelter/family and conditional labor investigations; proposed political mechanisms are not yet implemented.
 - Three hundred individually represented founders with finite proportional supplies and population-scaled habitat screening; explicit one-time renewal of the four historical communities (→ world_renewal).
@@ -18,6 +19,7 @@
 - Antiquity-first source register, scale audits, failed-candidate evidence, measured CPU baseline and explicit large-world acceptance targets.
 
 ### Fixed
+- Live `archive-blocks-20261008-1` avoids a duplicate complete world during owned migration, exercises real archival in preflight and closes failed storage constructors. The connection test waits for the existing fallback selection to complete; no client code changed.
 - Live `checkpoint-copy-20261008-1` prepares WAL reuse before world transactions and retries reader-delayed saves without advancing additional unsaved time. Shared native backup batches replace long copy readers, with timeout, cancellation and exclusive publication; Node 22.16+ is required (→ world_storage; → runtime_handover; → ADR-032).
 - Autonomous construction tries feasible remembered alternatives; conditional task selection leaves later work reachable after reserve-food choices while urgent subsistence retains priority. Live `work-planning-20261008-2` also bounds private validation; its release record retains the actual disk-full/24-tick-repeat handover failure (→ civilization_intelligence; → runtime_handover; → ADR-030).
 - Returning home after an observer reload immediately retains the latest clock and population; older cached overview responses cannot move that view backwards (→ browser_observer).
@@ -27,6 +29,7 @@
 - SQLite retains the original disk-full cause when it has already rolled back; reusable WAL retention is limited without discarding active reader history.
 
 ### Validation and limits
+- Archive release: 138 model/server tests, twelve production, 21 hotfix, sixteen connection and fifteen inhabited quota/handover checks pass. Actual format-8 migration archives 52.6 MB in 17.4 MB of blocks under a 216 MiB heap; exact migration outputs match preceding code. The live tick-313804 audit retains prior identities/history/clock. Full-region writes, old plaintext storage, host memory and survival defects remain limits.
 - The final checkpoint/copy release passes 25 lifecycle tests, twelve production checks, 21 hotfix checks and fourteen inhabited-backup checks under a live-sized disk quota. A later live private preflight and saved-state audit pass. The copy-only predecessor missed a post-copy halt; recovery recomputed 32 uncommitted ticks. Memory remains close to the limit, and single-write/archive capacity is unresolved.
 - A later disk-full halt was recovered by SQLite checkpoint reclamation, independent backup validation and resuming the same artifact; 32 uncommitted ticks were recomputed. Twenty-one later health samples pass, with held-reader/capacity risks still open (→ world_storage; → runtime_handover).
 - The work-planning candidate passes 121 model/server tests locally; previous deployed releases and their browser/full-backup evidence remain distinct. Live memory/disk incidents and visible checkpoint rollback remain recorded; no uninterrupted-infrastructure claim.

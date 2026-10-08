@@ -43,7 +43,9 @@ export async function preflight(
         >
       | undefined;
     if (!before) throw new Error("The existing world is missing.");
-    const world = store.load(0, true, false);
+    // Exercise the same archive/migration transaction as actual startup. The
+    // archive streams into bounded blocks; the owned copy migrates in place.
+    const world = store.load(0, true);
     for (const key of [
       "id",
       "seed",

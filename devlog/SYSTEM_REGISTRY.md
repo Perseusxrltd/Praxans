@@ -46,10 +46,10 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **name**: Persistent State and Intervention Archive
 - **status**: active
 - **package**: src/server/
-- **files**: `store.ts`, `backup.ts`, `migrations.ts`, `startup.ts`, `intervention.ts`, `scripts/world-maintenance.ts`, `scripts/verify-upgrade.ts`
+- **files**: `store.ts`, `backup.ts`, `archives.ts`, `migrations.ts`, `startup.ts`, `intervention.ts`, `scripts/world-maintenance.ts`, `scripts/verify-upgrade.ts`
 - **dependencies**: world_state, natural_systems
 - **dependents**: agent_gateway, world_hosting, community_history
-- **known_issues**: One writer/volume, monolithic population metadata and full region serialization. Pre-write checkpoint reuse and bounded native copies prevent demonstrated reader-related log accumulation, but one transaction and migration archive still need capacity. The 16 MiB setting bounds only reusable WAL. External backup retention/capacity monitoring remain operator work; anonymous ownership has no account recovery.
+- **known_issues**: One writer/volume, monolithic population metadata and full region serialization. New archives use verified compressed blocks and owned migration; old plaintext archives retain their original footprint and require offline large-row verification. The additive schema commits separately from physical migration. Pre-write checkpoint reuse and bounded native copies address demonstrated reader-related log accumulation, but single-write and combined live/preflight capacity remain finite. The 16 MiB setting bounds only reusable WAL. External backup retention/monitoring and account recovery remain open.
 - **last_touched**: 2026-10-08
 
 ### agent_gateway

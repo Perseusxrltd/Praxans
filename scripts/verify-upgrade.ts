@@ -9,6 +9,7 @@ import { stepWorld, validateWorld } from "../src/simulation/engine";
 import { elementLedger, elementalErrors } from "../src/simulation/chemistry";
 import type { World } from "../src/simulation/types";
 import { backupDatabase } from "../src/server/backup";
+import { verifyWorldArchives, type WorldArchive } from "../src/server/archives";
 
 const sourcePath = process.argv[2],
   ticks = Number(process.argv[3] ?? 288),
@@ -25,6 +26,7 @@ let store: Store | undefined;
 try {
   const source = new DatabaseSync(sourcePath, { readOnly: true });
   let old: World;
+  let oldArchives: WorldArchive[] = [];
   const counts: Record<string, number> = {};
   const protectedRows: Record<string, string> = {};
   const ordering = {
@@ -46,6 +48,7 @@ try {
       .get() as { json: string; checksum: string };
     assert.equal(digest(head.json), head.checksum);
     old = JSON.parse(head.json);
+    oldArchives = verifyWorldArchives(source);
     old.tiles = [];
     for (const chunk of old.chunks) {
       const row = source
@@ -67,6 +70,13 @@ try {
   }
   store = new Store(join(directory, "copy.sqlite"));
   const next = store.load(0, true);
+  const archives = verifyWorldArchives(store.db);
+  for (const archive of oldArchives)
+    assert.deepEqual(
+      archives.find((item) => item.id === archive.id),
+      archive,
+      "Every earlier archive must remain unchanged and verifiable",
+    );
   for (const key of [
     "id",
     "seed",
@@ -164,6 +174,11 @@ try {
     sourceTick,
     sourcePeople: people,
     sourceRegions: old!.chunks.length,
+    archives: {
+      retained: oldArchives.length,
+      total: archives.length,
+      checksums: "valid",
+    },
     preserved: [
       "source backup bytes",
       "seed",

@@ -1,0 +1,300 @@
+import type { DatabaseSync } from "node:sqlite";
+import { createHash } from "node:crypto";
+import { deflateSync, inflateSync } from "node:zlib";
+
+export const STORAGE_VERSION = 1;
+export const ARCHIVE_BLOCK_BYTES = 256 * 1024;
+const encoding = "deflate-parts-1";
+const sha256 = (bytes: string | Uint8Array) =>
+  createHash("sha256").update(bytes).digest("hex");
+
+export function storageVersion(db: DatabaseSync): number {
+  const version = Number(db.prepare("PRAGMA user_version").get()!.user_version);
+  if (version < 0 || version > STORAGE_VERSION)
+    throw new Error(
+      `Unsupported storage version ${version}; preserve the database and use compatible code.`,
+    );
+  return version;
+}
+
+function requireColumns(
+  db: DatabaseSync,
+  table: "world_backups" | "world_backup_parts",
+  expected: [string, string, number, number][],
+): void {
+  const columns = db.prepare(`PRAGMA table_info(${table})`).all() as {
+    name: string;
+    type: string;
+    pk: number;
+    notnull: number;
+  }[];
+  if (
+    columns.length !== expected.length ||
+    expected.some(([name, type, pk, notnull], index) => {
+      const actual = columns[index];
+      return (
+        actual.name !== name ||
+        actual.type.toUpperCase() !== type ||
+        actual.pk !== pk ||
+        actual.notnull !== notnull
+      );
+    })
+  )
+    throw new Error(
+      `Archive storage schema for ${table} is incompatible; preserve the database.`,
+    );
+}
+
+const legacyColumns: [string, string, number, number][] = [
+  ["id", "TEXT", 1, 0],
+  ["json", "TEXT", 0, 1],
+  ["checksum", "TEXT", 0, 1],
+  ["created_at", "INTEGER", 0, 1],
+];
+
+function validateArchiveSchema(db: DatabaseSync): void {
+  requireColumns(db, "world_backups", [
+    ...legacyColumns,
+    ["encoding", "TEXT", 0, 1],
+    ["raw_bytes", "INTEGER", 0, 0],
+    ["part_count", "INTEGER", 0, 0],
+  ]);
+  requireColumns(db, "world_backup_parts", [
+    ["archive_id", "TEXT", 1, 1],
+    ["part", "INTEGER", 2, 1],
+    ["raw_bytes", "INTEGER", 0, 1],
+    ["checksum", "TEXT", 0, 1],
+    ["payload", "BLOB", 0, 1],
+  ]);
+}
+
+export function checkArchiveStorage(db: DatabaseSync): number {
+  const version = storageVersion(db);
+  if (version > 0) validateArchiveSchema(db);
+  else if (
+    db.prepare("SELECT 1 FROM sqlite_master WHERE name='world_backups'").get()
+  )
+    requireColumns(db, "world_backups", legacyColumns);
+  return version;
+}
+
+/** Storage encoding evolves independently of physical world state and laws. */
+export function initializeArchives(db: DatabaseSync): void {
+  if (checkArchiveStorage(db) === 0) {
+    requireColumns(db, "world_backups", legacyColumns);
+    db.exec("BEGIN IMMEDIATE");
+    try {
+      db.exec(`
+        ALTER TABLE world_backups ADD COLUMN encoding TEXT NOT NULL DEFAULT 'json';
+        ALTER TABLE world_backups ADD COLUMN raw_bytes INTEGER;
+        ALTER TABLE world_backups ADD COLUMN part_count INTEGER;
+        CREATE TABLE world_backup_parts (
+          archive_id TEXT NOT NULL,
+          part INTEGER NOT NULL,
+          raw_bytes INTEGER NOT NULL,
+          checksum TEXT NOT NULL,
+          payload BLOB NOT NULL,
+          PRIMARY KEY(archive_id,part)
+        );
+        PRAGMA user_version=1;
+        COMMIT;
+      `);
+    } catch (error) {
+      try {
+        db.exec("ROLLBACK");
+      } catch {
+        /* SQLite may already have rolled back an I/O failure. */
+      }
+      throw error;
+    }
+  }
+  // Check keys as well as names: an archive identity must remain unique.
+  validateArchiveSchema(db);
+}
+
+/**
+ * World state is ordinary JSON data. Serialize root arrays one record at a
+ * time, retaining JSON.stringify's key order and number/string encoding.
+ * Extra string memory is bounded by the largest record, not the whole world.
+ */
+function* worldJson(world: object): Generator<string> {
+  yield "{";
+  let comma = "";
+  for (const [key, value] of Object.entries(world)) {
+    if (value === undefined) continue;
+    yield comma + JSON.stringify(key) + ":";
+    comma = ",";
+    if (Array.isArray(value)) {
+      yield "[";
+      for (let index = 0; index < value.length; index++) {
+        if (index) yield ",";
+        yield JSON.stringify(value[index]) ?? "null";
+      }
+      yield "]";
+    } else {
+      const json = JSON.stringify(value);
+      if (json === undefined)
+        throw new Error("A world archive requires ordinary JSON data.");
+      yield json;
+    }
+  }
+  yield "}";
+}
+
+function* blocks(pieces: Iterable<string>): Generator<Buffer> {
+  const block = Buffer.allocUnsafe(ARCHIVE_BLOCK_BYTES);
+  let used = 0;
+  for (const piece of pieces) {
+    const bytes = Buffer.from(piece);
+    let offset = 0;
+    while (offset < bytes.length) {
+      const count = Math.min(bytes.length - offset, block.length - used);
+      bytes.copy(block, used, offset, offset + count);
+      used += count;
+      offset += count;
+      if (used === block.length) {
+        yield block;
+        used = 0;
+      }
+    }
+  }
+  if (used) yield block.subarray(0, used);
+}
+
+export interface WorldArchive {
+  id: string;
+  checksum: string;
+  createdAt: number;
+  encoding: string;
+  rawBytes: number;
+  parts: number;
+}
+
+export function listWorldArchives(db: DatabaseSync): WorldArchive[] {
+  const extra =
+    checkArchiveStorage(db) === 0
+      ? "'json' AS encoding,length(CAST(json AS BLOB)) AS rawBytes,0 AS parts"
+      : "encoding,coalesce(raw_bytes,length(CAST(json AS BLOB))) AS rawBytes,coalesce(part_count,0) AS parts";
+  return db
+    .prepare(
+      `SELECT id,checksum,created_at AS createdAt,${extra} FROM world_backups ORDER BY id`,
+    )
+    .all() as unknown as WorldArchive[];
+}
+
+/** Call inside the same Store transaction as the corresponding world migration. */
+export function writeWorldArchive(
+  db: DatabaseSync,
+  id: string,
+  world: object,
+  createdAt = Date.now(),
+): WorldArchive {
+  db.exec("SAVEPOINT praxans_archive_write");
+  try {
+    // Reserve the immutable identity before spending work; never overwrite it.
+    db.prepare(
+      "INSERT INTO world_backups(id,json,checksum,created_at,encoding,raw_bytes,part_count) VALUES(?,'','',?,?,0,0)",
+    ).run(id, createdAt, encoding);
+    const insert = db.prepare(
+      "INSERT INTO world_backup_parts VALUES(?,?,?,?,?)",
+    );
+    const hash = createHash("sha256");
+    let rawBytes = 0,
+      parts = 0;
+    for (const bytes of blocks(worldJson(world))) {
+      hash.update(bytes);
+      rawBytes += bytes.length;
+      insert.run(
+        id,
+        parts++,
+        bytes.length,
+        sha256(bytes),
+        deflateSync(bytes, { level: 1 }),
+      );
+    }
+    const checksum = hash.digest("hex");
+    db.prepare(
+      "UPDATE world_backups SET checksum=?,raw_bytes=?,part_count=? WHERE id=?",
+    ).run(checksum, rawBytes, parts, id);
+    db.exec("RELEASE praxans_archive_write");
+    return { id, checksum, createdAt, encoding, rawBytes, parts };
+  } catch (error) {
+    try {
+      db.exec(
+        "ROLLBACK TO praxans_archive_write; RELEASE praxans_archive_write",
+      );
+    } catch {
+      /* Preserve the original failure if SQLite rolled back the outer write. */
+    }
+    throw error;
+  }
+}
+
+/**
+ * Drain completely before claiming verification. New blocks are bounded;
+ * legacy plaintext archives still require reading their original single row.
+ * Full archive verification belongs on an independent offline backup.
+ */
+export function* worldArchiveBytes(
+  db: DatabaseSync,
+  id: string,
+): Generator<Uint8Array> {
+  const archive = listWorldArchives(db).find((item) => item.id === id);
+  if (!archive) throw new Error(`Unknown world archive ${id}.`);
+  const hash = createHash("sha256");
+  let total = 0;
+  if (archive.encoding === "json") {
+    const row = db
+      .prepare("SELECT json FROM world_backups WHERE id=?")
+      .get(id) as { json: string };
+    const bytes = Buffer.from(row.json);
+    hash.update(bytes);
+    total = bytes.length;
+    yield bytes;
+  } else if (archive.encoding === encoding) {
+    if (
+      !Number.isSafeInteger(archive.parts) ||
+      archive.parts < 1 ||
+      !Number.isSafeInteger(archive.rawBytes) ||
+      archive.rawBytes < 1 ||
+      Math.ceil(archive.rawBytes / ARCHIVE_BLOCK_BYTES) !== archive.parts
+    )
+      throw new Error(`Invalid world archive manifest ${id}.`);
+    const count = db
+      .prepare(
+        "SELECT count(*) AS n FROM world_backup_parts WHERE archive_id=?",
+      )
+      .get(id)!;
+    if (count.n !== archive.parts)
+      throw new Error(`World archive ${id} has missing or unexpected blocks.`);
+    const get = db.prepare(
+      "SELECT raw_bytes,checksum,payload FROM world_backup_parts WHERE archive_id=? AND part=? AND typeof(payload)='blob' AND length(payload)<=?",
+    );
+    for (let part = 0; part < archive.parts; part++) {
+      const row = get.get(id, part, ARCHIVE_BLOCK_BYTES + 1024) as
+        | { raw_bytes: number; checksum: string; payload: Uint8Array }
+        | undefined;
+      const expected = Math.min(ARCHIVE_BLOCK_BYTES, archive.rawBytes - total);
+      if (!row || row.raw_bytes !== expected)
+        throw new Error(`Invalid world archive ${id} block ${part}.`);
+      const bytes = inflateSync(row.payload, {
+        maxOutputLength: ARCHIVE_BLOCK_BYTES,
+      });
+      if (bytes.length !== expected || sha256(bytes) !== row.checksum)
+        throw new Error(`World archive ${id} block ${part} checksum mismatch.`);
+      hash.update(bytes);
+      total += bytes.length;
+      yield bytes;
+    }
+  } else
+    throw new Error(`Unsupported world archive encoding ${archive.encoding}.`);
+  if (total !== archive.rawBytes || hash.digest("hex") !== archive.checksum)
+    throw new Error(`World archive ${id} checksum mismatch.`);
+}
+
+export function verifyWorldArchives(db: DatabaseSync): WorldArchive[] {
+  const archives = listWorldArchives(db);
+  for (const archive of archives)
+    for (const bytes of worldArchiveBytes(db, archive.id)) void bytes;
+  return archives;
+}

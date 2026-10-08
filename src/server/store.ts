@@ -16,8 +16,13 @@ import type {
   WorldEvent,
 } from "../simulation/types";
 import { CHUNK_SIZE, TICK_MS, WORLD_VERSION } from "../simulation/types";
-import { migrateWorld } from "./migrations";
+import { describeMigration, migrateWorld } from "./migrations";
 import { backupDatabase } from "./backup";
+import {
+  initializeArchives,
+  checkArchiveStorage,
+  writeWorldArchive,
+} from "./archives";
 
 export const digest = (text: string) =>
   createHash("sha256").update(text).digest("hex");
@@ -57,8 +62,11 @@ export class Store {
   constructor(path: string) {
     if (path !== ":memory:") mkdirSync(dirname(path), { recursive: true });
     this.db = new DatabaseSync(path);
-    this.db
-      .exec(`PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA busy_timeout=5000;
+    // Refuse an unknown storage format before any schema or journal mutation.
+    try {
+      checkArchiveStorage(this.db);
+      this.db
+        .exec(`PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA busy_timeout=5000;
       PRAGMA journal_size_limit=16777216;
       CREATE TABLE IF NOT EXISTS world (id INTEGER PRIMARY KEY CHECK(id=1), json TEXT NOT NULL, checksum TEXT NOT NULL, saved_at INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS chunks (id TEXT PRIMARY KEY, json TEXT NOT NULL, checksum TEXT NOT NULL);
@@ -73,6 +81,11 @@ export class Store {
       CREATE TABLE IF NOT EXISTS interventions (sequence INTEGER PRIMARY KEY AUTOINCREMENT, id TEXT NOT NULL UNIQUE, tick INTEGER NOT NULL, description TEXT NOT NULL, before_checksum TEXT NOT NULL, after_checksum TEXT NOT NULL, created_at INTEGER NOT NULL);
       CREATE TABLE IF NOT EXISTS world_clock (id INTEGER PRIMARY KEY CHECK(id=1), tick INTEGER NOT NULL, wall_ms REAL NOT NULL);
       CREATE TABLE IF NOT EXISTS world_lease (id INTEGER PRIMARY KEY CHECK(id=1), token TEXT NOT NULL, expires_at INTEGER NOT NULL);`);
+      initializeArchives(this.db);
+    } catch (error) {
+      this.db.close();
+      throw error;
+    }
   }
   acquireLease(now = Date.now()): void {
     const token = randomUUID();
@@ -159,7 +172,7 @@ export class Store {
       this.afterCommit = [];
     }
   }
-  load(seed: number, requireExisting = false, persistMigration = true): World {
+  load(seed: number, requireExisting = false): World {
     const row = this.db
       .prepare("SELECT json,checksum FROM world WHERE id=1")
       .get() as { json: string; checksum: string } | undefined;
@@ -199,17 +212,14 @@ export class Store {
       validateWorld(world);
       return world;
     }
-    const upgraded = migrateWorld(world);
-    // Only private candidate validation skips the durable migration archive.
-    // Normal startup always archives and commits before returning.
-    if (!persistMigration) return upgraded.world;
+    const interventions = describeMigration(world);
     // Archive and transform atomically. A failed migration leaves the old checkpoint intact.
+    // This newly loaded object has no external owner: archive its original data
+    // before modifying it, avoiding a second complete in-memory world.
     this.transaction(() => {
-      const backup = JSON.stringify(world);
-      const id = upgraded.interventions.map((i) => i.id).join("+");
-      this.db
-        .prepare("INSERT INTO world_backups VALUES(?,?,?,?)")
-        .run(id, backup, digest(backup), Date.now());
+      const id = interventions.map((i) => i.id).join("+");
+      writeWorldArchive(this.db, id, world);
+      const upgraded = migrateWorld(world, { inPlace: true });
       this.save(upgraded.world);
       const current = this.db
         .prepare("SELECT checksum FROM world WHERE id=1")
@@ -228,7 +238,7 @@ export class Store {
             Date.now(),
           );
     });
-    return upgraded.world;
+    return world;
   }
   save(world: World): void {
     validateWorld(world);

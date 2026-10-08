@@ -4,12 +4,17 @@ import { existsSync } from "node:fs";
 import { resolve, dirname, join } from "node:path";
 import { WORLD_VERSION } from "../src/simulation/types";
 import { backupDatabase } from "../src/server/backup";
+import {
+  listWorldArchives,
+  storageVersion,
+  verifyWorldArchives,
+} from "../src/server/archives";
 
 const command = process.argv[2],
   path = resolve(process.env.PRAXANS_DB ?? "data/praxans.sqlite");
 if (!command || command === "--help") {
   console.log(
-    "Usage: npm run world:inspect\n       npm run world:backup -- [destination.sqlite]\nSet PRAXANS_DB to the existing world. Inspection and backup never initialize or reset a world.",
+    "Usage: npm run world:inspect\n       npm run world:backup -- [destination.sqlite]\n       node dist/server/maintenance.js verify-archives\nSet PRAXANS_DB to the existing world. Archive verification requires an offline copy. These commands never initialize or reset a world.",
   );
   process.exit(0);
 }
@@ -41,14 +46,17 @@ try {
     if (digest(head.json) !== head.checksum)
       throw new Error("World metadata checksum mismatch.");
     const world = JSON.parse(head.json);
-    const regions = db.prepare("SELECT id,json,checksum FROM chunks").all() as {
+    const regions = db.prepare("SELECT id FROM chunks ORDER BY id").all() as {
       id: string;
-      json: string;
-      checksum: string;
     }[];
-    for (const region of regions)
+    const readRegion = db.prepare(
+      "SELECT json,checksum FROM chunks WHERE id=?",
+    );
+    for (const { id } of regions) {
+      const region = readRegion.get(id) as { json: string; checksum: string };
       if (digest(region.json) !== region.checksum)
-        throw new Error(`Region ${region.id} checksum mismatch.`);
+        throw new Error(`Region ${id} checksum mismatch.`);
+    }
     console.log(
       JSON.stringify(
         {
@@ -57,6 +65,7 @@ try {
           seed: world.seed,
           tick: world.tick,
           format: world.version,
+          storageVersion: storageVersion(db),
           laws: world.lawsVersion,
           requiresMigration: world.version !== WORLD_VERSION,
           regions: regions.length,
@@ -64,7 +73,26 @@ try {
           communities: world.civilizations.length,
           savedAt: new Date(head.saved_at).toISOString(),
           checksums: "valid",
+          archives: listWorldArchives(db),
+          archiveVerification:
+            "not performed; use verify-archives on an offline copy",
         },
+        null,
+        2,
+      ),
+    );
+  } else if (command === "verify-archives") {
+    const owner = db
+      .prepare("SELECT expires_at FROM world_lease WHERE id=1")
+      .get() as { expires_at: number } | undefined;
+    if (owner && owner.expires_at > Date.now())
+      throw new Error(
+        "Archive verification requires an offline backup with no active world owner; legacy archives can require substantial memory.",
+      );
+    const archives = verifyWorldArchives(db);
+    console.log(
+      JSON.stringify(
+        { storageVersion: storageVersion(db), archives, checksums: "valid" },
         null,
         2,
       ),

@@ -19,6 +19,10 @@ import {
 } from "../../src/simulation/terrain";
 import { elementLedger } from "../../src/simulation/chemistry";
 import { legacyCheckpoint } from "./fixtures";
+import {
+  listWorldArchives,
+  worldArchiveBytes,
+} from "../../src/server/archives";
 
 test("a released reader cannot leave two large save batches in the WAL", () => {
   const directory = mkdtempSync(join(tmpdir(), "praxans-checkpoint-boundary-"));
@@ -270,12 +274,13 @@ test("a registered hotfix preserves an established world and archives its exact 
         `${symbol}: projecting personal inventories into legacy stock preserves matter`,
       );
     assert.equal(store.interventions().length, 4);
-    const backup = store.db
-      .prepare("SELECT json,checksum FROM world_backups")
-      .get() as { json: string; checksum: string };
-    assert.equal(digest(backup.json), backup.checksum);
-    assert.equal(JSON.parse(backup.json).version, 5);
-    assert.deepEqual(JSON.parse(backup.json).tiles, legacy.tiles);
+    const [backup] = listWorldArchives(store.db);
+    const json = Buffer.concat([
+      ...worldArchiveBytes(store.db, backup.id),
+    ]).toString();
+    assert.equal(digest(json), backup.checksum);
+    assert.equal(JSON.parse(json).version, 5);
+    assert.deepEqual(JSON.parse(json).tiles, legacy.tiles);
     assert.deepEqual(store.load(0), upgraded);
     assert.equal(
       store.interventions().length,

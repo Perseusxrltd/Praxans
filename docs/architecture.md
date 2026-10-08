@@ -27,7 +27,7 @@ flowchart LR
 | `physiology.ts`, `subsistence.ts`, `movement.ts`, `settlement.ts`, `geometry.ts` | Funded thermal needs, remembered supplies, spherical walking, connected camp area and material enclosures |
 | `src/server/app.ts`, `schema.ts` | HTTP/MCP, scoped authorization, action validation, public snapshots and event streams |
 | `observer.ts`, `atlas.ts` | Public projections and progressively sampled planetary imagery, separate from authoritative state |
-| `store.ts`, `migrations.ts` | Atomic SQLite storage, checksums, archives, ownership lease, recovery clock |
+| `store.ts`, `backup.ts`, `archives.ts`, `migrations.ts` | Atomic SQLite storage, bounded native backups, verified migration archives, ownership lease, recovery clock |
 | `src/server/intervention.ts`, `src/simulation/renewal.ts` | Private, finite, idempotent operator renewal with explicit boundary inventories and permanent history |
 | `gateway.ts`, `runtime.ts`, `worker.ts`, `artifact.ts`, `preflight.ts` | Stable HTTP/SSE transport, replaceable sole-writer runtime, verified artifacts, private candidate validation and durable activation |
 | `src/client/` | Planet entrance, landscape rendering, inspection, history, and agent onboarding |
@@ -47,6 +47,10 @@ A database lease prevents two processes from advancing the same saved world. The
 In production, the gateway retains public observer connections while a compiled runtime owns the database and clock. A hotfix first validates its migration and forward steps on a private consistent copy. The gateway then drains current requests, queues arrivals, checkpoints/stops the old owner, and starts the prepared candidate. Complete compressed SSE records continue over the existing browser connection. A durable activation pointer survives gateway restarts; incompatible or missing referenced artifacts fail closed. An actual container/host replacement still interrupts this single-host transport.
 
 Deterministic replay means the same state, tick sequence, PRNG, laws, and ordered actions produce the same result. Network arrival times and different agent choices are external inputs, not deterministic predictions.
+
+Storage encoding has its own SQLite `user_version`, independent of the world's format and physical law version. Version 1 retains existing plaintext migration archives and writes new archives as independently compressed 256 KiB blocks with per-block and full-original SHA-256 checksums. Serialization follows ordinary world JSON order, using additional string memory proportional to the largest record. It does not serialize a second complete world string or rewrite old archive bytes.
+
+The archive, physical migration, checkpoint and intervention records commit in one transaction. Loading owns its parsed world exclusively and may transform that object after archiving it; the public migration function remains pure by default. Failed migration discards that owned object and rolls back its rows. The additive storage-schema upgrade commits separately before loading, so it can remain after a later physical migration fails. Preflight now exercises the real archive transaction on its private copy. A current-format preflight creates no new physical archive. Full historical verification belongs on an offline backup: old plaintext archives still require their original large row to be read.
 
 ## An immense, finite frontier
 

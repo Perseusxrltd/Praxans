@@ -357,3 +357,14 @@
 - **decision**: Request a SQLite restart checkpoint before each world transaction. A busy result defers its callback entirely; the simulation retries the exact computed checkpoint before advancing further, with temporary proposal unavailability and preserved receipt replay. Share one asynchronous online-backup helper with short read batches, a deadline, exclusive completed-file publication and staging cleanup.
 - **alternatives**: A passive checkpoint only at commit is too late to admit the next large write safely. A single long copy reader retains several save batches. Increasing retained-log limits or copying an active main database file without SQLite does not establish a safe consistent boundary.
 - **consequences**: Node 22.16+ is required for its native backup API. One complete transaction, destination copy and migration still require measured capacity; checkpoints do not make monolithic saves incremental. Reader waits preserve clock debt and bounded unsaved work, while arbitrary disk/I/O failures remain distinct faults. File publication requires hard-link and directory-sync support. Physical laws, saved-state format and population are unchanged.
+
+---
+
+### ADR-033: Preserve Migration History in Verified Compressed Blocks
+
+- **date**: 2026-10-08
+- **status**: accepted
+- **context**: Large plaintext migration archives and a complete rollback clone consume scarce disk and memory before a new physical law can be applied. The collapse corrections need a migration path that preserves existing history within measured host limits.
+- **decision**: Version the storage schema independently, retain every old plaintext archive byte, and write new ordinary-JSON archives as compressed 256 KiB blocks with per-block and complete-original checksums. Archive and transform exclusively owned loaded state within the same transaction as the new checkpoint and interventions. Keep the caller-preserving public migration default and one registry of transformations. Exercise real migration archival during private preflight.
+- **alternatives**: Deleting earlier archives loses evidence. Compressing a complete serialized world still allocates that large string and buffers. Silently skipping archival in preflight fails to exercise the deployment path. A generic in-place public default could mutate state still owned by callers.
+- **consequences**: The additive schema transaction can survive a later failed physical migration, whose checkpoint/history changes roll back. New archive verification bounds compressed and expanded block sizes; legacy verification remains an offline, potentially large-row operation. Largest-record memory, existing plaintext storage, one full checkpoint and combined live/preflight memory remain limits. Future incompatible storage evolution must also strengthen gateway rollback compatibility beyond the metadata checksum. No physical law or inhabitant changes follow from storage version 1.

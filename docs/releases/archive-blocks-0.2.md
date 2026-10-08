@@ -1,0 +1,43 @@
+# Migration archive storage — 8 October 2026
+
+**Live at 22:08:02 UTC, resumed tick 313516.** `archive-blocks-20261008-1` reduces the extra disk and memory needed to preserve a world before changing its laws. The physical world remains format 9 / biosphere-1.3. SQLite storage advances from version 0 to 1. The [measured record](../validation/archive-blocks-2026-10-08.json) distinguishes tests, the independent backup and live continuity.
+
+## Change
+
+New migration archives preserve the original ordinary-JSON byte stream in independently compressed 256 KiB blocks, with each block and the complete original protected by SHA-256. Existing plaintext archives retain their original bytes, identities and checksums. The serializer avoids one complete world string; its extra string memory depends on the largest record. Verification bounds compressed input as well as decompressed output.
+
+The loader archives its exclusively owned object before applying registered transformations in place. The archive, changed world and intervention records share one transaction; failure rolls them back and discards that object. The public migration API still preserves its caller's input by default. A single transformation registry supplies both descriptions and execution. Private preflight now performs the actual archive/migration transaction instead of skipping archival.
+
+The additive storage-schema upgrade commits separately before loading. It may remain if a later physical migration fails, while the old checkpoint/history remain intact. Unsupported storage versions, incompatible archive columns/keys and failed constructor initialization close the connection and fail explicitly. The maintenance source lists archives without loading their bodies and adds full verification for offline copies. The installed native-copy helper remains valid; this hotfix does not replace tools in the container image.
+
+## Verification
+
+- **138 model/server tests**, **12 compiled-production checks**, **21 hotfix checks** and **16 agent-connection checks** pass. Build and repository-wide formatting pass; the browser handover screenshot was inspected.
+- Nine new archive tests cover byte equality, Unicode block boundaries, old archive preservation, duplicate identities, failed writes/commits, malformed schemas, bounded corrupt-input handling and writing/verifying **more than 128 MiB of history with a 48 MiB old-generation heap**. This is a bounded serialization test, not a complete 128 MiB world under that heap.
+- New pure and owned migrations produce **exactly the same complete result and intervention JSON** as the previous source at `cfb8e01`, across formats 5–9 fixtures and the actual format-8 tick-178260 backup. The original input remains unchanged in the pure path.
+- The exact artifact passes format-8 preflight with a **216 MiB effective heap**, advancing only its private copy by 32 ticks. On a separate disposable filesystem with the live **454,299,648-byte quota** and matched starting non-WAL footprint, owned migration archives **52,600,927 bytes as 17,394,862 compressed bytes**, then saves three further 32-tick batches and restarts. Minimum sampled free space is **104,173,568 bytes**. This historical source has zero people; it is not an inhabited survival trial.
+- **15 continuity checks on the inhabited tick-228436 backup** preserve all prior people, identities, ownership, receipts, prior journal bytes, both archives and exact clock debt through handover and restart. The same compressed observer connection remains open. The matching quota test reaches **43,327,488 bytes minimum free** and **109,114,112 bytes maximum WAL**. Its sampled parent-plus-child RSS reaches 1.35 GB on the local machine; it is not evidence that an inhabited handover fits the current live memory limit.
+
+The preceding commit's pull-request CI run `37847698202` passed; its push run `37847692602` failed a browser timing assertion that checked text selection as soon as the fallback textarea appeared. This release's test waits for the existing selection operation to finish. The ordinary clipboard-denial scenario passes locally with no product UI change. New-commit GitHub results are separate from those earlier runs.
+
+## Live continuity and backup
+
+The independent backup captured **tick 312692** at 22:04:43 UTC. Raw bytes: **258,719,744**, SHA-256 `29dca29394695afb152ce947645642384a446077b9547cb8f8dbcfff694ff7a4`. Gzip bytes: **71,170,560**, SHA-256 `2262b6cfbeb90962a00e931a82dcf1d8b0dc8ef55217dde5c6be97dc822b5c59`. Off-host decompression verified SQLite integrity, metadata, all 38 region checksums and both complete historical archive bodies. No raw backup was staged on the small data volume.
+
+Activation ran from **22:07:37.374 to 22:08:02.238 UTC** through the existing gateway/container/volume. Live preflight copied tick 313460 and advanced only the private copy to 313492; the continuing world handed over at **313516**. This current-format check creates no new physical archive. The release has one permanent record with equal before/after metadata checksums.
+
+At **22:09:15 UTC**, saved tick **313804** retains all 24 prior session signatures, the agent/key binding, three receipt signatures, the count of 70,072 prior journal rows, both archive checksum fields, all earlier interventions and each community's identity, founding date and renewal record. The persisted clock differs from the backup by exactly **1,112 × 250 ms**. This bounded live read does not rehash every historical journal or archive body; full archive verification was off-host.
+
+The external observation ran from **22:06:46 to 22:09:58 UTC**, receiving four snapshots and 73 frames from tick 313268 to 314024. Its connection stayed open with no backward tick or fault; all fourteen health samples passed and allowed proposals. The separate **181-sample** internal monitor recorded at least **69,279,744 bytes free**, maximum WAL **103,416,152 bytes** and maximum cgroup memory **999,890,944 bytes**. The historical OOM-kill count remained one, while the memory-limit pressure counter increased from 2,421 to 2,790. Both diagnostic watchers ended. These finite samples neither bound unsampled peaks nor install ongoing monitoring.
+
+The observer website still uses Vercel deployment `dpl_CSVR78ah5Q5UUGmabnfeEGVqsvQd`. Its bundle is unchanged. The runtime artifact SHA-256 is `c541dd14c0ded6ef5a1c9545de349adfe9f6ee5f8574098618bb1bfd1d65d372`; installed dependency fingerprint remains `0ca3efac2e32e64895e4f395f1919a966af1b18b017c12aaa088b491f2f0022e`.
+
+## Coherence and limits
+
+Archive encoding belongs in server persistence; simulation and browser modules do not own it. World format, law version and storage version express different contracts. The transformation registry retains prior ordering and effects; exact comparison checks this refactor rather than inferring equivalence from compilation. The new maintenance reader and persistence tests use the shared archive reader. No production consumer still assumes every new archive is one plaintext row.
+
+The [current structural scan](../validation/release-coherence-2026-10-08.json) finds no missing relative imports, literal worker assets, local Markdown file targets or forbidden layer dependencies. Its source fingerprint and scope are recorded; it does not validate every numerical mechanism, dynamic path, Markdown anchor or legacy Python behavior. The hosting guide now distinguishes storage evolution from physical migration and corrects the outdated preflight/archive description.
+
+The two existing plaintext archives still occupy about 100 MB, and ordinary full-region checkpoints still write about 100 MB. The current release reduces future migration overhead; it does not compact old archives, implement incremental world saves, bound native/cgroup memory or install continuous monitoring. Legacy archive verification requires large-row memory. The gateway's automatic fallback compares metadata checksums, so a future incompatible storage-schema change must strengthen that compatibility check; the present additive columns are readable by the preceding format-9 runtime.
+
+The [collapse investigation](../research/community-collapse-2026-10-08.md) still requires care, fair allocation, age/growth and a coherent metabolic energy budget. The world retains **zero people, 407 births and 1,639 deaths**. This release performs no renewal, physical-law change or clock reset and establishes no long-term demographic viability.

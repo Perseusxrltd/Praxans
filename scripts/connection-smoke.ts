@@ -190,6 +190,23 @@ try {
     "Full agent instructions, including private key",
   );
   await message.waitFor();
+  // Mounting and selecting happen in separate browser work. Wait for the
+  // completed fallback, rather than asserting selection at first visibility.
+  await page.waitForFunction(
+    () => {
+      const input = document.querySelector<HTMLTextAreaElement>(
+        'textarea[aria-label="Full agent instructions, including private key"]',
+      );
+      return (
+        input &&
+        document.activeElement === input &&
+        input.selectionStart === 0 &&
+        input.selectionEnd === input.value.length
+      );
+    },
+    undefined,
+    { timeout: 5000 },
+  );
   check(
     "clipboard denial exposes a selectable complete message",
     (await message.inputValue()) === text &&

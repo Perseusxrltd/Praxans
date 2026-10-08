@@ -7,6 +7,19 @@
 
 ## Log
 
+### [2026-10-08] Verified Compressed Migration Archives Published
+
+- **type**: infrastructure
+- **systems**: world_storage, runtime_handover, browser_validation
+- **files**: `archives.ts`, `store.ts`, `migrations.ts`, `preflight.ts`, `world-maintenance.ts`, `archive-blocks-0.2.md`
+- **agent**: Codex
+
+Added independently versioned archive storage, bounded compressed blocks with full-original checksums, and transactional migration of exclusively owned loaded state. The public migration default stays pure and exactly matches the previous transformations; old plaintext archives remain unchanged. Private preflight now exercises archival. Constructor/schema failures close their connection; offline maintenance shares the verified archive reader. → ADR-033.
+
+The release passes 138 model/server tests, production/hotfix/connection checks, exact old/new migration comparisons, actual historical migration under a 216 MiB heap, and 15 inhabited handover checks under a live-sized filesystem quota. It became live at 22:08:02 UTC, tick 313516, after a fresh independently verified backup. Saved tick 313804 retains community/ownership/history signatures and exact clock accounting. Physical format/laws, extinct communities and the original renewal remain; care/metabolism and total memory/full-save capacity remain open. The connection test now waits for actual text selection, addressing a prior CI timing failure without changing the UI.
+
+---
+
 ### [2026-10-08] Reuse Checkpoints Before Writing and Bound Backup Readers
 
 - **type**: bugfix

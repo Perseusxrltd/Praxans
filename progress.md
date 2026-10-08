@@ -14,7 +14,15 @@ Original prompt: let's rebuild the whole game, from the ground up, as an interne
 - Study ancient and premodern primary sources first, distinguish observation from interpretation and normative claims, and test proposed physical rules against evidence. Keep a durable research queue under `docs/research/`.
 - Publish validated increments regularly during active work. At each meaningful release, review the whole repository for consistent units, clocks, conservation, module boundaries, duplicate rules and agreement between implementation and documentation.
 
-## Active work — 2026-10-08, checkpoint reuse and survival corrections
+## Active work — 2026-10-08, migration archives and survival corrections
+
+**`archive-blocks-20261008-1` is LIVE from 22:08:02 UTC**, SHA-256 `c541dd14c0ded6ef5a1c9545de349adfe9f6ee5f8574098618bb1bfd1d65d372`. Storage version 1 retains old plaintext history and writes new migration archives as verified compressed blocks. Owned loading avoids a second complete world; the public migration function remains pure. Physical format/laws stay 9 / biosphere-1.3. See the [release](docs/releases/archive-blocks-0.2.md) and [measured record](docs/validation/archive-blocks-2026-10-08.json).
+
+Validation passes **138 model/server, 12 production, 21 hotfix, 16 connection and 15 inhabited quota/handover checks**, plus exact old/new migration comparisons. The actual format-8 backup migrates with a 216 MiB effective heap, archives 52.6 MB as 17.4 MB, saves further ticks and restarts. A fresh tick-312692 backup is independently verified. Live activation resumes at 313516; saved 313804 preserves the earlier communities, ownership, journal count, archives, interventions and exact clock arithmetic. The website bundle is unchanged. A previous CI push failed a selection-timing assertion; the PR run passed. The strengthened connection test waits for the existing UI operation.
+
+Next: implement local, finite care/material work, correct ration allocation and reconcile age/growth, body reserves and metabolic heat in one energy budget. The [collapse study](docs/research/community-collapse-2026-10-08.md) is complete; these corrections are not yet implemented. New laws need an explicit migration and current-world capacity checks. Old plaintext archives, full-region writes and total host memory remain limits; a future incompatible storage schema also needs a stronger gateway rollback fingerprint. Preserve H06 social freedom and the single recorded renewal; no further population restoration is authorized.
+
+## Earlier checkpoint reuse release
 
 **`checkpoint-copy-20261008-1` is LIVE from 21:21:53 UTC**, SHA-256 `900255cfc52e1b44c59255fcceeaf77ab9e9cd11b3537d9714b28a38f493a372`. World transactions prepare WAL reuse before writing; a reader-delayed checkpoint waits and retries the same pending world without advancing unsaved time. Native 128-page backup batches, timeout/cancellation and exclusive publication replace long copy readers. Node 22.16+ is required. The [release record](docs/releases/checkpoint-copy-0.2.md) distinguishes the initial copy-only failure, final correction and finite validation.
 
