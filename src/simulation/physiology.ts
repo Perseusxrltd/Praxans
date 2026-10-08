@@ -7,6 +7,7 @@ import { clamp } from "./random";
 import type { Citizen, Civilization, Tile, World } from "./types";
 import { nearbyTiles } from "./terrain";
 import { canReachCampStocks } from "./settlement";
+import { distance } from "./world";
 
 /** Effective human heat balance, not a model of organs or cellular thermoregulation. */
 export const PHYSIOLOGY = Object.freeze({
@@ -22,6 +23,94 @@ export const PHYSIOLOGY = Object.freeze({
 
 export const hydrationTarget = (person: Citizen) =>
   person.age < 12 ? 1 + person.body * 0.25 : 8;
+
+/** The existing shared shelter approximation, used by physiology and local decisions. */
+export function bodyShelter(world: World, person: Citizen) {
+  const structure = world.structures.find(
+    (s) =>
+      s.civId === person.civId &&
+      !s.collapsed &&
+      s.progress >= 1 &&
+      distance(person, s) < 0.5,
+  );
+  const coverage = structure
+    ? Math.min(
+        1,
+        structure.properties.capacity /
+          Math.max(
+            1,
+            world.citizens.filter((p) => distance(p, structure) < 0.5).length,
+          ),
+      )
+    : 0;
+  return {
+    coverage,
+    resistance: coverage * (structure?.properties.insulation ?? 0),
+  };
+}
+
+/** Signed watts: negative loss is heat arriving from surroundings hotter than skin. */
+export function bodyHeatBalance(
+  person: Citizen,
+  temperature: number,
+  active: boolean,
+  shelterResistance: number,
+  wrapMass = person.wrapMass,
+) {
+  const scale = Math.max(0.2, person.body / 18);
+  const area = PHYSIOLOGY.adultArea * scale ** (2 / 3);
+  const wrapResistance =
+    wrapMass / (MATERIALS.fiber.density * area * MATERIALS.fiber.conductivity);
+  const resistance =
+    PHYSIOLOGY.airResistance + wrapResistance + shelterResistance;
+  const lossW =
+    (area * (PHYSIOLOGY.skinTemperature - temperature)) / resistance;
+  const metabolismW =
+    (PHYSIOLOGY.basalWatts +
+      (active ? PHYSIOLOGY.activeWatts : PHYSIOLOGY.restingWatts)) *
+    scale;
+  return { area, lossW, metabolismW };
+}
+
+/**
+ * A local controller estimate, not a recipe or a physical mass limit. The old
+ * adult 2 kg reference bounds new planning, scaled by represented body area.
+ * Existing larger wraps may be retained. At temperatures above skin, stripping
+ * increases this model's incoming heat; the signed balance must not be reversed.
+ */
+export function preferredWrapMass(
+  person: Citizen,
+  temperature: number,
+  active: boolean,
+  shelterResistance: number,
+): number {
+  const { area, metabolismW } = bodyHeatBalance(
+    person,
+    temperature,
+    active,
+    shelterResistance,
+  );
+  const maximum = Math.max(
+    person.wrapMass,
+    (PHYSIOLOGY.wrapTargetKg * area) / PHYSIOLOGY.adultArea,
+  );
+  if (temperature > PHYSIOLOGY.skinTemperature) return maximum;
+  if (temperature === PHYSIOLOGY.skinTemperature) return person.wrapMass;
+  const resistance =
+    (area * (PHYSIOLOGY.skinTemperature - temperature)) / metabolismW -
+    PHYSIOLOGY.airResistance -
+    shelterResistance;
+  return Math.max(
+    0,
+    Math.min(
+      maximum,
+      resistance *
+        MATERIALS.fiber.density *
+        area *
+        MATERIALS.fiber.conductivity,
+    ),
+  );
+}
 
 /** Water in the occupied cell or on its immediate bank is physically reachable. */
 export function nearbyDrinkingWater(
@@ -100,21 +189,8 @@ export function regulateTemperature(
   active: boolean,
   shelterResistance: number,
 ): void {
-  const atHome = canReachCampStocks(world, civ, person);
-  // Wrapping is a direct use of actual flexible material. Thickness and conductivity
-  // determine protection; a cosmetic clothing index grants no physical benefit.
-  if (atHome && tile.temperature < 15 && person.age >= 12) {
-    const wrapped = Math.max(
-      0,
-      Math.min(
-        PHYSIOLOGY.wrapTargetKg - person.wrapMass,
-        civ.stock.fiber,
-        dt * PHYSIOLOGY.wrappingKgPerHour,
-      ),
-    );
-    civ.stock.fiber -= wrapped;
-    person.wrapMass += wrapped;
-  }
+  // Arranging usable fiber is performed work. Physiology only wears the material
+  // already present; being near a stockpile cannot clothe anyone by itself.
   const worn = person.wrapMass * (1 - Math.exp(-dt * 0.000015));
   person.wrapMass -= worn;
   returnMaterial(world, tile, "fiber", worn);
@@ -141,19 +217,12 @@ export function regulateTemperature(
     tile.temperature -= (melted * heatPerKg) / heatCapacity(tile);
   }
 
-  const scale = Math.max(0.2, person.body / 18);
-  const area = PHYSIOLOGY.adultArea * scale ** (2 / 3);
-  const wrapResistance =
-    person.wrapMass /
-    (MATERIALS.fiber.density * area * MATERIALS.fiber.conductivity);
-  const resistance =
-    PHYSIOLOGY.airResistance + wrapResistance + shelterResistance;
-  const lossW =
-    (area * (PHYSIOLOGY.skinTemperature - tile.temperature)) / resistance;
-  const metabolismW =
-    (PHYSIOLOGY.basalWatts +
-      (active ? PHYSIOLOGY.activeWatts : PHYSIOLOGY.restingWatts)) *
-    scale;
+  const { lossW, metabolismW } = bodyHeatBalance(
+    person,
+    tile.temperature,
+    active,
+    shelterResistance,
+  );
   const deficitKJ = Math.max(0, lossW - metabolismW) * dt * 3.6;
   const suppliedKJ = fuel(world, person, civ, tile, deficitKJ);
   // Remaining exposure reduces health. Insulation alone supplies no energy.

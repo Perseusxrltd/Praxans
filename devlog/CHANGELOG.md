@@ -8,6 +8,7 @@
 ## [Renewal, Scale and Agent Recovery 0.2] — 2026-10-08
 
 ### Added
+- Performed body maintenance through existing repair tasks: local self/nearby care, finite work and fiber, shared transfer budgets, signed outcome learning and an inspector for real covering/progress. Format 10 / biosphere-1.4 preserves existing state (→ human_physiology; → ADR-034).
 - Independently versioned, verified compressed migration archives and offline archive verification. Existing plaintext history remains intact (→ world_storage; → ADR-033).
 - Preserved-world collapse study: 1,607 deaths reconciled, exact first-infant thermal replay, finite-fiber/ration-order controls, connected habitat measurements and an exported chronology. Corrective care, growth and allocation work remains open (→ human_physiology; → settlement_space).
 - H06 and a reviewed contract for open political/social organization, plus source-backed shelter/family and conditional labor investigations; proposed political mechanisms are not yet implemented.
@@ -19,6 +20,7 @@
 - Antiquity-first source register, scale audits, failed-candidate evidence, measured CPU baseline and explicit large-world acceptance targets.
 
 ### Fixed
+- World loading releases obsolete serialized population metadata before a migration save, preventing the demonstrated protected-heap failure on the 1,439-person backup (→ world_storage).
 - Live `archive-blocks-20261008-1` avoids a duplicate complete world during owned migration, exercises real archival in preflight and closes failed storage constructors. The connection test waits for the existing fallback selection to complete; no client code changed.
 - The separate-writer backup test now establishes two checkpoint opportunities at a real native batch boundary and measures overlap in the worker. Its held-reader negative control still fails; the runtime is unchanged.
 - Live `checkpoint-copy-20261008-1` prepares WAL reuse before world transactions and retries reader-delayed saves without advancing additional unsaved time. Shared native backup batches replace long copy readers, with timeout, cancellation and exclusive publication; Node 22.16+ is required (→ world_storage; → runtime_handover; → ADR-032).

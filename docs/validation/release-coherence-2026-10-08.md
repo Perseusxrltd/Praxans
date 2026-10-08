@@ -2,6 +2,16 @@
 
 This review covers the Git-visible repository, including the retained Python project, current TypeScript systems, tests, public documentation and requirement ledger. The [structural report](release-coherence-2026-10-08.json) records its exact scope, source fingerprint, file/import/link counts and limitations. Static imports/assets and checked local Markdown targets resolve; the simulation has no detected server/browser/Node dependency. This is structural evidence, not proof that every modeled process is complete or scientifically correct.
 
+## Body-maintenance review
+
+The care correction extends existing repair work, stock/cargo fiber, body wraps, detrital wear and cognitive feedback. It introduces no parallel resource, bonus or body-energy pool. The 15-minute clock funds performed work once; placement/removal commits after all movement and physiology, with separate gross budgets and no same-boundary reuse. Recorded task progress is kilograms moved, while structural repair retains its existing progress semantics. The shared signed heat/shelter calculation eliminates a duplicated protective rule.
+
+The review caught and corrected pre-wear gap capping that prevented completion, collective reward that credited an actor's harmful removal, and peer-choice ranking that excluded self-care. Local estimates are cached once per occupied cell and quarter-hour, with current contact/material checks at selection and commitment; this is an explicit approximation, not a population-scaling guarantee. The browser exposes the persisted quantities rather than inferring care from age.
+
+Physical format 10 / biosphere-1.4 has an explicit migration that preserves all state values except version labels. A populated bounded-heap test found obsolete metadata JSON retained through the save; the loader now releases that string after parsing. Actual copied archives, subsequent writes, ownership and clock checks validate the correction. The minimum free space in the inhabited migration remains small. W13/W18 retain volume, whole-region-write and combined process-memory limits; H01/W06 retain food allocation, rapid growth, baseline thermal/body-reserve energy and long-term survival work. There is no new population intervention.
+
+Earlier sections below are historical reviews of their named revisions. Their counts and active-version descriptions are not substituted for the body-maintenance checks.
+
 ## Connected mechanisms
 
 | Boundary reviewed | Current evidence | Remaining constraint |

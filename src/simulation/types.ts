@@ -1,6 +1,6 @@
 import type { WorldClock } from "./chronology";
 import type { EntropyRecord } from "./thermodynamics";
-export const WORLD_VERSION = 9;
+export const WORLD_VERSION = 10;
 export type GenerationVersion = "archipelago-1" | "planet-1";
 export const TICK_MS = 250;
 export const HOURS_PER_TICK = 0.25;
@@ -242,6 +242,10 @@ export interface Task {
   progress: number;
   material?: Material;
   structureId?: string;
+  /** A repair may arrange real fiber on a person instead of repairing a structure. */
+  recipientId?: string;
+  /** Intended kilograms on that body; progress records kilograms actually moved. */
+  targetWrapMass?: number;
 }
 export interface Citizen {
   id: string;

@@ -1,5 +1,6 @@
 import { MATERIALS } from "./content";
 import { processDeaths, updateCitizen } from "./citizens";
+import { beginBodyWork, finishBodyWork } from "./bodywork";
 import { knows, learnObservation } from "./cognition";
 import { detectContacts, updateJourneys, updateAccords } from "./diplomacy";
 import { updateCouncils, autonomousDiplomacy } from "./society";
@@ -314,13 +315,16 @@ export function stepWorld(world: World, ticks = 1): void {
     for (const person of world.citizens)
       populations.set(person.civId, (populations.get(person.civId) ?? 0) + 1);
     const civs = new Map(world.civilizations.map((c) => [c.id, c]));
+    const bodyWork = beginBodyWork(world);
     for (const person of world.citizens)
       updateCitizen(
         world,
         person,
         civs.get(person.civId)!,
         populations.get(person.civId)!,
+        bodyWork,
       );
+    finishBodyWork(world, bodyWork);
     processDeaths(world);
     updateJourneys(world);
     if (world.tick % 4 === 0) {
@@ -604,6 +608,28 @@ export function validateWorld(world: World): void {
       )
     )
       fail("citizen path");
+    const task = person.task;
+    if (
+      task &&
+      (task.recipientId !== undefined || task.targetWrapMass !== undefined)
+    ) {
+      if (
+        task.kind !== "repair" ||
+        task.material !== "fiber" ||
+        task.structureId !== undefined ||
+        typeof task.recipientId !== "string" ||
+        !task.recipientId ||
+        !Number.isFinite(task.targetWrapMass) ||
+        task.targetWrapMass! < 0 ||
+        !Number.isFinite(task.progress) ||
+        task.progress < 0 ||
+        !Number.isInteger(task.tile) ||
+        !world.tiles[task.tile]
+      )
+        fail("body maintenance task");
+      // A target may have died or moved since the last save. Execution cancels
+      // that stale task instead of inventing a recipient or discarding a world.
+    }
   }
   for (const s of world.structures) {
     if (

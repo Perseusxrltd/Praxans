@@ -173,7 +173,7 @@ export class Store {
     }
   }
   load(seed: number, requireExisting = false): World {
-    const row = this.db
+    let row = this.db
       .prepare("SELECT json,checksum FROM world WHERE id=1")
       .get() as { json: string; checksum: string } | undefined;
     if (!row) {
@@ -191,7 +191,11 @@ export class Store {
       throw new Error(
         "World checkpoint checksum mismatch. Restore a valid backup; the existing save has been preserved.",
       );
+    const beforeChecksum = row.checksum;
     const world = JSON.parse(row.json) as World;
+    // Only the checksum is needed after parsing. Retaining the old population
+    // JSON through a migration's save doubles its largest serialized allocation.
+    row = undefined;
     if (!Array.isArray(world.chunks))
       throw new Error(
         "This save needs an explicit migration. The existing world has been preserved; it will not be reset.",
@@ -233,7 +237,7 @@ export class Store {
             intervention.id,
             world.tick,
             intervention.description,
-            row.checksum,
+            beforeChecksum,
             current.checksum,
             Date.now(),
           );

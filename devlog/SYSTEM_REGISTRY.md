@@ -144,13 +144,13 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 
 ### human_physiology
 
-- **name**: Funded Human Needs and Survival
+- **name**: Human Needs and Body Maintenance
 - **status**: experimental
 - **package**: src/simulation/
-- **files**: `physiology.ts`, `subsistence.ts`, `citizens.ts`
-- **dependencies**: natural_systems, world_state, settlement_space
+- **files**: `physiology.ts`, `bodywork.ts`, `subsistence.ts`, `citizens.ts`
+- **dependencies**: natural_systems, world_state, settlement_space, human_cognition
 - **dependents**: civilization_intelligence
-- **known_issues**: Exact historical infant death occurs in the cold-exposure penalty despite available fiber; children cannot self-wrap and lack caregiver protection. Age-dependent growth, body-reserve metabolism, containers, care and generational viability remain unresolved. See docs/research/community-collapse-2026-10-08.md.
+- **known_issues**: The historical infant death exposed absent caregiver protection. Body maintenance now permits finite local assistance through ordinary repair work, with common transfer budgets and observable self-adjustment. Contact and work/choice parameters remain coarse; feeding allocation, childhood growth, body-reserve metabolism, containers, broader care and generational viability remain unresolved. See docs/research/community-collapse-2026-10-08.md.
 - **last_touched**: 2026-10-08
 
 ### settlement_space

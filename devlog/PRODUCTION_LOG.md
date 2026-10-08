@@ -7,6 +7,19 @@
 
 ## Log
 
+### [2026-10-08] Performed Body Maintenance and Migration Memory Correction
+
+- **type**: bugfix
+- **systems**: human_physiology, civilization_intelligence, human_cognition, world_storage, browser_observer, browser_validation
+- **files**: `bodywork.ts`, `physiology.ts`, `citizens.ts`, `engine.ts`, `types.ts`, `migrations.ts`, `store.ts`, `main.tsx`, `bodywork.test.ts`
+- **agent**: Codex
+
+Repair tasks now permit finite local self-maintenance and assistance, with work paid before protection, shared gross fiber budgets, signed thermal learning and observable self-adjustment. The inspector shows actual recipients, progress and covering mass. Format 10 / biosphere-1.4 preserves existing state at migration; no population is renewed. → ADR-034.
+
+The 153-test model/server suite and nine focused browser checks pass; 36 body/storage/migration checks pass after a real populated migration exposed obsolete population JSON retained during save. Releasing that string lets the original 1,439-person backup migrate, save 96 further ticks and restart under the protected heap. Disk headroom remains tight. The [release record](../docs/releases/body-maintenance-0.2.md) distinguishes candidate validation from publication and retains the separate unresolved collapse defects.
+
+---
+
 ### [2026-10-08] Make the Backup Concurrency Check Reproducible
 
 - **type**: audit

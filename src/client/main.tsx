@@ -72,6 +72,16 @@ declare global {
 }
 const round = (value: number, digits = 0) =>
   value.toLocaleString(undefined, { maximumFractionDigits: digits });
+const activityLabel = (person: Citizen) => {
+  const task = person.task;
+  if (task?.kind === "repair" && task.recipientId)
+    return task.recipientId === person.id
+      ? "Adjusting their covering"
+      : "Helping with a covering";
+  return task
+    ? `${task.kind[0].toUpperCase()}${task.kind.slice(1)}`
+    : "Taking a moment";
+};
 const active = (agent: AgentPublic) =>
   !!agent.lastSeen && Date.now() - agent.lastSeen < 90000;
 async function api<T = unknown>(
@@ -497,6 +507,8 @@ function App() {
                 x: +p.x.toFixed(2),
                 y: +p.y.toFixed(2),
                 activity: p.task?.kind ?? "deciding",
+                bodyCoveringKg: p.wrapMass,
+                helpingPerson: p.task?.recipientId,
                 health: round(p.health),
                 generation: p.generation,
                 sleeping: p.mind?.sleeping,
@@ -1777,8 +1789,7 @@ function CivilizationPanel({
                 <span>
                   <strong>{person.name}</strong>
                   <small>
-                    {Math.floor(person.age)} years ·{" "}
-                    {person.task?.kind ?? "Taking a moment"}
+                    {Math.floor(person.age)} years · {activityLabel(person)}
                   </small>
                 </span>
                 <ChevronRight size={13} />
@@ -1843,7 +1854,8 @@ function CitizenPanel({
   onCiv: () => void;
 }) {
   const civ = world.civilizations.find((c) => c.id === person.civId)!,
-    partner = world.citizens.find((p) => p.id === person.partnerId);
+    partner = world.citizens.find((p) => p.id === person.partnerId),
+    recipient = world.citizens.find((p) => p.id === person.task?.recipientId);
   return (
     <>
       <span className="eyebrow">ONE SMALL, WHOLE LIFE</span>
@@ -1872,15 +1884,15 @@ function CitizenPanel({
       <div className="focus-note">
         <Heart size={16} />
         <span>
-          {person.task
-            ? `${person.task.kind[0].toUpperCase()}${person.task.kind.slice(1)}`
-            : "Taking a moment"}
+          {activityLabel(person)}
           <small>
-            {person.cargo
-              ? `Carrying ${round(person.cargo.amount, 1)} kg of ${person.cargo.material}`
-              : person.age < 12
-                ? "Growing, learning, and being cared for."
-                : `A growing practice of ${person.specialty}.`}
+            {recipient
+              ? `${recipient.id === person.id ? "Their own protection" : recipient.name} · ${round(person.task!.progress, 2)} kg adjusted`
+              : person.cargo
+                ? `Carrying ${round(person.cargo.amount, 1)} kg of ${person.cargo.material}`
+                : person.age < 12
+                  ? "Growing and learning from life nearby."
+                  : `A growing practice of ${person.specialty}.`}
           </small>
         </span>
       </div>
@@ -1889,6 +1901,9 @@ function CitizenPanel({
       <Meter label="Nourishment" value={person.hunger} />
       <Meter label="Rest" value={person.energy} />
       <Meter label="Contentment" value={person.happiness} />
+      <p className="muted">
+        Body covering: {round(person.wrapMass, 2)} kg of fiber.
+      </p>
       <MindPanel person={person} civ={civ} />
       <h3>A way of being</h3>
       <div className="trait-tags">

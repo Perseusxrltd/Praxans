@@ -66,7 +66,16 @@ import {
   takeAccessibleFood,
   hydrationTarget,
   nearbyDrinkingWater,
+  bodyShelter,
 } from "./physiology";
+import {
+  beginBodyWork,
+  bodyWorkOpportunities,
+  finishBodyWork,
+  isBodyRepair,
+  workOnBody,
+  type BodyWork,
+} from "./bodywork";
 import { walkPath, WALKING_METRES_PER_HOUR } from "./movement";
 import { foodReservePerPerson, SUBSISTENCE } from "./subsistence";
 import { campRestPlace, canReachCampStocks } from "./settlement";
@@ -176,6 +185,7 @@ function decide(
   person: Citizen,
   civ: Civilization,
   population: number,
+  bodyWork: BodyWork,
 ): void {
   const sky = astronomy(world.tick, person.x, person.y),
     night = sky.solarAltitude < -6;
@@ -204,6 +214,41 @@ function decide(
     search.sort((a, b) => distance(person, a) - distance(person, b));
     for (const tile of search.slice(0, 8))
       if (assignTask(world, person, "explore", tile.x, tile.y)) return;
+  }
+  let selection: ReturnType<typeof conditionalChoice> | undefined;
+  const choose = (probability: number) =>
+    (selection ??= conditionalChoice(random(world)))(probability);
+  // Actual bodily urgency takes precedence. An awake person may choose this at
+  // night; a communal reserve target or a carried bundle is not a physical ban.
+  if (
+    person.age >= 12 &&
+    !person.mind.sleeping &&
+    person.hunger >= 40 &&
+    person.hydration >= hydrationTarget(person) * 0.6 &&
+    person.energy >= 23 &&
+    person.mind.sleepPressure <= 0.75 &&
+    person.sick <= 45
+  ) {
+    for (const opportunity of bodyWorkOpportunities(
+      world,
+      person,
+      civ,
+      bodyWork,
+    )) {
+      if (
+        choose(
+          0.65 *
+            disposition(person, "repair") *
+            (opportunity.recipient === person ? 1 : person.traits.sociability),
+        ) &&
+        assignTask(world, person, "repair", person.x, person.y, {
+          material: "fiber",
+          recipientId: opportunity.recipient.id,
+          targetWrapMass: opportunity.target,
+        })
+      )
+        return;
+    }
   }
   if (person.cargo) {
     assignTask(world, person, "deliver", civ.x, civ.y);
@@ -252,7 +297,9 @@ function decide(
     );
     return;
   }
-  const choose = conditionalChoice(random(world));
+  // Retain the existing one-draw work decision even when an urgent communal
+  // gathering branch does not need a probability. Earlier care shares that draw.
+  selection ??= conditionalChoice(random(world));
   const project = world.structures.find(
     (s) => s.civId === civ.id && s.progress < 1 && !s.collapsed,
   );
@@ -528,7 +575,23 @@ export function updateCitizen(
   person: Citizen,
   civ: Civilization,
   population: number,
+  sharedBodyWork?: BodyWork,
 ): void {
+  const bodyWork = sharedBodyWork ?? beginBodyWork(world);
+  updateCitizenStep(world, person, civ, population, bodyWork);
+  // Standalone diagnostic callers update one actor. The world engine passes one
+  // shared context and commits after all actors have paid costs and moved.
+  if (!sharedBodyWork) finishBodyWork(world, bodyWork);
+}
+
+function updateCitizenStep(
+  world: World,
+  person: Citizen,
+  civ: Civilization,
+  population: number,
+  bodyWork: BodyWork,
+): void {
+  const taskAtStart = person.task;
   const dt = HOURS_PER_TICK,
     home = getTile(world, civ.x, civ.y)!,
     tile = getTile(world, person.x, person.y)!;
@@ -603,24 +666,8 @@ export function updateCitizen(
   const breathable = oxygenFraction(world);
   if (breathable < 0.15)
     person.health = clamp(person.health - dt * (1 - breathable / 0.15) * 16);
-  const nearbyShelter = world.structures.find(
-    (s) =>
-      s.civId === civ.id &&
-      !s.collapsed &&
-      s.progress >= 1 &&
-      distance(person, s) < 0.5,
-  );
-  const sheltered = nearbyShelter
-    ? Math.min(
-        1,
-        nearbyShelter.properties.capacity /
-          Math.max(
-            1,
-            world.citizens.filter((p) => distance(p, nearbyShelter) < 0.5)
-              .length,
-          ),
-      )
-    : 0;
+  const shelter = bodyShelter(world, person),
+    sheltered = shelter.coverage;
   regulateTemperature(
     world,
     person,
@@ -628,7 +675,7 @@ export function updateCitizen(
     tile,
     dt,
     !!active,
-    sheltered * (nearbyShelter?.properties.insulation ?? 0),
+    shelter.resistance,
   );
   if (person.hydration < 0.15) person.health = clamp(person.health - dt * 1.3);
   if (person.sick > 0) {
@@ -669,15 +716,17 @@ export function updateCitizen(
         task.kind === "move") &&
       task.path.at(-1) === tileIndex(world, civ.x, civ.y);
     const needsFood =
-      (person.hunger < 40 ||
+      (isBodyRepair(task) && person.hunger < 40) ||
+      ((person.hunger < 40 ||
         (person.provisions < 0.25 && tile.temperature < 10)) &&
-      civ.stock.biomass > 1e-9 &&
-      !atHome &&
-      !headingHome;
+        civ.stock.biomass > 1e-9 &&
+        !atHome &&
+        !headingHome);
     const needsRest =
       (person.energy < 23 ||
         person.mind.sleepPressure > 0.75 ||
-        astronomy(world.tick, person.x, person.y).solarAltitude < -6 ||
+        (astronomy(world.tick, person.x, person.y).solarAltitude < -6 &&
+          !isBodyRepair(task)) ||
         person.sick > 45) &&
       task.kind !== "rest" &&
       task.kind !== "deliver";
@@ -690,7 +739,7 @@ export function updateCitizen(
       person.mind.sleeping = false;
     }
   }
-  if (!person.task) decide(world, person, civ, population);
+  if (!person.task) decide(world, person, civ, population, bodyWork);
   const task = person.task;
   if (!task) return;
   if (task.path.length) {
@@ -722,6 +771,12 @@ export function updateCitizen(
       (task.kind === "experiment" || task.kind === "extract"
         ? workspaceBenefit(world, person)
         : 0));
+  if (isBodyRepair(task)) {
+    // Selection alone performs no work. The next tick accounts this task as
+    // active before any protection is earned; rest/gather cannot run beside it.
+    if (taskAtStart === task) workOnBody(world, person, dt, work, bodyWork);
+    return;
+  }
   if (task.kind === "assemble") {
     const structure = world.structures.find((s) => s.id === task.structureId);
     if (!structure || structure.progress >= 1) {

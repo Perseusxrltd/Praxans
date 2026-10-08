@@ -156,6 +156,18 @@ const migrations: RegisteredMigration[] = [
       for (const structure of world.structures) refreshStructure(structure);
     },
   },
+  {
+    id: "010-performed-body-maintenance",
+    from: 9,
+    to: 10,
+    description:
+      "Preserve every existing person, task, memory, wrap, stock, region, clock, RNG and historical record. From this boundary, arranging or removing body fiber requires performed repair work, elapsed time and accessible material. Nearby people can choose to help any represented person; kinship and community labels grant no physical privilege. Resolve competing body transfers against common inventories after individual movement and needs, without recycling the same fiber twice in a tick. Replace automatic adult wrapping with voluntary local work, using the existing signed heat balance to estimate useful protection. Visible opposing self-adjustment prompts reconsideration; silence is not consent and no force or verbal communication model is implied. Retain all prior protection and the current empty populations. No new people, material, past care or biological reserves are created; metabolism, food allocation and childhood growth require separate corrections.",
+    fromLaws: "biosphere-1.3",
+    toLaws: "biosphere-1.4",
+    apply() {
+      // Optional body-repair task fields need no invented state in old tasks.
+    },
+  },
 ];
 
 function migrationPath(
