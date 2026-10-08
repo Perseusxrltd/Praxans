@@ -1,0 +1,358 @@
+{
+  "release": "community-records-20261008",
+  "implementationCommit": "2ff6c1ef4f7566077ba099a7f41c64857de2b861",
+  "artifact": {
+    "protocol": 1,
+    "release": "community-records-20261008",
+    "notes": "Adds community following and historical views, indexed community journals, lifecycle records and explicit links to later beginnings. Preserves the same world, natural laws, clock, material state, ownership and recorded extinctions.",
+    "sha256": "3267c57d12e6aad3ba3da9517cf8dc6749ece9d83ce10bfd88f345ddbb4d09a4",
+    "dependencies": "0ca3efac2e32e64895e4f395f1919a966af1b18b017c12aaa088b491f2f0022e",
+    "nodeMajor": 22
+  },
+  "backup": {
+    "at": "2026-10-08T09:40:15.180Z",
+    "bytes": 98598912,
+    "sha256": "d45a9a6eac0178ed4b1a2d27cca1406e5bb97cb7192765f0d19b101f2d5bdf2f",
+    "id": "praxans-world",
+    "seed": 1847,
+    "tick": 78836,
+    "format": 8,
+    "laws": "biosphere-1.2",
+    "regions": 38,
+    "people": 0,
+    "communities": [
+      {
+        "id": "civ-1",
+        "name": "Fernhaven",
+        "foundedTick": 0,
+        "deaths": 9
+      },
+      {
+        "id": "civ-11",
+        "name": "Amber Hollow",
+        "foundedTick": 0,
+        "deaths": 7
+      },
+      {
+        "id": "civ-21",
+        "name": "Stonebrook",
+        "foundedTick": 0,
+        "deaths": 8
+      },
+      {
+        "id": "civ-3118",
+        "name": "Adonis",
+        "foundedTick": 10369,
+        "deaths": 8
+      }
+    ],
+    "clock": {
+      "tick": 78836,
+      "wall_ms": 1791412149340
+    },
+    "ownership": {
+      "count": 12,
+      "sha256": "5080f711e2e675f1a0a9a9af4ab59972d8c07fa5a7e8cd3d47e211ed8240a96a"
+    },
+    "agents": {
+      "count": 1,
+      "sha256": "7cf7d13f526839de253b3fd21b9eb7f99eafc7bc1306a6cef6fc3cc7da27d0af"
+    },
+    "receipts": {
+      "count": 3,
+      "sha256": "62bed705fcf9fd8129b41a71cc7ce1e9bce6d3de829ab444f4a90e5aae4563b8"
+    },
+    "journal": {
+      "count": 2028,
+      "throughSequence": 2028,
+      "sha256": "348fc3c60dedb5c5ecb64eaf7b6db6ebef4df0e3b7d93ca6b0562d727376c887"
+    },
+    "archives": {
+      "count": 1,
+      "sha256": "d73c36598900c7d55256b2c3ba13071bb5533a88cf37265fc72bf5904c149ccf"
+    },
+    "checksums": "valid",
+    "integrity": "ok",
+    "offServiceMatches": true,
+    "compressedBytes": 30120336,
+    "compressedSha256": "f58fdc575806710e7ce248801cd7059878d96f97f636829edaf1af17b0c6e9f1"
+  },
+  "live": {
+    "at": "2026-10-08T09:50:46.268Z",
+    "id": "praxans-world",
+    "seed": 1847,
+    "tick": 87380,
+    "format": 8,
+    "laws": "biosphere-1.2",
+    "regions": 38,
+    "people": 0,
+    "communities": [
+      {
+        "id": "civ-1",
+        "name": "Fernhaven",
+        "foundedTick": 0,
+        "deaths": 9
+      },
+      {
+        "id": "civ-11",
+        "name": "Amber Hollow",
+        "foundedTick": 0,
+        "deaths": 7
+      },
+      {
+        "id": "civ-21",
+        "name": "Stonebrook",
+        "foundedTick": 0,
+        "deaths": 8
+      },
+      {
+        "id": "civ-3118",
+        "name": "Adonis",
+        "foundedTick": 10369,
+        "deaths": 8
+      }
+    ],
+    "clock": {
+      "tick": 87380,
+      "wall_ms": 1791414285340
+    },
+    "clockAdvanceMs": 2136000,
+    "expectedAdvanceMs": 2136000,
+    "lagSeconds": 38761,
+    "retainedOwnership": {
+      "count": 12,
+      "sha256": "5080f711e2e675f1a0a9a9af4ab59972d8c07fa5a7e8cd3d47e211ed8240a96a"
+    },
+    "totalSessions": 12,
+    "agents": {
+      "count": 1,
+      "sha256": "7cf7d13f526839de253b3fd21b9eb7f99eafc7bc1306a6cef6fc3cc7da27d0af"
+    },
+    "receipts": {
+      "count": 3,
+      "sha256": "62bed705fcf9fd8129b41a71cc7ce1e9bce6d3de829ab444f4a90e5aae4563b8"
+    },
+    "retainedJournal": {
+      "count": 2028,
+      "sha256": "348fc3c60dedb5c5ecb64eaf7b6db6ebef4df0e3b7d93ca6b0562d727376c887"
+    },
+    "archives": {
+      "count": 1,
+      "sha256": "d73c36598900c7d55256b2c3ba13071bb5533a88cf37265fc72bf5904c149ccf"
+    },
+    "originalArchiveChecksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+    "release": {
+      "id": "release:community-records-20261008",
+      "tick": 82900,
+      "before_checksum": "c5907dfe2bd929f17063fd9b4127d15ee9a26505b05c79dca8212f9757d4c280",
+      "after_checksum": "c5907dfe2bd929f17063fd9b4127d15ee9a26505b05c79dca8212f9757d4c280",
+      "created_at": 1791452530680
+    },
+    "ecosystem": {
+      "plants": 303,
+      "producerKg": 3212.973647171037,
+      "dormantCohorts": 1045,
+      "dormantKg": 110.91163979342073,
+      "temperatureRange": [
+        12.91533536475242,
+        18.994759072078722
+      ]
+    },
+    "checksums": "valid",
+    "continuity": "verified",
+    "freeBytes": 207273984,
+    "memoryEvents": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n"
+  },
+  "publicRecords": {
+    "at": "2026-10-08T09:51:47.286661+00:00",
+    "records": [
+      {
+        "communityId": "civ-1",
+        "throughTick": 87904,
+        "eventCount": 172,
+        "recordedDeaths": 9,
+        "lastDeathTick": 7642,
+        "connections": []
+      },
+      {
+        "communityId": "civ-11",
+        "throughTick": 87912,
+        "eventCount": 720,
+        "recordedDeaths": 7,
+        "lastDeathTick": 7712,
+        "connections": []
+      },
+      {
+        "communityId": "civ-21",
+        "throughTick": 87920,
+        "eventCount": 659,
+        "recordedDeaths": 8,
+        "lastDeathTick": 7374,
+        "connections": []
+      },
+      {
+        "communityId": "civ-3118",
+        "throughTick": 87928,
+        "eventCount": 164,
+        "recordedDeaths": 8,
+        "lastDeathTick": 15857,
+        "connections": []
+      }
+    ],
+    "scopedJournals": "verified"
+  },
+  "runtime": {
+    "gatewayPid": 8,
+    "beforePid": 20,
+    "afterPid": 159,
+    "currentDirectory": "/data/runtime/releases/community-records-20261008-3267c57d12e6aad3",
+    "pendingPointer": false,
+    "sameContainer": true
+  },
+  "website": {
+    "deployment": "dpl_Bvs29UugvLY47yFvnNRm8Xjj2Noy",
+    "url": "praxans-fbnxkg7yb-perseusxr-projects.vercel.app",
+    "state": "READY",
+    "target": "production",
+    "alias": "https://praxans.vercel.app",
+    "verification": "Vercel metadata and alias assignment; browser flows exercised locally"
+  },
+  "validation": {
+    "modelServerCi": 87,
+    "localTargetedModelServer": 13,
+    "browser": 40,
+    "communityExtinction": 22,
+    "production": 12,
+    "hotfix": 17,
+    "pushCi": "https://github.com/Perseusxrltd/Praxans/actions/runs/37758020670",
+    "pullRequestCi": "https://github.com/Perseusxrltd/Praxans/actions/runs/37758026586",
+    "ciConclusion": "success",
+    "buildAndFormat": "passed"
+  },
+  "copiedWorldCompressedHandover": {
+    "firstSnapshot": {
+      "id": "praxans-world",
+      "tick": 78836,
+      "communities": 4,
+      "bytes": 8658976
+    },
+    "snapshots": 2,
+    "frames": 8,
+    "lastTick": 78912,
+    "largestRecord": 8658976,
+    "fault": null,
+    "activation": {
+      "release": "community-records-20261008",
+      "type": "preflight",
+      "id": "praxans-world",
+      "seed": 1847,
+      "sourceTick": 78836,
+      "tick": 78868,
+      "format": 8,
+      "laws": "biosphere-1.2",
+      "resumedTick": 78900
+    },
+    "status": {
+      "phase": "running",
+      "release": "community-records-20261008",
+      "pendingRequests": 1,
+      "activeRequests": 0,
+      "observers": 1,
+      "runtimePid": 17898,
+      "managedProcesses": 1,
+      "error": null
+    }
+  },
+  "liveObserver": {
+    "events": [
+      {
+        "at": "2026-10-08T09:41:12.605Z",
+        "event": "connected",
+        "status": 200
+      },
+      {
+        "at": "2026-10-08T09:41:15.033Z",
+        "event": "snapshot",
+        "tick": 82452,
+        "frames": 0,
+        "snapshots": 1,
+        "world": "praxans-world",
+        "communities": 4
+      },
+      {
+        "at": "2026-10-08T09:41:48.691Z",
+        "event": "frame",
+        "tick": 82744,
+        "frames": 20,
+        "snapshots": 1,
+        "communities": 4
+      },
+      {
+        "at": "2026-10-08T09:43:10.556Z",
+        "event": "finished",
+        "startedAt": "2026-10-08T09:41:09.573Z",
+        "firstTick": 82452,
+        "lastTick": 82892,
+        "frames": 31,
+        "snapshots": 1,
+        "requestedStop": false,
+        "fault": "terminated"
+      }
+    ],
+    "interpretation": "The external compressed observer disconnected during the live handover. The gateway remained running, runtime activation completed, and the world continued. Cause is not established; this release does not demonstrate uninterrupted external stream continuity."
+  },
+  "postReleaseObserver": {
+    "events": [
+      {
+        "at": "2026-10-08T09:53:08.349Z",
+        "event": "connected",
+        "status": 200
+      },
+      {
+        "at": "2026-10-08T09:53:09.639Z",
+        "event": "snapshot",
+        "tick": 88652,
+        "frames": 0,
+        "snapshots": 1,
+        "world": "praxans-world",
+        "communities": 4
+      },
+      {
+        "at": "2026-10-08T09:53:42.442Z",
+        "event": "frame",
+        "tick": 88936,
+        "frames": 20,
+        "snapshots": 1,
+        "communities": 4
+      },
+      {
+        "at": "2026-10-08T09:54:15.961Z",
+        "event": "frame",
+        "tick": 89224,
+        "frames": 40,
+        "snapshots": 1,
+        "communities": 4
+      },
+      {
+        "at": "2026-10-08T09:54:53.011Z",
+        "event": "frame",
+        "tick": 89544,
+        "frames": 60,
+        "snapshots": 1,
+        "communities": 4
+      },
+      {
+        "at": "2026-10-08T09:55:13.613Z",
+        "event": "finished",
+        "startedAt": "2026-10-08T09:53:07.674Z",
+        "firstTick": 88652,
+        "lastTick": 89704,
+        "frames": 72,
+        "snapshots": 1,
+        "requestedStop": true,
+        "fault": null
+      }
+    ],
+    "interpretation": "A fresh external compressed connection remained healthy for the two-minute probe, with 72 frames and monotonically increasing ticks. This does not establish the earlier handover disconnect cause."
+  }
+}

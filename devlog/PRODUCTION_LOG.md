@@ -7,6 +7,19 @@
 
 ## Log
 
+### [2026-10-08] Community Directory Published Without Replacing the World
+
+- **type**: milestone
+- **systems**: community_history, world_hosting, runtime_handover, world_storage, browser_validation
+- **files**: `community-records-0.2.md`, `community-records-continuity.json`, `roadmap.md`, `progress.md`
+- **agent**: Codex
+
+Activated the compatible community runtime inside the original Railway container at tick 82900 and published the Vercel observer. Independently verified the fresh backup, all previous identities/ownership/events, the original archive and exact clock arithmetic. Both GitHub runs pass all 87 model/server tests and the browser, production and hotfix checks.
+
+The external observer probe disconnected during handover; its cause is not established. The gateway/world remained healthy, and a compressed handover on a disposable copy of the actual 38-region backup passed. The release record and W13 distinguish successful world continuity from the remaining external transport verification.
+
+---
+
 ### [2026-10-08] Follow Communities Through Their Lives and History
 
 - **type**: feature

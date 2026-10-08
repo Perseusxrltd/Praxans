@@ -104,7 +104,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `gateway.ts`, `runtime.ts`, `worker.ts`, `preflight.ts`, `artifact.ts`, `sse.ts`, `scripts/prepare-hotfix.ts`, `scripts/hotfix.ts`
 - **dependencies**: world_storage, agent_gateway
 - **dependents**: world_hosting, browser_observer, browser_validation
-- **known_issues**: One host and volume. In-place hotfixes require compatible dependencies; gateway/container and infrastructure failures require separate operations. Stream/request queues are finite.
+- **known_issues**: One host and volume. In-place hotfixes require compatible dependencies; gateway/container and infrastructure failures require separate operations. Stream/request queues are finite. One external stream interrupted during a successful live activation; the cause remains unconfirmed despite a passing compressed handover on the real backup.
 - **last_touched**: 2026-10-08
 
 ### browser_validation

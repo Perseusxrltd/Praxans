@@ -2,11 +2,11 @@
 
 ## Community following — 2026-10-08
 
-The community update passes **13 targeted model/server tests**, covering scoped pagination, historical time bounds, complete/incomplete death records, read-only history, extinction, ownership and persistence. It also passes **40 general browser checks, 22 community/extinction browser checks, 12 compiled-production checks and 17 runtime-hotfix checks**, plus TypeScript/build and formatting. Browser scenarios reported no page or console errors; directory, memorial, followed-journal and mobile screenshots were opened and inspected.
+The community update passes **87 model/server tests in both independent GitHub runs** and **13 targeted local model/server tests**, covering scoped pagination, historical time bounds, complete/incomplete death records, read-only history, extinction, ownership and persistence. It also passes **40 general browser checks, 22 community/extinction browser checks, 12 compiled-production checks and 17 runtime-hotfix checks**, plus TypeScript/build and formatting. Browser scenarios reported no page or console errors; directory, memorial, followed-journal and mobile screenshots were opened and inspected.
 
 The community scenario follows an extinct group, reads its final date, starts a separate community with the same owner, verifies old-key retirement and both historical links, filters followed founding stories, observes the new group's extinction, and retains both histories across reloads. These checks exercise disposable worlds; they never advance the live planet. The physical model is unchanged from the recovery release below.
 
-The backup and deployed release evidence are recorded in [community records](../releases/community-records-0.2.md). Browser-local following is not an account or notification service; incomplete historical evidence remains explicitly unknown.
+The [live continuity evidence](community-records-continuity.json) verifies all prior records and exact clock arithmetic. The backup and deployed release evidence are recorded in [community records](../releases/community-records-0.2.md). One external observer connection dropped during live activation; a compressed handover on a disposable copy of the actual world passed, and the external cause remains unconfirmed. Browser-local following is not an account or notification service; incomplete historical evidence remains explicitly unknown.
 
 ## Recovery and depth release — 2026-10-08
 
