@@ -20,6 +20,7 @@
 
 ### Fixed
 - Live `archive-blocks-20261008-1` avoids a duplicate complete world during owned migration, exercises real archival in preflight and closes failed storage constructors. The connection test waits for the existing fallback selection to complete; no client code changed.
+- The separate-writer backup test now establishes two checkpoint opportunities at a real native batch boundary and measures overlap in the worker. Its held-reader negative control still fails; the runtime is unchanged.
 - Live `checkpoint-copy-20261008-1` prepares WAL reuse before world transactions and retries reader-delayed saves without advancing additional unsaved time. Shared native backup batches replace long copy readers, with timeout, cancellation and exclusive publication; Node 22.16+ is required (→ world_storage; → runtime_handover; → ADR-032).
 - Autonomous construction tries feasible remembered alternatives; conditional task selection leaves later work reachable after reserve-food choices while urgent subsistence retains priority. Live `work-planning-20261008-2` also bounds private validation; its release record retains the actual disk-full/24-tick-repeat handover failure (→ civilization_intelligence; → runtime_handover; → ADR-030).
 - Returning home after an observer reload immediately retains the latest clock and population; older cached overview responses cannot move that view backwards (→ browser_observer).

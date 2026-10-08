@@ -20,6 +20,10 @@ The additive storage-schema upgrade commits separately before loading. It may re
 
 The preceding commit's pull-request CI run `37847698202` passed; its push run `37847692602` failed a browser timing assertion that checked text selection as soon as the fallback textarea appeared. This release's test waits for the existing selection operation to finish. The ordinary clipboard-denial scenario passes locally with no product UI change. New-commit GitHub results are separate from those earlier runs.
 
+The first archive commit, `285f81c`, then exposed another test scheduling assumption: PR run `37852163080` passed 137 of 138 model/server tests but its separate-writer test expected an opportunistic PASSIVE checkpoint to coincide with a copy gap. The follow-up holds an actual native progress boundary until two worker commits/checkpoints complete, then resumes concurrent copying; it records overlap at execution time. All five backup tests and typechecking pass. A deliberately held-reader control still fails, with 517 log frames and zero checkpointed frames. This changes the test, not the deployed backup code. Subsequent GitHub results belong to their exact commit.
+
+A separate next-migration capacity probe on the **current tick-312692 backup** writes **102,276,019 original bytes as 31,910,852 compressed bytes**, verifies the new archive, performs three further saves and restarts with a 216 MiB effective heap. Under the same live-sized quota and initial footprint, minimum free space is **63,229,952 bytes**. This explicit disposable archive write introduces no actual physical migration or people and does not measure simultaneous live-plus-candidate memory.
+
 ## Live continuity and backup
 
 The independent backup captured **tick 312692** at 22:04:43 UTC. Raw bytes: **258,719,744**, SHA-256 `29dca29394695afb152ce947645642384a446077b9547cb8f8dbcfff694ff7a4`. Gzip bytes: **71,170,560**, SHA-256 `2262b6cfbeb90962a00e931a82dcf1d8b0dc8ef55217dde5c6be97dc822b5c59`. Off-host decompression verified SQLite integrity, metadata, all 38 region checksums and both complete historical archive bodies. No raw backup was staged on the small data volume.

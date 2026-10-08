@@ -134,16 +134,24 @@ test("incremental backups release read history while complete transactions conti
   }
 });
 
-test("an independently scheduled writer can commit and checkpoint during a consistent backup", async () => {
+test("a separate writer reclaims history between native backup batches", async () => {
   const directory = mkdtempSync(join(tmpdir(), "praxans-backup-concurrent-"));
   const source = fixture(directory, "source", 1024);
   source.writer.close();
   const reader = new DatabaseSync(source.path, { readOnly: true });
+  // A PASSIVE checkpoint need not happen to land in the short gap between
+  // batches. Hold one real progress boundary until two independent commits
+  // finish; subsequent writes race the remaining native copy normally.
+  // Shared fields: committed revision, native copy active, writer failure.
+  const control = new Int32Array(
+    new SharedArrayBuffer(3 * Int32Array.BYTES_PER_ELEMENT),
+  );
   const worker = new Worker(
     `const { parentPort, workerData } = require('node:worker_threads');
      const { DatabaseSync } = require('node:sqlite');
      const { statSync } = require('node:fs');
-     const db = new DatabaseSync(workerData);
+     const control = new Int32Array(workerData.control);
+     const db = new DatabaseSync(workerData.path);
      db.exec('PRAGMA synchronous=FULL; PRAGMA wal_autocheckpoint=64; PRAGMA journal_size_limit=1048576; PRAGMA busy_timeout=5000');
      parentPort.once('message', async () => {
        try {
@@ -153,15 +161,21 @@ test("an independently scheduled writer can commit and checkpoint during a consi
            db.prepare('UPDATE clock SET revision=? WHERE id=1').run(revision);
            db.exec('COMMIT');
            const checkpoint=db.prepare('PRAGMA wal_checkpoint(PASSIVE)').get();
-           parentPort.postMessage({kind:'commit',revision,checkpoint,walBytes:statSync(workerData+'-wal').size});
+           parentPort.postMessage({kind:'commit',revision,checkpoint,walBytes:statSync(workerData.path+'-wal').size,duringCopy:Atomics.load(control,1)===1});
+           Atomics.store(control,0,revision);
+           Atomics.notify(control,0);
            await new Promise(done=>setTimeout(done,2));
          }
          db.close();
          parentPort.postMessage({kind:'done'});
+       } catch(error) {
+         Atomics.store(control,2,1);
+         Atomics.notify(control,0);
+         throw error;
        } finally { parentPort.close(); }
      });
      parentPort.postMessage({kind:'ready'});`,
-    { eval: true, workerData: source.path },
+    { eval: true, workerData: { path: source.path, control: control.buffer } },
   );
   const commits: {
     revision: number;
@@ -169,11 +183,9 @@ test("an independently scheduled writer can commit and checkpoint during a consi
     walBytes: number;
     duringCopy: boolean;
   }[] = [];
-  let copying = false;
   const done = new Promise<void>((resolve, reject) => {
     worker.on("message", (message) => {
-      if (message.kind === "commit")
-        commits.push({ ...message, duringCopy: copying });
+      if (message.kind === "commit") commits.push(message);
       if (message.kind === "done") resolve();
     });
     worker.once("error", reject);
@@ -185,27 +197,48 @@ test("an independently scheduled writer can commit and checkpoint during a consi
   void done.catch(() => undefined);
   try {
     await once(worker, "message");
-    copying = true;
     let started = false;
     const destination = join(directory, "completed.sqlite");
     await backupDatabase(reader, destination, {
-      progress: () => {
+      progress: ({ remainingPages }) => {
+        Atomics.store(control, 1, remainingPages > 0 ? 1 : 0);
         if (!started) {
+          assert.ok(remainingPages > 0);
           started = true;
           worker.postMessage("start");
+          const deadline = performance.now() + 10000;
+          while (Atomics.load(control, 0) < 2) {
+            assert.equal(
+              Atomics.load(control, 2),
+              0,
+              "the independent writer failed",
+            );
+            const remaining = deadline - performance.now();
+            assert.ok(
+              remaining > 0,
+              "the independent writer did not reach the copy boundary",
+            );
+            const revision = Atomics.load(control, 0);
+            if (revision < 2) Atomics.wait(control, 0, revision, remaining);
+          }
         }
       },
     });
-    copying = false;
+    Atomics.store(control, 1, 0);
     await done;
     const overlap = commits.filter((commit) => commit.duringCopy);
     assert.ok(overlap.length >= 2, "writes must overlap the native copy");
-    assert.ok(
-      overlap.some(
-        ({ checkpoint }) => checkpoint.log === checkpoint.checkpointed,
-      ),
-      "the independent writer must reclaim history before copying ends",
-    );
+    for (const { revision, checkpoint, duringCopy } of commits.slice(0, 2)) {
+      assert.ok(
+        duringCopy,
+        `commit ${revision} must finish inside the held copy boundary`,
+      );
+      assert.equal(
+        checkpoint.log,
+        checkpoint.checkpointed,
+        "the backup must release its read history between native batches",
+      );
+    }
     assert.equal(commits.length, 12);
     const copy = new DatabaseSync(destination, { readOnly: true });
     try {

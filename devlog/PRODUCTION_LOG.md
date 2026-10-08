@@ -7,6 +7,19 @@
 
 ## Log
 
+### [2026-10-08] Make the Backup Concurrency Check Reproducible
+
+- **type**: audit
+- **systems**: world_storage, browser_validation
+- **files**: `backup.test.ts`, `archive-blocks-0.2.md`, `release-coherence-2026-10-08.md`
+- **agent**: Codex
+
+The archive commit's PR CI found a scheduling assumption: opportunistic passive checkpoints need not land in a copy-reader gap. The test now holds one actual progress boundary for two independent worker commits/checkpoints, then resumes racing writes; overlap is measured at execution rather than message arrival. Five backup tests and typechecking pass. A deliberately held read transaction still fails with 517 log frames and zero checkpointed, retaining the causal negative control. Production code and the live artifact are unchanged.
+
+A separate disposable current-world probe successfully archives 102.3 MB into 31.9 MB of blocks and makes three subsequent saves/restart under the 216 MiB heap and live-sized disk quota, with 63.2 MB minimum free. This supplies next-law capacity evidence, not a new law migration or a live populated-memory guarantee.
+
+---
+
 ### [2026-10-08] Verified Compressed Migration Archives Published
 
 - **type**: infrastructure

@@ -986,9 +986,9 @@
     "Care, fair ration allocation, growth and coherent metabolic energy budget remain pending."
   ],
   "coherence": {
-    "inspectedAt": "2026-10-08T22:13:16.550Z",
+    "inspectedAt": "2026-10-08T22:24:54.321Z",
     "structuralScan": {
-      "baseCommit": "cfb8e010180255af102bb4818d26566b384e7c27",
+      "baseCommit": "285f81c97e94c2fe98086b0209cfa057417f1d7a",
       "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
       "gitVisibleExistingFileCount": 925,
       "jsTsFileCount": 122,
@@ -1023,8 +1023,66 @@
       ],
       "layerViolations": [],
       "simulationEnvironmentImports": [],
-      "localMarkdownLinksChecked": 373,
+      "localMarkdownLinksChecked": 374,
       "missingMarkdownLinks": []
     }
+  },
+  "nextMigrationArchiveCapacity": {
+    "checkedAt": "2026-10-08T22:18:26.199Z",
+    "mode": "current",
+    "source": "output/backups/before-archive-blocks-20261008.sqlite",
+    "scope": "Disposable explicit archive-capacity probe with current schema/laws, not an actual new law migration or simultaneous live-plus-candidate memory test.",
+    "code": 0,
+    "signal": null,
+    "report": {
+      "archiveMs": 3746.2611749999996,
+      "sourceTick": 312692,
+      "tick": 312788,
+      "sourcePeople": 0,
+      "finalPeople": 0,
+      "format": 9,
+      "laws": "biosphere-1.3",
+      "manifest": {
+        "id": "disposable-future-archive-capacity",
+        "checksum": "b041fdb6e25ec19ea7df60dded1d55b6165c6d7d039d2cb262335ec1522bdd89",
+        "createdAt": 1791497878498,
+        "encoding": "deflate-parts-1",
+        "rawBytes": 102276019,
+        "parts": 391
+      },
+      "compressedBytes": 31910852,
+      "heapLimitBytes": 226492416,
+      "maxRssKiB": 355144,
+      "databaseBytes": 266276864,
+      "oldArchiveDescriptorsUnchanged": true,
+      "threeFurtherSaves": true,
+      "restarted": true
+    },
+    "capacity": {
+      "bytes": 454299648,
+      "initialNonWalFootprint": 279793664,
+      "minFree": 63229952,
+      "maxWal": 103486192,
+      "samples": 551
+    },
+    "peakRssBytes": 356999168
+  },
+  "ciFollowup": {
+    "commit": "285f81c97e94c2fe98086b0209cfa057417f1d7a",
+    "pullRequestRun": 37852163080,
+    "conclusion": "failure",
+    "modelTests": {
+      "passed": 137,
+      "failed": 1
+    },
+    "failedTest": "an independently scheduled writer can commit and checkpoint during a consistent backup",
+    "reason": "Twelve opportunistic PASSIVE checkpoints did not hit a gap between native copy batches.",
+    "correction": "Provide an explicit batch-boundary opportunity for two separate-worker commits/checkpoints; measure overlap in the worker and then resume racing writes.",
+    "localVerification": {
+      "backupTestsPassed": 5,
+      "typecheck": "passed",
+      "heldReaderControl": "expected failure: 517 log frames, zero checkpointed"
+    },
+    "productionChanged": false
   }
 }
