@@ -27,6 +27,8 @@ Fresh backup `before-recovery-release-20261008.sqlite` is byte-identical to the 
 
 Implementation commit `64d4b76` is pushed to `codex/praxans-browser`; independent push and pull-request GitHub CI both passed. The actual source matches the clean deployed staging manifest. Provider IDs, continuity samples and limits are in `docs/releases/world-recovery-0.2.md`. Subsequent evidence-only documentation changes do not alter the deployed runtime. Keep draft PR #1 current without merging or changing the default branch.
 
+The latest live ecological inspection at **09:00:57 UTC**, tick **61908** (**434 simulated days** after the repair), confirms recovery from 6.332 to **142.250 kg** of growing plant tissue, plus **267 dormant cohorts** containing **28.236 kg**. Original ownership, keys, receipts, archive and clock arithmetic remain intact, with three additional observer sessions. No people or animals were resurrected; approximately 42,140 seconds of debt remains. See `docs/validation/live-recovery-434-days.json`. This is stronger actual-world recovery evidence, not a claim of indefinite equilibrium.
+
 ## Hosting and continuity
 
 Website: **https://praxans.vercel.app**. Railway world: **https://world-production-8384.up.railway.app**, `/data/praxans.sqlite` on its existing volume. Keep `PRAXANS_REQUIRE_EXISTING_WORLD=1`, one replica and sleeping disabled. `.railway/railway.ts` preserves operator values and the existing volume. Never apply a plan dropping either.

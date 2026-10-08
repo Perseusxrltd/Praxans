@@ -36,3 +36,10 @@ At that inspection, 64 growing plant cohorts remained (3.631 kg tissue), with no
 The small volume had about **189 MB** free after verified backup compression. A capacity sample, including the inspection process, used approximately **593 MB** of its **1,000 MB** memory limit, with no cgroup OOM events. These are observations, not a large-world capacity guarantee. Future preflight copies and backups need adequate temporary space; off-service scheduled retention is still operator work.
 
 Browser flows and screenshots were verified locally. Vercel deployment success is established from provider metadata; the deployed Vercel URL was not fetched during release verification. Direct Railway health and database continuity were checked. The 17 seamless-handover checks ran against disposable worlds; this release installed the gateway through one normal container deployment.
+
+
+## Subsequent ecological observation
+
+At **09:00:57 UTC**, the same live world reached tick **61908**: **434 simulated days** beyond the intervention. [The recorded observation](../validation/live-recovery-434-days.json) verifies unchanged region count, agent keys, receipts, original archive and exact clock advancement. A follow-up confirms that all seven original sessions are unchanged, alongside three newly created observer sessions. Growing plant tissue increased from **6.332 kg** at the stopped checkpoint to **142.250 kg**, with **58 plant cohorts** and **267 dormant cohorts** holding another **28.236 kg**. These reserves arose through funded reproduction; the migration created no propagules. Temperature was -3.36 to -0.87 degrees Celsius at this sample.
+
+This demonstrates natural producer recovery in the actual formerly collapsing regions, beyond the shorter offline test. It does not repopulate extinct people/animals or establish indefinite ecological equilibrium. The runtime was still processing approximately 42,140 seconds of clock debt.
