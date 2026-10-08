@@ -2,11 +2,13 @@
 
 ## Body maintenance — 2026-10-08
 
-The [body-maintenance candidate](../releases/body-maintenance-0.2.md) passes **153 model/server tests**, with **36 focused body/persistence/archive/preflight tests rerun after its final loader-memory correction**. Nine focused browser checks and the supplied unmodified game client pass; helper, child and mobile screenshots were inspected. The browser reports performed material movement and the recipient's actual covering, without claiming continuous care.
+The live [body-maintenance release](../releases/body-maintenance-0.2.md) passes **153 model/server tests**, with **36 focused body/persistence/archive/preflight tests rerun after its final loader-memory correction**. Final build/format, twelve compiled-production checks, 21 hotfix checks and fifteen actual inhabited-copy handover/restart checks pass. Nine focused browser checks and the supplied unmodified game client pass; helper, child and mobile screenshots were inspected. The browser reports performed material movement and the recipient's actual covering, without claiming continuous care.
 
 Actual format-9 backups migrate to format 10 / biosphere-1.4 without changing people, stocks, terrain, ownership, history or clock at the boundary. Both make three further saves and restart. The inhabited copy advances 96 ticks from 228436 with 1,439 original people and two ordinary births, using the 216 MiB effective heap. With a 285 MB starting non-WAL budget under the live-sized disk quota, its minimum free space is only 4.94 MB. The earlier empty-world case has 54.96 MB minimum free. This is measured continuity with tight headroom, not support for larger populations.
 
-The initial populated verifier retained a duplicate decoded population and exhausted its heap. After removing that test-only duplication, the actual handover also exposed the loader retaining obsolete serialized metadata. The corrected loader releases that JSON before migration saves. Both failed controls remain in diagnostic logs; no rejected artifact was activated on the live world. Publication and final exact-artifact checks are recorded separately in the release record.
+The initial populated verifier retained a duplicate decoded population and exhausted its heap. After removing that test-only duplication, the actual handover also exposed the loader retaining obsolete serialized metadata. The corrected loader releases that JSON before migration saves. Both failed controls remain in diagnostic logs; no rejected artifact was activated on the live world.
+
+The final runtime became live at tick **332428**. Saved 332748 retains ownership signatures, prior journal count, old archives, the sole earlier renewal and exact clock arithmetic, with zero people. One monitored compressed observer continued through three snapshots and 79 frames without fault or backward time; all fifteen health samples passed. The finite host watcher found no new OOM kill and at least 49.75 MB free. The website's matching inspector is published. See the [measured record](body-maintenance-2026-10-08.json) for exact scope and remaining limits.
 
 ## Checkpoint reuse and backup copying — 2026-10-08
 

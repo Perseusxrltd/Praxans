@@ -10,6 +10,8 @@ The review caught and corrected pre-wear gap capping that prevented completion, 
 
 Physical format 10 / biosphere-1.4 has an explicit migration that preserves all state values except version labels. A populated bounded-heap test found obsolete metadata JSON retained through the save; the loader now releases that string after parsing. Actual copied archives, subsequent writes, ownership and clock checks validate the correction. The minimum free space in the inhabited migration remains small. W13/W18 retain volume, whole-region-write and combined process-memory limits; H01/W06 retain food allocation, rapid growth, baseline thermal/body-reserve energy and long-term survival work. There is no new population intervention.
 
+The canonical public metadata still named Node 22.13 although the native backup path requires 22.16; that minimum now agrees with `package.json`, README and hosting guidance. The live law archive's complete original bytes were independently verified off-host, including before/after metadata hashes showing only version-label changes at the intervention boundary. Structural review and short causal controls remain distinct from demographic validation.
+
 Earlier sections below are historical reviews of their named revisions. Their counts and active-version descriptions are not substituted for the body-maintenance checks.
 
 ## Connected mechanisms

@@ -2,6 +2,8 @@
 
 Recorded 2026-10-08. **Confirmed system defects contributed to the collapse; this is not a validated natural extinction.** Saved history shows dwindling communal food and deaths in cold conditions. An exact historical replay proves that the first infant died from the model's cold-exposure health penalty, at home with usable fiber still in stock but no caregiver wrapping mechanism. Small controlled checks also reproduce food allocation by update order. The contribution of each defect to all 1,607 deaths remains unmeasured; correcting them does not establish that these habitats can sustain 300 founders and their descendants.
 
+**Subsequent correction:** [performed body maintenance](../releases/body-maintenance-0.2.md) is now live. It adds a finite local work path for self/nearby protection and preserves every historical death. The findings below describe their recorded releases; food allocation, growth, metabolic energy and sustainable habitat capacity still need correction or validation.
+
 ![Population, communal food and deaths after the finite renewal](../images/community-collapse-2026-10-08.png)
 
 The figure uses [daily history and death counts](collapse-timeline.json), not conditions observed after extinction.
@@ -57,7 +59,7 @@ The [replay result](collapse-first-death-replay.json) advances a disposable copy
 
 This proves the immediate cause for this individual: the effective thermal model charged an unfunded heat deficit against health. The implementation has no represented body-core temperature, so this is not a clinical diagnosis. Sickness, oxygen, thirst and old age did not trigger this final loss.
 
-The care gap matters because only inhabitants aged at least 12 can take stock fiber for wrapping, and no adult can perform that operation for a child. A stockpile does not protect an infant by itself. The model also grew Kira's body compartment to **17.908 kg, nearly its 18 kg adult target, in 80 days**. That compartment represents organic/mineral material with hydration separate; it is **not anatomical total body weight**. Nevertheless, its rapid approach to the adult target and use in heat exchange require an age-dependent growth and metabolism review.
+Under the replayed historical release, only inhabitants aged at least 12 could take stock fiber for wrapping, and no adult could perform that operation for a child. A stockpile does not protect an infant by itself. The model also grew Kira's body compartment to **17.908 kg, nearly its 18 kg adult target, in 80 days**. That compartment represents organic/mineral material with hydration separate; it is **not anatomical total body weight**. Nevertheless, its rapid approach to the adult target and use in heat exchange require an age-dependent growth and metabolism review.
 
 The [finite-fiber control](first-child-wrap-counterfactual.md) then uses those exact relevant local conditions in two isolated calls. With the same 327.154 kg total fiber and zero food, **2 kg already allocated as a wrap leaves 0.8383 health**, while the bare case reaches zero. Fiber wear returns to detritus, and conservation checks pass. This compares earlier protection with its absence; it is not an implemented instantaneous care action or proof of survival beyond that quarter-hour.
 

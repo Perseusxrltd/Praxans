@@ -1,10 +1,10 @@
 # Performed body maintenance — 2026-10-08
 
-**Candidate; publication and final continuity verification are pending.**
+**Live from 23:18:08 UTC.** The existing Railway gateway, container and volume now run `body-maintenance-20261008-2`. Vercel `dpl_GurtrNS34e3vTAY24tyw1KvNqM6R` is READY at [praxans.vercel.app](https://praxans.vercel.app), with the new care inspector. The initial website upload returned “Not authorized”; the existing account connection was verified and the retry succeeded.
 
 The [collapse investigation](../research/community-collapse-2026-10-08.md) reproduces a child dying from cold with accessible fiber nearby and no caregiver action capable of using it. This correction lets Praxans spend ordinary repair work adjusting their own covering or helping another stationary person nearby. It also removes automatic adult wrapping, so protection competes with other work and uses existing material.
 
-The immutable candidate is `body-maintenance-20261008-2`, runtime SHA-256 `69cdc2bac224e00537e5610540f711e656ce8f0f6c64a78ced1147d5344d2fc0`. Its dependency fingerprint is unchanged. Migration `010-performed-body-maintenance` advances world format 9 / biosphere-1.3 to **10 / biosphere-1.4**, retaining SQLite storage version 1. It changes version fields, archives the exact preceding state and records the law intervention. It adds no people, supplies, tasks or invented earlier care.
+The immutable runtime has SHA-256 `69cdc2bac224e00537e5610540f711e656ce8f0f6c64a78ced1147d5344d2fc0`; implementation commit `90d346e` is pushed to the unmerged draft PR. Its dependency fingerprint is unchanged. Migration `010-performed-body-maintenance` advances world format 9 / biosphere-1.3 to **10 / biosphere-1.4**, retaining SQLite storage version 1. It changes version fields, archives the exact preceding state and records the law intervention. It adds no people, supplies, tasks or invented earlier care.
 
 ## What changes
 
@@ -32,4 +32,12 @@ The private filesystem quota is 454,299,648 bytes, with a 285 MB initial non-WAL
 
 The independent tick-324428 backup contains 0 people, 407 births and 1,639 historical deaths. Its full original bytes, SQLite integrity, region checksums and both old archive bodies were verified off-host before activation. Raw SHA-256 is `ad6b5604b2fe30217917238ba29084c36de21a6470f562c3011a903cd7518fb6`; the 71,233,472-byte gzip copy hashes to `4746b2478094fb8aa6356dd2ee6f7d35035213229a7948f5ccabf2c6fe288a0e`.
 
-Live activation evidence will be added after the guarded handover. The candidate does not remove clock debt, repopulate communities or establish a permanent monitoring service.
+The guarded activation ran from **23:17:35.412 to 23:18:08.230 UTC**. Private validation migrated tick 332364 and advanced to 332396 with a 216 MiB effective heap while the old owner continued. The sole live writer handed over at **332428**. Both the law migration and release are recorded there; the release's before/after metadata checksums are equal. The durable pointer selects the matching artifact, with one current runtime.
+
+Saved tick **332748** retains the same four communities, 24 prior session signatures, one agent, three receipts, all 70,110 earlier journal rows by count, both old archive checksum fields and the single earlier population renewal. Its clock advances exactly **8,320 × 250 ms** from the independently verified backup. It still has zero people, 407 births and 1,639 historical deaths. This bounded live audit compares ownership signatures and history identities/counts; the older complete archive bodies were checked on the independent backup.
+
+The newly created archive was exported in bounded blocks and verified **off-host**: all **407 parts**, **106,657,105 original bytes** and **33,185,542 compressed bytes** match complete SHA-256 `608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f`. Its original metadata reproduces the migration's before-checksum; changing only root format/law labels reproduces its after-checksum. The source archive has zero people and the same births/deaths at 332428. The exporter reads individual blocks without one prolonged cursor and respects output backpressure; its reported peak RSS is 59,456 KiB. This later export is outside the activation monitor's interval.
+
+One direct Railway observer stayed open across activation with **three snapshots and 79 frames**, progressing 332268 → 332964 without a fault or backward tick. All fifteen health samples were healthy and persistent. The three-minute internal monitor recorded at least **49,754,112 bytes free**, a maximum **108,298,352-byte WAL** and sampled cgroup memory of **999,899,136 bytes**. The existing OOM-kill count remained one, while memory-limit pressure events rose 2818 → 3412. These finite watchers have ended; they are not permanent monitoring or a guarantee for every connection.
+
+The world continues to compute its roughly seven-hour clock backlog; it was not erased. Seasonal human survival, additional population restoration and broader host capacity remain outside this correction. GitHub push/PR checks for the implementation commit were still running when the live evidence was recorded; their outcomes are distinct from the completed local validation.

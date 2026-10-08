@@ -1,7 +1,7 @@
 {
-  "inspectedAt": "2026-10-08T23:16:32.707Z",
+  "inspectedAt": "2026-10-08T23:26:03.488Z",
   "structuralScan": {
-    "baseCommit": "3a1662dfccd1fbe3bd76fee07161babe8b566008",
+    "baseCommit": "90d346eaaf2a18b614fd1e1a7c708f839ad8a315",
     "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
     "gitVisibleExistingFileCount": 929,
     "jsTsFileCount": 124,
@@ -36,7 +36,7 @@
     ],
     "layerViolations": [],
     "simulationEnvironmentImports": [],
-    "localMarkdownLinksChecked": 381,
+    "localMarkdownLinksChecked": 384,
     "missingMarkdownLinks": []
   }
 }

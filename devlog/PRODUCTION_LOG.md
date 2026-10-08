@@ -18,6 +18,8 @@ Repair tasks now permit finite local self-maintenance and assistance, with work 
 
 The 153-test model/server suite and nine focused browser checks pass; 36 body/storage/migration checks pass after a real populated migration exposed obsolete population JSON retained during save. Releasing that string lets the original 1,439-person backup migrate, save 96 further ticks and restart under the protected heap. Disk headroom remains tight. The [release record](../docs/releases/body-maintenance-0.2.md) distinguishes candidate validation from publication and retains the separate unresolved collapse defects.
 
+Published as `body-maintenance-20261008-2` at live tick 332428, with the matching Vercel inspector. Saved 332748 preserves ownership, old history and exact clock arithmetic; one observer remains connected through three snapshots and 79 frames. All 407 blocks of the new law archive verify off-host, including metadata hashes proving only version-label changes at migration. The finite monitor records no new OOM kill. Food allocation, growth and metabolic energy remain corrective work.
+
 ---
 
 ### [2026-10-08] Make the Backup Concurrency Check Reproducible
