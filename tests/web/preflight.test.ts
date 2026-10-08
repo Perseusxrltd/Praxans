@@ -14,7 +14,7 @@ import { processDeaths } from "../../src/simulation/citizens";
 import { digest, Store } from "../../src/server/store";
 import { preflight } from "../../src/server/preflight";
 
-test("candidate migration and renewal never write to the source world or operator request", () => {
+test("candidate migration and renewal never write to the source world or operator request", async () => {
   const directory = mkdtempSync(join(tmpdir(), "praxans-preflight-source-")),
     database = join(directory, "world.sqlite"),
     requestPath = join(directory, "runtime", "intervention.json");
@@ -59,7 +59,7 @@ test("candidate migration and renewal never write to the source world or operato
     );
     const before = readFileSync(database),
       requestBefore = readFileSync(requestPath);
-    const report = preflight(database);
+    const report = await preflight(database);
     assert.equal(report.id, world.id);
     assert.equal(report.sourceTick, world.tick);
     assert.equal(report.tick, world.tick + 32);

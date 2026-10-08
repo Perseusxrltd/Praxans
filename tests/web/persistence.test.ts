@@ -4,7 +4,11 @@ import { mkdtempSync, rmSync, statSync } from "node:fs";
 import { DatabaseSync } from "node:sqlite";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { Store, digest } from "../../src/server/store";
+import {
+  Store,
+  WorldCheckpointBusyError,
+  digest,
+} from "../../src/server/store";
 import { recordEvent } from "../../src/simulation/world";
 import { smallWorld as createWorld } from "./fixtures";
 import { stepWorld } from "../../src/simulation/engine";
@@ -15,6 +19,101 @@ import {
 } from "../../src/simulation/terrain";
 import { elementLedger } from "../../src/simulation/chemistry";
 import { legacyCheckpoint } from "./fixtures";
+
+test("a released reader cannot leave two large save batches in the WAL", () => {
+  const directory = mkdtempSync(join(tmpdir(), "praxans-checkpoint-boundary-"));
+  const path = join(directory, "world.sqlite");
+  const store = new Store(path);
+  let reader: DatabaseSync | undefined;
+  try {
+    store.db.exec(
+      "CREATE TABLE checkpoint_probe(id INTEGER PRIMARY KEY, revision INTEGER, value BLOB); BEGIN",
+    );
+    const insert = store.db.prepare(
+      "INSERT INTO checkpoint_probe VALUES(?,0,?)",
+    );
+    for (let n = 0; n < 128; n++) insert.run(n, Buffer.alloc(65536));
+    store.db.exec("COMMIT");
+    store.db.prepare("PRAGMA wal_checkpoint(TRUNCATE)").get();
+    reader = new DatabaseSync(path, { readOnly: true });
+    reader.exec("BEGIN");
+    reader.prepare("SELECT count(*) FROM checkpoint_probe").get();
+    const write = (revision: number) =>
+      store.transaction(() => {
+        store.db
+          .prepare("UPDATE checkpoint_probe SET revision=?,value=? WHERE id<64")
+          .run(revision, Buffer.alloc(65536, revision));
+      });
+    write(1);
+    const firstWal = statSync(path + "-wal").size;
+    const delayed = store.db.prepare("PRAGMA wal_checkpoint(PASSIVE)").get()!;
+    assert.ok(Number(delayed.checkpointed) < Number(delayed.log));
+    reader.close();
+    reader = undefined;
+    // No operator checkpoint here: the actual transaction path must prepare
+    // WAL reuse before attempting the next complete save.
+    write(2);
+    assert.ok(statSync(path + "-wal").size < firstWal + 65536);
+    assert.equal(
+      store.db
+        .prepare(
+          "SELECT count(*) n FROM checkpoint_probe WHERE id<64 AND revision=2",
+        )
+        .get()!.n,
+      64,
+    );
+    assert.equal(
+      store.db.prepare("PRAGMA integrity_check").get()!.integrity_check,
+      "ok",
+    );
+  } finally {
+    reader?.close();
+    store.close();
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("a held reader defers a transaction before its callback and the same work can retry", () => {
+  const directory = mkdtempSync(join(tmpdir(), "praxans-checkpoint-busy-"));
+  const path = join(directory, "world.sqlite");
+  const store = new Store(path);
+  let reader: DatabaseSync | undefined;
+  try {
+    store.db.exec(
+      "PRAGMA busy_timeout=2; CREATE TABLE checkpoint_probe(value INTEGER); INSERT INTO checkpoint_probe VALUES(0)",
+    );
+    store.db.prepare("PRAGMA wal_checkpoint(TRUNCATE)").get();
+    reader = new DatabaseSync(path, { readOnly: true });
+    reader.exec("BEGIN");
+    reader.prepare("SELECT value FROM checkpoint_probe").get();
+    store.transaction(() =>
+      store.db.prepare("UPDATE checkpoint_probe SET value=1").run(),
+    );
+    let called = false;
+    const work = () => {
+      called = true;
+      store.db.prepare("UPDATE checkpoint_probe SET value=2").run();
+    };
+    assert.throws(() => store.transaction(work), WorldCheckpointBusyError);
+    assert.equal(called, false);
+    assert.equal(
+      store.db.prepare("SELECT value FROM checkpoint_probe").get()!.value,
+      1,
+    );
+    reader.close();
+    reader = undefined;
+    store.transaction(work);
+    assert.equal(called, true);
+    assert.equal(
+      store.db.prepare("SELECT value FROM checkpoint_probe").get()!.value,
+      2,
+    );
+  } finally {
+    reader?.close();
+    store.close();
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
 
 test("WAL retention shrinks after readers release it without discarding active history", () => {
   const directory = mkdtempSync(join(tmpdir(), "praxans-wal-retention-"));
@@ -276,14 +375,14 @@ test("events outlive the observer window; failed transactions retain their pendi
   }
 });
 
-test("an online backup restores the same world and stewardship", () => {
+test("an online backup restores the same world and stewardship", async () => {
   const dir = mkdtempSync(join(tmpdir(), "praxans-backup-"));
   const store = new Store(join(dir, "world.sqlite"));
   try {
     const world = store.load(1847),
       session = store.session();
     store.claim(session.session, world.civilizations[0].id, world);
-    store.backup(join(dir, "copy.sqlite"));
+    await store.backup(join(dir, "copy.sqlite"));
     const restored = new Store(join(dir, "copy.sqlite"));
     try {
       assert.deepEqual(restored.load(999), world);

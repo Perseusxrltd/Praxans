@@ -8,6 +8,7 @@ import { Store, digest } from "../src/server/store";
 import { stepWorld, validateWorld } from "../src/simulation/engine";
 import { elementLedger, elementalErrors } from "../src/simulation/chemistry";
 import type { World } from "../src/simulation/types";
+import { backupDatabase } from "../src/server/backup";
 
 const sourcePath = process.argv[2],
   ticks = Number(process.argv[3] ?? 288),
@@ -60,7 +61,7 @@ try {
       counts[table] = rows.length;
       protectedRows[table] = digest(JSON.stringify(rows));
     }
-    source.prepare("VACUUM INTO ?").run(join(directory, "copy.sqlite"));
+    await backupDatabase(source, join(directory, "copy.sqlite"));
   } finally {
     source.close();
   }

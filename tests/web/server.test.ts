@@ -4,12 +4,113 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { once } from "node:events";
+import { DatabaseSync } from "node:sqlite";
 import { get as httpGet } from "node:http";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import { createGameServer } from "../../src/server/app";
 import { Store } from "../../src/server/store";
 import { stepWorld } from "../../src/simulation/engine";
+import { smallWorld } from "./fixtures";
+
+test("reader-delayed saving pauses unsaved time and resumes the same world automatically", async () => {
+  const directory = mkdtempSync(join(tmpdir(), "praxans-checkpoint-retry-")),
+    path = join(directory, "world.sqlite");
+  const fixture = new Store(path),
+    world = smallWorld(1847);
+  fixture.resumeClock(world.tick, Date.now() - 20000);
+  fixture.save(world);
+  fixture.close();
+  const game = createGameServer({ database: path, requireExistingWorld: true });
+  game.store.db.exec("PRAGMA busy_timeout=2");
+  const created = game.store.createAgent(
+    world.civilizations[0].id,
+    "Continuity steward",
+    "Test",
+  );
+  const agent = game.store.authenticate(created.token)!;
+  const batch = {
+    requestId: "before-storage-wait-0001",
+    actions: [{ type: "focus", focus: "build", reason: "Consider shelter." }],
+  };
+  const receipt = game.act(agent, batch);
+  const initialClock = game.store.db
+    .prepare("SELECT tick,wall_ms FROM world_clock WHERE id=1")
+    .get()!;
+  game.store.db.prepare("PRAGMA wal_checkpoint(TRUNCATE)").get();
+  let reader: DatabaseSync | undefined = new DatabaseSync(path, {
+    readOnly: true,
+  });
+  reader.exec("BEGIN");
+  reader.prepare("SELECT checksum FROM world WHERE id=1").get();
+  const server = game.app.listen(0, "127.0.0.1");
+  await once(server, "listening");
+  const address = server.address();
+  assert.ok(address && typeof address !== "string");
+  const base = `http://127.0.0.1:${address.port}`;
+  const health = async () => await (await fetch(`${base}/api/health`)).json();
+  try {
+    let status = await health();
+    for (
+      let n = 0;
+      status.simulation !== "waiting-for-storage" && n < 200;
+      n++
+    ) {
+      await new Promise((done) => setTimeout(done, 25));
+      status = await health();
+    }
+    assert.equal(status.simulation, "waiting-for-storage");
+    assert.equal(status.ok, true);
+    assert.equal(status.acceptingProposals, false);
+    const pausedTick = status.tick,
+      paused = JSON.stringify(game.getWorld());
+    const rejected = await fetch(`${base}/api/agent/actions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${created.token}`,
+      },
+      body: JSON.stringify({ ...batch, requestId: "during-storage-wait-0001" }),
+    });
+    assert.equal(rejected.status, 503);
+    assert.equal((await rejected.json()).code, "WORLD_STORAGE_BUSY");
+    assert.equal(rejected.headers.get("retry-after"), "5");
+    assert.deepEqual(game.act(agent, batch), { ...receipt, replayed: true });
+    await new Promise((done) => setTimeout(done, 550));
+    assert.equal((await health()).tick, pausedTick);
+    assert.equal(JSON.stringify(game.getWorld()), paused);
+    assert.equal(
+      game.store.receipt(agent.id, "during-storage-wait-0001"),
+      undefined,
+    );
+    reader.close();
+    reader = undefined;
+    for (let n = 0; n < 200; n++) {
+      status = await health();
+      if (status.acceptingProposals && status.tick > pausedTick) break;
+      await new Promise((done) => setTimeout(done, 25));
+    }
+    assert.equal(status.acceptingProposals, true);
+    assert.ok(status.tick > pausedTick);
+    assert.notEqual(status.simulation, "halted");
+    const clock = game.store.db
+      .prepare("SELECT tick,wall_ms FROM world_clock WHERE id=1")
+      .get()!;
+    assert.ok(Number(clock.tick) >= pausedTick);
+    assert.equal(
+      Number(clock.wall_ms) - Number(initialClock.wall_ms),
+      (Number(clock.tick) - Number(initialClock.tick)) * 250,
+    );
+    assert.equal(game.getWorld().id, world.id);
+    assert.deepEqual(game.act(agent, batch), { ...receipt, replayed: true });
+  } finally {
+    reader?.close();
+    game.close();
+    server.closeAllConnections();
+    await new Promise<void>((done) => server.close(() => done()));
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
 
 async function advanceWithIO(
   world: Parameters<typeof stepWorld>[0],

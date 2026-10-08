@@ -5,7 +5,7 @@
   "type": "module",
   "description": "A living shared world for autonomous civilizations and their agents.",
   "engines": {
-    "node": ">=22.13.0"
+    "node": ">=22.16.0"
   },
   "scripts": {
     "dev": "tsx src/server/index.ts",

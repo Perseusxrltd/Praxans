@@ -7,6 +7,19 @@
 
 ## Log
 
+### [2026-10-08] Reuse Checkpoints Before Writing and Bound Backup Readers
+
+- **type**: bugfix
+- **systems**: world_storage, runtime_handover, agent_gateway, browser_validation
+- **files**: `backup.ts`, `store.ts`, `app.ts`, `preflight.ts`, `worker.ts`, `checkpoint-copy-0.2.md`
+- **agent**: Codex
+
+Reproduced disk exhaustion after a reader had already closed: a delayed automatic checkpoint was not retried before the following large transaction. Added pre-write WAL restart, explicit storage-busy replies and retry of the exact pending checkpoint before advancing time. Shared native online copies release their readers in bounded batches, handle cancellation/deadline and publish complete files exclusively. Node 22.16+ is now required. → ADR-032.
+
+The initial copy-only attempt passed short validation but the old writer halted after copying; its upload failed and it was never activated. The corrected release went live at 21:21:53, recovering saved tick 301940 with 32 uncommitted ticks recomputed. Final lifecycle/production/hotfix tests, an inhabited backup under a live-sized quota, and a subsequent private preflight while the new live writer ran pass. Saved tick 303028 retains ownership, receipts, history checks, archives, renewal and exact clock debt. The five-minute monitor ended with no new OOM kill but continuing memory pressure. No population or physical-law change occurred; survival and capacity work remains open.
+
+---
+
 ### [2026-10-08] Historical Collapse Reproduced and Care Defects Isolated
 
 - **type**: audit

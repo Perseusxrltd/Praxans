@@ -17,6 +17,7 @@ import type {
 } from "../simulation/types";
 import { CHUNK_SIZE, TICK_MS, WORLD_VERSION } from "../simulation/types";
 import { migrateWorld } from "./migrations";
+import { backupDatabase } from "./backup";
 
 export const digest = (text: string) =>
   createHash("sha256").update(text).digest("hex");
@@ -33,6 +34,16 @@ export class WorldLeaseError extends Error {
       "Another server owns this world. Run one simulation replica for this volume; an interrupted owner's lease expires within 30 seconds.",
     );
     this.name = "WorldLeaseError";
+  }
+}
+export class WorldCheckpointBusyError extends Error {
+  readonly status = 503;
+  readonly code = "WORLD_STORAGE_BUSY";
+  constructor() {
+    super(
+      "The world is waiting to finish saving. Retry the same request after the service is ready.",
+    );
+    this.name = "WorldCheckpointBusyError";
   }
 }
 export class Store {
@@ -116,6 +127,15 @@ export class Store {
   transaction<T>(fn: () => T): T {
     if (this.inTransaction)
       throw new Error("Nested world transactions are not supported.");
+    // A reader can delay the automatic checkpoint at COMMIT, then leave before
+    // the next write. Without an explicit restart, that next large save still
+    // appends to the retained WAL and can exhaust the volume before COMMIT.
+    // RESTART waits for existing readers; new readers can use the main file.
+    // If it remains busy, no transaction/callback has begun and retry is safe.
+    const checkpoint = this.db
+      .prepare("PRAGMA wal_checkpoint(RESTART)")
+      .get() as { busy: number };
+    if (checkpoint.busy) throw new WorldCheckpointBusyError();
     this.db.exec("BEGIN IMMEDIATE");
     this.inTransaction = true;
     this.afterCommit = [];
@@ -415,9 +435,8 @@ export class Store {
     });
   }
   /** SQLite makes a consistent online copy, including sessions and agent ownership. */
-  backup(path: string): void {
-    mkdirSync(dirname(path), { recursive: true });
-    this.db.prepare("VACUUM INTO ?").run(path);
+  async backup(path: string): Promise<void> {
+    await backupDatabase(this.db, path);
   }
   session(token?: string): { session: Session; token?: string } {
     if (token && /^[a-f0-9]{64}$/.test(token)) {

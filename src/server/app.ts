@@ -29,7 +29,13 @@ import {
   type WorldSnapshot,
 } from "../simulation/types";
 import { agentSchema, batchSchema, claimSchema, designSchema } from "./schema";
-import { digest, Store, type Agent, type Session } from "./store";
+import {
+  digest,
+  Store,
+  WorldCheckpointBusyError,
+  type Agent,
+  type Session,
+} from "./store";
 import { nearbyTiles } from "../simulation/terrain";
 import { NATURAL_MODEL } from "../simulation/model";
 import {
@@ -96,6 +102,7 @@ export function createGameServer(options: AppOptions) {
   const app = express(),
     streams = new Map<Response, { x: number; y: number }>();
   let fault: string | null = null,
+    checkpointPending = false,
     stopped = false,
     frameCount = 0;
   let atlas: Promise<Uint8Array> | undefined;
@@ -133,6 +140,7 @@ export function createGameServer(options: AppOptions) {
   app.use(express.json({ limit: "64kb" }));
   app.use(compression({ level: 4, threshold: 1024 }));
   const requireCurrentClock = () => {
+    if (checkpointPending) throw new WorldCheckpointBusyError();
     if (store.lagMs() > 10000)
       throw new HttpError(
         503,
@@ -370,11 +378,13 @@ export function createGameServer(options: AppOptions) {
       service: {
         simulation: fault
           ? "halted"
-          : store.lagMs() > 10000
-            ? "catching-up"
-            : "running",
+          : checkpointPending
+            ? "waiting-for-storage"
+            : store.lagMs() > 10000
+              ? "catching-up"
+              : "running",
         lagSeconds: Math.floor(store.lagMs() / 1000),
-        acceptingProposals: !fault,
+        acceptingProposals: !fault && !checkpointPending,
         proposalTime:
           "Advice enters at the current simulated tick. Deliberation and work happen at later simulated ticks; recovery never skips the clock debt.",
       },
@@ -446,6 +456,7 @@ export function createGameServer(options: AppOptions) {
         "The world is paused after an internal error. Check /api/health before retrying the same request.",
         "WORLD_HALTED",
       );
+    if (checkpointPending) throw new WorldCheckpointBusyError();
     // An advisory proposal belongs to the world's current logical moment, even
     // during recovery. It neither changes old ticks nor executes physical work.
     // The clock debt, local deliberation, budgets and later feasibility checks remain.
@@ -494,15 +505,17 @@ export function createGameServer(options: AppOptions) {
       tick: world.tick,
       lawsVersion: LAWS.version,
       persistent: true,
-      acceptingProposals: !fault,
+      acceptingProposals: !fault && !checkpointPending,
       lagSeconds: Math.floor(store.lagMs() / 1000),
       simulation: fault
         ? "halted"
-        : options.autoTick === false
-          ? "manual"
-          : store.lagMs() > 10000
-            ? "catching-up"
-            : "running",
+        : checkpointPending
+          ? "waiting-for-storage"
+          : options.autoTick === false
+            ? "manual"
+            : store.lagMs() > 10000
+              ? "catching-up"
+              : "running",
     }),
   );
   app.get("/api/world", (req, res) =>
@@ -942,7 +955,8 @@ export function createGameServer(options: AppOptions) {
         error instanceof HttpError
           ? error.status
           : ((error as { status?: number })?.status ?? 500);
-      const expected = error instanceof HttpError;
+      const expected =
+        error instanceof HttpError || error instanceof WorldCheckpointBusyError;
       if (status >= 500 && !expected) console.error(error);
       if (status === 503) res.setHeader("Retry-After", "5");
       res.status(status).json({
@@ -961,6 +975,13 @@ export function createGameServer(options: AppOptions) {
   const pump = () => {
     if (fault || stopped) return;
     try {
+      // Retry this exact computed checkpoint before advancing any more time.
+      // A reader-induced delay must not become unlimited unsaved simulation.
+      if (checkpointPending) {
+        store.save(world);
+        lastSavedTick = world.tick;
+        checkpointPending = false;
+      }
       store.heartbeat();
       const started = performance.now();
       let due = Math.min(128, store.dueTicks());
@@ -978,24 +999,33 @@ export function createGameServer(options: AppOptions) {
         lastBroadcastWall = performance.now();
       }
       if (world.tick - lastSavedTick >= 32) {
+        checkpointPending = true;
         store.save(world);
         lastSavedTick = world.tick;
+        checkpointPending = false;
       }
     } catch (error) {
-      fault = (error as Error).message;
-      console.error("Simulation halted:", error);
-      for (const res of streams.keys())
-        res.write(
-          'event: fault\ndata: {"error":"The simulation halted after an internal error."}\n\n',
-        );
-      for (const res of streams.keys()) res.flush();
+      if (error instanceof WorldCheckpointBusyError) checkpointPending = true;
+      else {
+        fault = (error as Error).message;
+        console.error("Simulation halted:", error);
+        for (const res of streams.keys())
+          res.write(
+            'event: fault\ndata: {"error":"The simulation halted after an internal error."}\n\n',
+          );
+        for (const res of streams.keys()) res.flush();
+      }
     }
     // Missed ticks are already due: yield to I/O, then continue promptly. A fixed
     // ordinary-tick delay here can make recovery barely faster than normal time.
     if (!fault && !stopped)
       ticker = setTimeout(
         pump,
-        store.dueTicks() > 0 ? 10 : Math.max(1, TICK_MS - store.lagMs()),
+        checkpointPending
+          ? 250
+          : store.dueTicks() > 0
+            ? 10
+            : Math.max(1, TICK_MS - store.lagMs()),
       );
   };
   if (options.autoTick !== false) ticker = setTimeout(pump, TICK_MS);
@@ -1010,10 +1040,13 @@ export function createGameServer(options: AppOptions) {
       if (stopped) return;
       stopped = true;
       if (ticker) clearTimeout(ticker);
-      if (!fault) store.save(world);
-      for (const res of streams.keys()) res.end();
-      streams.clear();
-      store.close();
+      try {
+        if (!fault) store.save(world);
+      } finally {
+        for (const res of streams.keys()) res.end();
+        streams.clear();
+        store.close();
+      }
     },
   };
 }

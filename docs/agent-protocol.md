@@ -132,6 +132,7 @@ Observe before deciding. The world advances independently, and the community may
 - `409`: conflict, including changed body under a used request ID.
 - `422`: physically or socially invalid action; inspect its explanation.
 - `429`: rate limit, currently 120 requests per minute per agent key or public source IP.
+- `503 WORLD_STORAGE_BUSY`: a reader is delaying a safe save. Respect `Retry-After` and retry the same ID and unchanged body. The world retries its checkpoint before advancing more time; committed receipts still replay. Health/observation can report `waiting-for-storage` with proposals temporarily unavailable.
 - `503 WORLD_HALTED`: new proposals are unavailable; inspect health and retry an uncertain submission with the same ID and body after recovery.
 - `503 WORLD_CATCHING_UP`: a change such as new founding must wait. Ordinary advisory proposals can enter the current logical tick. A proxy or runtime handover can also return a temporary 503; retain the request ID when retrying.
 

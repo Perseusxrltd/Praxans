@@ -18,6 +18,7 @@
 - Antiquity-first source register, scale audits, failed-candidate evidence, measured CPU baseline and explicit large-world acceptance targets.
 
 ### Fixed
+- Live `checkpoint-copy-20261008-1` prepares WAL reuse before world transactions and retries reader-delayed saves without advancing additional unsaved time. Shared native backup batches replace long copy readers, with timeout, cancellation and exclusive publication; Node 22.16+ is required (→ world_storage; → runtime_handover; → ADR-032).
 - Autonomous construction tries feasible remembered alternatives; conditional task selection leaves later work reachable after reserve-food choices while urgent subsistence retains priority. Live `work-planning-20261008-2` also bounds private validation; its release record retains the actual disk-full/24-tick-repeat handover failure (→ civilization_intelligence; → runtime_handover; → ADR-030).
 - Returning home after an observer reload immediately retains the latest clock and population; older cached overview responses cannot move that view backwards (→ browser_observer).
 - Cold-tolerant frozen dormancy is distinct from drought damage; food decay has no temperature-independent biological floor.
@@ -26,6 +27,7 @@
 - SQLite retains the original disk-full cause when it has already rolled back; reusable WAL retention is limited without discarding active reader history.
 
 ### Validation and limits
+- The final checkpoint/copy release passes 25 lifecycle tests, twelve production checks, 21 hotfix checks and fourteen inhabited-backup checks under a live-sized disk quota. A later live private preflight and saved-state audit pass. The copy-only predecessor missed a post-copy halt; recovery recomputed 32 uncommitted ticks. Memory remains close to the limit, and single-write/archive capacity is unresolved.
 - A later disk-full halt was recovered by SQLite checkpoint reclamation, independent backup validation and resuming the same artifact; 32 uncommitted ticks were recomputed. Twenty-one later health samples pass, with held-reader/capacity risks still open (→ world_storage; → runtime_handover).
 - The work-planning candidate passes 121 model/server tests locally; previous deployed releases and their browser/full-backup evidence remain distinct. Live memory/disk incidents and visible checkpoint rollback remain recorded; no uninterrupted-infrastructure claim.
 - A measured molar-mass/sediment allocation candidate was reverted after slower timings despite exact replay. Massive civilizations, sustainable multi-generation populations, general material chemistry, durable knowledge carriers and underground construction remain open work.

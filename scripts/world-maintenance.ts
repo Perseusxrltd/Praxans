@@ -1,8 +1,9 @@
 import { DatabaseSync } from "node:sqlite";
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync } from "node:fs";
+import { existsSync } from "node:fs";
 import { resolve, dirname, join } from "node:path";
 import { WORLD_VERSION } from "../src/simulation/types";
+import { backupDatabase } from "../src/server/backup";
 
 const command = process.argv[2],
   path = resolve(process.env.PRAXANS_DB ?? "data/praxans.sqlite");
@@ -27,10 +28,7 @@ try {
           `world-${new Date().toISOString().replace(/[:.]/g, "-")}.sqlite`,
         ),
     );
-    if (existsSync(destination))
-      throw new Error("Backup destination already exists; use a new filename.");
-    mkdirSync(dirname(destination), { recursive: true });
-    db.prepare("VACUUM INTO ?").run(destination);
+    await backupDatabase(db, destination);
     console.log(`Consistent world backup saved to ${destination}`);
   } else if (command === "inspect") {
     const head = db

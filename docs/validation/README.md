@@ -1,5 +1,11 @@
 # Browser world validation
 
+## Checkpoint reuse and backup copying — 2026-10-08
+
+The [live checkpoint/copy release](../releases/checkpoint-copy-0.2.md) passes **25 final lifecycle tests, twelve compiled-production checks, 21 hotfix checks and fourteen inhabited-backup continuity checks under a live-sized filesystem quota**. Its [measured record](checkpoint-copy-2026-10-08.json) retains actual disk-full controls, independent writer/copy overlap, cancelled/timed-out copies, automatic same-checkpoint retry and exact ownership/history/clock checks. The screenshot was inspected. The earlier 126-test full run belongs to the copy-only revision, before the final writer correction.
+
+The initial copy-only attempt failed at the next live save and was never activated. The final artifact recovered an already halted checkpoint, repeating 32 uncommitted ticks. A subsequent private preflight while the new live writer ran passed; saved tick 303028 retains prior identity signatures, journal prefix count and archive checksum fields. Full backup bodies were checked off-host. Five minutes of internal samples found no new OOM kill but substantial memory pressure. Diagnostic watchers have ended; this is finite evidence, not an installed monitor or a claim of unlimited capacity. Format 9, biosphere-1.3, all deaths and the original renewal remain unchanged.
+
 ## Construction, work choice and bounded validation — 2026-10-08
 
 The [work-planning candidate](../releases/work-planning-0.2.md) passes **121/121 model/server tests**, **40 general browser checks**, **12 compiled-production checks** and **21 hotfix checks**. Twelve targeted lifecycle tests also pass after the worker changes. The final hotfix checks deliberately exhaust the private validation heap and interrupt an active validation thread; both preserve the continuing owner and remove only the private copy. The effective validation heap remains bounded under the same 768 MiB host option used in CI.

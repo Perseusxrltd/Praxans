@@ -14,7 +14,17 @@ Original prompt: let's rebuild the whole game, from the ground up, as an interne
 - Study ancient and premodern primary sources first, distinguish observation from interpretation and normative claims, and test proposed physical rules against evidence. Keep a durable research queue under `docs/research/`.
 - Publish validated increments regularly during active work. At each meaningful release, review the whole repository for consistent units, clocks, conservation, module boundaries, duplicate rules and agreement between implementation and documentation.
 
-## Active work — 2026-10-08, feasible work and renewed collapse
+## Active work — 2026-10-08, checkpoint reuse and survival corrections
+
+**`checkpoint-copy-20261008-1` is LIVE from 21:21:53 UTC**, SHA-256 `900255cfc52e1b44c59255fcceeaf77ab9e9cd11b3537d9714b28a38f493a372`. World transactions prepare WAL reuse before writing; a reader-delayed checkpoint waits and retries the same pending world without advancing unsaved time. Native 128-page backup batches, timeout/cancellation and exclusive publication replace long copy readers. Node 22.16+ is required. The [release record](docs/releases/checkpoint-copy-0.2.md) distinguishes the initial copy-only failure, final correction and finite validation.
+
+The initial copy completed, but the old writer halted on its next save at 21:03:45. The final hotfix recovered saved tick 301940 and recomputed **32 uncommitted ticks**; this was not seamless time. The verified independent backup, original renewal and all deaths remain. A later private preflight while the new writer ran passed, and saved tick 303028 retains the prior sessions, agent/key binding, receipts, archive checksums, journal prefix and exact clock arithmetic. At 21:29:50 health passes at tick 303800. The five-minute monitor found no new OOM kill, but memory remained close to the limit; the watchers have ended.
+
+Final validation passes **25 lifecycle tests, 12 production checks, 21 hotfix checks and 14 inhabited-backup handover checks under a live-sized disk quota**. A 24 MiB actual-filesystem control reproduces the old post-reader `SQLITE_FULL` and the corrected transaction's success. The browser screenshot was inspected. Format/laws remain 9 / biosphere-1.3; the Vercel bundle is unchanged. The container image's maintenance executable is still old: the [hosting guide](docs/hosting.md) names the separately installed current backup helper.
+
+Next: correct the measured care/allocation defects, account for age and body-reserve energy, and measure sustainable resource access. New saved mechanisms require an explicit archive/migration; the present volume still needs measured archive headroom or bounded/compressed persistence before that change. Keep H06 social freedom: local assistance can come from kin or non-kin, and titles or mandatory institutions cannot substitute for physical work, information or willingness. No new renewal is authorized by these fixes.
+
+## Earlier feasible-work release and renewed collapse
 
 The final **work-planning-20261008-2** runtime is **LIVE at 19:42:59 UTC, tick 290260**, SHA-256 **05af5a6275f6ab8430a1d848983cc4007922a7c2c6bcf519ca8dd18baa656d2d**. It tries feasible remembered construction alternatives, corrects conditional work selection while retaining urgent subsistence, and bounds disposable hotfix validation. **121 model/server, 40 browser, 12 production, 21 hotfix, 12 targeted lifecycle and 12 inhabited-backup handover checks pass.** The supplied game client and screenshots were inspected. See `docs/releases/work-planning-0.2.md` for exact scope and limits.
 

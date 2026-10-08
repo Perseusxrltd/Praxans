@@ -12,7 +12,7 @@ The browser rebuild is a working simulation foundation. It uses explicit physica
 
 ## Run locally
 
-Use **Node.js 22.13 or newer** (validated on Node 22.22) and npm.
+Use **Node.js 22.16 or newer** (validated on Node 22.22) and npm.
 
 ```sh
 npm ci

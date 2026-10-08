@@ -1,26 +1,26 @@
 {
-  "inspectedAt": "2026-10-08T20:37:43.911Z",
+  "inspectedAt": "2026-10-08T21:32:20.090Z",
   "structuralScan": {
-    "baseCommit": "e4386986f518f92743a69e5f351088b74f18396b",
+    "baseCommit": "35a1665bff52a425d1476c7c22db2440bed05406",
     "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
-    "gitVisibleExistingFileCount": 917,
-    "jsTsFileCount": 118,
-    "sourceFileCount": 73,
-    "srcContentSha256": "91075bd09e472dfed17e561b010eb1a47f7541103b64165ec38e720e4e2870ed",
+    "gitVisibleExistingFileCount": 921,
+    "jsTsFileCount": 120,
+    "sourceFileCount": 74,
+    "srcContentSha256": "162fa8d7fbf0a72d129764bffb4e54061bb0f92da005aa326b7d7e55b0fbd689",
     "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
-    "resolvedEdgeCount": 580,
+    "resolvedEdgeCount": 586,
     "edgesByArea": {
       "docs -> src/simulation": 22,
-      "scripts -> src/server": 18,
+      "scripts -> src/server": 20,
       "scripts -> src/simulation": 25,
       "src/client -> src/simulation": 27,
       "src/client -> src/client": 21,
       "src/server -> src/simulation": 40,
-      "src/server -> src/server": 19,
+      "src/server -> src/server": 21,
       "src/simulation -> src/simulation": 233,
       "tests -> src/simulation": 126,
-      "tests -> tests": 24,
-      "tests -> src/server": 25
+      "tests -> tests": 25,
+      "tests -> src/server": 26
     },
     "missingImports": [],
     "missingAssets": [],
@@ -36,7 +36,7 @@
     ],
     "layerViolations": [],
     "simulationEnvironmentImports": [],
-    "localMarkdownLinksChecked": 354,
+    "localMarkdownLinksChecked": 363,
     "missingMarkdownLinks": []
   }
 }

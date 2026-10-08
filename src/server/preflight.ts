@@ -7,9 +7,10 @@ import { stepWorld, validateWorld } from "../simulation/engine";
 import { unappliedRenewal, readRenewal } from "./intervention";
 import { renewCommunities } from "../simulation/renewal";
 import type { World } from "../simulation/types";
+import { backupDatabase } from "./backup";
 
 /** Candidate validation runs on a private consistent copy while the actual world keeps ticking. */
-export function preflight(
+export async function preflight(
   database: string,
   directory = mkdtempSync(join(tmpdir(), "praxans-preflight-")),
 ) {
@@ -17,7 +18,7 @@ export function preflight(
   try {
     const source = new DatabaseSync(database, { readOnly: true });
     try {
-      source.prepare("VACUUM INTO ?").run(join(directory, "world.sqlite"));
+      await backupDatabase(source, join(directory, "world.sqlite"));
     } finally {
       source.close();
     }

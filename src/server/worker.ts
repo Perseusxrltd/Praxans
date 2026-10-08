@@ -12,7 +12,9 @@ import {
 const oldGenerationMiB = 192,
   youngGenerationMiB = 16,
   maximumHeapBytes = (oldGenerationMiB + youngGenerationMiB * 2) * 1024 ** 2;
-type ValidationReport = ReturnType<typeof import("./preflight").preflight> & {
+type ValidationReport = Awaited<
+  ReturnType<typeof import("./preflight").preflight>
+> & {
   type: "preflight";
   validationHeapLimitBytes: number;
 };
@@ -24,7 +26,7 @@ if (!isMainThread) {
   if (validationHeapLimitBytes > maximumHeapBytes)
     throw new Error("The candidate validation heap limit was not applied.");
   const { preflight } = await import("./preflight");
-  const result = preflight(workerData.database, workerData.directory);
+  const result = await preflight(workerData.database, workerData.directory);
   parentPort!.postMessage({
     type: "preflight",
     ...result,

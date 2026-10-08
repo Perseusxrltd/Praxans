@@ -46,10 +46,10 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **name**: Persistent State and Intervention Archive
 - **status**: active
 - **package**: src/server/
-- **files**: `store.ts`, `migrations.ts`, `startup.ts`, `intervention.ts`, `scripts/world-maintenance.ts`, `scripts/verify-upgrade.ts`
+- **files**: `store.ts`, `backup.ts`, `migrations.ts`, `startup.ts`, `intervention.ts`, `scripts/world-maintenance.ts`, `scripts/verify-upgrade.ts`
 - **dependencies**: world_state, natural_systems
 - **dependents**: agent_gateway, world_hosting, community_history
-- **known_issues**: One writer/volume, monolithic population metadata and full region serialization. The 16 MiB reusable-WAL retention setting does not bound active transactions/readers. External backup retention/capacity monitoring remain operator work; anonymous ownership has no account recovery.
+- **known_issues**: One writer/volume, monolithic population metadata and full region serialization. Pre-write checkpoint reuse and bounded native copies prevent demonstrated reader-related log accumulation, but one transaction and migration archive still need capacity. The 16 MiB setting bounds only reusable WAL. External backup retention/capacity monitoring remain operator work; anonymous ownership has no account recovery.
 - **last_touched**: 2026-10-08
 
 ### agent_gateway
@@ -104,7 +104,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `gateway.ts`, `runtime.ts`, `worker.ts`, `preflight.ts`, `artifact.ts`, `sse.ts`, `scripts/prepare-hotfix.ts`, `scripts/hotfix.ts`
 - **dependencies**: world_storage, agent_gateway
 - **dependents**: world_hosting, browser_observer, browser_validation
-- **known_issues**: One host and volume. Hotfixes require compatible dependencies and combined preflight/live-world memory and disk headroom. Real-backup handovers pass, but live memory restart/checkpoint rollback and disk-full halts occurred. Infrastructure failures remain separate operations; queues are finite.
+- **known_issues**: One host and volume. Hotfixes require compatible dependencies and combined preflight/live-world memory and disk headroom. Exact-artifact live-sized quota and live-copy checks pass, while historical memory restart/checkpoint rollback and disk-full halts remain recorded. Runtime replacement does not update maintenance tools in the container image. Infrastructure failures remain separate operations; queues are finite.
 - **last_touched**: 2026-10-08
 
 ### browser_validation

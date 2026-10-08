@@ -22,7 +22,7 @@ Praxans is an authoritative Node/TypeScript shared-world simulation with a React
 
 ## Runtime and verification
 
-- Node 22.13+; `npm ci`, `npm run dev`, `npm run build`, and `npm start` are the supported entry points.
+- Node 22.16+; `npm ci`, `npm run dev`, `npm run build`, and `npm start` are the supported entry points.
 - Simulation state and deterministic logic belong in `src/simulation/`; transport and SQLite belong in `src/server/`; observation belongs in `src/client/`.
 - Prefer coupled, measurable processes over scripted events, building recipes, technology trees, or invented resources.
 - Keep model limits explicit. A reference element is not a full reaction network; coarse cohorts are not molecular biology; a large map is not infinite compute.

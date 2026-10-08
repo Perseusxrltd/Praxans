@@ -346,3 +346,14 @@
 - **decision**: Keep a lightweight disposable supervisor and run its preflight in an owned worker thread with explicit V8 generation limits, checked before world loading. Set construction flags only in that supervisor before creating the isolate so inherited NODE_OPTIONS cannot silently expand the worker's effective heap. The supervisor owns cleanup after heap failure or cancellation; the existing gateway still owns the process and authoritative handover.
 - **alternatives**: Unbounded simultaneous copies can displace the continuing world. Skipping forward validation removes a continuity check. An unmanaged child process can survive its supervisor. Reducing the budget to 160 MiB failed on the sampled inhabited world; 192 MiB passed.
 - **consequences**: The tested Node-22 worker has a 216 MiB effective total heap. Native memory and file cache remain outside this heap limit and need measurement. Budget exhaustion rejects a hotfix instead of changing or resetting the world. A growing world or migration may require another reviewed budget/hosting change. Runtime simulation, physics and saved-state format are unchanged by the validation mechanism.
+
+---
+
+### ADR-032: Prepare Log Reuse Before Writing and Bound Backup Readers
+
+- **date**: 2026-10-08
+- **status**: accepted
+- **context**: A reader can delay the automatic checkpoint at commit. Closing the reader does not retry it, so the next complete save can append a second large batch and exhaust disk before reaching its own commit. Short backup batches alone did not prevent a live post-copy failure.
+- **decision**: Request a SQLite restart checkpoint before each world transaction. A busy result defers its callback entirely; the simulation retries the exact computed checkpoint before advancing further, with temporary proposal unavailability and preserved receipt replay. Share one asynchronous online-backup helper with short read batches, a deadline, exclusive completed-file publication and staging cleanup.
+- **alternatives**: A passive checkpoint only at commit is too late to admit the next large write safely. A single long copy reader retains several save batches. Increasing retained-log limits or copying an active main database file without SQLite does not establish a safe consistent boundary.
+- **consequences**: Node 22.16+ is required for its native backup API. One complete transaction, destination copy and migration still require measured capacity; checkpoints do not make monolithic saves incremental. Reader waits preserve clock debt and bounded unsaved work, while arbitrary disk/I/O failures remain distinct faults. File publication requires hard-link and directory-sync support. Physical laws, saved-state format and population are unchanged.
