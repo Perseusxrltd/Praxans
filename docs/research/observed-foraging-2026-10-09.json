@@ -1,0 +1,1510 @@
+{
+  "study": "Observed resource depletion and performed gathering",
+  "recorded": "2026-10-09",
+  "status": "Measured controller correction; not historical death apportionment or demonstrated survival improvement",
+  "source": {
+    "inhabitedBackupSha256": "088fbb87b4cf297d80e56e710ad7a17d863a8fc76d829f9728c47440b7de67f3",
+    "beforeCommit": "8103c8abb8fe57ee36127c0f882748dcf3135ff4",
+    "beforeSourceSha256": "d5d0e9812638aedb8ff5d7c8905ff85990f4e7e78e03166d585ef858f3f0e4d7",
+    "afterSourceSha256": "0d84ead8c61e27bd5a4ca4ee279b1b0f965429edd1abf02d1cc15c4e029b8cdc",
+    "worldVersion": 15,
+    "lawsVersion": "biosphere-1.9",
+    "storageVersion": 2
+  },
+  "window": {
+    "startTick": 228436,
+    "endTick": 228532,
+    "hours": 24,
+    "initialPeople": 1439,
+    "initialAdults": 1200,
+    "initialChildrenUnderOne": 239,
+    "finalPeople": 1441,
+    "birthsInEachArm": 2,
+    "newDeathsInEachArm": 0
+  },
+  "method": {
+    "observation": "Read-only hooks before funded stationary gathering, actual extraction, cancellation and the measured metabolic interval. Empty means <=1e-9 kg; after-start requires a matching pending experience and a strictly later dated personal observation. Full final world digest must match an uninstrumented reference. Actual stock is read by diagnostics only, never substituted into a decision.",
+    "sourceHash": "Sorted Git-visible src path + NUL + bytes + NUL.",
+    "diagnosticFilesSha256": {
+      "forage-depletion-observer.mjs": "93652bfa57549fc4bf1d3b3cf80edc5182c4ef89ae837e78bb776bb9d4e51005",
+      "forage-depletion-strict-runner.ts": "8cb6d42ad366355a87d4b9b6f1d796cd40cd9ce7add83b33ce2908d305b9cfe3",
+      "build-forage-depletion-strict.mjs": "cf97c6271ee7172e093b56858f5ac9c646f87ccd3521a55ba97e7537e97c7a10"
+    },
+    "baselineReuse": "Before uses the previously completed uninstrumented care-planning day; after has a new uninstrumented reference under the strictly later observation rule.",
+    "privacy": "Full inhabited save, actor traces and generated diagnostic bundles remain private; aggregate measurements and exact fingerprints are retained here."
+  },
+  "runs": {
+    "before": {
+      "manifest": {
+        "sourceCommit": "aaa8aeacbb79915d79fcafc38e48b4cb0afa8061",
+        "sourceSha256": "d5d0e9812638aedb8ff5d7c8905ff85990f4e7e78e03166d585ef858f3f0e4d7",
+        "sourceHashMethod": "Sorted Git-visible src path + NUL + bytes + NUL.",
+        "patches": [
+          {
+            "label": "tick boundary",
+            "old": "      world.changedTiles = [...new Set(world.changedTiles)];",
+            "replacement": "      world.changedTiles = [...new Set(world.changedTiles)];\nglobalThis.__praxansWorkTime?.endTick(world);"
+          },
+          {
+            "label": "actual wrap wear",
+            "old": "  person.wrapMass -= worn;",
+            "replacement": "  person.wrapMass -= worn;\nglobalThis.__praxansWorkTime?.bodyWear(world,person,worn);"
+          },
+          {
+            "label": "invalid task target",
+            "old": "  if (!target || target.terrain === \"water\") return false;",
+            "replacement": "  if (!target || target.terrain === \"water\") { globalThis.__praxansWorkTime?.route(world, person, kind, target, null, extra); return false; }"
+          },
+          {
+            "label": "route result",
+            "old": "  if (!path) return false;",
+            "replacement": "  globalThis.__praxansWorkTime?.route(world, person, kind, target, path, extra);\n  if (!path) return false;"
+          },
+          {
+            "label": "gather request enter",
+            "old": "): boolean {",
+            "replacement": "): boolean {\nglobalThis.__praxansWorkTime?.gatherStart(world,person,civ,material);\ntry {"
+          },
+          {
+            "label": "gather request finally",
+            "old": "function closing brace",
+            "replacement": "globalThis.__praxansWorkTime?.gatherEnd(world,person,civ,material);"
+          },
+          {
+            "label": "remembered candidates",
+            "old": "  for (const tile of candidates.slice(0, 10))",
+            "replacement": "  globalThis.__praxansWorkTime?.candidates(world,person,civ,material,candidates);\n  for (const tile of candidates.slice(0, 10))"
+          },
+          {
+            "label": "decision enter",
+            "old": "): void {",
+            "replacement": "): void {\nglobalThis.__praxansWorkTime?.decisionStart(world,person,civ,population);\ntry {"
+          },
+          {
+            "label": "decision finally",
+            "old": "function closing brace",
+            "replacement": "globalThis.__praxansWorkTime?.decisionEnd(world,person);"
+          },
+          {
+            "label": "water urgency",
+            "old": "  if (person.hydration < hydrationTarget(person) * 0.6) {",
+            "replacement": "  if (person.hydration < hydrationTarget(person) * 0.6) {\nglobalThis.__praxansWorkTime?.decisionReason(world,person,\"water\");"
+          },
+          {
+            "label": "cargo priority",
+            "old": "  if (person.cargo) {",
+            "replacement": "  if (person.cargo) {\nglobalThis.__praxansWorkTime?.decisionReason(world,person,\"cargo\");"
+          },
+          {
+            "label": "food return",
+            "old": "    assignTask(world, person, \"move\", civ.x, civ.y);",
+            "replacement": "    globalThis.__praxansWorkTime?.decisionReason(world,person,\"return-for-food\");\n    assignTask(world, person, \"move\", civ.x, civ.y);"
+          },
+          {
+            "label": "rest decision",
+            "old": "    const shelter = world.structures.find(",
+            "replacement": "    globalThis.__praxansWorkTime?.decisionReason(world,person,\"rest\");\n    const shelter = world.structures.find("
+          },
+          {
+            "label": "child decision",
+            "old": "  if (person.age < 12) {",
+            "replacement": "  if (person.age < 12) {\nglobalThis.__praxansWorkTime?.decisionReason(world,person,\"child\");"
+          },
+          {
+            "label": "emergency gather condition",
+            "old": "    civ.stock.biomass < population * (2 + civ.policies.sharing * 2) &&\n    gatherTask(world, person, civ, \"biomass\")",
+            "replacement": "globalThis.__praxansWorkTime.gate(world,person,\"emergency-food\",civ.stock.biomass < population * (2 + civ.policies.sharing * 2)) &&\nglobalThis.__praxansWorkTime.withReason(\"emergency-food\",()=>gatherTask(world, person, civ, \"biomass\"))"
+          },
+          {
+            "label": "reserve gather condition",
+            "old": "    civ.stock.biomass < foodTarget &&\n    choose(civ.focus === \"nourish\" ? 0.85 : 0.65) &&\n    gatherTask(world, person, civ, \"biomass\")",
+            "replacement": "globalThis.__praxansWorkTime.gate(world,person,\"reserve-food\",civ.stock.biomass < foodTarget) &&\nglobalThis.__praxansWorkTime.choice(world,person,\"reserve-food\",civ.focus === \"nourish\" ? 0.85 : 0.65,choose(civ.focus === \"nourish\" ? 0.85 : 0.65)) &&\nglobalThis.__praxansWorkTime.withReason(\"reserve-food\",()=>gatherTask(world, person, civ, \"biomass\"))"
+          },
+          {
+            "label": "fallback gather condition",
+            "old": "    civ.stock.biomass < foodTarget &&\n    gatherTask(world, person, civ, \"biomass\")",
+            "replacement": "globalThis.__praxansWorkTime.gate(world,person,\"fallback-food\",civ.stock.biomass < foodTarget) &&\nglobalThis.__praxansWorkTime.withReason(\"fallback-food\",()=>gatherTask(world, person, civ, \"biomass\"))"
+          },
+          {
+            "label": "completion progress",
+            "old": "function finishTask(world: World, person: Citizen, civ: Civilization): void {",
+            "replacement": "function finishTask(world: World, person: Citizen, civ: Civilization): void {\nglobalThis.__praxansWorkTime?.complete(world,person,civ);"
+          },
+          {
+            "label": "actual harvest",
+            "old": "      if (material === \"biomass\") civ.harvests += amount;",
+            "replacement": "      if (material === \"biomass\") { civ.harvests += amount; globalThis.__praxansWorkTime?.harvest(world,person,civ,tile,amount); }"
+          },
+          {
+            "label": "activity interval enter",
+            "old": "): void {",
+            "replacement": "): void {\nglobalThis.__praxansWorkTime?.enter(world,step,population);\ntry {"
+          },
+          {
+            "label": "activity interval finally",
+            "old": "function closing brace",
+            "replacement": "globalThis.__praxansWorkTime?.leave(world,step);"
+          },
+          {
+            "label": "terminal interval",
+            "old": "  if (person.health <= 0) return;",
+            "replacement": "  if (person.health <= 0) { globalThis.__praxansWorkTime?.phase(world,person,\"dead-after-physiology\"); return; }"
+          },
+          {
+            "label": "journey interval",
+            "old": "  if (person.journeyId) return;",
+            "replacement": "  if (person.journeyId) { globalThis.__praxansWorkTime?.phase(world,person,\"journey\"); return; }"
+          },
+          {
+            "label": "interrupted progress",
+            "old": "      reinforce(person, -0.2, world.tick);",
+            "replacement": "      globalThis.__praxansWorkTime?.interrupt(world,person,{needsFood,needsRest,thirsty,pursuingWater,exhausted:typeof exhausted===\"undefined\"?false:exhausted});\n      reinforce(person, -0.2, world.tick);"
+          },
+          {
+            "label": "no task",
+            "old": "  if (!task) return;",
+            "replacement": "  if (!task) { globalThis.__praxansWorkTime?.phase(world,person,\"no-task\"); return; }"
+          },
+          {
+            "label": "new task interval",
+            "old": "  if (task !== taskAtStart) return;",
+            "replacement": "  if (task !== taskAtStart) { globalThis.__praxansWorkTime?.phase(world,person,\"new-task\"); return; }"
+          },
+          {
+            "label": "walking interval",
+            "old": "  if (task.path.length) {",
+            "replacement": "  if (task.path.length) {\nglobalThis.__praxansWorkTime?.phase(world,person,\"walk\");"
+          },
+          {
+            "label": "rest interval",
+            "old": "  if (task.kind === \"rest\") {",
+            "replacement": "  if (task.kind === \"rest\") {\nglobalThis.__praxansWorkTime?.phase(world,person,\"rest\");"
+          },
+          {
+            "label": "movement completion",
+            "old": "  if (task.kind === \"move\") {",
+            "replacement": "  if (task.kind === \"move\") {\nglobalThis.__praxansWorkTime?.phase(world,person,\"move-clear\");"
+          },
+          {
+            "label": "effective work",
+            "old": "  if (isBodyRepair(task)) {",
+            "replacement": "  globalThis.__praxansWorkTime?.work(world,person,task,work);\nglobalThis.__praxansWorkTime?.phase(world,person,\"work\");\n  if (isBodyRepair(task)) {\nglobalThis.__praxansWorkTime?.phase(world,person,\"body-work\");"
+          },
+          {
+            "label": "food delivery work",
+            "old": "  if (isFoodHandoff(task)) {",
+            "replacement": "  if (isFoodHandoff(task)) {\nglobalThis.__praxansWorkTime?.phase(world,person,\"food-work\");"
+          },
+          {
+            "label": "assembly work",
+            "old": "  if (task.kind === \"assemble\") {",
+            "replacement": "  if (task.kind === \"assemble\") {\nglobalThis.__praxansWorkTime?.phase(world,person,\"assembly\");"
+          },
+          {
+            "label": "travel accounting start",
+            "old": "  let remaining = hours;",
+            "replacement": "  let remaining = hours;\n  const __startPathLength=path.length; let __observedMetres=0;"
+          },
+          {
+            "label": "actual distance",
+            "old": "    remaining -= moved / pace;",
+            "replacement": "    __observedMetres += moved;\n    remaining -= moved / pace;"
+          },
+          {
+            "label": "travel interval end"
+          },
+          {
+            "label": "committed signed body transfer",
+            "old": "  const selfTransfers = new Map<string, number>();\n  for (const c of claims) {",
+            "replacement": "  const selfTransfers = new Map<string, number>();\n  for (const c of claims) {\nglobalThis.__praxansWorkTime?.bodyClaim(world,c,bodies.get(c.recipient.id));"
+          },
+          {
+            "label": "actual cached target basis",
+            "old": "      if (benefit > EPSILON) candidates.push({ recipient, target, benefit });",
+            "replacement": "      if (benefit > EPSILON) { globalThis.__praxansWorkTime?.opportunity(world,recipient,target,null,shelter,tile.temperature); candidates.push({ recipient, target, benefit }); }"
+          },
+          {
+            "label": "pre-source allocation",
+            "old": "  for (const c of claims)\n    c.stock *= Math.min(",
+            "replacement": "  globalThis.__praxansWorkTime?.stockStage(world,claims,stockClaims);\n  for (const c of claims)\n    c.stock *= Math.min("
+          }
+        ],
+        "law": "before",
+        "mode": "observed",
+        "modifiedSource": false
+      },
+      "observedOutputSha256": "63b47c5f2666567dca244eb9a7838736e2715cd6101f0dfb51825ae36c6725d1",
+      "observerBundleSha256": "8d3194bc5a0e715f3697b58314022a097b7c1177b6ea6a062a172c154ecd5109",
+      "initialDigest": "152410163d5dbdde2cceb5799ef68d6a5d3e1f270d951a0a5189c18e53e2c448",
+      "finalDigest": "07dc1cadaf17c792c3b71778966e144618cbbe780ff416ddb96a3411a4e9d794",
+      "uninstrumentedReference": {
+        "file": "output/research/care-trial-after-baseline.json",
+        "sha256": "44dbdf991474ed2086f0b0556d08ab2f9da09205d7f83c928547ae80069f7db6",
+        "initialDigest": "152410163d5dbdde2cceb5799ef68d6a5d3e1f270d951a0a5189c18e53e2c448",
+        "finalDigest": "07dc1cadaf17c792c3b71778966e144618cbbe780ff416ddb96a3411a4e9d794",
+        "exactFinalWorldMatch": true
+      },
+      "sourceBackupUnchanged": true,
+      "elementalErrors": {
+        "absolute": 2.0218868255615234,
+        "relative": 1.85659306298991e-10
+      },
+      "opening": {
+        "all": {
+          "population": 1439,
+          "campKg": 55113.23936206481,
+          "carriedKg": 4129.529667585631,
+          "journeyKg": 0,
+          "intakeKg": 0,
+          "bodyKg": 23914.607499999995,
+          "reserveSubsetKg": 2391.460750000006,
+          "harvestCounterKg": 253034.29567040812
+        },
+        "communities": {
+          "civ-1": {
+            "population": 355,
+            "campKg": 5678.562817186981,
+            "carriedKg": 1009.6033106740242,
+            "journeyKg": 0,
+            "intakeKg": 0,
+            "bodyKg": 5911.309999999996,
+            "reserveSubsetKg": 591.1310000000017,
+            "harvestCounterKg": 47493.208626535044
+          },
+          "civ-11": {
+            "population": 362,
+            "campKg": 3395.272266214988,
+            "carriedKg": 1046.3021446740047,
+            "journeyKg": 0,
+            "intakeKg": 0,
+            "bodyKg": 6018.812499999999,
+            "reserveSubsetKg": 601.8812500000016,
+            "harvestCounterKg": 45252.55655666311
+          },
+          "civ-21": {
+            "population": 354,
+            "campKg": 12930.723289871832,
+            "carriedKg": 1026.1287673483496,
+            "journeyKg": 0,
+            "intakeKg": 0,
+            "bodyKg": 5896.342500000001,
+            "reserveSubsetKg": 589.6342500000014,
+            "harvestCounterKg": 55143.2342054144
+          },
+          "civ-3118": {
+            "population": 368,
+            "campKg": 33108.680988791006,
+            "carriedKg": 1047.4954448892522,
+            "journeyKg": 0,
+            "intakeKg": 0,
+            "bodyKg": 6088.142499999999,
+            "reserveSubsetKg": 608.8142500000013,
+            "harvestCounterKg": 105145.29628179557
+          }
+        }
+      },
+      "closing": {
+        "all": {
+          "population": 1441,
+          "campKg": 53457.36558177397,
+          "carriedKg": 4356.242928435872,
+          "journeyKg": 0,
+          "intakeKg": 874.057035588371,
+          "bodyKg": 23918.609778503615,
+          "reserveSubsetKg": 2391.860968693879,
+          "harvestCounterKg": 253971.1602478333
+        },
+        "communities": {
+          "civ-1": {
+            "population": 356,
+            "campKg": 5338.751554877864,
+            "carriedKg": 1082.2519221328175,
+            "journeyKg": 0,
+            "intakeKg": 218.21805495092042,
+            "bodyKg": 5913.310809442729,
+            "reserveSubsetKg": 591.3310763625948,
+            "harvestCounterKg": 47760.56583805134
+          },
+          "civ-11": {
+            "population": 362,
+            "campKg": 2946.533730965858,
+            "carriedKg": 1093.9153100478304,
+            "journeyKg": 0,
+            "intakeKg": 221.2142973483287,
+            "bodyKg": 6018.812499999999,
+            "reserveSubsetKg": 601.8812500000016,
+            "harvestCounterKg": 45382.998971258196
+          },
+          "civ-21": {
+            "population": 354,
+            "campKg": 12559.15904300445,
+            "carriedKg": 1063.9138874404314,
+            "journeyKg": 0,
+            "intakeKg": 213.00378615265103,
+            "bodyKg": 5896.342500000001,
+            "reserveSubsetKg": 589.6342500000014,
+            "harvestCounterKg": 55385.19073159259
+          },
+          "civ-3118": {
+            "population": 369,
+            "campKg": 32612.9212529258,
+            "carriedKg": 1116.1618088147927,
+            "journeyKg": 0,
+            "intakeKg": 221.62089713647077,
+            "bodyKg": 6090.143969060887,
+            "reserveSubsetKg": 609.0143923312812,
+            "harvestCounterKg": 105442.40470693113
+          }
+        }
+      },
+      "depletion": {
+        "civ-1": {
+          "workedIntervals": 7509,
+          "effectiveWorkHours": 1776.128882721058,
+          "observedEmptyWorkIntervals": 42,
+          "observedEmptyWorkHours": 9.199712460463754,
+          "observedSmallWorkIntervals": 3984,
+          "observedSmallWorkHours": 938.6958759227188,
+          "physicallyEmptyWorkIntervals": 2756,
+          "physicallyEmptyWorkHours": 646.0574607671288,
+          "completed": 752,
+          "zeroCompletions": 545,
+          "harvestedKg": 267.35721151631856,
+          "zeroWithPriorEmptyObservation": 12,
+          "zeroWithEarlierEmptyWorkInterval": 6,
+          "zeroWithNoPriorEmptyObservation": 533,
+          "positiveDespiteEmptyObservation": 0,
+          "completionMemoryMissing": 0,
+          "interrupted": 129,
+          "interruptedProgressHours": 95.88645024804683,
+          "exhaustionCancellations": 0
+        },
+        "civ-11": {
+          "workedIntervals": 2844,
+          "effectiveWorkHours": 672.4765637385349,
+          "observedEmptyWorkIntervals": 79,
+          "observedEmptyWorkHours": 18.326273109525346,
+          "observedSmallWorkIntervals": 1462,
+          "observedSmallWorkHours": 345.16128268021185,
+          "physicallyEmptyWorkIntervals": 706,
+          "physicallyEmptyWorkHours": 165.9670605146775,
+          "completed": 252,
+          "zeroCompletions": 110,
+          "harvestedKg": 130.44241459511483,
+          "zeroWithPriorEmptyObservation": 8,
+          "zeroWithEarlierEmptyWorkInterval": 7,
+          "zeroWithNoPriorEmptyObservation": 102,
+          "positiveDespiteEmptyObservation": 0,
+          "completionMemoryMissing": 0,
+          "interrupted": 51,
+          "interruptedProgressHours": 36.53155889429091,
+          "exhaustionCancellations": 0
+        },
+        "civ-21": {
+          "workedIntervals": 5595,
+          "effectiveWorkHours": 1316.080764545648,
+          "observedEmptyWorkIntervals": 253,
+          "observedEmptyWorkHours": 57.58906942183803,
+          "observedSmallWorkIntervals": 2718,
+          "observedSmallWorkHours": 634.7141837216509,
+          "physicallyEmptyWorkIntervals": 1749,
+          "physicallyEmptyWorkHours": 405.9178708812475,
+          "completed": 574,
+          "zeroCompletions": 370,
+          "harvestedKg": 241.95652617817888,
+          "zeroWithPriorEmptyObservation": 59,
+          "zeroWithEarlierEmptyWorkInterval": 74,
+          "zeroWithNoPriorEmptyObservation": 311,
+          "positiveDespiteEmptyObservation": 0,
+          "completionMemoryMissing": 0,
+          "interrupted": 73,
+          "interruptedProgressHours": 53.5545005628899,
+          "exhaustionCancellations": 0
+        },
+        "civ-3118": {
+          "workedIntervals": 8168,
+          "effectiveWorkHours": 2025.4046549034692,
+          "observedEmptyWorkIntervals": 120,
+          "observedEmptyWorkHours": 28.350015398788717,
+          "observedSmallWorkIntervals": 3495,
+          "observedSmallWorkHours": 867.8637258492761,
+          "physicallyEmptyWorkIntervals": 2507,
+          "physicallyEmptyWorkHours": 611.6490838032635,
+          "completed": 807,
+          "zeroCompletions": 553,
+          "harvestedKg": 297.1084251355403,
+          "zeroWithPriorEmptyObservation": 18,
+          "zeroWithEarlierEmptyWorkInterval": 7,
+          "zeroWithNoPriorEmptyObservation": 535,
+          "positiveDespiteEmptyObservation": 0,
+          "completionMemoryMissing": 0,
+          "interrupted": 143,
+          "interruptedProgressHours": 121.32457168307583,
+          "exhaustionCancellations": 0
+        }
+      },
+      "totals": {
+        "workedIntervals": 24116,
+        "effectiveWorkHours": 5790.09086590871,
+        "observedEmptyWorkIntervals": 494,
+        "observedEmptyWorkHours": 113.46507039061585,
+        "observedSmallWorkIntervals": 11659,
+        "observedSmallWorkHours": 2786.4350681738574,
+        "physicallyEmptyWorkIntervals": 7718,
+        "physicallyEmptyWorkHours": 1829.5914759663171,
+        "completed": 2385,
+        "zeroCompletions": 1578,
+        "harvestedKg": 936.8645774251526,
+        "zeroWithPriorEmptyObservation": 97,
+        "zeroWithEarlierEmptyWorkInterval": 94,
+        "zeroWithNoPriorEmptyObservation": 1481,
+        "positiveDespiteEmptyObservation": 0,
+        "completionMemoryMissing": 0,
+        "interrupted": 396,
+        "interruptedProgressHours": 307.29708138830347,
+        "exhaustionCancellations": 0
+      },
+      "physiology": {
+        "workAge12Plus": {
+          "intervals": 115200,
+          "injuredIntervals": 0,
+          "minimumHealth": 98.77125000000109,
+          "foodOxidizedKg": 937.584511793346,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0,
+          "reserveStoredKg": 0,
+          "maintenanceKJ": 13859235,
+          "heatLossKJ": 12933277.73787038,
+          "releasedKJ": 14982600.498456988,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 3.7758240978291724e-11,
+          "unremovedHeatKJ": 1.7901334928294155e-11,
+          "healthLoss": 0
+        },
+        "under12": {
+          "intervals": 23048,
+          "injuredIntervals": 2193,
+          "minimumHealth": 93.855469928017,
+          "foodOxidizedKg": 197.38403060369657,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0.002059809748046032,
+          "reserveStoredKg": 0.00021869387312453692,
+          "maintenanceKJ": 1230587.3724999875,
+          "heatLossKJ": 3163337.9944571443,
+          "releasedKJ": 3154196.8090470466,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 7.744915819785092e-13,
+          "unmetColdKJ": 18091.155503442937,
+          "unremovedHeatKJ": 8.359979375427429e-14,
+          "healthLoss": 75.37981459767846
+        },
+        "all": {
+          "intervals": 138248,
+          "injuredIntervals": 2193,
+          "minimumHealth": 93.855469928017,
+          "foodOxidizedKg": 1134.9685423970425,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0.002059809748046032,
+          "reserveStoredKg": 0.00021869387312453692,
+          "maintenanceKJ": 15089822.372499987,
+          "heatLossKJ": 16096615.732327523,
+          "releasedKJ": 18136797.307504036,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 7.744915819785092e-13,
+          "unmetColdKJ": 18091.155503442977,
+          "unremovedHeatKJ": 1.798493472204843e-11,
+          "healthLoss": 75.37981459767846
+        }
+      },
+      "physiologyByCommunityAndAge": {
+        "civ-1/workAge12Plus": {
+          "intervals": 28800,
+          "injuredIntervals": 0,
+          "minimumHealth": 99.25570652173666,
+          "foodOxidizedKg": 232.5643706417657,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0,
+          "reserveStoredKg": 0,
+          "maintenanceKJ": 3472065,
+          "heatLossKJ": 3192161.1256327713,
+          "releasedKJ": 3716378.64285527,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 8.86757334228605e-12,
+          "unremovedHeatKJ": 4.851924417792475e-12,
+          "healthLoss": 0
+        },
+        "civ-11/workAge12Plus": {
+          "intervals": 28800,
+          "injuredIntervals": 0,
+          "minimumHealth": 98.77125000000109,
+          "foodOxidizedKg": 233.43457397373982,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0,
+          "reserveStoredKg": 0,
+          "maintenanceKJ": 3457170,
+          "heatLossKJ": 3194247.530433508,
+          "releasedKJ": 3730284.4921001643,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 9.052314453583676e-12,
+          "unremovedHeatKJ": 4.1903529257592e-12,
+          "healthLoss": 0
+        },
+        "civ-21/workAge12Plus": {
+          "intervals": 28800,
+          "injuredIntervals": 0,
+          "minimumHealth": 99.13030518394557,
+          "foodOxidizedKg": 236.34389782542172,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0,
+          "reserveStoredKg": 0,
+          "maintenanceKJ": 3446820,
+          "heatLossKJ": 3280851.0864125947,
+          "releasedKJ": 3776775.4872500575,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 9.734435479913373e-12,
+          "unremovedHeatKJ": 4.332220346348059e-12,
+          "healthLoss": 0
+        },
+        "civ-3118/workAge12Plus": {
+          "intervals": 28800,
+          "injuredIntervals": 0,
+          "minimumHealth": 99.10006270903283,
+          "foodOxidizedKg": 235.24166935241874,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0,
+          "reserveStoredKg": 0,
+          "maintenanceKJ": 3483180,
+          "heatLossKJ": 3266017.9953915053,
+          "releasedKJ": 3759161.8762514964,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 1.0103917702508625e-11,
+          "unremovedHeatKJ": 4.526837238394421e-12,
+          "healthLoss": 0
+        },
+        "civ-11/under12": {
+          "intervals": 5952,
+          "injuredIntervals": 587,
+          "minimumHealth": 95.86963327109957,
+          "foodOxidizedKg": 51.22431169158652,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0,
+          "reserveStoredKg": 3.3306690738754696e-16,
+          "maintenanceKJ": 327465.59999999637,
+          "heatLossKJ": 817125.2623833219,
+          "releasedKJ": 818564.5008315446,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 7.744915819785092e-13,
+          "unmetColdKJ": 4574.785320064102,
+          "unremovedHeatKJ": 4.529709940470639e-14,
+          "healthLoss": 19.061605500267106
+        },
+        "civ-1/under12": {
+          "intervals": 5332,
+          "injuredIntervals": 673,
+          "minimumHealth": 95.59652353891806,
+          "foodOxidizedKg": 43.319077364758236,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0.0007330801399985146,
+          "reserveStoredKg": 7.636259314733329e-05,
+          "maintenanceKJ": 272955.9600000007,
+          "heatLossKJ": 696247.4990269911,
+          "releasedKJ": 692238.8562888348,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 5887.955882247529,
+          "unremovedHeatKJ": 2.2315482794965646e-14,
+          "healthLoss": 24.533149509364577
+        },
+        "civ-3118/under12": {
+          "intervals": 6580,
+          "injuredIntervals": 305,
+          "minimumHealth": 96.71445236994467,
+          "foodOxidizedKg": 59.589936171144494,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0.0013267296080475173,
+          "reserveStoredKg": 0.00014233127997581585,
+          "maintenanceKJ": 366279.33249999344,
+          "heatLossKJ": 954044.9335219287,
+          "releasedKJ": 952247.1800148805,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 2263.0761420430485,
+          "unremovedHeatKJ": 8.43769498715119e-15,
+          "healthLoss": 9.429483925179284
+        },
+        "civ-21/under12": {
+          "intervals": 5184,
+          "injuredIntervals": 628,
+          "minimumHealth": 93.855469928017,
+          "foodOxidizedKg": 43.25070537620733,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0,
+          "reserveStoredKg": 1.0547118733938987e-15,
+          "maintenanceKJ": 263886.4799999969,
+          "heatLossKJ": 695920.2995249024,
+          "releasedKJ": 691146.2719117865,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 5365.338159088257,
+          "unremovedHeatKJ": 7.549516567451064e-15,
+          "healthLoss": 22.355575662867494
+        }
+      },
+      "gatheringProgressClosure": {
+        "civ-1": {
+          "opening": 353.456751405066,
+          "added": 1776.128882721058,
+          "completed": 1891.207835512018,
+          "discarded": 95.88645024804683,
+          "closing": 142.49134836606277,
+          "residual": -3.325340003357269e-12
+        },
+        "civ-11": {
+          "opening": 55.14283894614931,
+          "added": 672.4765637385349,
+          "completed": 635.8446261477675,
+          "discarded": 36.53155889429091,
+          "closing": 55.243217642626114,
+          "residual": -2.6290081223123707e-13
+        },
+        "civ-21": {
+          "opening": 336.79476655175023,
+          "added": 1316.080764545648,
+          "completed": 1446.154468626991,
+          "discarded": 53.5545005628899,
+          "closing": 153.16656190751314,
+          "residual": 4.064304448547773e-12
+        },
+        "civ-3118": {
+          "opening": 363.1044442087851,
+          "added": 2025.4046549034692,
+          "completed": 2032.8674805582139,
+          "discarded": 121.32457168307583,
+          "closing": 234.3170468709713,
+          "residual": -6.707523425575346e-12
+        }
+      },
+      "coveringAllocation": {
+        "civ-1": {
+          "claims": 2941,
+          "earnedCapacityKg": 268.23330083507363,
+          "gapAndAccessLimitedKg": 251.59615046250218,
+          "afterStockShareKg": 251.59615046250218,
+          "afterRecipientShareKg": 220.76099348768366,
+          "transferredKg": 220.76099348768366,
+          "stockLimitedClaims": 0,
+          "receiverLimitedClaims": 665,
+          "smallPositiveClaims": 116,
+          "smallPositiveTransferKg": 0.7102281255402118,
+          "minStock": 192.98028393977162,
+          "maxStock": 348.50431342929323
+        },
+        "civ-11": {
+          "claims": 3650,
+          "earnedCapacityKg": 337.06022097063334,
+          "gapAndAccessLimitedKg": 314.8298770955561,
+          "afterStockShareKg": 253.0409989857159,
+          "afterRecipientShareKg": 233.29559459026345,
+          "transferredKg": 233.29559459026345,
+          "stockLimitedClaims": 1128,
+          "receiverLimitedClaims": 528,
+          "smallPositiveClaims": 154,
+          "smallPositiveTransferKg": 0.8037194976312334,
+          "minStock": 0.37769668591719663,
+          "maxStock": 477.94661562129073
+        },
+        "civ-21": {
+          "claims": 3550,
+          "earnedCapacityKg": 324.93974549351697,
+          "gapAndAccessLimitedKg": 305.8685299896047,
+          "afterStockShareKg": 305.8685299896047,
+          "afterRecipientShareKg": 277.3701823466987,
+          "transferredKg": 277.3701823466987,
+          "stockLimitedClaims": 0,
+          "receiverLimitedClaims": 684,
+          "smallPositiveClaims": 109,
+          "smallPositiveTransferKg": 0.6289947965647432,
+          "minStock": 93.05148398165058,
+          "maxStock": 284.376387900355
+        },
+        "civ-3118": {
+          "claims": 2946,
+          "earnedCapacityKg": 276.90923744703093,
+          "gapAndAccessLimitedKg": 261.3193376678219,
+          "afterStockShareKg": 261.3193376678219,
+          "afterRecipientShareKg": 235.61295462079286,
+          "transferredKg": 235.61295462079286,
+          "stockLimitedClaims": 0,
+          "receiverLimitedClaims": 608,
+          "smallPositiveClaims": 52,
+          "smallPositiveTransferKg": 0.20152114176816435,
+          "minStock": 137.48946096411623,
+          "maxStock": 336.5479064429941
+        }
+      },
+      "elapsedMs": 26202.020103000003,
+      "peakProcessRssBytes": 466767872
+    },
+    "after": {
+      "manifest": {
+        "sourceCommit": "aaa8aeacbb79915d79fcafc38e48b4cb0afa8061",
+        "sourceSha256": "0d84ead8c61e27bd5a4ca4ee279b1b0f965429edd1abf02d1cc15c4e029b8cdc",
+        "sourceHashMethod": "Sorted Git-visible src path + NUL + bytes + NUL.",
+        "patches": [
+          {
+            "label": "tick boundary",
+            "old": "      world.changedTiles = [...new Set(world.changedTiles)];",
+            "replacement": "      world.changedTiles = [...new Set(world.changedTiles)];\nglobalThis.__praxansWorkTime?.endTick(world);"
+          },
+          {
+            "label": "actual wrap wear",
+            "old": "  person.wrapMass -= worn;",
+            "replacement": "  person.wrapMass -= worn;\nglobalThis.__praxansWorkTime?.bodyWear(world,person,worn);"
+          },
+          {
+            "label": "invalid task target",
+            "old": "  if (!target || target.terrain === \"water\") return false;",
+            "replacement": "  if (!target || target.terrain === \"water\") { globalThis.__praxansWorkTime?.route(world, person, kind, target, null, extra); return false; }"
+          },
+          {
+            "label": "route result",
+            "old": "  if (!path) return false;",
+            "replacement": "  globalThis.__praxansWorkTime?.route(world, person, kind, target, path, extra);\n  if (!path) return false;"
+          },
+          {
+            "label": "gather request enter",
+            "old": "): boolean {",
+            "replacement": "): boolean {\nglobalThis.__praxansWorkTime?.gatherStart(world,person,civ,material);\ntry {"
+          },
+          {
+            "label": "gather request finally",
+            "old": "function closing brace",
+            "replacement": "globalThis.__praxansWorkTime?.gatherEnd(world,person,civ,material);"
+          },
+          {
+            "label": "remembered candidates",
+            "old": "  for (const tile of candidates.slice(0, 10))",
+            "replacement": "  globalThis.__praxansWorkTime?.candidates(world,person,civ,material,candidates);\n  for (const tile of candidates.slice(0, 10))"
+          },
+          {
+            "label": "decision enter",
+            "old": "): void {",
+            "replacement": "): void {\nglobalThis.__praxansWorkTime?.decisionStart(world,person,civ,population);\ntry {"
+          },
+          {
+            "label": "decision finally",
+            "old": "function closing brace",
+            "replacement": "globalThis.__praxansWorkTime?.decisionEnd(world,person);"
+          },
+          {
+            "label": "water urgency",
+            "old": "  if (person.hydration < hydrationTarget(person) * 0.6) {",
+            "replacement": "  if (person.hydration < hydrationTarget(person) * 0.6) {\nglobalThis.__praxansWorkTime?.decisionReason(world,person,\"water\");"
+          },
+          {
+            "label": "cargo priority",
+            "old": "  if (person.cargo) {",
+            "replacement": "  if (person.cargo) {\nglobalThis.__praxansWorkTime?.decisionReason(world,person,\"cargo\");"
+          },
+          {
+            "label": "food return",
+            "old": "    assignTask(world, person, \"move\", civ.x, civ.y);",
+            "replacement": "    globalThis.__praxansWorkTime?.decisionReason(world,person,\"return-for-food\");\n    assignTask(world, person, \"move\", civ.x, civ.y);"
+          },
+          {
+            "label": "rest decision",
+            "old": "    const shelter = world.structures.find(",
+            "replacement": "    globalThis.__praxansWorkTime?.decisionReason(world,person,\"rest\");\n    const shelter = world.structures.find("
+          },
+          {
+            "label": "child decision",
+            "old": "  if (person.age < 12) {",
+            "replacement": "  if (person.age < 12) {\nglobalThis.__praxansWorkTime?.decisionReason(world,person,\"child\");"
+          },
+          {
+            "label": "emergency gather condition",
+            "old": "    civ.stock.biomass < population * (2 + civ.policies.sharing * 2) &&\n    gatherTask(world, person, civ, \"biomass\")",
+            "replacement": "globalThis.__praxansWorkTime.gate(world,person,\"emergency-food\",civ.stock.biomass < population * (2 + civ.policies.sharing * 2)) &&\nglobalThis.__praxansWorkTime.withReason(\"emergency-food\",()=>gatherTask(world, person, civ, \"biomass\"))"
+          },
+          {
+            "label": "reserve gather condition",
+            "old": "    civ.stock.biomass < foodTarget &&\n    choose(civ.focus === \"nourish\" ? 0.85 : 0.65) &&\n    gatherTask(world, person, civ, \"biomass\")",
+            "replacement": "globalThis.__praxansWorkTime.gate(world,person,\"reserve-food\",civ.stock.biomass < foodTarget) &&\nglobalThis.__praxansWorkTime.choice(world,person,\"reserve-food\",civ.focus === \"nourish\" ? 0.85 : 0.65,choose(civ.focus === \"nourish\" ? 0.85 : 0.65)) &&\nglobalThis.__praxansWorkTime.withReason(\"reserve-food\",()=>gatherTask(world, person, civ, \"biomass\"))"
+          },
+          {
+            "label": "fallback gather condition",
+            "old": "    civ.stock.biomass < foodTarget &&\n    gatherTask(world, person, civ, \"biomass\")",
+            "replacement": "globalThis.__praxansWorkTime.gate(world,person,\"fallback-food\",civ.stock.biomass < foodTarget) &&\nglobalThis.__praxansWorkTime.withReason(\"fallback-food\",()=>gatherTask(world, person, civ, \"biomass\"))"
+          },
+          {
+            "label": "completion progress",
+            "old": "function finishTask(world: World, person: Citizen, civ: Civilization): void {",
+            "replacement": "function finishTask(world: World, person: Citizen, civ: Civilization): void {\nglobalThis.__praxansWorkTime?.complete(world,person,civ);"
+          },
+          {
+            "label": "actual harvest",
+            "old": "      if (material === \"biomass\") civ.harvests += amount;",
+            "replacement": "      if (material === \"biomass\") { civ.harvests += amount; globalThis.__praxansWorkTime?.harvest(world,person,civ,tile,amount); }"
+          },
+          {
+            "label": "activity interval enter",
+            "old": "): void {",
+            "replacement": "): void {\nglobalThis.__praxansWorkTime?.enter(world,step,population);\ntry {"
+          },
+          {
+            "label": "activity interval finally",
+            "old": "function closing brace",
+            "replacement": "globalThis.__praxansWorkTime?.leave(world,step);"
+          },
+          {
+            "label": "terminal interval",
+            "old": "  if (person.health <= 0) return;",
+            "replacement": "  if (person.health <= 0) { globalThis.__praxansWorkTime?.phase(world,person,\"dead-after-physiology\"); return; }"
+          },
+          {
+            "label": "journey interval",
+            "old": "  if (person.journeyId) return;",
+            "replacement": "  if (person.journeyId) { globalThis.__praxansWorkTime?.phase(world,person,\"journey\"); return; }"
+          },
+          {
+            "label": "interrupted progress",
+            "old": "      reinforce(person, -0.2, world.tick);",
+            "replacement": "      globalThis.__praxansWorkTime?.interrupt(world,person,{needsFood,needsRest,thirsty,pursuingWater,exhausted:typeof exhausted===\"undefined\"?false:exhausted});\n      reinforce(person, -0.2, world.tick);"
+          },
+          {
+            "label": "no task",
+            "old": "  if (!task) return;",
+            "replacement": "  if (!task) { globalThis.__praxansWorkTime?.phase(world,person,\"no-task\"); return; }"
+          },
+          {
+            "label": "new task interval",
+            "old": "  if (task !== taskAtStart) return;",
+            "replacement": "  if (task !== taskAtStart) { globalThis.__praxansWorkTime?.phase(world,person,\"new-task\"); return; }"
+          },
+          {
+            "label": "walking interval",
+            "old": "  if (task.path.length) {",
+            "replacement": "  if (task.path.length) {\nglobalThis.__praxansWorkTime?.phase(world,person,\"walk\");"
+          },
+          {
+            "label": "rest interval",
+            "old": "  if (task.kind === \"rest\") {",
+            "replacement": "  if (task.kind === \"rest\") {\nglobalThis.__praxansWorkTime?.phase(world,person,\"rest\");"
+          },
+          {
+            "label": "movement completion",
+            "old": "  if (task.kind === \"move\") {",
+            "replacement": "  if (task.kind === \"move\") {\nglobalThis.__praxansWorkTime?.phase(world,person,\"move-clear\");"
+          },
+          {
+            "label": "effective work",
+            "old": "  if (isBodyRepair(task)) {",
+            "replacement": "  globalThis.__praxansWorkTime?.work(world,person,task,work);\nglobalThis.__praxansWorkTime?.phase(world,person,\"work\");\n  if (isBodyRepair(task)) {\nglobalThis.__praxansWorkTime?.phase(world,person,\"body-work\");"
+          },
+          {
+            "label": "food delivery work",
+            "old": "  if (isFoodHandoff(task)) {",
+            "replacement": "  if (isFoodHandoff(task)) {\nglobalThis.__praxansWorkTime?.phase(world,person,\"food-work\");"
+          },
+          {
+            "label": "assembly work",
+            "old": "  if (task.kind === \"assemble\") {",
+            "replacement": "  if (task.kind === \"assemble\") {\nglobalThis.__praxansWorkTime?.phase(world,person,\"assembly\");"
+          },
+          {
+            "label": "travel accounting start",
+            "old": "  let remaining = hours;",
+            "replacement": "  let remaining = hours;\n  const __startPathLength=path.length; let __observedMetres=0;"
+          },
+          {
+            "label": "actual distance",
+            "old": "    remaining -= moved / pace;",
+            "replacement": "    __observedMetres += moved;\n    remaining -= moved / pace;"
+          },
+          {
+            "label": "travel interval end"
+          },
+          {
+            "label": "committed signed body transfer",
+            "old": "  const selfTransfers = new Map<string, number>();\n  for (const c of claims) {",
+            "replacement": "  const selfTransfers = new Map<string, number>();\n  for (const c of claims) {\nglobalThis.__praxansWorkTime?.bodyClaim(world,c,bodies.get(c.recipient.id));"
+          },
+          {
+            "label": "actual cached target basis",
+            "old": "      if (benefit > EPSILON) candidates.push({ recipient, target, benefit });",
+            "replacement": "      if (benefit > EPSILON) { globalThis.__praxansWorkTime?.opportunity(world,recipient,target,null,shelter,tile.temperature); candidates.push({ recipient, target, benefit }); }"
+          },
+          {
+            "label": "pre-source allocation",
+            "old": "  for (const c of claims)\n    c.stock *= Math.min(",
+            "replacement": "  globalThis.__praxansWorkTime?.stockStage(world,claims,stockClaims);\n  for (const c of claims)\n    c.stock *= Math.min("
+          }
+        ],
+        "law": "after",
+        "mode": "observed",
+        "modifiedSource": true
+      },
+      "observedOutputSha256": "d6d2329194c0c3ccb4e71e8486b8c14a3e22970b9e7ebdfe46a803119a66ed66",
+      "observerBundleSha256": "78f647d4b06facc0da962e29944f360a49979b5ab7ce8a42b3b80dfd0c910bf5",
+      "initialDigest": "152410163d5dbdde2cceb5799ef68d6a5d3e1f270d951a0a5189c18e53e2c448",
+      "finalDigest": "268b51ed6c2819fd09d75a7399344a503731a4ac05c66a9d6968aa1e6515c1cb",
+      "uninstrumentedReference": {
+        "file": "output/research/forage-depletion-strict-after-baseline.json",
+        "sha256": "23ac794f8101c6afe7de3ca82fadbc1e317be423b87c8af3348f5d7e7c1a0d49",
+        "initialDigest": "152410163d5dbdde2cceb5799ef68d6a5d3e1f270d951a0a5189c18e53e2c448",
+        "finalDigest": "268b51ed6c2819fd09d75a7399344a503731a4ac05c66a9d6968aa1e6515c1cb",
+        "exactFinalWorldMatch": true
+      },
+      "sourceBackupUnchanged": true,
+      "elementalErrors": {
+        "absolute": 2.0219459533691406,
+        "relative": 1.8566473569672307e-10
+      },
+      "opening": {
+        "all": {
+          "population": 1439,
+          "campKg": 55113.23936206481,
+          "carriedKg": 4129.529667585631,
+          "journeyKg": 0,
+          "intakeKg": 0,
+          "bodyKg": 23914.607499999995,
+          "reserveSubsetKg": 2391.460750000006,
+          "harvestCounterKg": 253034.29567040812
+        },
+        "communities": {
+          "civ-1": {
+            "population": 355,
+            "campKg": 5678.562817186981,
+            "carriedKg": 1009.6033106740242,
+            "journeyKg": 0,
+            "intakeKg": 0,
+            "bodyKg": 5911.309999999996,
+            "reserveSubsetKg": 591.1310000000017,
+            "harvestCounterKg": 47493.208626535044
+          },
+          "civ-11": {
+            "population": 362,
+            "campKg": 3395.272266214988,
+            "carriedKg": 1046.3021446740047,
+            "journeyKg": 0,
+            "intakeKg": 0,
+            "bodyKg": 6018.812499999999,
+            "reserveSubsetKg": 601.8812500000016,
+            "harvestCounterKg": 45252.55655666311
+          },
+          "civ-21": {
+            "population": 354,
+            "campKg": 12930.723289871832,
+            "carriedKg": 1026.1287673483496,
+            "journeyKg": 0,
+            "intakeKg": 0,
+            "bodyKg": 5896.342500000001,
+            "reserveSubsetKg": 589.6342500000014,
+            "harvestCounterKg": 55143.2342054144
+          },
+          "civ-3118": {
+            "population": 368,
+            "campKg": 33108.680988791006,
+            "carriedKg": 1047.4954448892522,
+            "journeyKg": 0,
+            "intakeKg": 0,
+            "bodyKg": 6088.142499999999,
+            "reserveSubsetKg": 608.8142500000013,
+            "harvestCounterKg": 105145.29628179557
+          }
+        }
+      },
+      "closing": {
+        "all": {
+          "population": 1441,
+          "campKg": 53479.752347607704,
+          "carriedKg": 4349.606984318745,
+          "journeyKg": 0,
+          "intakeKg": 874.75957502385,
+          "bodyKg": 23918.60754589634,
+          "reserveSubsetKg": 2391.860750000006,
+          "harvestCounterKg": 253987.32992345426
+        },
+        "communities": {
+          "civ-1": {
+            "population": 356,
+            "campKg": 5350.479573049686,
+            "carriedKg": 1088.2374423284373,
+            "journeyKg": 0,
+            "intakeKg": 217.87239314093418,
+            "bodyKg": 5913.309999999996,
+            "reserveSubsetKg": 591.3310000000017,
+            "harvestCounterKg": 47778.954612304806
+          },
+          "civ-11": {
+            "population": 362,
+            "campKg": 2945.7464306845045,
+            "carriedKg": 1082.8302359574104,
+            "journeyKg": 0,
+            "intakeKg": 221.09485645852251,
+            "bodyKg": 6018.812499999999,
+            "reserveSubsetKg": 601.8812500000016,
+            "harvestCounterKg": 45370.272139585504
+          },
+          "civ-21": {
+            "population": 354,
+            "campKg": 12567.16236585707,
+            "carriedKg": 1066.995952649885,
+            "journeyKg": 0,
+            "intakeKg": 213.8241179489018,
+            "bodyKg": 5896.342500000001,
+            "reserveSubsetKg": 589.6342500000014,
+            "harvestCounterKg": 55396.43379881413
+          },
+          "civ-3118": {
+            "population": 369,
+            "campKg": 32616.36397801645,
+            "carriedKg": 1111.5433533830128,
+            "journeyKg": 0,
+            "intakeKg": 221.9682074754915,
+            "bodyKg": 6090.14254589634,
+            "reserveSubsetKg": 609.0142500000013,
+            "harvestCounterKg": 105441.66937274984
+          }
+        }
+      },
+      "depletion": {
+        "civ-1": {
+          "workedIntervals": 7886,
+          "effectiveWorkHours": 1862.4974898740927,
+          "observedEmptyWorkIntervals": 0,
+          "observedEmptyWorkHours": 0,
+          "observedSmallWorkIntervals": 4045,
+          "observedSmallWorkHours": 954.5349520412536,
+          "physicallyEmptyWorkIntervals": 2497,
+          "physicallyEmptyWorkHours": 585.7288679735017,
+          "completed": 764,
+          "zeroCompletions": 540,
+          "harvestedKg": 285.74598576973915,
+          "zeroWithPriorEmptyObservation": 0,
+          "zeroWithEarlierEmptyWorkInterval": 0,
+          "zeroWithNoPriorEmptyObservation": 540,
+          "positiveDespiteEmptyObservation": 0,
+          "completionMemoryMissing": 0,
+          "interrupted": 159,
+          "interruptedProgressHours": 117.51518599375234,
+          "exhaustionCancellations": 31
+        },
+        "civ-11": {
+          "workedIntervals": 2739,
+          "effectiveWorkHours": 643.6495604880696,
+          "observedEmptyWorkIntervals": 0,
+          "observedEmptyWorkHours": 0,
+          "observedSmallWorkIntervals": 1212,
+          "observedSmallWorkHours": 285.15636489093237,
+          "physicallyEmptyWorkIntervals": 537,
+          "physicallyEmptyWorkHours": 125.74065872404141,
+          "completed": 237,
+          "zeroCompletions": 109,
+          "harvestedKg": 117.71558292241595,
+          "zeroWithPriorEmptyObservation": 0,
+          "zeroWithEarlierEmptyWorkInterval": 0,
+          "zeroWithNoPriorEmptyObservation": 109,
+          "positiveDespiteEmptyObservation": 0,
+          "completionMemoryMissing": 0,
+          "interrupted": 68,
+          "interruptedProgressHours": 56.86232914112996,
+          "exhaustionCancellations": 19
+        },
+        "civ-21": {
+          "workedIntervals": 5451,
+          "effectiveWorkHours": 1279.1228457834184,
+          "observedEmptyWorkIntervals": 0,
+          "observedEmptyWorkHours": 0,
+          "observedSmallWorkIntervals": 2242,
+          "observedSmallWorkHours": 521.8261649275117,
+          "physicallyEmptyWorkIntervals": 1492,
+          "physicallyEmptyWorkHours": 346.1222235684359,
+          "completed": 502,
+          "zeroCompletions": 302,
+          "harvestedKg": 253.19959339974812,
+          "zeroWithPriorEmptyObservation": 0,
+          "zeroWithEarlierEmptyWorkInterval": 0,
+          "zeroWithNoPriorEmptyObservation": 302,
+          "positiveDespiteEmptyObservation": 0,
+          "completionMemoryMissing": 0,
+          "interrupted": 174,
+          "interruptedProgressHours": 209.9118163256879,
+          "exhaustionCancellations": 105
+        },
+        "civ-3118": {
+          "workedIntervals": 7766,
+          "effectiveWorkHours": 1928.2016114170406,
+          "observedEmptyWorkIntervals": 0,
+          "observedEmptyWorkHours": 0,
+          "observedSmallWorkIntervals": 3393,
+          "observedSmallWorkHours": 839.5852756918101,
+          "physicallyEmptyWorkIntervals": 2416,
+          "physicallyEmptyWorkHours": 591.8746108549789,
+          "completed": 764,
+          "zeroCompletions": 504,
+          "harvestedKg": 296.3730909542691,
+          "zeroWithPriorEmptyObservation": 0,
+          "zeroWithEarlierEmptyWorkInterval": 0,
+          "zeroWithNoPriorEmptyObservation": 504,
+          "positiveDespiteEmptyObservation": 0,
+          "completionMemoryMissing": 0,
+          "interrupted": 187,
+          "interruptedProgressHours": 139.04452923502598,
+          "exhaustionCancellations": 65
+        }
+      },
+      "totals": {
+        "workedIntervals": 23842,
+        "effectiveWorkHours": 5713.471507562621,
+        "observedEmptyWorkIntervals": 0,
+        "observedEmptyWorkHours": 0,
+        "observedSmallWorkIntervals": 10892,
+        "observedSmallWorkHours": 2601.1027575515077,
+        "physicallyEmptyWorkIntervals": 6942,
+        "physicallyEmptyWorkHours": 1649.4663611209578,
+        "completed": 2267,
+        "zeroCompletions": 1455,
+        "harvestedKg": 953.0342530461724,
+        "zeroWithPriorEmptyObservation": 0,
+        "zeroWithEarlierEmptyWorkInterval": 0,
+        "zeroWithNoPriorEmptyObservation": 1455,
+        "positiveDespiteEmptyObservation": 0,
+        "completionMemoryMissing": 0,
+        "interrupted": 588,
+        "interruptedProgressHours": 523.3338606955962,
+        "exhaustionCancellations": 220
+      },
+      "physiology": {
+        "workAge12Plus": {
+          "intervals": 115200,
+          "injuredIntervals": 0,
+          "minimumHealth": 98.77125000000109,
+          "foodOxidizedKg": 936.9510990816286,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0,
+          "reserveStoredKg": 0,
+          "maintenanceKJ": 13846950,
+          "heatLossKJ": 12957387.028958447,
+          "releasedKJ": 14972478.563323786,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 3.872457909892546e-11,
+          "unremovedHeatKJ": 1.7231422018426645e-11,
+          "healthLoss": 0
+        },
+        "under12": {
+          "intervals": 23048,
+          "injuredIntervals": 2372,
+          "minimumHealth": 94.07618229832133,
+          "foodOxidizedKg": 196.7158393602654,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 4.589634144439322e-05,
+          "reserveStoredKg": 3.164135620181696e-15,
+          "maintenanceKJ": 1230587.3724999875,
+          "heatLossKJ": 3154349.4379927265,
+          "releasedKJ": 3143519.1129770214,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 9.379164112033322e-13,
+          "unmetColdKJ": 19870.18024947298,
+          "unremovedHeatKJ": 7.038813976123492e-14,
+          "healthLoss": 82.79241770613744
+        },
+        "all": {
+          "intervals": 138248,
+          "injuredIntervals": 2372,
+          "minimumHealth": 94.07618229832133,
+          "foodOxidizedKg": 1133.666938441894,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 4.589634144439322e-05,
+          "reserveStoredKg": 3.164135620181696e-15,
+          "maintenanceKJ": 15077537.372499987,
+          "heatLossKJ": 16111736.466951175,
+          "releasedKJ": 18115997.67630081,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 9.379164112033322e-13,
+          "unmetColdKJ": 19870.18024947302,
+          "unremovedHeatKJ": 1.730181015818788e-11,
+          "healthLoss": 82.79241770613744
+        }
+      },
+      "physiologyByCommunityAndAge": {
+        "civ-1/workAge12Plus": {
+          "intervals": 28800,
+          "injuredIntervals": 0,
+          "minimumHealth": 99.25570652173666,
+          "foodOxidizedKg": 233.02490606408384,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0,
+          "reserveStoredKg": 0,
+          "maintenanceKJ": 3477555,
+          "heatLossKJ": 3201475.406290288,
+          "releasedKJ": 3723737.99890394,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 9.15179043659009e-12,
+          "unremovedHeatKJ": 4.367527173254615e-12,
+          "healthLoss": 0
+        },
+        "civ-11/workAge12Plus": {
+          "intervals": 28800,
+          "injuredIntervals": 0,
+          "minimumHealth": 98.77125000000109,
+          "foodOxidizedKg": 233.77981156049051,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0,
+          "reserveStoredKg": 0,
+          "maintenanceKJ": 3454065,
+          "heatLossKJ": 3213843.464370485,
+          "releasedKJ": 3735801.3887364585,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 1.000444171950221e-11,
+          "unremovedHeatKJ": 4.06275360576025e-12,
+          "healthLoss": 0
+        },
+        "civ-21/workAge12Plus": {
+          "intervals": 28800,
+          "injuredIntervals": 0,
+          "minimumHealth": 99.13030518394557,
+          "foodOxidizedKg": 235.17658011042766,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0,
+          "reserveStoredKg": 0,
+          "maintenanceKJ": 3439170,
+          "heatLossKJ": 3273551.0867259772,
+          "releasedKJ": 3758121.7501644786,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 9.876544027065393e-12,
+          "unremovedHeatKJ": 4.020007417226967e-12,
+          "healthLoss": 0
+        },
+        "civ-3118/workAge12Plus": {
+          "intervals": 28800,
+          "injuredIntervals": 0,
+          "minimumHealth": 99.10006270903283,
+          "foodOxidizedKg": 234.96980134662658,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0,
+          "reserveStoredKg": 0,
+          "maintenanceKJ": 3476160,
+          "heatLossKJ": 3268517.0715716975,
+          "releasedKJ": 3754817.4255189095,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 9.691802915767767e-12,
+          "unremovedHeatKJ": 4.781133822184813e-12,
+          "healthLoss": 0
+        },
+        "civ-11/under12": {
+          "intervals": 5952,
+          "injuredIntervals": 626,
+          "minimumHealth": 95.86905376508201,
+          "foodOxidizedKg": 50.05524268696876,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0,
+          "reserveStoredKg": 3.3306690738754696e-16,
+          "maintenanceKJ": 327465.59999999637,
+          "heatLossKJ": 798718.2788478323,
+          "releasedKJ": 799882.7781377538,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 9.379164112033322e-13,
+          "unmetColdKJ": 4972.889982763791,
+          "unremovedHeatKJ": 4.463096558993129e-14,
+          "healthLoss": 20.720374928182352
+        },
+        "civ-1/under12": {
+          "intervals": 5332,
+          "injuredIntervals": 746,
+          "minimumHealth": 94.84046833787254,
+          "foodOxidizedKg": 43.916521966681856,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0,
+          "reserveStoredKg": 8.881784197001252e-16,
+          "maintenanceKJ": 272955.9600000007,
+          "heatLossKJ": 706563.5912575579,
+          "releasedKJ": 701786.021027569,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 6613.253253603467,
+          "unremovedHeatKJ": 1.4210854715202004e-14,
+          "healthLoss": 27.55522189001431
+        },
+        "civ-3118/under12": {
+          "intervals": 6580,
+          "injuredIntervals": 349,
+          "minimumHealth": 95.34583374388548,
+          "foodOxidizedKg": 59.99647433543437,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 4.589634144439322e-05,
+          "reserveStoredKg": 8.881784197001252e-16,
+          "maintenanceKJ": 366279.33249999344,
+          "heatLossKJ": 961193.4066003632,
+          "releasedKJ": 958743.6598802324,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 2915.0909928041474,
+          "unremovedHeatKJ": 6.217248937900877e-15,
+          "healthLoss": 12.146212470017332
+        },
+        "civ-21/under12": {
+          "intervals": 5184,
+          "injuredIntervals": 651,
+          "minimumHealth": 94.07618229832133,
+          "foodOxidizedKg": 42.747600371180404,
+          "reserveOxidizedKg": 0,
+          "structureStoredKg": 0,
+          "reserveStoredKg": 1.0547118733938987e-15,
+          "maintenanceKJ": 263886.4799999969,
+          "heatLossKJ": 687874.1612869732,
+          "releasedKJ": 683106.6539314662,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 5368.946020301576,
+          "unremovedHeatKJ": 5.329070518200751e-15,
+          "healthLoss": 22.37060841792345
+        }
+      },
+      "gatheringProgressClosure": {
+        "civ-1": {
+          "opening": 353.456751405066,
+          "added": 1862.4974898740927,
+          "completed": 1922.0569796390273,
+          "discarded": 117.51518599375237,
+          "closing": 176.38207564638003,
+          "residual": -8.526512829121202e-13
+        },
+        "civ-11": {
+          "opening": 55.14283894614931,
+          "added": 643.6495604880696,
+          "completed": 595.7507623721585,
+          "discarded": 56.86232914112994,
+          "closing": 46.17930792092997,
+          "residual": 4.050093593832571e-13
+        },
+        "civ-21": {
+          "opening": 336.79476655175023,
+          "added": 1279.1228457834184,
+          "completed": 1264.858535289703,
+          "discarded": 209.91181632568782,
+          "closing": 141.14726071977654,
+          "residual": 1.1652900866465643e-12
+        },
+        "civ-3118": {
+          "opening": 363.1044442087851,
+          "added": 1928.2016114170406,
+          "completed": 1926.4865324756342,
+          "discarded": 139.04452923502595,
+          "closing": 225.77499391517128,
+          "residual": -5.8832938520936295e-12
+        }
+      },
+      "coveringAllocation": {
+        "civ-1": {
+          "claims": 2863,
+          "earnedCapacityKg": 261.27864412976805,
+          "gapAndAccessLimitedKg": 243.947843902435,
+          "afterStockShareKg": 243.947843902435,
+          "afterRecipientShareKg": 215.83184027418167,
+          "transferredKg": 215.83184027418167,
+          "stockLimitedClaims": 0,
+          "receiverLimitedClaims": 648,
+          "smallPositiveClaims": 59,
+          "smallPositiveTransferKg": 0.3194365146006035,
+          "minStock": 192.98028393977162,
+          "maxStock": 350.8702401106108
+        },
+        "civ-11": {
+          "claims": 3703,
+          "earnedCapacityKg": 342.0656077567157,
+          "gapAndAccessLimitedKg": 317.4275518762995,
+          "afterStockShareKg": 258.32013813215184,
+          "afterRecipientShareKg": 241.66736356026308,
+          "transferredKg": 241.66736356026308,
+          "stockLimitedClaims": 1050,
+          "receiverLimitedClaims": 542,
+          "smallPositiveClaims": 181,
+          "smallPositiveTransferKg": 0.805701678564275,
+          "minStock": 0.26380330598930785,
+          "maxStock": 484.90546729955804
+        },
+        "civ-21": {
+          "claims": 3454,
+          "earnedCapacityKg": 316.20098602297537,
+          "gapAndAccessLimitedKg": 297.7072778639821,
+          "afterStockShareKg": 297.7072778639821,
+          "afterRecipientShareKg": 264.19532995998367,
+          "transferredKg": 264.19532995998367,
+          "stockLimitedClaims": 0,
+          "receiverLimitedClaims": 746,
+          "smallPositiveClaims": 135,
+          "smallPositiveTransferKg": 0.7488381415987684,
+          "minStock": 93.05148398165058,
+          "maxStock": 278.5972423542347
+        },
+        "civ-3118": {
+          "claims": 2969,
+          "earnedCapacityKg": 280.04161979208317,
+          "gapAndAccessLimitedKg": 262.3374941589188,
+          "afterStockShareKg": 262.3374941589188,
+          "afterRecipientShareKg": 238.45332269237818,
+          "transferredKg": 238.45332269237818,
+          "stockLimitedClaims": 0,
+          "receiverLimitedClaims": 600,
+          "smallPositiveClaims": 77,
+          "smallPositiveTransferKg": 0.3663622291139972,
+          "minStock": 136.7876568672888,
+          "maxStock": 342.11869357502945
+        }
+      },
+      "elapsedMs": 41461.291283000006,
+      "peakProcessRssBytes": 468971520
+    }
+  },
+  "changes": {
+    "harvestKg": [
+      936.8645774251526,
+      953.0342530461724
+    ],
+    "harvestIncreasePercent": 1.7259352109842752,
+    "observedEmptyEffectiveWorkHours": [
+      113.46507039061585,
+      0
+    ],
+    "allZeroCompletions": [
+      1578,
+      1455
+    ],
+    "childColdShortfallKJ": [
+      18091.155503442937,
+      19870.18024947298
+    ],
+    "childMetabolicHealthPointLoss": [
+      75.37981459767846,
+      82.79241770613744
+    ]
+  },
+  "controlledCases": [
+    "Fresh local empty observation interrupts a paid plan without refund, product or same-interval replacement work; stale rich memory continues.",
+    "A 0.5 kg observed positive source remains physically harvestable.",
+    "A freshly observed exhausted stone source ends extraction conservatively.",
+    "An older or same-interval empty memory does not veto a deliberately new attempt.",
+    "Hidden distant depletion cannot change route, position or RNG.",
+    "Saved task, personal observation and pending experience load unchanged before ordinary reconsideration."
+  ],
+  "limits": [
+    "One 24-hour current-law counterfactual from inherited oversized infants and initially empty migrated intake. No independent historical death share, steady-state food requirement or seasonal viability conclusion.",
+    "More aggregate harvest does not imply equal benefit: Amber Hollow harvest falls and aggregate child cold injury rises. Recovery and other health changes are separate from summed metabolic loss.",
+    "Most zero-yield completions lack a strictly later empty observation; competition, observation frequency, site learning and batch timing remain unresolved.",
+    "Gathered products are still paid only at completion. Cancelled progress has no material product and is not refunded; part predates the opening checkpoint.",
+    "Controller convention, bounded memory and no learned site-specific yield. No general gathering-network activation integration or unlimited information.",
+    "Relative elemental residual is bounded; no closed total-energy ledger or physical calibration is claimed.",
+    "Concurrent local tasks differ; elapsed time and process RSS are not a controlled speed comparison or live combined-memory guarantee."
+  ]
+}

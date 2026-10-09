@@ -126,7 +126,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `cognition.ts`, `citizens.ts`, `economy.ts`, `validation.ts`
 - **dependencies**: world_state, natural_systems
 - **dependents**: civilization_intelligence, civic_relations, browser_observer
-- **known_issues**: Bounded functional cognition, not cellular neuroscience; no full language, durable written records or general material chemistry.
+- **known_issues**: Bounded functional cognition, not cellular neuroscience; no full language, durable written records or general material chemistry. Strictly later personal empty observations can interrupt resource work, but gathering choices still do not consult the adaptive gather activation or learn site-specific yield. Harvest remains batched at completion, with coarse memory, observation during travel and sequential competition; see docs/research/observed-foraging-2026-10-09.md and the unimplemented harvesting-work design.
 - **last_touched**: 2026-10-09
 
 ### civic_relations

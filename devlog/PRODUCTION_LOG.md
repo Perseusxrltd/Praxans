@@ -7,6 +7,15 @@
 
 ## Log
 
+### [2026-10-09] Measured Observed Depletion and Ongoing Resource Work
+
+- **type**: bugfix
+- **systems**: human_cognition, civilization_intelligence, browser_validation
+- **files**: `citizens.ts`, `model.ts`, `foraging.test.ts`, `observed-foraging-2026-10-09.md`, `harvesting-work-design-2026-10-09.md`
+- **agent**: Codex
+
+A resource task ignored strictly later personal evidence that its source was empty. Six causal cases and all 245 model/server tests validate paid reconsideration without privileged stock access or a material grant. The exactly observed matched day eliminates known-empty work and raises aggregate harvest 1.73%, while Amber Hollow harvest falls and aggregate child cold injury increases; no survival improvement is claimed. Publication status and continuity evidence belong in the [release record](../docs/releases/observed-foraging-0.2.md). Progressive harvesting and source allocation remain an explicit unimplemented design. → ADR-047.
+
 ### [2026-10-09] Traced Care Work, Material Competition and Food Acquisition
 
 - **type**: bugfix

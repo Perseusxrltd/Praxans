@@ -64,6 +64,8 @@ export const NATURAL_MODEL = Object.freeze({
       "Performed work places real fiber on bodies. Thickness and conductivity reduce heat demand; cold can use finite intake and body reserves within their power limits. Shared ice is reserved once before food allocation and melts only with released heat. Sweating spends hydration. The injury dose is an uncalibrated energy-deficit model without core temperature, organs or tissue-specific metabolism.",
     protectionPlanning:
       "Autonomous covering choices and feedback tolerate the range between existing resting and active heat demands. Starting or finishing work alone does not reverse that goal. People reconsider their own ongoing tasks from current local covering, weather and shelter; another person's private target is not consulted. This is a planning convention, not a calibrated comfort zone: actual cold fuel, sweating water, injury, finite fiber and paid labor remain. Explicit opposing physical transfers are still possible.",
+    resourcePlanning:
+      "A personal observation of an exhausted resource from a strictly later tick can end a gathering or extraction plan. Current hidden destination stocks and other people's private intentions are not consulted. Earlier or same-tick empty memories do not forbid a new attempt, and positive small stocks remain physically collectable. Reconsideration does not refund funded effort or perform the replacement task in the same interval. Harvesting still transfers material in completion batches; partial gathering progress, competition and site-specific learning remain coarse.",
   },
   thermodynamics: THERMODYNAMICS,
   agency: ADVICE_RULES,

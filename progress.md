@@ -14,7 +14,13 @@ Original prompt: let's rebuild the whole game, from the ground up, as an interne
 - Study ancient and premodern primary sources first, distinguish observation from interpretation and normative claims, and test proposed physical rules against evidence. Keep a durable research queue under `docs/research/`.
 - Publish validated increments regularly during active work. At each meaningful release, review the whole repository for consistent units, clocks, conservation, module boundaries, duplicate rules and agreement between implementation and documentation.
 
-## Current release — steadier care planning and measured work
+## Current work — observed depletion and resource-task reconsideration
+
+Candidate `observed-foraging-20261009-1` is validated locally; publication remains pending. It lets a strictly later personal observation interrupt an exhausted resource task, with paid costs, physical extraction, saved tasks and hidden-information boundaries preserved. Format 15 / biosphere-1.9 / storage 2 stay unchanged. All 245 model/server cases, 25 hotfix and 12 production checks, build/format and the supplied-client browser loop pass. The tick-535140 pre-update backup independently verifies all 38 regions, eight full archives and earlier durable records. The 974-file review records no missing import, asset or Markdown target and retains its stated semantic limits. See [investigation](docs/research/observed-foraging-2026-10-09.md) and [release](docs/releases/observed-foraging-0.2.md).
+
+The exact matched day removes 113.465 effective hours of gathering after known depletion and changes harvest from 936.865 to 953.034 kg. Amber Hollow harvest falls and aggregate child cold injury rises; no new deaths occur in either 24-hour arm. The four live communities remain historically extinct. The proposed [performed-harvest/source-allocation boundary](docs/research/harvesting-work-design-2026-10-09.md) is not implemented. Site learning, travel perception, food access, development and seasonal capacity remain open alongside H06 politics and W13/W18 hosting capacity. Preserve the continuing world and unmerged draft PR #1; the broad goal is active.
+
+## Latest published release — steadier care planning and measured work
 
 **Live:** `body-care-planning-20261009-1` activated **2026-10-09 08:29:33 UTC**, tick **516612**, from source **`8103c8abb8fe57ee36127c0f882748dcf3135ff4`**. Runtime SHA-256 `30e8831f4b941e9e92ac2991288eddb400b140ab7ddcd88575ee942c5479a0f8`; format 15 / biosphere-1.9 / storage 2 remain compatible. The same gateway, Railway service and volume retain one writer. Vercel **`dpl_FSqhJtbwX6uxwPbE8A659rCMBEHZ`** is READY at **https://praxans.vercel.app**; the initial provider authorization error and successful retry using existing access remain recorded. See [release](docs/releases/body-care-planning-0.2.md).
 

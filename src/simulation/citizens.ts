@@ -91,6 +91,32 @@ import {
 } from "./subsistence";
 import { campRestPlace, canReachCampStocks } from "./settlement";
 
+function observedResourceExhaustion(
+  world: World,
+  person: Citizen,
+  task: Task,
+): boolean {
+  const experience = person.mind.pending;
+  if (
+    (task.kind !== "gather" && task.kind !== "extract") ||
+    !task.material ||
+    experience?.activity !== task.kind
+  )
+    return false;
+  const target = world.tiles[task.tile],
+    resource = task.material === "biomass" ? "food" : task.material;
+  // A later observation can contradict this plan. An old memory does not veto
+  // a new attempt, and the destination's current hidden stock is not consulted.
+  return person.mind.places.some(
+    (place) =>
+      place.x === target.x &&
+      place.y === target.y &&
+      place.tick > experience.tick &&
+      place.tick <= world.tick &&
+      place[resource] <= 1e-9,
+  );
+}
+
 function assignTask(
   world: World,
   person: Citizen,
@@ -806,12 +832,13 @@ function updateCitizenActivity(
     const pursuingWater =
       task.need === "water" &&
       (!task.path.length || world.tiles[task.path[0]]?.terrain !== "water");
+    const exhausted = observedResourceExhaustion(world, person, task);
     // Water is decide()'s first urgency. Reassigning its valid route every tick
     // would cancel every paid interval before movement; lower-priority needs
     // must not cancel it only to choose the same route again.
-    if (thirsty ? !pursuingWater : needsFood || needsRest) {
-      // Bodily needs can interrupt ongoing work, including a multi-day assembly.
-      // Existing fabric/progress and carried matter remain in the world.
+    if (thirsty ? !pursuingWater : needsFood || needsRest || exhausted) {
+      // Needs or new observations can interrupt a plan. Spent task effort is
+      // not refunded; existing fabric/progress and carried matter remain.
       reinforce(person, -0.2, world.tick);
       person.task = null;
       person.mind.sleeping = false;

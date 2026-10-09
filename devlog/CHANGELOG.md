@@ -24,6 +24,7 @@
 - Antiquity-first source register, scale audits, failed-candidate evidence, measured CPU baseline and explicit large-world acceptance targets.
 
 ### Fixed
+- Connected strictly later personal observations of exhausted resources to ordinary task reconsideration. Six causal controls preserve paid costs, old/same-tick attempts, small positive yields, hidden-information boundaries and exact saved tasks; the matched day records modestly higher aggregate harvest alongside lower Amber Hollow harvest and higher aggregate child cold injury (→ human_cognition; → ADR-047).
 - Corrected task-dependent covering conflict through a voluntary thermal planning range and local ongoing-goal reconsideration. Paid physical transfers and physiological costs remain; matched work/food and child-health evidence preserves the remaining limitations (→ human_physiology; → ADR-046).
 - Added age-resolved structural capacity and finite recovery while preventing extra cold/work/melting fuel from enlarging tissue-processing permission. Migration 015 preserves bodies/history; eight new causal/preservation cases and the bounded food-flow measurement expose the remaining calibration and seasonal limits (→ human_physiology; → ADR-045).
 - Published recovery after terminal EventSource HTTP errors, preserving camera/selection and cancelling navigation-obsolete attempts. Six controlled 503/browser cases pass; the earlier actual container reconnect failure remains recorded (→ browser_observer; → ADR-043).
