@@ -7,6 +7,15 @@
 
 ## Log
 
+### [2026-10-09] Traced Care Work, Material Competition and Food Acquisition
+
+- **type**: bugfix
+- **systems**: human_physiology, civilization_intelligence, browser_validation
+- **files**: `bodywork.ts`, `citizens.ts`, `model.ts`, `bodywork.test.ts`, `care-work-budget-2026-10-09.md`
+- **agent**: Codex
+
+Paid controls reproduce task-induced opposing covering transfers. The prepared controller tolerates ordinary resting/active heat variation and reconsiders local goals while retaining actual physical costs. Exact matched-day evidence records lower care effort, higher harvest, scarce fiber committed to construction, continuing food deficits and uneven child outcomes; 239 model/server tests, compiled/hotfix/production checks and current-world quota continuity pass. Publication and its retained failures are tracked in the [release record](../docs/releases/body-care-planning-0.2.md), separately from the historical collapse. → ADR-046.
+
 ### [2026-10-09] Measured Food Flows and Bounded Development
 
 - **type**: bugfix

@@ -70,6 +70,7 @@ import {
   bodyWorkOpportunities,
   finishBodyWork,
   isBodyRepair,
+  reconsiderBodyWork,
   workOnBody,
   type BodyWork,
 } from "./bodywork";
@@ -868,7 +869,8 @@ function updateCitizenActivity(
   if (isBodyRepair(task)) {
     // Selection alone performs no work. The next tick accounts this task as
     // active before any protection is earned; rest/gather cannot run beside it.
-    workOnBody(world, person, dt * funded, work, bodyWork);
+    if (reconsiderBodyWork(world, person, bodyWork))
+      workOnBody(world, person, dt * funded, work, bodyWork);
     return;
   }
   if (isFoodHandoff(task)) {

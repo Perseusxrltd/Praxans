@@ -6,6 +6,8 @@ Recorded 2026-10-08. **Confirmed system defects contributed to the collapse; thi
 
 The later [bounded infant-food/growth diagnostic](infant-food-access-2026-10-09.md) measured the preceding model: an infant could not receive food held by an adult beside it, while equal food held by the infant could enter intake; four hours of reserve substitution caused no injury. A separate funded interval exposed an uncalibrated link between extra cold oxidation and structural retention, unchanged by the handoff update. These tests identify missing or questionable mechanisms without assigning additional historical deaths or proving infant viability.
 
+The [developmental correction](../releases/development-0.2.md) is subsequently live: future structural growth now depends on age, finite recovery and actual substrate; all inherited bodies remain. The [care/work follow-up](care-work-budget-2026-10-09.md) then reproduces an avoidable conflict in the later care controller and traces labor, stock competition and actual metabolism over a matched day. That care mechanism did not exist during the historical collapse. Its corrected continuation harvests more food but still consumes more than it harvests and retains child cold deficits; it does not revise the historical death attribution below.
+
 ![Population, communal food and deaths after the finite renewal](../images/community-collapse-2026-10-08.png)
 
 The figure uses [daily history and death counts](collapse-timeline.json), not conditions observed after extinction.

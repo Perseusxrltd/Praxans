@@ -14,6 +14,8 @@ The live [ration-boundary correction](releases/ration-boundary-0.2.md) addresses
 
 **Partial/live — H01:** [age-bounded structural growth](releases/development-0.2.md) removes extra heat/work as a growth allowance and bounds future deposition by developmental time and actual substrate. The [measured food day](research/food-flux-day-2026-10-09.md) separates food movement from loss and shared habitat from independent yield. Fewer completed harvests in one camp motivate the next activity/time, interruption, remembered-patch and travel measurements; their causal shares are not established. No new renewal or seasonal viability is claimed.
 
+**Validated candidate — H01:** [steadier care planning](releases/body-care-planning-0.2.md) corrects reproduced task-dependent covering conflict. The [work/physiology account](research/care-work-budget-2026-10-09.md) measures finite source contention, competing construction and food acquisition. In one matched day it reduces care effort and increases harvest, while child cold stress, uneven individual outcomes and a food deficit remain. Its release record distinguishes prepared code from live publication; search/handling/allocative learning and seasonal capacity remain next work.
+
 ## World, participation, and continuity
 
 | ID | Requirement | Status and evidence | Remaining work / acceptance condition |

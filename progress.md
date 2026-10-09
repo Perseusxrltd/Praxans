@@ -14,6 +14,12 @@ Original prompt: let's rebuild the whole game, from the ground up, as an interne
 - Study ancient and premodern primary sources first, distinguish observation from interpretation and normative claims, and test proposed physical rules against evidence. Keep a durable research queue under `docs/research/`.
 - Publish validated increments regularly during active work. At each meaningful release, review the whole repository for consistent units, clocks, conservation, module boundaries, duplicate rules and agreement between implementation and documentation.
 
+## Candidate — steadier care planning and measured work
+
+`body-care-planning-20261009-1` is prepared and staged, with publication pending. Runtime SHA-256 `30e8831f4b941e9e92ac2991288eddb400b140ab7ddcd88575ee942c5479a0f8`; format 15 / biosphere-1.9 / storage 2 remain compatible. All 239 model/server cases, compiled build, 25 runtime hotfix checks, 12 isolated production checks and the current-world quota/save/restart control pass. The new pre-update backup at tick 505700 independently verifies all 38 regions, eight full archives and prior durable rows. See [release](docs/releases/body-care-planning-0.2.md).
+
+The [care/work study](docs/research/care-work-budget-2026-10-09.md) proves a later-controller conflict, not a historical cause: people add and remove covering simultaneously because care changes the instantaneous thermal goal. A task-independent voluntary tolerance and local reconsideration reduce paid body-work hours from 9,618.75 to 3,573.75 and raise harvest from 725.126 to 936.865 kg in a matched day. Food oxidation remains 1,134.969 kg; child cold stress persists and the lowest child health is slightly lower. A 474.348 kg fiber work surface competes with clothing in both arms. Depleted-patch repetition, knowledge, source contention, construction priorities and sustainable habitat capacity remain open. No renewal, reset or PR merge accompanies this work.
+
 ## Current release — developmental correction and measured food account
 
 **Live:** runtime `developmental-growth-20261009-1`, SHA-256 `3c2471d2e69d2347846a5d48c007790f6042ea86808ce91a27dd68efd83c36b4`, activated **2026-10-09 05:47:22 UTC**, tick **450980**. Source **`eae67e54b6c7ad1832b5bb24cb39104eae2eebab`** is pushed. Format **15 / biosphere-1.9**, storage **2**, unchanged gateway and Railway service/volume. Vercel **`dpl_3hp3WqX51nwT1RCT1HWmvySAuXQj`** is READY at **https://praxans.vercel.app**. See [release](docs/releases/development-0.2.md) and [validation](docs/validation/development-2026-10-09.json).

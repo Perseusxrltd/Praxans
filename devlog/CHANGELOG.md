@@ -24,6 +24,7 @@
 - Antiquity-first source register, scale audits, failed-candidate evidence, measured CPU baseline and explicit large-world acceptance targets.
 
 ### Fixed
+- Corrected task-dependent covering conflict through a voluntary thermal planning range and local ongoing-goal reconsideration. Paid physical transfers and physiological costs remain; matched work/food and child-health evidence preserves the remaining limitations (→ human_physiology; → ADR-046).
 - Added age-resolved structural capacity and finite recovery while preventing extra cold/work/melting fuel from enlarging tissue-processing permission. Migration 015 preserves bodies/history; eight new causal/preservation cases and the bounded food-flow measurement expose the remaining calibration and seasonal limits (→ human_physiology; → ADR-045).
 - Published recovery after terminal EventSource HTTP errors, preserving camera/selection and cancelling navigation-obsolete attempts. Six controlled 503/browser cases pass; the earlier actual container reconnect failure remains recorded (→ browser_observer; → ADR-043).
 - Published gateway support for storage-aware automatic fallback and prompt, truthful unavailable readiness during handover/recovery. An isolated build preserves the active runtime bytes; [publication status](../docs/releases/gateway-readiness-0.2.md) is explicit (→ runtime_handover; → ADR-041).

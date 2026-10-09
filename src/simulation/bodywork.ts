@@ -131,6 +131,45 @@ function canReceiveFiber(
   );
 }
 
+/**
+ * Voluntary planning tolerates the existing resting-to-active thermal range.
+ * This is not a physiological comfort guarantee: fuel and cooling water still
+ * pay for the actual state. A task transition alone must not reverse the goal.
+ */
+function bodyWorkTarget(
+  person: Citizen,
+  temperature: number,
+  shelter: number,
+): number {
+  const resting = preferredWrapMass(person, temperature, false, shelter);
+  const active = preferredWrapMass(person, temperature, true, shelter);
+  return Math.max(
+    Math.min(resting, active),
+    Math.min(Math.max(resting, active), person.wrapMass),
+  );
+}
+
+function bodyWorkBurden(
+  person: Citizen,
+  temperature: number,
+  shelter: number,
+  wrapMass = person.wrapMass,
+): number {
+  const resting = bodyHeatBalance(
+    person,
+    temperature,
+    false,
+    shelter,
+    wrapMass,
+  );
+  const active = bodyHeatBalance(person, temperature, true, shelter, wrapMass);
+  return Math.max(
+    0,
+    resting.metabolicDemandW - resting.lossW,
+    resting.lossW - active.metabolicDemandW,
+  );
+}
+
 /** Only current, visible bodies in the occupied cell enter this local opportunity list. */
 export function bodyWorkOpportunities(
   world: World,
@@ -150,36 +189,21 @@ export function bodyWorkOpportunities(
     // Re-evaluating every body for every helper amplifies work in crowded camps.
     for (const recipient of work.local.get(index) ?? []) {
       if (!stationary(world, recipient, work)) continue;
-      const active =
-        !!recipient.task && !["rest", "social"].includes(recipient.task.kind);
       const shelter = bodyShelter(world, recipient).resistance;
-      const target = preferredWrapMass(
-        recipient,
-        tile.temperature,
-        active,
-        shelter,
-      );
+      const target = bodyWorkTarget(recipient, tile.temperature, shelter);
       const difference = target - recipient.wrapMass;
       // Do not spend every decision adjusting microscopic wear: plan at least one
       // ordinary quarter-hour's reference movement. This is controller granularity.
       if (Math.abs(difference) < PHYSIOLOGY.wrappingKgPerHour * HOURS_PER_TICK)
         continue;
-      const before = bodyHeatBalance(
+      const before = bodyWorkBurden(recipient, tile.temperature, shelter);
+      const after = bodyWorkBurden(
         recipient,
         tile.temperature,
-        active,
-        shelter,
-      );
-      const after = bodyHeatBalance(
-        recipient,
-        tile.temperature,
-        active,
         shelter,
         target,
       );
-      const benefit =
-        Math.abs(before.lossW - before.metabolicDemandW) -
-        Math.abs(after.lossW - after.metabolicDemandW);
+      const benefit = before - after;
       if (benefit > EPSILON) candidates.push({ recipient, target, benefit });
     }
     candidates.sort(
@@ -211,6 +235,42 @@ export function bodyWorkOpportunities(
 function abandon(world: World, person: Citizen, reward = -0.2): void {
   reinforce(person, reward, world.tick);
   person.task = null;
+}
+
+/**
+ * An autonomous actor can reconsider its own goal from local conditions. Keep
+ * this choice separate from workOnBody: deliberate opposing actions remain
+ * physically possible, and another person's private target is never consulted.
+ */
+export function reconsiderBodyWork(
+  world: World,
+  actor: Citizen,
+  work: BodyWork,
+): boolean {
+  const task = actor.task;
+  if (!isBodyRepair(task)) return false;
+  const recipient = work.people.get(task.recipientId);
+  if (!recipient || !personalContact(world, actor, recipient, work)) {
+    abandon(world, actor);
+    return false;
+  }
+  const target = bodyWorkTarget(
+    recipient,
+    getTile(world, recipient.x, recipient.y)!.temperature,
+    bodyShelter(world, recipient).resistance,
+  );
+  const difference = target - recipient.wrapMass;
+  if (
+    Math.abs(difference) <= EPSILON ||
+    difference * (task.targetWrapMass - recipient.wrapMass) <= 0
+  ) {
+    abandon(world, actor, 0);
+    return false;
+  }
+  // Reaching the nearest acceptable boundary suffices. Do not chase a target
+  // chosen under earlier weather, shelter or covering, even for an inherited task.
+  task.targetWrapMass = target;
+  return true;
 }
 
 /** Called only for an existing active task, after its ordinary fatigue/needs costs. */
@@ -328,7 +388,6 @@ export function finishBodyWork(world: World, work: BodyWork): void {
       added: number;
       removed: number;
       temperature: number;
-      active: boolean;
       shelter: number;
     }
   >();
@@ -340,9 +399,6 @@ export function finishBodyWork(world: World, work: BodyWork): void {
         added: 0,
         removed: 0,
         temperature: getTile(world, c.recipient.x, c.recipient.y)!.temperature,
-        active:
-          !!c.recipient.task &&
-          !["rest", "social"].includes(c.recipient.task.kind),
         shelter: bodyShelter(world, c.recipient).resistance,
       });
 
@@ -394,26 +450,14 @@ export function finishBodyWork(world: World, work: BodyWork): void {
     // Attribute the actual signed contribution in the common thermal frame.
     // Another helper's improvement cannot reward this actor's harmful removal.
     // Clearing one completed task below cannot change another actor's evaluation.
-    const before = bodyHeatBalance(
+    const before = bodyWorkBurden(
       c.recipient,
       body.temperature,
-      body.active,
       body.shelter,
       c.recipient.wrapMass - (c.adding ? 1 : -1) * c.transferred,
     );
-    const after = bodyHeatBalance(
-      c.recipient,
-      body.temperature,
-      body.active,
-      body.shelter,
-    );
-    const oldBurden = Math.abs(before.lossW - before.metabolicDemandW);
-    reinforce(
-      c.actor,
-      (oldBurden - Math.abs(after.lossW - after.metabolicDemandW)) /
-        Math.max(1, oldBurden),
-      world.tick,
-    );
+    const after = bodyWorkBurden(c.recipient, body.temperature, body.shelter);
+    reinforce(c.actor, (before - after) / Math.max(1, before), world.tick);
     const complete = c.adding
       ? c.recipient.wrapMass >= c.task.targetWrapMass - EPSILON
       : c.recipient.wrapMass <= c.task.targetWrapMass + EPSILON;

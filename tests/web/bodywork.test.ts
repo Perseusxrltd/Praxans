@@ -6,6 +6,7 @@ import {
   bodyWorkOpportunities,
   finishBodyWork,
   isBodyRepair,
+  reconsiderBodyWork,
   workOnBody,
 } from "../../src/simulation/bodywork";
 import {
@@ -317,6 +318,181 @@ test("thermal planning respects signed heat exchange including the skin-temperat
   );
 });
 
+test("ordinary activity and private targets do not reverse a local covering opportunity", () => {
+  const { world, civ, actor, second, tile } = fixture();
+  world.citizens = [actor, second];
+  tile.temperature = 15;
+  wrap(world, actor, 1.2);
+  wrap(world, second, preferredWrapMass(second, 15, false, 0));
+  for (const activity of [
+    "idle",
+    "rest",
+    "gather",
+    "self-add",
+    "self-remove",
+  ]) {
+    actor.task = null;
+    if (activity === "rest" || activity === "gather")
+      actor.task = {
+        kind: activity,
+        tile: tileIndex(world, actor.x, actor.y),
+        path: [],
+        progress: 0,
+      };
+    if (activity.startsWith("self-"))
+      assign(world, actor, actor, activity === "self-add" ? 2 : 0);
+    const choices = bodyWorkOpportunities(
+      world,
+      second,
+      civ,
+      beginBodyWork(world),
+    );
+    assert.equal(choices.length, 0, activity);
+  }
+  wrap(world, actor, 0);
+  const cold = bodyWorkOpportunities(world, second, civ, beginBodyWork(world));
+  assert.ok(
+    cold.some((choice) => choice.recipient === actor && choice.target > 0),
+  );
+  tile.temperature = 40;
+  const hot = bodyWorkOpportunities(world, second, civ, beginBodyWork(world));
+  assert.ok(
+    hot.some((choice) => choice.recipient === actor && choice.target > 0),
+  );
+  tile.temperature = 33;
+  assert.deepEqual(
+    bodyWorkOpportunities(world, second, civ, beginBodyWork(world)),
+    [],
+  );
+});
+
+test("paid autonomous intervals reconsider inherited targets without opposing care or instant transfers", () => {
+  for (const reversed of [false, true]) {
+    const { world, civ, actor, second, tile } = fixture();
+    for (const person of world.citizens)
+      if (person !== actor && person !== second) person.health = 0;
+    processDeaths(world); // A conservative two-person fixture before persistence.
+    world.citizens = reversed ? [second, actor] : [actor, second];
+    tile.temperature = 15;
+    wrap(world, actor, 1.2);
+    wrap(world, second, preferredWrapMass(second, 15, false, 0));
+    assign(world, actor, actor, preferredWrapMass(actor, 15, false, 0));
+    for (const p of [actor, second]) {
+      civ.stock.biomass -= 0.9;
+      p.metabolism.intake += 0.9;
+      p.traits.sociability = 1;
+      p.mind.synapses.repair = [4, 0, 0, 0, 0, 0, 0, 0];
+    }
+    world.tick = 1;
+    while (
+      world.tick % 4 !== 1 ||
+      astronomy(world.tick, actor.x, actor.y).solarAltitude < 20
+    )
+      world.tick++;
+    world.rng = 0;
+    const store = new Store(":memory:");
+    try {
+      store.save(world);
+      const restored = store.load(0, true);
+      assert.deepEqual(
+        restored,
+        world,
+        "loading never rewrites an inherited target",
+      );
+      const a = restored.citizens.find((p) => p.id === actor.id)!;
+      const b = restored.citizens.find((p) => p.id === second.id)!;
+      const inherited = a.task!;
+      const elements = elementLedger(restored);
+      const chemical =
+        ledger(restored).chemical +
+        restored.energy.released -
+        restored.energy.captured;
+      const fiber = restored.civilizations[0].stock.fiber;
+      const energy = a.energy;
+      updateCitizens(restored);
+      assert.equal(a.task, null);
+      assert.ok(!isBodyRepair(b.task));
+      assert.equal(inherited.progress, 0);
+      close(a.wrapMass, 1.2 * Math.exp(-0.25 * 0.000015));
+      close(restored.civilizations[0].stock.fiber, fiber);
+      assert.ok(a.energy < energy);
+      assert.ok(a.metabolism.last!.foodOxidizedKg > 0);
+      assert.equal(a.experience.repair ?? 0, 0);
+      conserved(restored, elements, chemical);
+    } finally {
+      store.close();
+    }
+  }
+});
+
+test("planning tolerance still spends cold fuel at rest and cooling water during work", () => {
+  for (const [active, hydration] of [
+    [false, 8],
+    [true, 8],
+    [true, 2.8],
+  ] as const) {
+    const { world, civ, actor, tile } = fixture();
+    tile.temperature = 15;
+    wrap(world, actor, 1.2);
+    actor.hydration = hydration;
+    const water = actor.hydration;
+    const food = civ.stock.biomass + actor.provisions;
+    const elements = elementLedger(world);
+    const chemical =
+      ledger(world).chemical + world.energy.released - world.energy.captured;
+    const flux = regulateTemperature(world, actor, civ, tile, 0.25, active, 0);
+    assert.ok(flux.foodOxidizedKg > 0);
+    assert.ok(civ.stock.biomass + actor.provisions < food);
+    if (active && hydration === 8) {
+      assert.ok(
+        actor.hydration < water,
+        "surplus heat consumes actual cooling water",
+      );
+      assert.equal(flux.activityFraction, 1);
+    } else if (!active) {
+      assert.ok(
+        flux.releasedKJ > flux.maintenanceKJ,
+        "extra resting heat consumes actual fuel",
+      );
+      assert.equal(flux.activityFraction, 0);
+    } else {
+      assert.equal(actor.hydration, hydration);
+      assert.ok(
+        flux.unremovedHeatKJ > 0 && flux.healthLoss > 0,
+        "planning tolerance grants no immunity when cooling water is unavailable",
+      );
+    }
+    conserved(world, elements, chemical);
+  }
+});
+
+test("ongoing voluntary care follows local changes while physical opposing work stays possible", () => {
+  const { world, actor, child, tile } = fixture();
+  wrap(world, child, 0.2);
+  const task = assign(world, actor, child, 2);
+  const work = beginBodyWork(world);
+  assert.equal(reconsiderBodyWork(world, actor, work), true);
+  assert.ok(isBodyRepair(task));
+  assert.ok(task.targetWrapMass > child.wrapMass);
+  assert.equal(child.wrapMass, 0.2);
+  tile.temperature = 32;
+  assert.equal(reconsiderBodyWork(world, actor, work), false);
+  assert.equal(
+    actor.task,
+    null,
+    "a changed need permits a new choice next interval",
+  );
+  assert.equal(child.wrapMass, 0.2);
+  assign(world, actor, child, 2);
+  workOnBody(world, actor, 0.25, 0.25, work);
+  finishBodyWork(world, work);
+  close(child.wrapMass, 0.3, 1e-9);
+  assert.ok(
+    actor.mind.reward < 0,
+    "a physical action can worsen thermal conditions",
+  );
+});
+
 test("already awake people can choose care before cargo/reserve goals, while selection earns no free work", () => {
   const { world, civ, actor, child } = fixture();
   world.citizens = [actor, child];
@@ -399,7 +575,8 @@ test("personal exhaustion, sleep pressure, thirst and hunger interrupt care with
 test("post-physiology target capping completes work in either actor update order", () => {
   const results = [];
   for (const reversed of [false, true]) {
-    const { world, civ, actor, child } = fixture();
+    const { world, civ, actor, child, tile } = fixture();
+    tile.temperature = -10; // Both planning boundaries require the full reference wrap.
     wrap(world, child, 1.99);
     const task = assign(world, actor, child);
     world.tick = 1;
