@@ -46,6 +46,8 @@ export interface BodyWork {
   tick: number;
   people: Map<string, Citizen>;
   positions: Map<string, { x: number; y: number; tile: number }>;
+  /** Positive travel remains disqualifying even after returning to the start. */
+  moved: Set<string>;
   local: Map<number, Citizen[]>;
   opportunities: Map<number, BodyOpportunity[]>;
   intents: BodyIntent[];
@@ -69,6 +71,7 @@ export function beginBodyWork(world: World): BodyWork {
     tick: world.tick,
     people,
     positions,
+    moved: new Set(),
     local,
     opportunities: new Map(),
     intents: [],
@@ -84,7 +87,7 @@ function stationary(world: World, person: Citizen, work: BodyWork): boolean {
     !person.journeyId &&
     start.x === person.x &&
     start.y === person.y &&
-    !person.task?.path.length &&
+    !work.moved.has(person.id) &&
     tileIndex(world, person.x, person.y) === start.tile
   );
 }
@@ -317,8 +320,10 @@ export function finishBodyWork(world: World, work: BodyWork): void {
   if (work.committed || work.world !== world || work.tick !== world.tick)
     throw new Error("Body work must commit once in its own tick.");
   work.committed = true;
+  if (!work.intents.length) return;
   const civs = new Map(world.civilizations.map((c) => [c.id, c]));
-  const seen = new Set<string>();
+  const seen = new Set<string>(),
+    living = new Set(world.citizens);
   const claims = work.intents
     .sort((a, b) =>
       a.actor.id < b.actor.id ? -1 : a.actor.id > b.actor.id ? 1 : 0,
@@ -327,7 +332,11 @@ export function finishBodyWork(world: World, work: BodyWork): void {
       if (seen.has(intent.actor.id)) return false;
       seen.add(intent.actor.id);
       if (intent.actor.task !== intent.task) return false;
-      if (!personalContact(world, intent.actor, intent.recipient, work)) {
+      if (
+        !living.has(intent.actor) ||
+        !living.has(intent.recipient) ||
+        !personalContact(world, intent.actor, intent.recipient, work)
+      ) {
         abandon(world, intent.actor);
         return false;
       }

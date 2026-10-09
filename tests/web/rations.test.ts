@@ -495,8 +495,8 @@ test("format-10 continuation archives all prior state without inventing food or 
     assert.equal(JSON.stringify(old), original);
     assert.deepEqual(migrated.world, {
       ...old,
-      version: 16,
-      lawsVersion: "biosphere-1.10",
+      version: 17,
+      lawsVersion: "biosphere-1.11",
       citizens: old.citizens.map((person) => ({
         ...person,
         metabolism: initialMetabolism(person.body),
@@ -511,6 +511,7 @@ test("format-10 continuation archives all prior state without inventing food or 
         "014-performed-local-food-handoff",
         "015-age-bounded-structural-growth",
         "016-performed-resource-harvesting",
+        "017-contact-from-actual-movement",
       ],
     );
     const loaded = store.load(0, true);
@@ -527,7 +528,7 @@ test("format-10 continuation archives all prior state without inventing food or 
     );
     assert.deepEqual(JSON.parse(archived), old);
     assert.deepEqual(store.load(0, true), loaded);
-    assert.equal(store.interventions().length, 6);
+    assert.equal(store.interventions().length, 7);
     const continued = structuredClone(loaded);
     stepWorld(loaded, 8);
     stepWorld(continued, 8);

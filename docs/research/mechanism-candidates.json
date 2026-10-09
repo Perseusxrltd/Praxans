@@ -95,13 +95,14 @@
       ],
       "dependencies": ["R02", "R13"],
       "release_implications": "Saved-state/physical-rule corrections need explicit versions, archive and continuity; the old death stays recorded and no automatic renewal follows.",
-      "latest_evidence": "survival-continuation-2026-10-09.md",
+      "latest_evidence": "contact-motion-2026-10-09.md",
       "current_followup": {
         "on": "2026-10-09",
         "evidence": "survival-continuation-2026-10-09.md",
         "observed": "Seven exact-reference phase windows accompany the complete paired 32.427-day trajectory. Current-law Amber loses four newborns and sixteen starting adults; original 239 children survive both arms. A newborn dies of cold at the food-funded oxidation cap without protection. All sixteen adults have empty intake/reserves, zero movement and pending rest paths, which the local handoff contact test rejects.",
-        "next_control": "Proposed, not run: same finite willing co-located donor and fuel-depleted recipient, compare pending route/no actual movement against explicitly stopped recipient. Preserve paid work, finite donor debits, later ingestion and rejection after actual displacement.",
-        "limits": "Terminal donor presence and willingness were not observed; the contact exclusion is not an independently apportioned death share. Earlier sickness affects four adults. Infant dependency/carrying/feeding, thermal calibration and planned-but-unperformed activity demand remain separate questions."
+        "next_control": "The finite-donor pending-route control now reproduces the contact defect and passes with actual-motion eligibility. Its selected full-world day still loses all sixteen adults without food/care transfer. Next: trace earlier acquisition/access/transport loss and isolate requested-but-unfunded work injury while preserving resting demand, finite oxidation and cold compensation.",
+        "limits": "The starting contact census finds only one substantive food holder among 48 neighboring adults, with 0.127 kg apparent pre-meal surplus. It does not establish willingness or availability throughout the day. All sixteen still die; one dies 45 simulated minutes earlier. The correction is no historical death share or viability proof. Infant dependency/carrying/feeding, thermal calibration and planned-but-unperformed activity demand remain separate questions.",
+        "followup_evidence": "contact-motion-2026-10-09.md"
       }
     },
     {

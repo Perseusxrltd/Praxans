@@ -251,6 +251,9 @@ test("movement, death and journeys invalidate contact; an unknown response does 
     "dead",
     "journey",
     "sleeping",
+    "removed-actor",
+    "removed-recipient",
+    "replaced-recipient",
   ] as const) {
     const { world, civ, actor, child } = fixture();
     assign(world, actor, child);
@@ -261,6 +264,14 @@ test("movement, death and journeys invalidate contact; an unknown response does 
     if (condition === "dead") child.health = 0;
     if (condition === "journey") child.journeyId = "departing";
     if (condition === "sleeping") child.mind.sleeping = true;
+    if (condition === "removed-actor")
+      world.citizens = world.citizens.filter((p) => p !== actor);
+    if (condition === "removed-recipient")
+      world.citizens = world.citizens.filter((p) => p !== child);
+    if (condition === "replaced-recipient")
+      world.citizens = world.citizens.map((p) =>
+        p === child ? structuredClone(child) : p,
+      );
     finishBodyWork(world, work);
     close(child.wrapMass, condition === "sleeping" ? 0.1 : 0);
     close(civ.stock.fiber, fiber - (condition === "sleeping" ? 0.1 : 0));
@@ -294,6 +305,39 @@ test("removed fiber stays usable and does not overwrite an unrelated carried loa
   close(child.wrapMass, 0.9);
   assert.deepEqual(actor.cargo, { material: "fiber", amount: 0.1 });
   conserved(world, elements, chemical);
+});
+
+test("covering follows actual recipient motion, including a return to the same place", () => {
+  for (const blocked of [false, true])
+    for (const reverse of [false, true]) {
+      const { world, actor, child, tile } = fixture();
+      world.citizens = [actor, child];
+      actor.metabolism.intake = child.metabolism.intake = 1;
+      actor.provisions = child.provisions = 3;
+      const origin = tileIndex(world, tile.x, tile.y),
+        next = tileIndex(world, tile.x + 1, tile.y);
+      world.tiles[next].terrain = blocked ? "water" : "meadow";
+      child.task!.path = [next, origin];
+      const task = assign(world, actor, child),
+        elements = elementLedger(world),
+        chemical =
+          ledger(world).chemical +
+          world.energy.released -
+          world.energy.captured;
+      if (reverse) world.citizens.reverse();
+      updateCitizens(world);
+      assert.ok(child.metabolism.last!.activityFraction > 0);
+      assert.deepEqual({ x: child.x, y: child.y }, { x: tile.x, y: tile.y });
+      if (blocked) {
+        assert.ok(child.wrapMass > 0);
+        assert.ok(task.progress > 0);
+      } else {
+        assert.equal(child.task!.path.length, 0);
+        assert.equal(child.wrapMass, 0);
+        assert.equal(task.progress, 0);
+      }
+      conserved(world, elements, chemical);
+    }
 });
 
 test("thermal planning respects signed heat exchange including the skin-temperature boundary", () => {
@@ -713,8 +757,8 @@ test("format nine migration retains people, minds, tasks, inventories and empty 
       assert.equal(JSON.stringify(old), original);
       assert.deepEqual(migrated.world, {
         ...old,
-        version: 16,
-        lawsVersion: "biosphere-1.10",
+        version: 17,
+        lawsVersion: "biosphere-1.11",
         citizens: old.citizens.map((person) => ({
           ...person,
           metabolism: initialMetabolism(person.body),
@@ -730,6 +774,7 @@ test("format nine migration retains people, minds, tasks, inventories and empty 
           "014-performed-local-food-handoff",
           "015-age-bounded-structural-growth",
           "016-performed-resource-harvesting",
+          "017-contact-from-actual-movement",
         ],
       );
       const loaded = store.load(0, true);
@@ -748,7 +793,7 @@ test("format nine migration retains people, minds, tasks, inventories and empty 
       );
       assert.deepEqual(JSON.parse(archived), old);
       assert.deepEqual(store.load(0, true), loaded);
-      assert.equal(store.interventions().length, 7);
+      assert.equal(store.interventions().length, 8);
     } finally {
       store.close();
     }

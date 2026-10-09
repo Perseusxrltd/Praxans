@@ -936,14 +936,15 @@ test("format-14 growth migration preserves oversized children, measured interval
       assert.equal(JSON.stringify(old), original);
       assert.deepEqual(migrated.world, {
         ...old,
-        version: 16,
-        lawsVersion: "biosphere-1.10",
+        version: 17,
+        lawsVersion: "biosphere-1.11",
       });
       assert.deepEqual(
         migrated.interventions.map((i) => i.id),
         [
           "015-age-bounded-structural-growth",
           "016-performed-resource-harvesting",
+          "017-contact-from-actual-movement",
         ],
       );
       const loaded = store.load(0, true);
@@ -951,7 +952,7 @@ test("format-14 growth migration preserves oversized children, measured interval
       const [archive] = verifyWorldArchives(store.db);
       assert.equal(
         archive.id,
-        "015-age-bounded-structural-growth+016-performed-resource-harvesting",
+        "015-age-bounded-structural-growth+016-performed-resource-harvesting+017-contact-from-actual-movement",
       );
       assert.equal(
         Buffer.concat([...worldArchiveBytes(store.db, archive.id)]).toString(),
@@ -970,7 +971,7 @@ test("format-14 growth migration preserves oversized children, measured interval
       assert.deepEqual(loaded, replay);
       store.save(loaded);
       assert.deepEqual(store.load(0, true), loaded);
-      assert.equal(store.interventions().length, 2);
+      assert.equal(store.interventions().length, 3);
     } finally {
       store.close();
     }
@@ -1004,8 +1005,8 @@ test("format-11 migration partitions existing bodies and starts no invented inta
     }
     assert.deepEqual(projected, {
       ...old,
-      version: 16,
-      lawsVersion: "biosphere-1.10",
+      version: 17,
+      lawsVersion: "biosphere-1.11",
     });
     assert.deepEqual(
       migrated.interventions.map((i) => i.id),
@@ -1015,6 +1016,7 @@ test("format-11 migration partitions existing bodies and starts no invented inta
         "014-performed-local-food-handoff",
         "015-age-bounded-structural-growth",
         "016-performed-resource-harvesting",
+        "017-contact-from-actual-movement",
       ],
     );
     const loaded = store.load(0, true);
@@ -1034,7 +1036,7 @@ test("format-11 migration partitions existing bodies and starts no invented inta
     assert.deepEqual(loaded, repeat);
     store.save(loaded);
     assert.deepEqual(store.load(0, true), loaded);
-    assert.equal(store.interventions().length, 5);
+    assert.equal(store.interventions().length, 6);
   } finally {
     store.close();
   }

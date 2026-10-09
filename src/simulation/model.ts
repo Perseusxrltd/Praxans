@@ -50,6 +50,8 @@ export const NATURAL_MODEL = Object.freeze({
     seasonalPlanning: SUBSISTENCE,
     localFoodHandoff: FOOD_HANDOFF,
     walkingMetresPerHour: WALKING_METRES_PER_HOUR,
+    personalContact:
+      "From biosphere-1.11, local covering, food handoffs and resource work use actual occupied positions and travel during the interval. A pending route is not movement: a physically stationary person can receive help even when travel is unfunded or blocked. Positive travel invalidates contact for the whole interval, including an out-and-back route; the next interval starts a new contact account. Actors must still be living, present, outside a journey and in the same captured cell. Actual transfers recheck contact before sharing finite source budgets. Travel consumes its funded activity interval and earns no extra work on arrival. This remains a coarse 100 m² contact rule, not body reach, continuous interaction, recipient consent, guaranteed helpers or a survival guarantee.",
     nourishment:
       "From biosphere-1.6, satiety, nourishment and the historical hunger field describe intake fullness (0 empty, 100 full), not stored body energy or a starvation diagnosis. A migrated legacy value is replaced by the first metabolic interval. Inspect metabolism.intake, metabolism.reserves and metabolism.last for actual fuel and shortfalls.",
     energy:

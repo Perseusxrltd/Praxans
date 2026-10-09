@@ -242,6 +242,18 @@ const migrations: RegisteredMigration[] = [
       // The optional yield observation begins only with an actual new product credit.
     },
   },
+  {
+    id: "017-contact-from-actual-movement",
+    from: 16,
+    to: 17,
+    fromLaws: "biosphere-1.10",
+    toLaws: "biosphere-1.11",
+    description:
+      "Preserve every existing person, body, intake, reserves, task, pending route, cargo, material, region, identity, RNG, clock and historical record. From this boundary, local body maintenance, food handoffs and harvesting distinguish actual movement from a planned route. Stationary people remain eligible for physical contact when travel is unfunded or blocked. Positive distance traveled invalidates the shared contact for the whole interval, including returning to the initial position; subsequent intervals start a fresh contact account. Position, living membership, journey and task checks still precede finite transfer allocation. Travel spends its funded interval and cannot also earn work on arrival. The transient motion account is not saved or inferred for past time. This is a coarse occupied-cell constraint, not calibrated reach, continuous interaction, recipient consent or guaranteed assistance. Donor choice, finite resources, paid work and later ingestion remain necessary. No people, supplies, nutrition, care, movement, historical survival or clock time are granted.",
+    apply() {
+      // Contact evidence exists only within the new interval; saved fields stay exact.
+    },
+  },
 ];
 
 function migrationPath(

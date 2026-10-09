@@ -853,7 +853,7 @@ function updateCitizenActivity(
     ? flux.activityFraction
     : clamp(flux.releasedKJ / flux.maintenanceKJ, 0, 1);
   if (task.path.length) {
-    walkPath(
+    const traveled = walkPath(
       world,
       person,
       task.path,
@@ -861,6 +861,7 @@ function updateCitizenActivity(
       person.energy,
       person.age < 12,
     );
+    if (traveled > 0) bodyWork.moved.add(person.id);
     return;
   }
   if (task.kind === "rest") {

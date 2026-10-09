@@ -22,7 +22,7 @@ import {
   foodReservePerPerson,
 } from "../../src/simulation/subsistence";
 import { measureSuccess } from "../../src/simulation/progress";
-import { astronomy } from "../../src/simulation/planet";
+import { astronomy, groundDistanceMetres } from "../../src/simulation/planet";
 import { decayStocks } from "../../src/simulation/weathering";
 import { campTiles } from "../../src/simulation/settlement";
 
@@ -329,6 +329,31 @@ test("walking integrates metres across multiple cells while preserving terrain p
   assert.ok(cells.slice(1).every((t) => t.road > 0));
 });
 
+test("walking reports zero for blocked or unfunded travel and positive distance after a round trip", () => {
+  const world = createWorld(1847, 64, 64),
+    civ = world.civilizations[0],
+    start = getTile(world, civ.x, civ.y)!,
+    next = getTile(world, civ.x + 1, civ.y)!;
+  start.terrain = next.terrain = "meadow";
+  const traveler = { x: start.x, y: start.y },
+    roundTrip = [
+      tileIndex(world, next.x, next.y),
+      tileIndex(world, start.x, start.y),
+    ],
+    expected = 2 * groundDistanceMetres(start, next);
+  assert.equal(walkPath(world, traveler, roundTrip, 0, 100), 0);
+  assert.equal(roundTrip.length, 2);
+  next.terrain = "water";
+  assert.equal(walkPath(world, traveler, roundTrip, 0.25, 100), 0);
+  assert.equal(roundTrip.length, 2);
+  next.terrain = "meadow";
+  const traveled = walkPath(world, traveler, roundTrip, 0.25, 100);
+  assert.ok(Math.abs(traveled - expected) < 1e-9 && traveled > 0);
+  assert.deepEqual(traveler, { x: start.x, y: start.y });
+  assert.equal(roundTrip.length, 0);
+  assert.equal(walkPath(world, traveler, roundTrip, 0.25, 100), 0);
+});
+
 test("packing the same food cannot create or destroy a civilization's resilience score", () => {
   const world = createWorld(1847, 64, 64),
     civ = world.civilizations[0];
@@ -364,7 +389,7 @@ test("format eight migration introduces empty personal inventories without chang
   for (const key of ["carbon", "mineral", "water", "chemical"] as const)
     assert.ok(Math.abs(before[key] - original[key]) < 1e-4);
   const migrated = migrateWorld(old);
-  assert.equal(migrated.interventions.length, 8);
+  assert.equal(migrated.interventions.length, 9);
   assert.equal(migrated.world.rng, rng);
   assert.equal(migrated.world.nextId, nextId);
   assert.equal(migrated.world.citizens.length, world.citizens.length);

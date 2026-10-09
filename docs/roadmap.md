@@ -16,6 +16,8 @@ The live [ration-boundary correction](releases/ration-boundary-0.2.md) puts curr
 
 **Measured follow-up — H01/W06:** the [completed 32.427-day paired study](research/survival-continuation-2026-10-09.md) records **0 deaths before / 20 after** the harvesting change, all twenty in Amber Hollow: four newborns and sixteen starting adults. Global harvest rises 27.57%, but Amber harvest falls 7.28% and communal food runs low earlier. The same original 239 children survive both arms; that cohort's improvement does not establish population viability. Exact selected-day replays distinguish food-funded infant cold injury from depleted adult intake/reserves. Local acquisition, logistics, care/contact and physiological calibration remain open. This copied-world transition-state study neither rewrites the historical collapse nor renews live people.
 
+**Implemented/validating — H01/W06:** the [contact correction](research/contact-motion-2026-10-09.md) replaces pending intention with actual interval travel in the shared physical eligibility check. Finite-donor controls pass, but the selected full-world day still loses all sixteen adults without delivered help. One death occurs 45 simulated minutes earlier; no survival benefit is established. Source/census/phase evidence is retained, with [publication status](releases/contact-motion-0.2.md) separate. Earlier acquisition/access loss, transport and unperformed-activity demand are the next distinct tests.
+
 ## World, participation, and continuity
 
 | ID | Requirement | Status and evidence | Remaining work / acceptance condition |

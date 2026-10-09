@@ -10,7 +10,7 @@ import {
   workOnFood,
   FOOD_HANDOFF,
 } from "../../src/simulation/foodwork";
-import { updateCitizens } from "../../src/simulation/citizens";
+import { updateCitizens, processDeaths } from "../../src/simulation/citizens";
 import {
   initialMetabolism,
   hydrationTarget,
@@ -170,7 +170,6 @@ test("zero work and broken contact cannot deliver or advance progress", () => {
     "distant",
     "actor-moves",
     "child-moves",
-    "route",
     "journey",
     "dead",
     "removed",
@@ -189,7 +188,6 @@ test("zero work and broken contact cannot deliver or advance progress", () => {
     if (failure === "distant" || failure === "child-moves")
       child.x += failure === "distant" ? 20 : 0.1;
     if (failure === "actor-moves") actor.x += 0.1;
-    if (failure === "route") child.task!.path = [task.tile];
     if (failure === "journey") child.journeyId = "departed";
     if (failure === "dead") child.health = 0;
     if (failure === "removed") world.citizens = [actor];
@@ -476,6 +474,117 @@ test("food task validation distinguishes holders, targets and stale recipients",
   assert.equal(actor.task, null);
 });
 
+test("a stranded adult receives paid local food despite an unfinished route, then funds later movement", () => {
+  const deliveries: number[] = [];
+  for (const route of ["stopped", "pending"] as const)
+    for (const reverse of [false, true]) {
+      const { world, actor, child: recipient, tile } = fixture();
+      recipient.age = 30;
+      recipient.body = 16.2;
+      recipient.metabolism = {
+        ...initialMetabolism(recipient.body),
+        reserves: 0,
+      };
+      recipient.energy = 0;
+      recipient.hydration = hydrationTarget(recipient);
+      const destination = tileIndex(world, tile.x + 1, tile.y);
+      world.tiles[destination].terrain = "meadow";
+      recipient.task = {
+        kind: "rest",
+        tile: destination,
+        path: route === "pending" ? [destination] : [],
+        progress: 0,
+      };
+      assign(world, actor, recipient, 0.5);
+      const before = balance(world),
+        start = { x: recipient.x, y: recipient.y };
+      if (reverse) world.citizens.reverse();
+      updateCitizens(world);
+      assert.equal(recipient.metabolism.last!.ingestedKg, 0);
+      assert.equal(recipient.metabolism.last!.releasedKJ, 0);
+      assert.equal(recipient.metabolism.last!.activityFraction, 0);
+      assert.deepEqual({ x: recipient.x, y: recipient.y }, start);
+      assert.ok(
+        recipient.provisions > 0 && recipient.provisions <= 0.5,
+        `${route}: actual stationary contact must allow the funded handoff`,
+      );
+      deliveries.push(recipient.provisions);
+      assert.ok(actor.metabolism.last!.releasedKJ > 0);
+      assert.ok(actor.provisions < 3);
+      world.tick++;
+      updateCitizens(world);
+      assert.ok(recipient.metabolism.last!.ingestedKg > 0);
+      assert.ok(recipient.metabolism.last!.foodOxidizedKg > 0);
+      if (route === "pending") {
+        assert.ok(recipient.metabolism.last!.activityFraction > 0);
+        assert.notDeepEqual({ x: recipient.x, y: recipient.y }, start);
+      }
+      conserved(world, before);
+    }
+  for (const amount of deliveries) close(amount, deliveries[0]);
+});
+
+test("actual travel invalidates a handoff even after returning, while blocked travel permits contact", () => {
+  for (const motion of ["away", "return", "blocked", "zero-length"] as const)
+    for (const reverse of [false, true]) {
+      const { world, actor, child, tile } = fixture();
+      const start = { x: child.x, y: child.y },
+        origin = tileIndex(world, tile.x, tile.y),
+        next = tileIndex(world, tile.x + 1, tile.y);
+      world.tiles[next].terrain = motion === "blocked" ? "water" : "meadow";
+      child.task = {
+        kind: "rest",
+        tile: motion === "away" ? next : origin,
+        path:
+          motion === "zero-length"
+            ? [origin]
+            : motion === "return"
+              ? [next, origin]
+              : [next],
+        progress: 0,
+      };
+      const task = assign(world, actor, child),
+        before = balance(world);
+      if (reverse) world.citizens.reverse();
+      updateCitizens(world);
+      assert.ok(child.metabolism.last!.activityFraction > 0);
+      const moved = motion === "away" || motion === "return";
+      close(child.provisions, moved ? 0 : 0.1);
+      close(task.progress, moved ? 0 : 0.1);
+      if (motion !== "away")
+        assert.deepEqual({ x: child.x, y: child.y }, start);
+      if (motion === "return") {
+        assert.equal(child.task!.path.length, 0);
+        // A new interval permits contact again; a past journey is not a ban.
+        assign(world, actor, child);
+        world.tick++;
+        updateCitizens(world);
+        close(child.provisions, 0.1);
+      }
+      conserved(world, before);
+    }
+});
+
+test("a stranded recipient still needs a willing, supplied and physically present donor", () => {
+  for (const condition of ["unwilling", "unfunded", "distant"] as const) {
+    const { world, actor, child, tile } = fixture();
+    child.metabolism.reserves = 0;
+    child.task!.path = [tileIndex(world, tile.x + 1, tile.y)];
+    if (condition !== "unwilling") assign(world, actor, child);
+    if (condition === "unfunded") {
+      actor.provisions = 0;
+      actor.metabolism.intake = actor.metabolism.reserves = 0;
+    }
+    if (condition === "distant") actor.x += 20;
+    const before = balance(world);
+    updateCitizens(world);
+    assert.equal(child.provisions, 0, condition);
+    assert.equal(child.metabolism.last!.ingestedKg, 0, condition);
+    assert.equal(child.metabolism.last!.releasedKJ, 0, condition);
+    conserved(world, before);
+  }
+});
+
 test("format 13 migration preserves every existing quantity and task, archives and reopens deterministically", () => {
   const store = new Store(":memory:");
   try {
@@ -503,8 +612,8 @@ test("format 13 migration preserves every existing quantity and task, archives a
     assert.equal(JSON.stringify(old), original);
     assert.deepEqual(result.world, {
       ...old,
-      version: 16,
-      lawsVersion: "biosphere-1.10",
+      version: 17,
+      lawsVersion: "biosphere-1.11",
     });
     assert.deepEqual(
       result.interventions.map((i) => i.id),
@@ -512,6 +621,7 @@ test("format 13 migration preserves every existing quantity and task, archives a
         "014-performed-local-food-handoff",
         "015-age-bounded-structural-growth",
         "016-performed-resource-harvesting",
+        "017-contact-from-actual-movement",
       ],
     );
     const loaded = store.load(0, true);
@@ -519,7 +629,7 @@ test("format 13 migration preserves every existing quantity and task, archives a
     const [archive] = verifyWorldArchives(store.db);
     assert.equal(
       archive.id,
-      "014-performed-local-food-handoff+015-age-bounded-structural-growth+016-performed-resource-harvesting",
+      "014-performed-local-food-handoff+015-age-bounded-structural-growth+016-performed-resource-harvesting+017-contact-from-actual-movement",
     );
     assert.equal(
       Buffer.concat([...worldArchiveBytes(store.db, archive.id)]).toString(),
@@ -531,8 +641,61 @@ test("format 13 migration preserves every existing quantity and task, archives a
     assert.deepEqual(loaded, replay);
     store.save(loaded);
     assert.deepEqual(store.load(0, true), loaded);
-    assert.equal(store.interventions().length, 3);
+    assert.equal(store.interventions().length, 4);
   } finally {
     store.close();
+  }
+});
+
+test("format 16 contact migration preserves unfinished routes and exact living or extinct history", () => {
+  for (const extinct of [false, true]) {
+    const store = new Store(":memory:");
+    try {
+      const old = smallWorld(1847, 64, 64),
+        person = old.citizens[0],
+        target = tileIndex(old, person.x + 1, person.y);
+      person.task = { kind: "rest", tile: target, path: [target], progress: 0 };
+      if (extinct) {
+        for (const p of old.citizens) p.health = 0;
+        processDeaths(old);
+      }
+      store.save(old);
+      old.version = 16;
+      old.lawsVersion = "biosphere-1.10";
+      const original = JSON.stringify(old),
+        { tiles, ...metadata } = old,
+        json = JSON.stringify(metadata);
+      store.db
+        .prepare("UPDATE world SET json=?,checksum=?")
+        .run(json, digest(json));
+      const migrated = migrateWorld(old);
+      assert.equal(JSON.stringify(old), original);
+      assert.deepEqual(migrated.world, {
+        ...old,
+        version: 17,
+        lawsVersion: "biosphere-1.11",
+      });
+      assert.deepEqual(
+        migrated.interventions.map((i) => i.id),
+        ["017-contact-from-actual-movement"],
+      );
+      const loaded = store.load(0, true);
+      assert.deepEqual(loaded, migrated.world);
+      const [archive] = verifyWorldArchives(store.db);
+      assert.equal(archive.id, "017-contact-from-actual-movement");
+      assert.equal(
+        Buffer.concat([...worldArchiveBytes(store.db, archive.id)]).toString(),
+        JSON.stringify({ ...metadata, tiles }),
+      );
+      const replay = structuredClone(loaded);
+      stepWorld(loaded, 8);
+      stepWorld(replay, 8);
+      assert.deepEqual(loaded, replay);
+      store.save(loaded);
+      assert.deepEqual(store.load(0, true), loaded);
+      assert.equal(store.interventions().length, 1);
+    } finally {
+      store.close();
+    }
   }
 });

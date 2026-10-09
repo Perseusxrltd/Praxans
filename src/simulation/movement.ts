@@ -5,7 +5,7 @@ import type { World } from "./types";
 
 export const WALKING_METRES_PER_HOUR = 1800;
 
-/** Integrate distance in metres, including every crossed cell in a coarse time step. */
+/** Integrate and report actual metres traveled, including an out-and-back route. */
 export function walkPath(
   world: World,
   traveler: { x: number; y: number },
@@ -13,8 +13,9 @@ export function walkPath(
   hours: number,
   energy: number,
   child = false,
-): void {
-  let remaining = hours;
+): number {
+  let remaining = hours,
+    traveled = 0;
   const speed =
     WALKING_METRES_PER_HOUR * (0.6 + energy / 250) * (child ? 0.65 : 1);
   while (path.length && remaining > 0) {
@@ -26,6 +27,7 @@ export function walkPath(
     const length = groundDistanceMetres(traveler, next);
     const pace = speed * (next.terrain === "hill" ? 0.7 : 1);
     const moved = Math.min(length, pace * remaining);
+    traveled += moved;
     if (length <= moved) {
       traveler.x = next.x;
       traveler.y = next.y;
@@ -38,4 +40,5 @@ export function walkPath(
     next.road = clamp(next.road + 0.002, 0, 1);
     touchTile(world, nextIndex);
   }
+  return traveled;
 }

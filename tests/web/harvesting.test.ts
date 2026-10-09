@@ -29,7 +29,7 @@ import {
   verifyWorldArchives,
   worldArchiveBytes,
 } from "../../src/server/archives";
-import type { Material, World } from "../../src/simulation/types";
+import type { Citizen, Material, World } from "../../src/simulation/types";
 
 function close(actual: number, expected: number, tolerance = 1e-9) {
   assert.ok(
@@ -417,6 +417,38 @@ test("unfunded physiology performs no harvesting even with abundant material", (
   validateWorld(f.world);
 });
 
+test("returning to a resource spends the interval traveling and cannot also earn a harvest", () => {
+  const { world, civ, tile, person } = fixture(["wood"], 100, 20),
+    origin = tileIndex(world, tile.x, tile.y),
+    next = tileIndex(world, tile.x + 1, tile.y);
+  world.tiles[next].terrain = "meadow";
+  const task = person.task!;
+  task.path = [next, origin];
+  const contacts = beginBodyWork(world),
+    before = elementLedger(world),
+    plant = structuredClone(tile.plant);
+  updateCitizen(world, person, civ, 1, contacts);
+  assert.ok(person.metabolism.last!.activityFraction > 0);
+  assert.equal(task.path.length, 0);
+  assert.deepEqual({ x: person.x, y: person.y }, { x: tile.x, y: tile.y });
+  assert.equal(task.progress, 0);
+  assert.equal(person.cargo, null);
+  // A captured work context must still reject the returned traveler, even if a
+  // caller offers additional effort. Equal endpoints do not prove contact.
+  const harvest = beginHarvestWork(world, contacts);
+  workOnHarvest(world, person, 0.25, harvest);
+  finishHarvestWork(world, harvest);
+  assert.equal(task.progress, 0);
+  assert.equal(person.cargo, null);
+  assert.deepEqual(tile.plant, plant);
+  world.tick++;
+  updateCitizen(world, person, civ, 1);
+  const cargo = person.cargo as Citizen["cargo"];
+  assert.ok(cargo?.material === "wood" && cargo.amount > 0);
+  assert.ok(task.progress > 0);
+  conserved(world, before);
+});
+
 test("cold-weather reconsideration counts edible cargo as accessible personal food", () => {
   const f = fixture(["biomass"], 100, 20),
     site = f.world.tiles.find(
@@ -567,17 +599,23 @@ test("format-15 migration preserves inhabited/extinct saves, tasks, cargo, archi
       assert.equal(JSON.stringify(old), original);
       assert.deepEqual(result.world, {
         ...old,
-        version: 16,
-        lawsVersion: "biosphere-1.10",
+        version: 17,
+        lawsVersion: "biosphere-1.11",
       });
       assert.deepEqual(
         result.interventions.map((i) => i.id),
-        ["016-performed-resource-harvesting"],
+        [
+          "016-performed-resource-harvesting",
+          "017-contact-from-actual-movement",
+        ],
       );
       const loaded = store.load(0, true);
       assert.deepEqual(loaded, result.world);
       const [archive] = verifyWorldArchives(store.db);
-      assert.equal(archive.id, "016-performed-resource-harvesting");
+      assert.equal(
+        archive.id,
+        "016-performed-resource-harvesting+017-contact-from-actual-movement",
+      );
       assert.equal(
         Buffer.concat([...worldArchiveBytes(store.db, archive.id)]).toString(),
         JSON.stringify({ ...metadata, tiles }),
@@ -592,7 +630,7 @@ test("format-15 migration preserves inhabited/extinct saves, tasks, cargo, archi
       assert.deepEqual(loaded, replay);
       store.save(loaded);
       assert.deepEqual(store.load(0, true), loaded);
-      assert.equal(store.interventions().length, 1);
+      assert.equal(store.interventions().length, 2);
     } finally {
       store.close();
     }

@@ -7,6 +7,15 @@
 
 ## Log
 
+### [2026-10-09] Contact Correction and a Negative Survival Result
+
+- **type**: bugfix
+- **systems**: human_physiology, performed_harvesting, settlement_space, world_storage, browser_validation
+- **files**: `bodywork.ts`, `movement.ts`, `citizens.ts`, `migrations.ts`, `contact-motion-2026-10-09.md`
+- **agent**: Codex
+
+A controlled finite-donor case reproduces the pending-route exclusion of a physically stationary recipient. The candidate shares actual-motion evidence across food, coverings and harvesting, preserves paid work and finite custody, and archives the exact prior state through migration 017. The [matched full-world day](../docs/research/contact-motion-2026-10-09.md) still loses all sixteen adults; exact phase tracing finds no delivered help or fuel for them, and the initial neighborhood census exposes very little transferable food. This corrects a physical barrier without demonstrating survival benefit. [Validation and actual publication](../docs/releases/contact-motion-0.2.md) remain separately recorded. → ADR-049.
+
 ### [2026-10-09] Completed Survival Continuation and Terminal Death Tracing
 
 - **type**: audit
