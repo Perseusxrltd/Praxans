@@ -1,6 +1,6 @@
 {
   "date": "2026-10-09",
-  "status": "Observer published and READY; runtime prepared but not activated because effective trial storage remains 500 MB",
+  "status": "Observer published and READY; owner retains 500 MB trial, so runtime activation is held pending a demonstrated storage solution within that quota",
   "runtimeArtifact": {
     "protocol": 1,
     "release": "resting-demand-20261009-1",
@@ -407,7 +407,7 @@
       "scope": "Disposable private tmpfs at the declared filesystem quota; exact format-17 to18 migration and additional archive, preserved prior archives, three saves, protected rows and restart under a 216 MiB effective heap. Local memory and IO are not a live cgroup or inhabited-host guarantee."
     }
   },
-  "capacityDecision": "Current filesystem exhausts disk with the next exact archive. The larger quota preserves migration, all archives, protected rows, three saves and restart. The first plan is rejected for service deployment effects; the reviewed volume-only apply is accepted by the CLI but fails at the provider. Effective project subscription is trial with maxSizeMB 500 despite the HOBBY workspace label. Await paid activation, verify changed entitlement, review a fresh volume-only plan and confirm physical capacity before runtime activation. No subscription or world mutation occurred in this failed expansion attempt.",
+  "capacityDecision": "The exact next archive fills the current quota; a larger quota passes preservation and continuing saves. The provider refuses expansion under the actual trial entitlement. The owner chooses to keep the trial, so the canonical volume size returns to 500 MB, no paid activation/resize is pending and the prepared runtime remains unactivated. A different storage approach requires new preservation and measured current-quota capacity evidence; retain all prior failed and passing trials.",
   "publication": {
     "backend": "not activated; actual storage remains 500 MB",
     "vercel": {
@@ -986,15 +986,16 @@
     "projectSubscriptionType": "trial",
     "maximumVolumeSizeMB": 500,
     "currentVolumeSizeMB": 500,
-    "requestedVolumeSizeMB": 1000,
-    "resolution": "Paid entitlement must be activated before expansion; owner checkout requested after supported API inspection. No plan mutation or repeated resize was attempted.",
+    "requestedVolumeSizeMB": 500,
+    "resolution": "Retain 500 MB. No pending paid activation or resize. Hold the prepared runtime; any alternative must prove exact history preservation and migration/continuing-save capacity at the current quota.",
     "pricingReference": "https://docs.railway.com/pricing/plans",
     "pricingAtInspection": {
       "minimumMonthlyUSD": 5,
       "includedMonthlyUsageUSD": 5,
       "excessUsageBilled": true
     },
-    "scope": "Operational entitlement only; private customer/payment data is excluded."
+    "scope": "Operational entitlement only; private customer/payment data is excluded.",
+    "ownerDecision": "Keep the trial for now"
   },
   "publicationCoherence": {
     "inspectedAt": "2026-10-09T14:35:48.401Z",
@@ -1071,5 +1072,19 @@
       "lagSeconds": 0,
       "simulation": "running"
     }
+  },
+  "trialFootprint": {
+    "at": "2026-10-09T14:41:52.945Z",
+    "capacityBytes": 454299648,
+    "availableBytes": 30789632,
+    "fileCount": 111,
+    "allocatedFileBytes": 413126656,
+    "databaseAllocatedBytes": 364933120,
+    "walAllocatedBytes": 32165888,
+    "outsideSqliteFilesAllocatedBytes": 15929344,
+    "retainedBackupAllocatedBytes": 4812800,
+    "fileCleanupPerformed": false,
+    "scope": "One bounded read-only file census, without opening SQLite or deleting files; file and free-space samples are not an atomic filesystem snapshot. Backup removal alone does not demonstrate migration capacity.",
+    "fullCensusSha256": "f47eaa4cb9a7022712cbddd8fe8364b04e77d0f0cb0ada7ceae92737d7c00fef"
   }
 }

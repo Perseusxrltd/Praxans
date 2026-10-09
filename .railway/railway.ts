@@ -10,7 +10,7 @@ export default defineRailway(() => {
   // changing hosting configuration; an empty replacement is a different world.
   const worldVolume = volume("world-volume", {
     region: "iad",
-    sizeMB: 1000,
+    sizeMB: 500,
     allowOnlineResize: true,
     alerts: { usage: { "80": {}, "95": {}, "100": {} } },
   });

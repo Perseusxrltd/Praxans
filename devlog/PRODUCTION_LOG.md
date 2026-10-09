@@ -14,7 +14,7 @@
 - **files**: `hosting.md`, `resting-demand-0.2.md`, `resting-demand-2026-10-09.json`
 - **agent**: Codex
 
-The backward-compatible observer is READY at the canonical Vercel site, and both complete implementation workflows pass. The volume-only apply prints success but the provider records failure: the actual project is on a trial capped at 500 MB despite its `HOBBY` workspace label; paid activation and verified expansion remain prerequisites for the prepared runtime. The [release record](../docs/releases/resting-demand-0.2.md) preserves rejected plans, the failed provider operation, the independently verified backup and the absence of a runtime handover; no new simulation or world intervention was performed.
+The backward-compatible observer is READY at the canonical Vercel site, and both complete implementation workflows pass. The volume-only apply prints success but the provider records failure: the actual project is on a trial capped at 500 MB despite its `HOBBY` workspace label; the owner subsequently chose to keep the trial and the repository declaration returns to 500 MB. The [release record](../docs/releases/resting-demand-0.2.md) preserves rejected plans, the failed provider operation, the verified backup and a bounded file census; the runtime remains held pending a demonstrated storage solution within the trial, with no new simulation or world intervention.
 
 ### [2026-10-09] Mandatory Resting Demand and Measured Archive Capacity
 
