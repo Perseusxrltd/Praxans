@@ -14,7 +14,9 @@
 - **files**: `weathering.ts`, `diplomacy.ts`, `settlement.ts`, `world.ts`, `engine.ts`, `archives.ts`, `migrations.ts`, `food-custody.test.ts`
 - **agent**: Codex
 
-Loose camp/personal/journey materials now share local hourly exposure; journey loads include private supplies and new founding screens exclude resources across impassable water. Migration 013 retains quantities and history at the boundary. Lossless archive repacking keeps original bytes within the existing codec. The [candidate release](../docs/releases/food-custody-0.2.md) records validation and actual publication status. Delivery shortfalls, hourly sampling and finite capacity remain explicit. Long transactions renew held writer ownership before commit; a lost token aborts the write. → ADR-038; → ADR-039; → ADR-040.
+Loose camp/personal/journey materials now share local hourly exposure; journey loads include private supplies and new founding screens exclude resources across impassable water. Migration 013 retains quantities and history at the boundary. Lossless archive repacking keeps original bytes within the existing codec. The [live release](../docs/releases/food-custody-0.2.md) records validation and actual publication status. Delivery shortfalls, hourly sampling and finite capacity remain explicit. Long transactions renew held writer ownership before commit; a lost token aborts the write. → ADR-038; → ADR-039; → ADR-040.
+
+Published at **02:18:35 UTC**, tick **378536**, source `0f84b6a`; Vercel `dpl_EvfTkFoxbyoaq6S4CqyDiyDR2xR4` is READY. All six complete archives verify independently, the original identity/history and clock remain, and one SSE connection continues. One 15-second health timeout during migration remains a failed latency criterion; later six local and six public checks pass. The finite monitor retains 5.84 MB minimum free and no new OOM kill. Full-region writes, short migration latency, child feeding/growth and sustainable catchments remain work.
 
 ### [2026-10-09] One Funded Human Metabolic Account
 

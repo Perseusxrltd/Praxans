@@ -140,9 +140,9 @@
     ]
   },
   "foodCustodyReview": {
-    "inspectedAt": "2026-10-09T02:16:15.945Z",
+    "inspectedAt": "2026-10-09T02:25:34.766Z",
     "structuralScan": {
-      "baseCommit": "fcfeeb01554c68bb1771fba48def0c108514657c",
+      "baseCommit": "0f84b6af528d4a74f685588833a01e04a68e5067",
       "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
       "gitVisibleExistingFileCount": 939,
       "jsTsFileCount": 127,
@@ -177,7 +177,7 @@
       ],
       "layerViolations": [],
       "simulationEnvironmentImports": [],
-      "localMarkdownLinksChecked": 431,
+      "localMarkdownLinksChecked": 441,
       "missingMarkdownLinks": []
     },
     "sourceReview": [
@@ -204,13 +204,30 @@
     ],
     "validation": "food-custody-2026-10-09.json",
     "deployment": {
-      "status": "Candidate validated locally; publication pending",
-      "release": "food-custody-20261009-2"
+      "status": "LIVE; history and SSE continuity verified; one health-request timeout during handover",
+      "release": "food-custody-20261009-2",
+      "handoverTick": 378536,
+      "completedAt": "2026-10-09T02:18:35.480Z",
+      "runtimeSha256": "39acd20b025d3e3face2afc1a2721a6988c7ec8ca51871617120242def40f49e",
+      "sourceCommit": "0f84b6af528d4a74f685588833a01e04a68e5067",
+      "website": {
+        "id": "dpl_EvfTkFoxbyoaq6S4CqyDiyDR2xR4",
+        "url": "praxans-lbsrc2y0k-perseusxr-projects.vercel.app",
+        "target": "production",
+        "readyState": "READY",
+        "createdAt": 1791512376366,
+        "aliases": [
+          "praxans.vercel.app",
+          "praxans-perseusxr-projects.vercel.app"
+        ]
+      },
+      "verification": "food-custody-2026-10-09.json"
     },
     "limits": [
       "No claim of full physical realism, seasonal equilibrium or viable 300-founder generations.",
       "Finite quota rehearsal does not prove future disk headroom, and inhabited local combined RSS is greater than the live memory allowance.",
-      "Structural scan does not inspect arbitrary runtime paths, all legacy-language behavior or every semantic dependency."
+      "Structural scan does not inspect arbitrary runtime paths, all legacy-language behavior or every semantic dependency.",
+      "Actual handover kept SSE and history but a 15-second health request timed out; gateway request availability waits for migration startup. Storage/memory and blocking handover work remain explicit limits."
     ]
   }
 }
