@@ -936,17 +936,23 @@ test("format-14 growth migration preserves oversized children, measured interval
       assert.equal(JSON.stringify(old), original);
       assert.deepEqual(migrated.world, {
         ...old,
-        version: 15,
-        lawsVersion: "biosphere-1.9",
+        version: 16,
+        lawsVersion: "biosphere-1.10",
       });
       assert.deepEqual(
         migrated.interventions.map((i) => i.id),
-        ["015-age-bounded-structural-growth"],
+        [
+          "015-age-bounded-structural-growth",
+          "016-performed-resource-harvesting",
+        ],
       );
       const loaded = store.load(0, true);
       assert.deepEqual(loaded, migrated.world);
       const [archive] = verifyWorldArchives(store.db);
-      assert.equal(archive.id, "015-age-bounded-structural-growth");
+      assert.equal(
+        archive.id,
+        "015-age-bounded-structural-growth+016-performed-resource-harvesting",
+      );
       assert.equal(
         Buffer.concat([...worldArchiveBytes(store.db, archive.id)]).toString(),
         JSON.stringify({ ...metadata, tiles }),
@@ -964,7 +970,7 @@ test("format-14 growth migration preserves oversized children, measured interval
       assert.deepEqual(loaded, replay);
       store.save(loaded);
       assert.deepEqual(store.load(0, true), loaded);
-      assert.equal(store.interventions().length, 1);
+      assert.equal(store.interventions().length, 2);
     } finally {
       store.close();
     }
@@ -998,8 +1004,8 @@ test("format-11 migration partitions existing bodies and starts no invented inta
     }
     assert.deepEqual(projected, {
       ...old,
-      version: 15,
-      lawsVersion: "biosphere-1.9",
+      version: 16,
+      lawsVersion: "biosphere-1.10",
     });
     assert.deepEqual(
       migrated.interventions.map((i) => i.id),
@@ -1008,6 +1014,7 @@ test("format-11 migration partitions existing bodies and starts no invented inta
         "013-local-inventory-exposure-and-access",
         "014-performed-local-food-handoff",
         "015-age-bounded-structural-growth",
+        "016-performed-resource-harvesting",
       ],
     );
     const loaded = store.load(0, true);
@@ -1027,7 +1034,7 @@ test("format-11 migration partitions existing bodies and starts no invented inta
     assert.deepEqual(loaded, repeat);
     store.save(loaded);
     assert.deepEqual(store.load(0, true), loaded);
-    assert.equal(store.interventions().length, 4);
+    assert.equal(store.interventions().length, 5);
   } finally {
     store.close();
   }

@@ -3,6 +3,11 @@ import { clamp } from "./random";
 import type { Caravan, Citizen, Civilization, World } from "./types";
 import { canReachCampStocks } from "./settlement";
 
+/** Edible personal holdings; swallowed intake belongs to physiology. */
+export const carriedFoodKg = (person: Citizen): number =>
+  person.provisions +
+  (person.cargo?.material === "biomass" ? person.cargo.amount : 0);
+
 export const SUBSISTENCE = Object.freeze({
   ordinaryReserveKg: 7,
   winterDailyFoodKg: 1.6,

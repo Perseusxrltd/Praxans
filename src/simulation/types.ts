@@ -1,6 +1,6 @@
 import type { WorldClock } from "./chronology";
 import type { EntropyRecord } from "./thermodynamics";
-export const WORLD_VERSION = 15;
+export const WORLD_VERSION = 16;
 export type GenerationVersion = "archipelago-1" | "planet-1";
 export const TICK_MS = 250;
 export const HOURS_PER_TICK = 0.25;
@@ -250,6 +250,8 @@ export interface Task {
   targetWrapMass?: number;
   /** Intended kilograms in the recipient's food bundle; not swallowed intake. */
   targetProvisionMass?: number;
+  /** Actual product credits during this attempt; an observation, not stored matter. */
+  harvestedKg?: number;
 }
 /** Kilograms use the existing biomass-equivalent material, not anatomical fat. */
 export interface Metabolism {

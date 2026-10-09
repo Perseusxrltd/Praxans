@@ -503,19 +503,23 @@ test("format 13 migration preserves every existing quantity and task, archives a
     assert.equal(JSON.stringify(old), original);
     assert.deepEqual(result.world, {
       ...old,
-      version: 15,
-      lawsVersion: "biosphere-1.9",
+      version: 16,
+      lawsVersion: "biosphere-1.10",
     });
     assert.deepEqual(
       result.interventions.map((i) => i.id),
-      ["014-performed-local-food-handoff", "015-age-bounded-structural-growth"],
+      [
+        "014-performed-local-food-handoff",
+        "015-age-bounded-structural-growth",
+        "016-performed-resource-harvesting",
+      ],
     );
     const loaded = store.load(0, true);
     assert.deepEqual(loaded, result.world);
     const [archive] = verifyWorldArchives(store.db);
     assert.equal(
       archive.id,
-      "014-performed-local-food-handoff+015-age-bounded-structural-growth",
+      "014-performed-local-food-handoff+015-age-bounded-structural-growth+016-performed-resource-harvesting",
     );
     assert.equal(
       Buffer.concat([...worldArchiveBytes(store.db, archive.id)]).toString(),
@@ -527,7 +531,7 @@ test("format 13 migration preserves every existing quantity and task, archives a
     assert.deepEqual(loaded, replay);
     store.save(loaded);
     assert.deepEqual(store.load(0, true), loaded);
-    assert.equal(store.interventions().length, 2);
+    assert.equal(store.interventions().length, 3);
   } finally {
     store.close();
   }

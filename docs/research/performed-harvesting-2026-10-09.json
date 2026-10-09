@@ -1,0 +1,1952 @@
+{
+  "date": "2026-10-09",
+  "laws": "biosphere-1.10",
+  "source": {
+    "variant": "after",
+    "sourceCommit": "0db99d59905ad26bc6f1330a17f4e0d2ec479b6f",
+    "sourceSha256": "1553aa55d7f1aabd9072cc6fff3a33d73115aa97f0e2477081042dd59d24705a",
+    "sourceFiles": 82,
+    "method": "Sorted Git-visible src path + NUL + bytes + NUL; source code loaded without instrumentation; only diagnostic code reads before and after whole ticks."
+  },
+  "priorSource": {
+    "variant": "before",
+    "sourceCommit": "0db99d59905ad26bc6f1330a17f4e0d2ec479b6f",
+    "sourceSha256": "0d84ead8c61e27bd5a4ca4ee279b1b0f965429edd1abf02d1cc15c4e029b8cdc",
+    "sourceFiles": 81,
+    "method": "Sorted Git-visible src path + NUL + bytes + NUL; source code loaded without instrumentation; only diagnostic code reads before and after whole ticks."
+  },
+  "initialPopulation": 1439,
+  "initialBirths": 239,
+  "initialDeaths": 32,
+  "checkpointSha256": "088fbb87b4cf297d80e56e710ad7a17d863a8fc76d829f9728c47440b7de67f3",
+  "scope": "Disposable matched 24-hour transition-state counterfactual; not historical-law replay, calibrated development, seasonal carrying capacity or a speed benchmark. Inherited oversized infants and initially empty migrated intake remain. Before-arm product-observation fields are unavailable and normalized to null here; the old model had no harvestedKg counter. All-resource task totals include extraction as well as food gathering.",
+  "before": {
+    "variant": "before",
+    "mode": "observed",
+    "sourceSha256": "088fbb87b4cf297d80e56e710ad7a17d863a8fc76d829f9728c47440b7de67f3",
+    "sourceUnchanged": true,
+    "startTick": 228436,
+    "endTick": 228532,
+    "hours": 24,
+    "initialDigest": "152410163d5dbdde2cceb5799ef68d6a5d3e1f270d951a0a5189c18e53e2c448",
+    "projectedInitialDigest": "152410163d5dbdde2cceb5799ef68d6a5d3e1f270d951a0a5189c18e53e2c448",
+    "finalDigest": "268b51ed6c2819fd09d75a7399344a503731a4ac05c66a9d6968aa1e6515c1cb",
+    "elapsedMs": 43298.56233700001,
+    "people": 1441,
+    "births": 241,
+    "deaths": 32,
+    "opening": {
+      "all": {
+        "population": 1439,
+        "campKg": 55113.23936206481,
+        "carriedKg": 4129.529667585631,
+        "journeyKg": 0,
+        "intakeKg": 0,
+        "bodyKg": 23914.607499999995,
+        "reserveSubsetKg": 2391.460750000006,
+        "harvestCounterKg": 253034.29567040812
+      },
+      "communities": {
+        "civ-1": {
+          "population": 355,
+          "campKg": 5678.562817186981,
+          "carriedKg": 1009.6033106740242,
+          "journeyKg": 0,
+          "intakeKg": 0,
+          "bodyKg": 5911.309999999996,
+          "reserveSubsetKg": 591.1310000000017,
+          "harvestCounterKg": 47493.208626535044
+        },
+        "civ-11": {
+          "population": 362,
+          "campKg": 3395.272266214988,
+          "carriedKg": 1046.3021446740047,
+          "journeyKg": 0,
+          "intakeKg": 0,
+          "bodyKg": 6018.812499999999,
+          "reserveSubsetKg": 601.8812500000016,
+          "harvestCounterKg": 45252.55655666311
+        },
+        "civ-21": {
+          "population": 354,
+          "campKg": 12930.723289871832,
+          "carriedKg": 1026.1287673483496,
+          "journeyKg": 0,
+          "intakeKg": 0,
+          "bodyKg": 5896.342500000001,
+          "reserveSubsetKg": 589.6342500000014,
+          "harvestCounterKg": 55143.2342054144
+        },
+        "civ-3118": {
+          "population": 368,
+          "campKg": 33108.680988791006,
+          "carriedKg": 1047.4954448892522,
+          "journeyKg": 0,
+          "intakeKg": 0,
+          "bodyKg": 6088.142499999999,
+          "reserveSubsetKg": 608.8142500000013,
+          "harvestCounterKg": 105145.29628179557
+        }
+      }
+    },
+    "closing": {
+      "all": {
+        "population": 1441,
+        "campKg": 53479.752347607704,
+        "carriedKg": 4349.606984318745,
+        "journeyKg": 0,
+        "intakeKg": 874.75957502385,
+        "bodyKg": 23918.60754589634,
+        "reserveSubsetKg": 2391.860750000006,
+        "harvestCounterKg": 253987.32992345426
+      },
+      "communities": {
+        "civ-1": {
+          "population": 356,
+          "campKg": 5350.479573049686,
+          "carriedKg": 1088.2374423284373,
+          "journeyKg": 0,
+          "intakeKg": 217.87239314093418,
+          "bodyKg": 5913.309999999996,
+          "reserveSubsetKg": 591.3310000000017,
+          "harvestCounterKg": 47778.954612304806
+        },
+        "civ-11": {
+          "population": 362,
+          "campKg": 2945.7464306845045,
+          "carriedKg": 1082.8302359574104,
+          "journeyKg": 0,
+          "intakeKg": 221.09485645852251,
+          "bodyKg": 6018.812499999999,
+          "reserveSubsetKg": 601.8812500000016,
+          "harvestCounterKg": 45370.272139585504
+        },
+        "civ-21": {
+          "population": 354,
+          "campKg": 12567.16236585707,
+          "carriedKg": 1066.995952649885,
+          "journeyKg": 0,
+          "intakeKg": 213.8241179489018,
+          "bodyKg": 5896.342500000001,
+          "reserveSubsetKg": 589.6342500000014,
+          "harvestCounterKg": 55396.43379881413
+        },
+        "civ-3118": {
+          "population": 369,
+          "campKg": 32616.36397801645,
+          "carriedKg": 1111.5433533830128,
+          "journeyKg": 0,
+          "intakeKg": 221.9682074754915,
+          "bodyKg": 6090.14254589634,
+          "reserveSubsetKg": 609.0142500000013,
+          "harvestCounterKg": 105441.66937274984
+        }
+      }
+    },
+    "openingCatchments": {
+      "communities": {
+        "civ-1": {
+          "cells": 3379,
+          "hectares": 33.79,
+          "standingEdibleProxyKg": 35739.01050944962,
+          "meanTemperatureC": 14.86383989908934,
+          "radiusCells": 48
+        },
+        "civ-11": {
+          "cells": 3328,
+          "hectares": 33.28,
+          "standingEdibleProxyKg": 44926.15465688654,
+          "meanTemperatureC": 14.810654136512946,
+          "radiusCells": 48
+        },
+        "civ-21": {
+          "cells": 3578,
+          "hectares": 35.78,
+          "standingEdibleProxyKg": 45252.65133469744,
+          "meanTemperatureC": 14.823234423088667,
+          "radiusCells": 48
+        },
+        "civ-3118": {
+          "cells": 6927,
+          "hectares": 69.27,
+          "standingEdibleProxyKg": 343744.84285903204,
+          "meanTemperatureC": 13.361100689961544,
+          "radiusCells": 48
+        }
+      },
+      "unionCells": 10610,
+      "unionHectares": 106.1,
+      "overlapCells": {
+        "civ-1 / civ-11": 3024,
+        "civ-1 / civ-21": 3332,
+        "civ-1 / civ-3118": 0,
+        "civ-11 / civ-21": 3223,
+        "civ-11 / civ-3118": 0,
+        "civ-21 / civ-3118": 0
+      },
+      "scope": "Connected currently represented land within the existing founding survey radius; not owned territory, sustainable annual yield or individual knowledge."
+    },
+    "closingCatchments": {
+      "communities": {
+        "civ-1": {
+          "cells": 3379,
+          "hectares": 33.79,
+          "standingEdibleProxyKg": 35935.34129334202,
+          "meanTemperatureC": 14.680259164251092,
+          "radiusCells": 48
+        },
+        "civ-11": {
+          "cells": 3328,
+          "hectares": 33.28,
+          "standingEdibleProxyKg": 45105.73083587361,
+          "meanTemperatureC": 14.628055175987662,
+          "radiusCells": 48
+        },
+        "civ-21": {
+          "cells": 3578,
+          "hectares": 35.78,
+          "standingEdibleProxyKg": 45459.23864258415,
+          "meanTemperatureC": 14.640333470211814,
+          "radiusCells": 48
+        },
+        "civ-3118": {
+          "cells": 6927,
+          "hectares": 69.27,
+          "standingEdibleProxyKg": 344931.5601405618,
+          "meanTemperatureC": 13.188033559204749,
+          "radiusCells": 48
+        }
+      },
+      "unionCells": 10610,
+      "unionHectares": 106.1,
+      "overlapCells": {
+        "civ-1 / civ-11": 3024,
+        "civ-1 / civ-21": 3332,
+        "civ-1 / civ-3118": 0,
+        "civ-11 / civ-21": 3223,
+        "civ-11 / civ-3118": 0,
+        "civ-21 / civ-3118": 0
+      },
+      "scope": "Connected currently represented land within the existing founding survey radius; not owned territory, sustainable annual yield or individual knowledge."
+    },
+    "closingAccess": {
+      "civ-1": {
+        "population": 356,
+        "underOneYear": 56,
+        "shortIntake": 0,
+        "shortIntakeWithOwnFood": 0,
+        "shortIntakeAtCamp": 0,
+        "shortIntakeWithDistantStock": 0,
+        "stationaryAtCamp": 279
+      },
+      "civ-11": {
+        "population": 362,
+        "underOneYear": 62,
+        "shortIntake": 0,
+        "shortIntakeWithOwnFood": 0,
+        "shortIntakeAtCamp": 0,
+        "shortIntakeWithDistantStock": 0,
+        "stationaryAtCamp": 214
+      },
+      "civ-21": {
+        "population": 354,
+        "underOneYear": 54,
+        "shortIntake": 0,
+        "shortIntakeWithOwnFood": 0,
+        "shortIntakeAtCamp": 0,
+        "shortIntakeWithDistantStock": 0,
+        "stationaryAtCamp": 259
+      },
+      "civ-3118": {
+        "population": 369,
+        "underOneYear": 69,
+        "shortIntake": 0,
+        "shortIntakeWithOwnFood": 0,
+        "shortIntakeAtCamp": 0,
+        "shortIntakeWithDistantStock": 0,
+        "stationaryAtCamp": 230
+      }
+    },
+    "elementalErrors": {
+      "absolute": 2.0219459533691406,
+      "relative": 1.8566473569672307e-10
+    },
+    "measurement": {
+      "metabolismByCommunity": {
+        "civ-1": {
+          "intervals": 34132,
+          "hours": 8533,
+          "ingestedKg": 494.81382117169204,
+          "foodOxidizedKg": 276.9414280307182,
+          "reserveOxidizedKg": 0,
+          "reserveStoredKg": 8.881784197001252e-16,
+          "structureStoredKg": 0,
+          "maintenanceKJ": 3750510.9599999553,
+          "heatLossKJ": 3908038.99754786,
+          "releasedKJ": 4425524.019931569,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 6613.253253603467,
+          "unremovedHeatKJ": 4.381738027969817e-12,
+          "healthLoss": 27.55522189001431
+        },
+        "civ-11": {
+          "intervals": 34752,
+          "hours": 8688,
+          "ingestedKg": 504.92991070597185,
+          "foodOxidizedKg": 283.8350542474001,
+          "reserveOxidizedKg": 0,
+          "reserveStoredKg": 3.3306690738754696e-16,
+          "structureStoredKg": 0,
+          "maintenanceKJ": 3781530.5999999857,
+          "heatLossKJ": 4012561.7432183228,
+          "releasedKJ": 4535684.16687423,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 9.379164112033322e-13,
+          "unmetColdKJ": 4972.889982763791,
+          "unremovedHeatKJ": 4.107384571350181e-12,
+          "healthLoss": 20.720374928182352
+        },
+        "civ-21": {
+          "intervals": 33984,
+          "hours": 8496,
+          "ingestedKg": 491.74829843050094,
+          "foodOxidizedKg": 277.9241804815612,
+          "reserveOxidizedKg": 0,
+          "reserveStoredKg": 1.0547118733938987e-15,
+          "structureStoredKg": 0,
+          "maintenanceKJ": 3703056.479999923,
+          "heatLossKJ": 3961425.2480129437,
+          "releasedKJ": 4441228.404095943,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 5368.946020301578,
+          "unremovedHeatKJ": 4.025336487745168e-12,
+          "healthLoss": 22.37060841792345
+        },
+        "civ-3118": {
+          "intervals": 35380,
+          "hours": 8845,
+          "ingestedKg": 516.9345290538831,
+          "foodOxidizedKg": 294.96627568197744,
+          "reserveOxidizedKg": 0,
+          "reserveStoredKg": 8.881784197001252e-16,
+          "structureStoredKg": 4.589634144439322e-05,
+          "maintenanceKJ": 3842439.332500005,
+          "heatLossKJ": 4229710.478172046,
+          "releasedKJ": 4713561.085399174,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 2915.090992804149,
+          "unremovedHeatKJ": 4.787351071122714e-12,
+          "healthLoss": 12.146212470017332
+        }
+      },
+      "metabolismByAge": {
+        "twelveAndOver": {
+          "intervals": 115200,
+          "hours": 28800,
+          "ingestedKg": 1733.4131587079828,
+          "foodOxidizedKg": 936.951099080796,
+          "reserveOxidizedKg": 0,
+          "reserveStoredKg": 0,
+          "structureStoredKg": 0,
+          "maintenanceKJ": 13846950,
+          "heatLossKJ": 12957387.028958455,
+          "releasedKJ": 14972478.56332372,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 3.872457909892546e-11,
+          "unremovedHeatKJ": 1.7231422018426645e-11,
+          "healthLoss": 0
+        },
+        "underOneYear": {
+          "intervals": 23048,
+          "hours": 5762,
+          "ingestedKg": 275.0134006540461,
+          "foodOxidizedKg": 196.71583936026522,
+          "reserveOxidizedKg": 0,
+          "reserveStoredKg": 3.164135620181696e-15,
+          "structureStoredKg": 4.589634144439322e-05,
+          "maintenanceKJ": 1230587.3725000257,
+          "heatLossKJ": 3154349.4379927167,
+          "releasedKJ": 3143519.1129771005,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 9.379164112033322e-13,
+          "unmetColdKJ": 19870.180249472996,
+          "unremovedHeatKJ": 7.038813976123492e-14,
+          "healthLoss": 82.79241770613744
+        }
+      },
+      "metabolismTotal": {
+        "hours": 34562,
+        "ingestedKg": 2008.426559362048,
+        "foodOxidizedKg": 1133.6669384416568,
+        "reserveOxidizedKg": 0,
+        "reserveStoredKg": 3.164135620181696e-15,
+        "structureStoredKg": 4.589634144439322e-05,
+        "maintenanceKJ": 15077537.37249987,
+        "heatLossKJ": 16111736.466951173,
+        "releasedKJ": 18115997.676300917,
+        "meltKJ": 0,
+        "unmetMaintenanceKJ": 9.379164112033322e-13,
+        "unmetColdKJ": 19870.180249472985,
+        "unremovedHeatKJ": 1.730181015818788e-11,
+        "healthLoss": 82.79241770613744
+      },
+      "activities": {
+        "civ-1": {
+          "effectiveHours": 1862.4974898740927,
+          "productObservationKg": null,
+          "paidIntervals": 7886,
+          "zeroYieldPaidIntervals": null,
+          "completions": 764,
+          "zeroYieldCompletions": null,
+          "interruptions": 159,
+          "productiveInterruptions": null,
+          "observedProductKgAtInterruption": null
+        },
+        "civ-11": {
+          "effectiveHours": 843.8500972115063,
+          "productObservationKg": null,
+          "paidIntervals": 3494,
+          "zeroYieldPaidIntervals": null,
+          "completions": 284,
+          "zeroYieldCompletions": null,
+          "interruptions": 68,
+          "productiveInterruptions": null,
+          "observedProductKgAtInterruption": null
+        },
+        "civ-21": {
+          "effectiveHours": 1279.1228457834186,
+          "productObservationKg": null,
+          "paidIntervals": 5451,
+          "zeroYieldPaidIntervals": null,
+          "completions": 502,
+          "zeroYieldCompletions": null,
+          "interruptions": 174,
+          "productiveInterruptions": null,
+          "observedProductKgAtInterruption": null
+        },
+        "civ-3118": {
+          "effectiveHours": 1928.2016114170403,
+          "productObservationKg": null,
+          "paidIntervals": 7766,
+          "zeroYieldPaidIntervals": null,
+          "completions": 764,
+          "zeroYieldCompletions": null,
+          "interruptions": 187,
+          "productiveInterruptions": null,
+          "observedProductKgAtInterruption": null
+        }
+      },
+      "series": [
+        {
+          "tick": 228452,
+          "holdings": {
+            "population": 1439,
+            "campKg": 54339.546324602146,
+            "carriedKg": 4014.1406058796097,
+            "journeyKg": 0,
+            "intakeKg": 1000.3953011293193,
+            "bodyKg": 23914.607499999995,
+            "reserveSubsetKg": 2391.460750000006,
+            "harvestCounterKg": 253409.15088817585
+          }
+        },
+        {
+          "tick": 228468,
+          "holdings": {
+            "population": 1439,
+            "campKg": 54001.203155888594,
+            "carriedKg": 4317,
+            "journeyKg": 0,
+            "intakeKg": 841.0555148259631,
+            "bodyKg": 23914.607499999995,
+            "reserveSubsetKg": 2391.460750000006,
+            "harvestCounterKg": 253460.87994478858
+          }
+        },
+        {
+          "tick": 228484,
+          "holdings": {
+            "population": 1441,
+            "campKg": 53891.200675993736,
+            "carriedKg": 4323,
+            "journeyKg": 0,
+            "intakeKg": 705.6831462187043,
+            "bodyKg": 23918.607499999995,
+            "reserveSubsetKg": 2391.860750000006,
+            "harvestCounterKg": 253460.87994478858
+          }
+        },
+        {
+          "tick": 228500,
+          "holdings": {
+            "population": 1441,
+            "campKg": 53768.219519203565,
+            "carriedKg": 4323,
+            "journeyKg": 0,
+            "intakeKg": 589.0139108907892,
+            "bodyKg": 23918.607499999995,
+            "reserveSubsetKg": 2391.860750000006,
+            "harvestCounterKg": 253460.87994478858
+          }
+        },
+        {
+          "tick": 228516,
+          "holdings": {
+            "population": 1441,
+            "campKg": 53356.2312637754,
+            "carriedKg": 4302.099443453393,
+            "journeyKg": 0,
+            "intakeKg": 1047.8931275505838,
+            "bodyKg": 23918.607499999995,
+            "reserveSubsetKg": 2391.860750000006,
+            "harvestCounterKg": 253738.26956873777
+          }
+        },
+        {
+          "tick": 228532,
+          "holdings": {
+            "population": 1441,
+            "campKg": 53479.752347607704,
+            "carriedKg": 4349.606984318745,
+            "journeyKg": 0,
+            "intakeKg": 874.75957502385,
+            "bodyKg": 23918.60754589634,
+            "reserveSubsetKg": 2391.860750000006,
+            "harvestCounterKg": 253987.32992345426
+          }
+        }
+      ],
+      "lowestChildHealth": 94.07618229832133,
+      "scope": "Read-only snapshots around complete ticks, no source instrumentation or injected choices. Yield observations did not exist under the old kernel; compare actual civilization harvest counters across variants instead. No inference of historical death shares or seasonal equilibrium.",
+      "yieldObservationAvailable": false
+    },
+    "peakRssBytes": 486813696,
+    "baselineReference": {
+      "file": "output/research/harvesting-day-before-baseline.json",
+      "sha256": "4e37d4024c037b20b83f91d68ad68ab889abd9b3fd3cbc1632b270d6effc5109",
+      "exactFinalWorldMatch": true
+    }
+  },
+  "after": {
+    "variant": "after",
+    "mode": "observed",
+    "sourceSha256": "088fbb87b4cf297d80e56e710ad7a17d863a8fc76d829f9728c47440b7de67f3",
+    "sourceUnchanged": true,
+    "startTick": 228436,
+    "endTick": 228532,
+    "hours": 24,
+    "initialDigest": "43ffe6d411b0b0cf2a74cc7b35a110ed709644c1eee35a158214661345dfaddc",
+    "projectedInitialDigest": "152410163d5dbdde2cceb5799ef68d6a5d3e1f270d951a0a5189c18e53e2c448",
+    "finalDigest": "8b607a90a09ff56eea6fc96e361778cff01ca4cfa26e077e72fc2285eabd1dde",
+    "elapsedMs": 99896.76008600001,
+    "people": 1441,
+    "births": 241,
+    "deaths": 32,
+    "opening": {
+      "all": {
+        "population": 1439,
+        "campKg": 55113.23936206481,
+        "carriedKg": 4129.529667585631,
+        "journeyKg": 0,
+        "intakeKg": 0,
+        "bodyKg": 23914.607499999995,
+        "reserveSubsetKg": 2391.460750000006,
+        "harvestCounterKg": 253034.29567040812
+      },
+      "communities": {
+        "civ-1": {
+          "population": 355,
+          "campKg": 5678.562817186981,
+          "carriedKg": 1009.6033106740242,
+          "journeyKg": 0,
+          "intakeKg": 0,
+          "bodyKg": 5911.309999999996,
+          "reserveSubsetKg": 591.1310000000017,
+          "harvestCounterKg": 47493.208626535044
+        },
+        "civ-11": {
+          "population": 362,
+          "campKg": 3395.272266214988,
+          "carriedKg": 1046.3021446740047,
+          "journeyKg": 0,
+          "intakeKg": 0,
+          "bodyKg": 6018.812499999999,
+          "reserveSubsetKg": 601.8812500000016,
+          "harvestCounterKg": 45252.55655666311
+        },
+        "civ-21": {
+          "population": 354,
+          "campKg": 12930.723289871832,
+          "carriedKg": 1026.1287673483496,
+          "journeyKg": 0,
+          "intakeKg": 0,
+          "bodyKg": 5896.342500000001,
+          "reserveSubsetKg": 589.6342500000014,
+          "harvestCounterKg": 55143.2342054144
+        },
+        "civ-3118": {
+          "population": 368,
+          "campKg": 33108.680988791006,
+          "carriedKg": 1047.4954448892522,
+          "journeyKg": 0,
+          "intakeKg": 0,
+          "bodyKg": 6088.142499999999,
+          "reserveSubsetKg": 608.8142500000013,
+          "harvestCounterKg": 105145.29628179557
+        }
+      }
+    },
+    "closing": {
+      "all": {
+        "population": 1441,
+        "campKg": 53517.13764951957,
+        "carriedKg": 4565.693057721839,
+        "journeyKg": 0,
+        "intakeKg": 863.397735128131,
+        "bodyKg": 23918.60998167269,
+        "reserveSubsetKg": 2391.8609890129032,
+        "harvestCounterKg": 254237.61494056328
+      },
+      "communities": {
+        "civ-1": {
+          "population": 356,
+          "campKg": 5364.75634619793,
+          "carriedKg": 1175.848546882241,
+          "journeyKg": 0,
+          "intakeKg": 214.75629697787505,
+          "bodyKg": 5913.311012611805,
+          "reserveSubsetKg": 591.3310966816189,
+          "harvestCounterKg": 47880.242067079926
+        },
+        "civ-11": {
+          "population": 362,
+          "campKg": 2951.9761067001004,
+          "carriedKg": 1120.2459981816373,
+          "journeyKg": 0,
+          "intakeKg": 220.42008540181664,
+          "bodyKg": 6018.812499999999,
+          "reserveSubsetKg": 601.8812500000016,
+          "harvestCounterKg": 45413.04400369849
+        },
+        "civ-21": {
+          "population": 354,
+          "campKg": 12548.17638225827,
+          "carriedKg": 1110.5458530310282,
+          "journeyKg": 0,
+          "intakeKg": 211.04646401674864,
+          "bodyKg": 5896.342500000001,
+          "reserveSubsetKg": 589.6342500000014,
+          "harvestCounterKg": 55421.422939978234
+        },
+        "civ-3118": {
+          "population": 369,
+          "campKg": 32652.228814363272,
+          "carriedKg": 1159.0526596269324,
+          "journeyKg": 0,
+          "intakeKg": 217.17488873169063,
+          "bodyKg": 6090.143969060887,
+          "reserveSubsetKg": 609.0143923312812,
+          "harvestCounterKg": 105522.90592980666
+        }
+      }
+    },
+    "openingCatchments": {
+      "communities": {
+        "civ-1": {
+          "cells": 3379,
+          "hectares": 33.79,
+          "standingEdibleProxyKg": 35739.01050944962,
+          "meanTemperatureC": 14.86383989908934,
+          "radiusCells": 48
+        },
+        "civ-11": {
+          "cells": 3328,
+          "hectares": 33.28,
+          "standingEdibleProxyKg": 44926.15465688654,
+          "meanTemperatureC": 14.810654136512946,
+          "radiusCells": 48
+        },
+        "civ-21": {
+          "cells": 3578,
+          "hectares": 35.78,
+          "standingEdibleProxyKg": 45252.65133469744,
+          "meanTemperatureC": 14.823234423088667,
+          "radiusCells": 48
+        },
+        "civ-3118": {
+          "cells": 6927,
+          "hectares": 69.27,
+          "standingEdibleProxyKg": 343744.84285903204,
+          "meanTemperatureC": 13.361100689961544,
+          "radiusCells": 48
+        }
+      },
+      "unionCells": 10610,
+      "unionHectares": 106.1,
+      "overlapCells": {
+        "civ-1 / civ-11": 3024,
+        "civ-1 / civ-21": 3332,
+        "civ-1 / civ-3118": 0,
+        "civ-11 / civ-21": 3223,
+        "civ-11 / civ-3118": 0,
+        "civ-21 / civ-3118": 0
+      },
+      "scope": "Connected currently represented land within the existing founding survey radius; not owned territory, sustainable annual yield or individual knowledge."
+    },
+    "closingCatchments": {
+      "communities": {
+        "civ-1": {
+          "cells": 3379,
+          "hectares": 33.79,
+          "standingEdibleProxyKg": 35756.23521497858,
+          "meanTemperatureC": 14.682731699610764,
+          "radiusCells": 48
+        },
+        "civ-11": {
+          "cells": 3328,
+          "hectares": 33.28,
+          "standingEdibleProxyKg": 44956.993245016034,
+          "meanTemperatureC": 14.630302464132175,
+          "radiusCells": 48
+        },
+        "civ-21": {
+          "cells": 3578,
+          "hectares": 35.78,
+          "standingEdibleProxyKg": 45280.13255996825,
+          "meanTemperatureC": 14.642668492760192,
+          "radiusCells": 48
+        },
+        "civ-3118": {
+          "cells": 6927,
+          "hectares": 69.27,
+          "standingEdibleProxyKg": 344848.2800541678,
+          "meanTemperatureC": 13.188696921359117,
+          "radiusCells": 48
+        }
+      },
+      "unionCells": 10610,
+      "unionHectares": 106.1,
+      "overlapCells": {
+        "civ-1 / civ-11": 3024,
+        "civ-1 / civ-21": 3332,
+        "civ-1 / civ-3118": 0,
+        "civ-11 / civ-21": 3223,
+        "civ-11 / civ-3118": 0,
+        "civ-21 / civ-3118": 0
+      },
+      "scope": "Connected currently represented land within the existing founding survey radius; not owned territory, sustainable annual yield or individual knowledge."
+    },
+    "closingAccess": {
+      "civ-1": {
+        "population": 356,
+        "underOneYear": 56,
+        "shortIntake": 0,
+        "shortIntakeWithOwnFood": 0,
+        "shortIntakeAtCamp": 0,
+        "shortIntakeWithDistantStock": 0,
+        "stationaryAtCamp": 226
+      },
+      "civ-11": {
+        "population": 362,
+        "underOneYear": 62,
+        "shortIntake": 0,
+        "shortIntakeWithOwnFood": 0,
+        "shortIntakeAtCamp": 0,
+        "shortIntakeWithDistantStock": 0,
+        "stationaryAtCamp": 227
+      },
+      "civ-21": {
+        "population": 354,
+        "underOneYear": 54,
+        "shortIntake": 0,
+        "shortIntakeWithOwnFood": 0,
+        "shortIntakeAtCamp": 0,
+        "shortIntakeWithDistantStock": 0,
+        "stationaryAtCamp": 264
+      },
+      "civ-3118": {
+        "population": 369,
+        "underOneYear": 69,
+        "shortIntake": 0,
+        "shortIntakeWithOwnFood": 0,
+        "shortIntakeAtCamp": 0,
+        "shortIntakeWithDistantStock": 0,
+        "stationaryAtCamp": 246
+      }
+    },
+    "elementalErrors": {
+      "absolute": 2.021810531616211,
+      "relative": 1.85652300624498e-10
+    },
+    "measurement": {
+      "metabolismByCommunity": {
+        "civ-1": {
+          "intervals": 34132,
+          "hours": 8533,
+          "ingestedKg": 494.0234298026077,
+          "foodOxidizedKg": 279.26612021287593,
+          "reserveOxidizedKg": 0,
+          "reserveStoredKg": 9.668161723996871e-05,
+          "structureStoredKg": 0.0009159301924059792,
+          "maintenanceKJ": 3751140.959999955,
+          "heatLossKJ": 3959725.4474430666,
+          "releasedKJ": 4462672.601002529,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 5622.344965233063,
+          "unremovedHeatKJ": 3.7638954453189655e-12,
+          "healthLoss": 23.42643735513785
+        },
+        "civ-11": {
+          "intervals": 34752,
+          "hours": 8688,
+          "ingestedKg": 503.80799958085674,
+          "foodOxidizedKg": 283.38791417899205,
+          "reserveOxidizedKg": 0,
+          "reserveStoredKg": 3.3306690738754696e-16,
+          "structureStoredKg": 0,
+          "maintenanceKJ": 3776490.599999985,
+          "heatLossKJ": 4002226.577617609,
+          "releasedKJ": 4528538.868581028,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 7.531752999057062e-13,
+          "unmetColdKJ": 4280.8094420321795,
+          "unremovedHeatKJ": 4.365383055038308e-12,
+          "healthLoss": 17.836706008467488
+        },
+        "civ-21": {
+          "intervals": 33984,
+          "hours": 8496,
+          "ingestedKg": 492.78930341194325,
+          "foodOxidizedKg": 281.74283939515243,
+          "reserveOxidizedKg": 0,
+          "reserveStoredKg": 1.0547118733938987e-15,
+          "structureStoredKg": 0,
+          "maintenanceKJ": 3711246.4799999213,
+          "heatLossKJ": 4013652.0028026886,
+          "releasedKJ": 4502250.57353524,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 5682.705567323805,
+          "unremovedHeatKJ": 3.95145721698853e-12,
+          "healthLoss": 23.67793986384919
+        },
+        "civ-3118": {
+          "intervals": 35380,
+          "hours": 8845,
+          "ingestedKg": 514.3042478021023,
+          "foodOxidizedKg": 297.12789000944736,
+          "reserveOxidizedKg": 0,
+          "reserveStoredKg": 0.00014233127997581585,
+          "structureStoredKg": 0.0013267296080475173,
+          "maintenanceKJ": 3846714.3325000047,
+          "heatLossKJ": 4253509.9846013915,
+          "releasedKJ": 4748103.682352192,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 2332.6516237801743,
+          "unremovedHeatKJ": 3.707256723828323e-12,
+          "healthLoss": 9.719381765750612
+        }
+      },
+      "metabolismByAge": {
+        "twelveAndOver": {
+          "intervals": 115200,
+          "hours": 28800,
+          "ingestedKg": 1733.3251701047986,
+          "foodOxidizedKg": 947.7696402204962,
+          "reserveOxidizedKg": 0,
+          "reserveStoredKg": 0,
+          "structureStoredKg": 0,
+          "maintenanceKJ": 13855005,
+          "heatLossKJ": 13123286.544460908,
+          "releasedKJ": 15145358.850735819,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 4.18509671362699e-11,
+          "unremovedHeatKJ": 1.5732037200733018e-11,
+          "healthLoss": 0
+        },
+        "underOneYear": {
+          "intervals": 23048,
+          "hours": 5762,
+          "ingestedKg": 271.59981049269066,
+          "foodOxidizedKg": 193.7551235754125,
+          "reserveOxidizedKg": 0,
+          "reserveStoredKg": 0.00023901289721717234,
+          "structureStoredKg": 0.0022426598004534966,
+          "maintenanceKJ": 1230587.3725000257,
+          "heatLossKJ": 3105827.4680038407,
+          "releasedKJ": 3096206.874735109,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 7.531752999057062e-13,
+          "unmetColdKJ": 17918.511598369176,
+          "unremovedHeatKJ": 5.595524044110789e-14,
+          "healthLoss": 74.66046499320514
+        }
+      },
+      "metabolismTotal": {
+        "hours": 34562,
+        "ingestedKg": 2004.9249805975098,
+        "foodOxidizedKg": 1141.5247637964678,
+        "reserveOxidizedKg": 0,
+        "reserveStoredKg": 0.00023901289721717234,
+        "structureStoredKg": 0.0022426598004534966,
+        "maintenanceKJ": 15085592.372499866,
+        "heatLossKJ": 16229114.012464756,
+        "releasedKJ": 18241565.72547099,
+        "meltKJ": 0,
+        "unmetMaintenanceKJ": 7.531752999057062e-13,
+        "unmetColdKJ": 17918.511598369223,
+        "unremovedHeatKJ": 1.5787992441174126e-11,
+        "healthLoss": 74.66046499320514
+      },
+      "activities": {
+        "civ-1": {
+          "effectiveHours": 1268.9707697211404,
+          "productObservationKg": 387.0334405449124,
+          "paidIntervals": 5678,
+          "zeroYieldPaidIntervals": 3303,
+          "completions": 601,
+          "zeroYieldCompletions": 0,
+          "interruptions": 160,
+          "productiveInterruptions": 74,
+          "observedProductKgAtInterruption": 38.38894735622635
+        },
+        "civ-11": {
+          "effectiveHours": 596.7962892404464,
+          "productObservationKg": 192.70908885985045,
+          "paidIntervals": 2522,
+          "zeroYieldPaidIntervals": 815,
+          "completions": 199,
+          "zeroYieldCompletions": 0,
+          "interruptions": 55,
+          "productiveInterruptions": 35,
+          "observedProductKgAtInterruption": 28.03368041183078
+        },
+        "civ-21": {
+          "effectiveHours": 985.2576226226348,
+          "productObservationKg": 278.1887345637394,
+          "paidIntervals": 4453,
+          "zeroYieldPaidIntervals": 2641,
+          "completions": 427,
+          "zeroYieldCompletions": 11,
+          "interruptions": 188,
+          "productiveInterruptions": 53,
+          "observedProductKgAtInterruption": 48.41429942902924
+        },
+        "civ-3118": {
+          "effectiveHours": 1482.7501921662097,
+          "productObservationKg": 377.60964801072936,
+          "paidIntervals": 6312,
+          "zeroYieldPaidIntervals": 3847,
+          "completions": 688,
+          "zeroYieldCompletions": 4,
+          "interruptions": 164,
+          "productiveInterruptions": 69,
+          "observedProductKgAtInterruption": 49.224813517749965
+        }
+      },
+      "series": [
+        {
+          "tick": 228452,
+          "holdings": {
+            "population": 1439,
+            "campKg": 54057.39303653943,
+            "carriedKg": 4365.899749785485,
+            "journeyKg": 0,
+            "intakeKg": 1000.1861528584602,
+            "bodyKg": 23914.607499999995,
+            "reserveSubsetKg": 2391.460750000006,
+            "harvestCounterKg": 253479.06895875535
+          }
+        },
+        {
+          "tick": 228468,
+          "holdings": {
+            "population": 1439,
+            "campKg": 54083.36774101538,
+            "carriedKg": 4321.653518820255,
+            "journeyKg": 0,
+            "intakeKg": 838.5179034156681,
+            "bodyKg": 23914.607499999995,
+            "reserveSubsetKg": 2391.460750000006,
+            "harvestCounterKg": 253547.83909167413
+          }
+        },
+        {
+          "tick": 228484,
+          "holdings": {
+            "population": 1441,
+            "campKg": 53978.539865960316,
+            "carriedKg": 4323,
+            "journeyKg": 0,
+            "intakeKg": 699.7352394894773,
+            "bodyKg": 23918.607499999995,
+            "reserveSubsetKg": 2391.860750000006,
+            "harvestCounterKg": 253547.83909167413
+          }
+        },
+        {
+          "tick": 228500,
+          "holdings": {
+            "population": 1441,
+            "campKg": 53832.25239129978,
+            "carriedKg": 4323,
+            "journeyKg": 0,
+            "intakeKg": 603.5052322066316,
+            "bodyKg": 23918.607499999995,
+            "reserveSubsetKg": 2391.860750000006,
+            "harvestCounterKg": 253547.83909167413
+          }
+        },
+        {
+          "tick": 228516,
+          "holdings": {
+            "population": 1441,
+            "campKg": 53330.191298341524,
+            "carriedKg": 4411.772353229091,
+            "journeyKg": 0,
+            "intakeKg": 1037.3088196051626,
+            "bodyKg": 23918.608354204614,
+            "reserveSubsetKg": 2391.8608262658104,
+            "harvestCounterKg": 253820.61125359888
+          }
+        },
+        {
+          "tick": 228532,
+          "holdings": {
+            "population": 1441,
+            "campKg": 53517.13764951957,
+            "carriedKg": 4565.693057721839,
+            "journeyKg": 0,
+            "intakeKg": 863.397735128131,
+            "bodyKg": 23918.60998167269,
+            "reserveSubsetKg": 2391.8609890129032,
+            "harvestCounterKg": 254237.61494056328
+          }
+        }
+      ],
+      "lowestChildHealth": 93.85366681825592,
+      "scope": "Read-only snapshots around complete ticks, no source instrumentation or injected choices. Yield observations did not exist under the old kernel; compare actual civilization harvest counters across variants instead. No inference of historical death shares or seasonal equilibrium.",
+      "yieldObservationAvailable": true
+    },
+    "peakRssBytes": 456867840,
+    "baselineReference": {
+      "file": "output/research/harvesting-day-after-baseline.json",
+      "sha256": "7c2e48708a5451a1d6f660b9da69c26035b40d0792ffed262e6c620a0e76b461",
+      "exactFinalWorldMatch": true
+    }
+  },
+  "numerics": {
+    "method": "Equal cumulative effective effort with fixed actors, source, policy and skill; no replenishment, physiology or completion. Fine interval is a numerical reference, not empirical truth.",
+    "reports": [
+      {
+        "name": "solo-uncapped",
+        "materials": [
+          "biomass"
+        ],
+        "carbon": 4,
+        "mineral": 1,
+        "hours": 2.4,
+        "referenceInterval": 0.00390625,
+        "runs": [
+          {
+            "dt": 2.4,
+            "steps": 1,
+            "products": [
+              1.2638297872340427
+            ],
+            "carbon": 2.812,
+            "mineral": 0.9241702127659575,
+            "maxProductError": 1.1102230246251565e-15,
+            "totalKg": 1.2638297872340427
+          },
+          {
+            "dt": 0.25,
+            "steps": 10,
+            "products": [
+              1.263829787234043
+            ],
+            "carbon": 2.8120000000000003,
+            "mineral": 0.9241702127659572,
+            "maxProductError": 1.3322676295501878e-15,
+            "totalKg": 1.263829787234043
+          },
+          {
+            "dt": 0.125,
+            "steps": 20,
+            "products": [
+              1.263829787234043
+            ],
+            "carbon": 2.8120000000000007,
+            "mineral": 0.9241702127659573,
+            "maxProductError": 1.3322676295501878e-15,
+            "totalKg": 1.263829787234043
+          },
+          {
+            "dt": 0.0625,
+            "steps": 39,
+            "products": [
+              1.2638297872340434
+            ],
+            "carbon": 2.8120000000000007,
+            "mineral": 0.9241702127659575,
+            "maxProductError": 1.7763568394002505e-15,
+            "totalKg": 1.2638297872340434
+          },
+          {
+            "dt": 0.03125,
+            "steps": 77,
+            "products": [
+              1.2638297872340436
+            ],
+            "carbon": 2.8120000000000003,
+            "mineral": 0.9241702127659577,
+            "maxProductError": 1.9984014443252818e-15,
+            "totalKg": 1.2638297872340436
+          },
+          {
+            "dt": 0.015625,
+            "steps": 154,
+            "products": [
+              1.263829787234043
+            ],
+            "carbon": 2.8119999999999985,
+            "mineral": 0.9241702127659569,
+            "maxProductError": 1.3322676295501878e-15,
+            "totalKg": 1.263829787234043
+          },
+          {
+            "dt": 0.00390625,
+            "steps": 615,
+            "products": [
+              1.2638297872340416
+            ],
+            "carbon": 2.8120000000000034,
+            "mineral": 0.9241702127659582,
+            "maxProductError": 0,
+            "totalKg": 1.2638297872340416
+          }
+        ]
+      },
+      {
+        "name": "handling-to-source",
+        "materials": [
+          "biomass"
+        ],
+        "carbon": 20,
+        "mineral": 10,
+        "hours": 2.4,
+        "referenceInterval": 0.00390625,
+        "runs": [
+          {
+            "dt": 2.4,
+            "steps": 1,
+            "products": [
+              6
+            ],
+            "carbon": 14.36,
+            "mineral": 9.64,
+            "maxProductError": 0.08689101998701343,
+            "totalKg": 6
+          },
+          {
+            "dt": 0.25,
+            "steps": 10,
+            "products": [
+              5.913522167622606
+            ],
+            "carbon": 14.44128916243476,
+            "mineral": 9.645188669942646,
+            "maxProductError": 0.00041318760961939205,
+            "totalKg": 5.913522167622606
+          },
+          {
+            "dt": 0.125,
+            "steps": 20,
+            "products": [
+              5.913522167622604
+            ],
+            "carbon": 14.441289162434762,
+            "mineral": 9.645188669942632,
+            "maxProductError": 0.0004131876096176157,
+            "totalKg": 5.913522167622604
+          },
+          {
+            "dt": 0.0625,
+            "steps": 39,
+            "products": [
+              5.913135362040433
+            ],
+            "carbon": 14.441652759681952,
+            "mineral": 9.645211878277562,
+            "maxProductError": 2.6382027446203438e-05,
+            "totalKg": 5.913135362040433
+          },
+          {
+            "dt": 0.03125,
+            "steps": 77,
+            "products": [
+              5.913135362040434
+            ],
+            "carbon": 14.441652759681954,
+            "mineral": 9.645211878277609,
+            "maxProductError": 2.6382027447091616e-05,
+            "totalKg": 5.913135362040434
+          },
+          {
+            "dt": 0.015625,
+            "steps": 154,
+            "products": [
+              5.913110283938602
+            ],
+            "carbon": 14.441676333097867,
+            "mineral": 9.645213382963721,
+            "maxProductError": 1.3039256154812051e-06,
+            "totalKg": 5.913110283938602
+          },
+          {
+            "dt": 0.00390625,
+            "steps": 615,
+            "products": [
+              5.913108980012987
+            ],
+            "carbon": 14.441677558787182,
+            "mineral": 9.645213461199052,
+            "maxProductError": 0,
+            "totalKg": 5.913108980012987
+          }
+        ]
+      },
+      {
+        "name": "mixed-mineral-limited",
+        "materials": [
+          "biomass",
+          "wood",
+          "fiber"
+        ],
+        "carbon": 1000,
+        "mineral": 0.08,
+        "hours": 2.4,
+        "referenceInterval": 0.00390625,
+        "runs": [
+          {
+            "dt": 2.4,
+            "steps": 1,
+            "products": [
+              0.7407407407407407,
+              1.1851851851851851,
+              1.1851851851851851
+            ],
+            "carbon": 996.9688888888888,
+            "mineral": 1.3877787807814457e-17,
+            "maxProductError": 1.5543122344752192e-15,
+            "totalKg": 3.1111111111111107
+          },
+          {
+            "dt": 0.25,
+            "steps": 10,
+            "products": [
+              0.7407407407407407,
+              1.1851851851851851,
+              1.1851851851851851
+            ],
+            "carbon": 996.9688888888888,
+            "mineral": 0,
+            "maxProductError": 1.5543122344752192e-15,
+            "totalKg": 3.1111111111111107
+          },
+          {
+            "dt": 0.125,
+            "steps": 20,
+            "products": [
+              0.7407407407407407,
+              1.1851851851851851,
+              1.1851851851851851
+            ],
+            "carbon": 996.968888888889,
+            "mineral": 0,
+            "maxProductError": 1.5543122344752192e-15,
+            "totalKg": 3.1111111111111107
+          },
+          {
+            "dt": 0.0625,
+            "steps": 39,
+            "products": [
+              0.7407407407407407,
+              1.1851851851851851,
+              1.1851851851851851
+            ],
+            "carbon": 996.968888888889,
+            "mineral": 0,
+            "maxProductError": 1.5543122344752192e-15,
+            "totalKg": 3.1111111111111107
+          },
+          {
+            "dt": 0.03125,
+            "steps": 77,
+            "products": [
+              0.7407407407407407,
+              1.1851851851851851,
+              1.1851851851851851
+            ],
+            "carbon": 996.968888888889,
+            "mineral": 0,
+            "maxProductError": 1.5543122344752192e-15,
+            "totalKg": 3.1111111111111107
+          },
+          {
+            "dt": 0.015625,
+            "steps": 154,
+            "products": [
+              0.7407407407407408,
+              1.1851851851851853,
+              1.1851851851851853
+            ],
+            "carbon": 996.9688888888879,
+            "mineral": 0,
+            "maxProductError": 1.3322676295501878e-15,
+            "totalKg": 3.1111111111111116
+          },
+          {
+            "dt": 0.00390625,
+            "steps": 615,
+            "products": [
+              0.7407407407407417,
+              1.1851851851851867,
+              1.1851851851851867
+            ],
+            "carbon": 996.9688888888858,
+            "mineral": 0,
+            "maxProductError": 0,
+            "totalKg": 3.111111111111115
+          }
+        ]
+      },
+      {
+        "name": "crowded-transition",
+        "materials": [
+          "biomass",
+          "biomass",
+          "biomass",
+          "biomass",
+          "biomass",
+          "biomass",
+          "biomass",
+          "biomass"
+        ],
+        "carbon": 30,
+        "mineral": 10,
+        "hours": 2.4,
+        "referenceInterval": 0.00390625,
+        "runs": [
+          {
+            "dt": 2.4,
+            "steps": 1,
+            "products": [
+              3.7513786586334397,
+              3.7513786586334397,
+              3.7513786586334397,
+              3.7513786586334397,
+              3.7513786586334397,
+              3.7513786586334397,
+              3.7513786586334397,
+              3.7513786586334397
+            ],
+            "carbon": 1.7896324870765383,
+            "mineral": 8.19933824385595,
+            "maxProductError": 0.06641514573504415,
+            "totalKg": 30.011029269067514
+          },
+          {
+            "dt": 0.25,
+            "steps": 10,
+            "products": [
+              3.6849694658066774,
+              3.6849694658066774,
+              3.6849694658066774,
+              3.6849694658066774,
+              3.6849694658066774,
+              3.6849694658066774,
+              3.6849694658066774,
+              3.6849694658066774
+            ],
+            "carbon": 2.2890296171337816,
+            "mineral": 8.231214656412794,
+            "maxProductError": 5.952908281869895e-06,
+            "totalKg": 29.47975572645342
+          },
+          {
+            "dt": 0.125,
+            "steps": 20,
+            "products": [
+              3.6849694658066783,
+              3.6849694658066783,
+              3.6849694658066783,
+              3.6849694658066783,
+              3.6849694658066783,
+              3.6849694658066783,
+              3.6849694658066783,
+              3.6849694658066783
+            ],
+            "carbon": 2.2890296171337803,
+            "mineral": 8.231214656412792,
+            "maxProductError": 5.952908282758074e-06,
+            "totalKg": 29.479755726453423
+          },
+          {
+            "dt": 0.0625,
+            "steps": 39,
+            "products": [
+              3.6849694658066747,
+              3.6849694658066747,
+              3.6849694658066747,
+              3.6849694658066747,
+              3.6849694658066747,
+              3.6849694658066747,
+              3.6849694658066747,
+              3.6849694658066747
+            ],
+            "carbon": 2.289029617133781,
+            "mineral": 8.231214656412805,
+            "maxProductError": 5.95290827920536e-06,
+            "totalKg": 29.479755726453394
+          },
+          {
+            "dt": 0.03125,
+            "steps": 77,
+            "products": [
+              3.6849694658066836,
+              3.6849694658066836,
+              3.6849694658066836,
+              3.6849694658066836,
+              3.6849694658066836,
+              3.6849694658066836,
+              3.6849694658066836,
+              3.6849694658066836
+            ],
+            "carbon": 2.289029617133786,
+            "mineral": 8.231214656412801,
+            "maxProductError": 5.952908288087144e-06,
+            "totalKg": 29.479755726453472
+          },
+          {
+            "dt": 0.015625,
+            "steps": 154,
+            "products": [
+              3.6849694658066827,
+              3.6849694658066827,
+              3.6849694658066827,
+              3.6849694658066827,
+              3.6849694658066827,
+              3.6849694658066827,
+              3.6849694658066827,
+              3.6849694658066827
+            ],
+            "carbon": 2.2890296171337874,
+            "mineral": 8.231214656412767,
+            "maxProductError": 5.952908287198966e-06,
+            "totalKg": 29.479755726453455
+          },
+          {
+            "dt": 0.00390625,
+            "steps": 615,
+            "products": [
+              3.6849635128983955,
+              3.6849635128983955,
+              3.6849635128983955,
+              3.6849635128983955,
+              3.6849635128983955,
+              3.6849635128983955,
+              3.6849635128983955,
+              3.6849635128983955
+            ],
+            "carbon": 2.289074383003956,
+            "mineral": 8.231217513808915,
+            "maxProductError": 0,
+            "totalKg": 29.479708103187164
+          }
+        ]
+      }
+    ]
+  },
+  "analyticMineralOracle": {
+    "ratesKgPerHour": [
+      2.5,
+      4,
+      4
+    ],
+    "mineralKg": 0.08,
+    "mineralRateKgPerHour": 0.27,
+    "exhaustionHours": 0.2962962962962963,
+    "productsKg": [
+      0.7407407407407407,
+      1.1851851851851851,
+      1.1851851851851851
+    ]
+  },
+  "rejectedSourceFirstApproximation": {
+    "method": "Equal cumulative effective effort with fixed actors, source, policy and skill; no replenishment, physiology or completion. Fine interval is a numerical reference, not empirical truth.",
+    "reports": [
+      {
+        "name": "solo-uncapped",
+        "materials": [
+          "biomass"
+        ],
+        "carbon": 4,
+        "mineral": 1,
+        "hours": 2.4,
+        "referenceInterval": 0.00390625,
+        "runs": [
+          {
+            "dt": 2.4,
+            "steps": 1,
+            "products": [
+              1.2638297872340427
+            ],
+            "carbon": 2.812,
+            "mineral": 0.9241702127659575,
+            "maxProductError": 8.881784197001252e-16,
+            "totalKg": 1.2638297872340427
+          },
+          {
+            "dt": 0.25,
+            "steps": 10,
+            "products": [
+              1.263829787234043
+            ],
+            "carbon": 2.8120000000000003,
+            "mineral": 0.9241702127659572,
+            "maxProductError": 1.1102230246251565e-15,
+            "totalKg": 1.263829787234043
+          },
+          {
+            "dt": 0.125,
+            "steps": 20,
+            "products": [
+              1.263829787234043
+            ],
+            "carbon": 2.8120000000000003,
+            "mineral": 0.9241702127659573,
+            "maxProductError": 1.1102230246251565e-15,
+            "totalKg": 1.263829787234043
+          },
+          {
+            "dt": 0.0625,
+            "steps": 39,
+            "products": [
+              1.2638297872340434
+            ],
+            "carbon": 2.8120000000000007,
+            "mineral": 0.9241702127659575,
+            "maxProductError": 1.5543122344752192e-15,
+            "totalKg": 1.2638297872340434
+          },
+          {
+            "dt": 0.03125,
+            "steps": 77,
+            "products": [
+              1.2638297872340436
+            ],
+            "carbon": 2.8120000000000003,
+            "mineral": 0.9241702127659577,
+            "maxProductError": 1.7763568394002505e-15,
+            "totalKg": 1.2638297872340436
+          },
+          {
+            "dt": 0.015625,
+            "steps": 154,
+            "products": [
+              1.2638297872340434
+            ],
+            "carbon": 2.8119999999999985,
+            "mineral": 0.9241702127659569,
+            "maxProductError": 1.5543122344752192e-15,
+            "totalKg": 1.2638297872340434
+          },
+          {
+            "dt": 0.00390625,
+            "steps": 615,
+            "products": [
+              1.2638297872340418
+            ],
+            "carbon": 2.8120000000000034,
+            "mineral": 0.9241702127659582,
+            "maxProductError": 0,
+            "totalKg": 1.2638297872340418
+          }
+        ]
+      },
+      {
+        "name": "handling-to-source",
+        "materials": [
+          "biomass"
+        ],
+        "carbon": 20,
+        "mineral": 10,
+        "hours": 2.4,
+        "referenceInterval": 0.00390625,
+        "runs": [
+          {
+            "dt": 2.4,
+            "steps": 1,
+            "products": [
+              6
+            ],
+            "carbon": 14.36,
+            "mineral": 9.64,
+            "maxProductError": 0.08689101998701343,
+            "totalKg": 6
+          },
+          {
+            "dt": 0.25,
+            "steps": 10,
+            "products": [
+              5.913522167622606
+            ],
+            "carbon": 14.44128916243476,
+            "mineral": 9.645188669942646,
+            "maxProductError": 0.00041318760961939205,
+            "totalKg": 5.913522167622606
+          },
+          {
+            "dt": 0.125,
+            "steps": 20,
+            "products": [
+              5.913522167622604
+            ],
+            "carbon": 14.441289162434762,
+            "mineral": 9.645188669942632,
+            "maxProductError": 0.0004131876096176157,
+            "totalKg": 5.913522167622604
+          },
+          {
+            "dt": 0.0625,
+            "steps": 39,
+            "products": [
+              5.913135362040433
+            ],
+            "carbon": 14.441652759681952,
+            "mineral": 9.645211878277562,
+            "maxProductError": 2.6382027446203438e-05,
+            "totalKg": 5.913135362040433
+          },
+          {
+            "dt": 0.03125,
+            "steps": 77,
+            "products": [
+              5.913135362040434
+            ],
+            "carbon": 14.441652759681954,
+            "mineral": 9.645211878277609,
+            "maxProductError": 2.6382027447091616e-05,
+            "totalKg": 5.913135362040434
+          },
+          {
+            "dt": 0.015625,
+            "steps": 154,
+            "products": [
+              5.913110283938602
+            ],
+            "carbon": 14.441676333097867,
+            "mineral": 9.645213382963721,
+            "maxProductError": 1.3039256154812051e-06,
+            "totalKg": 5.913110283938602
+          },
+          {
+            "dt": 0.00390625,
+            "steps": 615,
+            "products": [
+              5.913108980012987
+            ],
+            "carbon": 14.44167755878718,
+            "mineral": 9.645213461199052,
+            "maxProductError": 0,
+            "totalKg": 5.913108980012987
+          }
+        ]
+      },
+      {
+        "name": "mixed-mineral-limited",
+        "materials": [
+          "biomass",
+          "wood",
+          "fiber"
+        ],
+        "carbon": 1000,
+        "mineral": 0.08,
+        "hours": 2.4,
+        "referenceInterval": 0.00390625,
+        "runs": [
+          {
+            "dt": 2.4,
+            "steps": 1,
+            "products": [
+              1.0927666181926856,
+              0.5852413594740234,
+              0.429079465684932
+            ],
+            "carbon": 997.9729125566483,
+            "mineral": 0,
+            "maxProductError": 0.7444071005696644,
+            "totalKg": 2.107087443351641
+          },
+          {
+            "dt": 0.25,
+            "steps": 10,
+            "products": [
+              1.0083698090993876,
+              0.7905586381347636,
+              0.5796112536344558
+            ],
+            "carbon": 997.7014602991313,
+            "mineral": 0,
+            "maxProductError": 0.5938753126201406,
+            "totalKg": 2.3785397008686067
+          },
+          {
+            "dt": 0.125,
+            "steps": 20,
+            "products": [
+              0.9025331610722057,
+              0.9973545426252322,
+              0.7937232454707669
+            ],
+            "carbon": 997.3863890508318,
+            "mineral": 0,
+            "maxProductError": 0.37976332078382946,
+            "totalKg": 2.6936109491682045
+          },
+          {
+            "dt": 0.0625,
+            "steps": 39,
+            "products": [
+              0.8181145493184449,
+              1.092690726338734,
+              0.9993109888752983
+            ],
+            "carbon": 997.1698837354676,
+            "mineral": 0,
+            "maxProductError": 0.174175577379298,
+            "totalKg": 2.910116264532477
+          },
+          {
+            "dt": 0.03125,
+            "steps": 77,
+            "products": [
+              0.7817645418927398,
+              1.135754748614208,
+              1.0868290000146765
+            ],
+            "carbon": 997.0756517094785,
+            "mineral": 0,
+            "maxProductError": 0.08665756623991983,
+            "totalKg": 3.0043482905216243
+          },
+          {
+            "dt": 0.015625,
+            "steps": 154,
+            "products": [
+              0.7599164452157882,
+              1.1650819673859427,
+              1.1377096806596647
+            ],
+            "carbon": 997.0172919067378,
+            "mineral": 0,
+            "maxProductError": 0.03577688559493164,
+            "totalKg": 3.0627080932613957
+          },
+          {
+            "dt": 0.00390625,
+            "steps": 615,
+            "products": [
+              0.7455445193879314,
+              1.1797597511632292,
+              1.1734865662545964
+            ],
+            "carbon": 996.9812091631912,
+            "mineral": 0,
+            "maxProductError": 0,
+            "totalKg": 3.0987908368057573
+          }
+        ]
+      },
+      {
+        "name": "crowded-transition",
+        "materials": [
+          "biomass",
+          "biomass",
+          "biomass",
+          "biomass",
+          "biomass",
+          "biomass",
+          "biomass",
+          "biomass"
+        ],
+        "carbon": 30,
+        "mineral": 10,
+        "hours": 2.4,
+        "referenceInterval": 0.00390625,
+        "runs": [
+          {
+            "dt": 2.4,
+            "steps": 1,
+            "products": [
+              3.7513786586334397,
+              3.7513786586334397,
+              3.7513786586334397,
+              3.7513786586334397,
+              3.7513786586334397,
+              3.7513786586334397,
+              3.7513786586334397,
+              3.7513786586334397
+            ],
+            "carbon": 1.7896324870765383,
+            "mineral": 8.19933824385595,
+            "maxProductError": 0.06641514573504415,
+            "totalKg": 30.011029269067514
+          },
+          {
+            "dt": 0.25,
+            "steps": 10,
+            "products": [
+              3.6849694658066783,
+              3.6849694658066783,
+              3.6849694658066783,
+              3.6849694658066783,
+              3.6849694658066783,
+              3.6849694658066783,
+              3.6849694658066783,
+              3.6849694658066783
+            ],
+            "carbon": 2.2890296171337807,
+            "mineral": 8.231214656412794,
+            "maxProductError": 5.952908282758074e-06,
+            "totalKg": 29.479755726453423
+          },
+          {
+            "dt": 0.125,
+            "steps": 20,
+            "products": [
+              3.6849694658066783,
+              3.6849694658066783,
+              3.6849694658066783,
+              3.6849694658066783,
+              3.6849694658066783,
+              3.6849694658066783,
+              3.6849694658066783,
+              3.6849694658066783
+            ],
+            "carbon": 2.2890296171337803,
+            "mineral": 8.231214656412792,
+            "maxProductError": 5.952908282758074e-06,
+            "totalKg": 29.479755726453423
+          },
+          {
+            "dt": 0.0625,
+            "steps": 39,
+            "products": [
+              3.684969465806675,
+              3.684969465806675,
+              3.684969465806675,
+              3.684969465806675,
+              3.684969465806675,
+              3.684969465806675,
+              3.684969465806675,
+              3.684969465806675
+            ],
+            "carbon": 2.2890296171337803,
+            "mineral": 8.231214656412805,
+            "maxProductError": 5.952908279649449e-06,
+            "totalKg": 29.479755726453398
+          },
+          {
+            "dt": 0.03125,
+            "steps": 77,
+            "products": [
+              3.684969465806684,
+              3.684969465806684,
+              3.684969465806684,
+              3.684969465806684,
+              3.684969465806684,
+              3.684969465806684,
+              3.684969465806684,
+              3.684969465806684
+            ],
+            "carbon": 2.2890296171337856,
+            "mineral": 8.231214656412801,
+            "maxProductError": 5.9529082885312334e-06,
+            "totalKg": 29.479755726453472
+          },
+          {
+            "dt": 0.015625,
+            "steps": 154,
+            "products": [
+              3.684969465806683,
+              3.684969465806683,
+              3.684969465806683,
+              3.684969465806683,
+              3.684969465806683,
+              3.684969465806683,
+              3.684969465806683,
+              3.684969465806683
+            ],
+            "carbon": 2.2890296171337874,
+            "mineral": 8.231214656412767,
+            "maxProductError": 5.952908287643055e-06,
+            "totalKg": 29.47975572645347
+          },
+          {
+            "dt": 0.00390625,
+            "steps": 615,
+            "products": [
+              3.6849635128983955,
+              3.6849635128983955,
+              3.6849635128983955,
+              3.6849635128983955,
+              3.6849635128983955,
+              3.6849635128983955,
+              3.6849635128983955,
+              3.6849635128983955
+            ],
+            "carbon": 2.289074383003956,
+            "mineral": 8.231217513808915,
+            "maxProductError": 0,
+            "totalKg": 29.479708103187164
+          }
+        ]
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "file": "output/research/harvesting-day-before-baseline.json",
+      "sha256": "4e37d4024c037b20b83f91d68ad68ab889abd9b3fd3cbc1632b270d6effc5109"
+    },
+    {
+      "file": "output/research/harvesting-day-before-observed.json",
+      "sha256": "945240e58c6282fefc29b928351d59a0e8b26488a7dc29468444c294c8d4ca1d"
+    },
+    {
+      "file": "output/research/harvesting-day-after-baseline.json",
+      "sha256": "7c2e48708a5451a1d6f660b9da69c26035b40d0792ffed262e6c620a0e76b461"
+    },
+    {
+      "file": "output/research/harvesting-day-after-observed.json",
+      "sha256": "fd714b04e60daed53294d7158f837d0cb1713dd7e8a451730030c162f5e8bbd8"
+    },
+    {
+      "file": "output/research/harvesting-kernel-final.json",
+      "sha256": "c18decf75df4cd58d01e7b0e9a4f326e64c3adb8ec96c6883229f2a1bda2bc30"
+    },
+    {
+      "file": "output/research/harvesting-numerics-20261009.json",
+      "sha256": "73ca2c10e667b2ff87754dba0c323e4978b021d001c04ab25e47f452263084f1"
+    }
+  ]
+}

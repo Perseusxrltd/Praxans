@@ -528,6 +528,7 @@ export function validateWorld(world: World): void {
         for (const [key, value] of Object.entries(plant.genome))
           if (
             !Number.isFinite(value) ||
+            ((key === "woodiness" || key === "defense") && value > 1) ||
             (key !== "temperature" && key !== "pollination" && value < 0)
           )
             fail("plant genome");
@@ -636,6 +637,19 @@ export function validateWorld(world: World): void {
     )
       fail("citizen path");
     const task = person.task;
+    if (task?.harvestedKg !== undefined) {
+      if (
+        !["gather", "extract"].includes(task.kind) ||
+        !task.material ||
+        !Object.hasOwn(MATERIALS, task.material) ||
+        !Number.isFinite(task.progress) ||
+        task.progress < 0 ||
+        !Number.isInteger(task.tile) ||
+        !world.tiles[task.tile]
+      )
+        fail("performed harvest task");
+      positive(task.harvestedKg, "observed harvested mass");
+    }
     if (
       task?.need !== undefined &&
       (task.need !== "water" || !["move", "explore"].includes(task.kind))

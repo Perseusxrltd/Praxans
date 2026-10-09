@@ -307,9 +307,9 @@ test("a failed commit after owned migration preserves the old checkpoint and arc
     );
     assert.equal(store.interventions().length, 0);
     store.db.exec("DROP TRIGGER reject_upgraded_world");
-    assert.equal(store.load(0, true).version, 15);
+    assert.equal(store.load(0, true).version, 16);
     assert.equal(verifyWorldArchives(store.db).length, 1);
-    assert.equal(store.interventions().length, 8);
+    assert.equal(store.interventions().length, 9);
   } finally {
     store.close();
   }

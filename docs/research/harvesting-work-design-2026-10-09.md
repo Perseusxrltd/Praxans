@@ -1,6 +1,6 @@
 # Work, harvest timing and local scarcity — 9 October 2026
 
-**Design under study.** The current implementation transfers gathered material at task completion. This document specifies the next causal controls and a possible continuous-work boundary; it does not claim that such a boundary is implemented or that the communities have sustainable food production.
+**Historical design record.** This was written against the completion-batched implementation before format 16. The subsequent [performed-harvesting study](performed-harvesting-2026-10-09.md) records the implemented kernel, the rejected source-first approximation and validation. Its [release record](../releases/performed-harvesting-0.2.md) owns publication status. The original questions below remain as design provenance; they are not a claim that the new boundary is still unimplemented or that the communities have sustainable food production.
 
 The [care/work study](care-work-budget-2026-10-09.md) records 307.297 effective gathering-hours discarded by interruptions in one current-law day. Some progress predates its opening checkpoint. This is lost represented effort; no material has yet been produced by that unfinished work. Most zero-yield completions also lack a fresh memory saying that their destination is empty. Search, local observation, simultaneous competition and batch production must therefore be measured separately.
 

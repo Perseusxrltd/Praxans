@@ -1,5 +1,7 @@
 # Research observatory
 
+The [performed-harvest study](performed-harvesting-2026-10-09.md) replaces completion-only extraction with funded local products and bounded source-exhaustion events. It retains the rejected numerical approximation, analytic controls, custody/migration limits and a matched inhabited day. [Publication status](../releases/performed-harvesting-0.2.md) is separate.
+
 This is Praxans's continuing research record: questions about how a living world works, the sources actually consulted, and mechanisms that could be tested. It begins with ancient and premodern inquiry into nature, household provision, medicine, ethics, politics, and exchange. Modern reproducible measurements check physical claims and numerical scales. Neither the age nor the popularity of a theory establishes its truth.
 
 The purpose is to understand causal order, variation, and limits. A mechanism must explain what happens through represented circumstances and interactions. A desired outcome, a philosophical purpose, a technology name, or a political label cannot supply missing matter, information, work, or consent.

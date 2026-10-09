@@ -1,4 +1,3 @@
-import { MATERIALS } from "./content";
 import { seedPlant } from "./ecology";
 import { runExperiment, designScore, matchingObservation } from "./economy";
 import { emptyStock, refreshTile, returnMaterial } from "./laws";
@@ -18,15 +17,7 @@ import {
   salvageMaterial,
   workspaceBenefit,
 } from "./weathering";
-import {
-  accumulateAtmosphere,
-  CLAY,
-  addNutrients,
-  availableMixture,
-  takeNutrients,
-  moveSoil,
-  oxygenFraction,
-} from "./chemistry";
+import { accumulateAtmosphere, moveSoil, oxygenFraction } from "./chemistry";
 import { astronomy, groundDistanceMetres } from "./planet";
 import { clamp, conditionalChoice, random } from "./random";
 import {
@@ -82,9 +73,18 @@ import {
   workOnFood,
   type FoodWork,
 } from "./foodwork";
+import {
+  beginHarvestWork,
+  finishHarvestWork,
+  harvestDuration,
+  isHarvestTask,
+  workOnHarvest,
+  type HarvestWork,
+} from "./harvesting";
 import { walkPath, WALKING_METRES_PER_HOUR } from "./movement";
 import {
   foodReservePerPerson,
+  carriedFoodKg,
   finishRationPickup,
   prepareRationPickup,
   SUBSISTENCE,
@@ -318,7 +318,7 @@ function decide(
   }
   if (
     (person.hunger < 40 ||
-      (person.provisions < 0.25 &&
+      (carriedFoodKg(person) < 0.25 &&
         getTile(world, person.x, person.y)!.temperature < 10)) &&
     !canReachCampStocks(world, civ, person) &&
     civ.stock.biomass > 1e-9
@@ -522,45 +522,10 @@ function finishTask(world: World, person: Citizen, civ: Civilization): void {
     skill = 1 + person.skill * 0.06;
   let reward = 0.25;
   if (task.kind === "gather" || task.kind === "extract") {
-    const material = task.material!,
-      definition = MATERIALS[material];
-    let amount = 0;
-    if (material === "stone") {
-      amount = Math.min(tile.rock, 8 * skill);
-      tile.rock -= amount;
-    } else if (material === "clay") {
-      amount = takeNutrients(tile, CLAY, 5 * skill);
-    } else {
-      for (const plant of [tile.plant, tile.groundcover])
-        if (plant) {
-          const tissue =
-            material === "wood"
-              ? plant.genome.woodiness
-              : material === "fiber"
-                ? (1 - plant.genome.woodiness) * 0.5
-                : (1 - plant.genome.woodiness) * (1 - plant.genome.defense);
-          const maxCut =
-            civ.focus === "preserve"
-              ? 0.22
-              : 0.25 + civ.policies.extraction * 0.6;
-          const taken = Math.max(
-            0,
-            Math.min(
-              (material === "biomass" ? 6 : 12) * skill - amount,
-              (plant.carbon * tissue * maxCut) / definition.carbon,
-              plant.mineral / definition.mineral,
-            ),
-          );
-          plant.carbon -= taken * definition.carbon;
-          plant.mineral -= taken * definition.mineral;
-          amount += taken;
-        }
-      if (material === "biomass") civ.harvests += amount;
-    }
-    if (amount > 0) person.cargo = { material, amount };
+    // Products were earned during actual work, and may already have been eaten.
+    // Missing legacy observations never turn accumulated progress into matter.
+    const amount = task.harvestedKg ?? 0;
     reward = amount > 0 ? Math.min(1, amount / 8) : -0.6;
-    refreshTile(tile);
-    touchTile(world, task.tile);
   } else if (task.kind === "deliver" && person.cargo) {
     civ.stock[person.cargo.material] += person.cargo.amount;
     person.cargo = null;
@@ -647,12 +612,17 @@ export function updateCitizen(
   refillMetabolicIntake(world, [step.metabolism]);
   finishRationPickup(world, prepareRationPickup(world, [person]));
   const foodWork = beginFoodWork(world, bodyWork);
-  updateCitizenActivity(world, step, population, bodyWork, foodWork);
+  const work = {
+    body: bodyWork,
+    food: foodWork,
+    harvest: beginHarvestWork(world, bodyWork),
+    completed: [],
+  } satisfies CitizenWork;
+  updateCitizenActivity(world, step, population, work);
   // Standalone diagnostic callers update one actor. The world engine passes one
   // population through updateCitizens; calling this repeatedly does not provide
-  // a shared food boundary. A supplied body context only groups body transfers.
-  if (!sharedBodyWork) finishBodyWork(world, bodyWork);
-  finishFoodWork(world, foodWork);
+  // shared food/harvest boundaries. A supplied body context groups body transfers.
+  finishCitizenWork(world, work, !sharedBodyWork);
 }
 
 /** Shared current food needs, actual oxidation, optional meals/rations, then work. */
@@ -673,16 +643,42 @@ export function updateCitizens(world: World): void {
   refillMetabolicIntake(world, metabolism);
   finishRationPickup(world, prepareRationPickup(world));
   const foodWork = beginFoodWork(world, bodyWork);
+  const work = {
+    body: bodyWork,
+    food: foodWork,
+    harvest: beginHarvestWork(world, bodyWork),
+    completed: [],
+  } satisfies CitizenWork;
   for (const step of steps)
     updateCitizenActivity(
       world,
       step,
       populations.get(step.person.civId)!,
-      bodyWork,
-      foodWork,
+      work,
     );
-  finishBodyWork(world, bodyWork);
-  finishFoodWork(world, foodWork);
+  finishCitizenWork(world, work);
+}
+
+interface CitizenWork {
+  body: BodyWork;
+  food: FoodWork;
+  harvest: HarvestWork;
+  completed: { person: Citizen; civ: Civilization; task: Task }[];
+}
+
+function finishCitizenWork(
+  world: World,
+  work: CitizenWork,
+  finishBody = true,
+): void {
+  finishHarvestWork(world, work.harvest);
+  if (finishBody) finishBodyWork(world, work.body);
+  finishFoodWork(world, work.food);
+  // Tending/experiments can move plant or soil matter. Their terminal effects
+  // follow the captured harvest boundary; later additions cannot fund it.
+  for (const { person, civ, task } of work.completed)
+    if (person.health > 0 && person.task === task)
+      finishTask(world, person, civ);
 }
 
 interface CitizenStep {
@@ -787,9 +783,9 @@ function updateCitizenActivity(
   world: World,
   step: CitizenStep,
   population: number,
-  bodyWork: BodyWork,
-  foodWork: FoodWork,
+  activityWork: CitizenWork,
 ): void {
+  const { body: bodyWork, food: foodWork } = activityWork;
   const { person, civ, taskAtStart, tile, waterTarget, sheltered } = step;
   if (person.health <= 0) return;
   // Assess satiety after actual meals, including for traveling people.
@@ -816,7 +812,7 @@ function updateCitizenActivity(
     const needsFood =
       (personalWork && person.hunger < 40) ||
       ((person.hunger < 40 ||
-        (person.provisions < 0.25 && tile.temperature < 10)) &&
+        (carriedFoodKg(person) < 0.25 && tile.temperature < 10)) &&
         civ.stock.biomass > 1e-9 &&
         !atHome &&
         !headingHome);
@@ -904,6 +900,12 @@ function updateCitizenActivity(
     workOnFood(world, person, dt * funded, work, foodWork);
     return;
   }
+  if (isHarvestTask(task)) {
+    workOnHarvest(world, person, work, activityWork.harvest);
+    if (person.task === task && task.progress >= harvestDuration(task))
+      activityWork.completed.push({ person, civ, task });
+    return;
+  }
   if (task.kind === "assemble") {
     const structure = world.structures.find((s) => s.id === task.structureId);
     if (!structure || structure.progress >= 1) {
@@ -979,16 +981,9 @@ function updateCitizenActivity(
   } else {
     task.progress += work;
     const duration =
-      task.kind === "experiment"
-        ? 4
-        : task.kind === "deliver"
-          ? 0.1
-          : task.kind === "gather"
-            ? 2.4
-            : task.kind === "extract"
-              ? 3
-              : 2;
-    if (task.progress >= duration) finishTask(world, person, civ);
+      task.kind === "experiment" ? 4 : task.kind === "deliver" ? 0.1 : 2;
+    if (task.progress >= duration)
+      activityWork.completed.push({ person, civ, task });
   }
 }
 export function processDeaths(world: World): void {

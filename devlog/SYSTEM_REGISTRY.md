@@ -126,7 +126,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `cognition.ts`, `citizens.ts`, `economy.ts`, `validation.ts`
 - **dependencies**: world_state, natural_systems
 - **dependents**: civilization_intelligence, civic_relations, browser_observer
-- **known_issues**: Bounded functional cognition, not cellular neuroscience; no full language, durable written records or general material chemistry. Strictly later personal empty observations can interrupt resource work, but gathering choices still do not consult the adaptive gather activation or learn site-specific yield. Harvest remains batched at completion, with coarse memory, observation during travel and sequential competition; see docs/research/observed-foraging-2026-10-09.md and the unimplemented harvesting-work design.
+- **known_issues**: Bounded functional cognition, not cellular neuroscience; no full language, durable written records or general material chemistry. Strictly later personal empty observations can interrupt resource work, but gathering choices still do not consult the adaptive gather activation or learn site-specific yield. Performed harvesting now credits finite private products during newly funded work, with simultaneous local source competition and an episodic yield observation. General gathering choice still lacks site-specific return learning; cancellation retains its coarse negative reward. See docs/research/performed-harvesting-2026-10-09.md.
 - **last_touched**: 2026-10-09
 
 ### civic_relations
@@ -879,3 +879,14 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **dependents**: none
 - **known_issues**: none
 - **last_touched**: 2026-03-07
+
+### performed_harvesting
+
+- **name**: Funded Resource Work and Shared Local Sources
+- **status**: experimental
+- **package**: src/simulation/
+- **files**: `harvesting.ts`, `citizens.ts`, `subsistence.ts`, `types.ts`, `model.ts`, `../server/migrations.ts`, `../../tests/web/harvesting.test.ts`
+- **dependencies**: world_state, natural_systems, human_physiology, human_cognition
+- **dependents**: civilization_intelligence, browser_validation
+- **known_issues**: Whole-cell encounter, productivity and handling remain uncalibrated. Shared plant accessibility is not anatomical tissue accounting; handling transitions retain measured timestep error. The entire economy is not simultaneous. Site learning, developmental handling ability, containers and seasonal carrying capacity remain unresolved.
+- **last_touched**: 2026-10-09

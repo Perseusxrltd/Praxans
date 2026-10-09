@@ -7,6 +7,15 @@
 
 ## Log
 
+### [2026-10-09] Performed Harvesting and Finite Local Competition
+
+- **type**: bugfix
+- **systems**: performed_harvesting, human_cognition, civilization_intelligence, browser_validation
+- **files**: `harvesting.ts`, `citizens.ts`, `subsistence.ts`, `types.ts`, `model.ts`, `migrations.ts`, `harvesting.test.ts`
+- **agent**: Codex
+
+Newly funded gathering and extraction now produce private cargo before completion; old effort earns no windfall. Joint sources, bounded mineral-exhaustion events and one cross-layer handling allowance replace sequential terminal extraction. A rejected source-first approximation and the analytic mineral-exhaustion control are recorded in the [study](../docs/research/performed-harvesting-2026-10-09.md); the [release record](../docs/releases/performed-harvesting-0.2.md) tracks validation and actual publication. Existing history and extinct communities remain preserved. → ADR-048.
+
 ### [2026-10-09] Measured Observed Depletion and Ongoing Resource Work
 
 - **type**: bugfix

@@ -14,7 +14,13 @@ Original prompt: let's rebuild the whole game, from the ground up, as an interne
 - Study ancient and premodern primary sources first, distinguish observation from interpretation and normative claims, and test proposed physical rules against evidence. Keep a durable research queue under `docs/research/`.
 - Publish validated increments regularly during active work. At each meaningful release, review the whole repository for consistent units, clocks, conservation, module boundaries, duplicate rules and agreement between implementation and documentation.
 
-## Current release — observed depletion and resource-task reconsideration
+## Current work — performed harvesting and source exhaustion
+
+Format 16 / biosphere-1.10 now earns finite private products during newly funded work, shares local sources and handling, and keeps partial products through interruption or ingestion. The source-exhaustion solver replaces a rejected interval-sensitive draft. Eighteen new causal/migration controls and six earlier foraging controls pass. The [study](docs/research/performed-harvesting-2026-10-09.md) distinguishes this correction from site learning and historical death attribution; the [release record](docs/releases/performed-harvesting-0.2.md) tracks remaining publication checks.
+
+The independently verified before-update backup is tick 561604, with 38 regions, eight archives and every prior durable row. A live-sized disk/heap test migrates it, adds the exact old-world archive, advances 96 ticks, makes three saves and restarts, leaving at least 55.67 MB. The four communities remain extinct; no repopulation or clock reset is part of this correction. The broad goal remains active and draft PR #1 remains open and unmerged.
+
+## Previous release — observed depletion and resource-task reconsideration
 
 **Live:** `observed-foraging-20261009-1` activated **2026-10-09 09:29:13 UTC**, tick **543172**, from source **`61594c0431834265057a9bc5e1b8bcf5bfaf32b5`**. Runtime SHA-256 `0eeeeb246a0922502a22dd67810c9a374bc410938b62c30103fcc9b1fb732c89`; format 15 / biosphere-1.9 / storage 2 stay unchanged. Vercel **`dpl_J8kosga3RZdWizRoWxdhS9uL8Dhy`** is READY at **https://praxans.vercel.app**. See [investigation](docs/research/observed-foraging-2026-10-09.md) and [release](docs/releases/observed-foraging-0.2.md).
 
@@ -24,7 +30,7 @@ All 245 model/server cases, 25 hotfix and 12 production checks, build/format and
 
 At 09:31:10 UTC, saved tick 543844 retains one healthy worker, 407 births/1,639 historical deaths and the original archive checksums. The finite handover monitor reports no OOM/kill and continued memory pressure. One spectator retains five snapshots/150 frames without fault or backward time; all 22 sampled health responses succeed. Both finite observers and the handover watcher have ended. Both complete implementation CI workflows **37911024294 / 37911030898** pass. The independently verified post-update backup at **543396**, raw SHA-256 **`5259b8ecf15f3811c59943863919397624df9d8ced0785a8ed05e8397d476039`**, preserves all 38 regions, eight full archives and every prior durable row. Only this code release is a new intervention, with unchanged before/after metadata checksums. Publication follow-up resolves all 721 import/asset edges and 582 local Markdown targets; source content is unchanged. See the [evidence](docs/validation/observed-foraging-2026-10-09.json). Later evidence-only commits have separate CI status.
 
-**Next:** the proposed [performed-harvest/source-allocation boundary](docs/research/harvesting-work-design-2026-10-09.md) is not implemented. Separate production timing from source competition, site-specific learning and travel observation. Developmental feeding/care, material allocations and seasonal capacity remain open alongside H06 politics and W13/W18 hosting capacity. Preserve the continuing world and unmerged draft PR #1; the broad goal is active.
+**Follow-up recorded at that release:** the [performed-harvest/source-allocation boundary](docs/research/harvesting-work-design-2026-10-09.md) was still a design; its implementation is recorded above. Separate production timing from source competition, site-specific learning and travel observation. Developmental feeding/care, material allocations and seasonal capacity remain open alongside H06 politics and W13/W18 hosting capacity. Preserve the continuing world and unmerged draft PR #1; the broad goal is active.
 
 ## Previous release — steadier care planning and measured work
 

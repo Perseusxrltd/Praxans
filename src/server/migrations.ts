@@ -230,6 +230,18 @@ const migrations: RegisteredMigration[] = [
       // The deposition budget is transient; existing body/history fields stay exact.
     },
   },
+  {
+    id: "016-performed-resource-harvesting",
+    from: 15,
+    to: 16,
+    fromLaws: "biosphere-1.9",
+    toLaws: "biosphere-1.10",
+    description:
+      "Preserve every existing person, task, progress, cargo, memory, material, region, identity, RNG, clock and historical record. From this boundary, newly funded resource work incrementally earns private carried products. Old progress earns no retroactive products; completion performs no second extraction. Simultaneous attempts in an occupied cell share finite plant organic/mineral compartments, rock or the actual clay element mixture, with one handling budget across both vegetation layers. Pooled exponential plant exposure reuses the existing cut fractions and attempt durations; these remain uncalibrated whole-cell accessibility and handling conventions, not conserved anatomical tissues or measured productivity. Bounded bisection locates mineral exhaustion within the funded interval; only remaining effort can then use surviving vegetation layers. Handling transitions still introduce declared timestep approximation. Cold-weather reconsideration counts both provisions and edible work cargo as personal food. Other source-changing task completions follow the harvest boundary. Actual credited yield alone updates the optional task observation; it is not additional matter, and interruption or ingestion does not erase products already earned. No cooperation, communal delivery, food priority, seasonal carrying capacity or general simultaneous economy is implied. No people, supplies, past effort refunds or clock time are created.",
+    apply() {
+      // The optional yield observation begins only with an actual new product credit.
+    },
+  },
 ];
 
 function migrationPath(

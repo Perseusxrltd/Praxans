@@ -8,6 +8,7 @@
 ## [Renewal, Scale and Agent Recovery 0.2] — 2026-10-08
 
 ### Added
+- Incremental products from newly funded gathering/extraction, simultaneous finite local sources, one handling allowance across vegetation layers and bounded mineral-exhaustion events. Optional credited-yield observations survive partial work without duplicating matter; migration 016 preserves existing tasks/history (→ performed_harvesting; → ADR-048).
 - Voluntary local food handoffs through funded delivery work, shared contact, finite post-meal source/gap budgets and later ordinary ingestion. Thirteen causal cases cover custody, work, contact, choice, no forwarding and preserving migration; the observer reports actual delivered mass (→ human_physiology; → ADR-044).
 - Published atomic storage version 2 with lossless bounded regional encoding, original/payload verification, legacy readers and rollback/restart tests (→ world_storage; → ADR-042).
 - Nine bounded infant-food/growth controls with exact probe and transfer evidence; no historical death apportionment or biological correction (→ human_physiology).

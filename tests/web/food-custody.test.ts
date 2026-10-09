@@ -466,8 +466,8 @@ test("format-12 migration retains actual goods, escrow and every other saved val
     assert.equal(JSON.stringify(old), original);
     assert.deepEqual(migrated.world, {
       ...old,
-      version: 15,
-      lawsVersion: "biosphere-1.9",
+      version: 16,
+      lawsVersion: "biosphere-1.10",
     });
     assert.deepEqual(
       migrated.interventions.map((i) => i.id),
@@ -475,6 +475,7 @@ test("format-12 migration retains actual goods, escrow and every other saved val
         "013-local-inventory-exposure-and-access",
         "014-performed-local-food-handoff",
         "015-age-bounded-structural-growth",
+        "016-performed-resource-harvesting",
       ],
     );
     const loaded = store.load(0, true);
@@ -482,7 +483,7 @@ test("format-12 migration retains actual goods, escrow and every other saved val
     const [archive] = verifyWorldArchives(store.db);
     assert.equal(
       archive.id,
-      "013-local-inventory-exposure-and-access+014-performed-local-food-handoff+015-age-bounded-structural-growth",
+      "013-local-inventory-exposure-and-access+014-performed-local-food-handoff+015-age-bounded-structural-growth+016-performed-resource-harvesting",
     );
     assert.equal(
       Buffer.concat([...worldArchiveBytes(store.db, archive.id)]).toString(),
@@ -494,7 +495,7 @@ test("format-12 migration retains actual goods, escrow and every other saved val
     assert.deepEqual(loaded, replay);
     store.save(loaded);
     assert.deepEqual(store.load(0, true), loaded);
-    assert.equal(store.interventions().length, 3);
+    assert.equal(store.interventions().length, 4);
   } finally {
     store.close();
   }

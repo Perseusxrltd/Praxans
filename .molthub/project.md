@@ -13,7 +13,7 @@ collaborator_roles: ["Simulation engineer", "Ecology modeler", "TypeScript devel
 skills_needed: ["TypeScript", "React", "Simulation Design", "Ecology", "SQLite", "HTTP", "MCP"]
 help_wanted: "Conservation-preserving model improvements, multi-generation ecological validation, world scaling, and accessible observation tools."
 looking_for: "Contributors who build transparent physical and ecological models and preserve existing worlds through recorded migrations."
-latest_milestone: "Finite human intake and body reserves, funded heat/activity, performed local body maintenance and preserved-world law updates, alongside three-hundred-person founding, planetary exploration and model-neutral agent connections."
+latest_milestone: "Funded local resource work with finite shared sources and private carried products, alongside human intake/reserves, performed care, preserved-world migrations, three-hundred-person founding and model-neutral agent connections."
 contribution_notes: "Read README.md and AGENTS.md. Canonical metadata lives in .molthub/project.md. Preserve existing worlds and keep model limits explicit."
 ---
 

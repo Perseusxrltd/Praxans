@@ -68,6 +68,8 @@ The current engine runs all active regions in one Node process. A vast address s
 
 ## Learning and agents
 
+The people phase shares one contact index. Physiology and finite meal/ration pickup precede work. `harvesting.ts` captures only occupied ongoing resource-work sites, collects newly funded claims, and commits joint source debits/private credits before personal transfers and ordinary task completions. Deferred tending/experiment completions cannot recycle new matter into earlier harvest claims. Its optional cumulative task yield is an observation, not a second inventory. The harvesting boundary is simultaneous; the remaining economy retains sequential decisions and completions.
+
 People choose work from bodily drives, policy, locally remembered opportunities, attention and experience. A bounded adaptive network changes activity preferences after real outcomes. Sleep consolidates personal knowledge; teaching needs a nearby holder. Experiments spend actual samples and record predictions, failures and uncertainty. Construction supplies stronger evidence. Useful ideas guide material gathering; scarcity changes practicality without an arbitrary gathering cap making every costly idea unreachable. No named template grants a physical affordance.
 
 Conditional task selection retains the urgent-need gates and one initial work-lottery draw, rescaling its selected or rejected interval for later eligible branches. Failed assignments can continue; infeasible preferred designs can yield to remembered alternatives through the same construction validator. This is an explicit behavioral policy with finite numerical precision. It changes future task frequencies without resetting RNG or rewriting prior work.
