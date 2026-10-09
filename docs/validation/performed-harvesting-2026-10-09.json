@@ -1,6 +1,6 @@
 {
   "release": "performed-harvest-20261009-1",
-  "status": "validated candidate; activation pending",
+  "status": "live; independent saved-state verification and both complete implementation workflows passed",
   "date": "2026-10-09",
   "format": 16,
   "laws": "biosphere-1.10",
@@ -31,7 +31,261 @@
         "passed": 2,
         "failed": 0
       },
-      "completeFinalTreeCI": "pending"
+      "completeFinalTreeCI": {
+        "status": "success",
+        "headSha": "19570a9424a7a3517107f7547a2b7f856945802d",
+        "runs": [
+          {
+            "id": 37918761105,
+            "event": "push",
+            "url": "https://github.com/Perseusxrltd/Praxans/actions/runs/37918761105",
+            "headSha": "19570a9424a7a3517107f7547a2b7f856945802d",
+            "status": "completed",
+            "conclusion": "success",
+            "createdAt": "2026-10-09T10:37:43Z",
+            "updatedAt": "2026-10-09T10:49:08Z",
+            "modelServer": {
+              "tests": 263,
+              "passed": 263,
+              "failed": 0
+            },
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@v4",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/setup-node@v4",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm ci",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run format:check",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run build",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run node --import tsx --test --test-concurrency=2 tests/web/*.test.ts",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run test:production",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npx playwright install --with-deps chromium",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run test:browser",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run test:extinction",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run test:renewal",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run test:exploration",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run test:connection",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run test:startup",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run test:hotfix",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run test:reconnect",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/upload-artifact@v4",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/setup-node@v4",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@v4",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ],
+            "metadataSha256": "cfb89f134b34004fc57e51f560eedd22e811014304cf58fb0e82ba72e66d2ecb",
+            "logSha256": "dc0566b03c19628ba84ec12b01a832c131be503eb6eb24c9e35ebd7805770d13"
+          },
+          {
+            "id": 37918766404,
+            "event": "pull_request",
+            "url": "https://github.com/Perseusxrltd/Praxans/actions/runs/37918766404",
+            "headSha": "19570a9424a7a3517107f7547a2b7f856945802d",
+            "status": "completed",
+            "conclusion": "success",
+            "createdAt": "2026-10-09T10:37:46Z",
+            "updatedAt": "2026-10-09T10:49:11Z",
+            "modelServer": {
+              "tests": 263,
+              "passed": 263,
+              "failed": 0
+            },
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@v4",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/setup-node@v4",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm ci",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run format:check",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run build",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run node --import tsx --test --test-concurrency=2 tests/web/*.test.ts",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run test:production",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npx playwright install --with-deps chromium",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run test:browser",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run test:extinction",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run test:renewal",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run test:exploration",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run test:connection",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run test:startup",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run test:hotfix",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run npm run test:reconnect",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/upload-artifact@v4",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/setup-node@v4",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@v4",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ],
+            "metadataSha256": "16f6c633b964f74304f9967fce99f60882e026824d572673a73d98885a7ff12f",
+            "logSha256": "23ba346523380db9d4326696168418a22cbfabaabdbe0700b5e0619ad6e45152"
+          }
+        ],
+        "scope": "Both complete final implementation workflows pass, including 263/263 model/server cases. Later evidence-only commits have separate CI status."
+      }
     },
     "typecheck": "passed",
     "build": "passed",
@@ -67,8 +321,28 @@
     "screenshotInspected": "output/playwright/harvest-game-loop/shot-2.png",
     "production": {
       "firstAttempt": "Restart catch-up did not recover within the 300-second test deadline while two disposable servers and copied-world/kernel studies competed locally. No live failure or natural extinction is inferred.",
-      "isolatedRerun": "running"
-    }
+      "isolatedRerun": {
+        "checks": [
+          "the compiled server advances while nobody watches",
+          "production never exposes manual time controls",
+          "the runnable example agent can observe and guide its community",
+          "online backup captures an existing world and its claimed community",
+          "restart preserves the seed, people, and geography",
+          "restart simulates missed time instead of erasing the interruption",
+          "browser ownership survives a process restart",
+          "the same agent key survives a process restart",
+          "the advice retains its identity and content across process restarts",
+          "each service release is recorded once in the continuing world",
+          "restoring a backup respects the previous ownership lease",
+          "the backup itself can resume with the original owner and key"
+        ],
+        "passed": 12,
+        "savedTick": 60,
+        "continuedTick": 393,
+        "backupTick": 42
+      }
+    },
+    "publicationFormat": "passed; final evidence changes add only ordinary Markdown prose and machine-written JSON"
   },
   "beforeBackup": {
     "raw": {
@@ -747,7 +1021,8 @@
       "Other source-changing completions are deferred, but decisions and the whole economy are not globally simultaneous.",
       "Migration labels and archives preserve every earlier task, material, region, clock and record; old progress earns no new product.",
       "Source exposure rejects invalid fractions; no old genome is silently rewritten.",
-      "The full-tree import/asset/Markdown scan finds no missing targets or layer violations."
+      "The full-tree import/asset/Markdown scan finds no missing targets or layer violations.",
+      "The bounded independent research review identifies increased whole-community cold deficit in Stonebrook and lower aggregate child intake/oxidation despite improved total harvest. A final minimum does not establish that the same child is worst in both arms; no mortality benefit follows from two death-free days."
     ],
     "remaining": [
       "Site-specific yield learning and perception during travel.",
@@ -759,8 +1034,1294 @@
     ]
   },
   "study": "../research/performed-harvesting-2026-10-09.json",
-  "publication": null,
-  "afterBackup": null,
+  "publication": {
+    "backend": "https://world-production-8384.up.railway.app",
+    "website": "https://praxans.vercel.app",
+    "activation": {
+      "at": "2026-10-09T10:39:56.849Z",
+      "event": "activation",
+      "status": 200,
+      "value": {
+        "release": "performed-harvest-20261009-1",
+        "type": "preflight",
+        "id": "praxans-world",
+        "seed": 1847,
+        "sourceTick": 572836,
+        "tick": 572868,
+        "format": 16,
+        "laws": "biosphere-1.10",
+        "validationHeapLimitBytes": 226492416,
+        "resumedTick": 573032
+      }
+    },
+    "handoverMonitor": {
+      "at": "2026-10-09T10:40:56.952Z",
+      "event": "monitor-complete",
+      "startedAt": "2026-10-09T10:38:35.684Z",
+      "finishedAt": "2026-10-09T10:40:56.951Z",
+      "samples": 139,
+      "minimumAvailableBytes": 64094208,
+      "maximumWalBytes": 37718632,
+      "maximumCgroupMemoryBytes": 999911424,
+      "eventsBefore": "low 0\nhigh 0\nmax 5139\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "eventsAfter": "low 0\nhigh 0\nmax 5761\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "errors": [],
+      "status": {
+        "phase": "running",
+        "release": "performed-harvest-20261009-1",
+        "pendingRequests": 1,
+        "activeRequests": 0,
+        "observers": 1,
+        "runtimePid": 1051,
+        "managedProcesses": 1,
+        "error": null
+      }
+    },
+    "liveAudit": {
+      "at": "2026-10-09T10:41:17.475Z",
+      "node": "v22.23.3",
+      "gatewaySha256": "fc3454f1f506bf84d3b3553fe32d1736780c729269801b232c079a063facebcc",
+      "runtimeSha256": "22bfe8c7cb8f1df0ea71296f18c856f7c69471e68d9958ee22d781fcdc300d99",
+      "current": {
+        "directory": "/data/runtime/releases/performed-harvest-20261009-1-22bfe8c7cb8f1df0"
+      },
+      "status": {
+        "phase": "running",
+        "release": "performed-harvest-20261009-1",
+        "pendingRequests": 1,
+        "activeRequests": 0,
+        "observers": 1,
+        "runtimePid": 1051,
+        "managedProcesses": 1,
+        "error": null
+      },
+      "head": {
+        "checksum": "04a4d5293ee5736372b444a38e93fd43365c90c2fb328222b5b26ebf30a232ee",
+        "tick": 573544,
+        "people": 0,
+        "births": 407,
+        "deaths": 1639,
+        "generator": "planet-1",
+        "rng": 1706251343
+      },
+      "clock": {
+        "tick": 573544,
+        "wall_ms": 1791535826340
+      },
+      "storage": 2,
+      "archives": [
+        {
+          "id": "008-material-memory-and-agency",
+          "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+          "created_at": 1791445486072
+        },
+        {
+          "id": "009-human-thermal-and-distance-balance",
+          "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+          "created_at": 1791466127552
+        },
+        {
+          "id": "010-performed-body-maintenance",
+          "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+          "created_at": 1791501484044
+        },
+        {
+          "id": "011-consumption-before-ration-pickup",
+          "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+          "created_at": 1791504160572
+        },
+        {
+          "id": "012-funded-human-metabolism",
+          "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+          "created_at": 1791508588158
+        },
+        {
+          "id": "013-local-inventory-exposure-and-access",
+          "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+          "created_at": 1791512310450
+        },
+        {
+          "id": "014-performed-local-food-handoff",
+          "checksum": "a429759388484bdef2d6048e9044c1ab5d773cbd6b3ff598f9da54dcad4b958b",
+          "created_at": 1791521109688
+        },
+        {
+          "id": "015-age-bounded-structural-growth",
+          "checksum": "fb2a929456519b7801f9af20b075c9fa5a43ce60cfbcb7792b647d378103b673",
+          "created_at": 1791524835913
+        },
+        {
+          "id": "016-performed-resource-harvesting",
+          "checksum": "31f3e956350fbdcb9c6b44c406c59714f937d9a8b62c75ff9a32a34cfa2fbb33",
+          "created_at": 1791542391209
+        }
+      ],
+      "communities": [
+        {
+          "id": "civ-1",
+          "foundedTick": 0,
+          "births": 84,
+          "deaths": 390,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        },
+        {
+          "id": "civ-11",
+          "foundedTick": 0,
+          "births": 93,
+          "deaths": 400,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        },
+        {
+          "id": "civ-21",
+          "foundedTick": 0,
+          "births": 96,
+          "deaths": 407,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        },
+        {
+          "id": "civ-3118",
+          "foundedTick": 10369,
+          "births": 134,
+          "deaths": 442,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        }
+      ],
+      "counts": {
+        "sessions": 30,
+        "agents": 1,
+        "receipts": 3,
+        "world_events": 71407,
+        "world_history": 5974,
+        "renewals": 1
+      },
+      "volume": {
+        "capacity": 454299648,
+        "available": 68960256,
+        "wal": 32164872
+      },
+      "memory": {
+        "events": "low 0\nhigh 0\nmax 5761\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "current": 911278080,
+        "runtimeStatus": [
+          "VmHWM:\t  489092 kB",
+          "VmRSS:\t  445664 kB",
+          "RssAnon:\t  391040 kB",
+          "RssFile:\t   54624 kB"
+        ]
+      },
+      "health": {
+        "ok": true,
+        "tick": 573576,
+        "lawsVersion": "biosphere-1.10",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 6644,
+        "simulation": "catching-up"
+      }
+    },
+    "externalObserver": {
+      "startedAt": "2026-10-09T10:38:15.729Z",
+      "finishedAt": "2026-10-09T10:46:15.768Z",
+      "snapshots": 4,
+      "frames": 271,
+      "firstTick": 572644,
+      "lastTick": 575492,
+      "streamEnded": false,
+      "regressions": [],
+      "faults": [],
+      "healthSamples": [
+        {
+          "at": "2026-10-09T10:38:17.904Z",
+          "status": 200,
+          "ok": true,
+          "tick": 572644,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6696,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:38:28.378Z",
+          "status": 200,
+          "ok": true,
+          "tick": 572712,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6689,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:38:38.680Z",
+          "status": 200,
+          "ok": true,
+          "tick": 572784,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6682,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:38:49.674Z",
+          "status": 200,
+          "ok": true,
+          "tick": 572836,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6680,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:39:02.178Z",
+          "status": 200,
+          "ok": true,
+          "tick": 572900,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6676,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:39:13.433Z",
+          "status": 200,
+          "ok": true,
+          "tick": 572964,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6672,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:39:29.201Z",
+          "status": 200,
+          "ok": true,
+          "tick": 573028,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6671,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:39:39.400Z",
+          "status": 503,
+          "ok": false,
+          "persistent": true,
+          "acceptingProposals": false,
+          "simulation": "updating"
+        },
+        {
+          "at": "2026-10-09T10:39:49.584Z",
+          "status": 503,
+          "ok": false,
+          "persistent": true,
+          "acceptingProposals": false,
+          "simulation": "updating"
+        },
+        {
+          "at": "2026-10-09T10:40:00.293Z",
+          "status": 200,
+          "ok": true,
+          "tick": 573060,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6694,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:40:12.461Z",
+          "status": 200,
+          "ok": true,
+          "tick": 573128,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6690,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:40:22.979Z",
+          "status": 200,
+          "ok": true,
+          "tick": 573204,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6681,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:40:33.245Z",
+          "status": 200,
+          "ok": true,
+          "tick": 573276,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6673,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:40:43.482Z",
+          "status": 200,
+          "ok": true,
+          "tick": 573348,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6666,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:40:55.316Z",
+          "status": 200,
+          "ok": true,
+          "tick": 573416,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6660,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:41:05.712Z",
+          "status": 200,
+          "ok": true,
+          "tick": 573492,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6652,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:41:16.068Z",
+          "status": 200,
+          "ok": true,
+          "tick": 573568,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6643,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:41:26.333Z",
+          "status": 200,
+          "ok": true,
+          "tick": 573636,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6636,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:41:38.350Z",
+          "status": 200,
+          "ok": true,
+          "tick": 573704,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6631,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:41:48.884Z",
+          "status": 200,
+          "ok": true,
+          "tick": 573764,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6627,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:41:59.335Z",
+          "status": 200,
+          "ok": true,
+          "tick": 573820,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6623,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:42:09.811Z",
+          "status": 200,
+          "ok": true,
+          "tick": 573892,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6616,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:42:22.067Z",
+          "status": 200,
+          "ok": true,
+          "tick": 573960,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6611,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:42:32.665Z",
+          "status": 200,
+          "ok": true,
+          "tick": 574036,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6603,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:42:43.126Z",
+          "status": 200,
+          "ok": true,
+          "tick": 574108,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6595,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:42:55.757Z",
+          "status": 200,
+          "ok": true,
+          "tick": 574184,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6589,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:43:06.509Z",
+          "status": 200,
+          "ok": true,
+          "tick": 574256,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6582,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:43:20.075Z",
+          "status": 200,
+          "ok": true,
+          "tick": 574344,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6573,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:43:30.752Z",
+          "status": 200,
+          "ok": true,
+          "tick": 574424,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6564,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:43:41.051Z",
+          "status": 200,
+          "ok": true,
+          "tick": 574500,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6555,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:43:53.280Z",
+          "status": 200,
+          "ok": true,
+          "tick": 574568,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6550,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:44:03.710Z",
+          "status": 200,
+          "ok": true,
+          "tick": 574640,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6543,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:44:14.195Z",
+          "status": 200,
+          "ok": true,
+          "tick": 574712,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6535,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:44:24.878Z",
+          "status": 200,
+          "ok": true,
+          "tick": 574788,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6527,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:44:37.182Z",
+          "status": 200,
+          "ok": true,
+          "tick": 574856,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6522,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:44:47.673Z",
+          "status": 200,
+          "ok": true,
+          "tick": 574928,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6515,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:44:58.204Z",
+          "status": 200,
+          "ok": true,
+          "tick": 575000,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6507,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:45:08.809Z",
+          "status": 200,
+          "ok": true,
+          "tick": 575072,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6500,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:45:20.869Z",
+          "status": 200,
+          "ok": true,
+          "tick": 575144,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6494,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:45:31.495Z",
+          "status": 200,
+          "ok": true,
+          "tick": 575216,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6487,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:45:42.272Z",
+          "status": 200,
+          "ok": true,
+          "tick": 575288,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6479,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:45:53.197Z",
+          "status": 200,
+          "ok": true,
+          "tick": 575360,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6472,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T10:46:05.502Z",
+          "status": 200,
+          "ok": true,
+          "tick": 575432,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 6467,
+          "simulation": "catching-up"
+        }
+      ],
+      "scope": "one direct Railway observer during performed-harvesting physical-rule migration from format 15 to 16; finite samples do not guarantee every connection or latency"
+    },
+    "externalHealthSummary": {
+      "samples": 43,
+      "healthy": 41,
+      "updating": 2
+    },
+    "vercel": {
+      "id": "dpl_6pJv7kpM7MdhFYHyP2vFZoYq7wc3",
+      "url": "https://praxans-6c39lj861-perseusxr-projects.vercel.app",
+      "productionUrl": "https://praxans.vercel.app",
+      "readyState": "READY",
+      "target": "production",
+      "verification": "Successful CLI publication and separate Vercel provider inspection; no request to the live Vercel website."
+    },
+    "gatewayDeployment": "a7bbebcf-a4d6-416a-9966-4f6d1908a696",
+    "sameServiceAndVolume": true,
+    "finiteMonitorsEnded": true
+  },
+  "afterBackup": {
+    "raw": {
+      "bytes": 327282688,
+      "sha256": "55a6bc431e4c3f2dad369a2b1972b2391aa494fad6bc783c97210766b56d78db"
+    },
+    "gzip": {
+      "bytes": 299966412,
+      "sha256": "94fa955462da46b92f5844b4313c2b5eb0a055ed58aef9876bcbc53168005833"
+    },
+    "integrity": "ok",
+    "independentDecoder": {
+      "library": "libzstd",
+      "version": "1.5.5",
+      "scope": "Independent C library via Python, exact single-frame/content length and original/payload SHA-256; no application codec imported."
+    },
+    "storage": 2,
+    "worldChecksum": "53e7b28bfb53f831760be210086cc85e875780ea8f5e2965be0bb4a796032f9a",
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "version": 16,
+      "lawsVersion": "biosphere-1.10",
+      "generationVersion": "planet-1",
+      "tick": 573704,
+      "rng": 3060882793,
+      "births": 407,
+      "deaths": 1639
+    },
+    "people": 0,
+    "clock": {
+      "tick": 573704,
+      "wall_ms": 1791535866340.0
+    },
+    "regions": [
+      {
+        "id": "-1,-1",
+        "sha256": "a31c3b370a88171140c8b1272ce64de7781e09f3f49440364dd866b22d3a78f9",
+        "rawBytes": 3449621,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 841114
+      },
+      {
+        "id": "-1,0",
+        "sha256": "6a1823b38f1c4e753c190bb71e4dc53febb8075f893bf227295cf6e401d35937",
+        "rawBytes": 3183869,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 787167
+      },
+      {
+        "id": "-1,1",
+        "sha256": "07fb1add7150bcbe5b2c84d5bc3853073744e7a2b4049d519203721e780c5a00",
+        "rawBytes": 2798924,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 684769
+      },
+      {
+        "id": "0,-1",
+        "sha256": "06cee0b187a03c6392b3f94ee35edb42734b4159d53a66312b7e0b3c50e240ca",
+        "rawBytes": 3412647,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 823038
+      },
+      {
+        "id": "0,0",
+        "sha256": "fbfdfd123b5543e6d4492f2510299a944e3435b4ecd65d2e2f66ebfda9e94b09",
+        "rawBytes": 3011490,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 686401
+      },
+      {
+        "id": "0,1",
+        "sha256": "d874f8a171dd428b84359b76b71650a4f1bbb5809a0499dad867daa5a28e30e1",
+        "rawBytes": 3174085,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 714751
+      },
+      {
+        "id": "0,2",
+        "sha256": "6b398bfc9ec488297f606e65b8443cc76e6b30ac7ca72ef059b5b7145ed54aa4",
+        "rawBytes": 3343932,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 801247
+      },
+      {
+        "id": "1,-1",
+        "sha256": "e7eb86a64dff9f36845d8e7f565f29a05dcb66f64d1bf05380d5b5237b4cda04",
+        "rawBytes": 3344443,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 808426
+      },
+      {
+        "id": "1,0",
+        "sha256": "69354d1e4d0486ee920b0e0aa5b52325f9202c0d76e4fd29684210fa5b520574",
+        "rawBytes": 3176163,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 720897
+      },
+      {
+        "id": "1,1",
+        "sha256": "144f901f660fc5020e3bcabe35d91cd0caf4714a8effd3b353e09d3882b110ee",
+        "rawBytes": 3161890,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 702011
+      },
+      {
+        "id": "1,2",
+        "sha256": "172fbf44c28b73436f97182eb6bb757d582333985084083fd0d535099dabcd86",
+        "rawBytes": 3343958,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 787396
+      },
+      {
+        "id": "2,-1",
+        "sha256": "85b02954da167cb7a8a399465ac1056e0498202bccc19e71de062742ebaea035",
+        "rawBytes": 3310190,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 803227
+      },
+      {
+        "id": "2,0",
+        "sha256": "0c8b806e26c1cd0ed600eaeb0bc34fa77057c4037f73fa3782c3a858b8766729",
+        "rawBytes": 3146901,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 751216
+      },
+      {
+        "id": "2,1",
+        "sha256": "5cb738ea7e7fc3d314100ea111eb3ff19b219f24a8d7cb56c1206511f55fbd9a",
+        "rawBytes": 3189382,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 740926
+      },
+      {
+        "id": "2,2",
+        "sha256": "37acee660e20bb332f0168c04b1841430e042c645d9e32709d41fca708f8b078",
+        "rawBytes": 3399335,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 827465
+      },
+      {
+        "id": "3,-1",
+        "sha256": "d346f851718df2fdd5260292c14292140e22656c1eb4b7cfb685cb352ab42e48",
+        "rawBytes": 3442083,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 841737
+      },
+      {
+        "id": "3,0",
+        "sha256": "b33722d8a37b61e6279637b8803fda89ac05a3c3358e7f5a690a06c1ff4cf5a1",
+        "rawBytes": 3330688,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 817299
+      },
+      {
+        "id": "3,1",
+        "sha256": "d6589dffecb5c9be178f2539e230659188b0432c39721ed677b050aeaa5d8ff7",
+        "rawBytes": 3317917,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 814597
+      },
+      {
+        "id": "3,2",
+        "sha256": "9c30b1b8768b22a80888fdee5fe672beadf0772d5c11f4c90505aaa1b8d6d68c",
+        "rawBytes": 3504617,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 854587
+      },
+      {
+        "id": "4,-1",
+        "sha256": "91f39d8273b0c1b03cc7ade19a8c920940d4b105df89499fae501ad52ee03e35",
+        "rawBytes": 3531791,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 856260
+      },
+      {
+        "id": "4,0",
+        "sha256": "d4295fb9ad6f7e0da4af498001105e80f061a9373c560590201e8046c863142b",
+        "rawBytes": 3383896,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 827555
+      },
+      {
+        "id": "4,1",
+        "sha256": "3e90d4a68c7fb7001558d50b5b7b85de1891c1cc2e4fbc84aadc2b31902562ff",
+        "rawBytes": 3465115,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 838723
+      },
+      {
+        "id": "4,2",
+        "sha256": "d228c5fffcdfb771bd0419e0f6947e7492f5e186f4a263a7dd576b148468c39d",
+        "rawBytes": 3558364,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 853218
+      },
+      {
+        "id": "5,-1",
+        "sha256": "ee992794742ab03faa10587653938b0053b44b51a3de99aa67bb0139bdd7cd57",
+        "rawBytes": 3525067,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 856238
+      },
+      {
+        "id": "5,0",
+        "sha256": "d89d74c96ce148eecc7364484862ebd2e348190c208be5dbca5fd3d50d1ae35d",
+        "rawBytes": 3503595,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 851018
+      },
+      {
+        "id": "5,1",
+        "sha256": "99c59e22e5d2b893b01179eafb560c13f77cd1525e9d305238df44e13b3b3df0",
+        "rawBytes": 3564932,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 858573
+      },
+      {
+        "id": "6,-1",
+        "sha256": "20d716b38d1fc8b37a1b512fd56d915eb953d95d43af1da4b4a15a4425b230a2",
+        "rawBytes": 3510239,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 856239
+      },
+      {
+        "id": "6,0",
+        "sha256": "957d74d40811171e49aa1723514591a9eff82b7bc5a815e4f60862c4225d4046",
+        "rawBytes": 3513098,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 859366
+      },
+      {
+        "id": "6,1",
+        "sha256": "da299a8ab33b74314c1df0951b63b09ad345842a71ada1679bd62ffcec500275",
+        "rawBytes": 3572388,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 864847
+      },
+      {
+        "id": "7,-1",
+        "sha256": "466b8485360f88e7381f1a72714b3a5370714f61fe33bd0340f1a3469335d198",
+        "rawBytes": 3467541,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 816487
+      },
+      {
+        "id": "7,0",
+        "sha256": "541707a4e9e969d20579f0f67af21861a4049d9e480349d16e3ba88b320885fb",
+        "rawBytes": 3484849,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 795492
+      },
+      {
+        "id": "7,1",
+        "sha256": "dc2b8fcc8ecb010f8f4b1e73c20b2e5528429e9243f4703d20de6b49db7e5329",
+        "rawBytes": 3406778,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 803121
+      },
+      {
+        "id": "8,-1",
+        "sha256": "1d8607cc93c4949a3a880a741f39e5d0a6e13580f780b09494de051f92434daa",
+        "rawBytes": 3388743,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 776071
+      },
+      {
+        "id": "8,0",
+        "sha256": "00751907a065a4f2b43775f1d226eb0bee25ea075ce60c5455d764f38cb65353",
+        "rawBytes": 3510051,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 809318
+      },
+      {
+        "id": "8,1",
+        "sha256": "a6fa2ddc515bd0356d404d38c7d12601b353d6705d665d29e8119057b2d525d7",
+        "rawBytes": 3502091,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 788012
+      },
+      {
+        "id": "9,-1",
+        "sha256": "9528ff897f96f00a604a09d962b56d1faa2033bc2cd214506c0ad0fdc0e01f59",
+        "rawBytes": 3464038,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 809868
+      },
+      {
+        "id": "9,0",
+        "sha256": "edfeef369724b59c5ecd706b1924973bf589da9c3bb2bd8b9442e648209a198a",
+        "rawBytes": 3215458,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 741416
+      },
+      {
+        "id": "9,1",
+        "sha256": "7fb77577180ddeb65320826daa69d47eea851cb950022cd0a00dcc7f12a8b811",
+        "rawBytes": 3459304,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 812835
+      }
+    ],
+    "archives": [
+      {
+        "id": "008-material-memory-and-agency",
+        "sha256": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+        "createdAt": 1791445486072
+      },
+      {
+        "id": "009-human-thermal-and-distance-balance",
+        "sha256": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+        "createdAt": 1791466127552
+      },
+      {
+        "id": "010-performed-body-maintenance",
+        "sha256": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+        "createdAt": 1791501484044
+      },
+      {
+        "id": "011-consumption-before-ration-pickup",
+        "sha256": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+        "createdAt": 1791504160572
+      },
+      {
+        "id": "012-funded-human-metabolism",
+        "sha256": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+        "createdAt": 1791508588158
+      },
+      {
+        "id": "013-local-inventory-exposure-and-access",
+        "sha256": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+        "createdAt": 1791512310450
+      },
+      {
+        "id": "014-performed-local-food-handoff",
+        "sha256": "a429759388484bdef2d6048e9044c1ab5d773cbd6b3ff598f9da54dcad4b958b",
+        "createdAt": 1791521109688
+      },
+      {
+        "id": "015-age-bounded-structural-growth",
+        "sha256": "fb2a929456519b7801f9af20b075c9fa5a43ce60cfbcb7792b647d378103b673",
+        "createdAt": 1791524835913
+      },
+      {
+        "id": "016-performed-resource-harvesting",
+        "sha256": "31f3e956350fbdcb9c6b44c406c59714f937d9a8b62c75ff9a32a34cfa2fbb33",
+        "createdAt": 1791542391209
+      }
+    ],
+    "protectedRows": {
+      "world_events": {
+        "count": 71332,
+        "unchanged": true,
+        "sha256": "68d46b5471cf9aa7ed63d2d0461e91e9e01efc11de1591e68e1804ad7852006d"
+      },
+      "world_history": {
+        "count": 5850,
+        "unchanged": true,
+        "sha256": "4a217563f70f2262315f3b59e172545b0b72121c0f1640ee030c57f50cf5f809"
+      },
+      "interventions": {
+        "count": 28,
+        "unchanged": true,
+        "sha256": "1d83acf7d44f80337af94f60dca4f418d33d81e2bea44b883efc161383e7a616"
+      },
+      "world_backups": {
+        "count": 8,
+        "unchanged": true,
+        "sha256": "1032c020037f0baedbec3f26e6228c429985085f7dcc91f8bf126c58a6aa1704"
+      },
+      "world_backup_parts": {
+        "count": 3036,
+        "unchanged": true,
+        "sha256": "2eac4dd83a8a7d301fcc810ced28e6d0148c5b00007d4995e54c279b7afdff48"
+      },
+      "sessions": {
+        "count": 30,
+        "unchanged": true,
+        "sha256": "dcb6e0c84b1bdf91d542cb69915044f44a1be51ed019ef00ae0031797e0c0f8f"
+      },
+      "agents": {
+        "count": 1,
+        "unchanged": true,
+        "sha256": "957b018ab65e7c6ccc013fa617df670d30fe6a4e442fd4f94da60e69ee7ea33b"
+      },
+      "receipts": {
+        "count": 3,
+        "unchanged": true,
+        "sha256": "61eeb51a809a13188fead544cfbca9f51d31b607589fd2ff68bba49452172183"
+      }
+    },
+    "release": {
+      "sequence": 30,
+      "id": "release:performed-harvest-20261009-1",
+      "tick": 573032,
+      "description": "World format 16 / biosphere-1.10. Newly funded local gathering earns finite private products during work; joint plant/element sources and bounded mineral-exhaustion events share one handling budget. Preserve partial cargo and actual yield observations; completion performs no extra extraction. Source-changing completions follow harvesting, and cold-food planning recognizes edible cargo. Preserve existing people, material, tasks, old progress, RNG, clock, regions and history without new population or retrospective products.",
+      "before_checksum": "5bc742c9bbe61078dad35342dd86033ff4d217620de8811f07a8651178b1b93b",
+      "after_checksum": "5bc742c9bbe61078dad35342dd86033ff4d217620de8811f07a8651178b1b93b",
+      "created_at": 1791542396813
+    },
+    "migration": {
+      "sequence": 29,
+      "id": "016-performed-resource-harvesting",
+      "tick": 573032,
+      "description": "Preserve every existing person, task, progress, cargo, memory, material, region, identity, RNG, clock and historical record. From this boundary, newly funded resource work incrementally earns private carried products. Old progress earns no retroactive products; completion performs no second extraction. Simultaneous attempts in an occupied cell share finite plant organic/mineral compartments, rock or the actual clay element mixture, with one handling budget across both vegetation layers. Pooled exponential plant exposure reuses the existing cut fractions and attempt durations; these remain uncalibrated whole-cell accessibility and handling conventions, not conserved anatomical tissues or measured productivity. Bounded bisection locates mineral exhaustion within the funded interval; only remaining effort can then use surviving vegetation layers. Handling transitions still introduce declared timestep approximation. Cold-weather reconsideration counts both provisions and edible work cargo as personal food. Other source-changing task completions follow the harvest boundary. Actual credited yield alone updates the optional task observation; it is not additional matter, and interruption or ingestion does not erase products already earned. No cooperation, communal delivery, food priority, seasonal carrying capacity or general simultaneous economy is implied. No people, supplies, past effort refunds or clock time are created.",
+      "before_checksum": "3d0249e32cac63407d142ef8a6233732486cef91f274555974bc1d1218bf400f",
+      "after_checksum": "5bc742c9bbe61078dad35342dd86033ff4d217620de8811f07a8651178b1b93b",
+      "created_at": 1791542394716
+    },
+    "exactMigrationMetadata": {
+      "tick": 573032,
+      "beforeChecksum": "3d0249e32cac63407d142ef8a6233732486cef91f274555974bc1d1218bf400f",
+      "afterChecksum": "5bc742c9bbe61078dad35342dd86033ff4d217620de8811f07a8651178b1b93b",
+      "onlyVersionLabelsChanged": true,
+      "archiveSha256": "31f3e956350fbdcb9c6b44c406c59714f937d9a8b62c75ff9a32a34cfa2fbb33"
+    },
+    "copy": {
+      "startedAt": "2026-10-09T10:41:33.917Z",
+      "copiedAt": "2026-10-09T10:41:42.648Z",
+      "elapsedMilliseconds": 8731.305317,
+      "identity": {
+        "checksum": "53e7b28bfb53f831760be210086cc85e875780ea8f5e2965be0bb4a796032f9a",
+        "tick": 573704,
+        "people": 0,
+        "births": 407,
+        "deaths": 1639,
+        "clock": {
+          "tick": 573704,
+          "wall_ms": 1791535866340
+        },
+        "regions": 38,
+        "archives": [
+          {
+            "id": "008-material-memory-and-agency",
+            "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+            "created_at": 1791445486072
+          },
+          {
+            "id": "009-human-thermal-and-distance-balance",
+            "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+            "created_at": 1791466127552
+          },
+          {
+            "id": "010-performed-body-maintenance",
+            "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+            "created_at": 1791501484044
+          },
+          {
+            "id": "011-consumption-before-ration-pickup",
+            "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+            "created_at": 1791504160572
+          },
+          {
+            "id": "012-funded-human-metabolism",
+            "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+            "created_at": 1791508588158
+          },
+          {
+            "id": "013-local-inventory-exposure-and-access",
+            "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+            "created_at": 1791512310450
+          },
+          {
+            "id": "014-performed-local-food-handoff",
+            "checksum": "a429759388484bdef2d6048e9044c1ab5d773cbd6b3ff598f9da54dcad4b958b",
+            "created_at": 1791521109688
+          },
+          {
+            "id": "015-age-bounded-structural-growth",
+            "checksum": "fb2a929456519b7801f9af20b075c9fa5a43ce60cfbcb7792b647d378103b673",
+            "created_at": 1791524835913
+          },
+          {
+            "id": "016-performed-resource-harvesting",
+            "checksum": "31f3e956350fbdcb9c6b44c406c59714f937d9a8b62c75ff9a32a34cfa2fbb33",
+            "created_at": 1791542391209
+          }
+        ]
+      },
+      "copyMonitor": {
+        "samples": 183,
+        "minimumAvailableBytes": 68956160,
+        "maximumWalBytes": 32164872,
+        "maximumCgroupMemoryBytes": 999911424,
+        "eventsBefore": "low 0\nhigh 0\nmax 5761\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "eventsAfter": "low 0\nhigh 0\nmax 6305\noom 0\noom_kill 0\noom_group_kill 0\n"
+      }
+    },
+    "sourceBackupUnchanged": true,
+    "communities": [
+      {
+        "id": "civ-1",
+        "name": "Fernhaven",
+        "foundedTick": 0,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        },
+        "births": 84,
+        "deaths": 390
+      },
+      {
+        "id": "civ-11",
+        "name": "Amber Hollow",
+        "foundedTick": 0,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        },
+        "births": 93,
+        "deaths": 400
+      },
+      {
+        "id": "civ-21",
+        "name": "Stonebrook",
+        "foundedTick": 0,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        },
+        "births": 96,
+        "deaths": 407
+      },
+      {
+        "id": "civ-3118",
+        "name": "Adonis",
+        "foundedTick": 10369,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        },
+        "births": 134,
+        "deaths": 442
+      }
+    ],
+    "newInterventions": [
+      "016-performed-resource-harvesting",
+      "release:performed-harvest-20261009-1"
+    ],
+    "priorArchiveSetUnchanged": true,
+    "oneAdditionalExactArchive": true
+  },
   "worldRenewed": false,
-  "prMerged": false
+  "prMerged": false,
+  "implementationCommit": "19570a9424a7a3517107f7547a2b7f856945802d",
+  "repositoryPublicationFollowUp": {
+    "inspectedAt": "2026-10-09T10:49:33.464Z",
+    "structuralScan": {
+      "baseCommit": "19570a9424a7a3517107f7547a2b7f856945802d",
+      "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+      "gitVisibleExistingFileCount": 981,
+      "jsTsFileCount": 141,
+      "sourceFileCount": 82,
+      "srcContentSha256": "1553aa55d7f1aabd9072cc6fff3a33d73115aa97f0e2477081042dd59d24705a",
+      "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
+      "resolvedEdgeCount": 746,
+      "edgesByArea": {
+        "docs -> src/simulation": 25,
+        "docs -> tests": 1,
+        "scripts -> src/server": 27,
+        "scripts -> src/simulation": 26,
+        "src/client -> src/simulation": 27,
+        "src/client -> src/client": 21,
+        "src/server -> src/simulation": 41,
+        "src/server -> src/server": 28,
+        "src/simulation -> src/simulation": 260,
+        "tests -> src/simulation": 200,
+        "tests -> tests": 34,
+        "tests -> src/server": 56
+      },
+      "missingImports": [],
+      "missingAssets": [],
+      "nonliteralLoads": [
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+        },
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+        }
+      ],
+      "layerViolations": [],
+      "simulationEnvironmentImports": [],
+      "localMarkdownLinksChecked": 605,
+      "missingMarkdownLinks": []
+    }
+  }
 }

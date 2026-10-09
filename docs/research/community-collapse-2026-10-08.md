@@ -10,6 +10,8 @@ The [developmental correction](../releases/development-0.2.md) is subsequently l
 
 The further [resource-observation study](observed-foraging-2026-10-09.md) isolates ongoing work after newly observed depletion. Its controller correction is live, but the matched current-law day has uneven harvest and worse aggregate child cold injury. It adds no historical death attribution or survival claim; partial work, source competition and sustainable access remain separate questions.
 
+The subsequent [performed-harvesting correction](performed-harvesting-2026-10-09.md) now earns finite private products during funded work and shares local sources. Its matched current-law day raises aggregate harvest and lowers aggregate child injury, while Stonebrook's cold deficit rises and the minimum final child health is lower. This is evidence about a later correction, not an attribution of the historical deaths or proof of sustainable communities.
+
 ![Population, communal food and deaths after the finite renewal](../images/community-collapse-2026-10-08.png)
 
 The figure uses [daily history and death counts](collapse-timeline.json), not conditions observed after extinction.
