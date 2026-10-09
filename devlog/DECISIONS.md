@@ -405,3 +405,30 @@
 - **decision**: Store real unoxidized intake and a usable subset within existing body material. Use one oxygen-limited oxidation for maintenance, signed heat and melting, with independent finite reserve/power limits. Reserve shared ice once, allocate current food before optional storage, and tie work/travel to the funded interval. Retain water-route purpose, initialize no historical intake and record future measured metabolic death evidence.
 - **alternatives**: Treating nourishment as energy invents a physical budget. Burning all remaining tissue ignores structural function. Repeatedly retaining a fraction of buffered food makes growth depend on tick subdivision. Unbounded body heat, guaranteed survival or automatic restoration would conceal environmental and demographic failures.
 - **consequences**: Format 12 / biosphere-1.6 adds an explicit migration, with reserves counted inside body and intake counted separately. Retention restores reserves before coarse structural growth. Parameters, infant feeding, age-dependent growth, gestational costs, injury and recovery remain uncalibrated; oxygen contention and unused ice allocation still have limits. This extends ADR-034/035 without erasing earlier history or granting new people.
+
+### ADR-038: Consistent exposure, carried load and connected resources
+
+- **date**: 2026-10-09
+- **status**: accepted
+- **context**: The food-flow audit found custody-based spoilage exemptions, personal supplies omitted from journey loads and founding surveys counting resources across impassable water. These source defects are not individually established causes of historical extinction.
+- **decision**: Extend the existing material-loss law to loose camp, personal and journey inventories on a shared hourly boundary; include actual personal material in existing journey capacity; survey only land connected within the founding radius. Preserve all quantities at migration 013 and account for future losses at their locations.
+- **alternatives**: Extra supplies or guaranteed survivors would conceal deficits. Crediting dispatched goods as delivered would invent fulfillment after spoilage. A full movement/exposure history and biomechanical load model exceed this bounded correction and require their own state and tests.
+- **consequences**: Format 13 / biosphere-1.7 retains the prior world. Hourly sampling, aggregate storage protection, fractional delivery retries and fixed carrying limits remain explicit approximations. Connected standing stocks do not prove affordable harvest, ecological replacement or independent catchments. No renewal occurs.
+
+### ADR-039: Denser archive blocks without a new storage codec
+
+- **date**: 2026-10-09
+- **status**: accepted
+- **context**: The next physical migration needs another complete historical archive on a finite volume. Existing level-1 deflate blocks leave measurable compression headroom, but source measurements alone do not establish safe saving after migration.
+- **decision**: Use level-6 deflate for new blocks and replace an existing compressed block only if smaller. Verify every original block and full original stream, then the actual stored replacements, within one transaction per archive before terrain loading. Retain storage version 1, the existing codec and every historical identity/date/checksum.
+- **alternatives**: Deleting archives loses evidence. A new codec or external archive reference would require new compatibility and recovery contracts. Raising a test's quota would not measure the real volume. Level 9 adds cost for modest extra savings in the bounded off-host comparison.
+- **consequences**: A completed lossless repack can remain after a subsequent law failure and stays readable by earlier storage-v1 code. Equal or better-packed blocks are not rewritten. Repacking still verifies/recompresses prior archives during a later law migration, so CPU grows with retained history. Files do not shrink; backups, actual quota trials and eventual storage scaling remain necessary.
+
+### ADR-040: Renew held writer ownership before a long transaction commits
+
+- **date**: 2026-10-09
+- **status**: accepted
+- **context**: The measured complete archive/migration can exceed the 30-second lease interval. Compression between saves previously had no lease renewal, leaving a completed transaction able to expose an already expired lease.
+- **decision**: Check and renew the current writer's held lease after a successful synchronous transaction callback and before commit releases the SQLite write lock. A missing ownership token aborts and rolls back the proposed write. Unowned disposable preflight stores acquire no live authority.
+- **alternatives**: Increasing a fixed lease interval delays recovery and cannot bound growing archival work. A timer cannot run during synchronous compression. Publishing expired ownership and relying on the next tick leaves an avoidable handover gap.
+- **consequences**: This is a storage ownership correction with no new physical state or clock reset. Tests advance wall time beyond the old lease and verify that a contender still cannot acquire it after commit, and that lost ownership rolls back writes. Host/IO failure and work outside transactions retain their existing operational limits.

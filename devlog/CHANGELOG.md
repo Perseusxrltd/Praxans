@@ -21,6 +21,9 @@
 - Antiquity-first source register, scale audits, failed-candidate evidence, measured CPU baseline and explicit large-world acceptance targets.
 
 ### Fixed
+- Successful long world transactions renew their held writer lease before commit; loss of ownership rolls back the write (→ world_storage; → ADR-040).
+- Loose camp, personal and journey materials share hourly sampled exposure, journey loads include personal supplies, and founding resources require connected represented land. Format 13 / biosphere-1.7 preserves actual inventories at migration; [release validation/publication](../docs/releases/food-custody-0.2.md) remains explicit (→ settlement_space; → civic_relations; → ADR-038).
+- Existing archive blocks use denser packing only when smaller, with original/replacement verification and unchanged codec, IDs, dates and original hashes. Capacity is measured on a copy; history is not removed (→ world_storage; → ADR-039).
 - Current food and ice requests share finite supply before optional refills. Paid physical work and conversation retain their budgets; water-seeking routes can progress while thirst persists. Migration 012 preserves existing matter/history (→ civilization_intelligence; → world_storage).
 - All current physiological food use now precedes optional ration pickup, followed by decisions and movement. Residual refills preserve contact, finite budgets and private custody; the inspector shows actual rations. Format 11 / biosphere-1.5 leaves prior state intact (→ human_physiology; → ADR-035).
 - Legacy archive compression retains exact original bytes and checksums while making old pages reusable before the next law migration; the preceding storage-v1 runtime remains compatible (→ world_storage; → ADR-036).

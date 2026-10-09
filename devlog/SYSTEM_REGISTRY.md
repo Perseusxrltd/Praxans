@@ -49,7 +49,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `store.ts`, `backup.ts`, `archives.ts`, `migrations.ts`, `startup.ts`, `intervention.ts`, `scripts/world-maintenance.ts`, `scripts/verify-upgrade.ts`
 - **dependencies**: world_state, natural_systems
 - **dependents**: agent_gateway, world_hosting, community_history
-- **known_issues**: One writer/volume, monolithic population metadata and full region serialization. New archives use verified compressed blocks and owned migration; older plaintext archives are losslessly converted before a new law migration, retaining exact expanded bytes and permitting reuse of freed pages. Conversion runs before full terrain loading; it does not shrink the file. The additive schema commits separately from physical migration. Pre-write checkpoint reuse and bounded native copies address demonstrated reader-related log accumulation, but single-write and combined live/preflight capacity remain finite. The 16 MiB setting bounds only reusable WAL. External backup retention/monitoring and account recovery remain open.
+- **known_issues**: One writer/volume, monolithic population metadata and full region serialization. New archives use verified compressed blocks and owned migration; older plaintext archives are losslessly converted and compressed blocks can be packed more densely before a new law migration, retaining exact expanded bytes and permitting reuse of freed pages. Original and stored replacement blocks verify per archive, with no codec/version change. Conversion runs before full terrain loading; it does not shrink the file. The additive schema commits separately from physical migration. Pre-write checkpoint reuse and bounded native copies address demonstrated reader-related log accumulation, but single-write and combined live/preflight capacity remain finite. The 16 MiB setting bounds only reusable WAL. External backup retention/monitoring and account recovery remain open.
 - **last_touched**: 2026-10-09
 
 ### agent_gateway
@@ -137,7 +137,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `society.ts`, `progress.ts`, `diplomacy.ts`, `actions.ts`, `validation.ts`
 - **dependencies**: world_state, natural_systems, human_cognition
 - **dependents**: civilization_intelligence, agent_gateway, browser_observer
-- **known_issues**: Local assembly and bilateral commitment primitives; simplified travel, comprehension and raids. Rewards are explicit heuristics, not proof against every optimization strategy.
+- **known_issues**: Local assembly and bilateral commitment primitives; simplified travel, comprehension and raids. The fixed adult journey allowance counts personal external material. Delivery promises credit actual arrivals; decay can cause fractional retries. No portable containers or general logistics planner. Rewards are explicit heuristics, not proof against every optimization strategy.
 - **last_touched**: 2026-10-09
 
 ---
@@ -161,8 +161,8 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `movement.ts`, `settlement.ts`, `planet.ts`, `terrain.ts`, `weathering.ts`
 - **dependencies**: world_state, natural_systems
 - **dependents**: civilization_intelligence, human_physiology
-- **known_issues**: Stock volumes and camp area are represented, but inventory is still pooled; hauling, exact occupied piles, ventilation and stored-material heat capacity are incomplete. Three renewed camps share 36.83 ha of represented connected land; overlapping standing stocks do not establish independent sustainable food supply.
-- **last_touched**: 2026-10-08
+- **known_issues**: Stock volumes, camp area and connected founding-resource surveys are represented, but inventory is still pooled; hauling, exact occupied piles, ventilation and stored-material heat capacity are incomplete. Loose-material exposure samples each current holder's location hourly, without custody histories or portable containers. Three renewed camps share 36.83 ha of represented connected land; overlapping standing stocks do not establish independent sustainable food supply.
+- **last_touched**: 2026-10-09
 
 ### material_geometry
 

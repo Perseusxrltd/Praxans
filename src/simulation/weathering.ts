@@ -8,6 +8,7 @@ import type {
   Civilization,
   Material,
   Structure,
+  Tile,
   World,
 } from "./types";
 
@@ -274,7 +275,37 @@ export function workspaceBenefit(world: World, person: Citizen): number {
   return Math.min(0.25, area * 0.12);
 }
 
-export function decayStocks(world: World, civ: Civilization): void {
+/** One exposure law for loose material, independent of who holds it. */
+function decayPortion(
+  world: World,
+  tile: Tile,
+  material: Material,
+  mass: number,
+  elapsedHours: number,
+  protectedFraction = 0,
+): number {
+  if (!mass || !elapsedHours) return 0;
+  const damp =
+    clamp(tile.air.humidity + tile.air.rain * 0.2, 0, 1) *
+    (1 - protectedFraction * 0.6);
+  const warmth = clamp(2 ** ((tile.temperature - 20) / 10), 0.05, 8);
+  const hourlyRate =
+    material === "biomass"
+      ? (0.004 / 24) * warmth * (1.3 + damp)
+      : RATES[material].loss * (0.1 + damp) * warmth;
+  const loss = mass * -Math.expm1(-hourlyRate * elapsedHours);
+  returnMaterial(world, tile, material, loss);
+  return loss;
+}
+
+export function decayStocks(
+  world: World,
+  civ: Civilization,
+  elapsedHours = 24,
+): void {
+  if (!Number.isFinite(elapsedHours) || elapsedHours < 0)
+    throw new Error("Inventory exposure requires finite nonnegative hours.");
+  if (!elapsedHours) return;
   const footprint = campTiles(world, civ);
   const volume = world.structures
     .filter((s) => s.civId === civ.id && !s.collapsed && s.progress >= 1)
@@ -291,19 +322,64 @@ export function decayStocks(world: World, civ: Civilization): void {
     const share = civ.stock[material] / footprint.length;
     let spoiled = 0;
     for (const tile of footprint) {
-      const damp =
-        clamp(tile.air.humidity + tile.air.rain * 0.2, 0, 1) *
-        (1 - protectedFraction * 0.6);
-      const warmth = clamp(2 ** ((tile.temperature - 20) / 10), 0.05, 8);
-      const rate =
-        material === "biomass"
-          ? 0.004 * warmth * (1.3 + damp)
-          : RATES[material].loss * 24 * (0.1 + damp) * warmth;
-      const loss = share * (1 - Math.exp(-rate));
-      spoiled += loss;
-      returnMaterial(world, tile, material, loss);
+      spoiled += decayPortion(
+        world,
+        tile,
+        material,
+        share,
+        elapsedHours,
+        protectedFraction,
+      );
     }
     civ.stock[material] -= spoiled;
+  }
+}
+
+/**
+ * Camp, personal and journey inventories receive the same hourly exposure.
+ * Carried goods have no represented container: custody grants no protection.
+ * Swallowed intake and body material belong to physiology, not loose stores.
+ */
+export function decayInventories(world: World, elapsedHours: number): void {
+  if (!Number.isFinite(elapsedHours) || elapsedHours < 0)
+    throw new Error("Inventory exposure requires finite nonnegative hours.");
+  if (!elapsedHours) return;
+  for (const civ of world.civilizations) decayStocks(world, civ, elapsedHours);
+  for (const person of world.citizens) {
+    const tile = getTile(world, person.x, person.y)!;
+    person.provisions -= decayPortion(
+      world,
+      tile,
+      "biomass",
+      person.provisions,
+      elapsedHours,
+    );
+    if (person.cargo)
+      person.cargo.amount -= decayPortion(
+        world,
+        tile,
+        person.cargo.material,
+        person.cargo.amount,
+        elapsedHours,
+      );
+  }
+  for (const caravan of world.caravans) {
+    const tile = getTile(world, caravan.x, caravan.y)!;
+    caravan.provisions -= decayPortion(
+      world,
+      tile,
+      "biomass",
+      caravan.provisions,
+      elapsedHours,
+    );
+    for (const goods of [caravan.offer, caravan.receive])
+      goods.amount -= decayPortion(
+        world,
+        tile,
+        goods.material,
+        goods.amount,
+        elapsedHours,
+      );
   }
 }
 import { campTiles } from "./settlement";

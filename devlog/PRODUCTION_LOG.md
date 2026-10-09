@@ -7,6 +7,15 @@
 
 ## Log
 
+### [2026-10-09] Consistent Local Inventory Exposure and Resource Access
+
+- **type**: bugfix
+- **systems**: world_state, natural_systems, civilization_intelligence, settlement_space, civic_relations, world_storage, browser_validation
+- **files**: `weathering.ts`, `diplomacy.ts`, `settlement.ts`, `world.ts`, `engine.ts`, `archives.ts`, `migrations.ts`, `food-custody.test.ts`
+- **agent**: Codex
+
+Loose camp/personal/journey materials now share local hourly exposure; journey loads include private supplies and new founding screens exclude resources across impassable water. Migration 013 retains quantities and history at the boundary. Lossless archive repacking keeps original bytes within the existing codec. The [candidate release](../docs/releases/food-custody-0.2.md) records validation and actual publication status. Delivery shortfalls, hourly sampling and finite capacity remain explicit. Long transactions renew held writer ownership before commit; a lost token aborts the write. → ADR-038; → ADR-039; → ADR-040.
+
 ### [2026-10-09] One Funded Human Metabolic Account
 
 - **type**: bugfix

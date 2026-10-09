@@ -28,6 +28,128 @@ const hash = (bytes: string | Uint8Array) =>
 const archivedText = (db: DatabaseSync, id: string) =>
   Buffer.concat([...worldArchiveBytes(db, id)]).toString();
 
+function lightlyPackedArchive(store: Store, id = "packed-history") {
+  const value = { note: "ancient river 🌱 stones water ".repeat(32000) };
+  const archive = store.transaction(() => {
+    const created = writeWorldArchive(store.db, id, value, 12345);
+    const replace = store.db.prepare(
+      "UPDATE world_backup_parts SET payload=? WHERE archive_id=? AND part=?",
+    );
+    let part = 0;
+    for (const bytes of worldArchiveBytes(store.db, id))
+      replace.run(deflateSync(bytes, { level: 1 }), id, part++);
+    return created;
+  });
+  return { archive, original: JSON.stringify(value) };
+}
+
+test("denser packing preserves the existing block codec and all historical bytes without rewriting equal payloads", () => {
+  const store = new Store(":memory:");
+  try {
+    const { archive, original } = lightlyPackedArchive(store);
+    const total = () =>
+      Number(
+        store.db
+          .prepare("SELECT sum(length(payload)) bytes FROM world_backup_parts")
+          .get()!.bytes,
+      );
+    const identities = () =>
+      store.db
+        .prepare(
+          "SELECT archive_id,part,raw_bytes,checksum FROM world_backup_parts ORDER BY archive_id,part",
+        )
+        .all();
+    const before = total(),
+      parts = identities();
+    assert.deepEqual(
+      { ...store.transaction(() => compactWorldArchive(store.db, archive.id)) },
+      archive,
+    );
+    assert.ok(total() < before);
+    assert.deepEqual(identities(), parts);
+    assert.deepEqual(
+      listWorldArchives(store.db).map((a) => ({ ...a })),
+      [archive],
+    );
+    assert.equal(archivedText(store.db, archive.id), original);
+    assert.equal(
+      store.db.prepare("PRAGMA user_version").get()!.user_version,
+      1,
+    );
+    const changes = store.db.prepare("SELECT total_changes() n").get()!.n;
+    store.transaction(() => compactWorldArchive(store.db, archive.id));
+    assert.equal(
+      store.db.prepare("SELECT total_changes() n").get()!.n,
+      changes,
+    );
+    assert.equal(archivedText(store.db, archive.id), original);
+  } finally {
+    store.close();
+  }
+});
+
+test("bad original hashes and failed or damaged compressed replacements roll back every changed block", () => {
+  for (const failure of ["checksum", "write", "stored"] as const) {
+    const store = new Store(":memory:");
+    try {
+      const { archive } = lightlyPackedArchive(store);
+      if (failure === "checksum")
+        store.db
+          .prepare("UPDATE world_backups SET checksum=? WHERE id=?")
+          .run(hash("wrong"), archive.id);
+      if (failure === "write")
+        store.db.exec(
+          "CREATE TRIGGER reject_repacking BEFORE UPDATE ON world_backup_parts WHEN NEW.part=1 BEGIN SELECT RAISE(ABORT,'injected block replacement failure'); END",
+        );
+      if (failure === "stored")
+        store.db.exec(
+          "CREATE TRIGGER damage_repacking AFTER UPDATE ON world_backup_parts WHEN NEW.part=1 BEGIN UPDATE world_backup_parts SET payload=zeroblob(1) WHERE archive_id=NEW.archive_id AND part=0; END",
+        );
+      const head = store.db.prepare("SELECT * FROM world_backups").all();
+      const parts = store.db
+        .prepare("SELECT * FROM world_backup_parts ORDER BY part")
+        .all();
+      assert.throws(() =>
+        store.transaction(() => compactWorldArchive(store.db, archive.id)),
+      );
+      assert.deepEqual(
+        store.db.prepare("SELECT * FROM world_backups").all(),
+        head,
+      );
+      assert.deepEqual(
+        store.db
+          .prepare("SELECT * FROM world_backup_parts ORDER BY part")
+          .all(),
+        parts,
+      );
+    } finally {
+      store.close();
+    }
+  }
+});
+
+test("completed lossless repacking remains readable when a subsequent physical migration fails", () => {
+  const store = new Store(":memory:");
+  try {
+    legacyCheckpoint(store, smallWorld(1847, 64, 64), 7);
+    const { archive, original } = lightlyPackedArchive(store);
+    const head = store.db.prepare("SELECT * FROM world").get();
+    store.db.exec(
+      "CREATE TRIGGER reject_law_after_repacking BEFORE UPDATE ON world BEGIN SELECT RAISE(ABORT,'injected later law failure'); END",
+    );
+    assert.throws(() => store.load(0, true), /injected later law failure/);
+    assert.deepEqual(store.db.prepare("SELECT * FROM world").get(), head);
+    assert.deepEqual(
+      listWorldArchives(store.db).map((a) => ({ ...a })),
+      [archive],
+    );
+    assert.equal(archivedText(store.db, archive.id), original);
+    assert.equal(store.interventions().length, 0);
+  } finally {
+    store.close();
+  }
+});
+
 test("compaction retains original archive bytes, formatting, identity and date across Unicode boundaries", () => {
   const store = new Store(":memory:");
   try {
@@ -167,7 +289,7 @@ test("a failed commit after owned migration preserves the old checkpoint and arc
     const head = store.db.prepare("SELECT * FROM world").get();
     const regions = store.db.prepare("SELECT * FROM chunks ORDER BY id").all();
     store.db.exec(
-      "CREATE TRIGGER reject_upgraded_world BEFORE UPDATE ON world WHEN json_extract(NEW.json,'$.version')=12 BEGIN SELECT RAISE(ABORT,'injected migration commit failure'); END",
+      "CREATE TRIGGER reject_upgraded_world BEFORE UPDATE ON world WHEN json_extract(NEW.json,'$.version')=13 BEGIN SELECT RAISE(ABORT,'injected migration commit failure'); END",
     );
     assert.throws(
       () => store.load(0, true),
@@ -185,9 +307,9 @@ test("a failed commit after owned migration preserves the old checkpoint and arc
     );
     assert.equal(store.interventions().length, 0);
     store.db.exec("DROP TRIGGER reject_upgraded_world");
-    assert.equal(store.load(0, true).version, 12);
+    assert.equal(store.load(0, true).version, 13);
     assert.equal(verifyWorldArchives(store.db).length, 1);
-    assert.equal(store.interventions().length, 5);
+    assert.equal(store.interventions().length, 6);
   } finally {
     store.close();
   }

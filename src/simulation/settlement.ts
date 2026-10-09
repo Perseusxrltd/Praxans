@@ -11,6 +11,52 @@ export const SETTLEMENT_SPACE = Object.freeze({
     "An unhoused camp targets 16 m² per resident, or enough land for its finite material volume in 0.5 m open piles, limited by connected land. Rest and exposed stocks occupy that footprint. This is an explicit spatial approximation, not a house grant, carrying capacity, or a resolved warehouse layout.",
 });
 
+const CARDINAL_STEPS = [
+  [0, -1],
+  [1, 0],
+  [0, 1],
+  [-1, 0],
+] as const;
+
+function connectedCells(
+  world: World,
+  home: Tile,
+  available: ReadonlySet<Tile>,
+  wanted: number,
+): Tile[] {
+  const cells = [home],
+    visited = new Set([home]);
+  for (let at = 0; at < cells.length && cells.length < wanted; at++) {
+    const cell = cells[at];
+    for (const [dx, dy] of CARDINAL_STEPS) {
+      if (cells.length >= wanted) break;
+      const next = getTile(world, cell.x + dx, cell.y + dy);
+      if (next && available.has(next) && !visited.has(next)) {
+        visited.add(next);
+        cells.push(next);
+      }
+    }
+  }
+  return cells;
+}
+
+/**
+ * Connected, already represented land within a finite projected survey radius.
+ * This is a habitat screen, not owned food, personal knowledge or annual yield.
+ */
+export function connectedResourceTiles(
+  world: World,
+  site: { x: number; y: number },
+  radius: number,
+): Tile[] {
+  const home = getTile(world, site.x, site.y);
+  if (!home || home.terrain === "water") return [];
+  const available = new Set(
+    nearbyTiles(world, site, radius).filter((t) => t.terrain !== "water"),
+  );
+  return connectedCells(world, home, available, available.size);
+}
+
 const populations = new WeakMap<
   World,
   {
@@ -107,24 +153,7 @@ function campLayout(world: World, civ: Civilization, population?: number) {
     nearbyTiles(world, civ, radius + 1).filter((t) => t.terrain !== "water"),
   );
   const wanted = Math.ceil(area / LAWS.tileArea);
-  const cells = [home],
-    visited = new Set([home]);
-  for (let at = 0; at < cells.length; at++) {
-    const cell = cells[at];
-    for (const [dx, dy] of [
-      [0, -1],
-      [1, 0],
-      [0, 1],
-      [-1, 0],
-    ]) {
-      const next = getTile(world, cell.x + dx, cell.y + dy);
-      if (cells.length >= wanted) break;
-      if (next && available.has(next) && !visited.has(next)) {
-        visited.add(next);
-        cells.push(next);
-      }
-    }
-  }
+  const cells = connectedCells(world, home, available, wanted);
   const access = new Set<Tile>(cells);
   // As with a drinking bank, a person can reach an adjacent represented stock
   // cell during a coarse quarter-hour step; distant stores remain inaccessible.

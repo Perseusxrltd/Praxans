@@ -228,6 +228,25 @@ function route(
   return path;
 }
 
+export const JOURNEY_LOAD_PER_ADULT_KG = 30;
+const personalLoad = (person: Citizen) =>
+  person.provisions + person.wrapMass + (person.cargo?.amount ?? 0);
+
+/** Remaining pooled payload after living carriers' own external material. */
+export function journeyCapacity(party: readonly Citizen[]): number {
+  return Math.max(
+    0,
+    party.reduce(
+      (capacity, person) =>
+        capacity +
+        (person.health > 0
+          ? JOURNEY_LOAD_PER_ADULT_KG - personalLoad(person)
+          : 0),
+      0,
+    ),
+  );
+}
+
 function candidates(world: World, civ: Civilization, raid: boolean): Citizen[] {
   return peopleOf(world, civ.id)
     .filter(
@@ -240,6 +259,7 @@ function candidates(world: World, civ: Civilization, raid: boolean): Citizen[] {
         !p.journeyId &&
         !p.cargo &&
         !p.pregnancy &&
+        personalLoad(p) <= JOURNEY_LOAD_PER_ADULT_KG &&
         distance(p, civ) < 3 &&
         (!raid ||
           p.traits.resilience + civ.culture.ambition + p.mind.adviceTrust >
@@ -274,18 +294,24 @@ function launch(
   // Budget both legs, nighttime rest and a margin for slow terrain; no food is created in transit.
   const foodEach = 1 + path.length * 0.22;
   const carrying = Math.max(offer.amount, request?.amount ?? 0);
-  const count =
-    requestedPeople ??
-    Math.max(1, Math.ceil(carrying / Math.max(1, 30 - foodEach)));
   const population = peopleOf(world, civ.id).length;
+  const maximumCount = Math.min(3, Math.max(1, Math.floor(population / 3)));
+  let count = requestedPeople ?? 1;
+  if (requestedPeople === undefined)
+    while (
+      count < maximumCount &&
+      count < eligible.length &&
+      carrying + foodEach * count > journeyCapacity(eligible.slice(0, count))
+    )
+      count++;
+  const party = eligible.slice(0, count);
   if (
-    count > Math.min(3, Math.max(1, Math.floor(population / 3))) ||
-    carrying + foodEach * count > count * 30
+    count > maximumCount ||
+    carrying + foodEach * count > journeyCapacity(party)
   )
     throw new RuleError(
-      "This journey exceeds the available party size or 30 kg carrying capacity per adult, including provisions.",
+      "This journey exceeds the available party size or 30 kg external load per adult, including personal food, covering and journey provisions.",
     );
-  const party = eligible.slice(0, count);
   if (party.length !== count)
     throw new RuleError(
       "Enough willing, rested adults must be present at home before this journey can begin.",
@@ -725,7 +751,10 @@ function raid(
     const material = caravan.request!.material;
     const capacity = Math.max(
       0,
-      party.filter((p) => p.health > 0).length * 30 - caravan.provisions,
+      journeyCapacity(party) -
+        caravan.provisions -
+        caravan.offer.amount -
+        caravan.receive.amount,
     );
     const taken = Math.min(
       target.stock[material],
@@ -821,7 +850,7 @@ export function updateJourneys(world: World): void {
         caravan.offer.amount +
           caravan.receive.amount +
           caravan.provisions -
-          party.length * 30,
+          journeyCapacity(party),
       );
       for (const goods of [caravan.offer, caravan.receive]) {
         const drop = Math.min(excess, goods.amount);
@@ -842,6 +871,12 @@ export function updateJourneys(world: World): void {
         "biomass",
         dropFood,
       );
+      // Private custody is not silently redistributed to make a journey fit.
+      // A carrier whose own external load exceeds the limit cannot move yet.
+      if (
+        party.some((person) => personalLoad(person) > JOURNEY_LOAD_PER_ADULT_KG)
+      )
+        continue;
     }
     const next = world.tiles[caravan.path[0]];
     if (next) {
@@ -928,7 +963,7 @@ export function updateJourneys(world: World): void {
     if (caravan.kind === "trade") {
       const receive = caravan.request!;
       if (
-        receive.amount + caravan.provisions <= party.length * 30 &&
+        receive.amount + caravan.provisions <= journeyCapacity(party) &&
         target.relations[from.id].affinity >= -20 &&
         tradeUtility(world, target, caravan.offer, receive)
       ) {

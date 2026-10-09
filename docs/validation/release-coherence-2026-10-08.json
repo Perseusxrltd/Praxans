@@ -138,5 +138,79 @@
       "Finite live disk and 1 GB memory; local inhabited combined RSS exceeds live capacity.",
       "No complete body anatomy, microbial chemistry, food logistics institutions or general political organization."
     ]
+  },
+  "foodCustodyReview": {
+    "inspectedAt": "2026-10-09T02:16:15.945Z",
+    "structuralScan": {
+      "baseCommit": "fcfeeb01554c68bb1771fba48def0c108514657c",
+      "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+      "gitVisibleExistingFileCount": 939,
+      "jsTsFileCount": 127,
+      "sourceFileCount": 76,
+      "srcContentSha256": "a532b2baebd011667524965d5ac046cbf546d93bd9aecedbc1b498d99c13406f",
+      "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
+      "resolvedEdgeCount": 667,
+      "edgesByArea": {
+        "docs -> src/simulation": 22,
+        "scripts -> src/server": 22,
+        "scripts -> src/simulation": 25,
+        "src/client -> src/simulation": 27,
+        "src/client -> src/client": 21,
+        "src/server -> src/simulation": 41,
+        "src/server -> src/server": 22,
+        "src/simulation -> src/simulation": 245,
+        "tests -> src/simulation": 170,
+        "tests -> tests": 30,
+        "tests -> src/server": 42
+      },
+      "missingImports": [],
+      "missingAssets": [],
+      "nonliteralLoads": [
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+        },
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+        }
+      ],
+      "layerViolations": [],
+      "simulationEnvironmentImports": [],
+      "localMarkdownLinksChecked": 431,
+      "missingMarkdownLinks": []
+    },
+    "sourceReview": [
+      {
+        "topic": "Conserved custody and exposure",
+        "finding": "Camp stocks, personal provisions/cargo and caravan provisions/offer/receive use one exponential elapsed-hour law at represented local tiles. Lost material returns once; internal intake/body and worn-fiber wear remain separate. Hour sampling and legacy escrow losses are explicit."
+      },
+      {
+        "topic": "Load and actual access",
+        "finding": "Journey formation, carrier loss, return exchange and raids use living carriers with personal external loads. Founding screens use shared cardinal land connectivity without generating territory. These are coarse transport and standing-stock screens, not ownership or renewable yield."
+      },
+      {
+        "topic": "Archive and writer continuity",
+        "finding": "Both each original block and the whole original stream verify before same-codec denser replacements commit; replacements verify again. Identity/date/raw bytes remain authoritative. Each archive is a separate transaction before terrain loading; a held writer lease renews before long commit and a lost token aborts."
+      },
+      {
+        "topic": "Documentation and phase order",
+        "finding": "Roadmap active predecessor corrected from stale format 11 to actual format 12 before publication; architecture current meals now states shared demand rather than obsolete sequential food contention. Oxygen contention remains sequential. Migration 013 changes only labels at the boundary; future hourly loss and prototype logistics limits are documented."
+      },
+      {
+        "topic": "Historical evidence and next studies",
+        "finding": "New custody/access defects are not assigned a historical death count. Research separates production, custody, ingestion, oxidation, retention and loss, and records the missing daily flow ledger, remote birth/home supplies, infant feeding, growth and nonexclusive catchments."
+      }
+    ],
+    "validation": "food-custody-2026-10-09.json",
+    "deployment": {
+      "status": "Candidate validated locally; publication pending",
+      "release": "food-custody-20261009-2"
+    },
+    "limits": [
+      "No claim of full physical realism, seasonal equilibrium or viable 300-founder generations.",
+      "Finite quota rehearsal does not prove future disk headroom, and inhabited local combined RSS is greater than the live memory allowance.",
+      "Structural scan does not inspect arbitrary runtime paths, all legacy-language behavior or every semantic dependency."
+    ]
   }
 }

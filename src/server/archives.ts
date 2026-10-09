@@ -5,6 +5,7 @@ import { deflateSync, inflateSync } from "node:zlib";
 export const STORAGE_VERSION = 1;
 export const ARCHIVE_BLOCK_BYTES = 256 * 1024;
 const encoding = "deflate-parts-1";
+const compressionLevel = 6;
 const sha256 = (bytes: string | Uint8Array) =>
   createHash("sha256").update(bytes).digest("hex");
 
@@ -195,7 +196,7 @@ function writeParts(db: DatabaseSync, id: string, pieces: Iterable<string>) {
       parts++,
       bytes.length,
       sha256(bytes),
-      deflateSync(bytes, { level: 1 }),
+      deflateSync(bytes, { level: compressionLevel }),
     );
   }
   return { checksum: hash.digest("hex"), rawBytes, parts };
@@ -213,7 +214,7 @@ function* textPieces(text: string): Generator<string> {
 }
 
 /**
- * Losslessly encode an existing plaintext archive inside a Store transaction.
+ * Losslessly pack an existing archive inside a Store transaction.
  * The original text and checksum remain authoritative: never parse/reserialize
  * history. Run before loading terrain so the old large row does not overlap a
  * second fully decoded world. Failure preserves the original archive and parts.
@@ -225,11 +226,32 @@ export function compactWorldArchive(
 ): WorldArchive {
   const archive = listWorldArchives(db).find((item) => item.id === id);
   if (!archive) throw new Error(`Unknown world archive ${id}.`);
-  if (archive.encoding === encoding) return archive;
-  if (archive.encoding !== "json")
+  if (archive.encoding !== "json" && archive.encoding !== encoding)
     throw new Error(`Unsupported world archive encoding ${archive.encoding}.`);
   db.exec("SAVEPOINT praxans_archive_compact");
   try {
+    if (archive.encoding === encoding) {
+      const size = db.prepare(
+        "SELECT length(payload) AS bytes FROM world_backup_parts WHERE archive_id=? AND part=?",
+      );
+      const replace = db.prepare(
+        "UPDATE world_backup_parts SET payload=? WHERE archive_id=? AND part=?",
+      );
+      let part = 0;
+      // Each iterator step reads one bounded block. Its original checksum and
+      // the complete original byte stream must verify before this can commit.
+      for (const bytes of worldArchiveBytes(db, id)) {
+        const packed = deflateSync(bytes, { level: compressionLevel });
+        const current = size.get(id, part) as { bytes: number };
+        if (packed.length < current.bytes) replace.run(packed, id, part);
+        part++;
+      }
+      // Also verify the actual replacement, including writes affected by a
+      // database trigger or fault. Failure rolls back every changed block.
+      for (const bytes of worldArchiveBytes(db, id)) void bytes;
+      db.exec("RELEASE praxans_archive_compact");
+      return archive;
+    }
     if (
       db
         .prepare("SELECT count(*) n FROM world_backup_parts WHERE archive_id=?")

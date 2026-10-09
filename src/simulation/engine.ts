@@ -7,7 +7,7 @@ import { executeProposal } from "./actions";
 import { sampleProgress } from "./progress";
 import { validateDepth } from "./validation";
 import { withdrawBodyMatter } from "./physiology";
-import { decayStocks } from "./weathering";
+import { decayInventories } from "./weathering";
 import { invalidateCampPopulation } from "./settlement";
 import { updateEcology } from "./ecology";
 import { updateFauna } from "./fauna";
@@ -25,6 +25,7 @@ import { LAWS, ledger, returnMaterial } from "./laws";
 import { clamp, random } from "./random";
 import {
   CHUNK_SIZE,
+  HOURS_PER_TICK,
   WORLD_VERSION,
   type Civilization,
   type Material,
@@ -310,6 +311,7 @@ export function stepWorld(world: World, ticks = 1): void {
     if (world.tick % 4 === 0) {
       updateEcology(world);
       updateFauna(world);
+      decayInventories(world, HOURS_PER_TICK * 4);
     }
     updateCitizens(world);
     processDeaths(world);
@@ -323,7 +325,6 @@ export function stepWorld(world: World, ticks = 1): void {
       for (const civ of world.civilizations) planCommunity(world, civ);
     if (world.tick % 96 === 0) {
       for (const civ of world.civilizations) {
-        decayStocks(world, civ);
         updateFamilies(world, civ);
         autonomousTrade(world, civ);
         migration(world, civ);

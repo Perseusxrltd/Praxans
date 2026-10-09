@@ -24,6 +24,67 @@ import {
   worldArchiveBytes,
 } from "../../src/server/archives";
 
+test("a long transaction renews the sole writer's lease before exposing its commit", (t) => {
+  const directory = mkdtempSync(join(tmpdir(), "praxans-long-write-lease-"));
+  const path = join(directory, "world.sqlite"),
+    store = new Store(path);
+  let now = 1000;
+  t.mock.method(Date, "now", () => now);
+  let contender: Store | undefined;
+  try {
+    store.acquireLease();
+    store.db.exec("CREATE TABLE long_write_probe(value INTEGER)");
+    store.transaction(() => {
+      store.db.prepare("INSERT INTO long_write_probe VALUES(1)").run();
+      now += 45000;
+    });
+    const lease = store.db
+      .prepare("SELECT expires_at FROM world_lease WHERE id=1")
+      .get()!;
+    assert.ok(Number(lease.expires_at) > now);
+    contender = new Store(path);
+    assert.throws(
+      () => contender!.acquireLease(),
+      /owns|ownership|lease|already/i,
+    );
+    assert.equal(
+      store.db.prepare("SELECT value FROM long_write_probe").get()!.value,
+      1,
+    );
+  } finally {
+    contender?.close();
+    store.close();
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("loss of writer ownership before a long commit rolls back the proposed write", (t) => {
+  const store = new Store(":memory:");
+  let now = 1000;
+  t.mock.method(Date, "now", () => now);
+  try {
+    store.acquireLease();
+    store.db.exec("CREATE TABLE long_write_probe(value INTEGER)");
+    assert.throws(
+      () =>
+        store.transaction(() => {
+          store.db.prepare("INSERT INTO long_write_probe VALUES(1)").run();
+          store.db
+            .prepare("UPDATE world_lease SET token='changed-owner' WHERE id=1")
+            .run();
+          now += 45000;
+        }),
+      /lost ownership/,
+    );
+    assert.equal(
+      store.db.prepare("SELECT count(*) n FROM long_write_probe").get()!.n,
+      0,
+    );
+  } finally {
+    store.close();
+  }
+});
+
 test("a released reader cannot leave two large save batches in the WAL", () => {
   const directory = mkdtempSync(join(tmpdir(), "praxans-checkpoint-boundary-"));
   const path = join(directory, "world.sqlite");
@@ -244,7 +305,7 @@ test("a registered hotfix preserves an established world and archives its exact 
     stepWorld(original, 8);
     const legacy = legacyCheckpoint(store, original, 5);
     const upgraded = store.load(999);
-    assert.equal(upgraded.version, 12);
+    assert.equal(upgraded.version, 13);
     assert.equal(upgraded.entropy.sinceTick, original.tick);
     assert.equal(upgraded.generationVersion, "archipelago-1");
     assert.equal(upgraded.tick, original.tick);
@@ -283,7 +344,7 @@ test("a registered hotfix preserves an established world and archives its exact 
           ),
         `${symbol}: projecting personal inventories into legacy stock preserves matter`,
       );
-    assert.equal(store.interventions().length, 7);
+    assert.equal(store.interventions().length, 8);
     const [backup] = listWorldArchives(store.db);
     const json = Buffer.concat([
       ...worldArchiveBytes(store.db, backup.id),
@@ -294,7 +355,7 @@ test("a registered hotfix preserves an established world and archives its exact 
     assert.deepEqual(store.load(0), upgraded);
     assert.equal(
       store.interventions().length,
-      7,
+      8,
       "a restart does not apply the migration again",
     );
     materializeChunk(upgraded, 30, 40);

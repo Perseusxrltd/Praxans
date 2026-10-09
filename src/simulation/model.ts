@@ -10,6 +10,7 @@ import { METABOLISM, PHYSIOLOGY } from "./physiology";
 import { SUBSISTENCE } from "./subsistence";
 import { WALKING_METRES_PER_HOUR } from "./movement";
 import { SETTLEMENT_SPACE } from "./settlement";
+import { JOURNEY_LOAD_PER_ADULT_KG } from "./diplomacy";
 
 export const NATURAL_MODEL = Object.freeze({
   laws: LAWS,
@@ -32,6 +33,15 @@ export const NATURAL_MODEL = Object.freeze({
   biosphere: { ...BIOTA_MODEL, fauna: FAUNA, flora: FLORA },
   founding: FOUNDING,
   settlementSpace: SETTLEMENT_SPACE,
+  inventoryExposure: {
+    description:
+      "From biosphere-1.7, loose camp stocks, personal provisions and cargo, and caravan provisions and goods share hourly local temperature/moisture exposure. Each boundary applies a full hour at the current location, including recently acquired goods; paths through exposure are not integrated. Represented camp storage supplies its existing protection; carried goods have no modeled container. Spoilage transfers material once into local reservoirs. Swallowed intake, body reserves and worn fiber follow their existing physiological or wear paths. Exposure rates remain coarse assumptions, without microbes, packaging or measured food-specific shelf lives.",
+  },
+  journeyLoad: {
+    kilogramsPerAdult: JOURNEY_LOAD_PER_ADULT_KG,
+    description:
+      "The existing fixed load allowance includes personal rations, actual covering, work cargo, shared provisions and outward/return goods. Remaining living carriers limit material that can move or be acquired. This is a controller approximation, not a strength/biomechanics model; party size remains capped at three.",
+  },
   humanVitals: {
     thermalBalance: PHYSIOLOGY,
     metabolism: METABOLISM,

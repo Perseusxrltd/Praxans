@@ -194,6 +194,18 @@ const migrations: RegisteredMigration[] = [
         person.metabolism = initialMetabolism(person.body);
     },
   },
+  {
+    id: "013-local-inventory-exposure-and-access",
+    from: 12,
+    to: 13,
+    fromLaws: "biosphere-1.6",
+    toLaws: "biosphere-1.7",
+    description:
+      "Preserve every existing person, body, intake, ration, cargo, caravan, stock, task, region, identity, RNG, clock and historical record. Loose camp, personal and journey materials share an hourly temperature/moisture exposure law; only represented camp storage supplies its existing protection. This migration debits no inventory. Subsequent hourly boundaries apply a full hour at the current location, including goods acquired within that interval; detailed exposure histories are not represented. Spoiled material returns once to local reservoirs. Journey payload includes living carriers' personal food, covering and work cargo; loss of carriers limits shared goods before movement, and return exchanges and raids respect remaining capacity. The fixed 30 kg adult load and party-size limit remain controller approximations. New founding screens count standing food and wood only on represented land connected within the survey radius; a screen is neither ownership, discovered personal knowledge nor sustainable annual yield. Legacy escrow keeps its identity and delivery path, with future physical spoilage applied to its actual goods. No supplies, people, historical meals or clock time are created; infant feeding, growth, hauling and seasonal community viability still require validation.",
+    apply() {
+      // Future physical rules only; every saved inventory remains exact here.
+    },
+  },
 ];
 
 function migrationPath(

@@ -156,6 +156,10 @@ export class Store {
     this.afterCommit = [];
     try {
       const result = fn();
+      // Archive compression or a large save may outlast the previous lease.
+      // The write lock excludes another owner during this transaction; renew
+      // before releasing it so a completed long write leaves no expired gap.
+      this.heartbeat();
       this.db.exec("COMMIT");
       for (const done of this.afterCommit) done();
       return result;
@@ -210,8 +214,7 @@ export class Store {
       // remains readable by the previous storage-v1 runtime if migration fails.
       // Do this before terrain loading to avoid retaining two large worlds.
       for (const archive of listWorldArchives(this.db))
-        if (archive.encoding === "json")
-          this.transaction(() => compactWorldArchive(this.db, archive.id));
+        this.transaction(() => compactWorldArchive(this.db, archive.id));
     }
     world.tiles = [];
     for (const chunk of world.chunks) {

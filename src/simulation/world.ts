@@ -22,7 +22,7 @@ import { astronomy, cloudCover } from "./planet";
 import { localWeather } from "./weather";
 import { recordEvent } from "./events";
 import { FOUNDING } from "./founding";
-import { invalidateCampPopulation } from "./settlement";
+import { connectedResourceTiles, invalidateCampPopulation } from "./settlement";
 import { emptyEntropy } from "./thermodynamics";
 import { worldClock } from "./chronology";
 import { createMind } from "./cognition";
@@ -249,8 +249,11 @@ export function findSettlementSite(
   for (const site of sites) {
     let food = 0,
       wood = 0;
-    for (const near of nearbyTiles(world, site, FOUNDING.resourceRadius)) {
-      if (near.terrain === "water") continue;
+    for (const near of connectedResourceTiles(
+      world,
+      site,
+      FOUNDING.resourceRadius,
+    )) {
       food += near.forage;
       for (const plant of [near.plant, near.groundcover])
         if (plant) wood += plant.carbon * plant.genome.woodiness;

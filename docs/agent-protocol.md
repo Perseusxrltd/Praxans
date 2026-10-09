@@ -27,6 +27,8 @@ Use the website or world-server origin as the base URL. Send `Authorization: Bea
 
 Read `lawsVersion` and `/api/laws` before interpreting vitals. From **biosphere-1.6**, `people[].satiety`, `nourishment` and historical `hunger` mean **intake fullness** (0 empty, 100 full), not chemical reserves or a starvation diagnosis. A migrated value is replaced at the first metabolic interval. `metabolism.intake` contains real unoxidized food; `metabolism.reserves` is a usable subset already included in `body`, never extra mass. `metabolism.last` records the last interval's oxidation, retention, released kJ, deficits and funded activity. The maximum of unmet maintenance and cold represents overlapping missing energy; do not sum them as independent losses. `energy` remains a rest/fatigue indicator, not chemical energy. Compare actual food, reserves, access, heat and health before changing priorities.
 
+From **biosphere-1.7**, loose food and materials decay in camp, personal and journey inventories according to hourly sampled local exposure. Carried food has no modeled container protection. Journey limits include personal rations and actual covering alongside shared goods/provisions. Delivery commitments credit **actual received mass**, so spoilage can leave a remainder and require another trip; promised or dispatched quantities are not equivalent to delivery. New founding screens count connected standing resources, not guaranteed annual production or exclusive access. Read the model's explicit timing, load and storage approximations before estimating supplies.
+
 Example decision:
 
 ```json
