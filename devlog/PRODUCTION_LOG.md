@@ -7,6 +7,15 @@
 
 ## Log
 
+### [2026-10-09] Planned Work Injury Reproduced Independently
+
+- **type**: audit
+- **systems**: human_physiology, civilization_intelligence
+- **files**: `contact-motion-2026-10-09.md`, `contact-motion-2026-10-09.json`, `mechanism-candidates.json`
+- **agent**: Codex with world_research
+
+Four bounded synthetic pairs on unchanged functions confirm 0.1875 extra metabolic injury with zero actual work and equal finite oxidation; ordinary recovery is separated and a cold-dominated control retains equal injury. All 935 accounting guards pass, with no source or live-state change. The [diagnostic](../docs/research/contact-motion-2026-10-09.md#separate-diagnostic-planned-work-and-metabolic-injury) supports a separate mandatory-resting/optional-work correction, without historical mortality attribution or a survival claim.
+
 ### [2026-10-09] Contact Correction and a Negative Survival Result
 
 - **type**: bugfix
@@ -14,7 +23,7 @@
 - **files**: `bodywork.ts`, `movement.ts`, `citizens.ts`, `migrations.ts`, `contact-motion-2026-10-09.md`
 - **agent**: Codex
 
-A controlled finite-donor case reproduces the pending-route exclusion of a physically stationary recipient. The candidate shares actual-motion evidence across food, coverings and harvesting, preserves paid work and finite custody, and archives the exact prior state through migration 017. The [matched full-world day](../docs/research/contact-motion-2026-10-09.md) still loses all sixteen adults; exact phase tracing finds no delivered help or fuel for them, and the initial neighborhood census exposes very little transferable food. This corrects a physical barrier without demonstrating survival benefit. [Validation and actual publication](../docs/releases/contact-motion-0.2.md) remain separately recorded. → ADR-049.
+A finite-donor control reproduces the pending-route exclusion of a stationary recipient; actual-motion contact now governs covering, food handoffs and harvesting through preserving migration 017. The [matched full-world day](../docs/research/contact-motion-2026-10-09.md) still loses all sixteen adults without delivered help, so the correction has no demonstrated survival benefit. The [release](../docs/releases/contact-motion-0.2.md) is live at 636908 with matching Vercel READY: 270 model/server, 12 production and 25 hotfix checks and both complete implementation workflows pass; independent verification preserves 38 regions, ten full archives and all prior durable rows, while the observer retains continuity with two of 45 health samples reporting updating. → ADR-049.
 
 ### [2026-10-09] Completed Survival Continuation and Terminal Death Tracing
 

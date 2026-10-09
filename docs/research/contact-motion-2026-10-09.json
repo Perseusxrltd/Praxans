@@ -1563,5 +1563,585 @@
     "The nearby stock census covers only the initial checkpoint. Digested intake and internal reserves are not transferable provisions. Presence, stock and willingness remain distinct.",
     "Whole-world and community food/injury changes are mixed; this is no seasonal or generational viability result.",
     "The next material question is how the adults became cut off from renewable food, transport and care. Planned-but-unperformed work demand and developmental/thermal calibration require separate controls."
-  ]
+  ],
+  "committedCandidate": {
+    "implementationCommit": "fdeb5b117adafe6ec1c949a411042235af7c45ec",
+    "sourceFiles": 82,
+    "sourceSha256": "d45f2ea46583a0ffcc221f0ca58123f780328e699b4cac04555f49941734bdea",
+    "matchesFrozenMeasuredCandidate": true
+  },
+  "plannedDemandDiagnostic": {
+    "status": "Confirmed in unchanged actual functions; separate correction not implemented or deployed",
+    "scope": "Four synthetic quarter-hour pairs on the frozen format-17 source. No historical mortality share, survival rescue or calibration follows.",
+    "privateEvidenceDirectory": "output/research/contact-motion-20261009/planned-demand-control-20261009-v1",
+    "files": {
+      "README.md": {
+        "bytes": 7077,
+        "sha256": "c8b502f40b9fa04d4ad41889389bf25042f918a50f5a1f933f88b4ef399cd305"
+      },
+      "inputs.json": {
+        "bytes": 1583,
+        "sha256": "b99654b2bc1400fa5d08c9a560da9242f24b9fee3eacd6b6f16c938e7dc6be22"
+      },
+      "runner.ts": {
+        "bytes": 19347,
+        "sha256": "bcc60fbab51019a71925b30593f707d1a8bf71b8932603e0aea45de57f25860b"
+      },
+      "runner.mjs": {
+        "bytes": 245576,
+        "sha256": "bd4bfbf950c5cae11b3a617d678cb7ab4727d5a459aed72e4c10c3f032752f32"
+      },
+      "build-manifest.json": {
+        "bytes": 52761,
+        "sha256": "d13bcb5a7090bdfebbfa23d97614d777985ea1d9e657ccea77579e97c870632b"
+      },
+      "result.json": {
+        "bytes": 378615,
+        "sha256": "5fc26d0434422846cf394fea5640ca1415f0c54ec70a5fc5c0b3ff82d19d361c"
+      },
+      "run.log": {
+        "bytes": 2215,
+        "sha256": "51beedbd612cf56bb8882e58572c447e8cd8badb8de9dffeca2e1594657db882"
+      }
+    },
+    "provenance": {
+      "sourceBefore": {
+        "sha256": "d45f2ea46583a0ffcc221f0ca58123f780328e699b4cac04555f49941734bdea",
+        "count": 82
+      },
+      "sourceAfter": {
+        "sha256": "d45f2ea46583a0ffcc221f0ca58123f780328e699b4cac04555f49941734bdea",
+        "count": 82
+      },
+      "inputSha256": "b99654b2bc1400fa5d08c9a560da9242f24b9fee3eacd6b6f16c938e7dc6be22",
+      "manifestSha256": "d13bcb5a7090bdfebbfa23d97614d777985ea1d9e657ccea77579e97c870632b",
+      "runnerSourceSha256": "bcc60fbab51019a71925b30593f707d1a8bf71b8932603e0aea45de57f25860b",
+      "buildScriptSha256": "68c8db43356a209f207a89ccc8a9ef07253ff3691815847d77257fbdffd6dbc4",
+      "bundleSha256": "bd4bfbf950c5cae11b3a617d678cb7ab4727d5a459aed72e4c10c3f032752f32",
+      "esbuildVersion": "0.28.2",
+      "node": "v22.22.0",
+      "sourceInstrumentation": "none",
+      "syntheticFixturesOnly": true,
+      "StoreOrDatabaseUsed": false,
+      "liveAccess": false,
+      "lawOrCoefficientsChanged": false
+    },
+    "bounds": {
+      "pairs": 4,
+      "arms": 8,
+      "quarterHourCalls": 8,
+      "hoursPerArm": 0.25,
+      "worldContinuation": false
+    },
+    "cases": [
+      {
+        "id": "rest_fuel_actual_citizens",
+        "input": {
+          "id": "rest_fuel_actual_citizens",
+          "executor": "updateCitizens",
+          "finiteInitialIntakeEnergyKJ": 99,
+          "targetOutwardHeatKJ": 99
+        },
+        "activeMinusInactive": {
+          "releasedKJ": 0,
+          "metabolicHealthLoss": 0.1875,
+          "netHealthChange": -0.2269642857142884,
+          "unmetColdKJ": 0
+        },
+        "arms": [
+          {
+            "arm": "inactive",
+            "executor": "updateCitizens",
+            "initialWorldSha256": "dfabf72b4d2753a3c788127dec47ae4d0cb9ea5eee859671a5973ddb41338fbf",
+            "normalizedInputExceptTaskSha256": "719772fa8036782b3fac3ac0fa7f6d8481811a2a38e9fa40fafc2c08a926ea3b",
+            "finalWorldSha256": "eec0e1cb8c987b9bd7743fc228daca3e70b95379be6c37bab1191810396c8c12",
+            "derivedRestingKJ": 99,
+            "flux": {
+              "tick": 29,
+              "hours": 0.25,
+              "ingestedKg": 0,
+              "foodOxidizedKg": 0.006195244055068836,
+              "reserveOxidizedKg": 0,
+              "reserveStoredKg": 0,
+              "structureStoredKg": 0,
+              "maintenanceKJ": 99,
+              "heatLossKJ": 98.99999999999999,
+              "releasedKJ": 99,
+              "meltKJ": 0,
+              "unmetMaintenanceKJ": 0,
+              "unmetColdKJ": 0,
+              "unremovedHeatKJ": 0,
+              "healthLoss": 0,
+              "activityFraction": 0,
+              "journeyId": null
+            },
+            "netHealthChange": 0.039464285714288394,
+            "metabolicHealthLoss": 0,
+            "nonMetabolicNetHealth": 0.039464285714288394,
+            "expectedOrdinaryRecoveryPoints": 0.039464285714285716,
+            "fundedActivityHours": 0,
+            "actualWorkExecutorRun": true,
+            "actualDisplacementMetres": 0,
+            "actualTaskProgressDelta": 0,
+            "physicalProgressLimit": "Direct physiology runs report paid capacity only; no movement or task executor is invoked for those arms.",
+            "oxygenConsumedKg": 0.006895527748724148,
+            "actualSweatKg": 0,
+            "basalWaterLossKg": 0.01625,
+            "localChecks": {
+              "intakeResidualKg": 0,
+              "reserveResidualKg": 0,
+              "bodyResidualKg": 0,
+              "chemicalReleaseResidualKJ": -1.4210854715202004e-14,
+              "oxidationHeatResidualKJ": 0,
+              "oxygenResidualKg": 0,
+              "atmosphericOrganicResidualKg": 0,
+              "atmosphericWaterResidualKg": 0,
+              "hydrationResidualKg": 3.191891195797325e-16,
+              "sweatResidualKg": -5.800348863347757e-18,
+              "localHeatResidualKJ": 1.4716761143063195e-10,
+              "healthStageResidualPoints": 2.67841304690819e-15
+            }
+          },
+          {
+            "arm": "planned_active",
+            "executor": "updateCitizens",
+            "initialWorldSha256": "6ba69a88b8b507f32c5a5e3760f7ca220e79f76508e57ddfd895017d4aed8d41",
+            "normalizedInputExceptTaskSha256": "719772fa8036782b3fac3ac0fa7f6d8481811a2a38e9fa40fafc2c08a926ea3b",
+            "finalWorldSha256": "55e1c93a28ebbee53c590311b55f695efa7bc8815f8de5307f99d706e1df688d",
+            "derivedRestingKJ": 99,
+            "flux": {
+              "tick": 29,
+              "hours": 0.25,
+              "ingestedKg": 0,
+              "foodOxidizedKg": 0.006195244055068836,
+              "reserveOxidizedKg": 0,
+              "reserveStoredKg": 0,
+              "structureStoredKg": 0,
+              "maintenanceKJ": 144,
+              "heatLossKJ": 98.99999999999999,
+              "releasedKJ": 99,
+              "meltKJ": 0,
+              "unmetMaintenanceKJ": 45,
+              "unmetColdKJ": 0,
+              "unremovedHeatKJ": 0,
+              "healthLoss": 0.1875,
+              "activityFraction": 0,
+              "journeyId": null
+            },
+            "netHealthChange": -0.1875,
+            "metabolicHealthLoss": 0.1875,
+            "nonMetabolicNetHealth": 0,
+            "expectedOrdinaryRecoveryPoints": 0,
+            "fundedActivityHours": 0,
+            "actualWorkExecutorRun": true,
+            "actualDisplacementMetres": 0,
+            "actualTaskProgressDelta": 0,
+            "physicalProgressLimit": "Direct physiology runs report paid capacity only; no movement or task executor is invoked for those arms.",
+            "oxygenConsumedKg": 0.006895527748724148,
+            "actualSweatKg": 0,
+            "basalWaterLossKg": 0.0195,
+            "localChecks": {
+              "intakeResidualKg": 0,
+              "reserveResidualKg": 0,
+              "bodyResidualKg": 0,
+              "chemicalReleaseResidualKJ": -1.4210854715202004e-14,
+              "oxidationHeatResidualKJ": 0,
+              "oxygenResidualKg": 0,
+              "atmosphericOrganicResidualKg": 0,
+              "atmosphericWaterResidualKg": 0,
+              "hydrationResidualKg": -1.491862189340054e-16,
+              "sweatResidualKg": -5.800348863347757e-18,
+              "localHeatResidualKJ": 1.4716761143063195e-10,
+              "healthStageResidualPoints": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": "empty_fuel",
+        "input": {
+          "id": "empty_fuel",
+          "executor": "prepare_feed_finish",
+          "finiteInitialIntakeEnergyKJ": 0,
+          "targetOutwardHeatKJ": 99
+        },
+        "activeMinusInactive": {
+          "releasedKJ": 0,
+          "metabolicHealthLoss": 0.1875,
+          "netHealthChange": -0.1875,
+          "unmetColdKJ": 0
+        },
+        "arms": [
+          {
+            "arm": "inactive",
+            "executor": "prepare_feed_finish",
+            "initialWorldSha256": "b02397fa9545892725bfbcbdfb937402aff4fb885f3c7d219b709b7ca05b6cb6",
+            "normalizedInputExceptTaskSha256": "5ec57fdd04593896f9ba1ace7fd3e310357a31efe883a9326084516f14dadb47",
+            "finalWorldSha256": "f0023c10ab83be78ce01594706ac55069caffe5ec33923cedabc635d6ef7fccb",
+            "derivedRestingKJ": 99,
+            "flux": {
+              "tick": 29,
+              "hours": 0.25,
+              "ingestedKg": 0,
+              "foodOxidizedKg": 0,
+              "reserveOxidizedKg": 0,
+              "reserveStoredKg": 0,
+              "structureStoredKg": 0,
+              "maintenanceKJ": 99,
+              "heatLossKJ": 98.99999999999999,
+              "releasedKJ": 0,
+              "meltKJ": 0,
+              "unmetMaintenanceKJ": 99,
+              "unmetColdKJ": 98.99999999999999,
+              "unremovedHeatKJ": 0,
+              "healthLoss": 0.4124999999999943,
+              "activityFraction": 0,
+              "journeyId": null
+            },
+            "netHealthChange": -0.4124999999999943,
+            "metabolicHealthLoss": 0.4124999999999943,
+            "nonMetabolicNetHealth": 0,
+            "expectedOrdinaryRecoveryPoints": 0,
+            "fundedActivityHours": 0,
+            "actualWorkExecutorRun": false,
+            "actualDisplacementMetres": 0,
+            "actualTaskProgressDelta": null,
+            "physicalProgressLimit": "Direct physiology runs report paid capacity only; no movement or task executor is invoked for those arms.",
+            "oxygenConsumedKg": 0,
+            "actualSweatKg": 0,
+            "basalWaterLossKg": 0,
+            "localChecks": {
+              "intakeResidualKg": 0,
+              "reserveResidualKg": 0,
+              "bodyResidualKg": 0,
+              "chemicalReleaseResidualKJ": 0,
+              "oxidationHeatResidualKJ": 0,
+              "oxygenResidualKg": 0,
+              "atmosphericOrganicResidualKg": 0,
+              "atmosphericWaterResidualKg": 0,
+              "hydrationResidualKg": 0,
+              "sweatResidualKg": 0,
+              "localHeatResidualKJ": 0,
+              "healthStageResidualPoints": 0
+            }
+          },
+          {
+            "arm": "planned_active",
+            "executor": "prepare_feed_finish",
+            "initialWorldSha256": "77686b31a4181f7a16321746a81221896eb1ac56330a8fade599f9d58e70e6f4",
+            "normalizedInputExceptTaskSha256": "5ec57fdd04593896f9ba1ace7fd3e310357a31efe883a9326084516f14dadb47",
+            "finalWorldSha256": "20640f7b1ab05093564699a0a3c943dbb884c0d3715c83533ee503c9012d9bb7",
+            "derivedRestingKJ": 99,
+            "flux": {
+              "tick": 29,
+              "hours": 0.25,
+              "ingestedKg": 0,
+              "foodOxidizedKg": 0,
+              "reserveOxidizedKg": 0,
+              "reserveStoredKg": 0,
+              "structureStoredKg": 0,
+              "maintenanceKJ": 144,
+              "heatLossKJ": 98.99999999999999,
+              "releasedKJ": 0,
+              "meltKJ": 0,
+              "unmetMaintenanceKJ": 144,
+              "unmetColdKJ": 98.99999999999999,
+              "unremovedHeatKJ": 0,
+              "healthLoss": 0.5999999999999943,
+              "activityFraction": 0,
+              "journeyId": null
+            },
+            "netHealthChange": -0.5999999999999943,
+            "metabolicHealthLoss": 0.5999999999999943,
+            "nonMetabolicNetHealth": 0,
+            "expectedOrdinaryRecoveryPoints": 0,
+            "fundedActivityHours": 0,
+            "actualWorkExecutorRun": false,
+            "actualDisplacementMetres": 0,
+            "actualTaskProgressDelta": null,
+            "physicalProgressLimit": "Direct physiology runs report paid capacity only; no movement or task executor is invoked for those arms.",
+            "oxygenConsumedKg": 0,
+            "actualSweatKg": 0,
+            "basalWaterLossKg": 0,
+            "localChecks": {
+              "intakeResidualKg": 0,
+              "reserveResidualKg": 0,
+              "bodyResidualKg": 0,
+              "chemicalReleaseResidualKJ": 0,
+              "oxidationHeatResidualKJ": 0,
+              "oxygenResidualKg": 0,
+              "atmosphericOrganicResidualKg": 0,
+              "atmosphericWaterResidualKg": 0,
+              "hydrationResidualKg": 0,
+              "sweatResidualKg": 0,
+              "localHeatResidualKJ": 0,
+              "healthStageResidualPoints": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": "partial_activity_fuel",
+        "input": {
+          "id": "partial_activity_fuel",
+          "executor": "prepare_feed_finish",
+          "finiteInitialIntakeEnergyKJ": 121.5,
+          "targetOutwardHeatKJ": 99
+        },
+        "activeMinusInactive": {
+          "releasedKJ": 22.5,
+          "metabolicHealthLoss": 0.09375,
+          "netHealthChange": -0.09375,
+          "unmetColdKJ": 0
+        },
+        "arms": [
+          {
+            "arm": "inactive",
+            "executor": "prepare_feed_finish",
+            "initialWorldSha256": "3c20c7ce974cf4df60de476b02195a7c0387acab5ae91c54e65c3e5947167959",
+            "normalizedInputExceptTaskSha256": "68f5d0d31eb6efca06544da52d60f5e3c83f2ccf5d6a1b38103752c08443b96b",
+            "finalWorldSha256": "048e0f11fbd913467cbbf7e2ba37110511007e642ebfd45541fdfb5c7125690b",
+            "derivedRestingKJ": 99,
+            "flux": {
+              "tick": 29,
+              "hours": 0.25,
+              "ingestedKg": 0,
+              "foodOxidizedKg": 0.006195244055068836,
+              "reserveOxidizedKg": 0,
+              "reserveStoredKg": 0.001408010012515645,
+              "structureStoredKg": 0,
+              "maintenanceKJ": 99,
+              "heatLossKJ": 98.99999999999999,
+              "releasedKJ": 99,
+              "meltKJ": 0,
+              "unmetMaintenanceKJ": 0,
+              "unmetColdKJ": 0,
+              "unremovedHeatKJ": 0,
+              "healthLoss": 0,
+              "activityFraction": 0,
+              "journeyId": null
+            },
+            "netHealthChange": 0,
+            "metabolicHealthLoss": 0,
+            "nonMetabolicNetHealth": 0,
+            "expectedOrdinaryRecoveryPoints": 0,
+            "fundedActivityHours": 0,
+            "actualWorkExecutorRun": false,
+            "actualDisplacementMetres": 0,
+            "actualTaskProgressDelta": null,
+            "physicalProgressLimit": "Direct physiology runs report paid capacity only; no movement or task executor is invoked for those arms.",
+            "oxygenConsumedKg": 0.006895527748724148,
+            "actualSweatKg": 0,
+            "basalWaterLossKg": 0,
+            "localChecks": {
+              "intakeResidualKg": 0,
+              "reserveResidualKg": 0,
+              "bodyResidualKg": 0,
+              "chemicalReleaseResidualKJ": -1.4210854715202004e-14,
+              "oxidationHeatResidualKJ": 0,
+              "oxygenResidualKg": 0,
+              "atmosphericOrganicResidualKg": 0,
+              "atmosphericWaterResidualKg": 0,
+              "hydrationResidualKg": 0,
+              "sweatResidualKg": -5.800348863347757e-18,
+              "localHeatResidualKJ": 1.4716761143063195e-10,
+              "healthStageResidualPoints": 0
+            }
+          },
+          {
+            "arm": "planned_active",
+            "executor": "prepare_feed_finish",
+            "initialWorldSha256": "b904b9469bd27bb8adaf0d683fa19e24ec4597b8344af2c0eeb09a1e5bd2388d",
+            "normalizedInputExceptTaskSha256": "68f5d0d31eb6efca06544da52d60f5e3c83f2ccf5d6a1b38103752c08443b96b",
+            "finalWorldSha256": "ac73d95d0b0b8c794c940e0c0c40af82d6c27fa4c5512c4c83eb57aa1409be5e",
+            "derivedRestingKJ": 99,
+            "flux": {
+              "tick": 29,
+              "hours": 0.25,
+              "ingestedKg": 0,
+              "foodOxidizedKg": 0.007603254067584481,
+              "reserveOxidizedKg": 0,
+              "reserveStoredKg": 0,
+              "structureStoredKg": 0,
+              "maintenanceKJ": 144,
+              "heatLossKJ": 98.99999999999999,
+              "releasedKJ": 121.5,
+              "meltKJ": 0,
+              "unmetMaintenanceKJ": 22.5,
+              "unmetColdKJ": 0,
+              "unremovedHeatKJ": 0,
+              "healthLoss": 0.09375,
+              "activityFraction": 0.5,
+              "journeyId": null
+            },
+            "netHealthChange": -0.09375,
+            "metabolicHealthLoss": 0.09375,
+            "nonMetabolicNetHealth": 0,
+            "expectedOrdinaryRecoveryPoints": 0,
+            "fundedActivityHours": 0.125,
+            "actualWorkExecutorRun": false,
+            "actualDisplacementMetres": 0,
+            "actualTaskProgressDelta": null,
+            "physicalProgressLimit": "Direct physiology runs report paid capacity only; no movement or task executor is invoked for those arms.",
+            "oxygenConsumedKg": 0.008462693146161455,
+            "actualSweatKg": 0.009183673469408404,
+            "basalWaterLossKg": 0,
+            "localChecks": {
+              "intakeResidualKg": 0,
+              "reserveResidualKg": 0,
+              "bodyResidualKg": 0,
+              "chemicalReleaseResidualKJ": 0,
+              "oxidationHeatResidualKJ": 0,
+              "oxygenResidualKg": 0,
+              "atmosphericOrganicResidualKg": 0,
+              "atmosphericWaterResidualKg": 0,
+              "hydrationResidualKg": -2.042810365310288e-14,
+              "sweatResidualKg": 2.0643209364124004e-14,
+              "localHeatResidualKJ": 1.9775825421675108e-10,
+              "healthStageResidualPoints": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": "cold_dominated_full_activity_fuel",
+        "input": {
+          "id": "cold_dominated_full_activity_fuel",
+          "executor": "prepare_feed_finish",
+          "finiteInitialIntakeEnergyKJ": 144,
+          "targetOutwardHeatKJ": 180
+        },
+        "activeMinusInactive": {
+          "releasedKJ": 0,
+          "metabolicHealthLoss": 0,
+          "netHealthChange": 0,
+          "unmetColdKJ": 0
+        },
+        "arms": [
+          {
+            "arm": "inactive",
+            "executor": "prepare_feed_finish",
+            "initialWorldSha256": "21f32e6ba9a96dcdf2f40c702a9592ea153dd80d28c981b86f8289dfcf159657",
+            "normalizedInputExceptTaskSha256": "3ede20510f4243c81486918520371b139b0824c79021d336fd462cc26b1ae769",
+            "finalWorldSha256": "290ce4e3fd2d23068c1a41d9d4f62ca9d24d7e96605e47398ae450653fc0f31f",
+            "derivedRestingKJ": 99,
+            "flux": {
+              "tick": 29,
+              "hours": 0.25,
+              "ingestedKg": 0,
+              "foodOxidizedKg": 0.009011264080100126,
+              "reserveOxidizedKg": 0,
+              "reserveStoredKg": 0,
+              "structureStoredKg": 0,
+              "maintenanceKJ": 99,
+              "heatLossKJ": 179.99999999999994,
+              "releasedKJ": 144,
+              "meltKJ": 0,
+              "unmetMaintenanceKJ": 0,
+              "unmetColdKJ": 35.99999999999994,
+              "unremovedHeatKJ": 0,
+              "healthLoss": 0.15000000000000568,
+              "activityFraction": 0,
+              "journeyId": null
+            },
+            "netHealthChange": -0.15000000000000568,
+            "metabolicHealthLoss": 0.15000000000000568,
+            "nonMetabolicNetHealth": 0,
+            "expectedOrdinaryRecoveryPoints": 0,
+            "fundedActivityHours": 0,
+            "actualWorkExecutorRun": false,
+            "actualDisplacementMetres": 0,
+            "actualTaskProgressDelta": null,
+            "physicalProgressLimit": "Direct physiology runs report paid capacity only; no movement or task executor is invoked for those arms.",
+            "oxygenConsumedKg": 0.010029858543598762,
+            "actualSweatKg": 0,
+            "basalWaterLossKg": 0,
+            "localChecks": {
+              "intakeResidualKg": 0,
+              "reserveResidualKg": 0,
+              "bodyResidualKg": 0,
+              "chemicalReleaseResidualKJ": 2.842170943040401e-14,
+              "oxidationHeatResidualKJ": 0,
+              "oxygenResidualKg": 0,
+              "atmosphericOrganicResidualKg": 0,
+              "atmosphericWaterResidualKg": 0,
+              "hydrationResidualKg": 0,
+              "sweatResidualKg": 0,
+              "localHeatResidualKJ": -1.2519763004092965e-10,
+              "healthStageResidualPoints": 0
+            }
+          },
+          {
+            "arm": "planned_active",
+            "executor": "prepare_feed_finish",
+            "initialWorldSha256": "cca730eca7f1c3d7a4ec97c7be0a820afa4fcf705eaf6281c77964fd1a8f5a20",
+            "normalizedInputExceptTaskSha256": "3ede20510f4243c81486918520371b139b0824c79021d336fd462cc26b1ae769",
+            "finalWorldSha256": "937659e44e64fd393cc2388906a12310e8b7bf8b847856ffe8a387777bfccf26",
+            "derivedRestingKJ": 99,
+            "flux": {
+              "tick": 29,
+              "hours": 0.25,
+              "ingestedKg": 0,
+              "foodOxidizedKg": 0.009011264080100126,
+              "reserveOxidizedKg": 0,
+              "reserveStoredKg": 0,
+              "structureStoredKg": 0,
+              "maintenanceKJ": 144,
+              "heatLossKJ": 179.99999999999994,
+              "releasedKJ": 144,
+              "meltKJ": 0,
+              "unmetMaintenanceKJ": 0,
+              "unmetColdKJ": 35.99999999999994,
+              "unremovedHeatKJ": 0,
+              "healthLoss": 0.15000000000000568,
+              "activityFraction": 1,
+              "journeyId": null
+            },
+            "netHealthChange": -0.15000000000000568,
+            "metabolicHealthLoss": 0.15000000000000568,
+            "nonMetabolicNetHealth": 0,
+            "expectedOrdinaryRecoveryPoints": 0,
+            "fundedActivityHours": 0.25,
+            "actualWorkExecutorRun": false,
+            "actualDisplacementMetres": 0,
+            "actualTaskProgressDelta": null,
+            "physicalProgressLimit": "Direct physiology runs report paid capacity only; no movement or task executor is invoked for those arms.",
+            "oxygenConsumedKg": 0.010029858543598762,
+            "actualSweatKg": 0,
+            "basalWaterLossKg": 0,
+            "localChecks": {
+              "intakeResidualKg": 0,
+              "reserveResidualKg": 0,
+              "bodyResidualKg": 0,
+              "chemicalReleaseResidualKJ": 2.842170943040401e-14,
+              "oxidationHeatResidualKJ": 0,
+              "oxygenResidualKg": 0,
+              "atmosphericOrganicResidualKg": 0,
+              "atmosphericWaterResidualKg": 0,
+              "hydrationResidualKg": 0,
+              "sweatResidualKg": 0,
+              "localHeatResidualKJ": -1.2519763004092965e-10,
+              "healthStageResidualPoints": 0
+            }
+          }
+        ]
+      }
+    ],
+    "guards": {
+      "total": 935,
+      "failed": [],
+      "scope": "Finite intake/reserve/body, oxygen, respiratory products, nutrient return, water, heat and separate health stages; aggregate element and closed chemical accounts within declared tolerances. Full checks retained in the fingerprinted private result."
+    },
+    "limitations": [
+      "The 0.1875-point difference was previously source arithmetic only; this report records an actual-function test, not a modified-law treatment.",
+      "All coefficients remain the current uncalibrated model values; no empirical starvation or human endurance claim follows.",
+      "The first pair runs actual updateCitizens and distinguishes post-metabolic recovery from measured metabolic injury. Its active flag also causes the existing 20% larger basal water loss and fatigue-score change; abundant water and explicit health-stage reconciliation control those effects.",
+      "The other three pairs call actual preparation/shared feeding/finish functions with one synthetic adult; they measure funded activity capacity, not executed movement or useful work.",
+      "The cold pair supplies enough finite intake for the whole current activity request but not all outward cold loss; equality of its injury isolates cold dominance without free fuel.",
+      "No ice melting or severe heat stress was exercised; their equations were not changed. Existing tests are not claimed rerun.",
+      "No mortality or survival rescue is inferred. No death-specific fixture, donor behavior, live population or historical replay was used.",
+      "Element/chemical conservation covers the represented reservoirs. Local heat closure checks the implemented respiratory-deposition/sweat path, not a complete body-core thermodynamics model."
+    ],
+    "next": "Separate mandatory resting injury from unavailable optional work while retaining desired-work fuel, one finite oxidation and cold/melt compensation. Review recovery and retention gates; no new biological coefficient is justified by this fixture."
+  }
 }

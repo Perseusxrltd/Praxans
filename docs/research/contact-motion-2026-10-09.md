@@ -23,6 +23,23 @@ The [measured comparison](contact-motion-2026-10-09.json) replays ticks **231412
 
 A separate read-only census at the starting checkpoint finds the sixteen adults across thirteen cells, with 48 other adult residents nearby. Only one neighbor holds substantive transferable food: 0.980153 kg, with a static surplus of 0.127047 kg above the controller's donor buffer before subsequent meals. No handoff is assigned. The neighbors' 10.616 kg intake and 60.186 kg internal reserves are not transferable provisions. None of the sixteen can access camp stock; the population-based target is 6,048 m², represented by 61 footprint cells and an 85-cell access set, with 4.175 kg communal food. This snapshot does not establish availability or willingness throughout the day.
 
-The contact correction removes an invalid physical barrier, but the observed starvation chain also involves acquisition, location and transport. The next investigation must trace how these people lost reachable food before their reserves ran out. Planned-but-unperformed work demand, infant feeding/carrying and thermal/developmental calibration remain separate mechanisms to test. The source, checkpoint, controlled-test, census and exact replay fingerprints accompany the measured record.
+The contact correction removes an invalid physical barrier, but the observed starvation chain also involves acquisition, location and transport. Further investigation must trace how these people lost reachable food before their reserves ran out. The separate planned-work diagnostic below confirms another defect without measuring its mortality effect. Infant feeding/carrying and thermal/developmental calibration remain open. The source, checkpoint, controlled-test, census and exact replay fingerprints accompany the measured record.
 
 This is an explicit format-17 / biosphere-1.11 physical contact change. The migration preserves people, bodies, supplies, routes, identities, RNG, clocks and history. It cannot establish survival for the sixteen observed adults, seasonal viability or biologically correct thermal limits. Opportunities are provisional until the common commit; a later movement can invalidate attempted work without refunding its cost. Whole-cell contact, continuous reach, explicit recipient acceptance, carrying, infancy and unperformed-activity demand remain limitations.
+
+## Separate diagnostic: planned work and metabolic injury
+
+Four synthetic pairs now reproduce extra injury in the unchanged format-17 functions when optional work is requested but cannot be funded. This is a diagnostic, not a second law change. In the actual `updateCitizens` pair, both adults release **99 kJ**, lose approximately **99 kJ** to their surroundings, and perform **zero movement or task progress**. The adult with a pending route nevertheless receives **0.1875 extra metabolic health point of injury**. The inactive adult also gains 0.039464 health through ordinary recovery; the total final-health difference is therefore 0.226964, which must not all be called metabolic injury.
+
+| Finite initial intake energy | Executor | Outward heat, kJ | Metabolic injury, inactive / planned active | Funded active fraction |
+| --- | --- | ---: | --- | ---: |
+| 99 kJ | Actual citizen update | 99 | 0 / 0.1875 | 0 |
+| Empty | Actual preparation, feeding and finish | 99 | 0.4125 / 0.6 | 0 |
+| 121.5 kJ | Actual preparation, feeding and finish | 99 | 0 / 0.09375 | 0.5 |
+| 144 kJ | Actual preparation, feeding and finish | 180 | 0.15 / 0.15 | 1 |
+
+The last three pairs measure available activity capacity; their movement/work executors were not run. The cold control still has the same finite 144 kJ against 180 kJ outward loss and equal injury. The partial-funding inactive arm retains surplus intake into reserves while the active arm oxidizes it and sweats; these transfers remain in the [unrounded evidence](contact-motion-2026-10-09.json), under `plannedDemandDiagnostic`.
+
+All **935 accounting guards** pass across eight quarter-hour calls. The complete 82-file source stays at SHA-256 **`d45f2ea46583a0ffcc221f0ca58123f780328e699b4cac04555f49941734bdea`**; 35 frozen source inputs are compiled without instrumentation or a database. The private result's SHA-256 is **`5fc26d0434422846cf394fea5640ca1415f0c54ec70a5fc5c0b3ff82d19d361c`**. Finite custody, intake/reserve/body, oxygen, respiratory products, nutrients, water, local heat and distinct health stages are checked. These are synthetic controls with current uncalibrated coefficients, not a historical replay, full body-temperature model or demonstration of survival.
+
+The correction must distinguish mandatory resting requirements from unavailable optional work while preserving desired-work fuel, one oxidation account and cold/melting compensation. Recovery and retention gates also need review. No coefficient change or historical mortality share follows from this diagnostic; the live contact release leaves this defect open.

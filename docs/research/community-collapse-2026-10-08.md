@@ -12,6 +12,8 @@ The further [resource-observation study](observed-foraging-2026-10-09.md) isolat
 
 The subsequent [performed-harvesting correction](performed-harvesting-2026-10-09.md) now earns finite private products during funded work and shares local sources. Its matched current-law day raises aggregate harvest and lowers aggregate child injury, while Stonebrook's cold deficit rises and the minimum final child health is lower. This is evidence about a later correction, not an attribution of the historical deaths or proof of sustainable communities.
 
+The completed [32.427-day continuation](survival-continuation-2026-10-09.md) then records twenty deaths after the harvesting correction versus none before, despite increased world production. Its subsequent [contact correction and separate planned-work diagnostic](contact-motion-2026-10-09.md) distinguish an invalid barrier to helping stationary people from optional-work injury with zero work; contact is corrected live, but the selected adult day still loses all sixteen and the work-injury correction remains open. These later-law findings do not assign additional historical deaths to those defects.
+
 ![Population, communal food and deaths after the finite renewal](../images/community-collapse-2026-10-08.png)
 
 The figure uses [daily history and death counts](collapse-timeline.json), not conditions observed after extinction.
