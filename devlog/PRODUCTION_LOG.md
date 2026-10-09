@@ -7,6 +7,15 @@
 
 ## Log
 
+### [2026-10-09] Exact Archive Storage Fits the Trial Quota
+
+- **type**: infrastructure
+- **systems**: world_storage, runtime_handover, browser_validation
+- **files**: `archive-codec.ts`, `archives.ts`, `storage-format.ts`, `store.ts`, `archive-storage-0.2.md`
+- **agent**: Codex with world_research preservation review
+
+Storage 3 separates byte streams without parsing numbers and retains smaller old blocks, saving 48,512,398 bytes across ten exact original archives. The actual-quota rehearsal preserves history, ownership, migration, three saves and restart with 29,065,216 bytes minimum free; all 286 model/server tests pass. Initial fixture/type failures and rejected codecs remain recorded; [publication status](../docs/releases/archive-storage-0.2.md) is tracked separately from local proof, and Railway stays on the trial. → ADR-051.
+
 ### [2026-10-09] Observer Published and Effective Storage Limit Identified
 
 - **type**: infrastructure

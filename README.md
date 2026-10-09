@@ -70,6 +70,8 @@ The [checkpoint and observer recovery release](docs/releases/region-checkpoints-
 
 The [local food handoff release](docs/releases/local-food-handoff-0.2.md) adds optional paid delivery between nearby people, preserving private holdings and leaving ingestion to normal physiology. Its tests and publication record retain the distinction between correcting a measured access gap and establishing sustainable communities.
 
+The [trial archive-storage release](docs/releases/archive-storage-0.2.md) records byte-exact history preservation and the measured storage needed for continuing hotfixes. Its capacity evidence applies to the tested world; hosting and population growth remain finite.
+
 The [implementation ledger](docs/roadmap.md) tracks every accepted requirement, its status and its evidence. The [fundamentals review](docs/fundamentals.md) explains the remaining core work; the [agency and diplomacy contract](docs/agency-and-diplomacy.md) defines influence, success and contact.
 
 ## Keep the same universe

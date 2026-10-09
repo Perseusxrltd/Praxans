@@ -1,10 +1,16 @@
 import type { DatabaseSync } from "node:sqlite";
 import { createHash } from "node:crypto";
-import { deflateSync, inflateSync } from "node:zlib";
+import { deflateSync } from "node:zlib";
 import { requireColumns, storageVersion } from "./storage-format";
+import {
+  ARCHIVE_BLOCK_BYTES,
+  DIGIT_ARCHIVE_ENCODING,
+  decodeArchiveBlock,
+  encodeDigitArchiveBlock,
+} from "./archive-codec";
 
 export { STORAGE_VERSION, storageVersion } from "./storage-format";
-export const ARCHIVE_BLOCK_BYTES = 256 * 1024;
+export { ARCHIVE_BLOCK_BYTES, DIGIT_ARCHIVE_ENCODING } from "./archive-codec";
 const encoding = "deflate-parts-1";
 const compressionLevel = 6;
 const sha256 = (bytes: string | Uint8Array) =>
@@ -136,18 +142,65 @@ export interface WorldArchive {
 }
 
 export function listWorldArchives(db: DatabaseSync): WorldArchive[] {
+  const version = checkArchiveStorage(db);
   const extra =
-    checkArchiveStorage(db) === 0
+    version === 0
       ? "'json' AS encoding,length(CAST(json AS BLOB)) AS rawBytes,0 AS parts"
       : "encoding,coalesce(raw_bytes,length(CAST(json AS BLOB))) AS rawBytes,coalesce(part_count,0) AS parts";
-  return db
+  const archives = db
     .prepare(
       `SELECT id,checksum,created_at AS createdAt,${extra} FROM world_backups ORDER BY id`,
     )
     .all() as unknown as WorldArchive[];
+  // Check the complete descriptor set before any independent conversion commits.
+  for (const archive of archives) {
+    if (
+      archive.encoding !== "json" &&
+      archive.encoding !== encoding &&
+      archive.encoding !== DIGIT_ARCHIVE_ENCODING
+    )
+      throw new Error(
+        `Unsupported world archive encoding ${archive.encoding}.`,
+      );
+    if (archive.encoding === DIGIT_ARCHIVE_ENCODING && version < 3)
+      throw new Error("Digit archive blocks require storage version 3.");
+  }
+  return archives;
 }
 
-function writeParts(db: DatabaseSync, id: string, pieces: Iterable<string>) {
+function verifyStoredArchive(db: DatabaseSync, expected: WorldArchive): void {
+  const stored = listWorldArchives(db).find(
+    (archive) => archive.id === expected.id,
+  );
+  if (
+    !stored ||
+    (Object.keys(expected) as (keyof WorldArchive)[]).some(
+      (key) => stored[key] !== expected[key],
+    )
+  )
+    throw new Error(
+      `World archive ${expected.id} manifest changed during its write.`,
+    );
+  for (const bytes of worldArchiveBytes(db, expected.id)) void bytes;
+}
+
+// Version 3 builds on the encoded-region schema of version 2. Legacy schema-1
+// archives keep their existing codec until the ordinary regional save upgrades it.
+function targetEncoding(db: DatabaseSync): string {
+  return storageVersion(db) >= 2 ? DIGIT_ARCHIVE_ENCODING : encoding;
+}
+
+function markEncoding(db: DatabaseSync, target: string): void {
+  if (target === DIGIT_ARCHIVE_ENCODING && storageVersion(db) === 2)
+    db.exec("PRAGMA user_version=3;");
+}
+
+function writeParts(
+  db: DatabaseSync,
+  id: string,
+  pieces: Iterable<string>,
+  target: string,
+) {
   const insert = db.prepare("INSERT INTO world_backup_parts VALUES(?,?,?,?,?)");
   const hash = createHash("sha256");
   let rawBytes = 0,
@@ -155,13 +208,12 @@ function writeParts(db: DatabaseSync, id: string, pieces: Iterable<string>) {
   for (const bytes of blocks(pieces)) {
     hash.update(bytes);
     rawBytes += bytes.length;
-    insert.run(
-      id,
-      parts++,
-      bytes.length,
-      sha256(bytes),
-      deflateSync(bytes, { level: compressionLevel }),
-    );
+    let packed: Buffer = deflateSync(bytes, { level: compressionLevel });
+    if (target === DIGIT_ARCHIVE_ENCODING) {
+      const candidate = encodeDigitArchiveBlock(bytes);
+      if (candidate.length < packed.length) packed = candidate;
+    }
+    insert.run(id, parts++, bytes.length, sha256(bytes), packed);
   }
   return { checksum: hash.digest("hex"), rawBytes, parts };
 }
@@ -182,7 +234,8 @@ function* textPieces(text: string): Generator<string> {
  * The original text and checksum remain authoritative: never parse/reserialize
  * history. Run before loading terrain so the old large row does not overlap a
  * second fully decoded world. Failure preserves the original archive and parts.
- * Storage version 1 readers already understand the resulting representation.
+ * Legacy regional schema retains the old codec. Encoded-region worlds mark
+ * storage version 3 in this same transaction before using digit-stream blocks.
  */
 export function compactWorldArchive(
   db: DatabaseSync,
@@ -190,10 +243,20 @@ export function compactWorldArchive(
 ): WorldArchive {
   const archive = listWorldArchives(db).find((item) => item.id === id);
   if (!archive) throw new Error(`Unknown world archive ${id}.`);
-  if (archive.encoding !== "json" && archive.encoding !== encoding)
+  if (
+    archive.encoding !== "json" &&
+    archive.encoding !== encoding &&
+    archive.encoding !== DIGIT_ARCHIVE_ENCODING
+  )
     throw new Error(`Unsupported world archive encoding ${archive.encoding}.`);
+  if (archive.encoding === DIGIT_ARCHIVE_ENCODING) {
+    for (const bytes of worldArchiveBytes(db, id)) void bytes;
+    return archive;
+  }
+  const target = targetEncoding(db);
   db.exec("SAVEPOINT praxans_archive_compact");
   try {
+    markEncoding(db, target);
     if (archive.encoding === encoding) {
       const size = db.prepare(
         "SELECT length(payload) AS bytes FROM world_backup_parts WHERE archive_id=? AND part=?",
@@ -205,16 +268,24 @@ export function compactWorldArchive(
       // Each iterator step reads one bounded block. Its original checksum and
       // the complete original byte stream must verify before this can commit.
       for (const bytes of worldArchiveBytes(db, id)) {
-        const packed = deflateSync(bytes, { level: compressionLevel });
+        const packed =
+          target === DIGIT_ARCHIVE_ENCODING
+            ? encodeDigitArchiveBlock(bytes)
+            : deflateSync(bytes, { level: compressionLevel });
         const current = size.get(id, part) as { bytes: number };
         if (packed.length < current.bytes) replace.run(packed, id, part);
         part++;
       }
+      if (target !== archive.encoding)
+        db.prepare("UPDATE world_backups SET encoding=? WHERE id=?").run(
+          target,
+          id,
+        );
       // Also verify the actual replacement, including writes affected by a
       // database trigger or fault. Failure rolls back every changed block.
-      for (const bytes of worldArchiveBytes(db, id)) void bytes;
+      verifyStoredArchive(db, { ...archive, encoding: target });
       db.exec("RELEASE praxans_archive_compact");
-      return archive;
+      return { ...archive, encoding: target };
     }
     if (
       db
@@ -225,7 +296,7 @@ export function compactWorldArchive(
     const row = db
       .prepare("SELECT json FROM world_backups WHERE id=? AND encoding='json'")
       .get(id) as { json: string };
-    const written = writeParts(db, id, textPieces(row.json));
+    const written = writeParts(db, id, textPieces(row.json), target);
     if (
       written.checksum !== archive.checksum ||
       written.rawBytes !== archive.rawBytes
@@ -235,12 +306,12 @@ export function compactWorldArchive(
       );
     db.prepare(
       "UPDATE world_backups SET json='',encoding=?,raw_bytes=?,part_count=? WHERE id=?",
-    ).run(encoding, written.rawBytes, written.parts, id);
+    ).run(target, written.rawBytes, written.parts, id);
     // Validate the stored compressed representation before dropping the original
     // from this transaction. Any malformed or altered block rolls it all back.
-    for (const bytes of worldArchiveBytes(db, id)) void bytes;
+    verifyStoredArchive(db, { ...archive, encoding: target, ...written });
     db.exec("RELEASE praxans_archive_compact");
-    return { ...archive, encoding, ...written };
+    return { ...archive, encoding: target, ...written };
   } catch (error) {
     try {
       db.exec(
@@ -260,18 +331,33 @@ export function writeWorldArchive(
   world: object,
   createdAt = Date.now(),
 ): WorldArchive {
+  const target = targetEncoding(db);
   db.exec("SAVEPOINT praxans_archive_write");
   try {
+    markEncoding(db, target);
     // Reserve the immutable identity before spending work; never overwrite it.
     db.prepare(
       "INSERT INTO world_backups(id,json,checksum,created_at,encoding,raw_bytes,part_count) VALUES(?,'','',?,?,0,0)",
-    ).run(id, createdAt, encoding);
-    const { checksum, rawBytes, parts } = writeParts(db, id, worldJson(world));
+    ).run(id, createdAt, target);
+    const { checksum, rawBytes, parts } = writeParts(
+      db,
+      id,
+      worldJson(world),
+      target,
+    );
     db.prepare(
       "UPDATE world_backups SET checksum=?,raw_bytes=?,part_count=? WHERE id=?",
     ).run(checksum, rawBytes, parts, id);
+    verifyStoredArchive(db, {
+      id,
+      checksum,
+      createdAt,
+      encoding: target,
+      rawBytes,
+      parts,
+    });
     db.exec("RELEASE praxans_archive_write");
-    return { id, checksum, createdAt, encoding, rawBytes, parts };
+    return { id, checksum, createdAt, encoding: target, rawBytes, parts };
   } catch (error) {
     try {
       db.exec(
@@ -305,7 +391,12 @@ export function* worldArchiveBytes(
     hash.update(bytes);
     total = bytes.length;
     yield bytes;
-  } else if (archive.encoding === encoding) {
+  } else if (
+    archive.encoding === encoding ||
+    archive.encoding === DIGIT_ARCHIVE_ENCODING
+  ) {
+    if (archive.encoding === DIGIT_ARCHIVE_ENCODING && storageVersion(db) < 3)
+      throw new Error("Digit archive blocks require storage version 3.");
     if (
       !Number.isSafeInteger(archive.parts) ||
       archive.parts < 1 ||
@@ -331,9 +422,11 @@ export function* worldArchiveBytes(
       const expected = Math.min(ARCHIVE_BLOCK_BYTES, archive.rawBytes - total);
       if (!row || row.raw_bytes !== expected)
         throw new Error(`Invalid world archive ${id} block ${part}.`);
-      const bytes = inflateSync(row.payload, {
-        maxOutputLength: ARCHIVE_BLOCK_BYTES,
-      });
+      const bytes = decodeArchiveBlock(
+        row.payload,
+        expected,
+        archive.encoding === DIGIT_ARCHIVE_ENCODING,
+      );
       if (bytes.length !== expected || sha256(bytes) !== row.checksum)
         throw new Error(`World archive ${id} block ${part} checksum mismatch.`);
       hash.update(bytes);

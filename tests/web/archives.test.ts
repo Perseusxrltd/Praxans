@@ -255,7 +255,10 @@ test("a later law-migration failure preserves its checkpoint and exact readable 
     );
     assert.deepEqual(store.db.prepare("SELECT * FROM world").get(), head);
     assert.equal(archivedText(store.db, "old"), text);
-    assert.equal(listWorldArchives(store.db)[0].encoding, "deflate-parts-1");
+    assert.equal(
+      listWorldArchives(store.db)[0].encoding,
+      "digit-deflate-parts-1",
+    );
     assert.equal(store.interventions().length, 0);
   } finally {
     store.close();

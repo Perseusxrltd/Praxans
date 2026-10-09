@@ -8,6 +8,7 @@ import {
 import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { validateWorld } from "../simulation/engine";
+import { LAWS } from "../simulation/laws";
 import { createWorld } from "../simulation/world";
 import type {
   AgentPublic,
@@ -30,6 +31,7 @@ import {
   compactWorldArchive,
   listWorldArchives,
   writeWorldArchive,
+  DIGIT_ARCHIVE_ENCODING,
 } from "./archives";
 
 export const digest = (text: string) =>
@@ -215,16 +217,25 @@ export class Store {
       throw new Error(
         "This save needs an explicit migration. The existing world has been preserved; it will not be reset.",
       );
-    if (world.version !== WORLD_VERSION) {
+    const physicalMigration = world.version !== WORLD_VERSION;
+    if (physicalMigration) {
       // Resolve support before touching even the representation of history.
       describeMigration(world);
-      // Reclaim reusable pages before another physical archive. Each completed
-      // conversion retains exact original bytes, identity, time and checksum and
-      // remains readable by the previous storage-v1 runtime if migration fails.
-      // Do this before terrain loading to avoid retaining two large worlds.
-      for (const archive of listWorldArchives(this.db))
-        this.transaction(() => compactWorldArchive(this.db, archive.id));
+    } else if (world.lawsVersion !== LAWS.version) {
+      throw new Error(
+        "The saved world's laws are incompatible; preserve its checkpoint and history.",
+      );
     }
+    // Reclaim reusable pages before terrain loading. Each archive's complete
+    // original bytes, part identities and hashes survive. Storage-3 conversion
+    // can remain after a later law failure and then requires a compatible reader.
+    const canUpgradeArchives = checkArchiveStorage(this.db) >= 2;
+    for (const archive of listWorldArchives(this.db))
+      if (
+        physicalMigration ||
+        (canUpgradeArchives && archive.encoding !== DIGIT_ARCHIVE_ENCODING)
+      )
+        this.transaction(() => compactWorldArchive(this.db, archive.id));
     world.tiles = [];
     const readRegion = regionReader(this.db);
     this.chunkHashes.clear();

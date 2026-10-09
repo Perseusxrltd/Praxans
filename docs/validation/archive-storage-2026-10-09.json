@@ -1,0 +1,728 @@
+{
+  "measuredAt": "2026-10-09T15:43:15.576004+00:00",
+  "status": "candidate validated locally; live handover pending",
+  "release": {
+    "protocol": 1,
+    "release": "archive-digits-20261009-1",
+    "notes": "Preserve exact original history using bounded digit/literal archive blocks (storage 3); separate mandatory resting shortage from requested work (format 18, biosphere-1.12). No renewal, resource grant or clock reset; survival remains unproven.",
+    "sha256": "3a2f8458653257782e1f894f999a77273a646b726084b44cd11a73aeb4dfd240",
+    "dependencies": "0ca3efac2e32e64895e4f395f1919a966af1b18b017c12aaa088b491f2f0022e",
+    "nodeMajor": 22
+  },
+  "sourceSha256": "4a0d7bb2221c47819250371c2c8b28a2e667b72a4746c6d3591f5c14cda8b2bb",
+  "sourceAndTestsSha256": "58d7d63eb963caa2ae76967f1be8950d108cda129728f10d7dc13b95e4357b13",
+  "worldFormat": 18,
+  "laws": "biosphere-1.12",
+  "storage": 3,
+  "trialRetained": true,
+  "compression": {
+    "rawOriginalBytes": 1052923598,
+    "originalParts": 4021,
+    "originalArchives": 10,
+    "oldPackedBytes": 298122203,
+    "newPackedBytes": 249609805,
+    "savedBytes": 48512398,
+    "reductionFraction": 0.162726551433675,
+    "originalAndRoundTripHashesExact": true,
+    "reusesDisjointMeasurements": true
+  },
+  "rejectedCandidates": {
+    "zstdLevel3Window19": {
+      "savedBytes": -21801821,
+      "scope": "all ten archives"
+    },
+    "zstdLevel9TwoMiB": {
+      "savingFraction": 0.05442433165454424,
+      "scope": "earliest/latest archives, below declared 13.5% sample requirement"
+    },
+    "brotliQuality6Window19": {
+      "savingFraction": 0.0208,
+      "scope": "earliest/latest archives, below declared requirement"
+    }
+  },
+  "quotaRehearsal": {
+    "at": "2026-10-09T15:37:43.006Z",
+    "sourceSha256": "92d3b7e7582308198685deaa95c86ecc59930191eae698a8d1ef710613b8c91b",
+    "sourceUnchanged": true,
+    "code": 0,
+    "signal": null,
+    "report": {
+      "originalArchives": [
+        {
+          "id": "008-material-memory-and-agency",
+          "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+          "rawBytes": 46697011,
+          "parts": 179
+        },
+        {
+          "id": "009-human-thermal-and-distance-balance",
+          "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+          "rawBytes": 53486584,
+          "parts": 205
+        },
+        {
+          "id": "010-performed-body-maintenance",
+          "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+          "rawBytes": 106657105,
+          "parts": 407
+        },
+        {
+          "id": "011-consumption-before-ration-pickup",
+          "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+          "rawBytes": 108904108,
+          "parts": 416
+        },
+        {
+          "id": "012-funded-human-metabolism",
+          "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+          "rawBytes": 112448226,
+          "parts": 429
+        },
+        {
+          "id": "013-local-inventory-exposure-and-access",
+          "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+          "rawBytes": 117075634,
+          "parts": 447
+        },
+        {
+          "id": "014-performed-local-food-handoff",
+          "checksum": "a429759388484bdef2d6048e9044c1ab5d773cbd6b3ff598f9da54dcad4b958b",
+          "rawBytes": 123298170,
+          "parts": 471
+        },
+        {
+          "id": "015-age-bounded-structural-growth",
+          "checksum": "fb2a929456519b7801f9af20b075c9fa5a43ce60cfbcb7792b647d378103b673",
+          "rawBytes": 126160031,
+          "parts": 482
+        },
+        {
+          "id": "016-performed-resource-harvesting",
+          "checksum": "31f3e956350fbdcb9c6b44c406c59714f937d9a8b62c75ff9a32a34cfa2fbb33",
+          "rawBytes": 128962065,
+          "parts": 492
+        },
+        {
+          "id": "017-contact-from-actual-movement",
+          "checksum": "9ef5ff518288527165abed5886a1641b29ec683997450122e4c1f6f4c38bcd23",
+          "rawBytes": 129234664,
+          "parts": 493
+        }
+      ],
+      "savedPayloadBytes": 48512398,
+      "originalFreelist": 320,
+      "freePagesAfterMigration": 4258,
+      "heapLimitBytes": 226492416,
+      "sourceTick": 650060,
+      "sourceVersion": 17,
+      "version": 18,
+      "laws": "biosphere-1.12",
+      "storage": 3,
+      "people": 0,
+      "regions": 38,
+      "migrationMs": 39630.288622,
+      "saves": [
+        {
+          "tick": 650092,
+          "simulationMs": 3859.2411429999993,
+          "saveMs": 1823.1681089999984,
+          "walBytes": 31892952
+        },
+        {
+          "tick": 650124,
+          "simulationMs": 4208.350003,
+          "saveMs": 1728.488584000006,
+          "walBytes": 31938272
+        },
+        {
+          "tick": 650156,
+          "simulationMs": 4018.607237000004,
+          "saveMs": 1808.479892000003,
+          "walBytes": 32164872
+        }
+      ],
+      "exactMigrationBoundary": true,
+      "exactArchiveSha256": "1c4fa389fea9634ace4510a1e3f6601813615e105a98d98af0c67c2fcc3244e6",
+      "protectedRows": {
+        "sessions": {
+          "count": 32,
+          "sha256": "ae09389b2c35bf845febf54fa6aa14cd35096f02f8e56cd874a53c58fa1c89c8"
+        },
+        "agents": {
+          "count": 1,
+          "sha256": "3bd1cef0d53721b3f8613c2f57ca2b7be3fc30510f761661b6494599a600d2d3"
+        },
+        "receipts": {
+          "count": 3,
+          "sha256": "8e2b9b8b3ef18d3047a9a3799be52d26aa14e738b5184e981968107007413445"
+        },
+        "events": {
+          "count": 71873,
+          "sha256": "73e5fdef69bcf7acc249081b9b4b8724214677b039dd2f66f7624d36417584a0"
+        },
+        "history": {
+          "count": 6771,
+          "sha256": "c38379df44732e7b6177bd53010605c8a64a59e1e56a435703e27eef680f6777"
+        },
+        "interventions": {
+          "count": 32,
+          "sha256": "6d8341b6ed82cee7cd03ddd6d003e6d33e0cad12b738924147c44cf921649305"
+        },
+        "archives": {
+          "count": 10,
+          "sha256": "a14db42bcb81ff5e8d62dd899309b2caa497e3b99919803667d754b01bda7496"
+        },
+        "archiveParts": {
+          "count": 4021,
+          "sha256": "fe1f7b83c0e30163e93d8f47c08b4d96bed32697efaa4001bda29cafd562178b"
+        }
+      },
+      "exactRestart": true,
+      "finalTick": 650156,
+      "clock": {
+        "tick": 650156,
+        "wall_ms": 1791554979340
+      },
+      "finalMetadataChecksum": "5ac53b63945e3c2d391a57cd5a43c35fb393fa4736e3b849e13c903cca139718",
+      "finalRegionChecksum": "864680f2bd539939c8efbd1789e3e19b2b7412751ef6cbe7d96965eae5c68bfb"
+    },
+    "stdout": "",
+    "stderr": "(node:243447) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+    "capacity": {
+      "bytes": 454299648,
+      "initialNonWalBudget": 393000000,
+      "minimumFree": 29065216,
+      "maximumWal": 32164872,
+      "samples": 1875
+    },
+    "peakRssBytes": 383836160,
+    "scope": "Disposable private tmpfs at the declared filesystem quota; Exact format-17/storage-2 to format-18/storage-3 migration and additional archive. Original archive bytes, raw part identities/hashes, dates and protected rows are preserved; packed payloads and encoding labels deliberately change. Three saves and restart under a 216 MiB effective heap. 393 MB initial non-WAL reservation exceeds the measured database plus 15.93 MB outside-SQLite footprint, leaving additional operating margin. Local memory and IO are not a live cgroup or inhabited-host guarantee."
+  },
+  "checks": {
+    "focusedInitial": {
+      "passed": 44,
+      "total": 48,
+      "failure": "Four new fixtures used unsupported 32-cell initial windows."
+    },
+    "correctedFixture": {
+      "passed": 4,
+      "total": 4
+    },
+    "firstBuild": "TypeScript inferred a narrower nonshared Buffer type for Deflate than the candidate return type; explicit Buffer local type corrected it without changing emitted worker bytes.",
+    "build": "passed",
+    "fullModelServer": {
+      "passed": 286,
+      "total": 286,
+      "durationSeconds": 208.09265003899054
+    },
+    "preservationReview": "Both descriptor capability and stored-new-archive verification findings fixed and covered.",
+    "production": {
+      "passed": 12,
+      "total": 12
+    },
+    "hotfix": {
+      "passed": 25,
+      "total": 25
+    },
+    "formatting": "passed"
+  },
+  "limits": [
+    "Freed SQLite pages are reusable; the main database does not shrink.",
+    "The quota rehearsal is a local empty-world copy, not a live cgroup or populated/future-capacity guarantee.",
+    "A committed archive conversion can require storage-3 code even if a later physical migration fails.",
+    "No biological survival experiment was repeated or success claim added.",
+    "Railway remains on the trial; no subscription or volume resize."
+  ],
+  "coherence": {
+    "inspectedAt": "2026-10-09T15:45:30.779Z",
+    "structuralScan": {
+      "baseCommit": "15b5063d05464f99881ba65b8192813cb859fced",
+      "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+      "gitVisibleExistingFileCount": 998,
+      "jsTsFileCount": 144,
+      "sourceFileCount": 83,
+      "srcContentSha256": "4a0d7bb2221c47819250371c2c8b28a2e667b72a4746c6d3591f5c14cda8b2bb",
+      "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
+      "resolvedEdgeCount": 756,
+      "edgesByArea": {
+        "docs -> src/simulation": 25,
+        "docs -> tests": 1,
+        "scripts -> src/server": 27,
+        "scripts -> src/simulation": 26,
+        "src/client -> src/simulation": 27,
+        "src/client -> src/client": 21,
+        "src/server -> src/simulation": 42,
+        "src/server -> src/server": 30,
+        "src/simulation -> src/simulation": 260,
+        "tests -> src/simulation": 200,
+        "tests -> tests": 35,
+        "tests -> src/server": 62
+      },
+      "missingImports": [],
+      "missingAssets": [],
+      "nonliteralLoads": [
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+        },
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+        }
+      ],
+      "layerViolations": [],
+      "simulationEnvironmentImports": [],
+      "localMarkdownLinksChecked": 680,
+      "missingMarkdownLinks": []
+    },
+    "findings": [
+      "The new codec stays in server persistence and introduces no dependency from simulation to storage/browser modules.",
+      "Raw historical identities and stored representation are distinct; version 3 capability and compatible-forward-recovery rules are documented consistently.",
+      "All 83 source files reviewed structurally: no missing imports/assets, forbidden layer edges or unresolved local Markdown targets. Two historical nonliteral imports remain outside static resolution.",
+      "No simulation, natural scale, biological reservoir, clock-rate or agent-authority code changed in this storage increment. Existing pending format-18 physical correction retains its own negative survival result.",
+      "Monolithic population metadata, full-region serialization, finite trial headroom and larger-population scheduling remain explicit follow-up work."
+    ]
+  },
+  "beforeBackup": {
+    "raw": {
+      "bytes": 364929024,
+      "sha256": "fe7e0578e3af32e179902fd02c1a6a09f101927cf13c823956f8bbc293d8fd19"
+    },
+    "gzip": {
+      "bytes": 337053493,
+      "sha256": "69dc6b3c0eddb36943cd168520ea8d9a8f39cc231988111326d58b5c84a264f8"
+    },
+    "worldChecksum": "2b8e290ee0e11f3ee1a7e4d734f5bde974f4e861d86cd371b6543a021aeabc53",
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "version": 17,
+      "lawsVersion": "biosphere-1.11",
+      "generationVersion": "planet-1",
+      "tick": 671628,
+      "rng": 1244028436,
+      "births": 407,
+      "deaths": 1639
+    },
+    "clock": {
+      "tick": 671628,
+      "wall_ms": 1791560347340.0
+    },
+    "people": 0,
+    "storage": 2,
+    "regions": [
+      {
+        "id": "-1,-1",
+        "sha256": "13393a78d752f8f65dd2fb40dc2fb482243309e0db93077ecbead71706629d79",
+        "rawBytes": 3433577,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 835830
+      },
+      {
+        "id": "-1,0",
+        "sha256": "66f49ea4e9ec09e4825951c8460a17c98f7b8abf32db326fc13a15d8e7bc62b2",
+        "rawBytes": 3196333,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 793306
+      },
+      {
+        "id": "-1,1",
+        "sha256": "66c4e2eece6304a3ce60ea83e7892b0a4859679e4e1124b22ea3c2a199ded5ba",
+        "rawBytes": 2820252,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 694901
+      },
+      {
+        "id": "0,-1",
+        "sha256": "cfa9b8e35fb8fe6a81dd22eb36be3a943536daa81d76856e424ede9bb2e37c99",
+        "rawBytes": 3419760,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 826562
+      },
+      {
+        "id": "0,0",
+        "sha256": "95858c57814ac1f82c6d8e2852706feba5e7c51e2b9a2e28f3588cf2ff7229ea",
+        "rawBytes": 3019464,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 691380
+      },
+      {
+        "id": "0,1",
+        "sha256": "e814b27d76c0363a57ddd3a667f0a4b105d97278c8038988b74970530dcd6614",
+        "rawBytes": 3178816,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 718940
+      },
+      {
+        "id": "0,2",
+        "sha256": "ba87b5a3421bc0582254c49eafbc30ae0d9e1454a20bc853076574f4c7ccc1e0",
+        "rawBytes": 3357463,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 807822
+      },
+      {
+        "id": "1,-1",
+        "sha256": "7a386fab4fea9181d5c083d2ef48ff3b15c87e702b0d1df5a0fc854d34cae1f3",
+        "rawBytes": 3344701,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 811638
+      },
+      {
+        "id": "1,0",
+        "sha256": "6363db5ae674679a2523418e3ee7ff300b25840a8f074c8ab3322267a1e3fb28",
+        "rawBytes": 3179579,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 725068
+      },
+      {
+        "id": "1,1",
+        "sha256": "598c37b2cffa5a218533be090c2d30b2579956103c748db7c96e779a564dab74",
+        "rawBytes": 3161165,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 705805
+      },
+      {
+        "id": "1,2",
+        "sha256": "578109e24aff5c9119e943856a444ab9195de78df7bdca8c7e3cf3b5812f828c",
+        "rawBytes": 3358883,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 792023
+      },
+      {
+        "id": "2,-1",
+        "sha256": "83e94707aa8b2dda48bde2d800b0d847c826165726c9e0fe7ad26647a9da8d56",
+        "rawBytes": 3307001,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 802400
+      },
+      {
+        "id": "2,0",
+        "sha256": "bdab995139d00644bc0928d54468d625969f7b7b83330575b2c17c2589292264",
+        "rawBytes": 3167550,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 761338
+      },
+      {
+        "id": "2,1",
+        "sha256": "ff4915ae236b17427996a94b0c8e8e9404ae79c8c3178c6d25ad5cf9fbb7e95e",
+        "rawBytes": 3206199,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 748485
+      },
+      {
+        "id": "2,2",
+        "sha256": "bd99bb294bdb92995a75d61c494d79143208e79fc725813caa307764912e6633",
+        "rawBytes": 3400875,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 829032
+      },
+      {
+        "id": "3,-1",
+        "sha256": "67fffe5feb3d343945ee5fcf3258995312176ef9cee3d67137e238aa2be4df8b",
+        "rawBytes": 3431890,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 838190
+      },
+      {
+        "id": "3,0",
+        "sha256": "f82c04687af9d4d44dcd144e2c3c5c7f4877948ebcce210c52ca012623331654",
+        "rawBytes": 3325244,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 816027
+      },
+      {
+        "id": "3,1",
+        "sha256": "680ba9af2798511e0c06b0efecad8abde149b469fc6a7cdaa0328d1837fb2faa",
+        "rawBytes": 3314658,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 815226
+      },
+      {
+        "id": "3,2",
+        "sha256": "7e8c24b7e7735bd21dc9d0cf503ebc3b1888bead8b2fab839bbb1a1b84e54ea7",
+        "rawBytes": 3488583,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 848698
+      },
+      {
+        "id": "4,-1",
+        "sha256": "62f10bfad63925249fa167cd809176c69a75ca940c6fed65a20dda5879073eed",
+        "rawBytes": 3519458,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 852670
+      },
+      {
+        "id": "4,0",
+        "sha256": "b5f941d484a1347a61eb90f28a3eb70548980dadfdcb671ca4c2729848251c79",
+        "rawBytes": 3366989,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 824285
+      },
+      {
+        "id": "4,1",
+        "sha256": "f6f830afa8b1d19507e43c3e0aab52a5ca5264015314748f5030395f032ecfba",
+        "rawBytes": 3456622,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 836923
+      },
+      {
+        "id": "4,2",
+        "sha256": "168dcbd128c3be6452a27773f200ea353f4f75258bfc778320797420fed4385a",
+        "rawBytes": 3553711,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 856157
+      },
+      {
+        "id": "5,-1",
+        "sha256": "3f0eb94e8f4da822f9f4264b18e7a7cf3f2e1809ba20c4f9d326737b4675520b",
+        "rawBytes": 3511729,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 853127
+      },
+      {
+        "id": "5,0",
+        "sha256": "ad78e796192db307e4536c1f6cab0f28602eab67967a718185e3537501ea6785",
+        "rawBytes": 3487456,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 844101
+      },
+      {
+        "id": "5,1",
+        "sha256": "cbafb7cf85ad78a8919cd3d143608c794b68ae82445a87840c2593a99c2d1d6a",
+        "rawBytes": 3556439,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 857524
+      },
+      {
+        "id": "6,-1",
+        "sha256": "6b3af1bd5344e0a8f2796a95d514065188de4a859e8a88cf7fb1c7c5040547a9",
+        "rawBytes": 3473745,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 846066
+      },
+      {
+        "id": "6,0",
+        "sha256": "afda95acb2750c322efa2561bf1cd1c8aa5eee079ff814760f07cac0263b81a6",
+        "rawBytes": 3495804,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 852582
+      },
+      {
+        "id": "6,1",
+        "sha256": "53d62f5dc47d244b76d71c9573e90f1d3c2a1d91b00f74e9405fe4ab338c7a92",
+        "rawBytes": 3563538,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 858210
+      },
+      {
+        "id": "7,-1",
+        "sha256": "18fd8b889e85315ae4451ab4b06e7e4a26dd3cf58b95d62ef91746a07fe9ea5e",
+        "rawBytes": 3463279,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 811688
+      },
+      {
+        "id": "7,0",
+        "sha256": "f9625d334472c7bcf481ac461a08b60fdc0b2891ee52fdacb29286e1b3e41ecd",
+        "rawBytes": 3478435,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 790650
+      },
+      {
+        "id": "7,1",
+        "sha256": "01f327c8f34ff4ecfdae154609ff2ebd4ceee33f050ddeb017cc13aec34ae435",
+        "rawBytes": 3394905,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 799708
+      },
+      {
+        "id": "8,-1",
+        "sha256": "4be64d3bdea53a1c8bd9533fa754a3fb1d57dfe015311ea0afcbb56f2c44001f",
+        "rawBytes": 3383312,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 773692
+      },
+      {
+        "id": "8,0",
+        "sha256": "82722ad35bce3dfd0eb22d868785c968fac58896df1525507470b4648cedd4e1",
+        "rawBytes": 3506495,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 804418
+      },
+      {
+        "id": "8,1",
+        "sha256": "b2da58651d2326c82e3c8a301904a1a93af59f1ff9d0696d1a7a27e0fb93f45c",
+        "rawBytes": 3497961,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 783270
+      },
+      {
+        "id": "9,-1",
+        "sha256": "937a75abe661a3a9ef9ea6f2ea9bea6ac0e4e98442b4d41f05f2acd7d457cae6",
+        "rawBytes": 3456976,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 807090
+      },
+      {
+        "id": "9,0",
+        "sha256": "deb692944edff64b7b00093c9eb82a0185e4a39fcb4c3bcbac2af38173f1db5f",
+        "rawBytes": 3215935,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 740511
+      },
+      {
+        "id": "9,1",
+        "sha256": "98d6651d591e8779b2bcbdc34549f7bae1bd8757b70d95a7a27cb2a80c403eb7",
+        "rawBytes": 3454885,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 811261
+      }
+    ],
+    "archives": [
+      {
+        "id": "008-material-memory-and-agency",
+        "sha256": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+        "createdAt": 1791445486072
+      },
+      {
+        "id": "009-human-thermal-and-distance-balance",
+        "sha256": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+        "createdAt": 1791466127552
+      },
+      {
+        "id": "010-performed-body-maintenance",
+        "sha256": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+        "createdAt": 1791501484044
+      },
+      {
+        "id": "011-consumption-before-ration-pickup",
+        "sha256": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+        "createdAt": 1791504160572
+      },
+      {
+        "id": "012-funded-human-metabolism",
+        "sha256": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+        "createdAt": 1791508588158
+      },
+      {
+        "id": "013-local-inventory-exposure-and-access",
+        "sha256": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+        "createdAt": 1791512310450
+      },
+      {
+        "id": "014-performed-local-food-handoff",
+        "sha256": "a429759388484bdef2d6048e9044c1ab5d773cbd6b3ff598f9da54dcad4b958b",
+        "createdAt": 1791521109688
+      },
+      {
+        "id": "015-age-bounded-structural-growth",
+        "sha256": "fb2a929456519b7801f9af20b075c9fa5a43ce60cfbcb7792b647d378103b673",
+        "createdAt": 1791524835913
+      },
+      {
+        "id": "016-performed-resource-harvesting",
+        "sha256": "31f3e956350fbdcb9c6b44c406c59714f937d9a8b62c75ff9a32a34cfa2fbb33",
+        "createdAt": 1791542391209
+      },
+      {
+        "id": "017-contact-from-actual-movement",
+        "sha256": "9ef5ff518288527165abed5886a1641b29ec683997450122e4c1f6f4c38bcd23",
+        "createdAt": 1791551698545
+      }
+    ],
+    "protectedRows": {
+      "world_events": {
+        "count": 71873,
+        "unchanged": true,
+        "sha256": "2e636450b9767271887dc56fccf8b6e49f1bd7e597a63798cb7878c3fce73443"
+      },
+      "world_history": {
+        "count": 6771,
+        "unchanged": true,
+        "sha256": "8c06174d3095ee52cf759d522edb715c7aadd82802570081087f244edaafdb9b"
+      },
+      "interventions": {
+        "count": 32,
+        "unchanged": true,
+        "sha256": "03fa25d3a7fbc339d4148f386b8fc21960243f5ca3319cac2748b4b194eef003"
+      },
+      "world_backups": {
+        "count": 10,
+        "unchanged": true,
+        "sha256": "d4fe284454f93e49f25714b3cdbe0552dba2c12f7b9feb4d5d47f59d5b261e00"
+      },
+      "world_backup_parts": {
+        "count": 4021,
+        "unchanged": true,
+        "sha256": "0e2f4906a7a9c6feee4f42ab54319e7820c232cade6702a5bb66ae96058610fc"
+      },
+      "sessions": {
+        "count": 32,
+        "unchanged": true,
+        "sha256": "8c1071294a2ab754151e10f3f343ad0cbcc389c37bb47a0bbe6bdb8a9ccdfd1b"
+      },
+      "agents": {
+        "count": 1,
+        "unchanged": true,
+        "sha256": "957b018ab65e7c6ccc013fa617df670d30fe6a4e442fd4f94da60e69ee7ea33b"
+      },
+      "receipts": {
+        "count": 3,
+        "unchanged": true,
+        "sha256": "61eeb51a809a13188fead544cfbca9f51d31b607589fd2ff68bba49452172183"
+      }
+    },
+    "sourceBackupUnchanged": true,
+    "communities": [
+      {
+        "id": "civ-1",
+        "name": "Fernhaven",
+        "foundedTick": 0,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        },
+        "births": 84,
+        "deaths": 390
+      },
+      {
+        "id": "civ-11",
+        "name": "Amber Hollow",
+        "foundedTick": 0,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        },
+        "births": 93,
+        "deaths": 400
+      },
+      {
+        "id": "civ-21",
+        "name": "Stonebrook",
+        "foundedTick": 0,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        },
+        "births": 96,
+        "deaths": 407
+      },
+      {
+        "id": "civ-3118",
+        "name": "Adonis",
+        "foundedTick": 10369,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        },
+        "births": 134,
+        "deaths": 442
+      }
+    ],
+    "archiveSetUnchanged": true
+  }
+}

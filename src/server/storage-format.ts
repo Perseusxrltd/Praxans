@@ -1,6 +1,6 @@
 import type { DatabaseSync } from "node:sqlite";
 
-export const STORAGE_VERSION = 2;
+export const STORAGE_VERSION = 3;
 export type StorageColumns = [string, string, number, number][];
 
 export function storageVersion(db: DatabaseSync): number {
