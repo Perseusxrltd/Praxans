@@ -1,50 +1,14 @@
 import type { DatabaseSync } from "node:sqlite";
 import { createHash } from "node:crypto";
 import { deflateSync, inflateSync } from "node:zlib";
+import { requireColumns, storageVersion } from "./storage-format";
 
-export const STORAGE_VERSION = 1;
+export { STORAGE_VERSION, storageVersion } from "./storage-format";
 export const ARCHIVE_BLOCK_BYTES = 256 * 1024;
 const encoding = "deflate-parts-1";
 const compressionLevel = 6;
 const sha256 = (bytes: string | Uint8Array) =>
   createHash("sha256").update(bytes).digest("hex");
-
-export function storageVersion(db: DatabaseSync): number {
-  const version = Number(db.prepare("PRAGMA user_version").get()!.user_version);
-  if (version < 0 || version > STORAGE_VERSION)
-    throw new Error(
-      `Unsupported storage version ${version}; preserve the database and use compatible code.`,
-    );
-  return version;
-}
-
-function requireColumns(
-  db: DatabaseSync,
-  table: "world_backups" | "world_backup_parts",
-  expected: [string, string, number, number][],
-): void {
-  const columns = db.prepare(`PRAGMA table_info(${table})`).all() as {
-    name: string;
-    type: string;
-    pk: number;
-    notnull: number;
-  }[];
-  if (
-    columns.length !== expected.length ||
-    expected.some(([name, type, pk, notnull], index) => {
-      const actual = columns[index];
-      return (
-        actual.name !== name ||
-        actual.type.toUpperCase() !== type ||
-        actual.pk !== pk ||
-        actual.notnull !== notnull
-      );
-    })
-  )
-    throw new Error(
-      `Archive storage schema for ${table} is incompatible; preserve the database.`,
-    );
-}
 
 const legacyColumns: [string, string, number, number][] = [
   ["id", "TEXT", 1, 0],

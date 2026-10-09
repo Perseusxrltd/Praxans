@@ -23,6 +23,7 @@
     "test:startup": "tsx scripts/startup-smoke.ts",
     "test:production": "node scripts/production-smoke.mjs",
     "test:hotfix": "tsx scripts/hotfix-smoke.ts",
+    "test:reconnect": "tsx scripts/reconnect-smoke.ts",
     "world:inspect": "tsx scripts/world-maintenance.ts inspect",
     "world:backup": "tsx scripts/world-maintenance.ts backup",
     "hotfix:prepare": "tsx scripts/prepare-hotfix.ts",

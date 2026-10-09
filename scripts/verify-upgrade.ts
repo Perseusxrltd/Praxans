@@ -9,6 +9,7 @@ import { stepWorld, validateWorld } from "../src/simulation/engine";
 import { elementLedger, elementalErrors } from "../src/simulation/chemistry";
 import type { World } from "../src/simulation/types";
 import { backupDatabase } from "../src/server/backup";
+import { regionReader } from "../src/server/regions";
 import { verifyWorldArchives, type WorldArchive } from "../src/server/archives";
 
 const sourcePath = process.argv[2],
@@ -50,11 +51,9 @@ try {
     old = JSON.parse(head.json);
     oldArchives = verifyWorldArchives(source);
     old.tiles = [];
+    const readRegion = regionReader(source);
     for (const chunk of old.chunks) {
-      const row = source
-        .prepare("SELECT json,checksum FROM chunks WHERE id=?")
-        .get(chunk.id) as { json: string; checksum: string };
-      assert.equal(digest(row.json), row.checksum);
+      const row = readRegion(chunk.id);
       old.tiles.push(...JSON.parse(row.json));
     }
     for (const [table, order] of Object.entries(ordering)) {

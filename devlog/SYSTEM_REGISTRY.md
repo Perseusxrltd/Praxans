@@ -46,10 +46,10 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **name**: Persistent State and Intervention Archive
 - **status**: active
 - **package**: src/server/
-- **files**: `store.ts`, `backup.ts`, `archives.ts`, `migrations.ts`, `startup.ts`, `intervention.ts`, `scripts/world-maintenance.ts`, `scripts/verify-upgrade.ts`
+- **files**: `store.ts`, `backup.ts`, `storage-format.ts`, `regions.ts`, `region-codec.ts`, `archives.ts`, `migrations.ts`, `startup.ts`, `intervention.ts`, `scripts/world-maintenance.ts`, `scripts/verify-upgrade.ts`
 - **dependencies**: world_state, natural_systems
 - **dependents**: agent_gateway, world_hosting, community_history
-- **known_issues**: One writer/volume, monolithic population metadata and full region serialization. New archives use verified compressed blocks and owned migration; older plaintext archives are losslessly converted and compressed blocks can be packed more densely before a new law migration, retaining exact expanded bytes and permitting reuse of freed pages. Original and stored replacement blocks verify per archive, with no codec/version change. Conversion runs before full terrain loading; it does not shrink the file. The additive schema commits separately from physical migration. Pre-write checkpoint reuse and bounded native copies address demonstrated reader-related log accumulation, but single-write and combined live/preflight capacity remain finite. The 16 MiB setting bounds only reusable WAL. External backup retention/monitoring and account recovery remain open.
+- **known_issues**: One writer/volume, monolithic population metadata and full region serialization. Region storage version 2 losslessly encodes rows inside the save transaction; original bytes remain authoritative, older readers are incompatible, and compression costs CPU. Deployment status is in docs/releases/region-checkpoints-0.2.md. New archives use verified compressed blocks and owned migration; older plaintext archives are losslessly converted and compressed blocks can be packed more densely before a new law migration, retaining exact expanded bytes and permitting reuse of freed pages. Original and stored replacement blocks verify per archive, with no codec/version change. Conversion runs before full terrain loading; it does not shrink the file. The additive schema commits separately from physical migration. Pre-write checkpoint reuse and bounded native copies address demonstrated reader-related log accumulation, but single-write and combined live/preflight capacity remain finite. The 16 MiB setting bounds only reusable WAL. External backup retention/monitoring and account recovery remain open.
 - **last_touched**: 2026-10-09
 
 ### agent_gateway
@@ -71,7 +71,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `main.tsx`, `renderer.ts`, `PlanetWelcome.tsx`, `FieldGuide.tsx`, `LifePanel.tsx`, `DevelopmentPanel.tsx`, `Archive.tsx`, `Communities.tsx`, `Dialog.tsx`, `AgentInvitation.tsx`, `src/server/observer.ts`, `src/server/atlas.ts`, `style.css`, `planet.css`, `development.css`, `communities.css`
 - **dependencies**: agent_gateway, world_state, natural_systems, community_history
 - **dependents**: none
-- **known_issues**: Globe requires WebGL for its full visual; 100-stream service cap. Overview/atlas loading is progressive, but cold server work still delays opening. Detailed frames retain global entity lists; bounded viewport/delta publication is unresolved.
+- **known_issues**: Globe requires WebGL for its full visual; 100-stream service cap. Overview/atlas loading is progressive, but cold server work still delays opening. Detailed frames retain global entity lists; bounded viewport/delta publication is unresolved. Terminal EventSource retries preserve the last view and cancel on navigation; the earlier live container reconnection failed and remains recorded.
 - **last_touched**: 2026-10-09
 
 ### community_history
@@ -112,7 +112,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **name**: Model, Browser, and Continuity Validation
 - **status**: active
 - **package**: tests/web/
-- **files**: `tests/web/`, `scripts/browser-smoke.mjs`, `scripts/production-smoke.mjs`, `scripts/founding-trials.ts`, `scripts/extinction-smoke.ts`, `scripts/renewal-smoke.ts`, `scripts/renewal-trials.ts`, `scripts/exploration-smoke.ts`, `scripts/connection-smoke.ts`, `scripts/startup-smoke.ts`, `scripts/hotfix-smoke.ts`, `scripts/verify-upgrade.ts`, `.github/workflows/browser.yml`
+- **files**: `tests/web/`, `scripts/browser-smoke.mjs`, `scripts/production-smoke.mjs`, `scripts/founding-trials.ts`, `scripts/extinction-smoke.ts`, `scripts/renewal-smoke.ts`, `scripts/renewal-trials.ts`, `scripts/exploration-smoke.ts`, `scripts/connection-smoke.ts`, `scripts/startup-smoke.ts`, `scripts/hotfix-smoke.ts`, `scripts/reconnect-smoke.ts`, `scripts/verify-upgrade.ts`, `.github/workflows/browser.yml`
 - **dependencies**: world_state, natural_systems, civilization_intelligence, world_storage, agent_gateway, browser_observer
 - **dependents**: none
 - **known_issues**: Local causal and short-run checks do not establish large-world load capacity or century-scale ecological stability.
@@ -150,7 +150,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `physiology.ts`, `bodywork.ts`, `subsistence.ts`, `citizens.ts`
 - **dependencies**: natural_systems, world_state, settlement_space, human_cognition
 - **dependents**: civilization_intelligence
-- **known_issues**: The historical infant death exposed absent caregiver protection. Body maintenance now permits finite local assistance through ordinary repair work, with common transfer budgets and observable self-adjustment. Contact and work/choice parameters remain coarse; food and ice contention use finite shared budgets, and one actual intake/reserve account funds heat and activity. Oxygen contention, performed feeding, childhood growth, reserve/power calibration, containers, broader care and generational viability remain unresolved. See docs/research/community-collapse-2026-10-08.md.
+- **known_issues**: The historical infant death exposed absent caregiver protection. Body maintenance now permits finite local assistance through ordinary repair work, with common transfer budgets and observable self-adjustment. Contact and work/choice parameters remain coarse; food and ice contention use finite shared budgets, and one actual intake/reserve account funds heat and activity. Oxygen contention, performed feeding, childhood growth, reserve/power calibration, containers, broader care and generational viability remain unresolved. See docs/research/community-collapse-2026-10-08.md and the bounded infant-food-access-2026-10-09.md diagnostic, which confirms missing holder handoff and uncalibrated heat/growth coupling without measuring death shares.
 - **last_touched**: 2026-10-09
 
 ### settlement_space

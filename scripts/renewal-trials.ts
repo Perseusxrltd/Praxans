@@ -2,6 +2,7 @@ import { DatabaseSync } from "node:sqlite";
 import { readFileSync, writeFileSync, readdirSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { digest } from "../src/server/store";
+import { regionReader } from "../src/server/regions";
 import { migrateWorld } from "../src/server/migrations";
 import { renewalSchema } from "../src/server/intervention";
 import { renewCommunities } from "../src/simulation/renewal";
@@ -45,11 +46,9 @@ const head = db.prepare("SELECT json,checksum FROM world WHERE id=1").get() as {
 if (digest(head.json) !== head.checksum) throw new Error("World checksum");
 const saved = JSON.parse(head.json) as World;
 saved.tiles = [];
+const readRegion = regionReader(db);
 for (const chunk of saved.chunks) {
-  const row = db
-    .prepare("SELECT json,checksum FROM chunks WHERE id=?")
-    .get(chunk.id) as { json: string; checksum: string };
-  if (digest(row.json) !== row.checksum) throw new Error("Region checksum");
+  const row = readRegion(chunk.id);
   saved.tiles.push(...JSON.parse(row.json));
 }
 db.close();

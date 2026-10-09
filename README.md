@@ -66,6 +66,8 @@ The [agent recovery hotfix](docs/releases/agent-recovery-0.2.md) accepts advisor
 
 The live [body-maintenance correction](docs/releases/body-maintenance-0.2.md) lets Praxans spend ordinary work and existing fiber on their own covering or someone nearby. Inspectors show real recipients, completed work and covering mass. Its law migration preserves the saved world and all historical deaths. The live [ration-boundary correction](docs/releases/ration-boundary-0.2.md) puts current bodily consumption before optional packing, preserves private custody and exposes personal food inventories. The [funded-metabolism correction](docs/releases/funded-metabolism-0.2.md) brings finite intake, usable body reserves, shared current food requests and paid heat/activity into one account. It is live on the continuing world and browser inspector. Infant feeding, age-dependent growth, seasonal food flows and long-term survival still require validation.
 
+The [checkpoint and observer recovery release](docs/releases/region-checkpoints-0.2.md) records lossless storage, terminal stream retries, validation and actual publication status. A [bounded infant feeding/growth study](docs/research/infant-food-access-2026-10-09.md) separates additional access defects from claims about historical deaths.
+
 The [implementation ledger](docs/roadmap.md) tracks every accepted requirement, its status and its evidence. The [fundamentals review](docs/fundamentals.md) explains the remaining core work; the [agency and diplomacy contract](docs/agency-and-diplomacy.md) defines influence, success and contact.
 
 ## Keep the same universe
@@ -97,6 +99,7 @@ npm run test:exploration
 npm run test:connection
 npm run test:startup
 npm run test:hotfix
+npm run test:reconnect
 npm run format:check
 ```
 

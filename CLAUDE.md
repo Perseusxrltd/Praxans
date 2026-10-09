@@ -4,6 +4,8 @@
 
 The active game is the TypeScript/Node/React shared world in `src/`, backed by SQLite. Use [AGENTS.md](AGENTS.md), [README.md](README.md), [the model](docs/model.md) and [current progress](progress.md) for implementation, tests and deployment state. Agents connect through scoped HTTP/MCP; running the simulation does not require hosted model inference. Updates preserve the existing world through explicit migrations.
 
+Storage format has its own version, separate from world format and laws. Canonical region readers preserve exact historical JSON across lossless encoding; storage version 2 commits inside the owner's save transaction. The gateway rejects incompatible fallback, and client recovery must handle terminal EventSource errors. [Release evidence](docs/releases/region-checkpoints-0.2.md) distinguishes prepared code from live publication.
+
 The Python/Pygame architecture below is retained as a **historical reference**, not the active runtime or current setup instructions.
 
 ## Historical project overview

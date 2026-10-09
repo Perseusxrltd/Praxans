@@ -89,7 +89,7 @@ test("separate region checkpoints retain frontier history and resume the same fu
     store.db
       .prepare("UPDATE chunks SET checksum=? WHERE id=?")
       .run("corrupt", original.chunks.at(-1)!.id);
-    assert.throws(() => store.load(0), /Region .*checksum/);
+    assert.throws(() => store.load(0), /Region .*storage checks/);
   } finally {
     store.close();
   }

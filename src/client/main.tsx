@@ -315,39 +315,70 @@ function App() {
   }, [arrived]);
   useEffect(() => {
     if (!arrived) return;
-    const source = new EventSource(
-      `/api/stream${region ? `?civilization=${encodeURIComponent(region)}` : ""}`,
-    );
-    source.onopen = () => {
-      setConnected(true);
-      setFault("");
-    };
-    source.onerror = () => setConnected(false);
-    source.addEventListener("snapshot", (event) => {
-      setConnected(true);
-      setFault("");
-      accept(JSON.parse((event as MessageEvent).data));
-    });
-    source.addEventListener("frame", (event) => {
-      const frame = JSON.parse((event as MessageEvent).data) as WorldFrame,
-        current = latest.current;
-      if (!current) return;
-      const tiles = frame.tileChanges.length
-        ? [...current.tiles]
-        : current.tiles;
-      for (const tile of frame.tileChanges)
-        tiles[
-          (tile.y - current.originY) * current.width + tile.x - current.originX
-        ] = tile;
-      accept({ ...current, ...frame, tiles });
-    });
-    source.addEventListener("fault", () => {
-      setFault(
-        "The world has paused after an internal error. Its last valid checkpoint is preserved.",
+    let source: EventSource;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let disposed = false;
+    let retryDelay = 1000;
+    const connect = () => {
+      if (disposed) return;
+      const current = new EventSource(
+        `/api/stream${region ? `?civilization=${encodeURIComponent(region)}` : ""}`,
       );
-      setConnected(false);
-    });
+      source = current;
+      const active = () => !disposed && source === current;
+      current.onopen = () => {
+        if (!active()) return;
+        retryDelay = 1000;
+        setConnected(true);
+        setFault("");
+      };
+      current.onerror = () => {
+        if (!active()) return;
+        setConnected(false);
+        // Browsers retry interrupted streams, but an HTTP error can close an
+        // EventSource permanently. Recreate only that terminal connection.
+        if (current.readyState === EventSource.CLOSED && timer === undefined) {
+          timer = setTimeout(() => {
+            timer = undefined;
+            connect();
+          }, retryDelay);
+          retryDelay = Math.min(30000, retryDelay * 2);
+        }
+      };
+      current.addEventListener("snapshot", (event) => {
+        if (!active()) return;
+        setConnected(true);
+        setFault("");
+        accept(JSON.parse((event as MessageEvent).data));
+      });
+      current.addEventListener("frame", (event) => {
+        if (!active()) return;
+        const frame = JSON.parse((event as MessageEvent).data) as WorldFrame,
+          current = latest.current;
+        if (!current) return;
+        const tiles = frame.tileChanges.length
+          ? [...current.tiles]
+          : current.tiles;
+        for (const tile of frame.tileChanges)
+          tiles[
+            (tile.y - current.originY) * current.width +
+              tile.x -
+              current.originX
+          ] = tile;
+        accept({ ...current, ...frame, tiles });
+      });
+      current.addEventListener("fault", () => {
+        if (!active()) return;
+        setFault(
+          "The world has paused after an internal error. Its last valid checkpoint is preserved.",
+        );
+        setConnected(false);
+      });
+    };
+    connect();
     return () => {
+      disposed = true;
+      clearTimeout(timer);
       source.close();
     };
   }, [region, arrived]);

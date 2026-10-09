@@ -7,14 +7,32 @@
 
 ## Log
 
-### [2026-10-09] Prepared Storage-Aware Gateway and Truthful Readiness
+### [2026-10-09] Prepared Lossless Regional Storage and Observer Recovery
+
+- **type**: infrastructure
+- **systems**: world_storage, browser_observer, browser_validation
+- **files**: `storage-format.ts`, `regions.ts`, `region-codec.ts`, `store.ts`, `main.tsx`, `reconnect-smoke.ts`
+- **agent**: Codex
+
+Storage version 2 encodes regions atomically without changing original bytes, physical state or history. Exact matched replay and inhabited handover pass; smaller WAL improves measured headroom, while complete local saves cost more CPU/time. The client retries terminal EventSource failures and cancels obsolete attempts. [Validation and publication status](../docs/releases/region-checkpoints-0.2.md) remain explicit. → ADR-042; → ADR-043.
+
+### [2026-10-09] Bounded Infant Food Access and Growth Diagnostic
+
+- **type**: audit
+- **systems**: human_physiology, civilization_intelligence
+- **files**: `infant-food-access-2026-10-09.md`, `infant-food-access-2026-10-09.json`
+- **agent**: Codex world_research
+
+Nine controlled cases using real metabolism/subsistence show no donor path from nearby private food and expose the uncalibrated heat/retention coupling. Four-hour reserve substitution causes no injury. The source and live world remain unchanged; neither result apportions historical deaths or proves childhood viability.
+
+### [2026-10-09] Published Storage-Aware Gateway and Truthful Readiness
 
 - **type**: infrastructure
 - **systems**: runtime_handover, world_hosting, browser_validation
 - **files**: `gateway.ts`, `checkpoint.ts`, `checkpoint.test.ts`, `hotfix-smoke.ts`
 - **agent**: Codex
 
-An isolated container build keeps the existing food-custody runtime byte-identical while strengthening fallback compatibility and answering readiness promptly during handover/recovery. All 25 handover and 12 production checks pass, including a schema-only committed candidate failure; a fresh off-host backup verifies all six archives. [Publication and limits](../docs/releases/gateway-readiness-0.2.md) are tracked separately from the pending regional storage candidate. → ADR-041.
+An isolated container build keeps the existing food-custody runtime byte-identical while strengthening fallback compatibility and answering readiness promptly during handover/recovery. All 25 handover and 12 production checks pass, including a schema-only committed candidate failure; a fresh off-host backup verifies all six archives. Railway deployment `a7bbebcf-a4d6-416a-9966-4f6d1908a696` succeeded on the same service/volume and verified the continuing runtime/clock. The actual old client failed to reconnect after the container replacement; camera/IDs survived but observation stopped. [Publication and limits](../docs/releases/gateway-readiness-0.2.md) preserve that failed criterion separately from the region/client correction. → ADR-041.
 
 ### [2026-10-09] Consistent Local Inventory Exposure and Resource Access
 

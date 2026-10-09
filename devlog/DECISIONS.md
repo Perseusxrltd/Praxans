@@ -441,3 +441,21 @@
 - **decision**: Fingerprint world metadata, SQLite storage version/schema and ordered region checksums within one read transaction before deciding whether a failed candidate permits automatic fallback. Answer readiness immediately with an unavailable status while handover or recovery has no serving runtime; keep ordinary request queuing and observer handover intact. Install this gateway support before any incompatible regional encoding.
 - **alternatives**: Metadata-only comparison misses storage compatibility. A full historical payload scan adds unbounded handover work and belongs in independent integrity verification. Returning healthy status during downtime would misrepresent the world. A runtime artifact cannot replace its supervising gateway.
 - **consequences**: A committed incompatible candidate stays pending for forward recovery. The fingerprint is a compatibility guard, not comprehensive corruption detection. Installing the gateway requires a controlled container operation with explicit reconnection evidence; subsequent runtime-only updates retain the existing connection-preserving path. No physical world version changes.
+
+### ADR-042: Atomic lossless regional storage independent of physical state
+
+- **date**: 2026-10-09
+- **status**: accepted
+- **context**: One raw regional checkpoint can nearly fill the live volume's remaining write-log space. Archives already have a separate encoding, but ordinary regional rows remain large.
+- **decision**: Add storage version 2 with one canonical region codec/reader. Preserve original JSON bytes and SHA-256, use bounded dictionary-free Zstandard frames only when smaller, and verify encoded bytes separately. Convert schema and rows within the owner's existing save transaction; rollback invalidates cached write state. Keep physical format/laws, original archives and clock unchanged. Install ADR-041's compatibility guard first.
+- **alternatives**: Dropping history, rounding saved values or shrinking the modeled world changes evidence/state. Raising only the test quota hides capacity pressure. Constructor-time conversion can mutate storage before acquiring world ownership. A second bespoke reader per maintenance tool invites incompatible behavior.
+- **consequences**: Old storage-1 code cannot read encoded rows; committed candidates require compatible forward recovery. SQLite frees pages for reuse without shrinking its file. Compression trades CPU for log capacity, so complete real-world trials are required. Full-region serialization, metadata growth, total memory and indefinite capacity remain unsolved.
+
+### ADR-043: Recover terminal observer connections without resetting the view
+
+- **date**: 2026-10-09
+- **status**: accepted
+- **context**: During actual container replacement the old browser retried once and remained disconnected. EventSource can permanently close after an HTTP error even though ordinary interrupted streams use native reconnection.
+- **decision**: Recreate only terminally closed streams using bounded exponential backoff. Keep native retries, ignore obsolete event listeners and cancel retries when leaving or changing the region. Preserve camera, inspection and last received state; subsequent server snapshots remain authoritative.
+- **alternatives**: Reloading the page discards observation context. Assuming all browser errors retry natively reproduces the live failure. Retrying every error duplicates connections already managed by EventSource.
+- **consequences**: Controlled real-503 browser tests must cover repeated failure, retained selection/camera, monotonic identity/time and navigation cancellation. Existing loaded old bundles need a refresh to receive this code. This does not remove host outages or allow a browser to alter the clock.

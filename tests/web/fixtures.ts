@@ -1,5 +1,6 @@
 import { createWorld as createSimulationWorld } from "../../src/simulation/world";
 import { Store, digest } from "../../src/server/store";
+import { regionWriter } from "../../src/server/regions";
 import type {
   Design,
   World,
@@ -164,13 +165,12 @@ export function legacyCheckpoint(
     ])
       delete c[field];
   const { tiles, ...metadata } = old;
+  const writeRegion = regionWriter(store.db);
   for (const chunk of old.chunks) {
     const json = JSON.stringify(
       tiles.slice(chunk.start, chunk.start + 32 ** 2),
     );
-    store.db
-      .prepare("UPDATE chunks SET json=?,checksum=? WHERE id=?")
-      .run(json, digest(json), chunk.id);
+    writeRegion(chunk.id, json, digest(json));
   }
   const json = JSON.stringify(metadata);
   store.db

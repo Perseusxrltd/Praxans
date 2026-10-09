@@ -19,6 +19,12 @@ import { CHUNK_SIZE, TICK_MS, WORLD_VERSION } from "../simulation/types";
 import { describeMigration, migrateWorld } from "./migrations";
 import { backupDatabase } from "./backup";
 import {
+  checkRegionStorage,
+  initializeRegions,
+  regionReader,
+  regionWriter,
+} from "./regions";
+import {
   initializeArchives,
   checkArchiveStorage,
   compactWorldArchive,
@@ -57,6 +63,7 @@ export class Store {
   readonly db: DatabaseSync;
   private inTransaction = false;
   private chunkHashes = new Map<string, string>();
+  private encodedRegions = new Set<string>();
   private afterCommit: (() => void)[] = [];
   private leaseToken: string | undefined;
   private lastHeartbeat = 0;
@@ -67,6 +74,7 @@ export class Store {
     // Refuse an unknown storage format before any schema or journal mutation.
     try {
       checkArchiveStorage(this.db);
+      checkRegionStorage(this.db);
       this.db
         .exec(`PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA busy_timeout=5000;
       PRAGMA journal_size_limit=16777216;
@@ -172,6 +180,7 @@ export class Store {
         /* already rolled back */
       }
       this.chunkHashes.clear();
+      this.encodedRegions.clear();
       throw error;
     } finally {
       this.inTransaction = false;
@@ -217,16 +226,14 @@ export class Store {
         this.transaction(() => compactWorldArchive(this.db, archive.id));
     }
     world.tiles = [];
+    const readRegion = regionReader(this.db);
+    this.chunkHashes.clear();
+    this.encodedRegions.clear();
     for (const chunk of world.chunks) {
-      const storedChunk = this.db
-        .prepare("SELECT json,checksum FROM chunks WHERE id=?")
-        .get(chunk.id) as { json: string; checksum: string } | undefined;
-      if (!storedChunk || digest(storedChunk.json) !== storedChunk.checksum)
-        throw new Error(
-          `Region ${chunk.id} is missing or failed its checksum. The existing save has been preserved.`,
-        );
+      const storedChunk = readRegion(chunk.id);
       world.tiles.push(...JSON.parse(storedChunk.json));
       this.chunkHashes.set(chunk.id, storedChunk.checksum);
+      if (storedChunk.encoded) this.encodedRegions.add(chunk.id);
     }
     if (world.version === WORLD_VERSION) {
       validateWorld(world);
@@ -264,6 +271,8 @@ export class Store {
     validateWorld(world);
     const write = () => {
       this.heartbeat();
+      initializeRegions(this.db);
+      const writeRegion = regionWriter(this.db);
       const { tiles, pendingEvents, ...metadata } = world;
       const json = JSON.stringify({ ...metadata, pendingEvents: [] });
       const archived = new Set(pendingEvents.map((event) => event.id));
@@ -287,13 +296,13 @@ export class Store {
             tiles.slice(chunk.start, chunk.start + CHUNK_SIZE ** 2),
           ),
           checksum = digest(data);
-        if (this.chunkHashes.get(chunk.id) !== checksum) {
-          this.db
-            .prepare(
-              "INSERT INTO chunks VALUES(?,?,?) ON CONFLICT(id) DO UPDATE SET json=excluded.json,checksum=excluded.checksum",
-            )
-            .run(chunk.id, data, checksum);
+        if (
+          this.chunkHashes.get(chunk.id) !== checksum ||
+          !this.encodedRegions.has(chunk.id)
+        ) {
+          writeRegion(chunk.id, data, checksum);
           this.chunkHashes.set(chunk.id, checksum);
+          this.encodedRegions.add(chunk.id);
         }
       }
       this.db

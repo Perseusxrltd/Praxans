@@ -89,6 +89,15 @@ try {
     await p
       .getByRole("button", { name: "Watch the world", exact: true })
       .click();
+  // Establish both initial streams before the test-only HTTP clock response
+  // can race a still-buffered initial snapshot from either observer.
+  for (const p of [page, other])
+    await p.waitForFunction(() => {
+      const state = JSON.parse(window.render_game_to_text());
+      return (
+        state.mode === "shared-world" && state.connected && state.tick === 0
+      );
+    });
   await page.screenshot({ path: `${output}/01-arrival.png`, fullPage: true });
   await page.evaluate(() => window.advanceTime(96 * 250 * 5));
   await page.waitForFunction(

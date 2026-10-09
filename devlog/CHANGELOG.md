@@ -8,6 +8,8 @@
 ## [Renewal, Scale and Agent Recovery 0.2] — 2026-10-08
 
 ### Added
+- Prepared atomic storage version 2 with lossless bounded regional encoding, original/payload verification, legacy readers and rollback/restart tests (→ world_storage; → ADR-042).
+- Nine bounded infant-food/growth controls with exact probe and transfer evidence; no historical death apportionment or biological correction (→ human_physiology).
 - Finite unoxidized intake, a usable reserve subset inside existing body material and one measured metabolic heat/activity account; future death records and agent/browser observations expose the actual interval (→ human_physiology; → ADR-037).
 - Performed body maintenance through existing repair tasks: local self/nearby care, finite work and fiber, shared transfer budgets, signed outcome learning and an inspector for real covering/progress. Format 10 / biosphere-1.4 preserves existing state (→ human_physiology; → ADR-034).
 - Independently versioned, verified compressed migration archives and offline archive verification. Original historical bytes remain recoverable (→ world_storage; → ADR-033).
@@ -21,7 +23,8 @@
 - Antiquity-first source register, scale audits, failed-candidate evidence, measured CPU baseline and explicit large-world acceptance targets.
 
 ### Fixed
-- Prepared gateway support for storage-aware automatic fallback and prompt, truthful unavailable readiness during handover/recovery. An isolated build preserves the active runtime bytes; [publication status](../docs/releases/gateway-readiness-0.2.md) is explicit (→ runtime_handover; → ADR-041).
+- Prepared recovery after terminal EventSource HTTP errors, preserving camera/selection and cancelling navigation-obsolete attempts. Six controlled 503/browser cases pass; the earlier actual container reconnect failure remains recorded (→ browser_observer; → ADR-043).
+- Published gateway support for storage-aware automatic fallback and prompt, truthful unavailable readiness during handover/recovery. An isolated build preserves the active runtime bytes; [publication status](../docs/releases/gateway-readiness-0.2.md) is explicit (→ runtime_handover; → ADR-041).
 - Successful long world transactions renew their held writer lease before commit; loss of ownership rolls back the write (→ world_storage; → ADR-040).
 - Loose camp, personal and journey materials share hourly sampled exposure, journey loads include personal supplies, and founding resources require connected represented land. Format 13 / biosphere-1.7 preserves actual inventories at migration; [release validation/publication](../docs/releases/food-custody-0.2.md) remains explicit (→ settlement_space; → civic_relations; → ADR-038).
 - Existing archive blocks use denser packing only when smaller, with original/replacement verification and unchanged codec, IDs, dates and original hashes. Capacity is measured on a copy; history is not removed (→ world_storage; → ADR-039).

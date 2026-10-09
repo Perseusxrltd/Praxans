@@ -4,6 +4,7 @@ import { existsSync } from "node:fs";
 import { resolve, dirname, join } from "node:path";
 import { WORLD_VERSION } from "../src/simulation/types";
 import { backupDatabase } from "../src/server/backup";
+import { regionReader } from "../src/server/regions";
 import {
   listWorldArchives,
   storageVersion,
@@ -36,6 +37,7 @@ try {
     await backupDatabase(db, destination);
     console.log(`Consistent world backup saved to ${destination}`);
   } else if (command === "inspect") {
+    db.exec("BEGIN");
     const head = db
       .prepare("SELECT json,checksum,saved_at FROM world WHERE id=1")
       .get() as
@@ -49,14 +51,8 @@ try {
     const regions = db.prepare("SELECT id FROM chunks ORDER BY id").all() as {
       id: string;
     }[];
-    const readRegion = db.prepare(
-      "SELECT json,checksum FROM chunks WHERE id=?",
-    );
-    for (const { id } of regions) {
-      const region = readRegion.get(id) as { json: string; checksum: string };
-      if (digest(region.json) !== region.checksum)
-        throw new Error(`Region ${id} checksum mismatch.`);
-    }
+    const readRegion = regionReader(db);
+    for (const { id } of regions) readRegion(id);
     console.log(
       JSON.stringify(
         {

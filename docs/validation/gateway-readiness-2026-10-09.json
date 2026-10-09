@@ -1,5 +1,5 @@
 {
-  "status": "prepared, not deployed",
+  "status": "deployed; container continuity verified; actual old-client reconnection criterion failed",
   "scope": "Gateway-only container increment; runtime bytes and physical laws unchanged. Regional storage compression is separate.",
   "baseCommit": "ea5436d298cdc4c5463a927ae1278feac8b49211",
   "gatewaySha256": "fc3454f1f506bf84d3b3553fe32d1736780c729269801b232c079a063facebcc",
@@ -218,5 +218,247 @@
       }
     }
   },
-  "deployment": null
+  "deployment": {
+    "provider": "Railway",
+    "id": "a7bbebcf-a4d6-416a-9966-4f6d1908a696",
+    "status": "SUCCESS",
+    "createdAt": "2026-10-09T03:08:15.144Z",
+    "containerRelease": "gateway-readiness-20261009-1",
+    "imageSha256": "e338deac49b0154a2cc65bfc5907d13332791c5aaed5fed7b280f3c0b39a1383",
+    "sourceCommit": "8148006",
+    "sameServiceAndVolume": true,
+    "oldContainerRemoved": true,
+    "liveVerification": {
+      "at": "2026-10-09T03:12:42.741Z",
+      "node": "v22.23.3",
+      "gatewaySha256": "fc3454f1f506bf84d3b3553fe32d1736780c729269801b232c079a063facebcc",
+      "runtimeSha256": "39acd20b025d3e3face2afc1a2721a6988c7ec8ca51871617120242def40f49e",
+      "status": {
+        "phase": "running",
+        "release": "food-custody-20261009-2",
+        "pendingRequests": 0,
+        "activeRequests": 0,
+        "observers": 0,
+        "runtimePid": 20,
+        "managedProcesses": 1,
+        "error": null
+      },
+      "head": {
+        "checksum": "781efc332a932c0a9dc26a4ed3d3f5b08acc497f9d329f1c025ab12207ccf58e",
+        "tick": 394120,
+        "people": 0,
+        "births": 407,
+        "deaths": 1639,
+        "generator": "planet-1",
+        "rng": 638156479
+      },
+      "clock": {
+        "tick": 394120,
+        "wall_ms": 1791490970340
+      },
+      "storage": 1,
+      "archives": [
+        {
+          "id": "008-material-memory-and-agency",
+          "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+          "created_at": 1791445486072
+        },
+        {
+          "id": "009-human-thermal-and-distance-balance",
+          "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+          "created_at": 1791466127552
+        },
+        {
+          "id": "010-performed-body-maintenance",
+          "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+          "created_at": 1791501484044
+        },
+        {
+          "id": "011-consumption-before-ration-pickup",
+          "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+          "created_at": 1791504160572
+        },
+        {
+          "id": "012-funded-human-metabolism",
+          "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+          "created_at": 1791508588158
+        },
+        {
+          "id": "013-local-inventory-exposure-and-access",
+          "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+          "created_at": 1791512310450
+        }
+      ],
+      "communities": [
+        {
+          "id": "civ-1",
+          "foundedTick": 0,
+          "births": 84,
+          "deaths": 390,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        },
+        {
+          "id": "civ-11",
+          "foundedTick": 0,
+          "births": 93,
+          "deaths": 400,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        },
+        {
+          "id": "civ-21",
+          "foundedTick": 0,
+          "births": 96,
+          "deaths": 407,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        },
+        {
+          "id": "civ-3118",
+          "foundedTick": 10369,
+          "births": 134,
+          "deaths": 442,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        }
+      ],
+      "counts": {
+        "sessions": 26,
+        "agents": 1,
+        "receipts": 3,
+        "world_events": 70508,
+        "world_history": 4105,
+        "renewals": 1
+      },
+      "volume": {
+        "capacity": 454299648,
+        "available": 106475520,
+        "wal": 16777216
+      },
+      "memory": {
+        "events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "current": 682336256,
+        "runtimeStatus": [
+          "VmHWM:\t  400104 kB",
+          "VmRSS:\t  331276 kB",
+          "RssAnon:\t  276484 kB",
+          "RssFile:\t   54792 kB"
+        ]
+      },
+      "health": {
+        "ok": true,
+        "tick": 394132,
+        "lawsVersion": "biosphere-1.7",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 24589,
+        "simulation": "catching-up"
+      }
+    }
+  },
+  "actualBrowserReconnection": {
+    "initial": {
+      "mode": "shared-world",
+      "tick": 392576,
+      "connected": true,
+      "viewport": {
+        "x": 402.72187499999995,
+        "y": -13.978125359443993,
+        "zoom": 1.0753125000000001,
+        "width": 999,
+        "height": 690
+      },
+      "selection": null,
+      "communities": [
+        {
+          "id": "civ-1",
+          "people": 0
+        },
+        {
+          "id": "civ-11",
+          "people": 0
+        },
+        {
+          "id": "civ-21",
+          "people": 0
+        },
+        {
+          "id": "civ-3118",
+          "people": 0
+        }
+      ]
+    },
+    "final": {
+      "mode": "shared-world",
+      "tick": 393284,
+      "connected": false,
+      "viewport": {
+        "x": 402.72187499999995,
+        "y": -13.978125359443993,
+        "zoom": 1.0753125000000001,
+        "width": 999,
+        "height": 690
+      },
+      "selection": null,
+      "communities": [
+        {
+          "id": "civ-1",
+          "people": 0
+        },
+        {
+          "id": "civ-11",
+          "people": 0
+        },
+        {
+          "id": "civ-21",
+          "people": 0
+        },
+        {
+          "id": "civ-3118",
+          "people": 0
+        }
+      ]
+    },
+    "started": 2,
+    "finished": 2,
+    "events": [
+      {
+        "at": "2026-10-09T03:06:37.872Z",
+        "type": "stream-start",
+        "count": 1
+      },
+      {
+        "at": "2026-10-09T03:09:27.565Z",
+        "type": "stream-finished",
+        "count": 1
+      },
+      {
+        "at": "2026-10-09T03:09:30.572Z",
+        "type": "stream-start",
+        "count": 2
+      },
+      {
+        "at": "2026-10-09T03:09:30.671Z",
+        "type": "stream-finished",
+        "count": 2
+      }
+    ],
+    "errors": [],
+    "scope": "Actual browser against Railway-hosted identical client assets; no Vercel URL fetch, reload, clock control, founding or agent submission.",
+    "passed": false,
+    "responseStatusRecorded": false
+  }
 }
