@@ -7,6 +7,15 @@
 
 ## Log
 
+### [2026-10-09] Measured Food Flows and Bounded Development
+
+- **type**: bugfix
+- **systems**: human_physiology, civilization_intelligence, world_storage, browser_validation
+- **files**: `physiology.ts`, `world.ts`, `migrations.ts`, `metabolism.test.ts`, `food-flux-day-2026-10-09.md`
+- **agent**: Codex
+
+A 24-hour inhabited-copy diagnostic reproduces the exact uninstrumented world while separating harvest, food holders, intake, oxidation, retention, spoilage and shared catchments. Future structural deposition now follows an explicit developmental capacity and finite adult recovery, with actual food funding and no extra processing permission from cold/work/melting. Existing bodies and history remain intact through migration 015; the [release record](../docs/releases/development-0.2.md) distinguishes the passing local controls from pending wider validation and publication. → ADR-045.
+
 ### [2026-10-09] Voluntary Local Food Handoffs and Collapse Follow-up
 
 - **type**: bugfix

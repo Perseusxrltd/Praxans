@@ -9,9 +9,11 @@ import { nearbyTiles } from "../../src/simulation/terrain";
 import { astronomy, PLANET } from "../../src/simulation/planet";
 import {
   METABOLISM,
+  DEVELOPMENT,
   PHYSIOLOGY,
   bodyHeatBalance,
   initialMetabolism,
+  structuralCapacity,
   prepareMetabolism,
   feedMetabolicNeeds,
   finishMetabolism,
@@ -30,6 +32,7 @@ import {
   worldArchiveBytes,
 } from "../../src/server/archives";
 import type { Citizen, World } from "../../src/simulation/types";
+import { DAYS_PER_YEAR } from "../../src/simulation/types";
 
 const FOOD_KJ = MATERIALS.biomass.carbon * LAWS.chemicalEnergy;
 const REST_WATTS = PHYSIOLOGY.basalWatts + PHYSIOLOGY.restingWatts;
@@ -382,6 +385,259 @@ test("reserve restoration and growth share one processed-food allowance without 
   );
 });
 
+test("extra cold, active work and melting cannot increase tissue processing or developmental permission", () => {
+  for (const recoveringReserve of [false, true]) {
+    const results = [];
+    for (const demand of ["rest", "cold", "work", "melt"]) {
+      const f = fixture();
+      f.person.age = recoveringReserve ? 30 : 1;
+      f.person.body = recoveringReserve ? 16.2 : 2;
+      f.person.metabolism = {
+        intake: recoveringReserve ? 0.4 : 0.1,
+        reserves: recoveringReserve ? 0 : 0.2,
+        last: null,
+      };
+      f.person.hydration = recoveringReserve ? 6 : 1.1;
+      for (const tile of nearbyTiles(f.world, f.person, 1.5)) {
+        tile.water = tile.ice = tile.air.snow = 0;
+      }
+      const balance = bodyHeatBalance(f.person, 0, false, 0);
+      f.tile.temperature =
+        PHYSIOLOGY.skinTemperature -
+        (balance.metabolicDemandW *
+          PHYSIOLOGY.airResistance *
+          (demand === "cold" ? 2 : 1)) /
+          balance.area;
+      if (demand === "melt") f.tile.ice = 0.2;
+      const before = balances(f.world);
+      const flux = interval(f, 0.25, demand === "work");
+      close(flux.healthLoss, 0);
+      if (demand === "melt") assert.ok(flux.meltKJ > 0);
+      conserved(f.world, before);
+      results.push(flux);
+    }
+    const baseline = results[0];
+    assert.ok(baseline.reserveStoredKg + baseline.structureStoredKg > 0);
+    for (const flux of results.slice(1)) {
+      assert.ok(flux.foodOxidizedKg > baseline.foodOxidizedKg);
+      close(flux.reserveStoredKg, baseline.reserveStoredKg);
+      close(flux.structureStoredKg, baseline.structureStoredKg);
+    }
+  }
+});
+
+test("normally developing bodies slow structural deposition with age and stop adding structure at maturity", () => {
+  const added = [];
+  for (const age of [0, 1, 9, 17, 18, 40]) {
+    const f = fixture();
+    f.person.age = age + 1 / (24 * DAYS_PER_YEAR);
+    f.person.body = structuralCapacity(age) / (1 - METABOLISM.reserveFraction);
+    f.person.metabolism = initialMetabolism(f.person.body);
+    f.person.metabolism.intake = f.person.body * 0.04;
+    f.tile.temperature = neutral(f.person);
+    const before = balances(f.world);
+    const flux = interval(f, 1);
+    close(flux.healthLoss, 0);
+    close(flux.reserveStoredKg, 0);
+    assert.ok(
+      f.person.body - f.person.metabolism.reserves <=
+        structuralCapacity(f.person.age) + 1e-10,
+    );
+    added.push(flux.structureStoredKg);
+    conserved(f.world, before);
+  }
+  assert.ok(added[0] > added[1] && added[1] > added[2] && added[2] > added[3]);
+  assert.ok(added[3] > 0);
+  close(added[4], 0);
+  close(added[5], 0);
+  assert.ok(
+    added[0] < 0.001,
+    "a funded newborn cannot approach adult mass in hours",
+  );
+});
+
+test("a day of fed development uses orbital time and agrees across interval subdivisions", () => {
+  const outcomes = [];
+  for (const hours of [1, 0.25, 0.125]) {
+    const f = fixture();
+    f.person.age = 0;
+    f.person.body = DEVELOPMENT.birthBodyKg;
+    f.person.metabolism = initialMetabolism(f.person.body);
+    f.person.metabolism.intake = 0.1;
+    f.person.provisions = 3;
+    const before = balances(f.world);
+    for (let elapsed = 0; elapsed < 24; elapsed += hours) {
+      f.world.tick++;
+      f.person.age += hours / (24 * DAYS_PER_YEAR);
+      f.tile.temperature = neutral(f.person);
+      const step = prepareMetabolism(
+        f.world,
+        f.person,
+        f.tile,
+        hours,
+        false,
+        0,
+      );
+      feedMetabolicNeeds(f.world, [step]);
+      const flux = finishMetabolism(f.world, step);
+      refillMetabolicIntake(f.world, [step]);
+      close(flux.healthLoss, 0);
+    }
+    const structure = f.person.body - f.person.metabolism.reserves;
+    close(structure, structuralCapacity(1 / DAYS_PER_YEAR));
+    close(f.person.age, 1 / DAYS_PER_YEAR);
+    assert.ok(f.person.provisions < 3 && f.person.provisions > 2);
+    conserved(f.world, before);
+    outcomes.push(structure);
+  }
+  close(outcomes[0], outcomes[1]);
+  close(outcomes[1], outcomes[2]);
+});
+
+test("mature structural recovery remains finite after a body transfer and first restores reserves", () => {
+  const f = fixture();
+  close(withdrawBodyMatter(f.person, 2), 2);
+  close(f.person.metabolism.reserves, 0);
+  close(f.person.body, 16);
+  // The finite transfer itself is covered by the coupled childbirth test below.
+  // Measure subsequent recovery from this donor's remaining state.
+  f.person.metabolism.intake = 0.6;
+  f.person.provisions = 20;
+  const before = balances(f.world);
+  let firstGrowth = -1;
+  for (let hour = 0; hour < 240; hour++) {
+    f.world.tick++;
+    f.person.age += 1 / (24 * DAYS_PER_YEAR);
+    f.tile.temperature = neutral(f.person);
+    const step = prepareMetabolism(f.world, f.person, f.tile, 1, false, 0);
+    feedMetabolicNeeds(f.world, [step]);
+    const flux = finishMetabolism(f.world, step);
+    refillMetabolicIntake(f.world, [step]);
+    close(flux.healthLoss, 0);
+    if (hour === 0) {
+      assert.ok(flux.reserveStoredKg > 0);
+      close(flux.structureStoredKg, 0);
+    }
+    if (flux.structureStoredKg > 0 && firstGrowth < 0) firstGrowth = hour;
+  }
+  assert.ok(firstGrowth > 0 && firstGrowth < 240);
+  const structure = f.person.body - f.person.metabolism.reserves;
+  assert.ok(structure > 16 && structure < 16.2);
+  assert.ok(f.person.provisions < 20);
+  conserved(f.world, before);
+});
+
+test("missing substrate or oxygen cannot fund growth or create a deferred material credit", () => {
+  for (const missing of ["food", "oxygen", "processing"]) {
+    const f = fixture();
+    f.person.age = 1;
+    f.person.body = 2;
+    f.person.metabolism = initialMetabolism(2);
+    f.person.metabolism.intake = missing === "food" ? 0 : 0.1;
+    if (missing === "oxygen") {
+      f.world.atmosphere.oxygen = 0;
+      f.world.atmosphereCompensation.oxygen = 0;
+    }
+    f.tile.temperature = neutral(f.person);
+    const before = balances(f.world),
+      structure = f.person.body - f.person.metabolism.reserves;
+    const flux = regulateTemperature(
+      f.world,
+      f.person,
+      f.civ,
+      f.tile,
+      0.25,
+      false,
+      0,
+      missing === "processing"
+        ? { ...METABOLISM, retentionFraction: 0 }
+        : METABOLISM,
+    );
+    close(flux.reserveStoredKg + flux.structureStoredKg, 0);
+    close(f.person.body - f.person.metabolism.reserves, structure);
+    assert.deepEqual(Object.keys(f.person.metabolism).sort(), [
+      "intake",
+      "last",
+      "reserves",
+    ]);
+    conserved(f.world, before);
+  }
+});
+
+test("an oversized legacy child remains intact without receiving more structural deposition", () => {
+  const f = fixture();
+  f.person.age = 0.2;
+  f.person.metabolism.intake = 0.8;
+  f.person.provisions = 5;
+  const originalBody = f.person.body,
+    originalReserve = f.person.metabolism.reserves,
+    before = balances(f.world);
+  for (let hour = 0; hour < 24; hour++) {
+    f.world.tick++;
+    f.person.age += 1 / (24 * DAYS_PER_YEAR);
+    f.tile.temperature = neutral(f.person);
+    const step = prepareMetabolism(f.world, f.person, f.tile, 1, false, 0);
+    feedMetabolicNeeds(f.world, [step]);
+    const flux = finishMetabolism(f.world, step);
+    refillMetabolicIntake(f.world, [step]);
+    close(flux.structureStoredKg, 0);
+    close(flux.healthLoss, 0);
+  }
+  close(f.person.body, originalBody);
+  close(f.person.metabolism.reserves, originalReserve);
+  assert.ok(f.person.body - originalReserve > structuralCapacity(f.person.age));
+  conserved(f.world, before);
+});
+
+test("declared developmental scales change the rate without changing oxidation or granting matter", () => {
+  const results = [];
+  for (const maturityYears of [12, 18, 24]) {
+    const retained = [];
+    for (const days of [30, 90, 180]) {
+      const f = fixture();
+      f.person.age = 1;
+      f.person.body = 2;
+      f.person.metabolism = { intake: 0.1, reserves: 0.2, last: null };
+      f.tile.temperature = neutral(f.person);
+      const before = balances(f.world);
+      const flux = regulateTemperature(
+        f.world,
+        f.person,
+        f.civ,
+        f.tile,
+        0.25,
+        false,
+        0,
+        METABOLISM,
+        { ...DEVELOPMENT, maturityYears, structuralRecoveryHours: days * 24 },
+      );
+      close(flux.releasedKJ, 19.8);
+      assert.ok(flux.structureStoredKg > 0 && flux.structureStoredKg < 0.001);
+      retained.push(flux.structureStoredKg);
+      conserved(f.world, before);
+    }
+    assert.ok(retained[0] >= retained[1] && retained[1] > retained[2]);
+    results.push(retained[1]);
+  }
+  assert.ok(results[0] > results[1] && results[1] > results[2]);
+  const f = fixture();
+  for (const structuralRecoveryHours of [0, -1, NaN, Infinity])
+    assert.throws(
+      () =>
+        prepareMetabolism(
+          f.world,
+          f.person,
+          f.tile,
+          0.25,
+          false,
+          0,
+          METABOLISM,
+          { ...DEVELOPMENT, structuralRecoveryHours },
+        ),
+      /developmental coefficients/,
+    );
+});
+
 test("current shared needs precede optional internal top-ups in either person order", () => {
   const outcomes = [];
   for (const reversed of [false, true]) {
@@ -653,6 +909,68 @@ test("actual childbirth funds the newborn's whole body and reserve subset from e
   validateWorld(f.world);
 });
 
+test("format-14 growth migration preserves oversized children, measured intervals and extinct worlds exactly", () => {
+  for (const extinct of [false, true]) {
+    const f = fixture(2),
+      store = new Store(":memory:");
+    try {
+      f.person.age = 0.2;
+      f.person.metabolism.intake = 0.3;
+      rebaseFixture(f.world);
+      interval(f);
+      if (extinct) {
+        for (const person of f.world.citizens) person.health = 0;
+        processDeaths(f.world);
+      }
+      store.save(f.world);
+      const old = structuredClone(f.world);
+      old.version = 14;
+      old.lawsVersion = "biosphere-1.8";
+      const original = JSON.stringify(old),
+        { tiles, ...metadata } = old,
+        json = JSON.stringify(metadata);
+      store.db
+        .prepare("UPDATE world SET json=?,checksum=?")
+        .run(json, digest(json));
+      const migrated = migrateWorld(old);
+      assert.equal(JSON.stringify(old), original);
+      assert.deepEqual(migrated.world, {
+        ...old,
+        version: 15,
+        lawsVersion: "biosphere-1.9",
+      });
+      assert.deepEqual(
+        migrated.interventions.map((i) => i.id),
+        ["015-age-bounded-structural-growth"],
+      );
+      const loaded = store.load(0, true);
+      assert.deepEqual(loaded, migrated.world);
+      const [archive] = verifyWorldArchives(store.db);
+      assert.equal(archive.id, "015-age-bounded-structural-growth");
+      assert.equal(
+        Buffer.concat([...worldArchiveBytes(store.db, archive.id)]).toString(),
+        JSON.stringify({ ...metadata, tiles }),
+      );
+      if (!extinct) {
+        assert.equal(loaded.citizens[0].body, 18);
+        assert.deepEqual(
+          loaded.citizens[0].metabolism.last,
+          old.citizens[0].metabolism.last,
+        );
+      }
+      const replay = structuredClone(loaded);
+      stepWorld(loaded, 8);
+      stepWorld(replay, 8);
+      assert.deepEqual(loaded, replay);
+      store.save(loaded);
+      assert.deepEqual(store.load(0, true), loaded);
+      assert.equal(store.interventions().length, 1);
+    } finally {
+      store.close();
+    }
+  }
+});
+
 test("format-11 migration partitions existing bodies and starts no invented intake or past measurement", () => {
   const world = smallWorld(1847, 64, 64),
     store = new Store(":memory:");
@@ -680,8 +998,8 @@ test("format-11 migration partitions existing bodies and starts no invented inta
     }
     assert.deepEqual(projected, {
       ...old,
-      version: 14,
-      lawsVersion: "biosphere-1.8",
+      version: 15,
+      lawsVersion: "biosphere-1.9",
     });
     assert.deepEqual(
       migrated.interventions.map((i) => i.id),
@@ -689,6 +1007,7 @@ test("format-11 migration partitions existing bodies and starts no invented inta
         "012-funded-human-metabolism",
         "013-local-inventory-exposure-and-access",
         "014-performed-local-food-handoff",
+        "015-age-bounded-structural-growth",
       ],
     );
     const loaded = store.load(0, true);
@@ -708,7 +1027,7 @@ test("format-11 migration partitions existing bodies and starts no invented inta
     assert.deepEqual(loaded, repeat);
     store.save(loaded);
     assert.deepEqual(store.load(0, true), loaded);
-    assert.equal(store.interventions().length, 3);
+    assert.equal(store.interventions().length, 4);
   } finally {
     store.close();
   }

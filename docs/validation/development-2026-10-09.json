@@ -1,0 +1,271 @@
+{
+  "release": "developmental-growth-20261009-1",
+  "runtimeSha256": "3c2471d2e69d2347846a5d48c007790f6042ea86808ce91a27dd68efd83c36b4",
+  "dependenciesSha256": "0ca3efac2e32e64895e4f395f1919a966af1b18b017c12aaa088b491f2f0022e",
+  "worldVersion": 15,
+  "lawsVersion": "biosphere-1.9",
+  "storageVersion": 2,
+  "sourceContentSha256": "2183807fc5c5fdac642167826558fc64ff9706da5b91a05f74d211b519b11e99",
+  "publication": {
+    "status": "pending"
+  },
+  "local": {
+    "focusedMetabolism": {
+      "passed": 28,
+      "failed": 0,
+      "newDevelopmentCases": 8
+    },
+    "initialFullModelServer": {
+      "passed": 232,
+      "failed": 3,
+      "skipped": 0,
+      "cancelled": 0,
+      "total": 235,
+      "failures": "Three outdated migration-count expectations in depth, persistence and renewal; no physical candidate failure."
+    },
+    "correctedMigrationFiles": {
+      "passed": 32,
+      "failed": 0,
+      "files": [
+        "depth.test.ts",
+        "persistence.test.ts",
+        "renewal.test.ts"
+      ]
+    },
+    "build": "passed",
+    "format": "passed",
+    "hotfix": {
+      "passed": 25,
+      "failed": 0
+    },
+    "browser": "pending",
+    "production": "pending",
+    "suppliedGameClient": "pending",
+    "initialBrowserFailure": {
+      "cause": "A concurrent website build made Vite reload .vercel/output/static/index.html, destroying the page evaluation during manual time advancement. Server log records that reload.",
+      "errorsInBrowser": [],
+      "disposition": "Repeat the unchanged browser test after the website build has completed; no application fix."
+    }
+  },
+  "foodMeasurement": {
+    "priorLaw": "../research/food-flux-day-2026-10-09.json",
+    "candidate": "../research/development-food-day-2026-10-09.json",
+    "scope": "Matched 24-hour inhabited copied-world baseline and observation; initial states equal except physical version labels. No historical death shares, body resizing, seasonal or populated-host proof."
+  },
+  "independentBackup": {
+    "raw": {
+      "bytes": 310272000,
+      "sha256": "4eaf43c8794fe1ec022cb205336f14991268bf5eb7d6367491a188599adf499a"
+    },
+    "gzip": {
+      "bytes": 247878832,
+      "sha256": "679e0317e1e182166260e3f1612de53503fff9afa6abcc741c588182890b38eb"
+    },
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "version": 14,
+      "lawsVersion": "biosphere-1.8",
+      "generationVersion": "planet-1",
+      "tick": 442500,
+      "rng": 3690172892,
+      "births": 407,
+      "deaths": 1639
+    },
+    "regionsVerified": 38,
+    "fullArchivesVerified": 7,
+    "priorProtectedRows": {
+      "world_events": {
+        "count": 70658,
+        "unchanged": true,
+        "sha256": "d2923afa0c8b5be895d240552b5e8f2edde7ebbb0528f4273a6d36f24f4af8fe"
+      },
+      "world_history": {
+        "count": 4443,
+        "unchanged": true,
+        "sha256": "b717a28c52a017861378e25057f55cc2ee473d461ea5b95bd7fe676a923040a4"
+      },
+      "interventions": {
+        "count": 24,
+        "unchanged": true,
+        "sha256": "eae7e813b896c3006ac75b7f78903623b0d98be7636321edaf5655e27ffd0f2e"
+      },
+      "world_backups": {
+        "count": 7,
+        "unchanged": true,
+        "sha256": "78b607bf22be6298430ba3985a79ebcbabeab607888ebe0d556926fc96008358"
+      },
+      "world_backup_parts": {
+        "count": 2554,
+        "unchanged": true,
+        "sha256": "bdf408dfb7946c36dbb0385dada326e3c0d33337dda8d1eb30d93a0e5e50e796"
+      },
+      "sessions": {
+        "count": 26,
+        "unchanged": true,
+        "sha256": "0d6afe9454e239dd137f4d5b60ad5ca2d9cce15310d1a0aee85843c5b44c6262"
+      },
+      "agents": {
+        "count": 1,
+        "unchanged": true,
+        "sha256": "957b018ab65e7c6ccc013fa617df670d30fe6a4e442fd4f94da60e69ee7ea33b"
+      },
+      "receipts": {
+        "count": 3,
+        "unchanged": true,
+        "sha256": "61eeb51a809a13188fead544cfbca9f51d31b607589fd2ff68bba49452172183"
+      }
+    },
+    "independentDecoder": {
+      "library": "libzstd",
+      "version": "1.5.5",
+      "scope": "Independent C library via Python, exact single-frame/content length and original/payload SHA-256; no application codec imported."
+    },
+    "sourceBackupUnchanged": true
+  },
+  "exactCopiedWorldCapacity": {
+    "at": "2026-10-09T05:33:56.447Z",
+    "sourceSha256": "4eaf43c8794fe1ec022cb205336f14991268bf5eb7d6367491a188599adf499a",
+    "sourceUnchanged": true,
+    "code": 0,
+    "signal": null,
+    "report": {
+      "heapLimitBytes": 226492416,
+      "sourceTick": 442500,
+      "sourceVersion": 14,
+      "version": 15,
+      "laws": "biosphere-1.9",
+      "storage": 2,
+      "people": 0,
+      "regions": 38,
+      "migrationMs": 37145.142313,
+      "saves": [
+        {
+          "tick": 442532,
+          "simulationMs": 5828.199757999995,
+          "saveMs": 2573.9266910000006,
+          "walBytes": 31312032
+        },
+        {
+          "tick": 442564,
+          "simulationMs": 6495.299469999998,
+          "saveMs": 2372.102850999996,
+          "walBytes": 31340872
+        },
+        {
+          "tick": 442596,
+          "simulationMs": 5871.008635999999,
+          "saveMs": 3768.4210659999953,
+          "walBytes": 31653992
+        }
+      ],
+      "exactMigrationBoundary": true,
+      "exactArchiveSha256": "48a030b8fd5e709dd0dbb2b678989494c11fedfe9fe8a395a7a5fbe78367c08c",
+      "protectedRows": {
+        "sessions": {
+          "count": 27,
+          "sha256": "a37179eccdc8a449a37ceaf8136121e8c366261b81025e6e37f9a0a6dad96c75"
+        },
+        "agents": {
+          "count": 1,
+          "sha256": "0a865b232360c42a866e7e4e2374798d4065177291d5536248c8057e24650958"
+        },
+        "receipts": {
+          "count": 3,
+          "sha256": "8e2b9b8b3ef18d3047a9a3799be52d26aa14e738b5184e981968107007413445"
+        },
+        "events": {
+          "count": 70755,
+          "sha256": "72e62839b9d4c72aa4f40bf5a8bb164fd50aeb016db3c1d59cb4cdfe02764014"
+        },
+        "history": {
+          "count": 4609,
+          "sha256": "07b9e7d85d03e59c29c709c5095b594036da545d0aabec0fa84a5d14d1bd0b85"
+        },
+        "interventions": {
+          "count": 24,
+          "sha256": "254f194bafb50f8948acd342731e5f721da899d55a7dc25d521721a51b68b099"
+        },
+        "archives": {
+          "count": 7,
+          "sha256": "8004944f509f3dcd7476476589216bca827fd8954b2f54ca53d31a810643f94e"
+        },
+        "archiveParts": {
+          "count": 2554,
+          "sha256": "dcaabbe7f33476d53fcc4576d5bfcea1f4766715a29f02773bec549b78747a4c"
+        }
+      },
+      "exactRestart": true,
+      "finalTick": 442596,
+      "clock": {
+        "tick": 442596,
+        "wall_ms": 1791503089340
+      },
+      "finalMetadataChecksum": "085bbaedd7485c54f1ddb1197c2391f53acef9167153dbad99af44594e959218",
+      "finalRegionChecksum": "201fe96dd65397882cc1db9a4ff4cf2d01374438032e3a3c2fd6e123db63b13a"
+    },
+    "capacity": {
+      "bytes": 454299648,
+      "initialNonWalBudget": 335000000,
+      "minimumFree": 82587648,
+      "maximumWal": 36606232,
+      "samples": 1527
+    },
+    "peakRssBytes": 377614336,
+    "scope": "Disposable private tmpfs at the live volume capacity; complete format-14 to 15 migration, exact archive, three saves, protected rows and restart under a 216 MiB effective heap. Local memory and IO are not a live cgroup or inhabited-host guarantee.",
+    "initialSetupFailure": "sudo required a password; no test or live write started. The same test passed in an unprivileged user/mount namespace with its own finite tmpfs."
+  },
+  "coherence": {
+    "baseCommit": "f3aea797f57d0c7ba633f6be1d8d96847fe2ae43",
+    "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+    "gitVisibleExistingFileCount": 963,
+    "jsTsFileCount": 137,
+    "sourceFileCount": 81,
+    "srcContentSha256": "2183807fc5c5fdac642167826558fc64ff9706da5b91a05f74d211b519b11e99",
+    "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
+    "resolvedEdgeCount": 713,
+    "edgesByArea": {
+      "docs -> src/simulation": 22,
+      "scripts -> src/server": 27,
+      "scripts -> src/simulation": 26,
+      "src/client -> src/simulation": 27,
+      "src/client -> src/client": 21,
+      "src/server -> src/simulation": 41,
+      "src/server -> src/server": 28,
+      "src/simulation -> src/simulation": 253,
+      "tests -> src/simulation": 184,
+      "tests -> tests": 32,
+      "tests -> src/server": 52
+    },
+    "missingImports": [],
+    "missingAssets": [],
+    "nonliteralLoads": [
+      {
+        "file": "docs/research/collapse-first-death-replay.mjs",
+        "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+      },
+      {
+        "file": "docs/research/collapse-first-death-replay.mjs",
+        "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+      }
+    ],
+    "layerViolations": [],
+    "simulationEnvironmentImports": [],
+    "localMarkdownLinksChecked": 521,
+    "missingMarkdownLinks": [],
+    "semanticReview": [
+      "Structural dry-equivalent mass excludes the reserve subset; initial bodies, thermal scaling and age capacity share reference values.",
+      "One orbital-year duration determines age intervals; the existing caller advances age once before metabolism prepares.",
+      "Processing stays within actual intake and resting-maintenance throughput; thermal injury gates and oxygen use are unchanged.",
+      "No additional saved person field, world writer, metadata reinitialization or history truncation; migration 015 changes only version labels.",
+      "Measured food accounts separate gross harvest, transfers, oxidation, retention, spoilage and initially empty intake, with shared catchments counted once.",
+      "Corrected the roadmap sentence that still identified the older food-custody runtime as current; source-model and release/publication claims remain distinct."
+    ],
+    "limitations": [
+      "Inherited body composition, processing fraction, maturation/recovery curve, injury and oxygen contention remain uncalibrated.",
+      "Birth can still draw home supplies remotely; infant movement and food preparation/swallowing remain coarse.",
+      "The local 24-hour comparison still has a food deficit and child cold injury; no seasonal viability follows.",
+      "Existing storage and observer performance bounds remain; this physical change does not establish inhabited 1 GB or massive-world capacity."
+    ]
+  }
+}

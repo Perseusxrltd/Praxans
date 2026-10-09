@@ -12,6 +12,7 @@ import type {
   Tile,
   World,
 } from "./types";
+import { DAYS_PER_YEAR } from "./types";
 import { nearbyTiles } from "./terrain";
 import { distance } from "./world";
 import { feedIntake, shareFiniteSupply } from "./subsistence";
@@ -49,8 +50,70 @@ export const METABOLISM: Readonly<MetabolicModel> = Object.freeze({
   retentionFraction: 0.35,
   injuryKJPerPoint: 240,
 });
+
+/** Dry-equivalent capacity and time scales, not a fitted human growth chart. */
+export interface DevelopmentModel {
+  birthBodyKg: number;
+  adultBodyKg: number;
+  maturityYears: number;
+  structuralRecoveryHours: number;
+}
+export const DEVELOPMENT: Readonly<DevelopmentModel> = Object.freeze({
+  birthBodyKg: 2,
+  adultBodyKg: 18,
+  maturityYears: 18,
+  structuralRecoveryHours: 90 * 24,
+});
 const FOOD_KJ_PER_KG = LAWS.chemicalEnergy * MATERIALS.biomass.carbon;
 const EPSILON = 1e-9;
+
+/** A capacity bound; food scarcity can prevent reaching it. Never resize a body. */
+export function structuralCapacity(
+  age: number,
+  reserveFraction = METABOLISM.reserveFraction,
+  development: Readonly<DevelopmentModel> = DEVELOPMENT,
+): number {
+  const progress = clamp(age / development.maturityYears, 0, 1);
+  return (
+    (development.birthBodyKg +
+      (development.adultBodyKg - development.birthBodyKg) *
+        progress *
+        (2 - progress)) *
+    (1 - reserveFraction)
+  );
+}
+
+/**
+ * Citizens have already advanced age to this interval's end. Ordinary capacity
+ * gain and finite recovery share one final gap; neither is a material credit.
+ * Mature adults may recover structure lost through a real body transfer.
+ */
+function structuralDepositionLimit(
+  person: Citizen,
+  hours: number,
+  model: Readonly<MetabolicModel>,
+  development: Readonly<DevelopmentModel>,
+): number {
+  const startAge = Math.max(0, person.age - hours / (24 * DAYS_PER_YEAR));
+  const startCapacity = structuralCapacity(
+    startAge,
+    model.reserveFraction,
+    development,
+  );
+  const endCapacity = structuralCapacity(
+    person.age,
+    model.reserveFraction,
+    development,
+  );
+  const structure = person.body - person.metabolism.reserves;
+  const recovery =
+    Math.max(0, startCapacity - structure) *
+    -Math.expm1(-hours / development.structuralRecoveryHours);
+  return Math.min(
+    Math.max(0, endCapacity - structure),
+    Math.max(0, endCapacity - startCapacity) + recovery,
+  );
+}
 
 export function initialMetabolism(body: number): Metabolism {
   if (!Number.isFinite(body) || body < 0)
@@ -115,7 +178,7 @@ export function bodyHeatBalance(
   shelterResistance: number,
   wrapMass = person.wrapMass,
 ) {
-  const scale = Math.max(0.2, person.body / 18);
+  const scale = Math.max(0.2, person.body / DEVELOPMENT.adultBodyKg);
   const area = PHYSIOLOGY.adultArea * scale ** (2 / 3);
   const wrapResistance =
     wrapMass / (MATERIALS.fiber.density * area * MATERIALS.fiber.conductivity);
@@ -198,6 +261,7 @@ export interface MetabolicStep {
   maintenanceKJ: number;
   restingKJ: number;
   heatLossKJ: number;
+  structuralLimitKg: number;
   meltSource: Tile;
   meltRequestedKg: number;
   meltHeatPerKg: number;
@@ -216,6 +280,7 @@ export function prepareMetabolism(
   active: boolean,
   shelterResistance: number,
   model: Readonly<MetabolicModel> = METABOLISM,
+  development: Readonly<DevelopmentModel> = DEVELOPMENT,
 ): MetabolicStep {
   if (!Number.isFinite(dt) || dt <= 0)
     throw new Error("Metabolism requires a positive finite time interval.");
@@ -232,6 +297,14 @@ export function prepareMetabolism(
       !model.injuryKJPerPoint)
   )
     throw new Error("Invalid experimental metabolic coefficients.");
+  if (
+    development !== DEVELOPMENT &&
+    (!Object.values(development).every(
+      (value) => Number.isFinite(value) && value > 0,
+    ) ||
+      development.adultBodyKg < development.birthBodyKg)
+  )
+    throw new Error("Invalid experimental developmental coefficients.");
   // Arranging usable fiber is performed work. Physiology only wears the material
   // already present; being near a stockpile cannot clothe anyone by itself.
   const worn = person.wrapMass * (1 - Math.exp(-dt * 0.000015));
@@ -258,7 +331,7 @@ export function prepareMetabolism(
   );
   const restingW =
     (PHYSIOLOGY.basalWatts + PHYSIOLOGY.restingWatts) *
-    Math.max(0.2, person.body / 18);
+    Math.max(0.2, person.body / DEVELOPMENT.adultBodyKg);
   const capacity = intakeCapacity(person, model);
   return {
     world,
@@ -278,6 +351,12 @@ export function prepareMetabolism(
     maintenanceKJ: metabolicDemandW * dt * 3.6,
     restingKJ: restingW * dt * 3.6,
     heatLossKJ: lossW * dt * 3.6,
+    structuralLimitKg: structuralDepositionLimit(
+      person,
+      dt,
+      model,
+      development,
+    ),
     meltSource: source,
     meltRequestedKg,
     meltHeatPerKg: PLANET.fusionHeat + Math.max(0, -source.temperature) * 2.1,
@@ -461,12 +540,14 @@ export function finishMetabolism(
     person.health > 0 &&
     Math.max(unmetMaintenanceKJ, unmetColdKJ, unremovedHeatKJ) < EPSILON
   ) {
-    // Reinterpret the inherited 35% retention fraction as one processed-food
-    // flux: retained / oxidized <= .35 / .65. Never retain a fraction of the
-    // remaining buffer repeatedly. Reserve restoration precedes structure.
+    // Processing remains included in the coarse resting-maintenance account.
+    // The inherited 35% convention caps its throughput, not a measured synthesis
+    // cost. Extra oxidation for cold, melting or work grants no extra processing.
+    // Never retain a fraction of the buffered balance on each substep.
     let allowance = Math.min(
       person.metabolism.intake,
-      (foodOxidizedKg * model.retentionFraction) /
+      (Math.min(foodOxidizedKg, step.restingKJ / FOOD_KJ_PER_KG) *
+        model.retentionFraction) /
         (1 - model.retentionFraction),
     );
     const structure = person.body - person.metabolism.reserves;
@@ -478,10 +559,7 @@ export function finishMetabolism(
     );
     person.metabolism.reserves += reserveStoredKg;
     allowance -= reserveStoredKg;
-    structureStoredKg = Math.min(
-      allowance,
-      Math.max(0, 18 * (1 - model.reserveFraction) - structure),
-    );
+    structureStoredKg = Math.min(allowance, step.structuralLimitKg);
     person.metabolism.intake -= reserveStoredKg + structureStoredKg;
     person.body += reserveStoredKg + structureStoredKg;
   }
@@ -559,6 +637,7 @@ export function regulateTemperature(
   active: boolean,
   shelterResistance: number,
   model: Readonly<MetabolicModel> = METABOLISM,
+  development: Readonly<DevelopmentModel> = DEVELOPMENT,
 ): MetabolicFlux {
   if (person.civId !== civ.id)
     throw new Error("A person's food custody must match their community.");
@@ -570,6 +649,7 @@ export function regulateTemperature(
     active,
     shelterResistance,
     model,
+    development,
   );
   feedMetabolicNeeds(world, [step]);
   return finishMetabolism(world, step);

@@ -1,0 +1,276 @@
+{
+  "sourceSha256": "2183807fc5c5fdac642167826558fc64ff9706da5b91a05f74d211b519b11e99",
+  "inputSha256": "088fbb87b4cf297d80e56e710ad7a17d863a8fc76d829f9728c47440b7de67f3",
+  "sourceUnchanged": true,
+  "initialDigest": "152410163d5dbdde2cceb5799ef68d6a5d3e1f270d951a0a5189c18e53e2c448",
+  "projectedInitialFormat14Digest": "ce49f0956c70710fa50b9d39432d49263a3c512c38c09e4e19f3f838e55fe07d",
+  "initialStateMatchesEarlierLawExceptVersionLabels": true,
+  "finalDigest": "def4f2139d8c176a8cf40fe253d05c4fbff2c83c163fd32a53e327b030e23f3a",
+  "exactBaselineObserverMatch": true,
+  "startTick": 228436,
+  "endTick": 228532,
+  "hours": 24,
+  "worldVersion": 15,
+  "lawsVersion": "biosphere-1.9",
+  "people": [
+    1439,
+    1441
+  ],
+  "births": 241,
+  "deaths": 32,
+  "baselineElapsedMs": 27750.520092999996,
+  "observedElapsedMs": 26936.657524,
+  "peakRssBytes": [
+    445263872,
+    449945600
+  ],
+  "phaseClosureResidual": {
+    "population": 0,
+    "campKg": 0,
+    "carriedKg": 0,
+    "journeyKg": 0,
+    "intakeKg": 0,
+    "bodyKg": 0,
+    "reserveSubsetKg": 0,
+    "harvestCounterKg": 0
+  },
+  "elementalErrors": {
+    "absolute": 2.021942138671875,
+    "relative": 1.856643854129984e-10
+  },
+  "diagnostic": {
+    "harvestKg": 725.1261995490534,
+    "spoilageKg": 351.37950225015857,
+    "ingestedKg": 2011.1733700628172,
+    "foodOxidizedKg": 1145.7186754411691,
+    "reserveOxidizedKg": 0,
+    "retainedBodyKg": 0.002583187326414464,
+    "peoplePhaseOtherLooseFoodChangeKg": -3.146329564738153,
+    "netLooseFoodChangeKg": -1644.5730023286596
+  },
+  "earlierLawDiagnostic": {
+    "harvestKg": 702.9568255711939,
+    "spoilageKg": 351.0720856366934,
+    "ingestedKg": 2113.5520451854445,
+    "foodOxidizedKg": 1149.3648675153656,
+    "reserveOxidizedKg": 0,
+    "retainedBodyKg": 97.8120714443035,
+    "peoplePhaseOtherLooseFoodChangeKg": -3.0376155246358394,
+    "netLooseFoodChangeKg": -1768.7049207755772
+  },
+  "metabolismByAge": {
+    "twelveAndOver": {
+      "intervals": 115200,
+      "hours": 28800,
+      "ingestedKg": 1734.9112729053813,
+      "foodOxidizedKg": 949.9167431220062,
+      "reserveOxidizedKg": 0,
+      "reserveStoredKg": 0,
+      "structureStoredKg": 0,
+      "maintenanceKJ": 14303835,
+      "heatLossKJ": 12549469.230088837,
+      "releasedKJ": 15179669.555105368,
+      "meltKJ": 0,
+      "unmetMaintenanceKJ": 0,
+      "unmetColdKJ": 2.8748559088853654e-11,
+      "unremovedHeatKJ": 2.2419388394367967e-11,
+      "healthLoss": 0
+    },
+    "underOneYear": {
+      "intervals": 23048,
+      "hours": 5762,
+      "ingestedKg": 276.26209715742556,
+      "foodOxidizedKg": 195.80193231842827,
+      "reserveOxidizedKg": 0,
+      "reserveStoredKg": 0.0002491654175845459,
+      "structureStoredKg": 0.002334021908829919,
+      "maintenanceKJ": 1230587.3725000257,
+      "heatLossKJ": 3138810.177429364,
+      "releasedKJ": 3128914.878448529,
+      "meltKJ": 0,
+      "unmetMaintenanceKJ": 7.673861546209082e-13,
+      "unmetColdKJ": 19005.514911792277,
+      "unremovedHeatKJ": 7.733397255904606e-14,
+      "healthLoss": 79.18964546580115
+    }
+  },
+  "metabolismByCommunity": {
+    "civ-1": {
+      "intervals": 34132,
+      "hours": 8533,
+      "ingestedKg": 493.3819959201916,
+      "foodOxidizedKg": 277.9391107141496,
+      "reserveOxidizedKg": 0,
+      "reserveStoredKg": 0.00010683413760734228,
+      "structureStoredKg": 0.0010072923007824004,
+      "maintenanceKJ": 3828855.959999954,
+      "heatLossKJ": 3789925.8299216316,
+      "releasedKJ": 4441466.98921284,
+      "meltKJ": 0,
+      "unmetMaintenanceKJ": 1.4210854715202004e-14,
+      "unmetColdKJ": 6208.321169485259,
+      "unremovedHeatKJ": 5.723147650238403e-12,
+      "healthLoss": 25.86800487285545
+    },
+    "civ-11": {
+      "intervals": 34752,
+      "hours": 8688,
+      "ingestedKg": 510.47733428977637,
+      "foodOxidizedKg": 295.83654991130214,
+      "reserveOxidizedKg": 0,
+      "reserveStoredKg": 3.3306690738754696e-16,
+      "structureStoredKg": 0,
+      "maintenanceKJ": 3962430.5999999796,
+      "heatLossKJ": 4070261.919721502,
+      "releasedKJ": 4727468.067583953,
+      "meltKJ": 0,
+      "unmetMaintenanceKJ": 7.531752999057062e-13,
+      "unmetColdKJ": 5324.10291105743,
+      "unremovedHeatKJ": 5.045623641120045e-12,
+      "healthLoss": 22.183762129405864
+    },
+    "civ-21": {
+      "intervals": 33984,
+      "hours": 8496,
+      "ingestedKg": 491.5953635410957,
+      "foodOxidizedKg": 276.51553080301045,
+      "reserveOxidizedKg": 0,
+      "reserveStoredKg": 1.0547118733938987e-15,
+      "structureStoredKg": 0,
+      "maintenanceKJ": 3807186.4799999148,
+      "heatLossKJ": 3764300.00200671,
+      "releasedKJ": 4418718.182232724,
+      "meltKJ": 0,
+      "unmetMaintenanceKJ": 0,
+      "unmetColdKJ": 4826.529484514066,
+      "unremovedHeatKJ": 5.571265671022729e-12,
+      "healthLoss": 20.110539518808707
+    },
+    "civ-3118": {
+      "intervals": 35380,
+      "hours": 8845,
+      "ingestedKg": 515.7186763117536,
+      "foodOxidizedKg": 295.4274840127069,
+      "reserveOxidizedKg": 0,
+      "reserveStoredKg": 0.00014233127997581585,
+      "structureStoredKg": 0.0013267296080475173,
+      "maintenanceKJ": 3935949.332500004,
+      "heatLossKJ": 4063791.6558685605,
+      "releasedKJ": 4720931.194524415,
+      "meltKJ": 0,
+      "unmetMaintenanceKJ": 0,
+      "unmetColdKJ": 2646.5613467355142,
+      "unremovedHeatKJ": 6.156685404545836e-12,
+      "healthLoss": 11.027338944731127
+    }
+  },
+  "opening": {
+    "all": {
+      "population": 1439,
+      "campKg": 55113.23936206481,
+      "carriedKg": 4129.529667585631,
+      "journeyKg": 0,
+      "intakeKg": 0,
+      "bodyKg": 23914.607499999995,
+      "reserveSubsetKg": 2391.460750000006,
+      "harvestCounterKg": 253034.29567040812
+    },
+    "communities": {
+      "civ-1": {
+        "population": 355,
+        "campKg": 5678.562817186981,
+        "carriedKg": 1009.6033106740242,
+        "journeyKg": 0,
+        "intakeKg": 0,
+        "bodyKg": 5911.309999999996,
+        "reserveSubsetKg": 591.1310000000017,
+        "harvestCounterKg": 47493.208626535044
+      },
+      "civ-11": {
+        "population": 362,
+        "campKg": 3395.272266214988,
+        "carriedKg": 1046.3021446740047,
+        "journeyKg": 0,
+        "intakeKg": 0,
+        "bodyKg": 6018.812499999999,
+        "reserveSubsetKg": 601.8812500000016,
+        "harvestCounterKg": 45252.55655666311
+      },
+      "civ-21": {
+        "population": 354,
+        "campKg": 12930.723289871832,
+        "carriedKg": 1026.1287673483496,
+        "journeyKg": 0,
+        "intakeKg": 0,
+        "bodyKg": 5896.342500000001,
+        "reserveSubsetKg": 589.6342500000014,
+        "harvestCounterKg": 55143.2342054144
+      },
+      "civ-3118": {
+        "population": 368,
+        "campKg": 33108.680988791006,
+        "carriedKg": 1047.4954448892522,
+        "journeyKg": 0,
+        "intakeKg": 0,
+        "bodyKg": 6088.142499999999,
+        "reserveSubsetKg": 608.8142500000013,
+        "harvestCounterKg": 105145.29628179557
+      }
+    }
+  },
+  "closing": {
+    "all": {
+      "population": 1441,
+      "campKg": 53228.98734926018,
+      "carriedKg": 4369.208678061601,
+      "journeyKg": 0,
+      "intakeKg": 865.452111434074,
+      "bodyKg": 23918.610083187323,
+      "reserveSubsetKg": 2391.8609991654234,
+      "harvestCounterKg": 253759.42186995712
+    },
+    "communities": {
+      "civ-1": {
+        "population": 356,
+        "campKg": 5307.106291217813,
+        "carriedKg": 1085.2700598527845,
+        "journeyKg": 0,
+        "intakeKg": 215.4417710795588,
+        "bodyKg": 5913.311114126434,
+        "reserveSubsetKg": 591.3311068341393,
+        "harvestCounterKg": 47731.13460041048
+      },
+      "civ-11": {
+        "population": 362,
+        "campKg": 2883.0905647146824,
+        "carriedKg": 1089.96482290746,
+        "journeyKg": 0,
+        "intakeKg": 214.64078437839186,
+        "bodyKg": 6018.812499999999,
+        "reserveSubsetKg": 601.8812500000016,
+        "harvestCounterKg": 45322.07963648419
+      },
+      "civ-21": {
+        "population": 354,
+        "campKg": 12519.222816958722,
+        "carriedKg": 1076.5153023984813,
+        "journeyKg": 0,
+        "intakeKg": 215.07983273804854,
+        "bodyKg": 5896.342500000001,
+        "reserveSubsetKg": 589.6342500000014,
+        "harvestCounterKg": 55356.72202344829
+      },
+      "civ-3118": {
+        "population": 369,
+        "campKg": 32519.567676368955,
+        "carriedKg": 1117.4584929028752,
+        "journeyKg": 0,
+        "intakeKg": 220.2897232380748,
+        "bodyKg": 6090.143969060887,
+        "reserveSubsetKg": 609.0143923312812,
+        "harvestCounterKg": 105349.48560961419
+      }
+    }
+  },
+  "scope": "Bounded 24-hour copied-world counterfactual; no historical death attribution, no resized inherited body, no seasonal or host-capacity proof. Timing is incidental local evidence, not a controlled speed benchmark."
+}

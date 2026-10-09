@@ -63,8 +63,8 @@ test("candidate migration and renewal never write to the source world or operato
     assert.equal(report.id, world.id);
     assert.equal(report.sourceTick, world.tick);
     assert.equal(report.tick, world.tick + 32);
-    assert.equal(report.format, 14);
-    assert.equal(report.laws, "biosphere-1.8");
+    assert.equal(report.format, 15);
+    assert.equal(report.laws, "biosphere-1.9");
     assert.ok(
       before.equals(readFileSync(database)),
       "the original checkpoint, clock, lease and history are byte-for-byte unchanged",

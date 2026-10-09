@@ -18,7 +18,7 @@ The bounded independent source review found two integration qualifications. Expo
 
 ## The food account to measure next
 
-The present model records metabolic intervals, but it does **not** yet have a complete daily food-flow account. A useful account must distinguish physical transformations from changes of holder:
+The runtime records metabolic intervals, but it does **not** yet persist a complete daily food-flow account. A [subsequent bounded measurement](food-flux-day-2026-10-09.md) now separates these flows on an inhabited copy with exact baseline/observer replay agreement. It is a single current-law day, not historical attribution or annual balance. A useful account must distinguish physical transformations from changes of holder:
 
 | Flow | Source and destination | Interpretation |
 | --- | --- | --- |

@@ -285,8 +285,8 @@ test("format 7 migration preserves existing matter, identities, decisions and RN
   try {
     const old = legacyCheckpoint(store, world, 7);
     const { world: next, interventions } = migrateWorld(old);
-    assert.equal(next.version, 14);
-    assert.equal(interventions.length, 7);
+    assert.equal(next.version, 15);
+    assert.equal(interventions.length, 8);
     assert.equal(next.tick, old.tick);
     assert.equal(next.rng, old.rng);
     assert.equal(next.nextId, old.nextId);
@@ -331,7 +331,7 @@ test("format 7 migration preserves existing matter, identities, decisions and RN
     validateWorld(next);
     assert.deepEqual(store.load(999), next);
     assert.deepEqual(store.load(999), next);
-    assert.equal(store.interventions().length, 7);
+    assert.equal(store.interventions().length, 8);
   } finally {
     store.close();
   }

@@ -6,7 +6,7 @@ import { BIOTA_MODEL, FAUNA, FLORA } from "./life";
 import { FOUNDING } from "./founding";
 import { THERMODYNAMICS } from "./thermodynamics";
 import { ADVICE_RULES } from "./society";
-import { METABOLISM, PHYSIOLOGY } from "./physiology";
+import { DEVELOPMENT, METABOLISM, PHYSIOLOGY } from "./physiology";
 import { FOOD_HANDOFF } from "./foodwork";
 import { SUBSISTENCE } from "./subsistence";
 import { WALKING_METRES_PER_HOUR } from "./movement";
@@ -46,6 +46,7 @@ export const NATURAL_MODEL = Object.freeze({
   humanVitals: {
     thermalBalance: PHYSIOLOGY,
     metabolism: METABOLISM,
+    development: DEVELOPMENT,
     seasonalPlanning: SUBSISTENCE,
     localFoodHandoff: FOOD_HANDOFF,
     walkingMetresPerHour: WALKING_METRES_PER_HOUR,
@@ -57,6 +58,8 @@ export const NATURAL_MODEL = Object.freeze({
       "Current metabolic requests share finite reachable food before optional intake buffers and personal rations refill. Intake is separate unoxidized biomass-equivalent kg; reserves are a usable subset already included in body, never extra mass. One oxygen-limited oxidation supplies maintenance, heat and paid activity. Retained intake restores reserves before coarse structural growth. Allocation, automatic feeding, retention and power limits are controller/model assumptions, not learned institutions or calibrated anatomy.",
     foodHandoff:
       "From biosphere-1.8, a willing person can spend paid delivery time handing their own provisions or biomass cargo to a stationary person in the same cell. Post-meal holder budgets and all-debits-before-credits prevent duplication and same-interval forwarding. Delivery credits provisions only; later ordinary physiology ingests the food. Choice uses coarse local hunger/empty-bundle signals and social disposition, without kinship or community permission. Bundle targets, handling rates and the contact cell are approximations, not recipient consent, lactation, preparation or assisted swallowing. No nutritional success is awarded merely for handing food over.",
+    growth:
+      "From biosphere-1.9, tissue processing is bounded by the resting-maintenance equivalent of actual food oxidation; extra cold, melting or work cannot increase that allowance. Processing remains included in coarse maintenance, without a separately calibrated synthesis cost. Reserve restoration precedes structural deposition. Structural capacity follows a concave age curve between the existing 2 and 18 kg dry-equivalent total-body references, with zero slope at the declared 18-year maturity. Finite structural recovery uses a 90-day time constant and actual surplus intake. These are versioned model assumptions, not a fitted anatomical chart or guaranteed development. Existing larger bodies remain intact; developmental mobility, gestation and seasonal viability remain unresolved.",
     protection:
       "Performed work places real fiber on bodies. Thickness and conductivity reduce heat demand; cold can use finite intake and body reserves within their power limits. Shared ice is reserved once before food allocation and melts only with released heat. Sweating spends hydration. The injury dose is an uncalibrated energy-deficit model without core temperature, organs or tissue-specific metabolism.",
   },

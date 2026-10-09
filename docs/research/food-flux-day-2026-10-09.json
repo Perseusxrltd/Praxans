@@ -1,0 +1,765 @@
+{
+  "sourceCommit": "f3aea797f57d0c7ba633f6be1d8d96847fe2ae43",
+  "sourceSha256": "1e2f7aeec92ae7f3c9d73ae931257f297d8cfa66be0340b0b9db0220715ff3fa",
+  "inputSha256": "088fbb87b4cf297d80e56e710ad7a17d863a8fc76d829f9728c47440b7de67f3",
+  "sourceUnchanged": true,
+  "initialDigest": "ce49f0956c70710fa50b9d39432d49263a3c512c38c09e4e19f3f838e55fe07d",
+  "finalDigest": "ad1badae485d21655f459c5ecb1a93c2154610bad6efe1169d594344c1807b7e",
+  "exactBaselineObserverMatch": true,
+  "startTick": 228436,
+  "endTick": 228532,
+  "hours": 24,
+  "people": [
+    1439,
+    1441
+  ],
+  "births": 241,
+  "deaths": 32,
+  "baselineElapsedMs": 24751.614227000002,
+  "observedElapsedMs": 27399.987022,
+  "peakRssBytes": [
+    452063232,
+    450576384
+  ],
+  "phaseClosureResidual": {
+    "population": 0,
+    "campKg": 0,
+    "carriedKg": 0,
+    "journeyKg": 0,
+    "intakeKg": 0,
+    "bodyKg": 0,
+    "reserveSubsetKg": 0,
+    "harvestCounterKg": 0
+  },
+  "elementalErrors": {
+    "absolute": 2.021993637084961,
+    "relative": 1.8566911424328117e-10
+  },
+  "diagnostic": {
+    "harvestKg": 702.9568255711939,
+    "spoilageKg": 351.0720856366934,
+    "ingestedKg": 2113.5520451854445,
+    "foodOxidizedKg": 1149.3648675153656,
+    "reserveOxidizedKg": 0,
+    "retainedBodyKg": 97.8120714443035,
+    "peoplePhaseOtherLooseFoodChangeKg": -3.0376155246358394,
+    "netLooseFoodChangeKg": -1768.7049207755772
+  },
+  "worldVersion": 14,
+  "lawsVersion": "biosphere-1.8",
+  "scope": "24-hour current-law counterfactual from an independently retained inhabited copy; not replay of the historical death laws and not a seasonal viability test.",
+  "initialization": "The source was explicitly migrated from the older inhabited backup. Intake begins empty by the format-12 migration, so initial buffer filling is not steady daily consumption. Existing historical bodies are preserved.",
+  "units": "All food/body quantities are biomass-equivalent kg (94% carbohydrate-equivalent organic matrix plus 6% mineral), not anatomical wet weights or pure carbon; reserves are a subset of total body.",
+  "opening": {
+    "all": {
+      "population": 1439,
+      "campKg": 55113.23936206481,
+      "carriedKg": 4129.529667585631,
+      "journeyKg": 0,
+      "intakeKg": 0,
+      "bodyKg": 23914.607499999995,
+      "reserveSubsetKg": 2391.460750000006,
+      "harvestCounterKg": 253034.29567040812
+    },
+    "communities": {
+      "civ-1": {
+        "population": 355,
+        "campKg": 5678.562817186981,
+        "carriedKg": 1009.6033106740242,
+        "journeyKg": 0,
+        "intakeKg": 0,
+        "bodyKg": 5911.309999999996,
+        "reserveSubsetKg": 591.1310000000017,
+        "harvestCounterKg": 47493.208626535044
+      },
+      "civ-11": {
+        "population": 362,
+        "campKg": 3395.272266214988,
+        "carriedKg": 1046.3021446740047,
+        "journeyKg": 0,
+        "intakeKg": 0,
+        "bodyKg": 6018.812499999999,
+        "reserveSubsetKg": 601.8812500000016,
+        "harvestCounterKg": 45252.55655666311
+      },
+      "civ-21": {
+        "population": 354,
+        "campKg": 12930.723289871832,
+        "carriedKg": 1026.1287673483496,
+        "journeyKg": 0,
+        "intakeKg": 0,
+        "bodyKg": 5896.342500000001,
+        "reserveSubsetKg": 589.6342500000014,
+        "harvestCounterKg": 55143.2342054144
+      },
+      "civ-3118": {
+        "population": 368,
+        "campKg": 33108.680988791006,
+        "carriedKg": 1047.4954448892522,
+        "journeyKg": 0,
+        "intakeKg": 0,
+        "bodyKg": 6088.142499999999,
+        "reserveSubsetKg": 608.8142500000013,
+        "harvestCounterKg": 105145.29628179557
+      }
+    }
+  },
+  "closing": {
+    "all": {
+      "population": 1441,
+      "campKg": 53110.58315883955,
+      "carriedKg": 4363.480950035306,
+      "journeyKg": 0,
+      "intakeKg": 866.3751062255287,
+      "bodyKg": 24016.419571444298,
+      "reserveSubsetKg": 2401.578799382937,
+      "harvestCounterKg": 253737.25249597925
+    },
+    "communities": {
+      "civ-1": {
+        "population": 356,
+        "campKg": 5276.055130148791,
+        "carriedKg": 1081.1678844002238,
+        "journeyKg": 0,
+        "intakeKg": 215.42062799017077,
+        "bodyKg": 5934.191390630734,
+        "reserveSubsetKg": 593.4065865155367,
+        "harvestCounterKg": 47718.66305596005
+      },
+      "civ-11": {
+        "population": 362,
+        "campKg": 2852.3996226676168,
+        "carriedKg": 1087.5891602440984,
+        "journeyKg": 0,
+        "intakeKg": 214.8206805341975,
+        "bodyKg": 6045.774079436455,
+        "reserveSubsetKg": 604.5549148283542,
+        "harvestCounterKg": 45316.19097972238
+      },
+      "civ-21": {
+        "population": 354,
+        "campKg": 12485.295906636731,
+        "carriedKg": 1074.9246789409344,
+        "journeyKg": 0,
+        "intakeKg": 214.96570696546743,
+        "bodyKg": 5916.926625446942,
+        "reserveSubsetKg": 591.6820609816489,
+        "harvestCounterKg": 55345.467075954424
+      },
+      "civ-3118": {
+        "population": 369,
+        "campKg": 32496.832499386415,
+        "carriedKg": 1119.799226450049,
+        "journeyKg": 0,
+        "intakeKg": 221.168090735693,
+        "bodyKg": 6119.5274759301665,
+        "reserveSubsetKg": 611.9352370573977,
+        "harvestCounterKg": 105356.93138434239
+      }
+    }
+  },
+  "phaseCalls": {
+    "people": 96,
+    "deaths": 96,
+    "journeys": 96,
+    "ecology": 24,
+    "fauna": 24,
+    "spoilage": 24,
+    "contacts": 24,
+    "councils": 24,
+    "accords": 24,
+    "planning": 24,
+    "families": 4,
+    "trade": 4,
+    "migration": 4,
+    "diplomacy": 1
+  },
+  "nonzeroPhaseChanges": {
+    "people": {
+      "calls": 96,
+      "all": {
+        "population": 0,
+        "campKg": -1672.5077915049696,
+        "carriedKg": 258.8749563660831,
+        "journeyKg": 0,
+        "intakeKg": 866.3751062255287,
+        "bodyKg": 97.812071444303,
+        "reserveSubsetKg": 9.71804938293144,
+        "harvestCounterKg": 702.9568255711347
+      },
+      "communities": {
+        "civ-1": {
+          "population": 0,
+          "campKg": -368.3361743740452,
+          "carriedKg": 77.64453234647101,
+          "journeyKg": 0,
+          "intakeKg": 215.42062799017077,
+          "bodyKg": 20.88139063073777,
+          "reserveSubsetKg": 2.075586515534951,
+          "harvestCounterKg": 225.45442942500813
+        },
+        "civ-11": {
+          "population": 0,
+          "campKg": -524.7230344792965,
+          "carriedKg": 47.510622485218164,
+          "journeyKg": 0,
+          "intakeKg": 214.8206805341975,
+          "bodyKg": 26.961579436456304,
+          "reserveSubsetKg": 2.673664828352571,
+          "harvestCounterKg": 63.63442305926583
+        },
+        "civ-21": {
+          "population": 0,
+          "campKg": -368.69672831319804,
+          "carriedKg": 54.9628786891152,
+          "journeyKg": 0,
+          "intakeKg": 214.96570696546743,
+          "bodyKg": 20.58412544694147,
+          "reserveSubsetKg": 2.0478109816474444,
+          "harvestCounterKg": 202.2328705400214
+        },
+        "civ-3118": {
+          "population": 0,
+          "campKg": -410.75185433845036,
+          "carriedKg": 78.75692284527713,
+          "journeyKg": 0,
+          "intakeKg": 221.168090735693,
+          "bodyKg": 29.384975930167457,
+          "reserveSubsetKg": 2.92098705739636,
+          "harvestCounterKg": 211.6351025468175
+        }
+      }
+    },
+    "spoilage": {
+      "calls": 24,
+      "all": {
+        "population": 0,
+        "campKg": -326.14841172028537,
+        "carriedKg": -24.923673916408006,
+        "journeyKg": 0,
+        "intakeKg": 0,
+        "bodyKg": 0,
+        "reserveSubsetKg": 0,
+        "harvestCounterKg": 0
+      },
+      "communities": {
+        "civ-1": {
+          "population": 0,
+          "campKg": -32.17151266414476,
+          "carriedKg": -6.079958620271441,
+          "journeyKg": 0,
+          "intakeKg": 0,
+          "bodyKg": 0,
+          "reserveSubsetKg": 0,
+          "harvestCounterKg": 0
+        },
+        "civ-11": {
+          "population": 0,
+          "campKg": -18.149609068074824,
+          "carriedKg": -6.223606915124492,
+          "journeyKg": 0,
+          "intakeKg": 0,
+          "bodyKg": 0,
+          "reserveSubsetKg": 0,
+          "harvestCounterKg": 0
+        },
+        "civ-21": {
+          "population": 0,
+          "campKg": -76.7306549219029,
+          "carriedKg": -6.166967096530357,
+          "journeyKg": 0,
+          "intakeKg": 0,
+          "bodyKg": 0,
+          "reserveSubsetKg": 0,
+          "harvestCounterKg": 0
+        },
+        "civ-3118": {
+          "population": 0,
+          "campKg": -199.09663506614015,
+          "carriedKg": -6.453141284480353,
+          "journeyKg": 0,
+          "intakeKg": 0,
+          "bodyKg": 0,
+          "reserveSubsetKg": 0,
+          "harvestCounterKg": 0
+        }
+      }
+    },
+    "families": {
+      "calls": 4,
+      "all": {
+        "population": 2,
+        "campKg": -4,
+        "carriedKg": 0,
+        "journeyKg": 0,
+        "intakeKg": 0,
+        "bodyKg": 4,
+        "reserveSubsetKg": 0.3999999999996362,
+        "harvestCounterKg": 0
+      },
+      "communities": {
+        "civ-1": {
+          "population": 1,
+          "campKg": -2,
+          "carriedKg": 0,
+          "journeyKg": 0,
+          "intakeKg": 0,
+          "bodyKg": 2,
+          "reserveSubsetKg": 0.20000000000004547,
+          "harvestCounterKg": 0
+        },
+        "civ-11": {
+          "population": 0,
+          "campKg": 0,
+          "carriedKg": 0,
+          "journeyKg": 0,
+          "intakeKg": 0,
+          "bodyKg": 0,
+          "reserveSubsetKg": 0,
+          "harvestCounterKg": 0
+        },
+        "civ-21": {
+          "population": 0,
+          "campKg": 0,
+          "carriedKg": 0,
+          "journeyKg": 0,
+          "intakeKg": 0,
+          "bodyKg": 0,
+          "reserveSubsetKg": 0,
+          "harvestCounterKg": 0
+        },
+        "civ-3118": {
+          "population": 1,
+          "campKg": -2,
+          "carriedKg": 0,
+          "journeyKg": 0,
+          "intakeKg": 0,
+          "bodyKg": 2,
+          "reserveSubsetKg": 0.20000000000004547,
+          "harvestCounterKg": 0
+        }
+      }
+    }
+  },
+  "metabolismByCommunity": {
+    "civ-1": {
+      "intervals": 34132,
+      "hours": 8533,
+      "ingestedKg": 516.1460714527815,
+      "foodOxidizedKg": 279.84405283183384,
+      "reserveOxidizedKg": 0,
+      "reserveStoredKg": 2.075586515535441,
+      "structureStoredKg": 18.805804115197937,
+      "maintenanceKJ": 3840370.7218855084,
+      "heatLossKJ": 3816808.001939617,
+      "releasedKJ": 4471907.964253407,
+      "meltKJ": 0,
+      "unmetMaintenanceKJ": 3.552713678800501e-14,
+      "unmetColdKJ": 5936.104370084306,
+      "unremovedHeatKJ": 5.360035332246937e-12,
+      "healthLoss": 24.73376820868451
+    },
+    "civ-11": {
+      "intervals": 34752,
+      "hours": 8688,
+      "ingestedKg": 538.3975566133977,
+      "foodOxidizedKg": 296.61529664266385,
+      "reserveOxidizedKg": 0,
+      "reserveStoredKg": 2.6736648283526825,
+      "structureStoredKg": 24.28791460810384,
+      "maintenanceKJ": 3959055.9998060907,
+      "heatLossKJ": 4080547.552349495,
+      "releasedKJ": 4739912.440351014,
+      "meltKJ": 0,
+      "unmetMaintenanceKJ": 8.526512829121202e-14,
+      "unmetColdKJ": 5393.418888491458,
+      "unremovedHeatKJ": 5.2201585068467615e-12,
+      "healthLoss": 22.47257870204784
+    },
+    "civ-21": {
+      "intervals": 33984,
+      "hours": 8496,
+      "ingestedKg": 515.3783830787377,
+      "foodOxidizedKg": 279.82855066628196,
+      "reserveOxidizedKg": 0,
+      "reserveStoredKg": 2.047810981647683,
+      "structureStoredKg": 18.53631446529519,
+      "maintenanceKJ": 3819820.2283018073,
+      "heatLossKJ": 3818457.5711421673,
+      "releasedKJ": 4471660.239647931,
+      "meltKJ": 0,
+      "unmetMaintenanceKJ": 6.394884621840902e-14,
+      "unmetColdKJ": 4827.318672672156,
+      "unremovedHeatKJ": 5.401529917792303e-12,
+      "healthLoss": 20.113827802800785
+    },
+    "civ-3118": {
+      "intervals": 35380,
+      "hours": 8845,
+      "ingestedKg": 543.6300340405276,
+      "foodOxidizedKg": 293.07696737458605,
+      "reserveOxidizedKg": 0,
+      "reserveStoredKg": 2.9209870573961365,
+      "structureStoredKg": 26.4639888727746,
+      "maintenanceKJ": 3940880.0190212345,
+      "heatLossKJ": 4040362.267888878,
+      "releasedKJ": 4683369.938647121,
+      "meltKJ": 0,
+      "unmetMaintenanceKJ": 4.263256414560601e-14,
+      "unmetColdKJ": 2267.053460264402,
+      "unremovedHeatKJ": 6.089895948635515e-12,
+      "healthLoss": 9.446056084434957
+    }
+  },
+  "metabolismByAge": {
+    "twelveAndOver": {
+      "intervals": 115200,
+      "hours": 28800,
+      "ingestedKg": 1735.050491373821,
+      "foodOxidizedKg": 951.9151125933793,
+      "reserveOxidizedKg": 0,
+      "reserveStoredKg": 0,
+      "structureStoredKg": 0,
+      "maintenanceKJ": 14303160,
+      "heatLossKJ": 12591877.082644267,
+      "releasedKJ": 15211603.499257606,
+      "meltKJ": 0,
+      "unmetMaintenanceKJ": 0,
+      "unmetColdKJ": 2.8634872251132037e-11,
+      "unremovedHeatKJ": 2.200334098950707e-11,
+      "healthLoss": 0
+    },
+    "underOneYear": {
+      "intervals": 23048,
+      "hours": 5762,
+      "ingestedKg": 378.5015538116046,
+      "foodOxidizedKg": 197.4497549212659,
+      "reserveOxidizedKg": 0,
+      "reserveStoredKg": 9.71804938293199,
+      "structureStoredKg": 88.09402206137129,
+      "maintenanceKJ": 1256966.96901473,
+      "heatLossKJ": 3164298.3106758464,
+      "releasedKJ": 3155247.0836418527,
+      "meltKJ": 0,
+      "unmetMaintenanceKJ": 2.2737367544323206e-13,
+      "unmetColdKJ": 18423.895391512335,
+      "unremovedHeatKJ": 6.827871601444713e-14,
+      "healthLoss": 76.76623079796809
+    }
+  },
+  "harvest": {
+    "civ-1": {
+      "kg": 225.4544294250362,
+      "actions": 550,
+      "withinOwnSurveyKg": 225.4544294250362,
+      "distinctSites": 92
+    },
+    "civ-21": {
+      "kg": 202.2328705400021,
+      "actions": 441,
+      "withinOwnSurveyKg": 202.2328705400021,
+      "distinctSites": 80
+    },
+    "civ-3118": {
+      "kg": 211.63510254689317,
+      "actions": 583,
+      "withinOwnSurveyKg": 211.63510254689317,
+      "distinctSites": 98
+    },
+    "civ-11": {
+      "kg": 63.634423059262566,
+      "actions": 112,
+      "withinOwnSurveyKg": 63.634423059262566,
+      "distinctSites": 39
+    }
+  },
+  "delivery": {
+    "civ-1": {
+      "kg": 212.204130936611,
+      "actions": 168
+    },
+    "civ-11": {
+      "kg": 61.18506395701177,
+      "actions": 73
+    },
+    "civ-21": {
+      "kg": 193.10449591145434,
+      "actions": 153
+    },
+    "civ-3118": {
+      "kg": 198.42133905151175,
+      "actions": 195
+    }
+  },
+  "plantGrowth": {
+    "unionOrganicMatrixKg": 10680.51954997905,
+    "byCommunity": {
+      "civ-1": 1929.1999739397877,
+      "civ-11": 1994.4330057907748,
+      "civ-21": 2114.9462447568812,
+      "civ-3118": 8526.482873081595
+    }
+  },
+  "openingCatchments": {
+    "communities": {
+      "civ-1": {
+        "cells": 3379,
+        "hectares": 33.79,
+        "standingEdibleProxyKg": 35739.01050944962,
+        "meanTemperatureC": 14.86383989908934,
+        "radiusCells": 48
+      },
+      "civ-11": {
+        "cells": 3328,
+        "hectares": 33.28,
+        "standingEdibleProxyKg": 44926.15465688654,
+        "meanTemperatureC": 14.810654136512946,
+        "radiusCells": 48
+      },
+      "civ-21": {
+        "cells": 3578,
+        "hectares": 35.78,
+        "standingEdibleProxyKg": 45252.65133469744,
+        "meanTemperatureC": 14.823234423088667,
+        "radiusCells": 48
+      },
+      "civ-3118": {
+        "cells": 6927,
+        "hectares": 69.27,
+        "standingEdibleProxyKg": 343744.84285903204,
+        "meanTemperatureC": 13.361100689961544,
+        "radiusCells": 48
+      }
+    },
+    "unionCells": 10610,
+    "unionHectares": 106.1,
+    "overlapCells": {
+      "civ-1 / civ-11": 3024,
+      "civ-1 / civ-21": 3332,
+      "civ-1 / civ-3118": 0,
+      "civ-11 / civ-21": 3223,
+      "civ-11 / civ-3118": 0,
+      "civ-21 / civ-3118": 0
+    },
+    "scope": "Connected currently represented land within the existing founding survey radius; not owned territory, sustainable annual yield or individual knowledge."
+  },
+  "closingCatchments": {
+    "communities": {
+      "civ-1": {
+        "cells": 3379,
+        "hectares": 33.79,
+        "standingEdibleProxyKg": 36105.156890864186,
+        "meanTemperatureC": 14.678658172242182,
+        "radiusCells": 48
+      },
+      "civ-11": {
+        "cells": 3328,
+        "hectares": 33.28,
+        "standingEdibleProxyKg": 45269.51967766705,
+        "meanTemperatureC": 14.626517605222732,
+        "radiusCells": 48
+      },
+      "civ-21": {
+        "cells": 3578,
+        "hectares": 35.78,
+        "standingEdibleProxyKg": 45629.054235824915,
+        "meanTemperatureC": 14.63882152223556,
+        "radiusCells": 48
+      },
+      "civ-3118": {
+        "cells": 6927,
+        "hectares": 69.27,
+        "standingEdibleProxyKg": 345016.8421743781,
+        "meanTemperatureC": 13.187385865427327,
+        "radiusCells": 48
+      }
+    },
+    "unionCells": 10610,
+    "unionHectares": 106.1,
+    "overlapCells": {
+      "civ-1 / civ-11": 3024,
+      "civ-1 / civ-21": 3332,
+      "civ-1 / civ-3118": 0,
+      "civ-11 / civ-21": 3223,
+      "civ-11 / civ-3118": 0,
+      "civ-21 / civ-3118": 0
+    },
+    "scope": "Connected currently represented land within the existing founding survey radius; not owned territory, sustainable annual yield or individual knowledge."
+  },
+  "openingAccess": {
+    "civ-1": {
+      "population": 355,
+      "underOneYear": 55,
+      "shortIntake": 355,
+      "shortIntakeWithOwnFood": 355,
+      "shortIntakeAtCamp": 106,
+      "shortIntakeWithDistantStock": 249,
+      "stationaryAtCamp": 106
+    },
+    "civ-11": {
+      "population": 362,
+      "underOneYear": 62,
+      "shortIntake": 362,
+      "shortIntakeWithOwnFood": 362,
+      "shortIntakeAtCamp": 165,
+      "shortIntakeWithDistantStock": 197,
+      "stationaryAtCamp": 165
+    },
+    "civ-21": {
+      "population": 354,
+      "underOneYear": 54,
+      "shortIntake": 354,
+      "shortIntakeWithOwnFood": 354,
+      "shortIntakeAtCamp": 109,
+      "shortIntakeWithDistantStock": 245,
+      "stationaryAtCamp": 109
+    },
+    "civ-3118": {
+      "population": 368,
+      "underOneYear": 68,
+      "shortIntake": 368,
+      "shortIntakeWithOwnFood": 368,
+      "shortIntakeAtCamp": 126,
+      "shortIntakeWithDistantStock": 242,
+      "stationaryAtCamp": 126
+    }
+  },
+  "closingAccess": {
+    "civ-1": {
+      "population": 356,
+      "underOneYear": 56,
+      "shortIntake": 0,
+      "shortIntakeWithOwnFood": 0,
+      "shortIntakeAtCamp": 0,
+      "shortIntakeWithDistantStock": 0,
+      "stationaryAtCamp": 312
+    },
+    "civ-11": {
+      "population": 362,
+      "underOneYear": 62,
+      "shortIntake": 0,
+      "shortIntakeWithOwnFood": 0,
+      "shortIntakeAtCamp": 0,
+      "shortIntakeWithDistantStock": 0,
+      "stationaryAtCamp": 340
+    },
+    "civ-21": {
+      "population": 354,
+      "underOneYear": 54,
+      "shortIntake": 0,
+      "shortIntakeWithOwnFood": 0,
+      "shortIntakeAtCamp": 0,
+      "shortIntakeWithDistantStock": 0,
+      "stationaryAtCamp": 299
+    },
+    "civ-3118": {
+      "population": 369,
+      "underOneYear": 69,
+      "shortIntake": 0,
+      "shortIntakeWithOwnFood": 0,
+      "shortIntakeAtCamp": 0,
+      "shortIntakeWithDistantStock": 0,
+      "stationaryAtCamp": 298
+    }
+  },
+  "series": [
+    {
+      "tick": 228437,
+      "all": {
+        "population": 1439,
+        "campKg": 54749.84680328564,
+        "carriedKg": 3319.0710107031505,
+        "journeyKg": 0,
+        "intakeKg": 1183.0924101171006,
+        "bodyKg": 23914.607499999995,
+        "reserveSubsetKg": 2391.460750000006,
+        "harvestCounterKg": 253056.33594184247
+      }
+    },
+    {
+      "tick": 228452,
+      "all": {
+        "population": 1439,
+        "campKg": 54461.73051851521,
+        "carriedKg": 3891.442733717183,
+        "journeyKg": 0,
+        "intakeKg": 985.0955661047026,
+        "bodyKg": 23930.757283950494,
+        "reserveSubsetKg": 2392.9785536547115,
+        "harvestCounterKg": 253411.95228262024
+      }
+    },
+    {
+      "tick": 228468,
+      "all": {
+        "population": 1439,
+        "campKg": 54090.78683555754,
+        "carriedKg": 4180.086094754506,
+        "journeyKg": 0,
+        "intakeKg": 837.3816347806504,
+        "bodyKg": 23948.270376358705,
+        "reserveSubsetKg": 2394.7204045423314,
+        "harvestCounterKg": 253455.43210836835
+      }
+    },
+    {
+      "tick": 228484,
+      "all": {
+        "population": 1441,
+        "campKg": 53863.59435249782,
+        "carriedKg": 4281.375190470668,
+        "journeyKg": 0,
+        "intakeKg": 698.302122328162,
+        "bodyKg": 23970.27694444377,
+        "reserveSubsetKg": 2396.915684903384,
+        "harvestCounterKg": 253455.43210836835
+      }
+    },
+    {
+      "tick": 228500,
+      "all": {
+        "population": 1441,
+        "campKg": 53572.596209497104,
+        "carriedKg": 4323,
+        "journeyKg": 0,
+        "intakeKg": 689.536772585338,
+        "bodyKg": 23988.462718472198,
+        "reserveSubsetKg": 2398.728716956395,
+        "harvestCounterKg": 253455.43210836835
+      }
+    },
+    {
+      "tick": 228516,
+      "all": {
+        "population": 1441,
+        "campKg": 53076.0350035623,
+        "carriedKg": 4353.304598872932,
+        "journeyKg": 0,
+        "intakeKg": 1030.2386773184826,
+        "bodyKg": 24004.102429841412,
+        "reserveSubsetKg": 2400.326625069186,
+        "harvestCounterKg": 253594.79423279018
+      }
+    },
+    {
+      "tick": 228532,
+      "all": {
+        "population": 1441,
+        "campKg": 53110.58315883955,
+        "carriedKg": 4363.480950035306,
+        "journeyKg": 0,
+        "intakeKg": 866.3751062255287,
+        "bodyKg": 24016.419571444298,
+        "reserveSubsetKg": 2401.578799382937,
+        "harvestCounterKg": 253737.25249597925
+      }
+    }
+  ],
+  "privateProbeFiles": {
+    "food-flux-runner.ts": "af111c4bff33412502f608a020e62bebf5fecaadad8bb97e760e0664898912bf",
+    "food-flux-observer.mjs": "276ec3d4fa44601e1856914d542a465ed5f29e7d6a62e84d50c798ad248b71d7",
+    "build-food-flux-probe.mjs": "1f5c0c1bf224607c534530aae1da5313c6094abab9bc6ff95db1977709bf2e17",
+    "food-flux-probe-manifest.json": "82a4846f4f9bf48f7c5aa79db957f00258f385b609ebb630e95c49e961f7e280"
+  },
+  "harnessFailure": "Initial build imported FOUNDING from world.ts instead of founding.ts; corrected before either run. Both bounded executions exited successfully; no live mutation."
+}

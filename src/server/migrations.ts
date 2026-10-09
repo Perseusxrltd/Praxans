@@ -218,6 +218,18 @@ const migrations: RegisteredMigration[] = [
       // Optional personal-delivery fields begin only when new work is chosen.
     },
   },
+  {
+    id: "015-age-bounded-structural-growth",
+    from: 14,
+    to: 15,
+    fromLaws: "biosphere-1.8",
+    toLaws: "biosphere-1.9",
+    description:
+      "Preserve every existing person, age, body, reserve subset, intake, measured interval, task, material, region, identity, RNG, clock and historical record. From this boundary, extra oxidation for cold, melting or work grants no additional tissue-processing allowance. Processing remains included in coarse resting maintenance; its inherited fraction is not a measured synthesis cost. Restore finite reserves before allowing structural deposition within an age-resolved capacity and finite recovery rate, using actual remaining food. The existing 2 and 18 kg dry-equivalent body references, a concave 18-year maturation curve and 90-day structural recovery time constant are explicit uncalibrated model assumptions. Older deficient bodies may recover, but no body is resized to a target, no missed growth is credited as matter and all pre-existing oversized children remain intact. Infant motor development, feeding biology, gestational costs and seasonal survival still require validation. No people, supplies, historical development or clock time are created.",
+    apply() {
+      // The deposition budget is transient; existing body/history fields stay exact.
+    },
+  },
 ];
 
 function migrationPath(
