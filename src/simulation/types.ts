@@ -1,6 +1,6 @@
 import type { WorldClock } from "./chronology";
 import type { EntropyRecord } from "./thermodynamics";
-export const WORLD_VERSION = 17;
+export const WORLD_VERSION = 18;
 export type GenerationVersion = "archipelago-1" | "planet-1";
 export const TICK_MS = 250;
 export const HOURS_PER_TICK = 0.25;
@@ -270,11 +270,17 @@ export interface MetabolicFlux {
   reserveOxidizedKg: number;
   reserveStoredKg: number;
   structureStoredKg: number;
+  /** Captured total requested metabolism, including optional planned activity. */
   maintenanceKJ: number;
+  /** Mandatory resting demand, measured from biosphere-1.12 onward. */
+  restingKJ?: number;
   heatLossKJ: number;
   releasedKJ: number;
   meltKJ: number;
+  /** Unfunded part of the total request; optional work is not mandatory injury. */
   unmetMaintenanceKJ: number;
+  /** Absent on preserved older measurements; never reconstructed from today's body. */
+  unmetRestingKJ?: number;
   unmetColdKJ: number;
   unremovedHeatKJ: number;
   healthLoss: number;

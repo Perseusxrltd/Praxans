@@ -599,14 +599,15 @@ test("format-15 migration preserves inhabited/extinct saves, tasks, cargo, archi
       assert.equal(JSON.stringify(old), original);
       assert.deepEqual(result.world, {
         ...old,
-        version: 17,
-        lawsVersion: "biosphere-1.11",
+        version: 18,
+        lawsVersion: "biosphere-1.12",
       });
       assert.deepEqual(
         result.interventions.map((i) => i.id),
         [
           "016-performed-resource-harvesting",
           "017-contact-from-actual-movement",
+          "018-mandatory-resting-metabolism",
         ],
       );
       const loaded = store.load(0, true);
@@ -614,7 +615,7 @@ test("format-15 migration preserves inhabited/extinct saves, tasks, cargo, archi
       const [archive] = verifyWorldArchives(store.db);
       assert.equal(
         archive.id,
-        "016-performed-resource-harvesting+017-contact-from-actual-movement",
+        "016-performed-resource-harvesting+017-contact-from-actual-movement+018-mandatory-resting-metabolism",
       );
       assert.equal(
         Buffer.concat([...worldArchiveBytes(store.db, archive.id)]).toString(),
@@ -630,7 +631,7 @@ test("format-15 migration preserves inhabited/extinct saves, tasks, cargo, archi
       assert.deepEqual(loaded, replay);
       store.save(loaded);
       assert.deepEqual(store.load(0, true), loaded);
-      assert.equal(store.interventions().length, 2);
+      assert.equal(store.interventions().length, result.interventions.length);
     } finally {
       store.close();
     }

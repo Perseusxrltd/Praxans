@@ -1,0 +1,521 @@
+{
+  "date": "2026-10-09",
+  "status": "candidate prepared, not deployed",
+  "runtimeArtifact": {
+    "protocol": 1,
+    "release": "resting-demand-20261009-1",
+    "notes": "Separate mandatory resting deficit from unfunded optional work for injury, recovery and finite retention; preserve all earlier observations, state and history through migration 018.",
+    "sha256": "b9a453fc28676977f4f38c346f742b9417bc888ab87a60099d303796fc77dd5f",
+    "dependencies": "0ca3efac2e32e64895e4f395f1919a966af1b18b017c12aaa088b491f2f0022e",
+    "nodeMajor": 22
+  },
+  "sourceSha256": "3fb22b621e62d1418182bfeec7575a2d8cc3bb941fecd19cde51465c66e48d18",
+  "format": 18,
+  "laws": "biosphere-1.12",
+  "storage": 2,
+  "checks": {
+    "focused-controls": {
+      "event": "completed",
+      "at": "2026-10-09T13:47:39.719328+00:00",
+      "code": 0,
+      "predeclaredExecutionLimitReached": false,
+      "durationSeconds": 6.848244875000091,
+      "sourceAndTestsUnchanged": true,
+      "finalSourceAndTests": {
+        "files": 120,
+        "sha256": "81e13ac0d89c551d0a71cbf5d7a845781e90e8f7114d68ef54e26a74cd686148"
+      },
+      "log": "output/research/resting-demand-20261009/focused-controls.log",
+      "logSha256": "092dc12e85ac610b3eadd0def7caecd126bf5fb5258070519edd47144db70926"
+    },
+    "typecheck": {
+      "event": "completed",
+      "at": "2026-10-09T13:47:39.651607+00:00",
+      "code": 2,
+      "predeclaredExecutionLimitReached": false,
+      "durationSeconds": 6.780527896000422,
+      "sourceAndTestsUnchanged": true,
+      "finalSourceAndTests": {
+        "files": 120,
+        "sha256": "81e13ac0d89c551d0a71cbf5d7a845781e90e8f7114d68ef54e26a74cd686148"
+      },
+      "log": "output/research/resting-demand-20261009/typecheck.log",
+      "logSha256": "b96437377e873c1de571878602c458b752e52a2c467b9b6ee4d4c42564ec2206"
+    },
+    "build": {
+      "event": "completed",
+      "at": "2026-10-09T13:50:37.505972+00:00",
+      "code": 0,
+      "predeclaredExecutionLimitReached": false,
+      "durationSeconds": 64.35621252699639,
+      "sourceAndTestsUnchanged": true,
+      "finalSourceAndTests": {
+        "files": 120,
+        "sha256": "1f2d6d9b3e15d87c4667d2d5a3a4a3dcf0de97473cb51c171ce32d3f4367208f"
+      },
+      "log": "output/research/resting-demand-20261009/build.log",
+      "logSha256": "e18c98abd24a0190f7280ca61b91f9e3292bf83945e23fd19401ad808f1e5f30"
+    },
+    "model-server": {
+      "event": "completed",
+      "at": "2026-10-09T13:52:46.418920+00:00",
+      "code": 1,
+      "predeclaredExecutionLimitReached": false,
+      "durationSeconds": 193.2684919609892,
+      "sourceAndTestsUnchanged": true,
+      "finalSourceAndTests": {
+        "files": 120,
+        "sha256": "1f2d6d9b3e15d87c4667d2d5a3a4a3dcf0de97473cb51c171ce32d3f4367208f"
+      },
+      "log": "output/research/resting-demand-20261009/model-server.log",
+      "logSha256": "97a239afc2eebb6461b7a104c4a17086ac9427adcd3a108f3678819526d22285"
+    },
+    "renewal-migration-recheck": {
+      "event": "completed",
+      "at": "2026-10-09T13:55:28.948159+00:00",
+      "code": 0,
+      "predeclaredExecutionLimitReached": false,
+      "durationSeconds": 1.0117053900030442,
+      "sourceAndTestsUnchanged": true,
+      "finalSourceAndTests": {
+        "files": 120,
+        "sha256": "71332f160ad67660fcf5373a482ce0ad2d3a2e493ebb2d367d4f88fbdb8d77db"
+      },
+      "log": "output/research/resting-demand-20261009/renewal-migration-recheck.log",
+      "logSha256": "be9cfacf655f2cf2081ebd7de8f60ba5417e5f61851fb41545f4dd3a2c9f0c6c"
+    },
+    "formatting": {
+      "event": "completed",
+      "at": "2026-10-09T14:03:10.208305+00:00",
+      "code": 0,
+      "predeclaredExecutionLimitReached": false,
+      "durationSeconds": 7.7063257550034905,
+      "sourceAndTestsUnchanged": true,
+      "finalSourceAndTests": {
+        "files": 120,
+        "sha256": "71332f160ad67660fcf5373a482ce0ad2d3a2e493ebb2d367d4f88fbdb8d77db"
+      },
+      "log": "output/research/resting-demand-20261009/formatting.log",
+      "logSha256": "e3d816f0b0d7081d3de712d5d07663a1d530bd9c9b59290ab72cf9375c6a5b5a"
+    },
+    "whole-world-candidate": {
+      "event": "completed",
+      "at": "2026-10-09T14:01:44.711471+00:00",
+      "code": 0,
+      "predeclaredExecutionLimitReached": false,
+      "durationSeconds": 42.55083197301428,
+      "sourceAndTestsUnchanged": true,
+      "finalSourceAndTests": {
+        "files": 120,
+        "sha256": "71332f160ad67660fcf5373a482ce0ad2d3a2e493ebb2d367d4f88fbdb8d77db"
+      },
+      "log": "output/research/resting-demand-20261009/whole-world-candidate.log",
+      "logSha256": "101e93dc39f8a9a7e1ec6e8c10c8ebc7df330e72f982e52eb62deabe39d546ab"
+    },
+    "capacity-current": {
+      "event": "completed",
+      "at": "2026-10-09T14:02:53.837176+00:00",
+      "code": 1,
+      "predeclaredExecutionLimitReached": false,
+      "durationSeconds": 43.596820840990404,
+      "sourceAndTestsUnchanged": true,
+      "finalSourceAndTests": {
+        "files": 120,
+        "sha256": "71332f160ad67660fcf5373a482ce0ad2d3a2e493ebb2d367d4f88fbdb8d77db"
+      },
+      "log": "output/research/resting-demand-20261009/capacity-current.log",
+      "logSha256": "205b26db6136826235d4e6225b55a4a329e18fc2022002ef7968aa4ac39a82c9"
+    },
+    "capacity-larger": {
+      "event": "completed",
+      "at": "2026-10-09T14:04:42.369869+00:00",
+      "code": 0,
+      "predeclaredExecutionLimitReached": false,
+      "durationSeconds": 61.313853280007606,
+      "sourceAndTestsUnchanged": true,
+      "finalSourceAndTests": {
+        "files": 120,
+        "sha256": "71332f160ad67660fcf5373a482ce0ad2d3a2e493ebb2d367d4f88fbdb8d77db"
+      },
+      "log": "output/research/resting-demand-20261009/capacity-larger.log",
+      "logSha256": "4375c0939571db8bf4c36daf34cd739d4a0409f17cdba0c7033c4368d3603c35"
+    },
+    "production": {
+      "event": "completed",
+      "at": "2026-10-09T14:06:58.437451+00:00",
+      "code": 0,
+      "predeclaredExecutionLimitReached": false,
+      "durationSeconds": 102.86317788799352,
+      "sourceAndTestsUnchanged": true,
+      "finalSourceAndTests": {
+        "files": 120,
+        "sha256": "71332f160ad67660fcf5373a482ce0ad2d3a2e493ebb2d367d4f88fbdb8d77db"
+      },
+      "log": "output/research/resting-demand-20261009/production.log",
+      "logSha256": "c69fceda514f5819cf26060a3ee856880cf5ccc149e06652d80402fbfc8f9295"
+    },
+    "hotfix": {
+      "event": "completed",
+      "at": "2026-10-09T14:05:54.910865+00:00",
+      "code": 0,
+      "predeclaredExecutionLimitReached": false,
+      "durationSeconds": 39.34210494199942,
+      "sourceAndTestsUnchanged": true,
+      "finalSourceAndTests": {
+        "files": 120,
+        "sha256": "71332f160ad67660fcf5373a482ce0ad2d3a2e493ebb2d367d4f88fbdb8d77db"
+      },
+      "log": "output/research/resting-demand-20261009/hotfix.log",
+      "logSha256": "8ec428f871adeda3eb4b753a98293ee8e2899a5e39efdf1f017f74b97efabeaa"
+    },
+    "inspector-browser": {
+      "event": "completed",
+      "at": "2026-10-09T14:05:31.089501+00:00",
+      "code": 0,
+      "predeclaredExecutionLimitReached": false,
+      "durationSeconds": 15.520831959991483,
+      "sourceAndTestsUnchanged": true,
+      "finalSourceAndTests": {
+        "files": 120,
+        "sha256": "71332f160ad67660fcf5373a482ce0ad2d3a2e493ebb2d367d4f88fbdb8d77db"
+      },
+      "log": "output/research/resting-demand-20261009/inspector-browser.log",
+      "logSha256": "ddcbc50aa38356613bd360b3dbaa32a3cf17eca3400ff7fd4c4d84b38c8b1030"
+    },
+    "supplied-game-client": {
+      "event": "completed",
+      "at": "2026-10-09T14:06:44.409001+00:00",
+      "code": 0,
+      "predeclaredExecutionLimitReached": false,
+      "durationSeconds": 46.810579930999666,
+      "sourceAndTestsUnchanged": true,
+      "finalSourceAndTests": {
+        "files": 120,
+        "sha256": "71332f160ad67660fcf5373a482ce0ad2d3a2e493ebb2d367d4f88fbdb8d77db"
+      },
+      "log": "output/research/resting-demand-20261009/supplied-game-client.log",
+      "logSha256": "d60f62f1418e587166a018b369431704c9efccf373df179866c7e64ce750c29f"
+    }
+  },
+  "localModelSummary": {
+    "fullRun": {
+      "passed": 275,
+      "total": 276,
+      "onlyFailure": "stale format-eight migration count"
+    },
+    "affectedRecheck": {
+      "passed": 1,
+      "total": 1
+    },
+    "fullRunRepeated": false,
+    "physicalSourceChangedAfterFullRun": false,
+    "typecheckFailure": "two test-only local variable names; corrected before successful full build"
+  },
+  "productionChecks": 12,
+  "hotfixChecks": 25,
+  "inspectorChecks": 11,
+  "browser": {
+    "checks": [
+      "Actual resting need and zero unmet resting need reach the observer",
+      "Unfunded optional work is distinct from a mandatory energy shortfall",
+      "Unmeasured historical resting fields remain absent",
+      "Historical total-request shortfall retains its original meaning",
+      "Inspector labels zero funded planned activity",
+      "Inspector does not label unfunded optional work as an energy deficit",
+      "The measured finite oxidation is shown",
+      "Legacy inspector preserves old shortfall",
+      "Legacy inspector makes no inferred planned-activity comparison",
+      "Mobile inspector fits its viewport",
+      "Browser reports no errors"
+    ],
+    "errors": [],
+    "tick": 29,
+    "actor": {
+      "intakeKg": 0,
+      "bodyReservesKg": 0,
+      "intervalTick": 29,
+      "releasedKJ": 99,
+      "restingNeedKJ": 99,
+      "restingShortfallKJ": 0,
+      "fundedActivityFraction": 0,
+      "shortfallKJ": 0
+    },
+    "legacy": {
+      "intakeKg": 0,
+      "bodyReservesKg": 0,
+      "intervalTick": 29,
+      "releasedKJ": 99,
+      "fundedActivityFraction": 0,
+      "shortfallKJ": 45
+    },
+    "scope": "Disposable two-person observer fixture; actual current metabolic flux plus explicitly missing historical measurement pair. No live mutation."
+  },
+  "suppliedGameClient": {
+    "clientSha256": "1210f58b47aadd9cb4b141fb4b2dc9e17a929aa1a813cdd26b5306a0d08b6808",
+    "unmodifiedSuppliedClient": true,
+    "frames": [
+      {
+        "mode": "shared-world",
+        "tick": 1,
+        "connected": true,
+        "communities": 3
+      },
+      {
+        "mode": "shared-world",
+        "tick": 2,
+        "connected": true,
+        "communities": 3
+      },
+      {
+        "mode": "shared-world",
+        "tick": 3,
+        "connected": true,
+        "communities": 3
+      }
+    ],
+    "errors": []
+  },
+  "screenshotsInspected": [
+    "resting-demand-inspector/01-funded-rest.png",
+    "resting-demand-inspector/03-mobile.png",
+    "resting-demand-game-loop/shot-2.png"
+  ],
+  "capacityTrials": {
+    "current": {
+      "at": "2026-10-09T14:02:53.666Z",
+      "sourceSha256": "bc459084acecd0bacc77a01e87124c08ef6d05e9ccfef671b0dda4e824433abb",
+      "sourceUnchanged": true,
+      "code": 1,
+      "signal": null,
+      "stdout": "",
+      "stderr": "file:///home/jorqu/Praxans/output/research/resting-demand-20261009/capacity-worker.mjs:11499\n      this.db.prepare(\"DELETE FROM world_lease WHERE id=1 AND token=?\").run(this.leaseToken);\n                                                                        ^\n\nError: database or disk is full\n    at Store.close (file:///home/jorqu/Praxans/output/research/resting-demand-20261009/capacity-worker.mjs:11499:73)\n    at file:///home/jorqu/Praxans/output/research/resting-demand-20261009/capacity-worker.mjs:11590:9\n    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:665:26)\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {\n  code: 'ERR_SQLITE_ERROR',\n  errcode: 13,\n  errstr: 'database or disk is full'\n}\n\nNode.js v22.22.0\n",
+      "capacity": {
+        "bytes": 454299648,
+        "initialNonWalBudget": 393000000,
+        "minimumFree": 0,
+        "maximumWal": 37031936,
+        "samples": 840
+      },
+      "peakRssBytes": 341401600,
+      "scope": "Disposable private tmpfs at the declared filesystem quota; exact format-17 to18 migration and additional archive, preserved prior archives, three saves, protected rows and restart under a 216 MiB effective heap. Local memory and IO are not a live cgroup or inhabited-host guarantee."
+    },
+    "larger": {
+      "at": "2026-10-09T14:04:42.207Z",
+      "sourceSha256": "bc459084acecd0bacc77a01e87124c08ef6d05e9ccfef671b0dda4e824433abb",
+      "sourceUnchanged": true,
+      "code": 0,
+      "signal": null,
+      "report": {
+        "heapLimitBytes": 226492416,
+        "sourceTick": 637292,
+        "sourceVersion": 17,
+        "version": 18,
+        "laws": "biosphere-1.12",
+        "storage": 2,
+        "people": 0,
+        "regions": 38,
+        "migrationMs": 36084.024493000004,
+        "saves": [
+          {
+            "tick": 637324,
+            "simulationMs": 3168.4468039999992,
+            "saveMs": 1847.6501819999976,
+            "walBytes": 31967112
+          },
+          {
+            "tick": 637356,
+            "simulationMs": 3515.1152690000017,
+            "saveMs": 3040.9947969999994,
+            "walBytes": 31946512
+          },
+          {
+            "tick": 637388,
+            "simulationMs": 3020.9774640000032,
+            "saveMs": 1778.8918110000013,
+            "walBytes": 32041272
+          }
+        ],
+        "exactMigrationBoundary": true,
+        "exactArchiveSha256": "a186748eb15836ef407b4bf6d608cb91635d54ca17798bfc02fb8ed02984d91f",
+        "protectedRows": {
+          "sessions": {
+            "count": 30,
+            "sha256": "76547aeda2e9dca53d3eb2c5ce3c8f82d16c94ad3a4b7208585353282d6af89b"
+          },
+          "agents": {
+            "count": 1,
+            "sha256": "3bd1cef0d53721b3f8613c2f57ca2b7be3fc30510f761661b6494599a600d2d3"
+          },
+          "receipts": {
+            "count": 3,
+            "sha256": "8e2b9b8b3ef18d3047a9a3799be52d26aa14e738b5184e981968107007413445"
+          },
+          "events": {
+            "count": 71755,
+            "sha256": "7471c100f1ccfe508f01e92da53ea96d9dbe25c6da5bd9448ff20f44aeed43b1"
+          },
+          "history": {
+            "count": 6638,
+            "sha256": "9915f47946d1de3af5eb9a8e45a438868ac2061cc004c8568945c404716658de"
+          },
+          "interventions": {
+            "count": 32,
+            "sha256": "6d8341b6ed82cee7cd03ddd6d003e6d33e0cad12b738924147c44cf921649305"
+          },
+          "archives": {
+            "count": 10,
+            "sha256": "b26b86c7bd6f0a6ae41d826c05662efcb5e2e81d72300d7d18ced4ec7dafb551"
+          },
+          "archiveParts": {
+            "count": 4021,
+            "sha256": "e2b3698e6b71e5d8d74bd4c327e80ae4b85eb22a0753c2c75cba72a0c3b770a6"
+          }
+        },
+        "exactRestart": true,
+        "finalTick": 637388,
+        "clock": {
+          "tick": 637388,
+          "wall_ms": 1791551787340
+        },
+        "finalMetadataChecksum": "cd2a9bd09c8ae5184f4e1aac2d6c05f76f817b4a2f06100c2ff08db5d22573ff",
+        "finalRegionChecksum": "f62a3a8f55c77cb517cc92f2080927525f016f5d4d0fc6934b1873481528f398"
+      },
+      "stdout": "",
+      "stderr": "(node:231020) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+      "capacity": {
+        "bytes": 900001792,
+        "initialNonWalBudget": 393000000,
+        "minimumFree": 434245632,
+        "maximumWal": 37030592,
+        "samples": 1192
+      },
+      "peakRssBytes": 391172096,
+      "scope": "Disposable private tmpfs at the declared filesystem quota; exact format-17 to18 migration and additional archive, preserved prior archives, three saves, protected rows and restart under a 216 MiB effective heap. Local memory and IO are not a live cgroup or inhabited-host guarantee."
+    }
+  },
+  "capacityDecision": "Current filesystem exhausts disk with the next exact archive. Larger quota preserves archive/migration, all protected rows, three saves and restart. Enlarge the same existing volume before activation; retain all archives. HOBBY plan verified. Existing IaC supplies a resize route; reject the first plan because repeated deployment defaults would redeploy the service. Require a volume-only plan with no deploy effect. No plan change or new volume proposed.",
+  "publication": {
+    "backend": "not deployed",
+    "vercel": "not deployed",
+    "freshBeforeBackup": "pending before live activation",
+    "actualLiveFormat": 17,
+    "actualLiveLaws": "biosphere-1.11",
+    "actualLiveRelease": "contact-motion-20261009-1"
+  },
+  "limitations": [
+    "No mortality benefit in the selected day: same sixteen adult deaths, one tick later for one person.",
+    "Empty-world quota trial is not a live cgroup or inhabited-host guarantee.",
+    "Local test results do not imply implementation CI or live publication.",
+    "No renewal, reset, rewind, reseed, archive deletion, live database replacement or PR merge."
+  ],
+  "coherence": {
+    "inspectedAt": "2026-10-09T14:09:41.825Z",
+    "structuralScan": {
+      "baseCommit": "5bc09db81eceacc82c4713815513bdf2474f056d",
+      "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+      "gitVisibleExistingFileCount": 993,
+      "jsTsFileCount": 141,
+      "sourceFileCount": 82,
+      "srcContentSha256": "3fb22b621e62d1418182bfeec7575a2d8cc3bb941fecd19cde51465c66e48d18",
+      "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
+      "resolvedEdgeCount": 746,
+      "edgesByArea": {
+        "docs -> src/simulation": 25,
+        "docs -> tests": 1,
+        "scripts -> src/server": 27,
+        "scripts -> src/simulation": 26,
+        "src/client -> src/simulation": 27,
+        "src/client -> src/client": 21,
+        "src/server -> src/simulation": 41,
+        "src/server -> src/server": 28,
+        "src/simulation -> src/simulation": 260,
+        "tests -> src/simulation": 200,
+        "tests -> tests": 34,
+        "tests -> src/server": 56
+      },
+      "missingImports": [],
+      "missingAssets": [],
+      "nonliteralLoads": [
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+        },
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+        }
+      ],
+      "layerViolations": [],
+      "simulationEnvironmentImports": [],
+      "localMarkdownLinksChecked": 662,
+      "missingMarkdownLinks": []
+    },
+    "manualReview": [
+      "Captured quarter-hour resting and total requested kJ share one actual oxidation account; no new food or heat source.",
+      "Both observation paths preserve absent historical pairs; validators reject partial/nonfinite/inconsistent measurements.",
+      "The scalar law correction reuses existing physiology, growth and movement systems; no parallel engine or new runtime dependency.",
+      "Format, law, migration chain, inspector and research/requirement ledger agree; actual live status remains format 17 pending capacity.",
+      "Remaining planned-effort water/fatigue, allocation priorities and biological calibration are recorded rather than inferred from passing syntax or conservation."
+    ]
+  },
+  "hostingPlanAttempts": [
+    {
+      "path": "volume-plan.json",
+      "decision": "rejected without application",
+      "reason": "Would also redeploy service through re-declaration of imported defaults",
+      "actualVolumeResizeDeployEffect": "none"
+    },
+    {
+      "path": "volume-only-plan.json",
+      "decision": "reviewed, not yet applied",
+      "review": {
+        "planSha256": "6328d97de45c6d4cb878f6cc020864323d6a6fb33e77cabe6f0a5c96edfc5336",
+        "authoringSha256": "840eda26cf4cefbe1e2ebc29a0e0f923d1a0d9db2155cca55456f3a433fe7438",
+        "changeSetHash": "sha256:1fdf05a5285790d51309e8a69c30df5c098038db2bce17fc9db261aa31f4c1a4",
+        "environmentId": "2cad0093-e625-4e1f-93c3-5ffbd27b98e4",
+        "changes": [
+          {
+            "address": "volume.world-volume",
+            "after": {
+              "alerts": {
+                "usage": {
+                  "100": {},
+                  "80": {},
+                  "95": {}
+                }
+              },
+              "allowOnlineResize": true,
+              "region": "iad",
+              "sizeMB": 1000
+            },
+            "before": {
+              "alerts": {
+                "usage": {
+                  "100": {},
+                  "80": {},
+                  "95": {}
+                }
+              },
+              "allowOnlineResize": true,
+              "region": "iad",
+              "sizeMB": 500
+            },
+            "deployEffect": "none",
+            "details": [
+              "config.sizeMB (500 \u2192 1000)"
+            ],
+            "field": "config",
+            "kind": "resource.update",
+            "path": "resources.volume.world-volume.config",
+            "severity": "safe",
+            "summary": "Resize volume world-volume from 500MB to 1000MB"
+          }
+        ],
+        "destructive": false,
+        "noServiceDeploy": true,
+        "sameExistingDeclaredResources": true,
+        "scope": "Exact pinned plan; volume size only. Actual apply and measured filesystem are separate."
+      }
+    }
+  ]
+}

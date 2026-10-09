@@ -547,9 +547,14 @@ function App() {
                       bodyReservesKg: p.metabolism.reserves,
                       intervalTick: p.metabolism.last?.tick,
                       releasedKJ: p.metabolism.last?.releasedKJ,
+                      restingNeedKJ: p.metabolism.last?.restingKJ,
+                      restingShortfallKJ: p.metabolism.last?.unmetRestingKJ,
+                      fundedActivityFraction:
+                        p.metabolism.last?.activityFraction,
                       shortfallKJ: p.metabolism.last
                         ? Math.max(
-                            p.metabolism.last.unmetMaintenanceKJ,
+                            p.metabolism.last.unmetRestingKJ ??
+                              p.metabolism.last.unmetMaintenanceKJ,
                             p.metabolism.last.unmetColdKJ,
                           )
                         : undefined,
@@ -1905,7 +1910,12 @@ function CitizenPanel({
     recipient = world.citizens.find((p) => p.id === person.task?.recipientId);
   const metabolism = person.metabolism,
     flux = metabolism?.last,
-    shortfall = flux ? Math.max(flux.unmetMaintenanceKJ, flux.unmetColdKJ) : 0;
+    shortfall = flux
+      ? Math.max(
+          flux.unmetRestingKJ ?? flux.unmetMaintenanceKJ,
+          flux.unmetColdKJ,
+        )
+      : 0;
   return (
     <>
       <span className="eyebrow">ONE SMALL, WHOLE LIFE</span>
@@ -1973,6 +1983,14 @@ function CitizenPanel({
               {shortfall > 0.01 && (
                 <> Energy shortfall: {round(shortfall, 1)} kJ.</>
               )}
+              {flux.restingKJ !== undefined &&
+                flux.maintenanceKJ > flux.restingKJ + 0.01 && (
+                  <>
+                    {" "}
+                    Planned activity funded:{" "}
+                    {round(flux.activityFraction * 100)}%.
+                  </>
+                )}
               {flux.unremovedHeatKJ > 0.01 && (
                 <> Heat not shed: {round(flux.unremovedHeatKJ, 1)} kJ.</>
               )}

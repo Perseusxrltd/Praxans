@@ -612,8 +612,8 @@ test("format 13 migration preserves every existing quantity and task, archives a
     assert.equal(JSON.stringify(old), original);
     assert.deepEqual(result.world, {
       ...old,
-      version: 17,
-      lawsVersion: "biosphere-1.11",
+      version: 18,
+      lawsVersion: "biosphere-1.12",
     });
     assert.deepEqual(
       result.interventions.map((i) => i.id),
@@ -622,6 +622,7 @@ test("format 13 migration preserves every existing quantity and task, archives a
         "015-age-bounded-structural-growth",
         "016-performed-resource-harvesting",
         "017-contact-from-actual-movement",
+        "018-mandatory-resting-metabolism",
       ],
     );
     const loaded = store.load(0, true);
@@ -629,7 +630,7 @@ test("format 13 migration preserves every existing quantity and task, archives a
     const [archive] = verifyWorldArchives(store.db);
     assert.equal(
       archive.id,
-      "014-performed-local-food-handoff+015-age-bounded-structural-growth+016-performed-resource-harvesting+017-contact-from-actual-movement",
+      "014-performed-local-food-handoff+015-age-bounded-structural-growth+016-performed-resource-harvesting+017-contact-from-actual-movement+018-mandatory-resting-metabolism",
     );
     assert.equal(
       Buffer.concat([...worldArchiveBytes(store.db, archive.id)]).toString(),
@@ -641,7 +642,7 @@ test("format 13 migration preserves every existing quantity and task, archives a
     assert.deepEqual(loaded, replay);
     store.save(loaded);
     assert.deepEqual(store.load(0, true), loaded);
-    assert.equal(store.interventions().length, 4);
+    assert.equal(store.interventions().length, result.interventions.length);
   } finally {
     store.close();
   }
@@ -672,17 +673,23 @@ test("format 16 contact migration preserves unfinished routes and exact living o
       assert.equal(JSON.stringify(old), original);
       assert.deepEqual(migrated.world, {
         ...old,
-        version: 17,
-        lawsVersion: "biosphere-1.11",
+        version: 18,
+        lawsVersion: "biosphere-1.12",
       });
       assert.deepEqual(
         migrated.interventions.map((i) => i.id),
-        ["017-contact-from-actual-movement"],
+        [
+          "017-contact-from-actual-movement",
+          "018-mandatory-resting-metabolism",
+        ],
       );
       const loaded = store.load(0, true);
       assert.deepEqual(loaded, migrated.world);
       const [archive] = verifyWorldArchives(store.db);
-      assert.equal(archive.id, "017-contact-from-actual-movement");
+      assert.equal(
+        archive.id,
+        "017-contact-from-actual-movement+018-mandatory-resting-metabolism",
+      );
       assert.equal(
         Buffer.concat([...worldArchiveBytes(store.db, archive.id)]).toString(),
         JSON.stringify({ ...metadata, tiles }),
@@ -693,7 +700,7 @@ test("format 16 contact migration preserves unfinished routes and exact living o
       assert.deepEqual(loaded, replay);
       store.save(loaded);
       assert.deepEqual(store.load(0, true), loaded);
-      assert.equal(store.interventions().length, 1);
+      assert.equal(store.interventions().length, migrated.interventions.length);
     } finally {
       store.close();
     }

@@ -389,7 +389,10 @@ test("format eight migration introduces empty personal inventories without chang
   for (const key of ["carbon", "mineral", "water", "chemical"] as const)
     assert.ok(Math.abs(before[key] - original[key]) < 1e-4);
   const migrated = migrateWorld(old);
-  assert.equal(migrated.interventions.length, 9);
+  assert.equal(
+    migrated.interventions.length,
+    migrated.world.version - old.version,
+  );
   assert.equal(migrated.world.rng, rng);
   assert.equal(migrated.world.nextId, nextId);
   assert.equal(migrated.world.citizens.length, world.citizens.length);

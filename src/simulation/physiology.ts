@@ -509,6 +509,7 @@ export function finishMetabolism(
   person.hydration += melted;
   tile.temperature -= meltKJ / heatCapacity(tile);
   const unmetMaintenanceKJ = Math.max(0, step.maintenanceKJ - releasedKJ);
+  const unmetRestingKJ = Math.max(0, step.restingKJ - releasedKJ);
   const unmetColdKJ = Math.max(0, step.heatLossKJ - (releasedKJ - meltKJ));
   const excessKJ = Math.max(0, releasedKJ - meltKJ - step.heatLossKJ);
   const targetWater = hydrationTarget(person);
@@ -523,10 +524,13 @@ export function finishMetabolism(
     0,
     excessKJ - sweat * PLANET.vaporizationHeat,
   );
-  // Deficit components overlap; do not injure twice for the same missing kJ.
+  // Unfunded optional work reduces activity; an intention is not another
+  // mandatory bodily need. Keep requested fuel above, but use the captured
+  // resting demand for injury, recovery and processing. Deficit components
+  // overlap; do not injure twice for the same missing kJ.
   // This dose remains a phenomenological injury model, not core temperature.
   const injury = alive
-    ? (Math.max(unmetMaintenanceKJ, unmetColdKJ) + unremovedHeatKJ) /
+    ? (Math.max(unmetRestingKJ, unmetColdKJ) + unremovedHeatKJ) /
       model.injuryKJPerPoint
     : 0;
   const previousHealth = person.health;
@@ -538,7 +542,7 @@ export function finishMetabolism(
   if (
     alive &&
     person.health > 0 &&
-    Math.max(unmetMaintenanceKJ, unmetColdKJ, unremovedHeatKJ) < EPSILON
+    Math.max(unmetRestingKJ, unmetColdKJ, unremovedHeatKJ) < EPSILON
   ) {
     // Processing remains included in the coarse resting-maintenance account.
     // The inherited 35% convention caps its throughput, not a measured synthesis
@@ -580,10 +584,12 @@ export function finishMetabolism(
     reserveStoredKg,
     structureStoredKg,
     maintenanceKJ: step.maintenanceKJ,
+    restingKJ: step.restingKJ,
     heatLossKJ: step.heatLossKJ,
     releasedKJ,
     meltKJ,
     unmetMaintenanceKJ,
+    unmetRestingKJ,
     unmetColdKJ,
     unremovedHeatKJ,
     healthLoss,

@@ -26,7 +26,7 @@ import type {
 
 /** Changing these laws requires a new version and an explicit saved-world migration. */
 export const LAWS = Object.freeze({
-  version: "biosphere-1.11",
+  version: "biosphere-1.12",
   gravity: 9.81,
   chemicalEnergy: 17000,
   photosyntheticEfficiency: 0.024,

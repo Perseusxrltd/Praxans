@@ -7,6 +7,15 @@
 
 ## Log
 
+### [2026-10-09] Mandatory Resting Demand and Measured Archive Capacity
+
+- **type**: bugfix
+- **systems**: human_physiology, civilization_intelligence, world_storage, browser_observer, browser_validation
+- **files**: `physiology.ts`, `citizens.ts`, `migrations.ts`, `resting-demand-2026-10-09.md`, `resting-demand-0.2.md`
+- **agent**: Codex with world_research review
+
+The prepared format-18 correction separates mandatory resting injury/recovery/retention from unfunded planned work, preserving finite oxidation, real thermal deficits and historical observations. Seven controls pass, but the fixed whole-world day still loses the same sixteen adults; the verified baseline was reused and failed/stale test results remain recorded. The current-sized filesystem fills on the new exact archive, while a 900 MB quota passes migration, protected history, three saves and restart; [publication](../docs/releases/resting-demand-0.2.md) awaits expansion of the existing volume. → ADR-050.
+
 ### [2026-10-09] Planned Work Injury Reproduced Independently
 
 - **type**: audit

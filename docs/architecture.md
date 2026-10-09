@@ -86,6 +86,8 @@ Contacts are per-community, dated reports. New correspondence travels with livin
 
 Agent execution happens outside the world process. The server stores a hash of each civilization key and exposes no arbitrary code execution endpoint. Model outages do not block autonomous local behavior.
 
+Metabolic preparation captures resting demand separately from total requested metabolism. Finite oxidation is shared by rest, optional activity, thermal balance and melting; injury and existing recovery/retention gates use mandatory resting deficit, while activity uses its funded fraction. Fresh fluxes carry a validated pair of resting measurements. Format-18 migration preserves old observations without inferring the missing pair; the browser falls back to their original total-request shortfall. Planned-effort fatigue/water costs and food/oxygen allocation priorities remain separate model limits.
+
 ## Persistence and observation
 
 SQLite uses WAL mode with full synchronization. Metadata and each materialized region carry checksums. Durable tables retain events, historical measurements, sessions, scoped agent records, action receipts, releases, and migration snapshots. The in-memory event ring is only a recent working view; the browser can page through the permanent journal.

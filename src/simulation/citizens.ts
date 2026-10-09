@@ -748,7 +748,7 @@ function finishCitizenPhysiology(world: World, step: CitizenStep): void {
   if (
     person.health > 0 &&
     flux.healthLoss === 0 &&
-    flux.unmetMaintenanceKJ < 1e-9
+    (flux.unmetRestingKJ ?? flux.unmetMaintenanceKJ) < 1e-9
   )
     person.health = clamp(
       person.health + dt * (0.08 + person.traits.resilience * 0.1),

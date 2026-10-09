@@ -254,6 +254,18 @@ const migrations: RegisteredMigration[] = [
       // Contact evidence exists only within the new interval; saved fields stay exact.
     },
   },
+  {
+    id: "018-mandatory-resting-metabolism",
+    from: 17,
+    to: 18,
+    fromLaws: "biosphere-1.11",
+    toLaws: "biosphere-1.12",
+    description:
+      "Preserve every existing person, body, intake, reserves, measured interval, task, material, region, identity, RNG, clock and historical record. From this boundary, mandatory resting demand rather than an unfunded optional activity request governs metabolic injury and the existing recovery and finite retention gates. Desired work still requests fuel; one finite, oxygen-limited oxidation supplies resting metabolism, activity and subsequent heat or melting. Unfunded activity earns no additional work. Cold and unremoved heat still cause injury, with overlapping deficits counted once. New intervals record captured restingKJ and unmetRestingKJ alongside the unchanged total-request observations. Old measurements remain exact and gain no inferred resting values. Planned fatigue/water, coarse heat injury and retention energetics remain uncalibrated limitations. No people, resources, past recovery, historical survival or clock time are granted.",
+    apply() {
+      // Optional resting observations begin only in a newly measured interval.
+    },
+  },
 ];
 
 function migrationPath(

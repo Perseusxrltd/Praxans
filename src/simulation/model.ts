@@ -50,6 +50,8 @@ export const NATURAL_MODEL = Object.freeze({
     seasonalPlanning: SUBSISTENCE,
     localFoodHandoff: FOOD_HANDOFF,
     walkingMetresPerHour: WALKING_METRES_PER_HOUR,
+    mandatoryMetabolism:
+      "From biosphere-1.12, injury, recovery and finite processing use the captured mandatory resting deficit. Unfunded optional activity reduces available work without becoming another bodily need. Total requested metabolism still requests fuel; the same finite oxidation funds rest and activity and subsequently leaves as sensible or latent heat. Cold and unremoved heat remain injurious. New measured intervals add restingKJ/unmetRestingKJ; older recorded intervals are preserved without inferred values. Planned fatigue and basal water modifiers still use task intention and remain a separate limitation. This does not calibrate injury, synthesis, core temperature or survival.",
     personalContact:
       "From biosphere-1.11, local covering, food handoffs and resource work use actual occupied positions and travel during the interval. A pending route is not movement: a physically stationary person can receive help even when travel is unfunded or blocked. Positive travel invalidates contact for the whole interval, including an out-and-back route; the next interval starts a new contact account. Actors must still be living, present, outside a journey and in the same captured cell. Actual transfers recheck contact before sharing finite source budgets. Travel consumes its funded activity interval and earns no extra work on arrival. This remains a coarse 100 m² contact rule, not body reach, continuous interaction, recipient consent, guaranteed helpers or a survival guarantee.",
     nourishment:

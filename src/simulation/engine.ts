@@ -612,6 +612,21 @@ export function validateWorld(world: World): void {
         metabolism.healthLoss,
       ])
         positive(value, "metabolic flux");
+      const { restingKJ, unmetRestingKJ } = metabolism;
+      if ((restingKJ === undefined) !== (unmetRestingKJ === undefined))
+        fail("partial resting metabolic account");
+      if (restingKJ !== undefined && unmetRestingKJ !== undefined) {
+        positive(restingKJ, "resting metabolic demand");
+        positive(unmetRestingKJ, "resting metabolic deficit");
+        const tolerance = Math.max(1e-7, restingKJ * Number.EPSILON * 16);
+        if (
+          restingKJ > metabolism.maintenanceKJ + tolerance ||
+          Math.abs(
+            unmetRestingKJ - Math.max(0, restingKJ - metabolism.releasedKJ),
+          ) > tolerance
+        )
+          fail("inconsistent resting metabolic account");
+      }
     }
     for (const value of [
       person.health,

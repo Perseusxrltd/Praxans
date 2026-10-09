@@ -769,6 +769,146 @@ test("competing melt requests cannot reserve food for the same ice twice while a
   assert.deepEqual(outcomes[0], outcomes[1]);
 });
 
+test("an unfunded route adds no mandatory injury or recovery barrier to a stationary person", () => {
+  for (const availableKJ of [0, 49.5, 99]) {
+    const outcomes = [];
+    for (const pending of [false, true]) {
+      const f = fixture();
+      f.person.metabolism.reserves = 0;
+      f.person.metabolism.intake = availableKJ / FOOD_KJ;
+      const destination = tileIndex(f.world, f.person.x + 1, f.person.y);
+      f.person.task = {
+        kind: "rest",
+        tile: pending ? destination : f.person.task!.tile,
+        path: pending ? [destination] : [],
+        progress: 0,
+      };
+      const task = f.person.task,
+        before = balances(f.world),
+        health = f.person.health;
+      updateCitizens(f.world);
+      const flux = f.person.metabolism.last!;
+      close(flux.releasedKJ, availableKJ);
+      close(flux.restingKJ!, 99);
+      close(flux.unmetRestingKJ!, 99 - availableKJ);
+      close(flux.maintenanceKJ, pending ? 144 : 99);
+      close(flux.unmetMaintenanceKJ, (pending ? 144 : 99) - availableKJ);
+      close(flux.healthLoss, (99 - availableKJ) / 240);
+      close(flux.activityFraction, 0);
+      close(f.person.x, f.civ.x);
+      close(f.person.y, f.civ.y);
+      assert.equal(f.person.task, task);
+      close(task.progress, 0);
+      const recovery =
+        availableKJ === 99
+          ? 0.25 * (0.08 + f.person.traits.resilience * 0.1)
+          : 0;
+      close(f.person.health - health, recovery - flux.healthLoss);
+      conserved(f.world, before);
+      outcomes.push([flux.healthLoss, f.person.health]);
+    }
+    assert.deepEqual(outcomes[0], outcomes[1]);
+  }
+});
+
+test("oxygen-limited optional work does not block finite processing after resting need is funded", () => {
+  // Isolate the metabolic stage. The separate citizen hypoxia injury is not run.
+  for (const oxygenEnergyKJ of [49.5, 99, 121.5]) {
+    const retained = [];
+    for (const active of [false, true]) {
+      const f = fixture();
+      f.person.metabolism.reserves = 0;
+      f.person.metabolism.intake = 0.2;
+      f.world.atmosphere.oxygen =
+        (oxygenEnergyKJ / FOOD_KJ) *
+        MATERIALS.biomass.carbon *
+        CHEMISTRY.oxygenPerOrganic;
+      f.world.atmosphereCompensation.oxygen = 0;
+      const before = balances(f.world),
+        intake = f.person.metabolism.intake;
+      const flux = interval(f, 0.25, active);
+      close(flux.releasedKJ, Math.min(oxygenEnergyKJ, active ? 144 : 99));
+      close(flux.unmetRestingKJ!, Math.max(0, 99 - oxygenEnergyKJ));
+      close(flux.healthLoss, Math.max(0, 99 - oxygenEnergyKJ) / 240);
+      close(flux.reserveOxidizedKg, 0);
+      close(flux.structureStoredKg, 0);
+      close(
+        f.person.metabolism.intake + flux.foodOxidizedKg + flux.reserveStoredKg,
+        intake,
+      );
+      if (oxygenEnergyKJ < 99) close(flux.reserveStoredKg, 0);
+      else {
+        assert.ok(flux.reserveStoredKg > 0);
+        close(
+          flux.reserveStoredKg,
+          ((99 / FOOD_KJ) * METABOLISM.retentionFraction) /
+            (1 - METABOLISM.retentionFraction),
+        );
+      }
+      close(
+        flux.activityFraction,
+        active ? Math.max(0, (oxygenEnergyKJ - 99) / 45) : 0,
+      );
+      conserved(f.world, before);
+      retained.push(flux.reserveStoredKg);
+    }
+    close(retained[0], retained[1]);
+  }
+});
+
+test("a real cold deficit remains injurious with or without an activity request", () => {
+  const outcomes = [];
+  for (const active of [false, true]) {
+    const f = fixture();
+    f.person.metabolism.reserves = 0;
+    f.person.metabolism.intake = 144 / FOOD_KJ;
+    const area = bodyHeatBalance(f.person, 0, false, 0).area;
+    f.tile.temperature =
+      PHYSIOLOGY.skinTemperature -
+      ((180 / (0.25 * 3.6)) * PHYSIOLOGY.airResistance) / area;
+    const before = balances(f.world),
+      flux = interval(f, 0.25, active);
+    close(flux.releasedKJ, 144);
+    close(flux.heatLossKJ, 180);
+    close(flux.unmetRestingKJ!, 0);
+    close(flux.unmetColdKJ, 36);
+    close(flux.healthLoss, 36 / 240);
+    close(flux.reserveStoredKg + flux.structureStoredKg, 0);
+    conserved(f.world, before);
+    outcomes.push(flux.healthLoss);
+  }
+  assert.deepEqual(outcomes[0], outcomes[1]);
+});
+
+test("rest-funded heat may melt finite ice despite an unfunded optional activity request", () => {
+  const outcomes = [];
+  for (const active of [false, true]) {
+    const f = fixture();
+    f.person.metabolism.reserves = 0;
+    f.person.metabolism.intake = 99 / FOOD_KJ;
+    f.person.hydration = 6;
+    for (const tile of nearbyTiles(f.world, f.person, 1.5)) {
+      tile.water = 0;
+      tile.ice = 0;
+      tile.air.snow = 0;
+    }
+    f.tile.temperature = PHYSIOLOGY.skinTemperature;
+    f.tile.ice = 0.1;
+    const before = balances(f.world),
+      flux = interval(f, 0.25, active);
+    close(flux.releasedKJ, 99);
+    close(flux.meltKJ, 0.1 * PLANET.fusionHeat);
+    close(flux.unmetRestingKJ!, 0);
+    close(flux.unmetColdKJ, 0);
+    close(flux.healthLoss, 0);
+    close(flux.activityFraction, 0);
+    close(f.tile.ice, 0);
+    conserved(f.world, before);
+    outcomes.push([flux.releasedKJ, flux.meltKJ, f.person.hydration]);
+  }
+  assert.deepEqual(outcomes[0], outcomes[1]);
+});
+
 test("partially funded existing work receives only its paid activity interval", () => {
   const progress = [];
   for (const fraction of [0, 0.5, 1]) {
@@ -787,12 +927,99 @@ test("partially funded existing work receives only its paid activity interval", 
     };
     updateCitizens(f.world);
     close(f.person.metabolism.last!.activityFraction, fraction);
+    close(f.person.metabolism.last!.unmetRestingKJ!, 0);
+    close(f.person.metabolism.last!.healthLoss, 0);
     assert.equal(f.person.task?.kind, "gather");
     progress.push(f.person.task!.progress);
   }
   close(progress[0], 0);
   assert.ok(progress[2] > 0);
   close(progress[1], progress[2] / 2);
+});
+
+test("format 17 migration preserves prior measured demand and all living or extinct history", () => {
+  for (const extinct of [false, true]) {
+    const f = fixture(2),
+      store = new Store(":memory:");
+    try {
+      f.person.metabolism.intake = 0.2;
+      rebaseFixture(f.world);
+      interval(f, 0.25, true);
+      // Older intervals contain the total request, but no measured resting split.
+      delete f.person.metabolism.last!.restingKJ;
+      delete f.person.metabolism.last!.unmetRestingKJ;
+      if (extinct) {
+        for (const person of f.world.citizens) person.health = 0;
+        processDeaths(f.world);
+      }
+      store.save(f.world);
+      const old = structuredClone(f.world);
+      old.version = 17;
+      old.lawsVersion = "biosphere-1.11";
+      const original = JSON.stringify(old),
+        { tiles, ...metadata } = old,
+        json = JSON.stringify(metadata);
+      store.db
+        .prepare("UPDATE world SET json=?,checksum=?")
+        .run(json, digest(json));
+      const migrated = migrateWorld(old);
+      assert.equal(JSON.stringify(old), original);
+      assert.deepEqual(migrated.world, {
+        ...old,
+        version: 18,
+        lawsVersion: "biosphere-1.12",
+      });
+      assert.deepEqual(
+        migrated.interventions.map((i) => i.id),
+        ["018-mandatory-resting-metabolism"],
+      );
+      const loaded = store.load(0, true);
+      assert.deepEqual(loaded, migrated.world);
+      const [archive] = verifyWorldArchives(store.db);
+      assert.equal(archive.id, "018-mandatory-resting-metabolism");
+      assert.equal(
+        Buffer.concat([...worldArchiveBytes(store.db, archive.id)]).toString(),
+        JSON.stringify({ ...metadata, tiles }),
+      );
+      if (!extinct)
+        assert.equal(loaded.citizens[0].metabolism.last!.restingKJ, undefined);
+      const replay = structuredClone(loaded);
+      stepWorld(loaded, 8);
+      stepWorld(replay, 8);
+      assert.deepEqual(loaded, replay);
+      if (!extinct)
+        assert.ok(loaded.citizens[0].metabolism.last!.restingKJ! > 0);
+      store.save(loaded);
+      assert.deepEqual(store.load(0, true), loaded);
+      assert.equal(store.interventions().length, migrated.interventions.length);
+    } finally {
+      store.close();
+    }
+  }
+});
+
+test("resting observations must be jointly present, finite and consistent while legacy intervals remain readable", () => {
+  const f = fixture();
+  f.person.metabolism.intake = 0.2;
+  rebaseFixture(f.world);
+  interval(f);
+  validateWorld(f.world);
+  const original = { ...f.person.metabolism.last! };
+  for (const patch of [
+    { restingKJ: undefined },
+    { unmetRestingKJ: undefined },
+    { restingKJ: -1 },
+    { unmetRestingKJ: NaN },
+    { restingKJ: original.maintenanceKJ + 1 },
+    { unmetRestingKJ: 1 },
+  ]) {
+    f.person.metabolism.last = { ...original, ...patch };
+    assert.throws(() => validateWorld(f.world), /resting/);
+  }
+  f.person.metabolism.last = { ...original };
+  delete f.person.metabolism.last.restingKJ;
+  delete f.person.metabolism.last.unmetRestingKJ;
+  validateWorld(f.world);
 });
 
 test("a journey cannot move until its carriers have funded that journey's interval", () => {
@@ -936,8 +1163,8 @@ test("format-14 growth migration preserves oversized children, measured interval
       assert.equal(JSON.stringify(old), original);
       assert.deepEqual(migrated.world, {
         ...old,
-        version: 17,
-        lawsVersion: "biosphere-1.11",
+        version: 18,
+        lawsVersion: "biosphere-1.12",
       });
       assert.deepEqual(
         migrated.interventions.map((i) => i.id),
@@ -945,6 +1172,7 @@ test("format-14 growth migration preserves oversized children, measured interval
           "015-age-bounded-structural-growth",
           "016-performed-resource-harvesting",
           "017-contact-from-actual-movement",
+          "018-mandatory-resting-metabolism",
         ],
       );
       const loaded = store.load(0, true);
@@ -952,7 +1180,7 @@ test("format-14 growth migration preserves oversized children, measured interval
       const [archive] = verifyWorldArchives(store.db);
       assert.equal(
         archive.id,
-        "015-age-bounded-structural-growth+016-performed-resource-harvesting+017-contact-from-actual-movement",
+        "015-age-bounded-structural-growth+016-performed-resource-harvesting+017-contact-from-actual-movement+018-mandatory-resting-metabolism",
       );
       assert.equal(
         Buffer.concat([...worldArchiveBytes(store.db, archive.id)]).toString(),
@@ -971,7 +1199,7 @@ test("format-14 growth migration preserves oversized children, measured interval
       assert.deepEqual(loaded, replay);
       store.save(loaded);
       assert.deepEqual(store.load(0, true), loaded);
-      assert.equal(store.interventions().length, 3);
+      assert.equal(store.interventions().length, migrated.interventions.length);
     } finally {
       store.close();
     }
@@ -1005,8 +1233,8 @@ test("format-11 migration partitions existing bodies and starts no invented inta
     }
     assert.deepEqual(projected, {
       ...old,
-      version: 17,
-      lawsVersion: "biosphere-1.11",
+      version: 18,
+      lawsVersion: "biosphere-1.12",
     });
     assert.deepEqual(
       migrated.interventions.map((i) => i.id),
@@ -1017,6 +1245,7 @@ test("format-11 migration partitions existing bodies and starts no invented inta
         "015-age-bounded-structural-growth",
         "016-performed-resource-harvesting",
         "017-contact-from-actual-movement",
+        "018-mandatory-resting-metabolism",
       ],
     );
     const loaded = store.load(0, true);
@@ -1036,7 +1265,7 @@ test("format-11 migration partitions existing bodies and starts no invented inta
     assert.deepEqual(loaded, repeat);
     store.save(loaded);
     assert.deepEqual(store.load(0, true), loaded);
-    assert.equal(store.interventions().length, 6);
+    assert.equal(store.interventions().length, migrated.interventions.length);
   } finally {
     store.close();
   }
