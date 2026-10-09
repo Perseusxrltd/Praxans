@@ -498,6 +498,7 @@
   "rationBoundaryFollowup": {
     "date": "2026-10-09",
     "record": "../validation/ration-boundary-2026-10-09.json",
-    "scope": "Implemented consumption-before-packing and compatible lossless archive compaction. Immediate consumption, metabolism, growth, scale and open institutions remain unresolved."
+    "scope": "Implemented consumption-before-packing and compatible lossless archive compaction. Immediate consumption, metabolism, growth, scale and open institutions remain unresolved.",
+    "status": "LIVE with saved-world and full changed-archive verification; all prior study findings retained."
   }
 }

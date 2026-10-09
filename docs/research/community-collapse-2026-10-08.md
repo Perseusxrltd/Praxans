@@ -2,7 +2,7 @@
 
 Recorded 2026-10-08. **Confirmed system defects contributed to the collapse; this is not a validated natural extinction.** Saved history shows dwindling communal food and deaths in cold conditions. An exact historical replay proves that the first infant died from the model's cold-exposure health penalty, at home with usable fiber still in stock but no caregiver wrapping mechanism. Small controlled checks also reproduce food allocation by update order. The contribution of each defect to all 1,607 deaths remains unmeasured; correcting them does not establish that these habitats can sustain 300 founders and their descendants.
 
-**Subsequent correction:** [performed body maintenance](../releases/body-maintenance-0.2.md) is now live. It adds a finite local work path for self/nearby protection and preserves every historical death. The findings below describe their recorded releases; food allocation, growth, metabolic energy and sustainable habitat capacity still need correction or validation.
+**Subsequent corrections:** [performed body maintenance](../releases/body-maintenance-0.2.md) and [consumption before optional ration packing](../releases/ration-boundary-0.2.md) are now live. They add a finite local work path for self/nearby protection and remove the reproduced packing-before-meal failure while preserving every historical death. The findings below describe their recorded releases; contention between current bodily demands, growth, metabolic energy and sustainable habitat capacity still need correction or validation.
 
 ![Population, communal food and deaths after the finite renewal](../images/community-collapse-2026-10-08.png)
 

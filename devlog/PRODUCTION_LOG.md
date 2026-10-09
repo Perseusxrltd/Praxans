@@ -18,6 +18,8 @@ All citizens finish current physiological withdrawals before finite local reserv
 
 The initial small-volume rehearsal failed after its new archive; lossless conversion of older plaintext archives now permits the same quota/heap rehearsal to migrate, save and restart with 16.98 MB minimum free space. Original bytes/checksums and history are verified. Local checks and publication are recorded separately in the [release](../docs/releases/ration-boundary-0.2.md). → ADR-036.
 
+Published as `ration-boundary-20261009-1` at 00:02:44 UTC, tick 344720, on the continuing Railway gateway and volume. The Vercel ration inspector is READY. All 169 model/server tests, 12 compiled-production checks, 21 generic hotfix checks and 15 exact-artifact inhabited-copy handover checks pass. Saved tick 345616 retains the four communities, prior ownership signatures, 70,229 earlier journal rows by count, the sole renewal and exact clock arithmetic. One observer remains connected through 11 snapshots and 54 frames with no fault or backward tick; the finite host monitor records no new OOM kill. Metabolic energy, growth and sustainable habitat capacity remain unresolved.
+
 ---
 
 ### [2026-10-08] Performed Body Maintenance and Migration Memory Correction

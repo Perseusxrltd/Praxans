@@ -1,7 +1,7 @@
 {
-  "inspectedAt": "2026-10-08T23:55:18.146Z",
+  "inspectedAt": "2026-10-09T00:13:01.053Z",
   "structuralScan": {
-    "baseCommit": "c920a74deea2249727ec495299527522cbd9fdbb",
+    "baseCommit": "2dde934dd193355157e7513b4aa84ea13cf7ce07",
     "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
     "gitVisibleExistingFileCount": 932,
     "jsTsFileCount": 125,
@@ -36,7 +36,7 @@
     ],
     "layerViolations": [],
     "simulationEnvironmentImports": [],
-    "localMarkdownLinksChecked": 395,
+    "localMarkdownLinksChecked": 400,
     "missingMarkdownLinks": []
   },
   "rationBoundaryReview": {
@@ -56,6 +56,12 @@
       "Full-region WAL, small remaining disk headroom and no populated 1 GB cgroup handover proof.",
       "No new renewal or claim of demographic viability."
     ],
-    "evidence": "ration-boundary-2026-10-09.json"
+    "evidence": "ration-boundary-2026-10-09.json",
+    "deployment": {
+      "status": "LIVE",
+      "release": "ration-boundary-20261009-1",
+      "handoverTick": 344720,
+      "verification": "ration-boundary-2026-10-09.json"
+    }
   }
 }

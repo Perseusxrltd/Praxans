@@ -1,6 +1,6 @@
 # Browser world validation
 
-The [ration-boundary candidate](../releases/ration-boundary-0.2.md) has separate [causal, storage, continuity and publication evidence](ration-boundary-2026-10-09.json). Its initial quota failure is retained alongside the corrected test; passing allocation cases do not establish demographic viability.
+The live [ration-boundary correction](../releases/ration-boundary-0.2.md) has separate [causal, storage, continuity and publication evidence](ration-boundary-2026-10-09.json). Its initial quota failure is retained alongside the corrected test and actual tick-344720 handover; passing allocation cases do not establish demographic viability.
 
 ## Body maintenance — 2026-10-08
 
