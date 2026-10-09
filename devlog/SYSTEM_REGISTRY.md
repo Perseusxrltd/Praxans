@@ -93,8 +93,8 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `Dockerfile`, `compose.yaml`, `.railway/railway.ts`, `vercel.json`, `src/server/index.ts`, `scripts/container-entrypoint.mjs`, `scripts/prepare-website.mjs`
 - **dependencies**: world_storage, agent_gateway, browser_observer, runtime_handover
 - **dependents**: none
-- **known_issues**: Hosting resources and provider limits remain finite; public origin must match the deployed website.
-- **last_touched**: 2026-10-08
+- **known_issues**: Hosting resources and provider limits remain finite; public origin must match the deployed website. Read effective project subscription limits rather than inferring them from the workspace label. A CLI-accepted configuration can still have a failed provider operation; confirm its outcome and actual mounted capacity before a migration. The resting-demand release remains pending the measured storage increase; see docs/releases/resting-demand-0.2.md.
+- **last_touched**: 2026-10-09
 
 ### runtime_handover
 
