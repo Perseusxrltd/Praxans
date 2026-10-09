@@ -8,7 +8,7 @@
 ## [Renewal, Scale and Agent Recovery 0.2] — 2026-10-08
 
 ### Added
-- Prepared atomic storage version 2 with lossless bounded regional encoding, original/payload verification, legacy readers and rollback/restart tests (→ world_storage; → ADR-042).
+- Published atomic storage version 2 with lossless bounded regional encoding, original/payload verification, legacy readers and rollback/restart tests (→ world_storage; → ADR-042).
 - Nine bounded infant-food/growth controls with exact probe and transfer evidence; no historical death apportionment or biological correction (→ human_physiology).
 - Finite unoxidized intake, a usable reserve subset inside existing body material and one measured metabolic heat/activity account; future death records and agent/browser observations expose the actual interval (→ human_physiology; → ADR-037).
 - Performed body maintenance through existing repair tasks: local self/nearby care, finite work and fiber, shared transfer budgets, signed outcome learning and an inspector for real covering/progress. Format 10 / biosphere-1.4 preserves existing state (→ human_physiology; → ADR-034).
@@ -23,7 +23,7 @@
 - Antiquity-first source register, scale audits, failed-candidate evidence, measured CPU baseline and explicit large-world acceptance targets.
 
 ### Fixed
-- Prepared recovery after terminal EventSource HTTP errors, preserving camera/selection and cancelling navigation-obsolete attempts. Six controlled 503/browser cases pass; the earlier actual container reconnect failure remains recorded (→ browser_observer; → ADR-043).
+- Published recovery after terminal EventSource HTTP errors, preserving camera/selection and cancelling navigation-obsolete attempts. Six controlled 503/browser cases pass; the earlier actual container reconnect failure remains recorded (→ browser_observer; → ADR-043).
 - Published gateway support for storage-aware automatic fallback and prompt, truthful unavailable readiness during handover/recovery. An isolated build preserves the active runtime bytes; [publication status](../docs/releases/gateway-readiness-0.2.md) is explicit (→ runtime_handover; → ADR-041).
 - Successful long world transactions renew their held writer lease before commit; loss of ownership rolls back the write (→ world_storage; → ADR-040).
 - Loose camp, personal and journey materials share hourly sampled exposure, journey loads include personal supplies, and founding resources require connected represented land. Format 13 / biosphere-1.7 preserves actual inventories at migration; [release validation/publication](../docs/releases/food-custody-0.2.md) remains explicit (→ settlement_space; → civic_relations; → ADR-038).
@@ -43,6 +43,7 @@
 - SQLite retains the original disk-full cause when it has already rolled back; reusable WAL retention is limited without discarding active reader history.
 
 ### Validation and limits
+- Region storage/recovery: 214 model/server, 25 hotfix, 12 production, 40 browser, six desktop and six portrait-viewport reconnection checks pass. The live old writer filled disk before activation; recovery repeats 32 unsaved ticks over the same observer connection. The new writer retains about 90 MB free in finite checks. Independent libzstd decoding and archive/prefix comparisons preserve every prior durable record; Vercel is READY. Full-save CPU cost and total memory/capacity remain limits (→ world_storage; → browser_observer).
 - Live local inventory/access release: all 11 food and final 29 storage/preflight cases, 12 production checks, 40 browser checks, 21 hotfix checks and 16 exact-artifact inhabited-copy checks pass. Actual tick-378536 handover and Vercel publication retain identities, SSE/time and all six original archive byte hashes. A 15-second health timeout remains a failed latency criterion; only 5.84 MB remains at the sampled disk minimum. No survival or populated-host claim (→ runtime_handover; → world_storage).
 - Live funded-metabolism release: twenty new metabolic cases, thirteen focused browser checks, sixteen connection checks, twelve isolated production checks and sixteen exact-artifact inhabited-copy handover checks pass. The full batch is 188/189 plus a 2/2 corrected-fixture recheck. The contended production timeout and seven-day trial deadline remain recorded; no long-term survival or inhabited live-memory claim. Handover at tick 363208 and the Vercel inspector are published; all 429 archive blocks, prior identity/history signatures, one continuing observer and exact clock arithmetic verify.
 - Live `ration-boundary-20261009-1` passes 169 model/server tests, twelve production, 21 generic hotfix and fifteen inhabited-copy handover checks, focused browser checks and both implementation GitHub runs. At live tick 344720 the existing observer continues through the law update; saved 345616 preserves prior identities/history and exact clock arithmetic. All 800 changed archive blocks verify off-host, including complete original checksums. Finite monitoring records no new OOM kill; the existing clock debt, extinct communities and populated-host capacity limits remain.

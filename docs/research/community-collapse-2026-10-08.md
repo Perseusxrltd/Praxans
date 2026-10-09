@@ -4,6 +4,8 @@ Recorded 2026-10-08. **Confirmed system defects contributed to the collapse; thi
 
 **Subsequent corrections:** [performed body maintenance](../releases/body-maintenance-0.2.md), [consumption before optional packing](../releases/ration-boundary-0.2.md), [funded metabolism](../releases/funded-metabolism-0.2.md) and [local resource exposure/access](../releases/food-custody-0.2.md) are live. They add finite performed protection, shared current food/ice budgets, one actual intake/reserve account, consistent loose-goods decay and connected founding screens. They preserve every historical death. Feeding, age-dependent growth, handling labor, physiological calibration and sustainable habitat capacity remain unresolved; none of these releases establishes long-term survival.
 
+The later [bounded infant-food/growth diagnostic](infant-food-access-2026-10-09.md) adds current-model evidence: an infant cannot receive food held by an adult beside it, while equal food held by the infant can enter intake; four hours of reserve substitution caused no injury. A separate funded interval exposes an uncalibrated link between extra cold oxidation and structural retention. These tests identify missing or questionable mechanisms without assigning additional historical deaths or proving infant viability.
+
 ![Population, communal food and deaths after the finite renewal](../images/community-collapse-2026-10-08.png)
 
 The figure uses [daily history and death counts](collapse-timeline.json), not conditions observed after extinction.

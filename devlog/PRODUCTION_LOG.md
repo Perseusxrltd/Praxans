@@ -7,14 +7,14 @@
 
 ## Log
 
-### [2026-10-09] Prepared Lossless Regional Storage and Observer Recovery
+### [2026-10-09] Published Lossless Regional Storage and Observer Recovery
 
 - **type**: infrastructure
 - **systems**: world_storage, browser_observer, browser_validation
 - **files**: `storage-format.ts`, `regions.ts`, `region-codec.ts`, `store.ts`, `main.tsx`, `reconnect-smoke.ts`
 - **agent**: Codex
 
-Storage version 2 encodes regions atomically without changing original bytes, physical state or history. Exact matched replay and inhabited handover pass; smaller WAL improves measured headroom, while complete local saves cost more CPU/time. The client retries terminal EventSource failures and cancels obsolete attempts. [Validation and publication status](../docs/releases/region-checkpoints-0.2.md) remain explicit. → ADR-042; → ADR-043.
+Storage version 2 encodes regions atomically without changing original bytes, physical state or history. Exact matched replay and inhabited handover pass; smaller WAL improves measured headroom, while complete local saves cost more CPU/time. The client retries terminal EventSource failures and cancels obsolete attempts. [Validation and publication evidence](../docs/releases/region-checkpoints-0.2.md) identify source `31d7cc7`, the tick-399368 activation and READY Vercel deployment. The old writer filled the disk first; recovery retains one observer connection but replays 32 unsaved ticks. The new writer keeps roughly 90 MB free in finite checks, and an independently decoded backup verifies all original regions, six archives and every prior durable record. → ADR-042; → ADR-043.
 
 ### [2026-10-09] Bounded Infant Food Access and Growth Diagnostic
 
