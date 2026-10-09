@@ -1,0 +1,338 @@
+.community-directory h2 {
+  margin-top: 9px;
+}
+.community-totals {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 16px 0 20px;
+  border-bottom: 1px solid var(--line, #e4e8dc);
+  margin-bottom: 18px;
+}
+.community-totals span {
+  font-size: 11px;
+  color: #778770;
+}
+.community-totals strong {
+  display: block;
+  color: #45684f;
+  font-size: 26px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.community-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 13px;
+}
+.community-filters button {
+  border: 1px solid #dde4d4;
+  border-radius: 18px;
+  background: transparent;
+  padding: 7px 11px;
+  color: #64785d;
+  font-size: 11px;
+  cursor: pointer;
+}
+.community-filters button[aria-pressed="true"] {
+  color: #fafbf5;
+  background: #44674f;
+  border-color: #44674f;
+}
+.community-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 11px;
+  border: 1px solid #dde4d4;
+  border-radius: 7px;
+  color: #7b8d6f;
+  background: #fffef8;
+}
+.community-search input {
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #395641;
+  font: inherit;
+  font-size: 12px;
+  outline-offset: 4px;
+}
+.community-sort {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+  color: #85917b;
+  font-size: 11px;
+  margin: 12px 0 16px;
+}
+.community-sort select {
+  max-width: 70%;
+  border: 0;
+  background: transparent;
+  color: #536d50;
+  font: inherit;
+  padding: 4px;
+}
+.followed-stories {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  text-align: left;
+  padding: 13px 12px;
+  background: #eaf0df;
+  color: #476748;
+  border: 1px solid #dce5cc;
+  border-radius: 7px;
+  font: inherit;
+  font-size: 11px;
+  line-height: 1.5;
+  margin-bottom: 17px;
+  cursor: pointer;
+}
+.followed-stories span {
+  flex: 1;
+}
+.community-directory-list {
+  display: grid;
+  gap: 14px;
+}
+.community-entry {
+  padding: 16px 14px 13px;
+  border: 1px solid #dfe5d7;
+  background: #f8faf2;
+  border-radius: 9px;
+}
+.community-entry.community-past {
+  background: #f7f5ef;
+  border-color: #e4e0d7;
+}
+.community-entry-top {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.community-status,
+.new-beginning,
+.community-owner {
+  display: inline-block;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  border-radius: 10px;
+  padding: 4px 7px;
+}
+.community-status.living {
+  background: #e5eddb;
+  color: #527544;
+}
+.community-status.past {
+  background: #eae5db;
+  color: #786e61;
+}
+.community-status.needs-care {
+  background: #f4e7cd;
+  color: #82622d;
+}
+.new-beginning {
+  background: #edf2e2;
+  color: #6b8154;
+}
+.community-owner {
+  color: #507354;
+  padding-left: 0;
+}
+.community-select {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  border: 0;
+  background: none;
+  color: #476447;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+}
+.community-select > span:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+}
+.community-select strong {
+  display: block;
+  font:
+    600 18px Georgia,
+    serif;
+  overflow-wrap: anywhere;
+}
+.community-select small {
+  display: block;
+  font-size: 10px;
+  color: #87917a;
+  margin-top: 5px;
+}
+.community-select .community-avatar {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+}
+.community-entry > p {
+  color: #89937e;
+  font-size: 11px;
+  line-height: 1.65;
+  margin: 12px 0 7px;
+}
+.community-founded {
+  display: block;
+  font-size: 9px;
+  line-height: 1.6;
+  color: #87917e;
+}
+.community-entry-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding-top: 13px;
+  margin-top: 12px;
+  border-top: 1px solid #e6e8de;
+}
+.follow-community,
+.community-history-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: transparent;
+  border: 0;
+  color: #73856a;
+  font: inherit;
+  font-size: 10px;
+  padding: 5px 0;
+  cursor: pointer;
+}
+.follow-community.is-followed {
+  color: #466a49;
+}
+.community-history-link:hover,
+.follow-community:hover {
+  color: #274d37;
+}
+.community-empty {
+  text-align: center;
+  padding: 24px 12px;
+  color: #829476;
+  border: 1px dashed #d9e1cd;
+  border-radius: 9px;
+}
+.community-empty h3 {
+  font-size: 17px;
+  line-height: 1.4;
+  color: #546e4b;
+}
+.community-empty p {
+  font-size: 12px;
+  line-height: 1.7;
+}
+.community-life-story {
+  border-top: 1px solid #e1e6d8;
+  border-bottom: 1px solid #e1e6d8;
+  padding: 16px 0;
+  margin: 18px 0;
+}
+.community-lifespan {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.community-lifespan small {
+  display: block;
+  font-size: 10px;
+  color: #88947a;
+  margin-bottom: 7px;
+}
+.community-lifespan strong {
+  font-size: 11px;
+  color: #617355;
+  font-weight: 500;
+  line-height: 1.6;
+}
+.community-life-story > p {
+  color: #80866f;
+  font-size: 12px;
+  line-height: 1.75;
+}
+.community-record-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 12px;
+  font-size: 10px;
+  color: #8b957f;
+  margin-top: 14px;
+}
+.community-chapter-link {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid #dce4d0;
+  background: #eef3e6;
+  padding: 12px;
+  text-align: left;
+  border-radius: 7px;
+  color: #5c7951;
+  margin-top: 14px;
+  cursor: pointer;
+}
+.community-chapter-link strong {
+  display: block;
+  font:
+    600 17px Georgia,
+    serif;
+  margin: 5px 0;
+}
+.community-chapter-link small {
+  display: block;
+  font-size: 9px;
+  line-height: 1.5;
+  color: #839578;
+}
+.community-heading-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: -8px;
+}
+.community-archive-heading {
+  margin-bottom: 18px;
+}
+.community-archive-heading .community-life-story {
+  margin-bottom: 12px;
+}
+.community-journal-scope {
+  margin: 0 0 10px;
+}
+.community-journal-scope label {
+  display: block;
+  color: #89947c;
+  font-size: 10px;
+  margin-bottom: 6px;
+}
+@media (max-width: 760px) {
+  .community-directory-list {
+    grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+  }
+  .community-totals strong {
+    font-size: 28px;
+  }
+  .community-search input {
+    font-size: 16px;
+  }
+}

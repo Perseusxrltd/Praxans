@@ -1,0 +1,233 @@
+{
+  "inspectedAt": "2026-10-09T00:13:01.053Z",
+  "structuralScan": {
+    "baseCommit": "2dde934dd193355157e7513b4aa84ea13cf7ce07",
+    "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+    "gitVisibleExistingFileCount": 932,
+    "jsTsFileCount": 125,
+    "sourceFileCount": 76,
+    "srcContentSha256": "df00982e16e559eab6b9e8f7fc245a64deb19e77ac1b603ff67e4d144a4c48f9",
+    "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
+    "resolvedEdgeCount": 634,
+    "edgesByArea": {
+      "docs -> src/simulation": 22,
+      "scripts -> src/server": 22,
+      "scripts -> src/simulation": 25,
+      "src/client -> src/simulation": 27,
+      "src/client -> src/client": 21,
+      "src/server -> src/simulation": 40,
+      "src/server -> src/server": 22,
+      "src/simulation -> src/simulation": 242,
+      "tests -> src/simulation": 149,
+      "tests -> tests": 28,
+      "tests -> src/server": 36
+    },
+    "missingImports": [],
+    "missingAssets": [],
+    "nonliteralLoads": [
+      {
+        "file": "docs/research/collapse-first-death-replay.mjs",
+        "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+      },
+      {
+        "file": "docs/research/collapse-first-death-replay.mjs",
+        "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+      }
+    ],
+    "layerViolations": [],
+    "simulationEnvironmentImports": [],
+    "localMarkdownLinksChecked": 400,
+    "missingMarkdownLinks": []
+  },
+  "rationBoundaryReview": {
+    "physicalOrder": "All citizen physiology, finite residual ration pickup, decisions and movement/work, then existing body transfers.",
+    "unitsAndCustody": "Kilograms move once from accessible camp stock to the same person; private and caravan stocks stay separate. Original tasks retain their paid work interval.",
+    "stateContinuity": "Format 11 / biosphere-1.5 changes no saved inventory, person, task, RNG or time at the boundary.",
+    "archiveContinuity": "Lossless prior-archive conversion preserves original bytes, checksums, dates and IDs in storage version 1. It commits separately before full terrain loading and can remain compatible after a later law failure.",
+    "resolvedFindings": [
+      "Optional packing formerly preceded other people\u2019s current meals/thermal fuel.",
+      "Repeated camp access checks after debits could shrink the stock-dependent footprint.",
+      "A full new archive plus later save exhausted the unchanged 315 MB / 454299648 B capacity fixture until legacy pages became reusable.",
+      "Large unchanged atmospheric nitrogen hid precision in the older transfer test; unchanged air is now checked exactly and changed small compartments separately."
+    ],
+    "limits": [
+      "Sequential immediate consumption and heuristic packing without handling labor.",
+      "Unfunded baseline metabolic estimate and rapid childhood growth.",
+      "Full-region WAL, small remaining disk headroom and no populated 1 GB cgroup handover proof.",
+      "No new renewal or claim of demographic viability."
+    ],
+    "evidence": "ration-boundary-2026-10-09.json",
+    "deployment": {
+      "status": "LIVE",
+      "release": "ration-boundary-20261009-1",
+      "handoverTick": 344720,
+      "verification": "ration-boundary-2026-10-09.json"
+    }
+  },
+  "fundedMetabolismReview": {
+    "inspectedAt": "2026-10-09T01:20:48.274Z",
+    "structuralScan": {
+      "baseCommit": "36c4fdd9228b22a09a8337bb235f4cb596114970",
+      "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+      "gitVisibleExistingFileCount": 935,
+      "jsTsFileCount": 126,
+      "sourceFileCount": 76,
+      "srcContentSha256": "2450199e28b92f5f507d628fd8aaef16a1301b86b0f1fdc221e4eafeefeb93d6",
+      "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
+      "resolvedEdgeCount": 653,
+      "edgesByArea": {
+        "docs -> src/simulation": 22,
+        "scripts -> src/server": 22,
+        "scripts -> src/simulation": 25,
+        "src/client -> src/simulation": 27,
+        "src/client -> src/client": 21,
+        "src/server -> src/simulation": 41,
+        "src/server -> src/server": 22,
+        "src/simulation -> src/simulation": 244,
+        "tests -> src/simulation": 161,
+        "tests -> tests": 29,
+        "tests -> src/server": 39
+      },
+      "missingImports": [],
+      "missingAssets": [],
+      "nonliteralLoads": [
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+        },
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+        }
+      ],
+      "layerViolations": [],
+      "simulationEnvironmentImports": [],
+      "localMarkdownLinksChecked": 417,
+      "missingMarkdownLinks": []
+    },
+    "sourceReview": [
+      {
+        "topic": "Units and conserved custody",
+        "finding": "body + unoxidized intake appear in matter/element/chemical inventories; reserves are a subset inside body. One respiration path supplies heat and products. Childbirth debits body/reserve tags; death returns body + intake once."
+      },
+      {
+        "topic": "Order and shared demand",
+        "finding": "One current food/ice boundary precedes optional intake/ration refill. Snapshotted contacts and finite custody prevent packing or duplicate ice claims from reserving another actor's present meal. Oxygen remains sequential; unused ice allocations wait for a later interval."
+      },
+      {
+        "topic": "Physical work and time",
+        "finding": "Original tasks use the funded interval, and new physical work waits until the next interval. Water-route purpose avoids self-cancellation; stationary conversation receives paid resting metabolism. Journeys require current-tick matching-party flux. The quarter-hour clock is unchanged."
+      },
+      {
+        "topic": "Model, interface and requirements",
+        "finding": "Model/protocol/API/inspector agree that satiety is fullness, not chemical fuel. Childhood growth, infant feeding, activity power and injury are labeled uncalibrated. Political/depth/scaling requirements remain open in the ledger."
+      },
+      {
+        "topic": "Historical reproducibility",
+        "finding": "All listed mechanism, protection and arithmetic fingerprints match commit 35a1665bff52a425d1476c7c22db2440bed05406. The guide pins that checkout; current scripts reject obsolete source inputs before running controls. Original result JSON and the expensive historical replay are retained."
+      },
+      {
+        "topic": "Repository responsibilities",
+        "finding": "No new module boundary violation. The unmarked Pygame overview in CLAUDE.md is now explicitly historical with current-browser entry links. Current README, metadata, model and devlog remove obsolete claims that the single metabolic account is still absent."
+      }
+    ],
+    "validation": "20 new metabolic cases; 188/189 full batch plus 2/2 corrected construction fixture; build/format; 13 browser, 16 connection, 12 isolated production, 21 generic hotfix and 16 exact-artifact inhabited-copy checks. Retained timeouts are separately reported.",
+    "publication": "LIVE at tick 363208; Vercel inspector READY; exact archive and preserved-world verification recorded in funded-metabolism-2026-10-09.json.",
+    "limits": [
+      "No seasonal human or generational survival validation.",
+      "Finite live disk and 1 GB memory; local inhabited combined RSS exceeds live capacity.",
+      "No complete body anatomy, microbial chemistry, food logistics institutions or general political organization."
+    ]
+  },
+  "foodCustodyReview": {
+    "inspectedAt": "2026-10-09T02:25:34.766Z",
+    "structuralScan": {
+      "baseCommit": "0f84b6af528d4a74f685588833a01e04a68e5067",
+      "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+      "gitVisibleExistingFileCount": 939,
+      "jsTsFileCount": 127,
+      "sourceFileCount": 76,
+      "srcContentSha256": "a532b2baebd011667524965d5ac046cbf546d93bd9aecedbc1b498d99c13406f",
+      "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
+      "resolvedEdgeCount": 667,
+      "edgesByArea": {
+        "docs -> src/simulation": 22,
+        "scripts -> src/server": 22,
+        "scripts -> src/simulation": 25,
+        "src/client -> src/simulation": 27,
+        "src/client -> src/client": 21,
+        "src/server -> src/simulation": 41,
+        "src/server -> src/server": 22,
+        "src/simulation -> src/simulation": 245,
+        "tests -> src/simulation": 170,
+        "tests -> tests": 30,
+        "tests -> src/server": 42
+      },
+      "missingImports": [],
+      "missingAssets": [],
+      "nonliteralLoads": [
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+        },
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+        }
+      ],
+      "layerViolations": [],
+      "simulationEnvironmentImports": [],
+      "localMarkdownLinksChecked": 441,
+      "missingMarkdownLinks": []
+    },
+    "sourceReview": [
+      {
+        "topic": "Conserved custody and exposure",
+        "finding": "Camp stocks, personal provisions/cargo and caravan provisions/offer/receive use one exponential elapsed-hour law at represented local tiles. Lost material returns once; internal intake/body and worn-fiber wear remain separate. Hour sampling and legacy escrow losses are explicit."
+      },
+      {
+        "topic": "Load and actual access",
+        "finding": "Journey formation, carrier loss, return exchange and raids use living carriers with personal external loads. Founding screens use shared cardinal land connectivity without generating territory. These are coarse transport and standing-stock screens, not ownership or renewable yield."
+      },
+      {
+        "topic": "Archive and writer continuity",
+        "finding": "Both each original block and the whole original stream verify before same-codec denser replacements commit; replacements verify again. Identity/date/raw bytes remain authoritative. Each archive is a separate transaction before terrain loading; a held writer lease renews before long commit and a lost token aborts."
+      },
+      {
+        "topic": "Documentation and phase order",
+        "finding": "Roadmap active predecessor corrected from stale format 11 to actual format 12 before publication; architecture current meals now states shared demand rather than obsolete sequential food contention. Oxygen contention remains sequential. Migration 013 changes only labels at the boundary; future hourly loss and prototype logistics limits are documented."
+      },
+      {
+        "topic": "Historical evidence and next studies",
+        "finding": "New custody/access defects are not assigned a historical death count. Research separates production, custody, ingestion, oxidation, retention and loss, and records the missing daily flow ledger, remote birth/home supplies, infant feeding, growth and nonexclusive catchments."
+      }
+    ],
+    "validation": "food-custody-2026-10-09.json",
+    "deployment": {
+      "status": "LIVE; history and SSE continuity verified; one health-request timeout during handover",
+      "release": "food-custody-20261009-2",
+      "handoverTick": 378536,
+      "completedAt": "2026-10-09T02:18:35.480Z",
+      "runtimeSha256": "39acd20b025d3e3face2afc1a2721a6988c7ec8ca51871617120242def40f49e",
+      "sourceCommit": "0f84b6af528d4a74f685588833a01e04a68e5067",
+      "website": {
+        "id": "dpl_EvfTkFoxbyoaq6S4CqyDiyDR2xR4",
+        "url": "praxans-lbsrc2y0k-perseusxr-projects.vercel.app",
+        "target": "production",
+        "readyState": "READY",
+        "createdAt": 1791512376366,
+        "aliases": [
+          "praxans.vercel.app",
+          "praxans-perseusxr-projects.vercel.app"
+        ]
+      },
+      "verification": "food-custody-2026-10-09.json"
+    },
+    "limits": [
+      "No claim of full physical realism, seasonal equilibrium or viable 300-founder generations.",
+      "Finite quota rehearsal does not prove future disk headroom, and inhabited local combined RSS is greater than the live memory allowance.",
+      "Structural scan does not inspect arbitrary runtime paths, all legacy-language behavior or every semantic dependency.",
+      "Actual handover kept SSE and history but a 15-second health request timed out; gateway request availability waits for migration startup. Storage/memory and blocking handover work remain explicit limits."
+    ]
+  }
+}

@@ -1,0 +1,1263 @@
+{
+  "status": "LIVE; history and SSE continuity verified; one health-request timeout during handover",
+  "release": "food-custody-20261009-2",
+  "runtimeSha256": "39acd20b025d3e3face2afc1a2721a6988c7ec8ca51871617120242def40f49e",
+  "dependencySha256": "0ca3efac2e32e64895e4f395f1919a966af1b18b017c12aaa088b491f2f0022e",
+  "versions": {
+    "from": {
+      "format": 12,
+      "laws": "biosphere-1.6"
+    },
+    "to": {
+      "format": 13,
+      "laws": "biosphere-1.7"
+    },
+    "storage": 1
+  },
+  "backup": {
+    "raw": {
+      "bytes": 286371840,
+      "sha256": "24ebc38fd465e24adb462467812404a581da2b1fd38c18d0ca97111106a32362"
+    },
+    "gzip": {
+      "bytes": 176666355,
+      "sha256": "7841ef7c18a6a4a8b5a5d6c511041a9796be739e7dd53971f62a464087974b17"
+    },
+    "integrity": "ok",
+    "worldChecksum": "278288811c503b8d5dbe4deb241ba3f2d138303258cbbf4dfc28954283426c8e",
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "generationVersion": "planet-1",
+      "version": 12,
+      "lawsVersion": "biosphere-1.6",
+      "tick": 368744,
+      "rng": 1255761744,
+      "births": 407,
+      "deaths": 1639
+    },
+    "people": 0,
+    "regions": 38,
+    "clock": {
+      "tick": 368744,
+      "wall_ms": 1791484626340.0
+    },
+    "counts": {
+      "sessions": 25,
+      "agents": 1,
+      "receipts": 3,
+      "world_events": 70409
+    },
+    "archives": [
+      {
+        "id": "008-material-memory-and-agency",
+        "sha256": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb"
+      },
+      {
+        "id": "009-human-thermal-and-distance-balance",
+        "sha256": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164"
+      },
+      {
+        "id": "010-performed-body-maintenance",
+        "sha256": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f"
+      },
+      {
+        "id": "011-consumption-before-ration-pickup",
+        "sha256": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f"
+      },
+      {
+        "id": "012-funded-human-metabolism",
+        "sha256": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0"
+      }
+    ],
+    "copy": {
+      "startedAt": "2026-10-09T01:38:48.127Z",
+      "copiedAt": "2026-10-09T01:38:48.936Z",
+      "elapsedMilliseconds": 808.6442730000001,
+      "identity": {
+        "head": {
+          "checksum": "278288811c503b8d5dbe4deb241ba3f2d138303258cbbf4dfc28954283426c8e",
+          "id": "praxans-world",
+          "tick": 368744,
+          "people": 0,
+          "format": 12,
+          "laws": "biosphere-1.6"
+        },
+        "clock": {
+          "tick": 368744,
+          "wall_ms": 1791484626340
+        },
+        "regions": 38,
+        "events": {
+          "n": 70409,
+          "through": 70409
+        }
+      },
+      "copyMonitor": {
+        "samples": 5,
+        "minimumAvailableBytes": 125415424,
+        "maximumWalBytes": 16777216,
+        "maximumCgroupMemoryBytes": 999882752,
+        "eventsBefore": "low 0\nhigh 0\nmax 5526\noom 0\noom_kill 1\noom_group_kill 0\n",
+        "eventsAfter": "low 0\nhigh 0\nmax 5547\noom 0\noom_kill 1\noom_group_kill 0\n"
+      }
+    }
+  },
+  "localValidation": {
+    "modelServer": {
+      "initialBatch": {
+        "total": 202,
+        "passed": 200,
+        "failed": 2
+      },
+      "rechecks": {
+        "total": 2,
+        "passed": 2,
+        "scope": "Two stale migration count/version expectations corrected."
+      },
+      "foodTests": {
+        "total": 11,
+        "passed": 11
+      },
+      "finalStoragePreflightTests": {
+        "total": 29,
+        "passed": 29
+      },
+      "currentUniqueCases": 205,
+      "scope": "Overlapping suites; the initial full batch was not entirely green. CI will run the final tree.",
+      "finalTreeCI": {
+        "runId": 37873843917,
+        "sourceCommit": "0f84b6af528d4a74f685588833a01e04a68e5067",
+        "modelServerStep": "completed/success",
+        "buildFormatProductionSteps": "completed/success",
+        "broaderWorkflow": "completed/success in both implementation push and PR runs"
+      }
+    },
+    "build": "passed",
+    "format": "passed",
+    "production": {
+      "checks": [
+        "the compiled server advances while nobody watches",
+        "production never exposes manual time controls",
+        "the runnable example agent can observe and guide its community",
+        "online backup captures an existing world and its claimed community",
+        "restart preserves the seed, people, and geography",
+        "restart simulates missed time instead of erasing the interruption",
+        "browser ownership survives a process restart",
+        "the same agent key survives a process restart",
+        "the advice retains its identity and content across process restarts",
+        "each service release is recorded once in the continuing world",
+        "restoring a backup respects the previous ownership lease",
+        "the backup itself can resume with the original owner and key"
+      ],
+      "passed": 12,
+      "savedTick": 24,
+      "continuedTick": 82,
+      "backupTick": 20
+    },
+    "browser": {
+      "checks": [
+        "the opening globe renders the actual seeded world",
+        "two independent browsers share the same world tick",
+        "pausing one observer leaves the world and the other observer running",
+        "Water layer changes actual map state",
+        "Life layer changes actual map state",
+        "Communities layer changes actual map state",
+        "Landscape layer changes actual map state",
+        "zoom in changes camera scale",
+        "dragging pans the camera",
+        "F enters fullscreen",
+        "community inspection selects an actual community",
+        "the community exposes six dimensions of success",
+        "the observer exposes contact-dependent diplomacy",
+        "citizen inspection reveals a real individual",
+        "an inhabitant's actual memory and attention are observable",
+        "natural-law inspector exposes conservation measurements",
+        "the visible clock and server clock describe the same elapsed world time",
+        "entropy flows are real nonnegative measurements",
+        "the world exposes its recorded interventions",
+        "all periodic elements are inspectable and reference phase responds to temperature",
+        "wildlife can be filtered by its ecological role",
+        "wildlife inspection selects a real living cohort",
+        "earlier world events remain accessible beyond the current journal page",
+        "journal filters actual discoveries",
+        "a discovery journal event leads back to the person who made it",
+        "a civilization-scoped key is issued and visually masked",
+        "copy key uses the actual key",
+        "a new player begins far beyond settled land",
+        "an external HTTP agent can act on its own community",
+        "the HTTP receipt queues advice without imposing policy",
+        "accepted local decisions reach other observers after deliberation",
+        "observers can visit a distant community in the same world",
+        "ownership survives a browser reload",
+        "revocation invalidates the agent key",
+        "home returns to the same live planet",
+        "help opens and Escape closes the dialog",
+        "desktop has no horizontal overflow",
+        "mobile has no horizontal overflow",
+        "mobile onboarding remains usable",
+        "no browser console errors or uncaught exceptions"
+      ],
+      "errors": []
+    },
+    "hotfix": {
+      "checks": [
+        "the operator endpoint is a private local socket",
+        "failed candidate validation leaves the current runtime alive",
+        "the world continues while an invalid hotfix is rejected",
+        "validation heap exhaustion leaves the continuing runtime alive and advancing",
+        "heap failure removes only the candidate's private copy",
+        "candidate validation has an effective bounded heap even with host V8 flags",
+        "a request arriving during handover completes through the new runtime after any clock catch-up",
+        "the same request ID cannot duplicate an intention across a hotfix",
+        "the runtime process changes while the gateway stays in place",
+        "the same observer connection receives the new runtime snapshot without ending",
+        "stream time stays monotonic through the handover",
+        "the agent still observes its original community",
+        "the same world, inhabitants and increasing clock survive",
+        "the browser retains its inspection and camera",
+        "activation has one permanent release record",
+        "a full process restart uses the durable active runtime pointer",
+        "ownership and accepted intentions persist after gateway restart",
+        "the browser reports no errors during runtime replacement: ",
+        "the next candidate validates while the active world remains running",
+        "shutdown during validation leaves no candidate or runtime orphan",
+        "shutdown removes the terminated validation worker's private copy"
+      ],
+      "errors": [],
+      "activation": {
+        "release": "handover-accepted",
+        "type": "preflight",
+        "id": "praxans-world",
+        "seed": 1847,
+        "sourceTick": 32,
+        "tick": 64,
+        "format": 13,
+        "laws": "biosphere-1.7",
+        "validationHeapLimitBytes": 226492416,
+        "resumedTick": 55
+      },
+      "observerSnapshots": 2
+    },
+    "suppliedGameClient": {
+      "clientSha256": "1210f58b47aadd9cb4b141fb4b2dc9e17a929aa1a813cdd26b5306a0d08b6808",
+      "unmodifiedSuppliedClient": true,
+      "frames": [
+        {
+          "mode": "shared-world",
+          "tick": 1,
+          "connected": true,
+          "communities": 3
+        },
+        {
+          "mode": "shared-world",
+          "tick": 2,
+          "connected": true,
+          "communities": 3
+        },
+        {
+          "mode": "shared-world",
+          "tick": 3,
+          "connected": true,
+          "communities": 3
+        }
+      ],
+      "errors": []
+    },
+    "screenshots": {
+      "inspected": true,
+      "scope": "Local desktop globe, natural laws and live map, mobile entrance/onboarding. The first mobile map capture records the loading state; the later onboarding capture contains the loaded world."
+    },
+    "currentWorldQuotaTrial": {
+      "checkedAt": "2026-10-09T01:48:24.801Z",
+      "mode": "current",
+      "source": "output/backups/before-food-custody-20261009.sqlite",
+      "originalSha256": "24ebc38fd465e24adb462467812404a581da2b1fd38c18d0ca97111106a32362",
+      "sourceUnchanged": true,
+      "scope": "Actual format 9 or 12 to 13 archive/migration on a disposable backup, followed by 96 (empty) or 672 (inhabited) simulated ticks and restart; local disk quota and child RSS, not simultaneous live-plus-candidate cgroup memory.",
+      "code": 0,
+      "signal": null,
+      "report": {
+        "migrationMs": 41214.446385,
+        "sourceTick": 368744,
+        "tick": 368840,
+        "sourcePeople": 0,
+        "people": 0,
+        "births": 407,
+        "deaths": 1639,
+        "format": 13,
+        "laws": "biosphere-1.7",
+        "manifest": {
+          "id": "013-local-inventory-exposure-and-access",
+          "checksum": "778f135cff8027e45ce03bd3e0baa3db09e72a6b284bc63797d2db1dc33fcd51",
+          "createdAt": 1791510447278,
+          "encoding": "deflate-parts-1",
+          "rawBytes": 114454106,
+          "parts": 437
+        },
+        "originalSha256": "778f135cff8027e45ce03bd3e0baa3db09e72a6b284bc63797d2db1dc33fcd51",
+        "originalBytes": 114454106,
+        "compressedBytes": 32180463,
+        "heapLimitBytes": 226492416,
+        "maxRssKiB": 383200,
+        "databaseBytes": 303960064,
+        "priorPackedBytes": 135506989,
+        "packedBytesAfterMigration": 155021191,
+        "unchangedMigrationMetadataExceptVersionsAndAnyRequiredLegacyMetabolicPartition": true,
+        "unchangedMigrationRegions": true,
+        "unchangedMigrationClock": true,
+        "priorSignatures": {
+          "sessions": {
+            "count": 25,
+            "sha256": "c8abac553d7b0058b88de0af2c77170a15033b7f3dfc00fe7e8b4ca311706a6b"
+          },
+          "agents": {
+            "count": 1,
+            "sha256": "be936faf0ec866bb0f178758d7dd0ee5619fbb7a4cf1aeb3698a6299ab417649"
+          },
+          "receipts": {
+            "count": 3,
+            "sha256": "66822d0cd6667353d334014de7d5c42373e15e82838fadfde3e9656e2a30b963"
+          },
+          "priorEvents": {
+            "count": 70409,
+            "sha256": "ff4fc682cfa1884627d57671343f72d765eaad3e93e7d87611e0466b49d03135"
+          },
+          "renewals": {
+            "count": 1,
+            "sha256": "790c07765725acb8f7af55c7b4b11b3f5ae5dede6a439d32ef9c565adfd5151e"
+          }
+        },
+        "furtherSaves": 3,
+        "simulatedDays": 1,
+        "sampledMetabolicIntervals": {
+          "humanReleasedKJ": 0,
+          "humanReserveKg": 0,
+          "lowestHealth": 100,
+          "note": "one interval sampled at each 32-tick checkpoint, not a full daily flow ledger"
+        },
+        "restarted": true
+      },
+      "stdout": "",
+      "stderr": "(node:154705) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+      "capacity": {
+        "bytes": 454299648,
+        "initialNonWalFootprint": 315000000,
+        "minFree": 5566464,
+        "maxWal": 115912112,
+        "samples": 1788
+      },
+      "peakRssBytes": 391700480
+    },
+    "exactArtifactInhabitedHandover": {
+      "checks": [
+        "the copied world contains the original four communities and their first born generation",
+        "the real-world candidate uses an effective validation heap below 224 MiB",
+        "the exact food-custody artifact replaces the worker through the continuing gateway",
+        "the same compressed observer connection continues across the food-custody law migration",
+        "advice remains available while the real clock debt is retained",
+        "the corrected resource handling continues through at least 96 committed ticks after handover",
+        "the observer remains monotonic and open through later checkpoint writes",
+        "the finite source filesystem retains free space during copying and handover",
+        "all prior inhabitants including infants and each community identity survive this bounded handover",
+        "the additive storage format remains one while physical format advances",
+        "clock debt is retained exactly",
+        "ownership, agent keys, receipts and every earlier event remain unchanged",
+        "old law archives remain unchanged alongside one new combined care/ration/metabolism/exposure archive",
+        "one release is recorded with equal boundary checksums",
+        "the physical intervention remains recorded exactly once",
+        "restart retains existing people and new census changes match ordinary births and deaths"
+      ],
+      "snapshots": 2,
+      "compactSnapshots": 2,
+      "frames": 45,
+      "lastTick": 228620,
+      "fault": null,
+      "activation": {
+        "release": "food-custody-20261009-2",
+        "type": "preflight",
+        "id": "praxans-world",
+        "seed": 1847,
+        "sourceTick": 228436,
+        "tick": 228468,
+        "format": 13,
+        "laws": "biosphere-1.7",
+        "validationHeapLimitBytes": 226492416,
+        "resumedTick": 228524
+      },
+      "restarted": {
+        "tick": 228624,
+        "people": 1444,
+        "births": 244,
+        "deaths": 32,
+        "format": 13,
+        "laws": "biosphere-1.7"
+      },
+      "peakProcessRssBytes": 1379786752,
+      "memoryByPhase": {
+        "starting": {
+          "parentRss": 630083584,
+          "childrenRss": 447193088,
+          "parentAnon": 571510784,
+          "childrenAnon": 393846784
+        },
+        "running": {
+          "parentRss": 516628480,
+          "childrenRss": 647204864,
+          "parentAnon": 458055680,
+          "childrenAnon": 592957440
+        },
+        "preparing": {
+          "parentRss": 410628096,
+          "childrenRss": 980729856,
+          "parentAnon": 352055296,
+          "childrenAnon": 872595456
+        },
+        "handover": {
+          "parentRss": 410333184,
+          "childrenRss": 611356672,
+          "parentAnon": 351760384,
+          "childrenAnon": 556748800
+        }
+      },
+      "capacity": {
+        "bytes": 454299648,
+        "minimumAvailableBytes": 7225344,
+        "maximumWalBytes": 109727992,
+        "samples": 2228,
+        "byPhase": {
+          "starting": {
+            "minimumAvailableBytes": 117145600,
+            "maximumWalBytes": 16512,
+            "samples": 146
+          },
+          "running": {
+            "minimumAvailableBytes": 7225344,
+            "maximumWalBytes": 109727992,
+            "samples": 939
+          },
+          "preparing": {
+            "minimumAvailableBytes": 8335360,
+            "maximumWalBytes": 108920472,
+            "samples": 786
+          },
+          "handover": {
+            "minimumAvailableBytes": 8015872,
+            "maximumWalBytes": 109233592,
+            "samples": 357
+          }
+        },
+        "scope": "disposable private tmpfs with live-sized quota and matched starting non-WAL footprint; not a live host IO or cgroup memory guarantee"
+      },
+      "memoryScope": "sampled parent plus direct child RSS in a local test, not live cgroup peak",
+      "status": {
+        "phase": "running",
+        "release": "food-custody-20261009-2",
+        "pendingRequests": 0,
+        "activeRequests": 0,
+        "observers": 0,
+        "runtimePid": 156097,
+        "managedProcesses": 1,
+        "error": null
+      }
+    }
+  },
+  "redundantBinaryCleanup": {
+    "at": "2026-10-09T02:11:44.487Z",
+    "removed": [
+      {
+        "remove": "/data/incoming/advisor-recovery-final-20261008/runtime.mjs",
+        "retain": "/data/runtime/releases/advisor-recovery-20261008-2-23958276a28a7f01/runtime.mjs",
+        "sha256": "23958276a28a7f01a18d93138529c3dca6856c53c960fda9a119b627014a50b0",
+        "bytes": 396755,
+        "offHostCopy": "dist/hotfix-advisor-final/runtime.mjs"
+      },
+      {
+        "remove": "/data/incoming/archive-blocks-20261008-1/runtime.mjs",
+        "retain": "/data/runtime/releases/archive-blocks-20261008-1-c541dd14c0ded6ef/runtime.mjs",
+        "sha256": "c541dd14c0ded6ef5a1c9545de349adfe9f6ee5f8574098618bb1bfd1d65d372",
+        "bytes": 434931,
+        "offHostCopy": "dist/hotfix-archive-blocks/runtime.mjs"
+      },
+      {
+        "remove": "/data/incoming/body-maintenance-20261008-2/runtime.mjs",
+        "retain": "/data/runtime/releases/body-maintenance-20261008-2-69cdc2bac224e005/runtime.mjs",
+        "sha256": "69cdc2bac224e00537e5610540f711e656ce8f0f6c64a78ced1147d5344d2fc0",
+        "bytes": 449440,
+        "offHostCopy": "dist/hotfix-body-maintenance-v2/runtime.mjs"
+      },
+      {
+        "remove": "/data/incoming/checkpoint-copy-20261008-1/runtime.mjs",
+        "retain": "/data/runtime/releases/checkpoint-copy-20261008-1-900255cfc52e1b44/runtime.mjs",
+        "sha256": "900255cfc52e1b44c59255fcceeaf77ab9e9cd11b3537d9714b28a38f493a372",
+        "bytes": 428314,
+        "offHostCopy": "dist/hotfix-checkpoint-copy/runtime.mjs"
+      },
+      {
+        "remove": "/data/incoming/community-records-20261008/runtime.mjs",
+        "retain": "/data/runtime/releases/community-records-20261008-3267c57d12e6aad3/runtime.mjs",
+        "sha256": "3267c57d12e6aad3ba3da9517cf8dc6749ece9d83ce10bfd88f345ddbb4d09a4",
+        "bytes": 363491,
+        "offHostCopy": "dist/hotfix-community/runtime.mjs"
+      },
+      {
+        "remove": "/data/incoming/community-renewal-final-20261008/runtime.mjs",
+        "retain": "/data/runtime/releases/community-renewal-20261008-2-4e4d6a68ac384a52/runtime.mjs",
+        "sha256": "4e4d6a68ac384a5205f839928ac16a592033ee5e2578d02e5b20a5878ca7db64",
+        "bytes": 393918,
+        "offHostCopy": "dist/hotfix-renewal-final/runtime.mjs"
+      },
+      {
+        "remove": "/data/incoming/observer-scaling-20261008/runtime.mjs",
+        "retain": "/data/runtime/releases/observer-scaling-20261008-5fc073c011c12a96/runtime.mjs",
+        "sha256": "5fc073c011c12a966d1f2321b6910e18cf654b0c5594307bd53919724109e1f9",
+        "bytes": 395911,
+        "offHostCopy": "dist/hotfix-observer/runtime.mjs"
+      },
+      {
+        "remove": "/data/incoming/ration-boundary-20261009-1/runtime.mjs",
+        "retain": "/data/runtime/releases/ration-boundary-20261009-1-e37211fdb651dcee/runtime.mjs",
+        "sha256": "e37211fdb651dcee45f8faa41bb6b362dfb9689b807802468af38fc72eb734ab",
+        "bytes": 457394,
+        "offHostCopy": "dist/hotfix-ration-boundary/runtime.mjs"
+      },
+      {
+        "remove": "/data/incoming/work-planning-bounded-20261008/runtime.mjs",
+        "retain": "/data/runtime/releases/work-planning-20261008-2-05af5a6275f6ab84/runtime.mjs",
+        "sha256": "05af5a6275f6ab8430a1d848983cc4007922a7c2c6bcf519ca8dd18baa656d2d",
+        "bytes": 424713,
+        "offHostCopy": "dist/hotfix-work-planning-bounded/runtime.mjs"
+      }
+    ],
+    "logicalRuntimeBytes": 3744867,
+    "activeRetained": "/data/runtime/releases/funded-metabolism-20261009-1-7f45713e7a1a257c",
+    "availableBefore": 124690432,
+    "availableAfter": 128450560,
+    "note": "Only duplicate incoming runtime files removed; exact retained releases and verified off-host copies remain. World database, WAL, historical archives, manifests, activation records, current runtime and pending candidate were not cleanup targets."
+  },
+  "lastReadiness": {
+    "at": "2026-10-09T02:14:51.901Z",
+    "health": {
+      "ok": true,
+      "tick": 377640,
+      "lawsVersion": "biosphere-1.6",
+      "persistent": true,
+      "acceptingProposals": true,
+      "lagSeconds": 25241,
+      "simulation": "catching-up"
+    },
+    "checkpoint": {
+      "checksum": "460f91cf64e3cb7e380c93bf9a1b3574f28b3be60099bff241760303863b80b1",
+      "tick": 377640,
+      "seed": 1847,
+      "format": 12,
+      "laws": "biosphere-1.6",
+      "people": 0,
+      "clock_tick": 377640,
+      "wall_ms": 1791486850340
+    },
+    "measuredCapacity": {
+      "capacityBytes": 454299648,
+      "availableBytes": 128446464,
+      "freeBytes": 138510336,
+      "walBytes": 16777216,
+      "walAllocatedBytes": 16781312,
+      "walInode": 20,
+      "walModified": 1791512091819.3616,
+      "nonWalFootprintIncludingReserved": 309071872
+    },
+    "storedBytes": {
+      "regions": {
+        "bytes": 116148151,
+        "n": 38
+      },
+      "metadata": {
+        "bytes": 1123928
+      },
+      "freePages": {
+        "freelist_count": 1046
+      }
+    },
+    "artifact": {
+      "release": "food-custody-20261009-2",
+      "sha256": "39acd20b025d3e3face2afc1a2721a6988c7ec8ca51871617120242def40f49e"
+    }
+  },
+  "limits": [
+    "The three resource inconsistencies are confirmed source/test findings, not individually proven causes of the 1607 renewed deaths.",
+    "Hourly exposure samples current custody/location for a full hour, including newly acquired material and the first post-migration boundary; detailed exposure history is absent.",
+    "Fixed 30 kg capacity, three-person parties, fractional retry shipments and 1e-8 kg delivery tolerance remain controller conventions.",
+    "Connected standing stocks are not exclusive catchments or annual sustainable production.",
+    "Infant feeding, local gestation/birth, age-dependent growth, handling labor and a complete daily food-flow account remain open.",
+    "Local inhabited handover exceeds the live 1 GB allowance in combined sampled RSS and does not prove populated-host capacity.",
+    "The finite disk quota trials leave little room. Repacking retains exact archive bytes but does not shrink SQLite or solve unbounded region writes.",
+    "No seasonal or generational viability claim; four live-world communities remain extinct. No new renewal, reset, rewind, reseed or history deletion.",
+    "Actual live handover retained SSE/history but one health request exceeded 15 seconds. Six subsequent local and six public requests passed; this does not erase the timeout.",
+    "The finite live monitor reached only 5836800 bytes minimum free and 999911424 bytes sampled cgroup memory. Full-region writes, longer migrations and additional population require further capacity work."
+  ],
+  "repositoryReview": {
+    "inspectedAt": "2026-10-09T02:25:34.766Z",
+    "structuralScan": {
+      "baseCommit": "0f84b6af528d4a74f685588833a01e04a68e5067",
+      "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+      "gitVisibleExistingFileCount": 939,
+      "jsTsFileCount": 127,
+      "sourceFileCount": 76,
+      "srcContentSha256": "a532b2baebd011667524965d5ac046cbf546d93bd9aecedbc1b498d99c13406f",
+      "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
+      "resolvedEdgeCount": 667,
+      "edgesByArea": {
+        "docs -> src/simulation": 22,
+        "scripts -> src/server": 22,
+        "scripts -> src/simulation": 25,
+        "src/client -> src/simulation": 27,
+        "src/client -> src/client": 21,
+        "src/server -> src/simulation": 41,
+        "src/server -> src/server": 22,
+        "src/simulation -> src/simulation": 245,
+        "tests -> src/simulation": 170,
+        "tests -> tests": 30,
+        "tests -> src/server": 42
+      },
+      "missingImports": [],
+      "missingAssets": [],
+      "nonliteralLoads": [
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+        },
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+        }
+      ],
+      "layerViolations": [],
+      "simulationEnvironmentImports": [],
+      "localMarkdownLinksChecked": 441,
+      "missingMarkdownLinks": []
+    },
+    "sourceReview": [
+      {
+        "topic": "Conserved custody and exposure",
+        "finding": "Camp stocks, personal provisions/cargo and caravan provisions/offer/receive use one exponential elapsed-hour law at represented local tiles. Lost material returns once; internal intake/body and worn-fiber wear remain separate. Hour sampling and legacy escrow losses are explicit."
+      },
+      {
+        "topic": "Load and actual access",
+        "finding": "Journey formation, carrier loss, return exchange and raids use living carriers with personal external loads. Founding screens use shared cardinal land connectivity without generating territory. These are coarse transport and standing-stock screens, not ownership or renewable yield."
+      },
+      {
+        "topic": "Archive and writer continuity",
+        "finding": "Both each original block and the whole original stream verify before same-codec denser replacements commit; replacements verify again. Identity/date/raw bytes remain authoritative. Each archive is a separate transaction before terrain loading; a held writer lease renews before long commit and a lost token aborts."
+      },
+      {
+        "topic": "Documentation and phase order",
+        "finding": "Roadmap active predecessor corrected from stale format 11 to actual format 12 before publication; architecture current meals now states shared demand rather than obsolete sequential food contention. Oxygen contention remains sequential. Migration 013 changes only labels at the boundary; future hourly loss and prototype logistics limits are documented."
+      },
+      {
+        "topic": "Historical evidence and next studies",
+        "finding": "New custody/access defects are not assigned a historical death count. Research separates production, custody, ingestion, oxidation, retention and loss, and records the missing daily flow ledger, remote birth/home supplies, infant feeding, growth and nonexclusive catchments."
+      }
+    ],
+    "validation": "food-custody-2026-10-09.json",
+    "deployment": {
+      "status": "LIVE; history and SSE continuity verified; one health-request timeout during handover",
+      "release": "food-custody-20261009-2",
+      "handoverTick": 378536,
+      "completedAt": "2026-10-09T02:18:35.480Z",
+      "runtimeSha256": "39acd20b025d3e3face2afc1a2721a6988c7ec8ca51871617120242def40f49e",
+      "sourceCommit": "0f84b6af528d4a74f685588833a01e04a68e5067",
+      "website": {
+        "id": "dpl_EvfTkFoxbyoaq6S4CqyDiyDR2xR4",
+        "url": "praxans-lbsrc2y0k-perseusxr-projects.vercel.app",
+        "target": "production",
+        "readyState": "READY",
+        "createdAt": 1791512376366,
+        "aliases": [
+          "praxans.vercel.app",
+          "praxans-perseusxr-projects.vercel.app"
+        ]
+      },
+      "verification": "food-custody-2026-10-09.json"
+    },
+    "limits": [
+      "No claim of full physical realism, seasonal equilibrium or viable 300-founder generations.",
+      "Finite quota rehearsal does not prove future disk headroom, and inhabited local combined RSS is greater than the live memory allowance.",
+      "Structural scan does not inspect arbitrary runtime paths, all legacy-language behavior or every semantic dependency."
+    ]
+  },
+  "sourceCommit": "0f84b6af528d4a74f685588833a01e04a68e5067",
+  "live": {
+    "activation": {
+      "startedAt": "2026-10-09T02:17:36.509Z",
+      "finishedAt": "2026-10-09T02:18:35.480Z",
+      "release": "food-custody-20261009-2",
+      "sha256": "39acd20b025d3e3face2afc1a2721a6988c7ec8ca51871617120242def40f49e",
+      "code": 0
+    },
+    "preflight": {
+      "release": "food-custody-20261009-2",
+      "type": "preflight",
+      "id": "praxans-world",
+      "seed": 1847,
+      "sourceTick": 378440,
+      "tick": 378472,
+      "format": 13,
+      "laws": "biosphere-1.7",
+      "validationHeapLimitBytes": 226492416,
+      "resumedTick": 378536
+    },
+    "continuity": {
+      "auditedAt": "2026-10-09T02:19:35.338Z",
+      "baselineTick": 368744,
+      "tick": 378792,
+      "people": 0,
+      "births": 407,
+      "deaths": 1639,
+      "regions": 38,
+      "communityRecordsUnchanged": true,
+      "identitySignaturesUnchanged": true,
+      "identityCounts": {
+        "sessions": 25,
+        "agents": 1,
+        "receipts": 3
+      },
+      "priorJournalRowsRetainedByCount": 70409,
+      "totalJournalRows": 70462,
+      "journalScope": "Live audit counts the prior journal prefix; full content signatures were tested on private copies.",
+      "clockArithmeticExact": true,
+      "clockWallMilliseconds": 1791487138340,
+      "priorArchivesAndInterventionsRetained": true,
+      "onePriorRenewal": true,
+      "releaseBoundaryChecksumsEqual": true,
+      "runtimePids": [
+        1687
+      ],
+      "gatewayPid": 8,
+      "directory": "/data/runtime/releases/food-custody-20261009-2-39acd20b025d3e3f",
+      "databaseReadMilliseconds": 30
+    },
+    "observer": {
+      "startedAt": "2026-10-09T02:17:04.536Z",
+      "finishedAt": "2026-10-09T02:20:17.222Z",
+      "snapshots": 3,
+      "frames": 66,
+      "firstTick": 378312,
+      "lastTick": 379012,
+      "streamEnded": false,
+      "regressions": [],
+      "faults": [
+        "TimeoutError: The operation was aborted due to timeout"
+      ],
+      "healthSamples": [
+        {
+          "at": "2026-10-09T02:17:07.143Z",
+          "status": 200,
+          "ok": true,
+          "tick": 378312,
+          "lawsVersion": "biosphere-1.6",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25210,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T02:17:23.612Z",
+          "status": 200,
+          "ok": true,
+          "tick": 378376,
+          "lawsVersion": "biosphere-1.6",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25209,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T02:17:35.755Z",
+          "status": 200,
+          "ok": true,
+          "tick": 378440,
+          "lawsVersion": "biosphere-1.6",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25206,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T02:17:47.635Z",
+          "status": 200,
+          "ok": true,
+          "tick": 378472,
+          "lawsVersion": "biosphere-1.6",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25211,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T02:18:00.143Z",
+          "status": 200,
+          "ok": true,
+          "tick": 378512,
+          "lawsVersion": "biosphere-1.6",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25211,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T02:18:37.477Z",
+          "status": 200,
+          "ok": true,
+          "tick": 378552,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25239,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T02:18:49.125Z",
+          "status": 200,
+          "ok": true,
+          "tick": 378600,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25239,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T02:19:04.819Z",
+          "status": 200,
+          "ok": true,
+          "tick": 378664,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25238,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T02:19:17.178Z",
+          "status": 200,
+          "ok": true,
+          "tick": 378728,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25235,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T02:19:29.897Z",
+          "status": 200,
+          "ok": true,
+          "tick": 378792,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25233,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T02:19:45.624Z",
+          "status": 200,
+          "ok": true,
+          "tick": 378856,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25231,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T02:19:56.710Z",
+          "status": 200,
+          "ok": true,
+          "tick": 378920,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25227,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T02:20:13.530Z",
+          "status": 200,
+          "ok": true,
+          "tick": 378984,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25227,
+          "simulation": "catching-up"
+        }
+      ],
+      "scope": "one direct Railway observer during a local inventory/access law hotfix of a healthy continuing world; samples do not guarantee all client connections"
+    },
+    "healthRequestContinuity": {
+      "allRequestsWithinDeadline": false,
+      "deadlineSeconds": 15,
+      "errors": [
+        {
+          "at": "2026-10-09T02:18:25.146Z",
+          "type": "health-error",
+          "error": "TimeoutError: The operation was aborted due to timeout"
+        }
+      ],
+      "completedHealthySamples": 13,
+      "scope": "One request timed out during archive/law handover. The strict no-fault verifier failed and its log is retained; this report verifies independent state/history and SSE criteria without treating that timeout as a pass. No post-handover health sample in this finite watcher failed.",
+      "sourceExplanation": "Gateway.available waits during handover before forwarding ordinary requests, including /api/health. Archive/migration startup work occurs while the new worker is launching. The recorded timeout falls inside that interval; no gateway health bypass is implemented. This is a live latency limitation, not a clean all-requests-pass result."
+    },
+    "hostMonitor": {
+      "startedAt": "2026-10-09T02:17:10.024Z",
+      "finishedAt": "2026-10-09T02:20:10.238Z",
+      "samples": 181,
+      "minimumAvailableBytes": 5836800,
+      "maximumWalBytes": 118363512,
+      "maximumCgroupMemoryBytes": 999911424,
+      "memoryEventsBefore": {
+        "low": 0,
+        "high": 0,
+        "max": 5869,
+        "oom": 0,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memoryEventsAfter": {
+        "low": 0,
+        "high": 0,
+        "max": 6918,
+        "oom": 0,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "scope": "Finite one-second samples during this empty-world live hotfix, not proof of populated-host capacity or unsampled peaks. The watcher has ended."
+    },
+    "archives": [
+      {
+        "manifest": {
+          "id": "008-material-memory-and-agency",
+          "created_at": 1791445486072,
+          "encoding": "deflate-parts-1",
+          "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+          "raw_bytes": 46697011,
+          "part_count": 179
+        },
+        "parts": 179,
+        "rawBytes": 46697011,
+        "compressedBytes": 14478047,
+        "completeOriginalSha256": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+        "remoteExportMaxRssKiB": 58728,
+        "exportStartedAt": "2026-10-09T02:19:36.228Z",
+        "exportFinishedAt": "2026-10-09T02:19:37.490Z",
+        "originalIdentityDateAndBytesPreserved": true
+      },
+      {
+        "manifest": {
+          "id": "009-human-thermal-and-distance-balance",
+          "created_at": 1791466127552,
+          "encoding": "deflate-parts-1",
+          "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+          "raw_bytes": 53486584,
+          "part_count": 205
+        },
+        "parts": 205,
+        "rawBytes": 53486584,
+        "compressedBytes": 16052169,
+        "completeOriginalSha256": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+        "remoteExportMaxRssKiB": 58280,
+        "exportStartedAt": "2026-10-09T02:19:39.841Z",
+        "exportFinishedAt": "2026-10-09T02:19:41.593Z",
+        "originalIdentityDateAndBytesPreserved": true
+      },
+      {
+        "manifest": {
+          "id": "010-performed-body-maintenance",
+          "created_at": 1791501484044,
+          "encoding": "deflate-parts-1",
+          "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+          "raw_bytes": 106657105,
+          "part_count": 407
+        },
+        "parts": 407,
+        "rawBytes": 106657105,
+        "compressedBytes": 29957726,
+        "completeOriginalSha256": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+        "remoteExportMaxRssKiB": 58460,
+        "exportStartedAt": "2026-10-09T02:19:44.047Z",
+        "exportFinishedAt": "2026-10-09T02:19:51.392Z",
+        "originalIdentityDateAndBytesPreserved": true
+      },
+      {
+        "manifest": {
+          "id": "011-consumption-before-ration-pickup",
+          "created_at": 1791504160572,
+          "encoding": "deflate-parts-1",
+          "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+          "raw_bytes": 108904108,
+          "part_count": 416
+        },
+        "parts": 416,
+        "rawBytes": 108904108,
+        "compressedBytes": 30618416,
+        "completeOriginalSha256": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+        "remoteExportMaxRssKiB": 58584,
+        "exportStartedAt": "2026-10-09T02:19:54.337Z",
+        "exportFinishedAt": "2026-10-09T02:20:08.177Z",
+        "originalIdentityDateAndBytesPreserved": true
+      },
+      {
+        "manifest": {
+          "id": "012-funded-human-metabolism",
+          "created_at": 1791508588158,
+          "encoding": "deflate-parts-1",
+          "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+          "raw_bytes": 112448226,
+          "part_count": 429
+        },
+        "parts": 429,
+        "rawBytes": 112448226,
+        "compressedBytes": 31734370,
+        "completeOriginalSha256": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+        "remoteExportMaxRssKiB": 59840,
+        "exportStartedAt": "2026-10-09T02:20:10.582Z",
+        "exportFinishedAt": "2026-10-09T02:20:13.789Z",
+        "originalIdentityDateAndBytesPreserved": true
+      },
+      {
+        "manifest": {
+          "id": "013-local-inventory-exposure-and-access",
+          "created_at": 1791512310450,
+          "encoding": "deflate-parts-1",
+          "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+          "raw_bytes": 117075634,
+          "part_count": 447
+        },
+        "parts": 447,
+        "rawBytes": 117075634,
+        "compressedBytes": 33200332,
+        "completeOriginalSha256": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+        "remoteExportMaxRssKiB": 58700,
+        "exportStartedAt": "2026-10-09T02:20:16.256Z",
+        "exportFinishedAt": "2026-10-09T02:20:19.957Z",
+        "migration": {
+          "id": "013-local-inventory-exposure-and-access",
+          "tick": 378536,
+          "before_checksum": "d9577b2eec27cbd28fa03a625121e2f730d45ac3adb25b76b83c03057d24dc7e",
+          "after_checksum": "518cc2b82688ea025eaa99ec878ae2cbe8a252a2ac1d827fea9580457e4cb6a5"
+        },
+        "metadataBytes": 1123863,
+        "metadataOnlyVersionLabelsChanged": true,
+        "sourceTick": 378536,
+        "sourceFormat": 12,
+        "sourceLaws": "biosphere-1.6",
+        "sourcePeople": 0,
+        "births": 407,
+        "deaths": 1639
+      }
+    ],
+    "healthFollowup": {
+      "local": {
+        "at": "2026-10-09T02:22:18.393Z",
+        "elapsedMs": 32929,
+        "results": [
+          {
+            "at": "2026-10-09T02:21:45.464Z",
+            "milliseconds": 1184.136151,
+            "status": 200,
+            "ok": true,
+            "tick": 379432,
+            "lawsVersion": "biosphere-1.7",
+            "persistent": true,
+            "acceptingProposals": true,
+            "lagSeconds": 25208,
+            "simulation": "catching-up"
+          },
+          {
+            "at": "2026-10-09T02:21:49.653Z",
+            "milliseconds": 3168.9043540000002,
+            "status": 200,
+            "ok": true,
+            "tick": 379464,
+            "lawsVersion": "biosphere-1.7",
+            "persistent": true,
+            "acceptingProposals": true,
+            "lagSeconds": 25206,
+            "simulation": "catching-up"
+          },
+          {
+            "at": "2026-10-09T02:21:55.824Z",
+            "milliseconds": 3287.7198590000007,
+            "status": 200,
+            "ok": true,
+            "tick": 379496,
+            "lawsVersion": "biosphere-1.7",
+            "persistent": true,
+            "acceptingProposals": true,
+            "lagSeconds": 25204,
+            "simulation": "catching-up"
+          },
+          {
+            "at": "2026-10-09T02:22:02.113Z",
+            "milliseconds": 3497.025507999999,
+            "status": 200,
+            "ok": true,
+            "tick": 379528,
+            "lawsVersion": "biosphere-1.7",
+            "persistent": true,
+            "acceptingProposals": true,
+            "lagSeconds": 25203,
+            "simulation": "catching-up"
+          },
+          {
+            "at": "2026-10-09T02:22:08.613Z",
+            "milliseconds": 3387.425073000002,
+            "status": 200,
+            "ok": true,
+            "tick": 379560,
+            "lawsVersion": "biosphere-1.7",
+            "persistent": true,
+            "acceptingProposals": true,
+            "lagSeconds": 25201,
+            "simulation": "catching-up"
+          },
+          {
+            "at": "2026-10-09T02:22:15.003Z",
+            "milliseconds": 3389.9435129999983,
+            "status": 200,
+            "ok": true,
+            "tick": 379592,
+            "lawsVersion": "biosphere-1.7",
+            "persistent": true,
+            "acceptingProposals": true,
+            "lagSeconds": 25200,
+            "simulation": "catching-up"
+          }
+        ],
+        "memoryEvents": "low 0\nhigh 0\nmax 6918\noom 0\noom_kill 1\noom_group_kill 0\n"
+      },
+      "public": {
+        "at": "2026-10-09T02:22:16.934Z",
+        "results": [
+          {
+            "at": "2026-10-09T02:21:42.770Z",
+            "milliseconds": 2082.75852,
+            "status": 200,
+            "ok": true,
+            "tick": 379432,
+            "lawsVersion": "biosphere-1.7",
+            "persistent": true,
+            "acceptingProposals": true,
+            "lagSeconds": 25208,
+            "simulation": "catching-up"
+          },
+          {
+            "at": "2026-10-09T02:21:47.858Z",
+            "milliseconds": 2951.5237209999996,
+            "status": 200,
+            "ok": true,
+            "tick": 379464,
+            "lawsVersion": "biosphere-1.7",
+            "persistent": true,
+            "acceptingProposals": true,
+            "lagSeconds": 25206,
+            "simulation": "catching-up"
+          },
+          {
+            "at": "2026-10-09T02:21:55.842Z",
+            "milliseconds": 3422.200218,
+            "status": 200,
+            "ok": true,
+            "tick": 379496,
+            "lawsVersion": "biosphere-1.7",
+            "persistent": true,
+            "acceptingProposals": true,
+            "lagSeconds": 25204,
+            "simulation": "catching-up"
+          },
+          {
+            "at": "2026-10-09T02:22:02.266Z",
+            "milliseconds": 2954.7095489999992,
+            "status": 200,
+            "ok": true,
+            "tick": 379528,
+            "lawsVersion": "biosphere-1.7",
+            "persistent": true,
+            "acceptingProposals": true,
+            "lagSeconds": 25203,
+            "simulation": "catching-up"
+          },
+          {
+            "at": "2026-10-09T02:22:08.223Z",
+            "milliseconds": 2853.4352870000002,
+            "status": 200,
+            "ok": true,
+            "tick": 379560,
+            "lawsVersion": "biosphere-1.7",
+            "persistent": true,
+            "acceptingProposals": true,
+            "lagSeconds": 25201,
+            "simulation": "catching-up"
+          },
+          {
+            "at": "2026-10-09T02:22:14.080Z",
+            "milliseconds": 2854.1795020000027,
+            "status": 200,
+            "ok": true,
+            "tick": 379592,
+            "lawsVersion": "biosphere-1.7",
+            "persistent": true,
+            "acceptingProposals": true,
+            "lagSeconds": 25200,
+            "simulation": "catching-up"
+          }
+        ]
+      }
+    }
+  },
+  "publication": {
+    "status": "LIVE; history and SSE continuity verified; one health-request timeout during handover",
+    "release": "food-custody-20261009-2",
+    "handoverTick": 378536,
+    "completedAt": "2026-10-09T02:18:35.480Z",
+    "runtimeSha256": "39acd20b025d3e3face2afc1a2721a6988c7ec8ca51871617120242def40f49e",
+    "sourceCommit": "0f84b6af528d4a74f685588833a01e04a68e5067",
+    "website": {
+      "id": "dpl_EvfTkFoxbyoaq6S4CqyDiyDR2xR4",
+      "url": "praxans-lbsrc2y0k-perseusxr-projects.vercel.app",
+      "target": "production",
+      "readyState": "READY",
+      "createdAt": 1791512376366,
+      "aliases": [
+        "praxans.vercel.app",
+        "praxans-perseusxr-projects.vercel.app"
+      ]
+    },
+    "verification": "food-custody-2026-10-09.json"
+  },
+  "githubCI": {
+    "implementationCommit": "0f84b6af528d4a74f685588833a01e04a68e5067",
+    "implementationRuns": [
+      {
+        "conclusion": "success",
+        "databaseId": 37873847250,
+        "event": "pull_request",
+        "headSha": "0f84b6af528d4a74f685588833a01e04a68e5067",
+        "status": "completed",
+        "url": "https://github.com/Perseusxrltd/Praxans/actions/runs/37873847250",
+        "workflowName": "Living world"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 37873843917,
+        "event": "push",
+        "headSha": "0f84b6af528d4a74f685588833a01e04a68e5067",
+        "status": "completed",
+        "url": "https://github.com/Perseusxrltd/Praxans/actions/runs/37873843917",
+        "workflowName": "Living world"
+      }
+    ],
+    "scope": "Both complete implementation workflows passed, including build, formatting, model/server, production, browser, extinction, renewal, exploration, connection, startup and runtime hotfix integration. Any later evidence-only commit has its own workflow status."
+  }
+}

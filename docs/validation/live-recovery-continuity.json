@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-10-08T07:49:35.278Z",
+  "id": "praxans-world",
+  "seed": 1847,
+  "tick": 22740,
+  "format": 8,
+  "laws": "biosphere-1.2",
+  "regions": 38,
+  "people": 0,
+  "savedAt": "2026-10-08T07:49:30.367Z",
+  "clock": {
+    "tick": 22740,
+    "wall_ms": 1791398125340
+  },
+  "clockDebtMs": 47649939,
+  "clockAdvanceMs": 624000,
+  "expectedAdvanceMs": 624000,
+  "ecosystem": {
+    "plants": 64,
+    "producerKg": 3.63062473112634,
+    "dormantCohorts": 0,
+    "dormantKg": 0,
+    "temperatureRange": [
+      1.008983290747429,
+      7.080127422380844
+    ]
+  },
+  "checksums": "valid",
+  "originalArchivedStateChecksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+  "communityCount": 4,
+  "ownershipPreserved": true,
+  "agentKeysPreserved": true,
+  "receiptsPreserved": true,
+  "releaseRecords": 1
+}

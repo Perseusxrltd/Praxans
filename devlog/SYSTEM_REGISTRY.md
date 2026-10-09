@@ -1,0 +1,892 @@
+# System Registry
+
+> **Purpose**: Lookup table of every game system and subsystem. See `AGENT_GUIDE.md` for update rules.
+
+---
+
+## Current Browser Runtime
+
+The systems below implement the active browser world. The subsequent Python/Pygame entries are retained as deprecated historical references; their code and original last-touched dates are preserved.
+
+### world_state
+
+- **name**: Deterministic Planet and Clock
+- **status**: active
+- **package**: src/simulation/
+- **files**: `types.ts`, `world.ts`, `terrain.ts`, `surface.ts`, `random.ts`, `planet.ts`, `chronology.ts`
+- **dependencies**: natural_systems
+- **dependents**: civilization_intelligence, world_storage, agent_gateway, browser_observer
+- **known_issues**: All materialized regions remain resident in one process; unmaterialized geography has priors rather than simulated history.
+- **last_touched**: 2026-10-09
+
+### natural_systems
+
+- **name**: Conserved Matter and Coupled Biosphere
+- **status**: experimental
+- **package**: src/simulation/
+- **files**: `chemistry.ts`, `elements.ts`, `laws.ts`, `thermodynamics.ts`, `climate.ts`, `weather.ts`, `geology.ts`, `ecology.ts`, `life.ts`, `fauna.ts`, `landscape.ts`, `weathering.ts`, `geometry.ts`
+- **dependencies**: world_state
+- **dependents**: civilization_intelligence, agent_gateway, browser_observer
+- **known_issues**: Reduced thermal/weather/statics/cohort models. Planetary thermal exchange is represented; full global moisture, materials and ecology are unresolved. No general chemistry, molecular biology or total planetary entropy. See docs/model.md.
+- **last_touched**: 2026-10-09
+
+### civilization_intelligence
+
+- **name**: Autonomous Communities and Material Learning
+- **status**: experimental
+- **package**: src/simulation/
+- **files**: `citizens.ts`, `economy.ts`, `engine.ts`, `actions.ts`, `founding.ts`
+- **dependencies**: world_state, natural_systems, human_cognition, civic_relations, human_physiology, settlement_space, material_geometry
+- **dependents**: agent_gateway, browser_observer
+- **known_issues**: Fixed design score and site radius/spacing constrain invention despite feasible-alternative and conditional-work selection. All four renewed communities later died. Short-run founding/construction validation does not establish multi-generation or genetic equilibrium; finite current metabolic food requests share reachable supply before optional refills; body composition, power, growth and reserve behavior remain uncalibrated.
+- **last_touched**: 2026-10-09
+
+### world_storage
+
+- **name**: Persistent State and Intervention Archive
+- **status**: active
+- **package**: src/server/
+- **files**: `store.ts`, `backup.ts`, `storage-format.ts`, `regions.ts`, `region-codec.ts`, `archives.ts`, `archive-codec.ts`, `migrations.ts`, `startup.ts`, `intervention.ts`, `scripts/world-maintenance.ts`, `scripts/verify-upgrade.ts`
+- **dependencies**: world_state, natural_systems
+- **dependents**: agent_gateway, world_hosting, community_history
+- **known_issues**: One writer/volume, monolithic population metadata and full region serialization. Region storage version 2 losslessly encodes rows inside the save transaction; original bytes remain authoritative, older readers are incompatible, and compression costs CPU. Deployment status is in docs/releases/region-checkpoints-0.2.md. New archives use verified compressed blocks and owned migration; older plaintext archives are losslessly converted and compressed blocks can be packed more densely before a new law migration, retaining exact expanded bytes and permitting reuse of freed pages. Storage 3 adds reversible digit/literal streams with smaller Deflate fallbacks, preserving exact raw bytes and part identities. All descriptors are checked before conversion; new writes and conversions verify expected manifests and stored bytes. Completed conversions can require compatible forward recovery after a later physical failure. Conversion runs before full terrain loading; it does not shrink the file. The additive schema commits separately from physical migration. Pre-write checkpoint reuse and bounded native copies address demonstrated reader-related log accumulation, but single-write and combined live/preflight capacity remain finite. The 16 MiB setting bounds only reusable WAL. External backup retention/monitoring and account recovery remain open.
+- **last_touched**: 2026-10-09
+
+### agent_gateway
+
+- **name**: Scoped HTTP and MCP Stewardship
+- **status**: active
+- **package**: src/server/
+- **files**: `app.ts`, `schema.ts`, `src/client/AgentInvitation.tsx`, `scripts/example-agent.ts`
+- **dependencies**: world_state, civilization_intelligence, world_storage
+- **dependents**: browser_observer, world_hosting
+- **known_issues**: Agents need HTTP/MCP tool capability; request and receipt retention limits are explicit.
+- **last_touched**: 2026-10-09
+
+### browser_observer
+
+- **name**: Planet Entrance and Living Landscape
+- **status**: active
+- **package**: src/client/
+- **files**: `main.tsx`, `renderer.ts`, `PlanetWelcome.tsx`, `FieldGuide.tsx`, `LifePanel.tsx`, `DevelopmentPanel.tsx`, `Archive.tsx`, `Communities.tsx`, `Dialog.tsx`, `AgentInvitation.tsx`, `src/server/observer.ts`, `src/server/atlas.ts`, `style.css`, `planet.css`, `development.css`, `communities.css`
+- **dependencies**: agent_gateway, world_state, natural_systems, community_history
+- **dependents**: none
+- **known_issues**: Globe requires WebGL for its full visual; 100-stream service cap. Overview/atlas loading is progressive, but cold server work still delays opening. Detailed frames retain global entity lists; bounded viewport/delta publication is unresolved. Terminal EventSource retries preserve the last view and cancel on navigation; the earlier live container reconnection failed and remains recorded.
+- **last_touched**: 2026-10-09
+
+### community_history
+
+- **name**: Community Following and Lasting Records
+- **status**: active
+- **package**: src/client/, src/server/
+- **files**: `Communities.tsx`, `communities.css`, `Archive.tsx`, `app.ts`, `store.ts`, `tests/web/community-record.test.ts`, `scripts/extinction-smoke.ts`
+- **dependencies**: world_state, world_storage, agent_gateway
+- **dependents**: browser_observer, browser_validation
+- **known_issues**: Following is browser-local, limited to 64 groups; no account synchronization or notifications. Incomplete death records leave final dates unknown. Earlier unrecorded branches, inheritance and ruin reoccupation remain unresolved.
+- **last_touched**: 2026-10-09
+
+### world_hosting
+
+- **name**: Persistent World and Static Website Deployment
+- **status**: active
+- **package**: root
+- **files**: `Dockerfile`, `compose.yaml`, `.railway/railway.ts`, `vercel.json`, `src/server/index.ts`, `scripts/container-entrypoint.mjs`, `scripts/prepare-website.mjs`
+- **dependencies**: world_storage, agent_gateway, browser_observer, runtime_handover
+- **dependents**: none
+- **known_issues**: Hosting resources and provider limits remain finite; public origin must match the deployed website. Read effective project subscription limits rather than inferring them from the workspace label. A CLI-accepted configuration can still have a failed provider operation; confirm its outcome and actual mounted capacity before a migration. The owner retains the 500 MB trial; the resting-demand runtime remains held until a preservation/capacity proof fits that limit. See docs/releases/resting-demand-0.2.md.
+- **last_touched**: 2026-10-09
+
+### runtime_handover
+
+- **name**: Stable Observer Gateway and Runtime Hotfixes
+- **status**: active
+- **package**: src/server/
+- **files**: `gateway.ts`, `checkpoint.ts`, `runtime.ts`, `worker.ts`, `preflight.ts`, `artifact.ts`, `sse.ts`, `scripts/prepare-hotfix.ts`, `scripts/hotfix.ts`
+- **dependencies**: world_storage, agent_gateway
+- **dependents**: world_hosting, browser_observer, browser_validation
+- **known_issues**: One host and volume. Hotfixes require compatible dependencies and combined preflight/live-world memory and disk headroom. Storage-aware fallback is a bounded compatibility check, not a full payload/history integrity scan. Readiness reports unavailable during handover; a container replacement still needs reconnection. Runtime replacement does not update the gateway or maintenance tools in the image. Historical restart/checkpoint and disk-full failures remain recorded; queues are finite.
+- **last_touched**: 2026-10-09
+
+### browser_validation
+
+- **name**: Model, Browser, and Continuity Validation
+- **status**: active
+- **package**: tests/web/
+- **files**: `tests/web/`, `scripts/browser-smoke.mjs`, `scripts/production-smoke.mjs`, `scripts/founding-trials.ts`, `scripts/extinction-smoke.ts`, `scripts/renewal-smoke.ts`, `scripts/renewal-trials.ts`, `scripts/exploration-smoke.ts`, `scripts/connection-smoke.ts`, `scripts/startup-smoke.ts`, `scripts/hotfix-smoke.ts`, `scripts/reconnect-smoke.ts`, `scripts/verify-upgrade.ts`, `.github/workflows/browser.yml`
+- **dependencies**: world_state, natural_systems, civilization_intelligence, world_storage, agent_gateway, browser_observer
+- **dependents**: none
+- **known_issues**: Local causal and short-run checks do not establish large-world load capacity or century-scale ecological stability.
+- **last_touched**: 2026-10-09
+
+### human_cognition
+
+- **name**: Personal Memory and Experimental Learning
+- **status**: experimental
+- **package**: src/simulation/
+- **files**: `cognition.ts`, `citizens.ts`, `economy.ts`, `validation.ts`
+- **dependencies**: world_state, natural_systems
+- **dependents**: civilization_intelligence, civic_relations, browser_observer
+- **known_issues**: Bounded functional cognition, not cellular neuroscience; no full language, durable written records or general material chemistry. Strictly later personal empty observations can interrupt resource work, but gathering choices still do not consult the adaptive gather activation or learn site-specific yield. Performed harvesting now credits finite private products during newly funded work, with simultaneous local source competition and an episodic yield observation. General gathering choice still lacks site-specific return learning; cancellation retains its coarse negative reward. See docs/research/performed-harvesting-2026-10-09.md.
+- **last_touched**: 2026-10-09
+
+### civic_relations
+
+- **name**: Advisory Institutions, Outcome Feedback and Contact
+- **status**: experimental
+- **package**: src/simulation/
+- **files**: `society.ts`, `progress.ts`, `diplomacy.ts`, `actions.ts`, `validation.ts`
+- **dependencies**: world_state, natural_systems, human_cognition
+- **dependents**: civilization_intelligence, agent_gateway, browser_observer
+- **known_issues**: Local assembly and bilateral commitment primitives; simplified travel, comprehension and raids. The fixed adult journey allowance counts personal external material. Delivery promises credit actual arrivals; decay can cause fractional retries. No portable containers or general logistics planner. Rewards are explicit heuristics, not proof against every optimization strategy.
+- **last_touched**: 2026-10-09
+
+---
+
+### human_physiology
+
+- **name**: Human Needs and Body Maintenance
+- **status**: experimental
+- **package**: src/simulation/
+- **files**: `physiology.ts`, `bodywork.ts`, `foodwork.ts`, `subsistence.ts`, `citizens.ts`
+- **dependencies**: natural_systems, world_state, settlement_space, human_cognition
+- **dependents**: civilization_intelligence
+- **known_issues**: The historical infant death exposed absent caregiver protection. Body maintenance permits finite local assistance through ordinary repair work. Paid food handoffs share its contact index, snapshot post-meal holdings and debit all sources before recipient credits; subsequent physiology ingests delivered provisions. Contact and work/choice parameters remain coarse; food and ice contention use finite shared budgets, and one actual intake/reserve account funds heat and activity. Age-resolved structural capacity and finite recovery now constrain future growth independently of extra cold/work oxidation; existing oversized bodies remain. The curve, processing and recovery parameters are uncalibrated. The covering controller now uses a declared resting/active tolerance and local reconsideration; physical costs and opposing transfers remain. The completed 32.427-day paired study records 20 current-arm deaths against none before, all in Amber Hollow. A finite-donor control now reproduces the pending-route exclusion of a physically stationary recipient. The live format-17 correction instead records actual interval travel, shared by food, covering and harvesting; exact migration preserves all prior state. The selected whole-world day still loses all sixteen adults without food/care transfer, with one death 45 simulated minutes earlier. The initial census finds very little transferable food among nearby residents; it does not measure willingness through the day. See docs/research/contact-motion-2026-10-09.md and its separate release status. Upstream acquisition/access remains open. Four unchanged-function pairs confirm additional planned-work injury with zero work and equal finite oxidation; 935 accounting guards pass, ordinary recovery is separate, and cold-dominated injury remains equal. The format-18 mandatory-resting correction passes seven targeted controls and preserves historical observations; its prepared release awaits volume expansion after the current-quota migration fills disk. The same selected day still loses all sixteen adults, one a tick later. Planned-effort water/fatigue and allocation priorities remain separate limits. See docs/research/resting-demand-2026-10-09.md and docs/releases/resting-demand-0.2.md. Infant cold deaths persist despite funded maximum oxidation. See docs/research/survival-continuation-2026-10-09.md; neither aggregate harvest gains nor original-child survival establish seasonal viability. Oxygen contention, performed feeding, developmental mobility, reserve/power calibration, containers, broader care and generational viability remain unresolved. See docs/research/community-collapse-2026-10-08.md and the bounded infant-food-access-2026-10-09.md diagnostic, which identified the preceding holder gap and the earlier heat/growth coupling without measuring death shares. Format-15 implementation and publication evidence are in docs/releases/development-0.2.md. Local food handoff publication and tests are in docs/releases/local-food-handoff-0.2.md; explicit bundle acceptance and developmental mobility remain unmodeled.
+- **last_touched**: 2026-10-09
+
+### settlement_space
+
+- **name**: Ground Travel and Connected Camp Area
+- **status**: experimental
+- **package**: src/simulation/
+- **files**: `movement.ts`, `settlement.ts`, `planet.ts`, `terrain.ts`, `weathering.ts`
+- **dependencies**: world_state, natural_systems
+- **dependents**: civilization_intelligence, human_physiology
+- **known_issues**: Stock volumes, camp area and connected founding-resource surveys are represented, but inventory is still pooled; hauling, exact occupied piles, ventilation and stored-material heat capacity are incomplete. Loose-material exposure samples each current holder's location hourly, without custody histories or portable containers. Three renewed camps share 36.83 ha of represented connected land; overlapping standing stocks do not establish independent sustainable food supply.
+- **last_touched**: 2026-10-09
+
+### material_geometry
+
+- **name**: Connected Material Geometry and Invention
+- **status**: experimental
+- **package**: src/simulation/
+- **files**: `geometry.ts`, `laws.ts`, `economy.ts`, `weathering.ts`
+- **dependencies**: world_state, natural_systems, human_cognition
+- **dependents**: civilization_intelligence, browser_observer
+- **known_issues**: Five aggregate media, 32 axis-aligned parts and 1,600 kg assemblies. No general tool/process/chemistry solver; global knowledge eviction and idealized sample estimates remain.
+- **last_touched**: 2026-10-08
+
+### world_renewal
+
+- **name**: Finite Recorded Community Restoration
+- **status**: active
+- **package**: src/simulation/, src/server/
+- **files**: `src/simulation/renewal.ts`, `src/server/intervention.ts`, `src/server/migrations.ts`, `src/client/Communities.tsx`
+- **dependencies**: world_state, natural_systems, world_storage
+- **dependents**: community_history, browser_validation
+- **known_issues**: Explicit operator boundary additions, not automatic respawn or a survival guarantee. The historical fauna remains absent.
+- **last_touched**: 2026-10-08
+
+### planet_exploration
+
+- **name**: Bounded Planetary Geography Survey
+- **status**: active
+- **package**: src/client/
+- **files**: `PlanetExplorer.tsx`, `planet-survey.worker.ts`, `explorer.css`, `renderer.ts`
+- **dependencies**: world_state, browser_observer
+- **dependents**: browser_validation
+- **known_issues**: Survey of pinned geography with live community visits; no arbitrary-location live ecology, millimetre terrain or subsurface navigation.
+- **last_touched**: 2026-10-08
+
+### performed_harvesting
+
+- **name**: Funded Resource Work and Shared Local Sources
+- **status**: experimental
+- **package**: src/simulation/
+- **files**: `harvesting.ts`, `citizens.ts`, `subsistence.ts`, `types.ts`, `model.ts`, `../server/migrations.ts`, `../../tests/web/harvesting.test.ts`
+- **dependencies**: world_state, natural_systems, human_physiology, human_cognition
+- **dependents**: civilization_intelligence, browser_validation
+- **known_issues**: Whole-cell encounter, productivity and handling remain uncalibrated. Shared plant accessibility is not anatomical tissue accounting; handling transitions retain measured timestep error. The entire economy is not simultaneous. In the completed 32.427-day pair, global harvest rises 27.57% while Amber harvest falls 7.28% and all 20 current-arm deaths occur there; aggregate improvement is not local food security or a direct causal death share. Local choices, delivery, site learning, developmental handling ability, containers and seasonal carrying capacity remain unresolved.
+- **last_touched**: 2026-10-09
+
+## Entity Layer
+
+### praxan_entity
+
+- **name**: Praxan Entity
+- **status**: deprecated
+- **package**: entities/
+- **files**: `entities/praxan.py`
+- **dependencies**: praxans_game (wildcard import → ADR-015)
+- **dependents**: society, diplomacy, ecology, quests, storyteller, llm_advisor, spatial_index, ui_inspect
+- **known_issues**: File is 146KB — tightly coupled to top-level game state via wildcard import
+- **last_touched**: 2026-03-07
+
+---
+
+## Core Systems (`systems/`)
+
+### def_database
+
+- **name**: DefDatabase (Content Registry)
+- **status**: deprecated
+- **package**: systems/
+- **files**: `systems/def_database.py`, `defs/core/buildings.json`, `defs/core/technologies.json`, `defs/core/items.json`, `defs/core/jobs.json`, `defs/core/moods.json`
+- **dependencies**: none (standalone loader)
+- **dependents**: game_content, praxan_entity, ui_panels
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### ticker
+
+- **name**: Staggered Tick Engine
+- **status**: deprecated
+- **package**: systems/
+- **files**: `systems/ticker.py`
+- **dependencies**: none
+- **dependents**: praxan_entity, ecology, society, diplomacy
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### policies
+
+- **name**: Colony Policy Manager
+- **status**: deprecated
+- **package**: systems/
+- **files**: `systems/policies.py`
+- **dependencies**: none
+- **dependents**: praxan_entity, llm_advisor
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### dev_mode
+
+- **name**: F12 Developer Overlay
+- **status**: deprecated
+- **package**: systems/
+- **files**: `systems/dev_mode.py`
+- **dependencies**: praxan_entity, event_bus
+- **dependents**: none (dev-only)
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### advisor
+
+- **name**: LLM-Powered Advisor
+- **status**: deprecated
+- **package**: systems/
+- **files**: `systems/advisor.py`
+- **dependencies**: llm_client, llm_scheduler, llm_prompts, llm_interpreters, llm_memory, def_database
+- **dependents**: praxan_entity, ui_hud
+- **known_issues**: File is 104KB — largest system module
+- **last_touched**: 2026-03-07
+
+### diplomacy
+
+- **name**: Inter-Faction Diplomacy
+- **status**: deprecated
+- **package**: systems/
+- **files**: `systems/diplomacy.py`
+- **dependencies**: society, event_bus
+- **dependents**: praxan_entity, storyteller
+- **known_issues**: none
+- **last_touched**: 2026-03-07
+
+### ecology
+
+- **name**: Ecology System
+- **status**: deprecated
+- **package**: systems/
+- **files**: `systems/ecology.py`
+- **dependencies**: spatial_index, map_generation
+- **dependents**: storyteller
+- **known_issues**: none
+- **last_touched**: 2026-03-07
+
+### quests
+
+- **name**: Quest System
+- **status**: deprecated
+- **package**: systems/
+- **files**: `systems/quests.py`
+- **dependencies**: praxan_entity, event_bus
+- **dependents**: ui_hud
+- **known_issues**: none
+- **last_touched**: 2026-03-07
+
+### storyteller
+
+- **name**: Event/Crisis Storyteller
+- **status**: deprecated
+- **package**: systems/
+- **files**: `systems/storyteller.py`
+- **dependencies**: event_bus, diplomacy, ecology, society
+- **dependents**: ui_hud, llm_advisor
+- **known_issues**: none
+- **last_touched**: 2026-03-07
+
+### society
+
+- **name**: Society & Faction Mechanics
+- **status**: deprecated
+- **package**: systems/
+- **files**: `systems/society.py`
+- **dependencies**: praxan_entity, event_bus
+- **dependents**: diplomacy, storyteller, llm_advisor
+- **known_issues**: none
+- **last_touched**: 2026-03-07
+
+### spatial_index
+
+- **name**: Spatial Indexing
+- **status**: deprecated
+- **package**: systems/
+- **files**: `systems/spatial.py`
+- **dependencies**: none
+- **dependents**: ecology, praxan_entity, fog_of_war
+- **known_issues**: none
+- **last_touched**: 2026-03-07
+
+### expose_data
+
+- **name**: Data Exposure Layer
+- **status**: deprecated
+- **package**: systems/
+- **files**: `systems/expose_data.py`
+- **dependencies**: praxan_entity, def_database
+- **dependents**: llm_prompts
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### mod_loader
+
+- **name**: Mod Loader
+- **status**: deprecated
+- **package**: systems/
+- **files**: `systems/mod_loader.py`
+- **dependencies**: def_database
+- **dependents**: none
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+---
+
+## LLM Subsystem (`llm/`)
+
+### llm_client
+
+- **name**: Ollama Client
+- **status**: deprecated
+- **package**: llm/
+- **files**: `llm/client.py`
+- **dependencies**: ollama (optional external)
+- **dependents**: llm_scheduler
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### llm_scheduler
+
+- **name**: LLM Async Scheduler (4 Channels)
+- **status**: deprecated
+- **package**: llm/
+- **files**: `llm/scheduler.py`
+- **dependencies**: llm_client
+- **dependents**: advisor
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### llm_prompts
+
+- **name**: LLM Prompt Templates
+- **status**: deprecated
+- **package**: llm/
+- **files**: `llm/prompts.py`
+- **dependencies**: expose_data
+- **dependents**: advisor, llm_contracts
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### llm_interpreters
+
+- **name**: LLM Response Interpreters
+- **status**: deprecated
+- **package**: llm/
+- **files**: `llm/interpreters.py`
+- **dependencies**: none
+- **dependents**: advisor
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### llm_memory
+
+- **name**: LLM Memory & Digest
+- **status**: deprecated
+- **package**: llm/
+- **files**: `llm/memory.py`
+- **dependencies**: none
+- **dependents**: advisor, llm_scheduler
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### llm_contracts
+
+- **name**: LLM Contracts & Schemas
+- **status**: deprecated
+- **package**: llm/
+- **files**: `llm/contracts.py`
+- **dependencies**: none
+- **dependents**: advisor, llm_prompts
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### llm_state_views
+
+- **name**: LLM State Views
+- **status**: deprecated
+- **package**: llm/
+- **files**: `llm/state_views.py`
+- **dependencies**: praxan_entity, def_database
+- **dependents**: llm_prompts
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+---
+
+## Events (`events/`)
+
+### event_bus
+
+- **name**: Event Bus
+- **status**: deprecated
+- **package**: events/
+- **files**: `events/bus.py`
+- **dependencies**: none
+- **dependents**: cascades, incidents, storyteller, quests, diplomacy, society
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### cascades
+
+- **name**: Event Cascades
+- **status**: deprecated
+- **package**: events/
+- **files**: `events/cascades.py`
+- **dependencies**: event_bus
+- **dependents**: storyteller
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### incidents
+
+- **name**: Incidents
+- **status**: deprecated
+- **package**: events/
+- **files**: `events/incidents.py`
+- **dependencies**: event_bus
+- **dependents**: storyteller, dev_mode
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+---
+
+## Graphics (`graphics/`)
+
+### scene_renderer
+
+- **name**: Scene Renderer
+- **status**: deprecated
+- **package**: graphics/
+- **files**: `graphics/scene_renderer.py`
+- **dependencies**: terrain_renderer, entity_renderer, effects_renderer
+- **dependents**: praxans_game (main loop)
+- **known_issues**: none
+- **last_touched**: 2026-03-07
+
+### terrain_renderer
+
+- **name**: Terrain Renderer
+- **status**: deprecated
+- **package**: graphics/
+- **files**: `graphics/terrain_renderer.py`
+- **dependencies**: graphics_content, sprites
+- **dependents**: scene_renderer
+- **known_issues**: none
+- **last_touched**: 2026-03-07
+
+### entity_renderer
+
+- **name**: Entity Renderer
+- **status**: deprecated
+- **package**: graphics/
+- **files**: `graphics/entity_renderer.py`
+- **dependencies**: sprites, palette
+- **dependents**: scene_renderer
+- **known_issues**: none
+- **last_touched**: 2026-03-07
+
+### effects_renderer
+
+- **name**: Effects Renderer
+- **status**: deprecated
+- **package**: graphics/
+- **files**: `graphics/effects_renderer.py`
+- **dependencies**: palette
+- **dependents**: scene_renderer
+- **known_issues**: none
+- **last_touched**: 2026-03-07
+
+### sprites
+
+- **name**: Sprite Manager
+- **status**: deprecated
+- **package**: graphics/
+- **files**: `graphics/sprites.py`
+- **dependencies**: assets/ (PNG files)
+- **dependents**: terrain_renderer, entity_renderer
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### palette
+
+- **name**: Color Palette
+- **status**: deprecated
+- **package**: graphics/
+- **files**: `graphics/palette.py`
+- **dependencies**: none
+- **dependents**: entity_renderer, effects_renderer, terrain_renderer
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### graphics_content
+
+- **name**: Graphics Content Definitions
+- **status**: deprecated
+- **package**: graphics/
+- **files**: `graphics/content.py`
+- **dependencies**: def_database
+- **dependents**: terrain_renderer
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### frame_models
+
+- **name**: Render Frame Models
+- **status**: deprecated
+- **package**: graphics/
+- **files**: `graphics/frame_models.py`
+- **dependencies**: none
+- **dependents**: scene_renderer
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+---
+
+## Map (`map/`)
+
+### map_generation
+
+- **name**: World Map Generation
+- **status**: deprecated
+- **package**: map/
+- **files**: `map/generation.py`
+- **dependencies**: noise (optional external), map_models
+- **dependents**: praxans_game, ecology, terrain_renderer
+- **known_issues**: none
+- **last_touched**: 2026-03-07
+
+### map_models
+
+- **name**: Map & Biome Models
+- **status**: deprecated
+- **package**: map/
+- **files**: `map/models.py`
+- **dependencies**: none
+- **dependents**: map_generation, praxan_entity
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### planet
+
+- **name**: Planet Selection
+- **status**: deprecated
+- **package**: map/
+- **files**: `map/planet.py`
+- **dependencies**: none
+- **dependents**: map_generation, ui_planet_select
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### poi
+
+- **name**: Points of Interest
+- **status**: deprecated
+- **package**: map/
+- **files**: `map/poi.py`
+- **dependencies**: map_models
+- **dependents**: map_generation, praxan_entity
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+---
+
+## UI (`ui/`)
+
+### ui_shell
+
+- **name**: Command Center Shell
+- **status**: deprecated
+- **package**: ui/
+- **files**: `ui/shell.py`
+- **dependencies**: ui_theme, ui_input_router
+- **dependents**: praxans_game
+- **known_issues**: none
+- **last_touched**: 2026-03-07
+
+### ui_hud
+
+- **name**: Live Run HUD
+- **status**: deprecated
+- **package**: ui/
+- **files**: `ui/hud.py`
+- **dependencies**: ui_theme, ui_layout
+- **dependents**: praxans_game
+- **known_issues**: none
+- **last_touched**: 2026-03-07
+
+### ui_inspect
+
+- **name**: Scrollable Entity Inspect Drawer
+- **status**: deprecated
+- **package**: ui/
+- **files**: `ui/inspect.py`
+- **dependencies**: praxan_entity, ui_theme
+- **dependents**: praxans_game
+- **known_issues**: none
+- **last_touched**: 2026-03-07
+
+### ui_analytics
+
+- **name**: Modal Analytics & End-of-Run Summary
+- **status**: deprecated
+- **package**: ui/
+- **files**: `ui/analytics.py`
+- **dependencies**: observer_analytics, ui_theme
+- **dependents**: praxans_game
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### ui_panels
+
+- **name**: UI Panels (Research, Evolution, etc.)
+- **status**: deprecated
+- **package**: ui/
+- **files**: `ui/panels.py`
+- **dependencies**: ui_theme, def_database
+- **dependents**: praxans_game
+- **known_issues**: none
+- **last_touched**: 2026-03-07
+
+### ui_input_router
+
+- **name**: UI State & Input Router
+- **status**: deprecated
+- **package**: ui/
+- **files**: `ui/input_router.py`
+- **dependencies**: none
+- **dependents**: ui_shell, ui_hud
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### ui_camera_director
+
+- **name**: Camera Bookmarks & Auto-Follow
+- **status**: deprecated
+- **package**: ui/
+- **files**: `ui/camera_director.py`
+- **dependencies**: none
+- **dependents**: praxans_game
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### ui_theme
+
+- **name**: UI Theme & Panel Rendering
+- **status**: deprecated
+- **package**: ui/
+- **files**: `ui/theme.py`
+- **dependencies**: none
+- **dependents**: ui_shell, ui_hud, ui_inspect, ui_analytics, ui_panels
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### ui_history_graph
+
+- **name**: Time-Series Population/Wealth/Mood Graph
+- **status**: deprecated
+- **package**: ui/
+- **files**: `ui/history_graph.py`
+- **dependencies**: none
+- **dependents**: ui_analytics
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### ui_search_overlay
+
+- **name**: Search Overlay
+- **status**: deprecated
+- **package**: ui/
+- **files**: `ui/search_overlay.py`
+- **dependencies**: ui_theme
+- **dependents**: praxans_game
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### ui_planet_select
+
+- **name**: Planet Selection Screen
+- **status**: deprecated
+- **package**: ui/
+- **files**: `ui/planet_select.py`
+- **dependencies**: planet, ui_theme
+- **dependents**: ui_shell
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### ui_layout
+
+- **name**: Layout Computation
+- **status**: deprecated
+- **package**: ui/
+- **files**: `ui/layout.py`
+- **dependencies**: none
+- **dependents**: ui_hud
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### ui_models
+
+- **name**: UI Data Models
+- **status**: deprecated
+- **package**: ui/
+- **files**: `ui/models.py`
+- **dependencies**: none
+- **dependents**: ui_panels, ui_inspect
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+---
+
+## Root-Level Modules
+
+### praxans_game
+
+- **name**: Main Game Loop & Top-Level State
+- **status**: deprecated
+- **package**: root
+- **files**: `praxans_game.py`
+- **dependencies**: all systems, all UI, all graphics, map, events, entities
+- **dependents**: praxan_entity (wildcard import)
+- **known_issues**: File is 350KB — monolithic entry point holding all top-level state
+- **last_touched**: 2026-03-07
+
+### runtime_config
+
+- **name**: CLI Args & User Settings
+- **status**: deprecated
+- **package**: root
+- **files**: `runtime_config.py`
+- **dependencies**: none
+- **dependents**: praxans_game
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### game_content
+
+- **name**: Building Definitions Proxy
+- **status**: deprecated
+- **package**: root
+- **files**: `game_content.py`
+- **dependencies**: def_database
+- **dependents**: praxan_entity, advisor
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### game_scenarios
+
+- **name**: Scenario Presets
+- **status**: deprecated
+- **package**: root
+- **files**: `game_scenarios.py`
+- **dependencies**: none
+- **dependents**: praxans_game, ui_shell
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### observer_analytics
+
+- **name**: Observer Analytics Engine
+- **status**: deprecated
+- **package**: root
+- **files**: `observer_analytics.py`
+- **dependencies**: praxan_entity
+- **dependents**: ui_analytics
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### society_dynamics
+
+- **name**: Society Dynamics (Legacy)
+- **status**: deprecated
+- **package**: root
+- **files**: `society_dynamics.py`
+- **dependencies**: praxan_entity
+- **dependents**: society
+- **known_issues**: May overlap with `systems/society.py`
+- **last_touched**: 2026-03-06
+
+### run_snapshot
+
+- **name**: Snapshot Serializer
+- **status**: deprecated
+- **package**: root
+- **files**: `run_snapshot.py`
+- **dependencies**: praxan_entity, all systems
+- **dependents**: praxans_game
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### run_archive
+
+- **name**: Archive Summary Generator
+- **status**: deprecated
+- **package**: root
+- **files**: `run_archive.py`
+- **dependencies**: observer_analytics
+- **dependents**: praxans_game
+- **known_issues**: none
+- **last_touched**: 2026-03-06
+
+### genetics
+
+- **name**: Genetics System
+- **status**: deprecated
+- **package**: root
+- **files**: `genetics.py`
+- **dependencies**: none
+- **dependents**: praxan_entity
+- **known_issues**: Small file (741B) — may be a stub
+- **last_touched**: 2026-03-06
+
+---
+
+## Test Suite
+
+### test_suite
+
+- **name**: Automated Tests
+- **status**: deprecated
+- **package**: tests/
+- **files**: 20 test files covering: advisor contract, diplomacy, game content, game scenarios, graphics renderer, grief system, headless smoke, LLM contracts, LLM interpreters, LLM memory, LLM scheduler, map generation, observer analytics, quest system, run archive, run snapshot, runtime config, society dynamics, UI input router, UI render smoke
+- **dependencies**: all systems under test
+- **dependents**: none
+- **known_issues**: none
+- **last_touched**: 2026-03-07

@@ -1,0 +1,2147 @@
+{
+  "schemaVersion": 1,
+  "study": "Contact from actual movement",
+  "date": "2026-10-09",
+  "protocol": {
+    "createdAt": "2026-10-09T12:49:24.445Z",
+    "purpose": "Compare contact semantics at the previously observed adult-starvation window; no death-based stop or survival guarantee.",
+    "startTick": 231412,
+    "targetTick": 231508,
+    "wallBudgetPerArmMs": 300000,
+    "selection": "Chosen from the completed previous study before these comparison outcomes.",
+    "sourceCheckpointSha256": "cf8abcb12f564b7ce4bc3464712f057acbc4f65b52380be5145c26b3fc69d985",
+    "priorAcceptedAdultPhaseSha256": "b5d6452649e4e0c81c4b3d0d4978135841e61648a87dfc57ce146d2db19671fc",
+    "scope": "Both keep the complete interacting world. A single selected day is neither a historical death share nor seasonal viability. Subsequent phase hooks require an exact uninstrumented world reference."
+  },
+  "referenceDay": "The preselected adult-death day of the preceding 32.427-day survival continuation; not the original historical-law trajectory.",
+  "arms": {
+    "before": {
+      "sourceCommit": "19570a9424a7a3517107f7547a2b7f856945802d",
+      "sourceOrigin": "exact committed source",
+      "sourceSha256": "1553aa55d7f1aabd9072cc6fff3a33d73115aa97f0e2477081042dd59d24705a",
+      "sourceFiles": 82,
+      "manifestSha256": "d6fa8bfb14f6f2e645ee4f8b9f28ed42087dd7ab79db15f192d99dc1d9a42007",
+      "bundleSha256": "0078a76ec7f08ffe20825d9ebea3ffd160bee8d6200246d8f2658c8d1035a9e8",
+      "initialDigest": "3478537e1163f750eec20e8cf26ec19c53399efb933808aa89310200d3f8a804",
+      "finalPreSaveDigest": "cfe7bbbe11882151dbfed7266921ef01c78d7fc16dee3daddbd2308c8081ceb3",
+      "resultSha256": "cf73071f21b466b62291927d1f20ab8bc02d46ca8defe3048a2fac82cf8524e2",
+      "dayReportSha256": "e17bdd057ca39104cae630a264ddde7354d6449fe9ded1cca5218a2478043763",
+      "reachedTarget": true,
+      "inputUnchanged": true,
+      "initialPeople": 1512,
+      "finalPeople": 1499,
+      "newBirths": 3,
+      "deathCount": 16,
+      "deaths": [
+        {
+          "id": "person-4691",
+          "community": "civ-11",
+          "tick": 231471
+        },
+        {
+          "id": "person-4621",
+          "community": "civ-11",
+          "tick": 231476
+        },
+        {
+          "id": "person-4521",
+          "community": "civ-11",
+          "tick": 231477
+        },
+        {
+          "id": "person-4665",
+          "community": "civ-11",
+          "tick": 231477
+        },
+        {
+          "id": "person-4444",
+          "community": "civ-11",
+          "tick": 231480
+        },
+        {
+          "id": "person-4640",
+          "community": "civ-11",
+          "tick": 231480
+        },
+        {
+          "id": "person-4528",
+          "community": "civ-11",
+          "tick": 231484
+        },
+        {
+          "id": "person-4594",
+          "community": "civ-11",
+          "tick": 231484
+        },
+        {
+          "id": "person-4600",
+          "community": "civ-11",
+          "tick": 231487
+        },
+        {
+          "id": "person-4517",
+          "community": "civ-11",
+          "tick": 231488
+        },
+        {
+          "id": "person-4638",
+          "community": "civ-11",
+          "tick": 231488
+        },
+        {
+          "id": "person-4703",
+          "community": "civ-11",
+          "tick": 231488
+        },
+        {
+          "id": "person-4573",
+          "community": "civ-11",
+          "tick": 231491
+        },
+        {
+          "id": "person-4627",
+          "community": "civ-11",
+          "tick": 231495
+        },
+        {
+          "id": "person-4456",
+          "community": "civ-11",
+          "tick": 231502
+        },
+        {
+          "id": "person-4705",
+          "community": "civ-11",
+          "tick": 231504
+        }
+      ],
+      "communities": {
+        "civ-1": {
+          "name": null,
+          "harvestKg": 159.45197688143526,
+          "ingestedKg": 279.11444493636503,
+          "metabolicHealthLoss": 0,
+          "childMetabolicHealthLoss": 0
+        },
+        "civ-11": {
+          "name": null,
+          "harvestKg": 184.60261293599615,
+          "ingestedKg": 186.73621796647492,
+          "metabolicHealthLoss": 1909.498150430471,
+          "childMetabolicHealthLoss": 68.61019377797128
+        },
+        "civ-21": {
+          "name": null,
+          "harvestKg": 133.47698049437167,
+          "ingestedKg": 280.9722538681663,
+          "metabolicHealthLoss": 4.513570908859066,
+          "childMetabolicHealthLoss": 4.513570908859066
+        },
+        "civ-3118": {
+          "name": null,
+          "harvestKg": 280.4051733435772,
+          "ingestedKg": 266.69330057382047,
+          "metabolicHealthLoss": 4.418014466783291,
+          "childMetabolicHealthLoss": 4.418014466783291
+        }
+      },
+      "totals": {
+        "harvestKg": 757.9367436553803,
+        "ingestedKg": 1013.5162173448267,
+        "metabolicHealthLoss": 1918.4297358061133,
+        "childMetabolicHealthLoss": 77.54177915361363
+      },
+      "watchedAdultPhase": {
+        "rows": 1180,
+        "traceSha256": "f400e4128489c10709cf8af27ce942958b686cc12683939c00f85ab8a3608514",
+        "perPerson": [
+          {
+            "id": "person-4444",
+            "intervals": 68,
+            "deathTick": 231480,
+            "initialHealth": 38.017455144519445,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -38.01745514451945,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.496861509751026,
+            "unmetMaintenanceKJ": 8812.80000000001,
+            "unmetColdKJ": 9207.51181224607,
+            "rawInjurySum": 38.017455144519445,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4456",
+            "intervals": 90,
+            "deathTick": 231502,
+            "initialHealth": 52.71259422363397,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -52.71259422363397,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.446164523806473,
+            "unmetMaintenanceKJ": 11664.000000000013,
+            "unmetColdKJ": 12709.715723188106,
+            "rawInjurySum": 52.71259422363397,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4517",
+            "intervals": 76,
+            "deathTick": 231488,
+            "initialHealth": 43.5902956948482,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -43.5902956948482,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4692730645773606,
+            "unmetMaintenanceKJ": 9849.599999999997,
+            "unmetColdKJ": 10546.240347236091,
+            "rawInjurySum": 43.5902956948482,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4521",
+            "intervals": 65,
+            "deathTick": 231477,
+            "initialHealth": 39.06711222844946,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -37.147112228449416,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": -1.920000000000038,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4472334789611234,
+            "unmetMaintenanceKJ": 8424.000000000024,
+            "unmetColdKJ": 8990.838035222832,
+            "rawInjurySum": 37.14711222844942,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4528",
+            "intervals": 72,
+            "deathTick": 231484,
+            "initialHealth": 41.62624538341256,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -41.62624538341257,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4385014379920271,
+            "unmetMaintenanceKJ": 9331.20000000001,
+            "unmetColdKJ": 10036.933420129864,
+            "rawInjurySum": 41.62624538341256,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4573",
+            "intervals": 79,
+            "deathTick": 231491,
+            "initialHealth": 45.67487215327541,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -45.674872153275395,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.468802009889286,
+            "unmetMaintenanceKJ": 10238.400000000021,
+            "unmetColdKJ": 10987.21155562529,
+            "rawInjurySum": 45.67487215327541,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4594",
+            "intervals": 72,
+            "deathTick": 231484,
+            "initialHealth": 41.15620137030162,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -41.15620137030163,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.451350564943844,
+            "unmetMaintenanceKJ": 9331.2,
+            "unmetColdKJ": 9986.52906487144,
+            "rawInjurySum": 41.15620137030162,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4600",
+            "intervals": 75,
+            "deathTick": 231487,
+            "initialHealth": 42.80678928649092,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -42.80678928649091,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4913521101639375,
+            "unmetMaintenanceKJ": 9720.000000000007,
+            "unmetColdKJ": 10249.41496161805,
+            "rawInjurySum": 42.80678928649092,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4621",
+            "intervals": 64,
+            "deathTick": 231476,
+            "initialHealth": 37.657188729826366,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -35.76718872982633,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": -1.8900000000000345,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4925181022020415,
+            "unmetMaintenanceKJ": 8294.400000000009,
+            "unmetColdKJ": 8663.055221132287,
+            "rawInjurySum": 35.76718872982633,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4627",
+            "intervals": 83,
+            "deathTick": 231495,
+            "initialHealth": 46.99670375213817,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -46.99670375213817,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.488999149639205,
+            "unmetMaintenanceKJ": 10624.000000000002,
+            "unmetColdKJ": 11354.01856687258,
+            "rawInjurySum": 46.99670375213817,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4638",
+            "intervals": 76,
+            "deathTick": 231488,
+            "initialHealth": 43.36780067628441,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -43.36780067628441,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4910088318817039,
+            "unmetMaintenanceKJ": 9849.600000000002,
+            "unmetColdKJ": 10458.379591216544,
+            "rawInjurySum": 43.36780067628441,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4640",
+            "intervals": 68,
+            "deathTick": 231480,
+            "initialHealth": 38.082292006012985,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -38.082292006013,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4885903075336682,
+            "unmetMaintenanceKJ": 8812.800000000003,
+            "unmetColdKJ": 9238.083220911265,
+            "rawInjurySum": 38.082292006012985,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4665",
+            "intervals": 65,
+            "deathTick": 231477,
+            "initialHealth": 38.490338123914185,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -36.570338123914155,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": -1.9200000000000361,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4957258364911297,
+            "unmetMaintenanceKJ": 8424.000000000002,
+            "unmetColdKJ": 8814.60965371679,
+            "rawInjurySum": 36.57033812391415,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4691",
+            "intervals": 59,
+            "deathTick": 231471,
+            "initialHealth": 34.45087675249864,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -33.22087675249862,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": -1.2300000000000288,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4737922124072926,
+            "unmetMaintenanceKJ": 7646.399999999991,
+            "unmetColdKJ": 8013.382445752731,
+            "rawInjurySum": 33.22087675249861,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4703",
+            "intervals": 76,
+            "deathTick": 231488,
+            "initialHealth": 43.83181306406934,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -43.83181306406934,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4514648007656734,
+            "unmetMaintenanceKJ": 9849.599999999991,
+            "unmetColdKJ": 10616.871974202557,
+            "rawInjurySum": 43.83181306406934,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4705",
+            "intervals": 92,
+            "deathTick": 231504,
+            "initialHealth": 53.917625485081494,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -53.917625485081494,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.43896905583166,
+            "unmetMaintenanceKJ": 11923.199999999986,
+            "unmetColdKJ": 12982.489014625811,
+            "rawInjurySum": 53.917625485081494,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          }
+        ],
+        "healthStages": {
+          "preparation": 0.0,
+          "betweenPreparationAndMetabolism": 0.0,
+          "metabolism": -674.4862040747572,
+          "recovery": 0.0,
+          "oxygen": 0.0,
+          "dehydration": 0.0,
+          "sickness": -6.960000000000138,
+          "infectionAndEnd": 0.0
+        },
+        "receivedHandoffs": [],
+        "bodyWork": [],
+        "nonzeroFuel": [],
+        "movedIntervals": [],
+        "sharedClaims": []
+      }
+    },
+    "after": {
+      "sourceCommit": null,
+      "sourceOrigin": "frozen working tree; match final implementation commit before publication",
+      "sourceSha256": "d45f2ea46583a0ffcc221f0ca58123f780328e699b4cac04555f49941734bdea",
+      "sourceFiles": 82,
+      "manifestSha256": "96092a805bd6b455ec93188975a2928577314a5d42f2002293cac32ee5c1979a",
+      "bundleSha256": "9b783ae2bcdeed29727d30b486dff748aa03bf05afa4766ad348e039a8481296",
+      "initialDigest": "67335b457d6cb7e2ed5dc7480001e2981e5eb8e85f9396508ed0899d1099f51b",
+      "finalPreSaveDigest": "ef285aa5fbf20e8887e39c96c007703843e6842b33597a92632d56b5eda22764",
+      "resultSha256": "1b4a89941c5a8f99979b884f438a7313f4e148e024d3a0a6f861a4aee893ed9d",
+      "dayReportSha256": "ec85454ee732f257549fcaba861acd245f26d8043d3c96af1825fb20781e7307",
+      "reachedTarget": true,
+      "inputUnchanged": true,
+      "initialPeople": 1512,
+      "finalPeople": 1499,
+      "newBirths": 3,
+      "deathCount": 16,
+      "deaths": [
+        {
+          "id": "person-4691",
+          "community": "civ-11",
+          "tick": 231471
+        },
+        {
+          "id": "person-4621",
+          "community": "civ-11",
+          "tick": 231476
+        },
+        {
+          "id": "person-4521",
+          "community": "civ-11",
+          "tick": 231477
+        },
+        {
+          "id": "person-4665",
+          "community": "civ-11",
+          "tick": 231477
+        },
+        {
+          "id": "person-4444",
+          "community": "civ-11",
+          "tick": 231480
+        },
+        {
+          "id": "person-4640",
+          "community": "civ-11",
+          "tick": 231480
+        },
+        {
+          "id": "person-4528",
+          "community": "civ-11",
+          "tick": 231484
+        },
+        {
+          "id": "person-4594",
+          "community": "civ-11",
+          "tick": 231484
+        },
+        {
+          "id": "person-4600",
+          "community": "civ-11",
+          "tick": 231487
+        },
+        {
+          "id": "person-4517",
+          "community": "civ-11",
+          "tick": 231488
+        },
+        {
+          "id": "person-4638",
+          "community": "civ-11",
+          "tick": 231488
+        },
+        {
+          "id": "person-4703",
+          "community": "civ-11",
+          "tick": 231488
+        },
+        {
+          "id": "person-4573",
+          "community": "civ-11",
+          "tick": 231491
+        },
+        {
+          "id": "person-4627",
+          "community": "civ-11",
+          "tick": 231492
+        },
+        {
+          "id": "person-4456",
+          "community": "civ-11",
+          "tick": 231502
+        },
+        {
+          "id": "person-4705",
+          "community": "civ-11",
+          "tick": 231504
+        }
+      ],
+      "communities": {
+        "civ-1": {
+          "name": null,
+          "harvestKg": 163.8963196823388,
+          "ingestedKg": 279.13140631033485,
+          "metabolicHealthLoss": 0,
+          "childMetabolicHealthLoss": 0
+        },
+        "civ-11": {
+          "name": null,
+          "harvestKg": 187.34609004967933,
+          "ingestedKg": 187.33942141860933,
+          "metabolicHealthLoss": 1915.5049875318336,
+          "childMetabolicHealthLoss": 68.53126604128693
+        },
+        "civ-21": {
+          "name": null,
+          "harvestKg": 124.20619651839661,
+          "ingestedKg": 280.9797733404432,
+          "metabolicHealthLoss": 4.513560522365907,
+          "childMetabolicHealthLoss": 4.513560522365907
+        },
+        "civ-3118": {
+          "name": null,
+          "harvestKg": 282.6739008950244,
+          "ingestedKg": 266.66814933386576,
+          "metabolicHealthLoss": 4.418049964718108,
+          "childMetabolicHealthLoss": 4.418049964718108
+        }
+      },
+      "totals": {
+        "harvestKg": 758.1225071454392,
+        "ingestedKg": 1014.1187504032532,
+        "metabolicHealthLoss": 1924.4365980189177,
+        "childMetabolicHealthLoss": 77.46287652837094
+      },
+      "watchedAdultPhase": {
+        "rows": 1177,
+        "traceSha256": "89e743e21b72a60ca956ed1573209d30fe6c78d02fae4673be31e658696375a1",
+        "perPerson": [
+          {
+            "id": "person-4444",
+            "intervals": 68,
+            "deathTick": 231480,
+            "initialHealth": 38.017455144519445,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -38.017455144519445,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.496861509751026,
+            "unmetMaintenanceKJ": 8812.80000000001,
+            "unmetColdKJ": 9207.512490506131,
+            "rawInjurySum": 38.017455144519445,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4456",
+            "intervals": 90,
+            "deathTick": 231502,
+            "initialHealth": 52.71259422363397,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -52.71259422363397,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.446164523806473,
+            "unmetMaintenanceKJ": 11664.000000000013,
+            "unmetColdKJ": 12709.715770068784,
+            "rawInjurySum": 52.71259422363397,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4517",
+            "intervals": 76,
+            "deathTick": 231488,
+            "initialHealth": 43.5902956948482,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -43.590295694848194,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4692730645773606,
+            "unmetMaintenanceKJ": 9849.599999999997,
+            "unmetColdKJ": 10546.241130401517,
+            "rawInjurySum": 43.5902956948482,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4521",
+            "intervals": 65,
+            "deathTick": 231477,
+            "initialHealth": 39.06711222844946,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -37.14711222844942,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": -1.920000000000038,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4472334789611234,
+            "unmetMaintenanceKJ": 8424.000000000024,
+            "unmetColdKJ": 8990.83665886017,
+            "rawInjurySum": 37.14711222844942,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4528",
+            "intervals": 72,
+            "deathTick": 231484,
+            "initialHealth": 41.62624538341256,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -41.626245383412545,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4385014379920271,
+            "unmetMaintenanceKJ": 9331.20000000001,
+            "unmetColdKJ": 10036.93368527722,
+            "rawInjurySum": 41.62624538341256,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4573",
+            "intervals": 79,
+            "deathTick": 231491,
+            "initialHealth": 45.67487215327541,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -45.6748721532754,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.468802009889286,
+            "unmetMaintenanceKJ": 10238.400000000021,
+            "unmetColdKJ": 10987.211572596065,
+            "rawInjurySum": 45.67487215327541,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4594",
+            "intervals": 72,
+            "deathTick": 231484,
+            "initialHealth": 41.15620137030162,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -41.15620137030162,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.451350564943844,
+            "unmetMaintenanceKJ": 9331.2,
+            "unmetColdKJ": 9986.529328687311,
+            "rawInjurySum": 41.15620137030162,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4600",
+            "intervals": 75,
+            "deathTick": 231487,
+            "initialHealth": 42.80678928649092,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -42.806789286490925,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4913521101639375,
+            "unmetMaintenanceKJ": 9720.000000000007,
+            "unmetColdKJ": 10249.415852811935,
+            "rawInjurySum": 42.80678928649092,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4621",
+            "intervals": 64,
+            "deathTick": 231476,
+            "initialHealth": 37.657188729826366,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -35.76718872982633,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": -1.8900000000000345,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4925181022020415,
+            "unmetMaintenanceKJ": 8294.400000000009,
+            "unmetColdKJ": 8663.055348570655,
+            "rawInjurySum": 35.76718872982633,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4627",
+            "intervals": 80,
+            "deathTick": 231492,
+            "initialHealth": 46.99670375213817,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -45.10670375213813,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": -1.8900000000000345,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4890159009738644,
+            "unmetMaintenanceKJ": 10240.000000000002,
+            "unmetColdKJ": 10924.671914535335,
+            "rawInjurySum": 45.10670375213813,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4638",
+            "intervals": 76,
+            "deathTick": 231488,
+            "initialHealth": 43.36780067628441,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -43.36780067628441,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4910088318817039,
+            "unmetMaintenanceKJ": 9849.600000000002,
+            "unmetColdKJ": 10458.379590351245,
+            "rawInjurySum": 43.36780067628441,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4640",
+            "intervals": 68,
+            "deathTick": 231480,
+            "initialHealth": 38.082292006012985,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -38.08229200601299,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4885903075336682,
+            "unmetMaintenanceKJ": 8812.800000000003,
+            "unmetColdKJ": 9238.084229760374,
+            "rawInjurySum": 38.082292006012985,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4665",
+            "intervals": 65,
+            "deathTick": 231477,
+            "initialHealth": 38.490338123914185,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -36.57033812391414,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": -1.9200000000000361,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4957258364911297,
+            "unmetMaintenanceKJ": 8424.000000000002,
+            "unmetColdKJ": 8814.609364300006,
+            "rawInjurySum": 36.57033812391415,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4691",
+            "intervals": 59,
+            "deathTick": 231471,
+            "initialHealth": 34.45087675249864,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -33.22087675249858,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": -1.2300000000000288,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4737922124072926,
+            "unmetMaintenanceKJ": 7646.399999999991,
+            "unmetColdKJ": 8013.380171637608,
+            "rawInjurySum": 33.22087675249861,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4703",
+            "intervals": 76,
+            "deathTick": 231488,
+            "initialHealth": 43.83181306406934,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -43.83181306406934,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.4514648007656734,
+            "unmetMaintenanceKJ": 9849.599999999991,
+            "unmetColdKJ": 10616.871989392328,
+            "rawInjurySum": 43.83181306406934,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          },
+          {
+            "id": "person-4705",
+            "intervals": 92,
+            "deathTick": 231504,
+            "initialHealth": 53.917625485081494,
+            "finalHealth": 0,
+            "stages": {
+              "preparation": 0.0,
+              "betweenPreparationAndMetabolism": 0.0,
+              "metabolism": -53.91762548508149,
+              "recovery": 0.0,
+              "oxygen": 0.0,
+              "dehydration": 0.0,
+              "sickness": 0.0,
+              "infectionAndEnd": 0.0
+            },
+            "endWrapKg": 1.43896905583166,
+            "unmetMaintenanceKJ": 11923.199999999986,
+            "unmetColdKJ": 12982.536388580278,
+            "rawInjurySum": 53.917625485081494,
+            "maxEndProvisionsKg": 0,
+            "pendingRouteEveryInterval": true
+          }
+        ],
+        "healthStages": {
+          "preparation": 0.0,
+          "betweenPreparationAndMetabolism": 0.0,
+          "metabolism": -672.596204074757,
+          "recovery": 0.0,
+          "oxygen": 0.0,
+          "dehydration": 0.0,
+          "sickness": -8.850000000000172,
+          "infectionAndEnd": 0.0
+        },
+        "receivedHandoffs": [],
+        "bodyWork": [],
+        "nonzeroFuel": [],
+        "movedIntervals": [],
+        "sharedClaims": []
+      }
+    }
+  },
+  "candidatePhase": {
+    "accepted": true,
+    "exactFullWorldMatch": true,
+    "sourceUnchanged": true,
+    "traceRows": 31777,
+    "traceSha256": "89e743e21b72a60ca956ed1573209d30fe6c78d02fae4673be31e658696375a1",
+    "resultSha256": "b31d222d1a212343aa24cd1b23bfc5f5dd0b38b57c9079f700418ee64ae4914f",
+    "manifestSha256": "e64ad9a9875d23dd640b033775e32207028511d2eb7c259778111e81deaa7dda",
+    "build": {
+      "variant": "after",
+      "commit": "frozen-worktree-base-496a0ceac5f1340e0c6f54421e1709674d7f0eb7",
+      "sourceSha256": "d45f2ea46583a0ffcc221f0ca58123f780328e699b4cac04555f49941734bdea",
+      "hookManifestSha256": "66cf87083ab2097ea0143bdab00254a5145a88320a528960a2f67912e66d2017",
+      "observerSha256": "e592f707ea822090f0d665d1ffa937ce5e1e1060b95074dc069811a909867171",
+      "runnerSha256": "b8e70c178a73bc782f572fb54db37f09cf074a0d05355c568c8ba0614c3e6dfd",
+      "helperSha256": "276ec3d4fa44601e1856914d542a465ed5f29e7d6a62e84d50c798ad248b71d7",
+      "buildScriptSha256": "b56f52f7c1eb0cf60e6567f122bb6d7004027318f25525c6eb8f1de3d707abfb",
+      "sourceFiles": 82
+    },
+    "guards": {
+      "passed": true,
+      "tolerances": {
+        "massAbsoluteKg": 1e-09,
+        "healthAbsolutePoints": 1e-09,
+        "phaseAbsolute": 1e-08,
+        "phaseRelativeToHolderAndChangeScale": 1e-12
+      },
+      "residualChecks": [
+        {
+          "name": "maximumIngestionCreditResidualKg",
+          "maximumAbsoluteResidual": 0,
+          "tolerance": 1e-09,
+          "passed": true
+        },
+        {
+          "name": "maximumIntakeResidualKg",
+          "maximumAbsoluteResidual": 2.220446049250313e-16,
+          "tolerance": 1e-09,
+          "passed": true
+        },
+        {
+          "name": "maximumReserveResidualKg",
+          "maximumAbsoluteResidual": 1.1102230246251565e-16,
+          "tolerance": 1e-09,
+          "passed": true
+        },
+        {
+          "name": "maximumBodyResidualKg",
+          "maximumAbsoluteResidual": 1.7763568394002505e-15,
+          "tolerance": 1e-09,
+          "passed": true
+        },
+        {
+          "name": "maximumMetabolicHealthResidual",
+          "maximumAbsoluteResidual": 0,
+          "tolerance": 1e-09,
+          "passed": true
+        },
+        {
+          "name": "maximumPhysiologyHealthResidual",
+          "maximumAbsoluteResidual": 0,
+          "tolerance": 1e-09,
+          "passed": true
+        },
+        {
+          "name": "maximumCohortHealthResidual",
+          "maximumAbsoluteResidual": 0,
+          "tolerance": 1e-09,
+          "passed": true
+        },
+        {
+          "name": "maximumCohortStageResidual",
+          "maximumAbsoluteResidual": 0,
+          "tolerance": 1e-09,
+          "passed": true
+        }
+      ],
+      "phaseClosure": [
+        {
+          "scope": "all",
+          "field": "population",
+          "residual": 0,
+          "scale": 3030,
+          "tolerance": 0,
+          "passed": true
+        },
+        {
+          "scope": "all",
+          "field": "campKg",
+          "residual": 0,
+          "scale": 79655.55958000277,
+          "tolerance": 8.965555958000276e-08,
+          "passed": true
+        },
+        {
+          "scope": "all",
+          "field": "carriedKg",
+          "residual": 0,
+          "scale": 8161.733350225799,
+          "tolerance": 1.8161733350225798e-08,
+          "passed": true
+        },
+        {
+          "scope": "all",
+          "field": "journeyKg",
+          "residual": 0,
+          "scale": 0,
+          "tolerance": 1e-08,
+          "passed": true
+        },
+        {
+          "scope": "all",
+          "field": "intakeKg",
+          "residual": 0,
+          "scale": 1728.1363787387122,
+          "tolerance": 1.1728136378738712e-08,
+          "passed": true
+        },
+        {
+          "scope": "all",
+          "field": "bodyKg",
+          "residual": 0,
+          "scale": 47796.50367545032,
+          "tolerance": 5.7796503675450325e-08,
+          "passed": true
+        },
+        {
+          "scope": "all",
+          "field": "reserveSubsetKg",
+          "residual": 0,
+          "scale": 4473.252020844087,
+          "tolerance": 1.4473252020844087e-08,
+          "passed": true
+        },
+        {
+          "scope": "all",
+          "field": "harvestCounterKg",
+          "residual": 0,
+          "scale": 563389.7417429663,
+          "tolerance": 5.733897417429663e-07,
+          "passed": true
+        },
+        {
+          "scope": "civ-1",
+          "field": "population",
+          "residual": 0,
+          "scale": 742,
+          "tolerance": 0,
+          "passed": true
+        },
+        {
+          "scope": "civ-1",
+          "field": "campKg",
+          "residual": 0,
+          "scale": 8178.47114427628,
+          "tolerance": 1.817847114427628e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-1",
+          "field": "carriedKg",
+          "residual": 0,
+          "scale": 2455.3247268032,
+          "tolerance": 1.24553247268032e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-1",
+          "field": "journeyKg",
+          "residual": 0,
+          "scale": 0,
+          "tolerance": 1e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-1",
+          "field": "intakeKg",
+          "residual": 0,
+          "scale": 516.749169689783,
+          "tolerance": 1.0516749169689783e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-1",
+          "field": "bodyKg",
+          "residual": 0,
+          "scale": 11888.998286054331,
+          "tolerance": 2.1888998286054333e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-1",
+          "field": "reserveSubsetKg",
+          "residual": 0,
+          "scale": 1188.8996826327764,
+          "tolerance": 1.1188899682632777e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-1",
+          "field": "harvestCounterKg",
+          "residual": 0,
+          "scale": 111897.27134260573,
+          "tolerance": 1.2189727134260574e-07,
+          "passed": true
+        },
+        {
+          "scope": "civ-11",
+          "field": "population",
+          "residual": 0,
+          "scale": 758,
+          "tolerance": 0,
+          "passed": true
+        },
+        {
+          "scope": "civ-11",
+          "field": "campKg",
+          "residual": -1.3322676295501878e-15,
+          "scale": 164.60809442932046,
+          "tolerance": 1.016460809442932e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-11",
+          "field": "carriedKg",
+          "residual": 0,
+          "scale": 743.9823822156172,
+          "tolerance": 1.0743982382215618e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-11",
+          "field": "journeyKg",
+          "residual": 0,
+          "scale": 0,
+          "tolerance": 1e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-11",
+          "field": "intakeKg",
+          "residual": 0,
+          "scale": 297.7076094962647,
+          "tolerance": 1.0297707609496265e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-11",
+          "field": "bodyKg",
+          "residual": 0,
+          "scale": 11760.874007088905,
+          "tolerance": 2.1760874007088903e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-11",
+          "field": "reserveSubsetKg",
+          "residual": 0,
+          "scale": 869.6895742578452,
+          "tolerance": 1.0869689574257846e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-11",
+          "field": "harvestCounterKg",
+          "residual": 0,
+          "scale": 101085.98088548222,
+          "tolerance": 1.1108598088548221e-07,
+          "passed": true
+        },
+        {
+          "scope": "civ-21",
+          "field": "population",
+          "residual": 0,
+          "scale": 750,
+          "tolerance": 0,
+          "passed": true
+        },
+        {
+          "scope": "civ-21",
+          "field": "campKg",
+          "residual": 0,
+          "scale": 16687.019572065015,
+          "tolerance": 2.6687019572065015e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-21",
+          "field": "carriedKg",
+          "residual": 0,
+          "scale": 2460.235503745255,
+          "tolerance": 1.2460235503745255e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-21",
+          "field": "journeyKg",
+          "residual": 0,
+          "scale": 0,
+          "tolerance": 1e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-21",
+          "field": "intakeKg",
+          "residual": 0,
+          "scale": 522.6880947549266,
+          "tolerance": 1.0522688094754926e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-21",
+          "field": "bodyKg",
+          "residual": 0,
+          "scale": 11879.658211037808,
+          "tolerance": 2.1879658211037807e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-21",
+          "field": "reserveSubsetKg",
+          "residual": 0,
+          "scale": 1187.9656294312404,
+          "tolerance": 1.1187965629431241e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-21",
+          "field": "harvestCounterKg",
+          "residual": 0,
+          "scale": 122962.39803506975,
+          "tolerance": 1.3296239803506977e-07,
+          "passed": true
+        },
+        {
+          "scope": "civ-3118",
+          "field": "population",
+          "residual": 0,
+          "scale": 780,
+          "tolerance": 0,
+          "passed": true
+        },
+        {
+          "scope": "civ-3118",
+          "field": "campKg",
+          "residual": 0,
+          "scale": 54765.062960368086,
+          "tolerance": 6.476506296036808e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-3118",
+          "field": "carriedKg",
+          "residual": 0,
+          "scale": 2722.280670830212,
+          "tolerance": 1.2722280670830212e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-3118",
+          "field": "journeyKg",
+          "residual": 0,
+          "scale": 0,
+          "tolerance": 1e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-3118",
+          "field": "intakeKg",
+          "residual": 0,
+          "scale": 565.2701487293494,
+          "tolerance": 1.056527014872935e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-3118",
+          "field": "bodyKg",
+          "residual": 0,
+          "scale": 12267.510205420682,
+          "tolerance": 2.2267510205420684e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-3118",
+          "field": "reserveSubsetKg",
+          "residual": 0,
+          "scale": 1226.7508197205866,
+          "tolerance": 1.1226750819720587e-08,
+          "passed": true
+        },
+        {
+          "scope": "civ-3118",
+          "field": "harvestCounterKg",
+          "residual": 0,
+          "scale": 227444.0914798087,
+          "tolerance": 2.374440914798087e-07,
+          "passed": true
+        }
+      ],
+      "expectedUniqueHealthMarksPerInterval": [
+        "preparation",
+        "betweenPreparationAndMetabolism",
+        "metabolism",
+        "recovery",
+        "oxygen",
+        "dehydration",
+        "sickness",
+        "infectionAndEnd"
+      ],
+      "finiteNonnegativeCreditsRequired": true
+    }
+  },
+  "startingNeighborhood": {
+    "singleSnapshotOnly": true,
+    "censusSha256": "3e21ba36aa6c321a9d0b2237840d31544b9b2eaa0c423013ef970203a4af984d",
+    "summary": {
+      "watchedAdults": 16,
+      "occupiedCells": 13,
+      "unwatchedUniqueSameCellResidents": 48,
+      "allUnwatchedNeighborsAdults": true,
+      "neighborAgeYearsMin": 19.01391511147972,
+      "neighborAgeYearsMax": 43.01391511147972,
+      "allUnwatchedNeighborsSameCommunity": true,
+      "allUnwatchedNeighborsExploringBiomass": true,
+      "unwatchedNeighborsWithPendingRoute": 0,
+      "unwatchedNeighborsWithCargo": 0,
+      "unwatchedNeighborsPassingRawBodilyChoiceGate": 2,
+      "uniqueNeighborProvisionsKg": 0.9801532893239233,
+      "uniqueNeighborIntakeKgNotHandoffStock": 10.615789409095363,
+      "uniqueNeighborReserveSubsetKgNotHandoffStock": 60.18571373154595,
+      "watchedWithUnwatchedNeighbor": 13,
+      "watchedWithNoOtherResidentIds": [
+        "person-4705"
+      ],
+      "watchedWithOnlyOtherWatchedNeighborsIds": [
+        "person-4703",
+        "person-4573"
+      ],
+      "watchedWithCampAccessAtSnapshot": 0,
+      "watchedAllNoProvisionCargoIntakeOrReserve": true,
+      "watchedAllPendingRestTasks": true,
+      "watchedPathLengthMin": 8,
+      "watchedPathLengthMax": 20,
+      "existingHandoffsAmongAllInspectedResidents": 0,
+      "unwatchedNeighborsFoodAboveEpsilonKgIds": [
+        "person-4542"
+      ]
+    },
+    "camp": {
+      "id": "civ-11",
+      "name": "Amber Hollow",
+      "x": 56,
+      "y": 26,
+      "populationUsed": 378,
+      "stockVolumeM3": 20.44033964487325,
+      "populationAreaM2": 6048,
+      "volumeAreaAtHalfMetrePileHeightM2": 40.8806792897465,
+      "targetAreaM2": 6048,
+      "projectedRadiusInCellUnits": 4.387639674858871,
+      "surveyRadiusInCellUnits": 5.387639674858871,
+      "wantedCells": 61,
+      "actualFootprintCells": 61,
+      "representedFootprintAreaM2": 6100,
+      "accessCells": 85,
+      "interpretation": "Population, not stock volume, sets this snapshot footprint. Camp biomass is an aggregate finite stock reachable only from these footprint/access cells under the current approximation; no individual warehouse, distance-dependent carrying, or ownership change is inferred."
+    },
+    "limits": [
+      "One starting snapshot cannot prove actual movement or stationarity during any subsequent work interval.",
+      "No donor availability trajectory, willingness frequency, achieved work, treatment effect, or prevented-death share is inferred.",
+      "Current local food choice is conditional on prior care opportunities and individual random/learned decisions. No choices or RNG were evaluated.",
+      "The sole substantive holder may consume her apparent surplus in the physiological/refill phases before a food-work snapshot; no future interval was advanced.",
+      "Read-only analyst access to saved quantities is not information granted to inhabitants.",
+      "Unwatched neighbors include people selected solely for same rounded occupied cell; same-cell presence remains a coarse contact model, not anatomical reach.",
+      "Projected cells and static BFS access are model approximations; no new physical capacity, material allocation, path or stock was created.",
+      "The pending-route source defect is established independently; these snapshot data do not show it caused or could prevent any of the 16 subsequent deaths."
+    ]
+  },
+  "controlledDefect": {
+    "baselineTest": "The unchanged previous runtime passes an explicitly stopped recipient but fails the same physically stranded recipient with a pending route.",
+    "candidate": "Both actor orders permit finite paid handoff to either stationary recipient; ingestion and regained motion occur only in later physiology.",
+    "negativeControls": [
+      "Actual positive travel invalidates contact even after returning to the initial coordinates.",
+      "Blocked and zero-distance routes retain stationary contact.",
+      "Travel cannot earn harvesting on arrival.",
+      "Absent, unwilling, unfunded or distant donors grant no food.",
+      "Removed/replaced bodies cannot share finite resources."
+    ],
+    "baselineLogSha256": "9bb093d80c27e319a96130d6130d1697291beb4fd9f74e9b24fcc1be6f2b67ad",
+    "candidateLogSha256": "d5326a5e3b129b2fe3796d3da6daedd0251143896acf305d0cb3935970f578c9"
+  },
+  "interpretation": [
+    "The physical contact defect is reproduced and corrected; this selected full-world comparison prevents none of the 16 adult deaths.",
+    "All 16 still receive no handoff or covering work, ingest/oxidize no food or reserves, and perform no funded movement during the traced window. They have no selected accessible shared source.",
+    "One adult dies three ticks (45 simulated minutes) earlier. Its trace differs in sickness; broader behavioral/RNG divergence is not an independently apportioned cause.",
+    "The nearby stock census covers only the initial checkpoint. Digested intake and internal reserves are not transferable provisions. Presence, stock and willingness remain distinct.",
+    "Whole-world and community food/injury changes are mixed; this is no seasonal or generational viability result.",
+    "The next material question is how the adults became cut off from renewable food, transport and care. Planned-but-unperformed work demand and developmental/thermal calibration require separate controls."
+  ],
+  "committedCandidate": {
+    "implementationCommit": "fdeb5b117adafe6ec1c949a411042235af7c45ec",
+    "sourceFiles": 82,
+    "sourceSha256": "d45f2ea46583a0ffcc221f0ca58123f780328e699b4cac04555f49941734bdea",
+    "matchesFrozenMeasuredCandidate": true
+  },
+  "plannedDemandDiagnostic": {
+    "status": "Confirmed in unchanged actual functions; separate correction not implemented or deployed",
+    "scope": "Four synthetic quarter-hour pairs on the frozen format-17 source. No historical mortality share, survival rescue or calibration follows.",
+    "privateEvidenceDirectory": "output/research/contact-motion-20261009/planned-demand-control-20261009-v1",
+    "files": {
+      "README.md": {
+        "bytes": 7077,
+        "sha256": "c8b502f40b9fa04d4ad41889389bf25042f918a50f5a1f933f88b4ef399cd305"
+      },
+      "inputs.json": {
+        "bytes": 1583,
+        "sha256": "b99654b2bc1400fa5d08c9a560da9242f24b9fee3eacd6b6f16c938e7dc6be22"
+      },
+      "runner.ts": {
+        "bytes": 19347,
+        "sha256": "bcc60fbab51019a71925b30593f707d1a8bf71b8932603e0aea45de57f25860b"
+      },
+      "runner.mjs": {
+        "bytes": 245576,
+        "sha256": "bd4bfbf950c5cae11b3a617d678cb7ab4727d5a459aed72e4c10c3f032752f32"
+      },
+      "build-manifest.json": {
+        "bytes": 52761,
+        "sha256": "d13bcb5a7090bdfebbfa23d97614d777985ea1d9e657ccea77579e97c870632b"
+      },
+      "result.json": {
+        "bytes": 378615,
+        "sha256": "5fc26d0434422846cf394fea5640ca1415f0c54ec70a5fc5c0b3ff82d19d361c"
+      },
+      "run.log": {
+        "bytes": 2215,
+        "sha256": "51beedbd612cf56bb8882e58572c447e8cd8badb8de9dffeca2e1594657db882"
+      }
+    },
+    "provenance": {
+      "sourceBefore": {
+        "sha256": "d45f2ea46583a0ffcc221f0ca58123f780328e699b4cac04555f49941734bdea",
+        "count": 82
+      },
+      "sourceAfter": {
+        "sha256": "d45f2ea46583a0ffcc221f0ca58123f780328e699b4cac04555f49941734bdea",
+        "count": 82
+      },
+      "inputSha256": "b99654b2bc1400fa5d08c9a560da9242f24b9fee3eacd6b6f16c938e7dc6be22",
+      "manifestSha256": "d13bcb5a7090bdfebbfa23d97614d777985ea1d9e657ccea77579e97c870632b",
+      "runnerSourceSha256": "bcc60fbab51019a71925b30593f707d1a8bf71b8932603e0aea45de57f25860b",
+      "buildScriptSha256": "68c8db43356a209f207a89ccc8a9ef07253ff3691815847d77257fbdffd6dbc4",
+      "bundleSha256": "bd4bfbf950c5cae11b3a617d678cb7ab4727d5a459aed72e4c10c3f032752f32",
+      "esbuildVersion": "0.28.2",
+      "node": "v22.22.0",
+      "sourceInstrumentation": "none",
+      "syntheticFixturesOnly": true,
+      "StoreOrDatabaseUsed": false,
+      "liveAccess": false,
+      "lawOrCoefficientsChanged": false
+    },
+    "bounds": {
+      "pairs": 4,
+      "arms": 8,
+      "quarterHourCalls": 8,
+      "hoursPerArm": 0.25,
+      "worldContinuation": false
+    },
+    "cases": [
+      {
+        "id": "rest_fuel_actual_citizens",
+        "input": {
+          "id": "rest_fuel_actual_citizens",
+          "executor": "updateCitizens",
+          "finiteInitialIntakeEnergyKJ": 99,
+          "targetOutwardHeatKJ": 99
+        },
+        "activeMinusInactive": {
+          "releasedKJ": 0,
+          "metabolicHealthLoss": 0.1875,
+          "netHealthChange": -0.2269642857142884,
+          "unmetColdKJ": 0
+        },
+        "arms": [
+          {
+            "arm": "inactive",
+            "executor": "updateCitizens",
+            "initialWorldSha256": "dfabf72b4d2753a3c788127dec47ae4d0cb9ea5eee859671a5973ddb41338fbf",
+            "normalizedInputExceptTaskSha256": "719772fa8036782b3fac3ac0fa7f6d8481811a2a38e9fa40fafc2c08a926ea3b",
+            "finalWorldSha256": "eec0e1cb8c987b9bd7743fc228daca3e70b95379be6c37bab1191810396c8c12",
+            "derivedRestingKJ": 99,
+            "flux": {
+              "tick": 29,
+              "hours": 0.25,
+              "ingestedKg": 0,
+              "foodOxidizedKg": 0.006195244055068836,
+              "reserveOxidizedKg": 0,
+              "reserveStoredKg": 0,
+              "structureStoredKg": 0,
+              "maintenanceKJ": 99,
+              "heatLossKJ": 98.99999999999999,
+              "releasedKJ": 99,
+              "meltKJ": 0,
+              "unmetMaintenanceKJ": 0,
+              "unmetColdKJ": 0,
+              "unremovedHeatKJ": 0,
+              "healthLoss": 0,
+              "activityFraction": 0,
+              "journeyId": null
+            },
+            "netHealthChange": 0.039464285714288394,
+            "metabolicHealthLoss": 0,
+            "nonMetabolicNetHealth": 0.039464285714288394,
+            "expectedOrdinaryRecoveryPoints": 0.039464285714285716,
+            "fundedActivityHours": 0,
+            "actualWorkExecutorRun": true,
+            "actualDisplacementMetres": 0,
+            "actualTaskProgressDelta": 0,
+            "physicalProgressLimit": "Direct physiology runs report paid capacity only; no movement or task executor is invoked for those arms.",
+            "oxygenConsumedKg": 0.006895527748724148,
+            "actualSweatKg": 0,
+            "basalWaterLossKg": 0.01625,
+            "localChecks": {
+              "intakeResidualKg": 0,
+              "reserveResidualKg": 0,
+              "bodyResidualKg": 0,
+              "chemicalReleaseResidualKJ": -1.4210854715202004e-14,
+              "oxidationHeatResidualKJ": 0,
+              "oxygenResidualKg": 0,
+              "atmosphericOrganicResidualKg": 0,
+              "atmosphericWaterResidualKg": 0,
+              "hydrationResidualKg": 3.191891195797325e-16,
+              "sweatResidualKg": -5.800348863347757e-18,
+              "localHeatResidualKJ": 1.4716761143063195e-10,
+              "healthStageResidualPoints": 2.67841304690819e-15
+            }
+          },
+          {
+            "arm": "planned_active",
+            "executor": "updateCitizens",
+            "initialWorldSha256": "6ba69a88b8b507f32c5a5e3760f7ca220e79f76508e57ddfd895017d4aed8d41",
+            "normalizedInputExceptTaskSha256": "719772fa8036782b3fac3ac0fa7f6d8481811a2a38e9fa40fafc2c08a926ea3b",
+            "finalWorldSha256": "55e1c93a28ebbee53c590311b55f695efa7bc8815f8de5307f99d706e1df688d",
+            "derivedRestingKJ": 99,
+            "flux": {
+              "tick": 29,
+              "hours": 0.25,
+              "ingestedKg": 0,
+              "foodOxidizedKg": 0.006195244055068836,
+              "reserveOxidizedKg": 0,
+              "reserveStoredKg": 0,
+              "structureStoredKg": 0,
+              "maintenanceKJ": 144,
+              "heatLossKJ": 98.99999999999999,
+              "releasedKJ": 99,
+              "meltKJ": 0,
+              "unmetMaintenanceKJ": 45,
+              "unmetColdKJ": 0,
+              "unremovedHeatKJ": 0,
+              "healthLoss": 0.1875,
+              "activityFraction": 0,
+              "journeyId": null
+            },
+            "netHealthChange": -0.1875,
+            "metabolicHealthLoss": 0.1875,
+            "nonMetabolicNetHealth": 0,
+            "expectedOrdinaryRecoveryPoints": 0,
+            "fundedActivityHours": 0,
+            "actualWorkExecutorRun": true,
+            "actualDisplacementMetres": 0,
+            "actualTaskProgressDelta": 0,
+            "physicalProgressLimit": "Direct physiology runs report paid capacity only; no movement or task executor is invoked for those arms.",
+            "oxygenConsumedKg": 0.006895527748724148,
+            "actualSweatKg": 0,
+            "basalWaterLossKg": 0.0195,
+            "localChecks": {
+              "intakeResidualKg": 0,
+              "reserveResidualKg": 0,
+              "bodyResidualKg": 0,
+              "chemicalReleaseResidualKJ": -1.4210854715202004e-14,
+              "oxidationHeatResidualKJ": 0,
+              "oxygenResidualKg": 0,
+              "atmosphericOrganicResidualKg": 0,
+              "atmosphericWaterResidualKg": 0,
+              "hydrationResidualKg": -1.491862189340054e-16,
+              "sweatResidualKg": -5.800348863347757e-18,
+              "localHeatResidualKJ": 1.4716761143063195e-10,
+              "healthStageResidualPoints": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": "empty_fuel",
+        "input": {
+          "id": "empty_fuel",
+          "executor": "prepare_feed_finish",
+          "finiteInitialIntakeEnergyKJ": 0,
+          "targetOutwardHeatKJ": 99
+        },
+        "activeMinusInactive": {
+          "releasedKJ": 0,
+          "metabolicHealthLoss": 0.1875,
+          "netHealthChange": -0.1875,
+          "unmetColdKJ": 0
+        },
+        "arms": [
+          {
+            "arm": "inactive",
+            "executor": "prepare_feed_finish",
+            "initialWorldSha256": "b02397fa9545892725bfbcbdfb937402aff4fb885f3c7d219b709b7ca05b6cb6",
+            "normalizedInputExceptTaskSha256": "5ec57fdd04593896f9ba1ace7fd3e310357a31efe883a9326084516f14dadb47",
+            "finalWorldSha256": "f0023c10ab83be78ce01594706ac55069caffe5ec33923cedabc635d6ef7fccb",
+            "derivedRestingKJ": 99,
+            "flux": {
+              "tick": 29,
+              "hours": 0.25,
+              "ingestedKg": 0,
+              "foodOxidizedKg": 0,
+              "reserveOxidizedKg": 0,
+              "reserveStoredKg": 0,
+              "structureStoredKg": 0,
+              "maintenanceKJ": 99,
+              "heatLossKJ": 98.99999999999999,
+              "releasedKJ": 0,
+              "meltKJ": 0,
+              "unmetMaintenanceKJ": 99,
+              "unmetColdKJ": 98.99999999999999,
+              "unremovedHeatKJ": 0,
+              "healthLoss": 0.4124999999999943,
+              "activityFraction": 0,
+              "journeyId": null
+            },
+            "netHealthChange": -0.4124999999999943,
+            "metabolicHealthLoss": 0.4124999999999943,
+            "nonMetabolicNetHealth": 0,
+            "expectedOrdinaryRecoveryPoints": 0,
+            "fundedActivityHours": 0,
+            "actualWorkExecutorRun": false,
+            "actualDisplacementMetres": 0,
+            "actualTaskProgressDelta": null,
+            "physicalProgressLimit": "Direct physiology runs report paid capacity only; no movement or task executor is invoked for those arms.",
+            "oxygenConsumedKg": 0,
+            "actualSweatKg": 0,
+            "basalWaterLossKg": 0,
+            "localChecks": {
+              "intakeResidualKg": 0,
+              "reserveResidualKg": 0,
+              "bodyResidualKg": 0,
+              "chemicalReleaseResidualKJ": 0,
+              "oxidationHeatResidualKJ": 0,
+              "oxygenResidualKg": 0,
+              "atmosphericOrganicResidualKg": 0,
+              "atmosphericWaterResidualKg": 0,
+              "hydrationResidualKg": 0,
+              "sweatResidualKg": 0,
+              "localHeatResidualKJ": 0,
+              "healthStageResidualPoints": 0
+            }
+          },
+          {
+            "arm": "planned_active",
+            "executor": "prepare_feed_finish",
+            "initialWorldSha256": "77686b31a4181f7a16321746a81221896eb1ac56330a8fade599f9d58e70e6f4",
+            "normalizedInputExceptTaskSha256": "5ec57fdd04593896f9ba1ace7fd3e310357a31efe883a9326084516f14dadb47",
+            "finalWorldSha256": "20640f7b1ab05093564699a0a3c943dbb884c0d3715c83533ee503c9012d9bb7",
+            "derivedRestingKJ": 99,
+            "flux": {
+              "tick": 29,
+              "hours": 0.25,
+              "ingestedKg": 0,
+              "foodOxidizedKg": 0,
+              "reserveOxidizedKg": 0,
+              "reserveStoredKg": 0,
+              "structureStoredKg": 0,
+              "maintenanceKJ": 144,
+              "heatLossKJ": 98.99999999999999,
+              "releasedKJ": 0,
+              "meltKJ": 0,
+              "unmetMaintenanceKJ": 144,
+              "unmetColdKJ": 98.99999999999999,
+              "unremovedHeatKJ": 0,
+              "healthLoss": 0.5999999999999943,
+              "activityFraction": 0,
+              "journeyId": null
+            },
+            "netHealthChange": -0.5999999999999943,
+            "metabolicHealthLoss": 0.5999999999999943,
+            "nonMetabolicNetHealth": 0,
+            "expectedOrdinaryRecoveryPoints": 0,
+            "fundedActivityHours": 0,
+            "actualWorkExecutorRun": false,
+            "actualDisplacementMetres": 0,
+            "actualTaskProgressDelta": null,
+            "physicalProgressLimit": "Direct physiology runs report paid capacity only; no movement or task executor is invoked for those arms.",
+            "oxygenConsumedKg": 0,
+            "actualSweatKg": 0,
+            "basalWaterLossKg": 0,
+            "localChecks": {
+              "intakeResidualKg": 0,
+              "reserveResidualKg": 0,
+              "bodyResidualKg": 0,
+              "chemicalReleaseResidualKJ": 0,
+              "oxidationHeatResidualKJ": 0,
+              "oxygenResidualKg": 0,
+              "atmosphericOrganicResidualKg": 0,
+              "atmosphericWaterResidualKg": 0,
+              "hydrationResidualKg": 0,
+              "sweatResidualKg": 0,
+              "localHeatResidualKJ": 0,
+              "healthStageResidualPoints": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": "partial_activity_fuel",
+        "input": {
+          "id": "partial_activity_fuel",
+          "executor": "prepare_feed_finish",
+          "finiteInitialIntakeEnergyKJ": 121.5,
+          "targetOutwardHeatKJ": 99
+        },
+        "activeMinusInactive": {
+          "releasedKJ": 22.5,
+          "metabolicHealthLoss": 0.09375,
+          "netHealthChange": -0.09375,
+          "unmetColdKJ": 0
+        },
+        "arms": [
+          {
+            "arm": "inactive",
+            "executor": "prepare_feed_finish",
+            "initialWorldSha256": "3c20c7ce974cf4df60de476b02195a7c0387acab5ae91c54e65c3e5947167959",
+            "normalizedInputExceptTaskSha256": "68f5d0d31eb6efca06544da52d60f5e3c83f2ccf5d6a1b38103752c08443b96b",
+            "finalWorldSha256": "048e0f11fbd913467cbbf7e2ba37110511007e642ebfd45541fdfb5c7125690b",
+            "derivedRestingKJ": 99,
+            "flux": {
+              "tick": 29,
+              "hours": 0.25,
+              "ingestedKg": 0,
+              "foodOxidizedKg": 0.006195244055068836,
+              "reserveOxidizedKg": 0,
+              "reserveStoredKg": 0.001408010012515645,
+              "structureStoredKg": 0,
+              "maintenanceKJ": 99,
+              "heatLossKJ": 98.99999999999999,
+              "releasedKJ": 99,
+              "meltKJ": 0,
+              "unmetMaintenanceKJ": 0,
+              "unmetColdKJ": 0,
+              "unremovedHeatKJ": 0,
+              "healthLoss": 0,
+              "activityFraction": 0,
+              "journeyId": null
+            },
+            "netHealthChange": 0,
+            "metabolicHealthLoss": 0,
+            "nonMetabolicNetHealth": 0,
+            "expectedOrdinaryRecoveryPoints": 0,
+            "fundedActivityHours": 0,
+            "actualWorkExecutorRun": false,
+            "actualDisplacementMetres": 0,
+            "actualTaskProgressDelta": null,
+            "physicalProgressLimit": "Direct physiology runs report paid capacity only; no movement or task executor is invoked for those arms.",
+            "oxygenConsumedKg": 0.006895527748724148,
+            "actualSweatKg": 0,
+            "basalWaterLossKg": 0,
+            "localChecks": {
+              "intakeResidualKg": 0,
+              "reserveResidualKg": 0,
+              "bodyResidualKg": 0,
+              "chemicalReleaseResidualKJ": -1.4210854715202004e-14,
+              "oxidationHeatResidualKJ": 0,
+              "oxygenResidualKg": 0,
+              "atmosphericOrganicResidualKg": 0,
+              "atmosphericWaterResidualKg": 0,
+              "hydrationResidualKg": 0,
+              "sweatResidualKg": -5.800348863347757e-18,
+              "localHeatResidualKJ": 1.4716761143063195e-10,
+              "healthStageResidualPoints": 0
+            }
+          },
+          {
+            "arm": "planned_active",
+            "executor": "prepare_feed_finish",
+            "initialWorldSha256": "b904b9469bd27bb8adaf0d683fa19e24ec4597b8344af2c0eeb09a1e5bd2388d",
+            "normalizedInputExceptTaskSha256": "68f5d0d31eb6efca06544da52d60f5e3c83f2ccf5d6a1b38103752c08443b96b",
+            "finalWorldSha256": "ac73d95d0b0b8c794c940e0c0c40af82d6c27fa4c5512c4c83eb57aa1409be5e",
+            "derivedRestingKJ": 99,
+            "flux": {
+              "tick": 29,
+              "hours": 0.25,
+              "ingestedKg": 0,
+              "foodOxidizedKg": 0.007603254067584481,
+              "reserveOxidizedKg": 0,
+              "reserveStoredKg": 0,
+              "structureStoredKg": 0,
+              "maintenanceKJ": 144,
+              "heatLossKJ": 98.99999999999999,
+              "releasedKJ": 121.5,
+              "meltKJ": 0,
+              "unmetMaintenanceKJ": 22.5,
+              "unmetColdKJ": 0,
+              "unremovedHeatKJ": 0,
+              "healthLoss": 0.09375,
+              "activityFraction": 0.5,
+              "journeyId": null
+            },
+            "netHealthChange": -0.09375,
+            "metabolicHealthLoss": 0.09375,
+            "nonMetabolicNetHealth": 0,
+            "expectedOrdinaryRecoveryPoints": 0,
+            "fundedActivityHours": 0.125,
+            "actualWorkExecutorRun": false,
+            "actualDisplacementMetres": 0,
+            "actualTaskProgressDelta": null,
+            "physicalProgressLimit": "Direct physiology runs report paid capacity only; no movement or task executor is invoked for those arms.",
+            "oxygenConsumedKg": 0.008462693146161455,
+            "actualSweatKg": 0.009183673469408404,
+            "basalWaterLossKg": 0,
+            "localChecks": {
+              "intakeResidualKg": 0,
+              "reserveResidualKg": 0,
+              "bodyResidualKg": 0,
+              "chemicalReleaseResidualKJ": 0,
+              "oxidationHeatResidualKJ": 0,
+              "oxygenResidualKg": 0,
+              "atmosphericOrganicResidualKg": 0,
+              "atmosphericWaterResidualKg": 0,
+              "hydrationResidualKg": -2.042810365310288e-14,
+              "sweatResidualKg": 2.0643209364124004e-14,
+              "localHeatResidualKJ": 1.9775825421675108e-10,
+              "healthStageResidualPoints": 0
+            }
+          }
+        ]
+      },
+      {
+        "id": "cold_dominated_full_activity_fuel",
+        "input": {
+          "id": "cold_dominated_full_activity_fuel",
+          "executor": "prepare_feed_finish",
+          "finiteInitialIntakeEnergyKJ": 144,
+          "targetOutwardHeatKJ": 180
+        },
+        "activeMinusInactive": {
+          "releasedKJ": 0,
+          "metabolicHealthLoss": 0,
+          "netHealthChange": 0,
+          "unmetColdKJ": 0
+        },
+        "arms": [
+          {
+            "arm": "inactive",
+            "executor": "prepare_feed_finish",
+            "initialWorldSha256": "21f32e6ba9a96dcdf2f40c702a9592ea153dd80d28c981b86f8289dfcf159657",
+            "normalizedInputExceptTaskSha256": "3ede20510f4243c81486918520371b139b0824c79021d336fd462cc26b1ae769",
+            "finalWorldSha256": "290ce4e3fd2d23068c1a41d9d4f62ca9d24d7e96605e47398ae450653fc0f31f",
+            "derivedRestingKJ": 99,
+            "flux": {
+              "tick": 29,
+              "hours": 0.25,
+              "ingestedKg": 0,
+              "foodOxidizedKg": 0.009011264080100126,
+              "reserveOxidizedKg": 0,
+              "reserveStoredKg": 0,
+              "structureStoredKg": 0,
+              "maintenanceKJ": 99,
+              "heatLossKJ": 179.99999999999994,
+              "releasedKJ": 144,
+              "meltKJ": 0,
+              "unmetMaintenanceKJ": 0,
+              "unmetColdKJ": 35.99999999999994,
+              "unremovedHeatKJ": 0,
+              "healthLoss": 0.15000000000000568,
+              "activityFraction": 0,
+              "journeyId": null
+            },
+            "netHealthChange": -0.15000000000000568,
+            "metabolicHealthLoss": 0.15000000000000568,
+            "nonMetabolicNetHealth": 0,
+            "expectedOrdinaryRecoveryPoints": 0,
+            "fundedActivityHours": 0,
+            "actualWorkExecutorRun": false,
+            "actualDisplacementMetres": 0,
+            "actualTaskProgressDelta": null,
+            "physicalProgressLimit": "Direct physiology runs report paid capacity only; no movement or task executor is invoked for those arms.",
+            "oxygenConsumedKg": 0.010029858543598762,
+            "actualSweatKg": 0,
+            "basalWaterLossKg": 0,
+            "localChecks": {
+              "intakeResidualKg": 0,
+              "reserveResidualKg": 0,
+              "bodyResidualKg": 0,
+              "chemicalReleaseResidualKJ": 2.842170943040401e-14,
+              "oxidationHeatResidualKJ": 0,
+              "oxygenResidualKg": 0,
+              "atmosphericOrganicResidualKg": 0,
+              "atmosphericWaterResidualKg": 0,
+              "hydrationResidualKg": 0,
+              "sweatResidualKg": 0,
+              "localHeatResidualKJ": -1.2519763004092965e-10,
+              "healthStageResidualPoints": 0
+            }
+          },
+          {
+            "arm": "planned_active",
+            "executor": "prepare_feed_finish",
+            "initialWorldSha256": "cca730eca7f1c3d7a4ec97c7be0a820afa4fcf705eaf6281c77964fd1a8f5a20",
+            "normalizedInputExceptTaskSha256": "3ede20510f4243c81486918520371b139b0824c79021d336fd462cc26b1ae769",
+            "finalWorldSha256": "937659e44e64fd393cc2388906a12310e8b7bf8b847856ffe8a387777bfccf26",
+            "derivedRestingKJ": 99,
+            "flux": {
+              "tick": 29,
+              "hours": 0.25,
+              "ingestedKg": 0,
+              "foodOxidizedKg": 0.009011264080100126,
+              "reserveOxidizedKg": 0,
+              "reserveStoredKg": 0,
+              "structureStoredKg": 0,
+              "maintenanceKJ": 144,
+              "heatLossKJ": 179.99999999999994,
+              "releasedKJ": 144,
+              "meltKJ": 0,
+              "unmetMaintenanceKJ": 0,
+              "unmetColdKJ": 35.99999999999994,
+              "unremovedHeatKJ": 0,
+              "healthLoss": 0.15000000000000568,
+              "activityFraction": 1,
+              "journeyId": null
+            },
+            "netHealthChange": -0.15000000000000568,
+            "metabolicHealthLoss": 0.15000000000000568,
+            "nonMetabolicNetHealth": 0,
+            "expectedOrdinaryRecoveryPoints": 0,
+            "fundedActivityHours": 0.25,
+            "actualWorkExecutorRun": false,
+            "actualDisplacementMetres": 0,
+            "actualTaskProgressDelta": null,
+            "physicalProgressLimit": "Direct physiology runs report paid capacity only; no movement or task executor is invoked for those arms.",
+            "oxygenConsumedKg": 0.010029858543598762,
+            "actualSweatKg": 0,
+            "basalWaterLossKg": 0,
+            "localChecks": {
+              "intakeResidualKg": 0,
+              "reserveResidualKg": 0,
+              "bodyResidualKg": 0,
+              "chemicalReleaseResidualKJ": 2.842170943040401e-14,
+              "oxidationHeatResidualKJ": 0,
+              "oxygenResidualKg": 0,
+              "atmosphericOrganicResidualKg": 0,
+              "atmosphericWaterResidualKg": 0,
+              "hydrationResidualKg": 0,
+              "sweatResidualKg": 0,
+              "localHeatResidualKJ": -1.2519763004092965e-10,
+              "healthStageResidualPoints": 0
+            }
+          }
+        ]
+      }
+    ],
+    "guards": {
+      "total": 935,
+      "failed": [],
+      "scope": "Finite intake/reserve/body, oxygen, respiratory products, nutrient return, water, heat and separate health stages; aggregate element and closed chemical accounts within declared tolerances. Full checks retained in the fingerprinted private result."
+    },
+    "limitations": [
+      "The 0.1875-point difference was previously source arithmetic only; this report records an actual-function test, not a modified-law treatment.",
+      "All coefficients remain the current uncalibrated model values; no empirical starvation or human endurance claim follows.",
+      "The first pair runs actual updateCitizens and distinguishes post-metabolic recovery from measured metabolic injury. Its active flag also causes the existing 20% larger basal water loss and fatigue-score change; abundant water and explicit health-stage reconciliation control those effects.",
+      "The other three pairs call actual preparation/shared feeding/finish functions with one synthetic adult; they measure funded activity capacity, not executed movement or useful work.",
+      "The cold pair supplies enough finite intake for the whole current activity request but not all outward cold loss; equality of its injury isolates cold dominance without free fuel.",
+      "No ice melting or severe heat stress was exercised; their equations were not changed. Existing tests are not claimed rerun.",
+      "No mortality or survival rescue is inferred. No death-specific fixture, donor behavior, live population or historical replay was used.",
+      "Element/chemical conservation covers the represented reservoirs. Local heat closure checks the implemented respiratory-deposition/sweat path, not a complete body-core thermodynamics model."
+    ],
+    "next": "Separate mandatory resting injury from unavailable optional work while retaining desired-work fuel, one finite oxidation and cold/melt compensation. Review recovery and retention gates; no new biological coefficient is justified by this fixture."
+  }
+}

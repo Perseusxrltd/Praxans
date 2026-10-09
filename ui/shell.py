@@ -1,0 +1,574 @@
+from __future__ import annotations
+
+from typing import Any
+
+import pygame
+
+from game_scenarios import get_scenario_profile, list_scenario_ids
+from run_archive import find_recent_archives, load_run_archive
+from run_snapshot import resolve_snapshot_path
+from runtime_config import USER_SETTINGS
+from ui.input_router import UIState, UIRectRegistry
+from ui.layout import compute_shell_layout
+from ui.models import ArchiveCard, build_archive_card, parse_changelog
+from ui.theme import UITheme, build_ui_theme, draw_button, draw_divider, draw_panel, draw_slider, draw_text_input, wrap_text
+
+
+_LOGO_CACHE: pygame.Surface | None = None
+
+def _get_logo() -> pygame.Surface | None:
+    global _LOGO_CACHE
+    if _LOGO_CACHE is None:
+        import os
+        path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "assets", "ui", "logo.png"))
+        if os.path.exists(path):
+            try:
+                # We do not use convert_alpha() here directly since display might not be initialized
+                _LOGO_CACHE = pygame.image.load(path)
+                # If display is initialized, we can convert it for performance
+                if pygame.display.get_surface():
+                    _LOGO_CACHE = _LOGO_CACHE.convert_alpha()
+            except Exception as e:
+                print(f"Warning: Could not load logo: {e}")
+    return _LOGO_CACHE
+
+
+def _load_archive_cards(log_dir: str, limit: int = 12) -> list[ArchiveCard]:
+    cards: list[ArchiveCard] = []
+    for archive_path in find_recent_archives(log_dir, limit=limit):
+        try:
+            cards.append(build_archive_card(load_run_archive(archive_path)))
+        except Exception:
+            continue
+    return cards
+
+
+def _draw_background(surface: pygame.Surface, theme: UITheme) -> None:
+    width, height = surface.get_size()
+    surface.fill((15, 19, 21))
+    for index in range(0, width + 120, 120):
+        color = theme.palette.panel_fill if (index // 120) % 2 == 0 else theme.palette.panel_fill_alt
+        pygame.draw.polygon(
+            surface,
+            color,
+            [(index - 40, 0), (index + 60, 0), (index + 20, height), (index - 80, height)],
+        )
+    wash = pygame.Surface((width, height), pygame.SRCALPHA)
+    wash.fill((178, 148, 92, 18))
+    surface.blit(wash, (0, 0))
+
+
+def _draw_home(
+    surface: pygame.Surface,
+    theme: UITheme,
+    layout,
+    registry: UIRectRegistry,
+    ui_state: UIState,
+    archive_cards: list[ArchiveCard],
+    latest_snapshot_path: str | None,
+) -> None:
+    draw_panel(surface, layout.hero, theme, fill=(27, 33, 35), alpha=242, radius=theme.radius_large)
+    logo = _get_logo()
+    if logo:
+        surface.blit(logo, (layout.hero.x + 18, layout.hero.y + 12))
+        y_offset = logo.get_height() + 8
+    else:
+        title = theme.fonts.display.render("PRAXANS", True, theme.palette.parchment)
+        surface.blit(title, (layout.hero.x + 22, layout.hero.y + 20))
+        y_offset = 58
+    
+    strap = theme.fonts.heading.render("Living Atlas Observer Interface", True, theme.palette.frost)
+    surface.blit(strap, (layout.hero.x + 24, layout.hero.y + 20 + y_offset))
+    summary = (
+        "Watch an autonomous colony mutate, split into factions, survive disasters, "
+        "and leave behind a readable social history."
+    )
+    summary_lines = wrap_text(theme.fonts.body, summary, layout.hero.w - 280)
+    y = layout.hero.y + 64 + y_offset
+    for line in summary_lines:
+        surface.blit(theme.fonts.body.render(line, True, theme.palette.bright_text), (layout.hero.x + 24, y))
+        y += 28
+    scenario_profile = get_scenario_profile(ui_state.selected_scenario_id or "standard")
+    meta = theme.fonts.data.render(
+        f"Selected Scenario  {scenario_profile['name']}  |  Observer-only autonomous run",
+        True,
+        theme.palette.parchment_soft,
+    )
+    surface.blit(meta, (layout.hero.x + 24, layout.hero.bottom - 42))
+    accent_rect = pygame.Rect(layout.hero.right - 250, layout.hero.y + 24, 210, layout.hero.h - 48)
+    draw_panel(surface, accent_rect, theme, fill=(40, 46, 44), alpha=232)
+    accent_title = theme.fonts.label.render("Field Brief", True, theme.palette.ochre)
+    surface.blit(accent_title, (accent_rect.x + 16, accent_rect.y + 16))
+    brief_lines = wrap_text(theme.fonts.caption, scenario_profile.get("description", ""), accent_rect.w - 32)
+    y = accent_rect.y + 48
+    for line in brief_lines[:6]:
+        surface.blit(theme.fonts.caption.render(line, True, theme.palette.bright_text), (accent_rect.x + 16, y))
+        y += 20
+    status_line = "Latest snapshot ready" if latest_snapshot_path else "No resumable snapshot found"
+    status_color = theme.palette.success if latest_snapshot_path else theme.palette.warning
+    surface.blit(theme.fonts.caption.render(status_line, True, status_color), (accent_rect.x + 16, accent_rect.bottom - 28))
+
+    nav_items = [
+        ("shell_start", "Start New Run", "Enter"),
+        ("shell_resume", "Resume Latest", "R"),
+        ("shell_nav_scenarios", "Scenarios", "S"),
+        ("shell_nav_archives", "Archives", "A"),
+        ("shell_nav_patch_notes", "Patch Notes", "P"),
+        ("shell_nav_settings", "Settings", ","),
+        ("shell_quit", "Quit", "Esc"),
+    ]
+    y = layout.nav_column.y + 16
+    for action, label, hotkey in nav_items:
+        rect = pygame.Rect(layout.nav_column.x + 12, y, layout.nav_column.w - 24, 46)
+        registry.register(action, rect, action=action, layer=4)
+        active = ui_state.active_screen == {
+            "shell_nav_scenarios": "scenario_browser",
+            "shell_nav_archives": "archive_browser",
+            "shell_nav_patch_notes": "patch_notes",
+            "shell_nav_settings": "settings",
+        }.get(action, "command_center")
+        draw_button(
+            surface,
+            rect,
+            theme,
+            label,
+            hotkey=hotkey,
+            active=active and action not in {"shell_start", "shell_resume", "shell_quit"},
+            accent=theme.palette.ochre if action == "shell_start" else theme.palette.slate_soft,
+        )
+        y += 56
+    detail_rect = layout.detail_panel
+    draw_panel(surface, detail_rect, theme, fill=(24, 31, 33), alpha=238)
+    heading = theme.fonts.heading.render("Current Vision", True, theme.palette.parchment)
+    surface.blit(heading, (detail_rect.x + 18, detail_rect.y + 18))
+    bullets = [
+        "Observer-first: no live command channel into the colony AI.",
+        "Mouse-first navigation, archive browsing, and modal workbooks.",
+        "Bounded local LLM council with deterministic simulation authority.",
+        "Scenario-led runs with archival summaries and comparison.",
+    ]
+    y = detail_rect.y + 58
+    for bullet in bullets:
+        bullet_lines = wrap_text(theme.fonts.body, bullet, detail_rect.w - 36)
+        for line in bullet_lines:
+            surface.blit(theme.fonts.body.render(line, True, theme.palette.bright_text), (detail_rect.x + 22, y))
+            y += 24
+        y += 10
+    if ui_state.shell_notice:
+        notice = theme.fonts.caption.render(ui_state.shell_notice, True, theme.palette.warning)
+        surface.blit(notice, (detail_rect.x + 18, detail_rect.bottom - 30))
+
+    draw_panel(surface, layout.recent_runs, theme, fill=(22, 27, 29), alpha=236)
+    title = theme.fonts.heading.render("Recent Observer Archives", True, theme.palette.parchment)
+    surface.blit(title, (layout.recent_runs.x + 18, layout.recent_runs.y + 16))
+    if not archive_cards:
+        empty = theme.fonts.body.render("No archive cards yet. Start a run to populate the atlas.", True, theme.palette.muted_text)
+        surface.blit(empty, (layout.recent_runs.x + 18, layout.recent_runs.y + 60))
+        return
+    card_w = max(210, (layout.recent_runs.w - 36 - 18 * 3) // 4)
+    for index, card in enumerate(archive_cards[:4]):
+        rect = pygame.Rect(layout.recent_runs.x + 18 + index * (card_w + 18), layout.recent_runs.y + 52, card_w, layout.recent_runs.h - 70)
+        registry.register(f"archive_select:{card.session_id}", rect, action="archive_select", payload=card.session_id, layer=3)
+        draw_panel(surface, rect, theme, fill=(30, 36, 37), alpha=238)
+        surface.blit(theme.fonts.label.render(card.scenario_name[:20], True, theme.palette.frost), (rect.x + 12, rect.y + 12))
+        surface.blit(theme.fonts.heading.render(str(card.score), True, theme.palette.ochre), (rect.x + 12, rect.y + 40))
+        surface.blit(theme.fonts.caption.render(card.end_state_label[:24], True, theme.palette.bright_text), (rect.x + 58, rect.y + 46))
+        meta = f"Peak {card.population_peak}  |  {int(card.duration_seconds)}s"
+        surface.blit(theme.fonts.caption.render(meta, True, theme.palette.muted_text), (rect.x + 12, rect.bottom - 28))
+
+
+def _draw_scenario_browser(surface: pygame.Surface, theme: UITheme, layout, registry: UIRectRegistry, ui_state: UIState) -> None:
+    draw_panel(surface, layout.nav_column, theme, fill=(22, 27, 29), alpha=236)
+    title = theme.fonts.heading.render("Scenario Catalog", True, theme.palette.parchment)
+    surface.blit(title, (layout.nav_column.x + 16, layout.nav_column.y + 16))
+    y = layout.nav_column.y + 56
+    for scenario_id in list_scenario_ids():
+        profile = get_scenario_profile(scenario_id)
+        rect = pygame.Rect(layout.nav_column.x + 12, y, layout.nav_column.w - 24, 42)
+        registry.register(f"scenario:{scenario_id}", rect, action="scenario_select", payload=scenario_id, layer=4)
+        draw_button(surface, rect, theme, profile["name"], active=scenario_id == ui_state.selected_scenario_id, accent=theme.palette.moss)
+        y += 50
+
+    draw_panel(surface, layout.detail_panel, theme, fill=(24, 31, 33), alpha=238)
+    profile = get_scenario_profile(ui_state.selected_scenario_id or "standard")
+    title = theme.fonts.display.render(profile["name"], True, theme.palette.parchment)
+    surface.blit(title, (layout.detail_panel.x + 20, layout.detail_panel.y + 18))
+    subtitle = theme.fonts.label.render(profile["id"], True, theme.palette.frost)
+    surface.blit(subtitle, (layout.detail_panel.x + 24, layout.detail_panel.y + 74))
+    lines = wrap_text(theme.fonts.body, profile.get("description", ""), layout.detail_panel.w - 40)
+    y = layout.detail_panel.y + 118
+    for line in lines[:5]:
+        surface.blit(theme.fonts.body.render(line, True, theme.palette.bright_text), (layout.detail_panel.x + 24, y))
+        y += 28
+    modifiers = [
+        f"Spawn Biomes: {', '.join(profile.get('spawn_biomes', [])) or 'varied'}",
+        f"Initial Population: {int(profile.get('initial_population', 2) or 2)}",
+        f"Mutation Scale: {float(profile.get('mutation_scale', 1.0) or 1.0):.2f}x",
+        f"Starting Weather: {str(profile.get('weather', 'clear')).title()}",
+    ]
+    worldgen = dict(profile.get("worldgen", {}) or {})
+    modifiers.extend(
+        [
+            f"World Scale: {int(worldgen.get('chunk_cols', 16))}x{int(worldgen.get('chunk_rows', 12))} chunks",
+            f"Polities: {int(worldgen.get('polity_count', 5))}",
+            f"Hazard Density: {float(worldgen.get('hazard_density', 0.45) or 0.45):.2f}",
+        ]
+    )
+    y += 18
+    for modifier in modifiers:
+        surface.blit(theme.fonts.caption.render(modifier, True, theme.palette.parchment_soft), (layout.detail_panel.x + 24, y))
+        y += 24
+    start_rect = pygame.Rect(layout.detail_panel.x + 24, layout.detail_panel.bottom - 64, 220, 44)
+    registry.register("shell_start", start_rect, action="shell_start", layer=5)
+    draw_button(surface, start_rect, theme, "Start Selected Run", hotkey="Enter", active=True, accent=theme.palette.ochre)
+    back_rect = pygame.Rect(start_rect.right + 12, start_rect.y, 140, 44)
+    registry.register("shell_nav_home", back_rect, action="shell_nav_home", layer=5)
+    draw_button(surface, back_rect, theme, "Back", hotkey="Esc", accent=theme.palette.slate_soft)
+
+
+def _draw_archive_browser(
+    surface: pygame.Surface,
+    theme: UITheme,
+    layout,
+    registry: UIRectRegistry,
+    ui_state: UIState,
+    archive_cards: list[ArchiveCard],
+) -> None:
+    draw_panel(surface, layout.detail_panel, theme, fill=(24, 31, 33), alpha=238)
+    draw_panel(surface, layout.nav_column, theme, fill=(22, 27, 29), alpha=236)
+    title = theme.fonts.heading.render("Archive Browser", True, theme.palette.parchment)
+    surface.blit(title, (layout.detail_panel.x + 18, layout.detail_panel.y + 16))
+    back_rect = pygame.Rect(layout.nav_column.x + 12, layout.nav_column.y + 16, layout.nav_column.w - 24, 42)
+    registry.register("shell_nav_home", back_rect, action="shell_nav_home", layer=4)
+    draw_button(surface, back_rect, theme, "Back to Dashboard", hotkey="Esc", accent=theme.palette.slate_soft)
+    y = layout.nav_column.y + 74
+    selected_payload = None
+    compare_payload = None
+    for card in archive_cards[:8]:
+        rect = pygame.Rect(layout.nav_column.x + 12, y, layout.nav_column.w - 24, 52)
+        registry.register(f"archive_select:{card.session_id}", rect, action="archive_select", payload=card.session_id, layer=4)
+        active = card.session_id in {ui_state.selected_run, ui_state.compare_run}
+        draw_button(surface, rect, theme, card.scenario_name[:18], hotkey=str(card.score), active=active, accent=theme.palette.moss)
+        if card.session_id == ui_state.selected_run:
+            selected_payload = card.payload
+        if card.session_id == ui_state.compare_run:
+            compare_payload = card.payload
+        y += 60
+    if selected_payload is None and archive_cards:
+        selected_payload = archive_cards[0].payload
+        ui_state.selected_run = archive_cards[0].session_id
+    if selected_payload:
+        headline = theme.fonts.display.render(str(selected_payload.get("summary_card", {}).get("headline", "Observer run"))[:38], True, theme.palette.parchment)
+        surface.blit(headline, (layout.detail_panel.x + 18, layout.detail_panel.y + 54))
+        details = [
+            f"Scenario: {selected_payload.get('scenario', {}).get('name', 'Unknown')}",
+            f"End-state: {selected_payload.get('end_state', {}).get('label', 'Unknown')}",
+            f"Score: {int(selected_payload.get('end_state', {}).get('score', 0) or 0)}",
+            f"Peak Population: {int(selected_payload.get('summary_card', {}).get('population_peak', 0) or 0)}",
+        ]
+        y = layout.detail_panel.y + 110
+        for detail in details:
+            surface.blit(theme.fonts.body.render(detail, True, theme.palette.bright_text), (layout.detail_panel.x + 22, y))
+            y += 28
+        surface.blit(theme.fonts.label.render("Key Moments", True, theme.palette.ochre), (layout.detail_panel.x + 22, y + 10))
+        y += 40
+        for moment in list(selected_payload.get("key_moments", []))[:6]:
+            line = f"[{str(moment.get('category', 'sim')).upper()}] {str(moment.get('summary', 'Event'))}"
+            for wrapped in wrap_text(theme.fonts.caption, line, layout.detail_panel.w - 44):
+                surface.blit(theme.fonts.caption.render(wrapped, True, theme.palette.parchment_soft), (layout.detail_panel.x + 22, y))
+                y += 20
+        if compare_payload:
+            compare_title = theme.fonts.label.render("Comparison", True, theme.palette.frost)
+            surface.blit(compare_title, (layout.detail_panel.x + layout.detail_panel.w // 2, layout.detail_panel.y + 54))
+            compare_lines = [
+                f"{compare_payload.get('scenario', {}).get('name', 'Unknown')}",
+                f"Score {int(compare_payload.get('end_state', {}).get('score', 0) or 0)}",
+                f"Peak {int(compare_payload.get('summary_card', {}).get('population_peak', 0) or 0)}",
+            ]
+            y = layout.detail_panel.y + 94
+            for line in compare_lines:
+                surface.blit(theme.fonts.caption.render(line, True, theme.palette.bright_text), (layout.detail_panel.x + layout.detail_panel.w // 2, y))
+                y += 24
+
+
+def _draw_patch_notes(surface: pygame.Surface, theme: UITheme, layout, registry: UIRectRegistry, ui_state: UIState, changelog: list[dict[str, Any]]) -> None:
+    draw_panel(surface, layout.detail_panel, theme, fill=(24, 31, 33), alpha=238)
+    draw_panel(surface, layout.nav_column, theme, fill=(22, 27, 29), alpha=236)
+    
+    back_rect = pygame.Rect(layout.nav_column.x + 12, layout.nav_column.y + 16, layout.nav_column.w - 24, 42)
+    registry.register("shell_nav_home", back_rect, action="shell_nav_home", layer=4)
+    draw_button(surface, back_rect, theme, "Back to Dashboard", hotkey="Esc", accent=theme.palette.slate_soft)
+    
+    title = theme.fonts.heading.render("Patch Notes", True, theme.palette.parchment)
+    surface.blit(title, (layout.nav_column.x + 16, layout.nav_column.y + 74))
+    
+    help_text = "Scroll to read recent changes. Keep up to date with the latest additions."
+    for idx, line in enumerate(wrap_text(theme.fonts.caption, help_text, layout.nav_column.w - 32)):
+        surface.blit(theme.fonts.caption.render(line, True, theme.palette.muted_text), (layout.nav_column.x + 16, layout.nav_column.y + 110 + idx * 20))
+    
+    view_rect = pygame.Rect(layout.detail_panel.x + 20, layout.detail_panel.y + 20, layout.detail_panel.w - 40, layout.detail_panel.h - 40)
+    registry.register("patch_notes_scroll", view_rect, action="scroll", scrollable=True, layer=3)
+    
+    y = view_rect.y - ui_state.patch_notes_scroll
+    
+    old_clip = surface.get_clip()
+    surface.set_clip(view_rect.clip(old_clip))
+    
+    for version in changelog:
+        if y > view_rect.bottom:
+            break
+        
+        if y + 40 > view_rect.top:
+            v_title = theme.fonts.display.render(version["version"], True, theme.palette.frost)
+            surface.blit(v_title, (view_rect.x, y))
+        y += 40
+        
+        for cat, entries in version["categories"].items():
+            if y + 24 > view_rect.top and y < view_rect.bottom:
+                c_title = theme.fonts.label.render(cat, True, theme.palette.ochre)
+                surface.blit(c_title, (view_rect.x, y))
+            y += 24
+            
+            for entry in entries:
+                entry_lines = wrap_text(theme.fonts.body, entry, view_rect.w - 20)
+                if y + len(entry_lines) * 24 + 4 > view_rect.top and y < view_rect.bottom:
+                    bullet = theme.fonts.body.render("• ", True, theme.palette.muted_text)
+                    surface.blit(bullet, (view_rect.x, y))
+                    line_y = y
+                    for line in entry_lines:
+                        surface.blit(theme.fonts.body.render(line, True, theme.palette.bright_text), (view_rect.x + 14, line_y))
+                        line_y += 24
+                y += len(entry_lines) * 24 + 4
+            y += 12
+        y += 20
+        if y > view_rect.top and y < view_rect.bottom:
+            draw_divider(surface, theme, (view_rect.x, y), (view_rect.right, y))
+        y += 20
+        
+    total_h = y - (view_rect.y - ui_state.patch_notes_scroll)
+    ui_state.patch_notes_scroll = max(0, min(ui_state.patch_notes_scroll, max(0, total_h - view_rect.h)))
+    
+    surface.set_clip(old_clip)
+
+
+def _draw_settings(surface: pygame.Surface, theme: UITheme, layout, registry: UIRectRegistry, ui_state: UIState) -> None:
+    draw_panel(surface, layout.detail_panel, theme, fill=(24, 31, 33), alpha=238)
+    draw_panel(surface, layout.nav_column, theme, fill=(22, 27, 29), alpha=236)
+    back_rect = pygame.Rect(layout.nav_column.x + 12, layout.nav_column.y + 16, layout.nav_column.w - 24, 42)
+    registry.register("shell_nav_home", back_rect, action="shell_nav_home", layer=4)
+    draw_button(surface, back_rect, theme, "Back to Dashboard", hotkey="Esc", accent=theme.palette.slate_soft)
+    title = theme.fonts.display.render("LLM Engine Settings", True, theme.palette.parchment)
+    surface.blit(title, (layout.detail_panel.x + 20, layout.detail_panel.y + 18))
+    
+    y = layout.detail_panel.y + 88
+    
+    # Model Input
+    surface.blit(theme.fonts.label.render("Ollama Model Name", True, theme.palette.frost), (layout.detail_panel.x + 24, y))
+    model_rect = pygame.Rect(layout.detail_panel.x + 280, y - 6, 300, 36)
+    registry.register("settings_model", model_rect, action="settings_input", payload="model", layer=4)
+    draw_text_input(surface, model_rect, theme, ui_state.settings_model_text, active=ui_state.settings_active_input == "model", placeholder="e.g. qwen3.5:9b")
+    y += 56
+    
+    # Host Input
+    surface.blit(theme.fonts.label.render("Ollama Host URL", True, theme.palette.frost), (layout.detail_panel.x + 24, y))
+    host_rect = pygame.Rect(layout.detail_panel.x + 280, y - 6, 300, 36)
+    registry.register("settings_host", host_rect, action="settings_input", payload="host", layer=4)
+    draw_text_input(surface, host_rect, theme, ui_state.settings_host_text, active=ui_state.settings_active_input == "host", placeholder="http://localhost:11434")
+    y += 56
+    
+    # Temperature Slider
+    surface.blit(theme.fonts.label.render("Global Temp Modifier", True, theme.palette.frost), (layout.detail_panel.x + 24, y))
+    slider_rect = pygame.Rect(layout.detail_panel.x + 280, y + 4, 300, 24)
+    registry.register("settings_temp", slider_rect, action="settings_slider", layer=4)
+    draw_slider(surface, slider_rect, theme, ui_state.settings_temp, min_val=-0.2, max_val=1.0, active=ui_state.settings_active_input == "temp", display_format="{:+.2f}")
+    y += 64
+    
+    # Info
+    info_text = "These settings will persist to settings.json and override default startup config. The simulation will automatically reload the client on next run."
+    for wrapped in wrap_text(theme.fonts.caption, info_text, layout.detail_panel.w - 40):
+        surface.blit(theme.fonts.caption.render(wrapped, True, theme.palette.muted_text), (layout.detail_panel.x + 24, y))
+        y += 20
+        
+    # Save Button
+    save_rect = pygame.Rect(layout.detail_panel.x + 24, layout.detail_panel.bottom - 60, 160, 40)
+    registry.register("settings_save", save_rect, action="settings_save", layer=4)
+    draw_button(surface, save_rect, theme, "Save & Apply", active=ui_state.settings_dirty, accent=theme.palette.success)
+    
+    if ui_state.shell_notice and ui_state.active_screen == "settings":
+        notice = theme.fonts.caption.render(ui_state.shell_notice, True, theme.palette.warning)
+        surface.blit(notice, (save_rect.right + 20, save_rect.y + 10))
+
+
+def run_command_center(screen: pygame.Surface, clock: pygame.time.Clock, runtime_config, initial_scenario_id: str) -> tuple[pygame.Surface, dict[str, Any]]:
+    ui_state = UIState(active_screen="command_center", selected_scenario_id=initial_scenario_id)
+    registry = UIRectRegistry()
+    archive_cards = _load_archive_cards(runtime_config.log_dir, limit=12)
+    latest_snapshot_path = resolve_snapshot_path(runtime_config.log_dir, load_latest=True)
+    import os
+    changelog_path = os.path.join(os.path.dirname(__file__), "..", "devlog", "CHANGELOG.md")
+    changelog = parse_changelog(changelog_path)
+    while True:
+        theme = build_ui_theme(*screen.get_size())
+        layout = compute_shell_layout(*screen.get_size())
+        registry.reset()
+        _draw_background(screen, theme)
+        if ui_state.active_screen == "command_center":
+            _draw_home(screen, theme, layout, registry, ui_state, archive_cards, latest_snapshot_path)
+        elif ui_state.active_screen == "scenario_browser":
+            _draw_scenario_browser(screen, theme, layout, registry, ui_state)
+        elif ui_state.active_screen == "archive_browser":
+            _draw_archive_browser(screen, theme, layout, registry, ui_state, archive_cards)
+        elif ui_state.active_screen == "patch_notes":
+            _draw_patch_notes(screen, theme, layout, registry, ui_state, changelog)
+        else:
+            _draw_settings(screen, theme, layout, registry, ui_state)
+
+        footer = layout.footer
+        draw_divider(screen, theme, (footer.x, footer.y), (footer.right, footer.y))
+        footer_text = theme.fonts.caption.render(
+            "Observer-only command center  |  Naturalist atlas mode  |  Click a control or press Enter to begin",
+            True,
+            theme.palette.muted_text,
+        )
+        screen.blit(footer_text, (footer.x + 8, footer.y + 18))
+        pygame.display.flip()
+        clock.tick(30)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return screen, {"action": "quit"}
+            if event.type == pygame.VIDEORESIZE:
+                screen = pygame.display.set_mode(event.size, pygame.SCALED | pygame.RESIZABLE)
+                continue
+            if event.type == pygame.MOUSEWHEEL:
+                hit = registry.scroll_target(pygame.mouse.get_pos())
+                if hit and hit.action == "scroll":
+                    if ui_state.active_screen == "patch_notes":
+                        ui_state.patch_notes_scroll -= event.y * 30
+                continue
+            if event.type == pygame.MOUSEMOTION:
+                if pygame.mouse.get_pressed()[0] and ui_state.active_screen == "settings" and ui_state.settings_active_input == "temp":
+                    hit = registry.hit_test((event.pos[0], event.pos[1]))
+                    if getattr(hit, "action", None) == "settings_slider":
+                         rel_x = max(0, min(1.0, (event.pos[0] - hit.rect.x) / float(hit.rect.w)))
+                         ui_state.settings_temp = -0.2 + (rel_x * 1.2)
+                         ui_state.settings_dirty = True
+
+            if event.type == pygame.KEYDOWN:
+                if ui_state.active_screen == "settings" and ui_state.settings_active_input in {"model", "host"}:
+                    if event.key == pygame.K_RETURN or event.key == pygame.K_ESCAPE:
+                        ui_state.settings_active_input = None
+                    elif event.key == pygame.K_BACKSPACE:
+                        if ui_state.settings_active_input == "model":
+                            ui_state.settings_model_text = ui_state.settings_model_text[:-1]
+                        else:
+                            ui_state.settings_host_text = ui_state.settings_host_text[:-1]
+                        ui_state.settings_dirty = True
+                    else:
+                        if event.unicode and event.unicode.isprintable():
+                            if ui_state.settings_active_input == "model":
+                                ui_state.settings_model_text += event.unicode
+                            else:
+                                ui_state.settings_host_text += event.unicode
+                            ui_state.settings_dirty = True
+                    continue
+                    
+                if event.key == pygame.K_RETURN:
+                    if ui_state.active_screen == "settings":
+                        continue
+                    return screen, {
+                        "action": "start",
+                        "scenario_id": ui_state.selected_scenario_id or initial_scenario_id,
+                        "snapshot_path": None,
+                    }
+                if event.key == pygame.K_ESCAPE:
+                    if ui_state.active_screen == "command_center":
+                        return screen, {"action": "quit"}
+                    ui_state.active_screen = "command_center"
+                    continue
+                if event.key == pygame.K_r and latest_snapshot_path:
+                    if ui_state.active_screen == "settings":
+                        continue
+                    return screen, {
+                        "action": "resume",
+                        "scenario_id": ui_state.selected_scenario_id or initial_scenario_id,
+                        "snapshot_path": latest_snapshot_path,
+                    }
+                if event.key == pygame.K_a:
+                    if ui_state.active_screen != "settings":
+                        ui_state.active_screen = "archive_browser"
+                elif event.key == pygame.K_s:
+                    if ui_state.active_screen != "settings":
+                        ui_state.active_screen = "scenario_browser"
+                elif event.key == pygame.K_p:
+                    if ui_state.active_screen != "settings":
+                        ui_state.active_screen = "patch_notes"
+                continue
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                if ui_state.active_screen == "settings" and ui_state.settings_active_input:
+                    ui_state.settings_active_input = None
+                hit = registry.hit_test(event.pos)
+                if hit is None:
+                    continue
+                action = hit.action or hit.id
+                if action == "shell_start":
+                    return screen, {
+                        "action": "start",
+                        "scenario_id": ui_state.selected_scenario_id or initial_scenario_id,
+                        "snapshot_path": None,
+                    }
+                if action == "shell_resume":
+                    if latest_snapshot_path:
+                        return screen, {
+                            "action": "resume",
+                            "scenario_id": ui_state.selected_scenario_id or initial_scenario_id,
+                            "snapshot_path": latest_snapshot_path,
+                        }
+                    ui_state.shell_notice = "No latest snapshot is available yet."
+                elif action == "shell_nav_scenarios":
+                    ui_state.active_screen = "scenario_browser"
+                elif action == "shell_nav_archives":
+                    ui_state.active_screen = "archive_browser"
+                elif action == "shell_nav_patch_notes":
+                    ui_state.active_screen = "patch_notes"
+                elif action == "shell_nav_settings":
+                    ui_state.active_screen = "settings"
+                    ui_state.settings_model_text = USER_SETTINGS.llm_model
+                    ui_state.settings_host_text = USER_SETTINGS.llm_host
+                    ui_state.settings_temp = USER_SETTINGS.global_temperature_modifier
+                    ui_state.settings_dirty = False
+                    ui_state.settings_active_input = None
+                    ui_state.shell_notice = ""
+                elif action == "settings_input":
+                    ui_state.settings_active_input = str(hit.payload)
+                elif action == "settings_slider":
+                    ui_state.settings_active_input = "temp"
+                    rel_x = max(0, min(1.0, (event.pos[0] - hit.rect.x) / float(hit.rect.w)))
+                    ui_state.settings_temp = -0.2 + (rel_x * 1.2)
+                    ui_state.settings_dirty = True
+                elif action == "settings_save":
+                    if ui_state.settings_dirty:
+                        USER_SETTINGS.llm_model = ui_state.settings_model_text.strip()
+                        USER_SETTINGS.llm_host = ui_state.settings_host_text.strip()
+                        USER_SETTINGS.global_temperature_modifier = ui_state.settings_temp
+                        USER_SETTINGS.save()
+                        ui_state.settings_dirty = False
+                        ui_state.shell_notice = "Settings saved. Simulation will reload the client."
+                elif action == "shell_nav_home":
+                    ui_state.active_screen = "command_center"
+                elif action == "scenario_select":
+                    ui_state.selected_scenario_id = str(hit.payload)
+                elif action == "archive_select":
+                    session_id = str(hit.payload)
+                    if ui_state.selected_run is None or ui_state.selected_run == session_id:
+                        ui_state.selected_run = session_id
+                    elif ui_state.compare_run == session_id:
+                        ui_state.compare_run = None
+                    elif ui_state.compare_run is None:
+                        ui_state.compare_run = session_id
+                    else:
+                        ui_state.selected_run = session_id
+                        ui_state.compare_run = None
+                    ui_state.active_screen = "archive_browser"
+                elif action == "shell_quit":
+                    return screen, {"action": "quit"}

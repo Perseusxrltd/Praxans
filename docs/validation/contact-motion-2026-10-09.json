@@ -1,0 +1,2659 @@
+{
+  "release": "contact-motion-20261009-1",
+  "status": "live; independently verified saved state and both complete implementation workflows passed",
+  "date": "2026-10-09",
+  "format": 17,
+  "laws": "biosphere-1.11",
+  "storage": 2,
+  "implementationCommit": "fdeb5b117adafe6ec1c949a411042235af7c45ec",
+  "sourceContentSha256": "d45f2ea46583a0ffcc221f0ca58123f780328e699b4cac04555f49941734bdea",
+  "frozenMeasuredSourceMatchesCommit": true,
+  "artifact": {
+    "protocol": 1,
+    "release": "contact-motion-20261009-1",
+    "notes": "Local food handoffs, body maintenance and harvesting now determine stationary contact from actual movement during the interval. Unfunded or blocked routes do not prevent contact; positive travel remains disqualifying even after returning to the start. Travel earns no work on arrival, and living object identity is rechecked before finite allocation. Donor choice, paid work, finite materials and later ingestion remain necessary. Format 17 / biosphere-1.11 archives and preserves the existing world, routes, bodies, materials, identities, clock and history. No people or resources are granted.",
+    "sha256": "c9c5317e81a1b3235566d7781964c155a77a00064db279c032812159380c506c",
+    "dependencies": "0ca3efac2e32e64895e4f395f1919a966af1b18b017c12aaa088b491f2f0022e",
+    "nodeMajor": 22
+  },
+  "checks": {
+    "modelServer": {
+      "passed": 270,
+      "failed": 0,
+      "initialRun": "269/270; stale format expectation corrected; targeted recheck and final full suite pass"
+    },
+    "build": "passed after correcting test-only TypeScript narrowing; physical source unchanged",
+    "format": "passed",
+    "production": 12,
+    "hotfix": 25,
+    "browser": {
+      "clientSha256": "1210f58b47aadd9cb4b141fb4b2dc9e17a929aa1a813cdd26b5306a0d08b6808",
+      "unmodifiedSuppliedClient": true,
+      "frames": [
+        {
+          "mode": "shared-world",
+          "tick": 1,
+          "connected": true,
+          "communities": 3
+        },
+        {
+          "mode": "shared-world",
+          "tick": 2,
+          "connected": true,
+          "communities": 3
+        },
+        {
+          "mode": "shared-world",
+          "tick": 3,
+          "connected": true,
+          "communities": 3
+        }
+      ],
+      "errors": []
+    },
+    "screenshotInspected": true,
+    "releaseChecks": {
+      "startedAt": "2026-10-09T13:03:59.814717+00:00",
+      "jobs": [
+        {
+          "job": "capacity",
+          "command": [
+            "python3",
+            "output/validation/run-archive-capacity.py",
+            "output/validation/contact-capacity.ts"
+          ],
+          "exitCode": 0,
+          "elapsedSeconds": 120.86515992799832,
+          "log": "output/validation/contact-motion-capacity-release.log",
+          "finishedAt": "2026-10-09T13:06:00.681477+00:00"
+        },
+        {
+          "job": "production",
+          "command": [
+            "npm",
+            "run",
+            "test:production"
+          ],
+          "exitCode": 0,
+          "elapsedSeconds": 50.65687951700238,
+          "log": "output/validation/contact-motion-production-release.log",
+          "finishedAt": "2026-10-09T13:06:51.353482+00:00"
+        },
+        {
+          "job": "hotfix",
+          "command": [
+            "npm",
+            "run",
+            "test:hotfix"
+          ],
+          "exitCode": 0,
+          "elapsedSeconds": 27.77399572999275,
+          "log": "output/validation/contact-motion-hotfix-release.log",
+          "finishedAt": "2026-10-09T13:07:19.128342+00:00"
+        },
+        {
+          "job": "game-loop",
+          "command": [
+            "node",
+            "output/validation/contact-motion-game-loop.mjs"
+          ],
+          "exitCode": 0,
+          "elapsedSeconds": 30.086929261000478,
+          "log": "output/validation/contact-motion-game-loop-release.log",
+          "finishedAt": "2026-10-09T13:07:49.215845+00:00"
+        }
+      ],
+      "completedAt": "2026-10-09T13:07:49.218502+00:00",
+      "passed": true
+    },
+    "logs": {
+      "contact-motion-model-tests.log": {
+        "bytes": 74284,
+        "sha256": "05bda65bc74b232b672eed2c2c8671a90c790b1f5ad04b8037897c554587d685"
+      },
+      "contact-motion-model-tests-final.log": {
+        "bytes": 75341,
+        "sha256": "8087879c1f1467a1b00c61aacd8e34b32050081f631e9662417be5e49c89beef"
+      },
+      "contact-motion-build.log": {
+        "bytes": 757,
+        "sha256": "34d9f2d9d6d6d64e5cd332919c513591172e3de0efa78bca980ed0f46080ea13"
+      },
+      "contact-motion-build-2.log": {
+        "bytes": 1682,
+        "sha256": "fdba3842b60ac2e339c9630b04e37e513bce30609d1c6cecad4aa42fe8c4126f"
+      },
+      "contact-motion-preflight-recheck.log": {
+        "bytes": 534,
+        "sha256": "1962d454c3215f83ed116a59a17442ca07068127fa5f291c0796e8ad991b7ff8"
+      },
+      "contact-motion-production-release.log": {
+        "bytes": 1664,
+        "sha256": "1e1075e9a627d37c24fa750f2f62151bb68a13f78fa70c6fd415633ed2541762"
+      },
+      "contact-motion-hotfix-release.log": {
+        "bytes": 8705,
+        "sha256": "3121e902d42e96be7a0485d57baf5ef0599d3a1f548e22e519be16499afaa439"
+      }
+    },
+    "implementationCI": {
+      "push": {
+        "runId": 37935183760,
+        "conclusion": "success",
+        "headSha": "fdeb5b117adafe6ec1c949a411042235af7c45ec",
+        "jobs": [
+          {
+            "completedAt": "2026-10-09T13:21:45Z",
+            "conclusion": "success",
+            "databaseId": 113835339350,
+            "name": "verify",
+            "startedAt": "2026-10-09T13:12:23Z",
+            "status": "completed",
+            "steps": [
+              {
+                "completedAt": "2026-10-09T13:12:24Z",
+                "conclusion": "success",
+                "name": "Set up job",
+                "number": 1,
+                "startedAt": "2026-10-09T13:12:24Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:12:27Z",
+                "conclusion": "success",
+                "name": "Run actions/checkout@v4",
+                "number": 2,
+                "startedAt": "2026-10-09T13:12:24Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:12:30Z",
+                "conclusion": "success",
+                "name": "Run actions/setup-node@v4",
+                "number": 3,
+                "startedAt": "2026-10-09T13:12:27Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:12:34Z",
+                "conclusion": "success",
+                "name": "Run npm ci",
+                "number": 4,
+                "startedAt": "2026-10-09T13:12:30Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:12:39Z",
+                "conclusion": "success",
+                "name": "Run npm run format:check",
+                "number": 5,
+                "startedAt": "2026-10-09T13:12:34Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:12:46Z",
+                "conclusion": "success",
+                "name": "Run npm run build",
+                "number": 6,
+                "startedAt": "2026-10-09T13:12:39Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:16:04Z",
+                "conclusion": "success",
+                "name": "Run node --import tsx --test --test-concurrency=2 tests/web/*.test.ts",
+                "number": 7,
+                "startedAt": "2026-10-09T13:12:46Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:16:55Z",
+                "conclusion": "success",
+                "name": "Run npm run test:production",
+                "number": 8,
+                "startedAt": "2026-10-09T13:16:04Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:17:20Z",
+                "conclusion": "success",
+                "name": "Run npx playwright install --with-deps chromium",
+                "number": 9,
+                "startedAt": "2026-10-09T13:16:55Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:19:31Z",
+                "conclusion": "success",
+                "name": "Run npm run test:browser",
+                "number": 10,
+                "startedAt": "2026-10-09T13:17:20Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:20:01Z",
+                "conclusion": "success",
+                "name": "Run npm run test:extinction",
+                "number": 11,
+                "startedAt": "2026-10-09T13:19:31Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:20:22Z",
+                "conclusion": "success",
+                "name": "Run npm run test:renewal",
+                "number": 12,
+                "startedAt": "2026-10-09T13:20:01Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:20:35Z",
+                "conclusion": "success",
+                "name": "Run npm run test:exploration",
+                "number": 13,
+                "startedAt": "2026-10-09T13:20:22Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:20:42Z",
+                "conclusion": "success",
+                "name": "Run npm run test:connection",
+                "number": 14,
+                "startedAt": "2026-10-09T13:20:35Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:20:56Z",
+                "conclusion": "success",
+                "name": "Run npm run test:startup",
+                "number": 15,
+                "startedAt": "2026-10-09T13:20:42Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:21:23Z",
+                "conclusion": "success",
+                "name": "Run npm run test:hotfix",
+                "number": 16,
+                "startedAt": "2026-10-09T13:20:56Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:21:40Z",
+                "conclusion": "success",
+                "name": "Run npm run test:reconnect",
+                "number": 17,
+                "startedAt": "2026-10-09T13:21:23Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:21:42Z",
+                "conclusion": "success",
+                "name": "Run actions/upload-artifact@v4",
+                "number": 18,
+                "startedAt": "2026-10-09T13:21:40Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:21:43Z",
+                "conclusion": "success",
+                "name": "Post Run actions/setup-node@v4",
+                "number": 35,
+                "startedAt": "2026-10-09T13:21:42Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:21:43Z",
+                "conclusion": "success",
+                "name": "Post Run actions/checkout@v4",
+                "number": 36,
+                "startedAt": "2026-10-09T13:21:43Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:21:43Z",
+                "conclusion": "success",
+                "name": "Complete job",
+                "number": 37,
+                "startedAt": "2026-10-09T13:21:43Z",
+                "status": "completed"
+              }
+            ],
+            "url": "https://github.com/Perseusxrltd/Praxans/actions/runs/37935183760/job/113835339350"
+          }
+        ],
+        "status": "completed"
+      },
+      "pullRequest": {
+        "runId": 37935191236,
+        "conclusion": "success",
+        "headSha": "fdeb5b117adafe6ec1c949a411042235af7c45ec",
+        "jobs": [
+          {
+            "completedAt": "2026-10-09T13:23:32Z",
+            "conclusion": "success",
+            "databaseId": 113835365318,
+            "name": "verify",
+            "startedAt": "2026-10-09T13:12:26Z",
+            "status": "completed",
+            "steps": [
+              {
+                "completedAt": "2026-10-09T13:12:28Z",
+                "conclusion": "success",
+                "name": "Set up job",
+                "number": 1,
+                "startedAt": "2026-10-09T13:12:27Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:12:29Z",
+                "conclusion": "success",
+                "name": "Run actions/checkout@v4",
+                "number": 2,
+                "startedAt": "2026-10-09T13:12:28Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:12:32Z",
+                "conclusion": "success",
+                "name": "Run actions/setup-node@v4",
+                "number": 3,
+                "startedAt": "2026-10-09T13:12:29Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:12:38Z",
+                "conclusion": "success",
+                "name": "Run npm ci",
+                "number": 4,
+                "startedAt": "2026-10-09T13:12:32Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:12:44Z",
+                "conclusion": "success",
+                "name": "Run npm run format:check",
+                "number": 5,
+                "startedAt": "2026-10-09T13:12:38Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:12:52Z",
+                "conclusion": "success",
+                "name": "Run npm run build",
+                "number": 6,
+                "startedAt": "2026-10-09T13:12:44Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:16:53Z",
+                "conclusion": "success",
+                "name": "Run node --import tsx --test --test-concurrency=2 tests/web/*.test.ts",
+                "number": 7,
+                "startedAt": "2026-10-09T13:12:52Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:17:48Z",
+                "conclusion": "success",
+                "name": "Run npm run test:production",
+                "number": 8,
+                "startedAt": "2026-10-09T13:16:53Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:18:11Z",
+                "conclusion": "success",
+                "name": "Run npx playwright install --with-deps chromium",
+                "number": 9,
+                "startedAt": "2026-10-09T13:17:48Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:20:52Z",
+                "conclusion": "success",
+                "name": "Run npm run test:browser",
+                "number": 10,
+                "startedAt": "2026-10-09T13:18:11Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:21:28Z",
+                "conclusion": "success",
+                "name": "Run npm run test:extinction",
+                "number": 11,
+                "startedAt": "2026-10-09T13:20:52Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:21:54Z",
+                "conclusion": "success",
+                "name": "Run npm run test:renewal",
+                "number": 12,
+                "startedAt": "2026-10-09T13:21:28Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:22:09Z",
+                "conclusion": "success",
+                "name": "Run npm run test:exploration",
+                "number": 13,
+                "startedAt": "2026-10-09T13:21:54Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:22:17Z",
+                "conclusion": "success",
+                "name": "Run npm run test:connection",
+                "number": 14,
+                "startedAt": "2026-10-09T13:22:09Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:22:35Z",
+                "conclusion": "success",
+                "name": "Run npm run test:startup",
+                "number": 15,
+                "startedAt": "2026-10-09T13:22:17Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:23:09Z",
+                "conclusion": "success",
+                "name": "Run npm run test:hotfix",
+                "number": 16,
+                "startedAt": "2026-10-09T13:22:35Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:23:26Z",
+                "conclusion": "success",
+                "name": "Run npm run test:reconnect",
+                "number": 17,
+                "startedAt": "2026-10-09T13:23:09Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:23:29Z",
+                "conclusion": "success",
+                "name": "Run actions/upload-artifact@v4",
+                "number": 18,
+                "startedAt": "2026-10-09T13:23:26Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:23:29Z",
+                "conclusion": "success",
+                "name": "Post Run actions/setup-node@v4",
+                "number": 35,
+                "startedAt": "2026-10-09T13:23:29Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:23:29Z",
+                "conclusion": "success",
+                "name": "Post Run actions/checkout@v4",
+                "number": 36,
+                "startedAt": "2026-10-09T13:23:29Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-10-09T13:23:29Z",
+                "conclusion": "success",
+                "name": "Complete job",
+                "number": 37,
+                "startedAt": "2026-10-09T13:23:29Z",
+                "status": "completed"
+              }
+            ],
+            "url": "https://github.com/Perseusxrltd/Praxans/actions/runs/37935191236/job/113835365318"
+          }
+        ],
+        "status": "completed"
+      }
+    }
+  },
+  "beforeBackup": {
+    "raw": {
+      "bytes": 328093696,
+      "sha256": "2b88c8b7ffc0d4d0fd2775ce231b3e4332d772add1b960be32a52d72d16faad1"
+    },
+    "gzip": {
+      "bytes": 300647707,
+      "sha256": "2af53281009e86a8ecd446c4dde3b226f15a2e3a5e71b1f8a55a4e76ec657709"
+    },
+    "integrity": "ok",
+    "independentDecoder": {
+      "library": "libzstd",
+      "version": "1.5.5",
+      "scope": "Independent C library via Python, exact single-frame/content length and original/payload SHA-256; no application codec imported."
+    },
+    "storage": 2,
+    "worldChecksum": "202bc6fc267556d733396023ddb39d7aa523ac01c55aa97c50371c1a20ceda38",
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "version": 16,
+      "lawsVersion": "biosphere-1.10",
+      "generationVersion": "planet-1",
+      "tick": 630568,
+      "rng": 884883137,
+      "births": 407,
+      "deaths": 1639
+    },
+    "people": 0,
+    "clock": {
+      "tick": 630568,
+      "wall_ms": 1791550082340.0
+    },
+    "regions": [
+      {
+        "id": "-1,-1",
+        "sha256": "242e99bcdb5ee1434bc55574725b6375e2c90a2a5b87b4637089058277097112",
+        "rawBytes": 3447158,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 842425
+      },
+      {
+        "id": "-1,0",
+        "sha256": "ed4713f91b1a16b89f212b17978af2d7c8b4bfed7e3c0b256b450c93a22b9e4c",
+        "rawBytes": 3208365,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 799243
+      },
+      {
+        "id": "-1,1",
+        "sha256": "825a95709bd815d7dd63c3dc30633da3690dbe40ea017a3453b2c14757cdff1c",
+        "rawBytes": 2834101,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 699808
+      },
+      {
+        "id": "0,-1",
+        "sha256": "dca07b395f3668b9370b3804629075764484cccf155b48752eca4a7fa80bdc6f",
+        "rawBytes": 3436989,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 832956
+      },
+      {
+        "id": "0,0",
+        "sha256": "e7a54ba6b33c99a6d5d2c062a86afbe0b2783f5a71628ff5158e2eb5a2759f32",
+        "rawBytes": 3025752,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 695707
+      },
+      {
+        "id": "0,1",
+        "sha256": "3f4a521f4e4d653523b7379bf58562619fe5f55a6b33b30e0c3e75a07b4abeb5",
+        "rawBytes": 3184676,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 722759
+      },
+      {
+        "id": "0,2",
+        "sha256": "4015eec5530f1daaffb28da7fbb9240aade39d4e191aa4855e1b289b7b358e75",
+        "rawBytes": 3366201,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 812725
+      },
+      {
+        "id": "1,-1",
+        "sha256": "bbf3976967f1bfcf82f2525200648c92312c003e067fe4eb241501c7673a0716",
+        "rawBytes": 3365016,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 817095
+      },
+      {
+        "id": "1,0",
+        "sha256": "1818b93a71697b0cdadf8ab0bb62876521744f9670272ce87795c9c347f80082",
+        "rawBytes": 3188746,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 729347
+      },
+      {
+        "id": "1,1",
+        "sha256": "5effb9c2f2e8983767c23ebf90a51018baee41f0b1aaf32f7aabc9561827de5d",
+        "rawBytes": 3169632,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 707926
+      },
+      {
+        "id": "1,2",
+        "sha256": "8640be142ceb348a3c20c0f068d8a671d5d837fc8cf6eae569e1b72d07bd0298",
+        "rawBytes": 3368863,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 796378
+      },
+      {
+        "id": "2,-1",
+        "sha256": "a0a80dea1b1b7b2c74268667ce1c977408987166e1e934c5431995aad3059674",
+        "rawBytes": 3313280,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 807786
+      },
+      {
+        "id": "2,0",
+        "sha256": "8932c28e958949f220ec0f41b868b1a16528f89bff8a162bbe8ffa6ea831d220",
+        "rawBytes": 3178393,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 766395
+      },
+      {
+        "id": "2,1",
+        "sha256": "221326eec467a55d95ae4e49d3758cb2a266bef769149d32f927b1d15da92afd",
+        "rawBytes": 3216258,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 754142
+      },
+      {
+        "id": "2,2",
+        "sha256": "9be839a783318ca6ee532b433c556232d34c59abf4879cacffce1b2e9fbb0959",
+        "rawBytes": 3407562,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 834148
+      },
+      {
+        "id": "3,-1",
+        "sha256": "6bc3581a39a3ea406564bbd42c8d3b3d274955c2029eadb2fd4c69696852f165",
+        "rawBytes": 3436881,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 844435
+      },
+      {
+        "id": "3,0",
+        "sha256": "e2ddace904f201a48f2425bb1efa721f3d3503db28a84a66aa4ce2899bb49268",
+        "rawBytes": 3331737,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 822355
+      },
+      {
+        "id": "3,1",
+        "sha256": "b8fa0c8234e8be524ad0d91148cbf6d114c51fabdb1651e5e6243c99570956d1",
+        "rawBytes": 3317954,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 818784
+      },
+      {
+        "id": "3,2",
+        "sha256": "84628646477c01277cf61427fbe2f3e62aaccfaba70445b33c625122fe7a16f1",
+        "rawBytes": 3493938,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 856205
+      },
+      {
+        "id": "4,-1",
+        "sha256": "b88e30d92c26e17e213ff5e440f58cd5609d2dfdd7cb07d6092a8b7f1915c1b5",
+        "rawBytes": 3526376,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 857579
+      },
+      {
+        "id": "4,0",
+        "sha256": "4ecc18ee8815d41b301446924e7b1f996591a7f485dc5882e801dee9c5e733a5",
+        "rawBytes": 3374162,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 829059
+      },
+      {
+        "id": "4,1",
+        "sha256": "bee0fa1d2d3fd79023a80fc90b29fc75396728a1c9adca10214e4364d1d983fc",
+        "rawBytes": 3458407,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 842165
+      },
+      {
+        "id": "4,2",
+        "sha256": "f5c8a28d9adfd6c174859b809d2fab1f8796c070bbc5dcc3c2fae8392a11cf5e",
+        "rawBytes": 3555736,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 858428
+      },
+      {
+        "id": "5,-1",
+        "sha256": "2506e0dc3319b1d75d21c077cf94d5dc2a1d630f4bcc8600d4d0ed996e7dd9bd",
+        "rawBytes": 3517661,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 857673
+      },
+      {
+        "id": "5,0",
+        "sha256": "8e3bcd1e3d3b6734e33baa333dbed021297c3b25347557e413039b864651dc15",
+        "rawBytes": 3491505,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 849441
+      },
+      {
+        "id": "5,1",
+        "sha256": "22bab3774e872612da28b5c07ac19c531bd5970314e8a3366bb8f52f02132342",
+        "rawBytes": 3560322,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 863642
+      },
+      {
+        "id": "6,-1",
+        "sha256": "4c40b93ab5d87c74522395eb873edee8dfcc7f836ebc3b9148068cac860e684d",
+        "rawBytes": 3497159,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 856500
+      },
+      {
+        "id": "6,0",
+        "sha256": "7f2dcb1a8d80f76383b82025f4b10004b9844891f5f40632b438dd7682e2259b",
+        "rawBytes": 3502824,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 859203
+      },
+      {
+        "id": "6,1",
+        "sha256": "f351f03c0d32ee4c931a7e84062ff2bc92267ff69f4aa3a793d2e6a76d5f58c5",
+        "rawBytes": 3566967,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 867713
+      },
+      {
+        "id": "7,-1",
+        "sha256": "9fb4e518faeb8432010d275b00e2c8f85f18aa915bd2f5b88d59c44102769c5e",
+        "rawBytes": 3463378,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 816939
+      },
+      {
+        "id": "7,0",
+        "sha256": "fbff3a7a50416aed23071a35e552d1c5e5e9ed8a4bdcbf622abef4b840f938a8",
+        "rawBytes": 3483057,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 796403
+      },
+      {
+        "id": "7,1",
+        "sha256": "43df94e56cddbdbbe69b3f914c0c936386b60eec70f01c45709478723b8a7c6b",
+        "rawBytes": 3401981,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 804007
+      },
+      {
+        "id": "8,-1",
+        "sha256": "46b471b106d93e98e2e054ea3f8ae6d3951ccbc88f93a271a42085c1339d0a22",
+        "rawBytes": 3385437,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 777671
+      },
+      {
+        "id": "8,0",
+        "sha256": "da6274ac65c0ed554f2e57d6ce3013da85a4d5abf19dc93e0ef08ab128e7e795",
+        "rawBytes": 3506888,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 810533
+      },
+      {
+        "id": "8,1",
+        "sha256": "c087f00018676bd09c1517a525aa7dee1b1894229891d402ef055898068cec52",
+        "rawBytes": 3499507,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 789701
+      },
+      {
+        "id": "9,-1",
+        "sha256": "abc2be0d05423067ef4e7a61ee5342922be9c810dc584c7ed560f53867f97084",
+        "rawBytes": 3462556,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 814183
+      },
+      {
+        "id": "9,0",
+        "sha256": "883324da1a93e0dc4a1501b19413a121fec929deac92a4563cd4ef596a3f93de",
+        "rawBytes": 3218646,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 746403
+      },
+      {
+        "id": "9,1",
+        "sha256": "bdbec5a9ba65a9f41d044d924efb74ff2149798f980b0f031292fb08e533921a",
+        "rawBytes": 3460623,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 816503
+      }
+    ],
+    "archives": [
+      {
+        "id": "008-material-memory-and-agency",
+        "sha256": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+        "createdAt": 1791445486072
+      },
+      {
+        "id": "009-human-thermal-and-distance-balance",
+        "sha256": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+        "createdAt": 1791466127552
+      },
+      {
+        "id": "010-performed-body-maintenance",
+        "sha256": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+        "createdAt": 1791501484044
+      },
+      {
+        "id": "011-consumption-before-ration-pickup",
+        "sha256": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+        "createdAt": 1791504160572
+      },
+      {
+        "id": "012-funded-human-metabolism",
+        "sha256": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+        "createdAt": 1791508588158
+      },
+      {
+        "id": "013-local-inventory-exposure-and-access",
+        "sha256": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+        "createdAt": 1791512310450
+      },
+      {
+        "id": "014-performed-local-food-handoff",
+        "sha256": "a429759388484bdef2d6048e9044c1ab5d773cbd6b3ff598f9da54dcad4b958b",
+        "createdAt": 1791521109688
+      },
+      {
+        "id": "015-age-bounded-structural-growth",
+        "sha256": "fb2a929456519b7801f9af20b075c9fa5a43ce60cfbcb7792b647d378103b673",
+        "createdAt": 1791524835913
+      },
+      {
+        "id": "016-performed-resource-harvesting",
+        "sha256": "31f3e956350fbdcb9c6b44c406c59714f937d9a8b62c75ff9a32a34cfa2fbb33",
+        "createdAt": 1791542391209
+      }
+    ],
+    "protectedRows": {
+      "world_events": {
+        "count": 71409,
+        "unchanged": true,
+        "sha256": "456a640b7b9e88faf5613aa3025300057d04fa8fde04f6948a8d246d13059e11"
+      },
+      "world_history": {
+        "count": 5976,
+        "unchanged": true,
+        "sha256": "f3dd56ab26e28380e07b835f97875044e6971a92fe8de076501394f7188c6072"
+      },
+      "interventions": {
+        "count": 30,
+        "unchanged": true,
+        "sha256": "e5d5c5911571dd263c2cc89186fec2d127e0dc6643f8ec976da96c05cdbbde55"
+      },
+      "world_backups": {
+        "count": 9,
+        "unchanged": true,
+        "sha256": "2c58e9ac790699500c84d663cf8ed91c18bb24106131ed885b0a5d975d779341"
+      },
+      "world_backup_parts": {
+        "count": 3528,
+        "unchanged": true,
+        "sha256": "2aad00feea37c0117871f7ed9941181b672d61323a5249099e872db7f25ef2f9"
+      },
+      "sessions": {
+        "count": 30,
+        "unchanged": true,
+        "sha256": "dcb6e0c84b1bdf91d542cb69915044f44a1be51ed019ef00ae0031797e0c0f8f"
+      },
+      "agents": {
+        "count": 1,
+        "unchanged": true,
+        "sha256": "957b018ab65e7c6ccc013fa617df670d30fe6a4e442fd4f94da60e69ee7ea33b"
+      },
+      "receipts": {
+        "count": 3,
+        "unchanged": true,
+        "sha256": "61eeb51a809a13188fead544cfbca9f51d31b607589fd2ff68bba49452172183"
+      }
+    },
+    "release": {
+      "sequence": 30,
+      "id": "release:performed-harvest-20261009-1",
+      "tick": 573032,
+      "description": "World format 16 / biosphere-1.10. Newly funded local gathering earns finite private products during work; joint plant/element sources and bounded mineral-exhaustion events share one handling budget. Preserve partial cargo and actual yield observations; completion performs no extra extraction. Source-changing completions follow harvesting, and cold-food planning recognizes edible cargo. Preserve existing people, material, tasks, old progress, RNG, clock, regions and history without new population or retrospective products.",
+      "before_checksum": "5bc742c9bbe61078dad35342dd86033ff4d217620de8811f07a8651178b1b93b",
+      "after_checksum": "5bc742c9bbe61078dad35342dd86033ff4d217620de8811f07a8651178b1b93b",
+      "created_at": 1791542396813
+    },
+    "migration": {
+      "sequence": 29,
+      "id": "016-performed-resource-harvesting",
+      "tick": 573032,
+      "description": "Preserve every existing person, task, progress, cargo, memory, material, region, identity, RNG, clock and historical record. From this boundary, newly funded resource work incrementally earns private carried products. Old progress earns no retroactive products; completion performs no second extraction. Simultaneous attempts in an occupied cell share finite plant organic/mineral compartments, rock or the actual clay element mixture, with one handling budget across both vegetation layers. Pooled exponential plant exposure reuses the existing cut fractions and attempt durations; these remain uncalibrated whole-cell accessibility and handling conventions, not conserved anatomical tissues or measured productivity. Bounded bisection locates mineral exhaustion within the funded interval; only remaining effort can then use surviving vegetation layers. Handling transitions still introduce declared timestep approximation. Cold-weather reconsideration counts both provisions and edible work cargo as personal food. Other source-changing task completions follow the harvest boundary. Actual credited yield alone updates the optional task observation; it is not additional matter, and interruption or ingestion does not erase products already earned. No cooperation, communal delivery, food priority, seasonal carrying capacity or general simultaneous economy is implied. No people, supplies, past effort refunds or clock time are created.",
+      "before_checksum": "3d0249e32cac63407d142ef8a6233732486cef91f274555974bc1d1218bf400f",
+      "after_checksum": "5bc742c9bbe61078dad35342dd86033ff4d217620de8811f07a8651178b1b93b",
+      "created_at": 1791542394716
+    },
+    "exactMigrationMetadata": {
+      "tick": 573032,
+      "beforeChecksum": "3d0249e32cac63407d142ef8a6233732486cef91f274555974bc1d1218bf400f",
+      "afterChecksum": "5bc742c9bbe61078dad35342dd86033ff4d217620de8811f07a8651178b1b93b",
+      "onlyVersionLabelsChanged": true,
+      "archiveSha256": "31f3e956350fbdcb9c6b44c406c59714f937d9a8b62c75ff9a32a34cfa2fbb33"
+    },
+    "copy": {
+      "startedAt": "2026-10-09T12:56:01.674Z",
+      "copiedAt": "2026-10-09T12:56:10.869Z",
+      "elapsedMilliseconds": 9195.300120999998,
+      "identity": {
+        "checksum": "202bc6fc267556d733396023ddb39d7aa523ac01c55aa97c50371c1a20ceda38",
+        "tick": 630568,
+        "people": 0,
+        "births": 407,
+        "deaths": 1639,
+        "clock": {
+          "tick": 630568,
+          "wall_ms": 1791550082340
+        },
+        "regions": 38,
+        "archives": [
+          {
+            "id": "008-material-memory-and-agency",
+            "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+            "created_at": 1791445486072
+          },
+          {
+            "id": "009-human-thermal-and-distance-balance",
+            "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+            "created_at": 1791466127552
+          },
+          {
+            "id": "010-performed-body-maintenance",
+            "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+            "created_at": 1791501484044
+          },
+          {
+            "id": "011-consumption-before-ration-pickup",
+            "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+            "created_at": 1791504160572
+          },
+          {
+            "id": "012-funded-human-metabolism",
+            "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+            "created_at": 1791508588158
+          },
+          {
+            "id": "013-local-inventory-exposure-and-access",
+            "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+            "created_at": 1791512310450
+          },
+          {
+            "id": "014-performed-local-food-handoff",
+            "checksum": "a429759388484bdef2d6048e9044c1ab5d773cbd6b3ff598f9da54dcad4b958b",
+            "created_at": 1791521109688
+          },
+          {
+            "id": "015-age-bounded-structural-growth",
+            "checksum": "fb2a929456519b7801f9af20b075c9fa5a43ce60cfbcb7792b647d378103b673",
+            "created_at": 1791524835913
+          },
+          {
+            "id": "016-performed-resource-harvesting",
+            "checksum": "31f3e956350fbdcb9c6b44c406c59714f937d9a8b62c75ff9a32a34cfa2fbb33",
+            "created_at": 1791542391209
+          }
+        ]
+      },
+      "copyMonitor": {
+        "samples": 188,
+        "minimumAvailableBytes": 68182016,
+        "maximumWalBytes": 32131912,
+        "maximumCgroupMemoryBytes": 999911424,
+        "eventsBefore": "low 0\nhigh 0\nmax 6329\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "eventsAfter": "low 0\nhigh 0\nmax 6920\noom 0\noom_kill 0\noom_group_kill 0\n"
+      }
+    },
+    "sourceBackupUnchanged": true,
+    "communities": [
+      {
+        "id": "civ-1",
+        "name": "Fernhaven",
+        "foundedTick": 0,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        },
+        "births": 84,
+        "deaths": 390
+      },
+      {
+        "id": "civ-11",
+        "name": "Amber Hollow",
+        "foundedTick": 0,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        },
+        "births": 93,
+        "deaths": 400
+      },
+      {
+        "id": "civ-21",
+        "name": "Stonebrook",
+        "foundedTick": 0,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        },
+        "births": 96,
+        "deaths": 407
+      },
+      {
+        "id": "civ-3118",
+        "name": "Adonis",
+        "foundedTick": 10369,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        },
+        "births": 134,
+        "deaths": 442
+      }
+    ],
+    "onlyNewIntervention": null,
+    "archiveSetUnchanged": true
+  },
+  "afterBackup": {
+    "raw": {
+      "bytes": 364085248,
+      "sha256": "bc459084acecd0bacc77a01e87124c08ef6d05e9ccfef671b0dda4e824433abb"
+    },
+    "gzip": {
+      "bytes": 336221483,
+      "sha256": "fabe85295a196f4d714a9814e224559279ba27fb760878b684f5a1f12f31f289"
+    },
+    "integrity": "ok",
+    "independentDecoder": {
+      "library": "libzstd",
+      "version": "1.5.5",
+      "scope": "Independent C library via Python, exact single-frame/content length and original/payload SHA-256; no application codec imported."
+    },
+    "storage": 2,
+    "worldChecksum": "636061a03fc6250cdd7ff747783e81a4f71345b9ce107945ddb33d9240cb726d",
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "version": 17,
+      "lawsVersion": "biosphere-1.11",
+      "generationVersion": "planet-1",
+      "tick": 637292,
+      "rng": 3671416360,
+      "births": 407,
+      "deaths": 1639
+    },
+    "people": 0,
+    "clock": {
+      "tick": 637292,
+      "wall_ms": 1791551763340.0
+    },
+    "regions": [
+      {
+        "id": "-1,-1",
+        "sha256": "8706c4c19692323bba212783b417152987b4e3881052d30743150e861e2c9190",
+        "rawBytes": 3440760,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 841016
+      },
+      {
+        "id": "-1,0",
+        "sha256": "17b907a31be42fc1e4aff2d60082d99a0f7327440dec4da1b13fd003512efb98",
+        "rawBytes": 3196519,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 795458
+      },
+      {
+        "id": "-1,1",
+        "sha256": "57312612608284ad18291616b88144d4017b16b94294e15fb172cb17ae220f92",
+        "rawBytes": 2821480,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 698026
+      },
+      {
+        "id": "0,-1",
+        "sha256": "be90ac972bde8c6bdeb5f6fc597674295ba9f9a9f2446dfc3d550ae83a043e89",
+        "rawBytes": 3423572,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 829035
+      },
+      {
+        "id": "0,0",
+        "sha256": "a877fb5cb25530a75c5d778fb21d0bbeb766e6f9e2b199191df4034e2c11f4df",
+        "rawBytes": 3020626,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 692324
+      },
+      {
+        "id": "0,1",
+        "sha256": "c5ef3446f6334bb961850d0a30e1930a5439118c349d7fad33ce25efa57a8dfb",
+        "rawBytes": 3181026,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 719277
+      },
+      {
+        "id": "0,2",
+        "sha256": "234ed51ad35c773756a32e4ef61df1f5997e81ad9774d979f971d8f571c5811c",
+        "rawBytes": 3358634,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 810435
+      },
+      {
+        "id": "1,-1",
+        "sha256": "c92e3729c14d15dbee937503e045a507b998ab65acc9a631f5a8038ad4c8721f",
+        "rawBytes": 3344315,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 813156
+      },
+      {
+        "id": "1,0",
+        "sha256": "371f0d0061d85332fd4b21c1fd617b84b82046cd025fc6414a1a08c37ce5c763",
+        "rawBytes": 3185119,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 725409
+      },
+      {
+        "id": "1,1",
+        "sha256": "5ef0a87fc691c0254e94c7f57d92cc715701e30698cdf36f9a1d75ce3e931ac8",
+        "rawBytes": 3163983,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 704286
+      },
+      {
+        "id": "1,2",
+        "sha256": "1f2b38e83f86c22015ed06e4cca0d1c5ce2700fe60d80060ffaff9754a3b3899",
+        "rawBytes": 3356268,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 792400
+      },
+      {
+        "id": "2,-1",
+        "sha256": "3d3a9c8fa1306f69f1f6eddc157763ee2df66e34919cabd3c4c6f801d3255687",
+        "rawBytes": 3310692,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 805215
+      },
+      {
+        "id": "2,0",
+        "sha256": "ddbb380db50e31be6db3c34dcf003a21077c974a38eb59d6f9e56d0072d26b25",
+        "rawBytes": 3168333,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 763953
+      },
+      {
+        "id": "2,1",
+        "sha256": "ec84f4ecf5038cede8052b13063ce832805160607bdf42f558b7d1df626724f7",
+        "rawBytes": 3205684,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 749599
+      },
+      {
+        "id": "2,2",
+        "sha256": "94b8fa197a63492589d13d50e1bab17ad95f9db6695786740da1224c226ec0f8",
+        "rawBytes": 3405543,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 833694
+      },
+      {
+        "id": "3,-1",
+        "sha256": "3106038cb3bd3bb0f47135ab60aa2224175358f0a01da330136c7bb27d6991f0",
+        "rawBytes": 3439460,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 844524
+      },
+      {
+        "id": "3,0",
+        "sha256": "bba4fb7718342d2412c3c132f9cf966a823daf6cd4122f95153d6745debaeefd",
+        "rawBytes": 3328768,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 819752
+      },
+      {
+        "id": "3,1",
+        "sha256": "a1281e2166437daec1929e98c7f78e9e0db8020d4a495edba2d6f92e1d9fddf5",
+        "rawBytes": 3321280,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 818534
+      },
+      {
+        "id": "3,2",
+        "sha256": "8446bf6465e0f7c5bcc053f1c81829bfde58896cdb4d07fb15651231a2676fdd",
+        "rawBytes": 3491258,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 853534
+      },
+      {
+        "id": "4,-1",
+        "sha256": "32405e92440b2249f2b66eb71bd588c5520aa19dd6fb932a63f98ab4d039c1bc",
+        "rawBytes": 3531677,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 860294
+      },
+      {
+        "id": "4,0",
+        "sha256": "cdc6979045471635afa9f0f1d3a593ac0002742e4839bd5d60c9d2866779c903",
+        "rawBytes": 3380376,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 830931
+      },
+      {
+        "id": "4,1",
+        "sha256": "c1eda76846ab1c214c9c8507b2f7f1abdc20dd8e309daa12cebe7c577e45c694",
+        "rawBytes": 3460611,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 840196
+      },
+      {
+        "id": "4,2",
+        "sha256": "12519d804b5c39b03d8c536ab0a5de32edddf58fef019f80913a39d144b19d11",
+        "rawBytes": 3555955,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 856832
+      },
+      {
+        "id": "5,-1",
+        "sha256": "6db5b3829b7e9668f8f51fcd19f177206bd18c38bda55857e62a59652a12b500",
+        "rawBytes": 3524650,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 860877
+      },
+      {
+        "id": "5,0",
+        "sha256": "78685338899fa22f2d35b1fd7e329024ffefd40ccc8dba4a3293d7bb29983b21",
+        "rawBytes": 3497463,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 851409
+      },
+      {
+        "id": "5,1",
+        "sha256": "e4d40e1aa92fb675295b0e130e03e5b6b7aed6c613c060d4d990fbd716f89cfd",
+        "rawBytes": 3559382,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 863588
+      },
+      {
+        "id": "6,-1",
+        "sha256": "a241c08ef506f2d943e82fdbab0dae84927a353fb1eb86c331833acd1ce59242",
+        "rawBytes": 3492542,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 855449
+      },
+      {
+        "id": "6,0",
+        "sha256": "a0703ab30c3e8e5d565f907259ce6ec6a5409e92faa4b649a0a71dc5c90c8bd4",
+        "rawBytes": 3501552,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 856634
+      },
+      {
+        "id": "6,1",
+        "sha256": "1b418c939f717cfb23afca88376273a5b868f88c194c77ce42503a5e93cd66bc",
+        "rawBytes": 3567281,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 864633
+      },
+      {
+        "id": "7,-1",
+        "sha256": "1161b87473fe9b15e4b39c37a9d4f8a4d455059937ce558f26f581ce35fbf6cd",
+        "rawBytes": 3467459,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 813747
+      },
+      {
+        "id": "7,0",
+        "sha256": "f4ba38294b2aea5f247f55c0683abe532fec548c2d5775646927eac2975192b6",
+        "rawBytes": 3481496,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 790931
+      },
+      {
+        "id": "7,1",
+        "sha256": "fa5342a9bec1acda1f1198456561e3135b29de98e8e798fca139e317bf9a8c11",
+        "rawBytes": 3397484,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 800653
+      },
+      {
+        "id": "8,-1",
+        "sha256": "450f0f2444a2dfaf3b775e26cad947290b0b7350b3e0a0096ec51790c37daf87",
+        "rawBytes": 3385090,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 774070
+      },
+      {
+        "id": "8,0",
+        "sha256": "9bcb37ab80a129fed5384a47c64d34a3cec89f8c9d566fad22196b1d15230287",
+        "rawBytes": 3506757,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 804372
+      },
+      {
+        "id": "8,1",
+        "sha256": "f10d0a7b0eb502f853ac718818226c8ff09608647d68e3ab6e8b2ccba9358eb4",
+        "rawBytes": 3498704,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 783218
+      },
+      {
+        "id": "9,-1",
+        "sha256": "e897a2bb6961f5b37d498bb26e8c2087989e8552910f60b1c9413627db1a1e82",
+        "rawBytes": 3459510,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 810012
+      },
+      {
+        "id": "9,0",
+        "sha256": "b53dab982bdc9f36dcd79293ec745a1e0860ca5d792fb0c07ec34d55fa733d18",
+        "rawBytes": 3218190,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 743415
+      },
+      {
+        "id": "9,1",
+        "sha256": "c63854642d6521dc8d786a5735f6b9056e485f2e0c5c10c9817b2dfad41dd132",
+        "rawBytes": 3459645,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 813305
+      }
+    ],
+    "archives": [
+      {
+        "id": "008-material-memory-and-agency",
+        "sha256": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+        "createdAt": 1791445486072
+      },
+      {
+        "id": "009-human-thermal-and-distance-balance",
+        "sha256": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+        "createdAt": 1791466127552
+      },
+      {
+        "id": "010-performed-body-maintenance",
+        "sha256": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+        "createdAt": 1791501484044
+      },
+      {
+        "id": "011-consumption-before-ration-pickup",
+        "sha256": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+        "createdAt": 1791504160572
+      },
+      {
+        "id": "012-funded-human-metabolism",
+        "sha256": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+        "createdAt": 1791508588158
+      },
+      {
+        "id": "013-local-inventory-exposure-and-access",
+        "sha256": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+        "createdAt": 1791512310450
+      },
+      {
+        "id": "014-performed-local-food-handoff",
+        "sha256": "a429759388484bdef2d6048e9044c1ab5d773cbd6b3ff598f9da54dcad4b958b",
+        "createdAt": 1791521109688
+      },
+      {
+        "id": "015-age-bounded-structural-growth",
+        "sha256": "fb2a929456519b7801f9af20b075c9fa5a43ce60cfbcb7792b647d378103b673",
+        "createdAt": 1791524835913
+      },
+      {
+        "id": "016-performed-resource-harvesting",
+        "sha256": "31f3e956350fbdcb9c6b44c406c59714f937d9a8b62c75ff9a32a34cfa2fbb33",
+        "createdAt": 1791542391209
+      },
+      {
+        "id": "017-contact-from-actual-movement",
+        "sha256": "9ef5ff518288527165abed5886a1641b29ec683997450122e4c1f6f4c38bcd23",
+        "createdAt": 1791551698545
+      }
+    ],
+    "protectedRows": {
+      "world_events": {
+        "count": 71730,
+        "unchanged": true,
+        "sha256": "2e262d8f180159d8ab67f7a9562cd9d477175cbbd8b77e2b9bd789bc9523ce09"
+      },
+      "world_history": {
+        "count": 6568,
+        "unchanged": true,
+        "sha256": "f3f93f06db072a126ef687ba9367af001d41f7789c2da9fa5a2c9141bb64deb4"
+      },
+      "interventions": {
+        "count": 30,
+        "unchanged": true,
+        "sha256": "e5d5c5911571dd263c2cc89186fec2d127e0dc6643f8ec976da96c05cdbbde55"
+      },
+      "world_backups": {
+        "count": 9,
+        "unchanged": true,
+        "sha256": "2c58e9ac790699500c84d663cf8ed91c18bb24106131ed885b0a5d975d779341"
+      },
+      "world_backup_parts": {
+        "count": 3528,
+        "unchanged": true,
+        "sha256": "2aad00feea37c0117871f7ed9941181b672d61323a5249099e872db7f25ef2f9"
+      },
+      "sessions": {
+        "count": 30,
+        "unchanged": true,
+        "sha256": "dcb6e0c84b1bdf91d542cb69915044f44a1be51ed019ef00ae0031797e0c0f8f"
+      },
+      "agents": {
+        "count": 1,
+        "unchanged": true,
+        "sha256": "957b018ab65e7c6ccc013fa617df670d30fe6a4e442fd4f94da60e69ee7ea33b"
+      },
+      "receipts": {
+        "count": 3,
+        "unchanged": true,
+        "sha256": "61eeb51a809a13188fead544cfbca9f51d31b607589fd2ff68bba49452172183"
+      }
+    },
+    "release": {
+      "sequence": 32,
+      "id": "release:contact-motion-20261009-1",
+      "tick": 636908,
+      "description": "Local food handoffs, body maintenance and harvesting now determine stationary contact from actual movement during the interval. Unfunded or blocked routes do not prevent contact; positive travel remains disqualifying even after returning to the start. Travel earns no work on arrival, and living object identity is rechecked before finite allocation. Donor choice, paid work, finite materials and later ingestion remain necessary. Format 17 / biosphere-1.11 archives and preserves the existing world, routes, bodies, materials, identities, clock and history. No people or resources are granted.",
+      "before_checksum": "0abfb6e7fb95a465a9a1d6c5177fa95a5561ca6d1a49019c5d8e5c642f5054e3",
+      "after_checksum": "0abfb6e7fb95a465a9a1d6c5177fa95a5561ca6d1a49019c5d8e5c642f5054e3",
+      "created_at": 1791551704380
+    },
+    "migration": {
+      "sequence": 31,
+      "id": "017-contact-from-actual-movement",
+      "tick": 636908,
+      "description": "Preserve every existing person, body, intake, reserves, task, pending route, cargo, material, region, identity, RNG, clock and historical record. From this boundary, local body maintenance, food handoffs and harvesting distinguish actual movement from a planned route. Stationary people remain eligible for physical contact when travel is unfunded or blocked. Positive distance traveled invalidates the shared contact for the whole interval, including returning to the initial position; subsequent intervals start a fresh contact account. Position, living membership, journey and task checks still precede finite transfer allocation. Travel spends its funded interval and cannot also earn work on arrival. The transient motion account is not saved or inferred for past time. This is a coarse occupied-cell constraint, not calibrated reach, continuous interaction, recipient consent or guaranteed assistance. Donor choice, finite resources, paid work and later ingestion remain necessary. No people, supplies, nutrition, care, movement, historical survival or clock time are granted.",
+      "before_checksum": "ac89a20d4a769c6e63fec9db7499c227818a9191bfa5ddb4f6fa2b0f28d306ff",
+      "after_checksum": "0abfb6e7fb95a465a9a1d6c5177fa95a5561ca6d1a49019c5d8e5c642f5054e3",
+      "created_at": 1791551702202
+    },
+    "exactMigrationMetadata": {
+      "tick": 636908,
+      "beforeChecksum": "ac89a20d4a769c6e63fec9db7499c227818a9191bfa5ddb4f6fa2b0f28d306ff",
+      "afterChecksum": "0abfb6e7fb95a465a9a1d6c5177fa95a5561ca6d1a49019c5d8e5c642f5054e3",
+      "onlyVersionLabelsChanged": true,
+      "archiveSha256": "9ef5ff518288527165abed5886a1641b29ec683997450122e4c1f6f4c38bcd23"
+    },
+    "copy": {
+      "startedAt": "2026-10-09T13:16:10.064Z",
+      "copiedAt": "2026-10-09T13:16:12.380Z",
+      "elapsedMilliseconds": 2315.749255,
+      "identity": {
+        "checksum": "636061a03fc6250cdd7ff747783e81a4f71345b9ce107945ddb33d9240cb726d",
+        "tick": 637292,
+        "people": 0,
+        "births": 407,
+        "deaths": 1639,
+        "clock": {
+          "tick": 637292,
+          "wall_ms": 1791551763340
+        },
+        "regions": 38,
+        "archives": [
+          {
+            "id": "008-material-memory-and-agency",
+            "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+            "created_at": 1791445486072
+          },
+          {
+            "id": "009-human-thermal-and-distance-balance",
+            "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+            "created_at": 1791466127552
+          },
+          {
+            "id": "010-performed-body-maintenance",
+            "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+            "created_at": 1791501484044
+          },
+          {
+            "id": "011-consumption-before-ration-pickup",
+            "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+            "created_at": 1791504160572
+          },
+          {
+            "id": "012-funded-human-metabolism",
+            "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+            "created_at": 1791508588158
+          },
+          {
+            "id": "013-local-inventory-exposure-and-access",
+            "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+            "created_at": 1791512310450
+          },
+          {
+            "id": "014-performed-local-food-handoff",
+            "checksum": "a429759388484bdef2d6048e9044c1ab5d773cbd6b3ff598f9da54dcad4b958b",
+            "created_at": 1791521109688
+          },
+          {
+            "id": "015-age-bounded-structural-growth",
+            "checksum": "fb2a929456519b7801f9af20b075c9fa5a43ce60cfbcb7792b647d378103b673",
+            "created_at": 1791524835913
+          },
+          {
+            "id": "016-performed-resource-harvesting",
+            "checksum": "31f3e956350fbdcb9c6b44c406c59714f937d9a8b62c75ff9a32a34cfa2fbb33",
+            "created_at": 1791542391209
+          },
+          {
+            "id": "017-contact-from-actual-movement",
+            "checksum": "9ef5ff518288527165abed5886a1641b29ec683997450122e4c1f6f4c38bcd23",
+            "created_at": 1791551698545
+          }
+        ]
+      },
+      "copyMonitor": {
+        "samples": 122,
+        "minimumAvailableBytes": 31825920,
+        "maximumWalBytes": 31967112,
+        "maximumCgroupMemoryBytes": 999911424,
+        "eventsBefore": "low 0\nhigh 0\nmax 7468\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "eventsAfter": "low 0\nhigh 0\nmax 7800\noom 0\noom_kill 0\noom_group_kill 0\n"
+      }
+    },
+    "sourceBackupUnchanged": true,
+    "communities": [
+      {
+        "id": "civ-1",
+        "name": "Fernhaven",
+        "foundedTick": 0,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        },
+        "births": 84,
+        "deaths": 390
+      },
+      {
+        "id": "civ-11",
+        "name": "Amber Hollow",
+        "foundedTick": 0,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        },
+        "births": 93,
+        "deaths": 400
+      },
+      {
+        "id": "civ-21",
+        "name": "Stonebrook",
+        "foundedTick": 0,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        },
+        "births": 96,
+        "deaths": 407
+      },
+      {
+        "id": "civ-3118",
+        "name": "Adonis",
+        "foundedTick": 10369,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        },
+        "births": 134,
+        "deaths": 442
+      }
+    ],
+    "newInterventions": [
+      "017-contact-from-actual-movement",
+      "release:contact-motion-20261009-1"
+    ],
+    "priorArchiveSetUnchanged": true,
+    "oneAdditionalExactArchive": true
+  },
+  "capacity": {
+    "at": "2026-10-09T13:06:00.456Z",
+    "sourceSha256": "2b88c8b7ffc0d4d0fd2775ce231b3e4332d772add1b960be32a52d72d16faad1",
+    "sourceUnchanged": true,
+    "code": 0,
+    "signal": null,
+    "report": {
+      "heapLimitBytes": 226492416,
+      "sourceTick": 630568,
+      "sourceVersion": 16,
+      "version": 17,
+      "laws": "biosphere-1.11",
+      "storage": 2,
+      "people": 0,
+      "regions": 38,
+      "migrationMs": 65377.941359000004,
+      "saves": [
+        {
+          "tick": 630600,
+          "simulationMs": 6484.293080000003,
+          "saveMs": 5565.845973000003,
+          "walBytes": 31855872
+        },
+        {
+          "tick": 630632,
+          "simulationMs": 9300.240567999994,
+          "saveMs": 3830.3554529999965,
+          "walBytes": 31851752
+        },
+        {
+          "tick": 630664,
+          "simulationMs": 5028.860140999997,
+          "saveMs": 3614.0191179999965,
+          "walBytes": 32119552
+        }
+      ],
+      "exactMigrationBoundary": true,
+      "exactArchiveSha256": "dc22b727140e7b142997a87a6294451309bbea27554304eb0af2a25121f640d4",
+      "protectedRows": {
+        "sessions": {
+          "count": 30,
+          "sha256": "76547aeda2e9dca53d3eb2c5ce3c8f82d16c94ad3a4b7208585353282d6af89b"
+        },
+        "agents": {
+          "count": 1,
+          "sha256": "cef5c688d04040ee6ec8057db452bc0256875f29d9385e436cb127973e4dcdf8"
+        },
+        "receipts": {
+          "count": 3,
+          "sha256": "8e2b9b8b3ef18d3047a9a3799be52d26aa14e738b5184e981968107007413445"
+        },
+        "events": {
+          "count": 71730,
+          "sha256": "4e1a7c6668f2e0ef43d632d6344ed23167540dd08bbd43ebbe7462a25cd236a2"
+        },
+        "history": {
+          "count": 6568,
+          "sha256": "0f06093ff7804783d7e9117eef9052163751ed22f8a0104305cfe977466a1e08"
+        },
+        "interventions": {
+          "count": 30,
+          "sha256": "a8a4f63c7d723ab9c5e934f58ae35d643e4836bc3246ed359c15be92b2ee133c"
+        },
+        "archives": {
+          "count": 9,
+          "sha256": "656de7ad84c33b11c2db1e16556e4047fbc31e7a43c6f8e6dbf2e9767fd97b99"
+        },
+        "archiveParts": {
+          "count": 3528,
+          "sha256": "73b924f47661f54f1e60299dd322144282c8d62b880b78be28e1090fb32531a0"
+        }
+      },
+      "exactRestart": true,
+      "finalTick": 630664,
+      "clock": {
+        "tick": 630664,
+        "wall_ms": 1791550106340
+      },
+      "finalMetadataChecksum": "e0e3b6c88299b2564baf41b4558eac3fd7fc1f32318c6f41cb9f23730dd53e13",
+      "finalRegionChecksum": "ecec9f0dec3f799aa5e5ff2d0907d57a2c74375078268e90be5bec2f9b9ea079"
+    },
+    "stdout": "",
+    "stderr": "(node:224455) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+    "capacity": {
+      "bytes": 454299648,
+      "initialNonWalBudget": 365000000,
+      "minimumFree": 17100800,
+      "maximumWal": 37080032,
+      "samples": 2304
+    },
+    "peakRssBytes": 380170240,
+    "scope": "Disposable private tmpfs at the live volume capacity; exact format-16 to17 migration and additional archive, preserved prior archives, three saves, protected rows and restart under a 216 MiB effective heap. Local memory and IO are not a live cgroup or inhabited-host guarantee."
+  },
+  "repositoryReview": {
+    "inspectedAt": "2026-10-09T13:02:25.540Z",
+    "structuralScan": {
+      "baseCommit": "496a0ceac5f1340e0c6f54421e1709674d7f0eb7",
+      "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+      "gitVisibleExistingFileCount": 988,
+      "jsTsFileCount": 141,
+      "sourceFileCount": 82,
+      "srcContentSha256": "d45f2ea46583a0ffcc221f0ca58123f780328e699b4cac04555f49941734bdea",
+      "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
+      "resolvedEdgeCount": 746,
+      "edgesByArea": {
+        "docs -> src/simulation": 25,
+        "docs -> tests": 1,
+        "scripts -> src/server": 27,
+        "scripts -> src/simulation": 26,
+        "src/client -> src/simulation": 27,
+        "src/client -> src/client": 21,
+        "src/server -> src/simulation": 41,
+        "src/server -> src/server": 28,
+        "src/simulation -> src/simulation": 260,
+        "tests -> src/simulation": 200,
+        "tests -> tests": 34,
+        "tests -> src/server": 56
+      },
+      "missingImports": [],
+      "missingAssets": [],
+      "nonliteralLoads": [
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+        },
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+        }
+      ],
+      "layerViolations": [],
+      "simulationEnvironmentImports": [],
+      "localMarkdownLinksChecked": 631,
+      "missingMarkdownLinks": []
+    }
+  },
+  "semanticReview": {
+    "findings": [
+      "Ground distance stays in metres and work in hours; the existing walking integrator reports positive travel without changing its path/time/road updates.",
+      "A monotonic tick-local movement set is shared by covering, handoffs and harvesting. Endpoint return cannot erase movement, and a new interval starts fresh.",
+      "Journey travelers remain excluded through journey identity. Travel branches still return before optional work on arrival.",
+      "Body maintenance now rejects absent/replaced bodies before finite allocation, matching food/harvest membership guards. No extra index is built when there are no intents.",
+      "Migration 017 changes only world/law labels. Transient contact evidence is not serialized or inferred retrospectively; exact old archives and clock survive.",
+      "Current registry, model, architecture, research queue and roadmap distinguish tested mechanics from unproven survival."
+    ],
+    "remaining": [
+      "No death is prevented in the selected adult day; acquisition, location and transport remain unresolved.",
+      "Requested but unfunded work can enter the injury calculation; its independent control must not be represented as a historical mortality share.",
+      "Whole-cell contact, infancy, carrying/feeding, thermal/developmental calibration and population viability remain coarse or incomplete.",
+      "Archive growth leaves finite storage headroom. Re-measure and resolve capacity before another archived law update; do not discard history.",
+      "Static graph/link checks do not validate all model semantics, dynamic loads, legacy Python behavior or all clients."
+    ]
+  },
+  "study": "../research/contact-motion-2026-10-09.json",
+  "publication": {
+    "backend": "https://world-production-8384.up.railway.app",
+    "website": "https://praxans.vercel.app",
+    "activation": {
+      "at": "2026-10-09T13:15:04.403Z",
+      "event": "activation",
+      "status": 200,
+      "value": {
+        "release": "contact-motion-20261009-1",
+        "type": "preflight",
+        "id": "praxans-world",
+        "seed": 1847,
+        "sourceTick": 636744,
+        "tick": 636776,
+        "format": 17,
+        "laws": "biosphere-1.11",
+        "validationHeapLimitBytes": 226492416,
+        "resumedTick": 636908
+      }
+    },
+    "handoverMonitor": {
+      "at": "2026-10-09T13:16:05.046Z",
+      "event": "monitor-complete",
+      "startedAt": "2026-10-09T13:13:51.601Z",
+      "finishedAt": "2026-10-09T13:16:05.045Z",
+      "samples": 133,
+      "minimumAvailableBytes": 27955200,
+      "maximumWalBytes": 37001752,
+      "maximumCgroupMemoryBytes": 999866368,
+      "eventsBefore": "low 0\nhigh 0\nmax 6929\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "eventsAfter": "low 0\nhigh 0\nmax 7468\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "errors": [],
+      "status": {
+        "phase": "running",
+        "release": "contact-motion-20261009-1",
+        "pendingRequests": 1,
+        "activeRequests": 0,
+        "observers": 1,
+        "runtimePid": 1226,
+        "managedProcesses": 1,
+        "error": null
+      }
+    },
+    "liveAudit": {
+      "at": "2026-10-09T13:16:09.082Z",
+      "node": "v22.23.3",
+      "gatewaySha256": "fc3454f1f506bf84d3b3553fe32d1736780c729269801b232c079a063facebcc",
+      "runtimeSha256": "c9c5317e81a1b3235566d7781964c155a77a00064db279c032812159380c506c",
+      "current": {
+        "directory": "/data/runtime/releases/contact-motion-20261009-1-c9c5317e81a1b323"
+      },
+      "status": {
+        "phase": "running",
+        "release": "contact-motion-20261009-1",
+        "pendingRequests": 1,
+        "activeRequests": 0,
+        "observers": 1,
+        "runtimePid": 1226,
+        "managedProcesses": 1,
+        "error": null
+      },
+      "head": {
+        "checksum": "636061a03fc6250cdd7ff747783e81a4f71345b9ce107945ddb33d9240cb726d",
+        "tick": 637292,
+        "people": 0,
+        "births": 407,
+        "deaths": 1639,
+        "generator": "planet-1",
+        "rng": 3671416360
+      },
+      "clock": {
+        "tick": 637292,
+        "wall_ms": 1791551763340
+      },
+      "storage": 2,
+      "archives": [
+        {
+          "id": "008-material-memory-and-agency",
+          "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+          "created_at": 1791445486072
+        },
+        {
+          "id": "009-human-thermal-and-distance-balance",
+          "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+          "created_at": 1791466127552
+        },
+        {
+          "id": "010-performed-body-maintenance",
+          "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+          "created_at": 1791501484044
+        },
+        {
+          "id": "011-consumption-before-ration-pickup",
+          "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+          "created_at": 1791504160572
+        },
+        {
+          "id": "012-funded-human-metabolism",
+          "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+          "created_at": 1791508588158
+        },
+        {
+          "id": "013-local-inventory-exposure-and-access",
+          "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+          "created_at": 1791512310450
+        },
+        {
+          "id": "014-performed-local-food-handoff",
+          "checksum": "a429759388484bdef2d6048e9044c1ab5d773cbd6b3ff598f9da54dcad4b958b",
+          "created_at": 1791521109688
+        },
+        {
+          "id": "015-age-bounded-structural-growth",
+          "checksum": "fb2a929456519b7801f9af20b075c9fa5a43ce60cfbcb7792b647d378103b673",
+          "created_at": 1791524835913
+        },
+        {
+          "id": "016-performed-resource-harvesting",
+          "checksum": "31f3e956350fbdcb9c6b44c406c59714f937d9a8b62c75ff9a32a34cfa2fbb33",
+          "created_at": 1791542391209
+        },
+        {
+          "id": "017-contact-from-actual-movement",
+          "checksum": "9ef5ff518288527165abed5886a1641b29ec683997450122e4c1f6f4c38bcd23",
+          "created_at": 1791551698545
+        }
+      ],
+      "communities": [
+        {
+          "id": "civ-1",
+          "foundedTick": 0,
+          "births": 84,
+          "deaths": 390,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        },
+        {
+          "id": "civ-11",
+          "foundedTick": 0,
+          "births": 93,
+          "deaths": 400,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        },
+        {
+          "id": "civ-21",
+          "foundedTick": 0,
+          "births": 96,
+          "deaths": 407,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        },
+        {
+          "id": "civ-3118",
+          "foundedTick": 10369,
+          "births": 134,
+          "deaths": 442,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        }
+      ],
+      "counts": {
+        "sessions": 30,
+        "agents": 1,
+        "receipts": 3,
+        "world_events": 71755,
+        "world_history": 6638,
+        "renewals": 1
+      },
+      "volume": {
+        "capacity": 454299648,
+        "available": 47017984,
+        "wal": 16777216
+      },
+      "memory": {
+        "events": "low 0\nhigh 0\nmax 7468\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "current": 887808000,
+        "runtimeStatus": [
+          "VmHWM:\t  472604 kB",
+          "VmRSS:\t  389940 kB",
+          "RssAnon:\t  334968 kB",
+          "RssFile:\t   54972 kB"
+        ]
+      },
+      "health": {
+        "ok": true,
+        "tick": 637315,
+        "lawsVersion": "biosphere-1.11",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 0,
+        "simulation": "running"
+      }
+    },
+    "externalObserver": {
+      "startedAt": "2026-10-09T13:12:41.811Z",
+      "finishedAt": "2026-10-09T13:20:41.844Z",
+      "snapshots": 5,
+      "frames": 321,
+      "firstTick": 636486,
+      "lastTick": 638398,
+      "streamEnded": false,
+      "regressions": [],
+      "faults": [],
+      "healthSamples": [
+        {
+          "at": "2026-10-09T13:12:42.114Z",
+          "status": 200,
+          "ok": true,
+          "tick": 636486,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:12:52.701Z",
+          "status": 200,
+          "ok": true,
+          "tick": 636520,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 2,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:13:02.971Z",
+          "status": 200,
+          "ok": true,
+          "tick": 636570,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:13:13.222Z",
+          "status": 200,
+          "ok": true,
+          "tick": 636611,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:13:24.757Z",
+          "status": 200,
+          "ok": true,
+          "tick": 636648,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 2,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:13:34.974Z",
+          "status": 200,
+          "ok": true,
+          "tick": 636698,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:13:45.302Z",
+          "status": 200,
+          "ok": true,
+          "tick": 636739,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:13:56.953Z",
+          "status": 200,
+          "ok": true,
+          "tick": 636776,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 2,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:14:07.193Z",
+          "status": 200,
+          "ok": true,
+          "tick": 636827,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:14:17.706Z",
+          "status": 200,
+          "ok": true,
+          "tick": 636868,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:14:35.093Z",
+          "status": 200,
+          "ok": true,
+          "tick": 636904,
+          "lawsVersion": "biosphere-1.10",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 8,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:14:45.272Z",
+          "status": 503,
+          "ok": false,
+          "persistent": true,
+          "acceptingProposals": false,
+          "simulation": "updating"
+        },
+        {
+          "at": "2026-10-09T13:14:55.441Z",
+          "status": 503,
+          "ok": false,
+          "persistent": true,
+          "acceptingProposals": false,
+          "simulation": "updating"
+        },
+        {
+          "at": "2026-10-09T13:15:05.762Z",
+          "status": 200,
+          "ok": true,
+          "tick": 636916,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 36,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T13:15:16.178Z",
+          "status": 200,
+          "ok": true,
+          "tick": 636980,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 30,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T13:15:26.606Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637056,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 22,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T13:15:36.993Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637128,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 14,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T13:15:49.378Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637200,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 8,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:15:59.740Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637277,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:16:10.010Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637318,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:16:21.323Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637356,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 1,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:16:31.737Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637404,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:16:41.990Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637446,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:16:53.611Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637484,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 2,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:17:04.833Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637536,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:17:15.219Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637579,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:17:25.744Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637616,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 1,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:17:36.021Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637662,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:17:46.785Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637704,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:17:57.374Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637740,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 1,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:18:07.784Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637789,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:18:18.081Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637830,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:18:29.459Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637868,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 2,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:18:40.864Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637920,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:18:53.364Z",
+          "status": 200,
+          "ok": true,
+          "tick": 637964,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 1,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:19:03.878Z",
+          "status": 200,
+          "ok": true,
+          "tick": 638013,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:19:14.290Z",
+          "status": 200,
+          "ok": true,
+          "tick": 638055,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:19:25.419Z",
+          "status": 200,
+          "ok": true,
+          "tick": 638092,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 2,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:19:35.925Z",
+          "status": 200,
+          "ok": true,
+          "tick": 638142,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:19:46.756Z",
+          "status": 200,
+          "ok": true,
+          "tick": 638184,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:19:57.491Z",
+          "status": 200,
+          "ok": true,
+          "tick": 638220,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 2,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:20:07.705Z",
+          "status": 200,
+          "ok": true,
+          "tick": 638268,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:20:18.185Z",
+          "status": 200,
+          "ok": true,
+          "tick": 638311,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:20:29.680Z",
+          "status": 200,
+          "ok": true,
+          "tick": 638348,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 2,
+          "simulation": "running"
+        },
+        {
+          "at": "2026-10-09T13:20:39.856Z",
+          "status": 200,
+          "ok": true,
+          "tick": 638397,
+          "lawsVersion": "biosphere-1.11",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 0,
+          "simulation": "running"
+        }
+      ],
+      "scope": "one direct Railway observer during contact physical-rule migration from format 16 to 17; finite samples do not guarantee every connection or latency"
+    },
+    "externalHealthSummary": {
+      "samples": 45,
+      "statusCounts": {
+        "200": 43,
+        "503": 2
+      },
+      "non200": [
+        {
+          "at": "2026-10-09T13:14:45.272Z",
+          "status": 503,
+          "ok": false,
+          "persistent": true,
+          "acceptingProposals": false,
+          "simulation": "updating"
+        },
+        {
+          "at": "2026-10-09T13:14:55.441Z",
+          "status": 503,
+          "ok": false,
+          "persistent": true,
+          "acceptingProposals": false,
+          "simulation": "updating"
+        }
+      ]
+    },
+    "vercel": {
+      "id": "dpl_A5sDzjNDo3TPAPErtDkVdMkRf8x1",
+      "url": "https://praxans-g423afq0u-perseusxr-projects.vercel.app",
+      "productionUrl": "https://praxans.vercel.app",
+      "inspectorUrl": "https://vercel.com/perseusxr-projects/praxans/A5sDzjNDo3TPAPErtDkVdMkRf8x1",
+      "readyState": "READY",
+      "target": "production",
+      "deploymentApiUrl": "https://api.vercel.com/v13/deployments/dpl_A5sDzjNDo3TPAPErtDkVdMkRf8x1",
+      "buildMachine": {
+        "machine": "basic",
+        "selectionType": "fixed",
+        "selectionSource": "plan-default"
+      },
+      "deploymentProtection": []
+    },
+    "vercelInspection": {
+      "bytes": 957,
+      "sha256": "1cf6bd278710de77522f3a8d971f1c816a17da80d4ebdaa2ca2a39ab87a94ff8"
+    },
+    "websiteManifest": {
+      "implementationCommit": "fdeb5b117adafe6ec1c949a411042235af7c45ec",
+      "sourceSha256": "d45f2ea46583a0ffcc221f0ca58123f780328e699b4cac04555f49941734bdea",
+      "files": [
+        {
+          "path": "config.json",
+          "sha256": "261f5441b717fda4df2414ea0eb516439fe86b0d14fc554b53e06058316bbd77",
+          "bytes": 346
+        },
+        {
+          "path": "static/assets/index-C8ChJ_Vc.css",
+          "sha256": "4adba5c289d5f1547406b27d8a9e749f770a56918763b1cca41f96b3daa3c60c",
+          "bytes": 53239
+        },
+        {
+          "path": "static/assets/index-DEo7hTBS.js",
+          "sha256": "f97503e12f35b3775a9047270c6e5282f7f0c1b9000a1a7e842027e64a2bcf04",
+          "bytes": 418761
+        },
+        {
+          "path": "static/assets/planet-survey.worker-BeivCR-y.js",
+          "sha256": "fec7c0ba2670ce6fcbda921876fa686f707ae4ab55559869180e5ca5b64df543",
+          "bytes": 44137
+        },
+        {
+          "path": "static/assets/three.module-4gI5Z-_B.js",
+          "sha256": "fa8a86cbea42289132ac214fc87ffa268ec82b09ad3b366861d1fc9e7a089f20",
+          "bytes": 736589
+        },
+        {
+          "path": "static/favicon.svg",
+          "sha256": "2c61c054e6c719db752e51fced6deb21347dee64090ba3f38fed3882de856a38",
+          "bytes": 297
+        },
+        {
+          "path": "static/fonts/dmsans-OFL.txt",
+          "sha256": "7ec15e79c59bc14b86436a17e5eb7926b46cbcaeb08e1a7e6c110b415e6eb2a2",
+          "bytes": 4388
+        },
+        {
+          "path": "static/fonts/dmserifdisplay-OFL.txt",
+          "sha256": "a3e5cdd67d4571dd0a24fcc968de0efde7ae97ef752daf0906e4767619dd7231",
+          "bytes": 4605
+        },
+        {
+          "path": "static/fonts/praxans-0.ttf",
+          "sha256": "b0ae3e89a7d3ef2b1838bb4b1ceb0b17cc3435af061eee809d76aa623ff116e9",
+          "bytes": 48280
+        },
+        {
+          "path": "static/fonts/praxans-1.ttf",
+          "sha256": "376427b5322148d8de1e03f263bcca4935a2d60ba71d9f94f4947ab664c711ae",
+          "bytes": 48308
+        },
+        {
+          "path": "static/fonts/praxans-2.ttf",
+          "sha256": "b79a2ea7a38f33fd96a282fadb9ce97626bb0724a44d21075859f0e50239993a",
+          "bytes": 48280
+        },
+        {
+          "path": "static/fonts/praxans-3.ttf",
+          "sha256": "2a8e7f713ee79fbccdef3cef5c787aff47580299f7da60144961e7db2ec08211",
+          "bytes": 48200
+        },
+        {
+          "path": "static/fonts/praxans-4.ttf",
+          "sha256": "0ab2fcacedaafc0a7536453d4a763f131ba83a636706d3ec2d685cf04478a920",
+          "bytes": 68312
+        },
+        {
+          "path": "static/fonts/praxans-5.ttf",
+          "sha256": "c03775f8cc3db88cfea259b231abe13f94e6a3d3cb01c09477a2e42a1f5919e1",
+          "bytes": 70348
+        },
+        {
+          "path": "static/index.html",
+          "sha256": "d6ed6fa1756904141cd284e0c7a2dcc1ebaa57521e2078e41efad784917b5eca",
+          "bytes": 714
+        }
+      ]
+    },
+    "gatewaySha256Unchanged": "fc3454f1f506bf84d3b3553fe32d1736780c729269801b232c079a063facebcc",
+    "sameServiceAndVolume": true,
+    "finiteMonitorsEnded": true
+  },
+  "worldRenewed": false,
+  "prMerged": false,
+  "repositoryPublicationFollowUp": {
+    "inspectedAt": "2026-10-09T13:33:14.492Z",
+    "structuralScan": {
+      "baseCommit": "fdeb5b117adafe6ec1c949a411042235af7c45ec",
+      "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+      "gitVisibleExistingFileCount": 989,
+      "jsTsFileCount": 141,
+      "sourceFileCount": 82,
+      "srcContentSha256": "d45f2ea46583a0ffcc221f0ca58123f780328e699b4cac04555f49941734bdea",
+      "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
+      "resolvedEdgeCount": 746,
+      "edgesByArea": {
+        "docs -> src/simulation": 25,
+        "docs -> tests": 1,
+        "scripts -> src/server": 27,
+        "scripts -> src/simulation": 26,
+        "src/client -> src/simulation": 27,
+        "src/client -> src/client": 21,
+        "src/server -> src/simulation": 41,
+        "src/server -> src/server": 28,
+        "src/simulation -> src/simulation": 260,
+        "tests -> src/simulation": 200,
+        "tests -> tests": 34,
+        "tests -> src/server": 56
+      },
+      "missingImports": [],
+      "missingAssets": [],
+      "nonliteralLoads": [
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+        },
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+        }
+      ],
+      "layerViolations": [],
+      "simulationEnvironmentImports": [],
+      "localMarkdownLinksChecked": 647,
+      "missingMarkdownLinks": []
+    }
+  },
+  "separatePlannedDemandDiagnostic": {
+    "evidence": "../research/contact-motion-2026-10-09.json",
+    "field": "plannedDemandDiagnostic",
+    "privateResultSha256": "5fc26d0434422846cf394fea5640ca1415f0c54ec70a5fc5c0b3ff82d19d361c",
+    "status": "Confirmed on unchanged source; correction not implemented or deployed",
+    "pairs": 4,
+    "quarterHourCalls": 8,
+    "accountingGuardsPassed": 935,
+    "historicalMortalityShareEstablished": false
+  }
+}

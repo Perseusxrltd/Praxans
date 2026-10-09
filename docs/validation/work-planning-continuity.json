@@ -1,0 +1,159 @@
+{
+  "release": {
+    "protocol": 1,
+    "release": "work-planning-20261008-2",
+    "notes": "Feasible remembered construction alternatives and conditional work selection retain urgent subsistence; bounded private validation protects hotfix headroom. Existing law, matter, people and clock remain intact.",
+    "sha256": "05af5a6275f6ab8430a1d848983cc4007922a7c2c6bcf519ca8dd18baa656d2d",
+    "dependencies": "0ca3efac2e32e64895e4f395f1919a966af1b18b017c12aaa088b491f2f0022e",
+    "nodeMajor": 22
+  },
+  "activatedAtUTC": "2026-10-08T19:42:59.288Z",
+  "activationTick": 290260,
+  "backup": {
+    "tick": 289492,
+    "people": 0,
+    "format": 9,
+    "laws": "biosphere-1.3",
+    "bytes": 225030144,
+    "sha256": "4beed425fdc4ba9b4bd70d84b1054977a88571caff72be30582df7dd28681811",
+    "integrity": "ok",
+    "checksums": "valid"
+  },
+  "compressedBackup": {
+    "bytes": 60726136,
+    "sha256": "31686c85a8484253dab5499d9a35be875e6add3afaa2ab201cd0ebb5183ba197"
+  },
+  "live": {
+    "at": "2026-10-08T19:45:48.272Z",
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "tick": 291060,
+      "format": 9,
+      "laws": "biosphere-1.3",
+      "people": 0,
+      "births": 407,
+      "deaths": 1639
+    },
+    "clock": {
+      "tick": 291060,
+      "wall_ms": 1791465205340
+    },
+    "clockPreserved": true,
+    "regions": 38,
+    "pending": false
+  },
+  "retained": {
+    "sessions": 17,
+    "agents": 1,
+    "receipts": 3,
+    "priorJournalRows": 69838,
+    "archives": [
+      {
+        "id": "008-material-memory-and-agency",
+        "sha256": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb"
+      },
+      {
+        "id": "009-human-thermal-and-distance-balance",
+        "sha256": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164"
+      }
+    ],
+    "oneReleaseWithEqualBoundaryChecksums": true,
+    "physicalRenewalRecords": 1
+  },
+  "validation": {
+    "modelServer": 121,
+    "browser": 40,
+    "production": 12,
+    "hotfix": 21,
+    "targetedLifecycle": 12,
+    "inhabitedBackupHandover": 12,
+    "effectiveValidationHeapBytes": 226492416
+  },
+  "inhabitedBackupHandover": {
+    "checks": [
+      "the copied world contains the original four communities and their first born generation",
+      "the real-world candidate uses an effective validation heap below 224 MiB",
+      "the exact compatible work-planning artifact replaces the worker through the continuing gateway",
+      "the same compressed observer connection continues across the work correction",
+      "advice remains available while the real clock debt is retained",
+      "all prior inhabitants including infants and each community identity survive this bounded handover",
+      "clock debt is retained exactly",
+      "ownership, agent keys, receipts and every earlier event remain unchanged",
+      "both old law archives remain unchanged without a new migration",
+      "one release is recorded with equal boundary checksums",
+      "the physical intervention remains recorded exactly once",
+      "restart retains existing people and new census changes match ordinary births and deaths"
+    ],
+    "snapshots": 2,
+    "compactSnapshots": 2,
+    "frames": 15,
+    "lastTick": 228500,
+    "fault": null,
+    "activation": {
+      "release": "work-planning-20261008-2",
+      "type": "preflight",
+      "id": "praxans-world",
+      "seed": 1847,
+      "sourceTick": 228436,
+      "tick": 228468,
+      "format": 9,
+      "laws": "biosphere-1.3",
+      "validationHeapLimitBytes": 226492416,
+      "resumedTick": 228500
+    },
+    "restarted": {
+      "tick": 228510,
+      "people": 1441,
+      "births": 241,
+      "deaths": 32,
+      "format": 9,
+      "laws": "biosphere-1.3"
+    },
+    "memoryScope": "sampled parent plus direct child RSS in a local test, not live cgroup peak"
+  },
+  "externalStream": {
+    "summary": {
+      "at": "2026-10-08T19:45:16.186Z",
+      "event": "summary",
+      "snapshots": 3,
+      "frames": 75,
+      "firstTick": 290068,
+      "lastTick": 290840,
+      "bytes": 307216384,
+      "closedBeforeStop": false
+    },
+    "exceptions": [
+      {
+        "at": "2026-10-08T19:43:04.002Z",
+        "event": "fault",
+        "tick": null,
+        "snapshots": 2,
+        "frames": 20
+      },
+      {
+        "at": "2026-10-08T19:43:18.438Z",
+        "event": "backward-tick",
+        "lastTick": 290284,
+        "tick": 290260
+      }
+    ]
+  },
+  "operationalIncident": {
+    "atUTC": "2026-10-08T19:42:54.836614317Z",
+    "runtime": "advisor-recovery-20261008-2",
+    "error": "SQLITE_FULL during candidate copy while old runtime continued writing",
+    "initialAvailableBytes": 174792704,
+    "observedTickBefore": 290284,
+    "resumedSavedTick": 290260,
+    "visibleRepeatTicks": 24,
+    "laterHealthySavedTick": 291060,
+    "newOOMKills": 0,
+    "conclusion": "The external connection stayed open, but this was not fault-free or monotonic handover. More than one save accumulated behind the candidate reader; heap limits and a small starting WAL do not bound active log growth."
+  },
+  "limitations": [
+    "The live journal check verifies prior row count, not a second full content hash; the independently verified backup and disposable handover provide separate complete-data checks.",
+    "All four populations were already extinct before this update. No restoration or new law migration occurred.",
+    "Candidate memory limits do not bound all native memory or active WAL. Capacity-safe copy/persistence remains required."
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-10-07T19:01:29.936Z",
+  "backupSha256": "d060fab333a11547c4bc499f7843e652418a488bf457a0ba21561a5cbfb902a2",
+  "regions": 38,
+  "forwardTicks": 32,
+  "stateChecksum": "f3585871e8028e13869bdd6ae60e3c344b970bd60664c7389a63b1a2eb405647",
+  "beforeMs": 8254.718161,
+  "afterMs": 6054.56952,
+  "speedup": 1.3633864692993072,
+  "scope": "One local 32-tick comparison including validation; exact serialized world state matches, not a general hosting capacity claim."
+}

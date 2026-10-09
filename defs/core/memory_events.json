@@ -1,0 +1,304 @@
+{
+    "MemoryEventDef": [
+        {
+            "id": "birth",
+            "base_weight": 8,
+            "personality_factor": null,
+            "label": "Born"
+        },
+        {
+            "id": "partnership",
+            "base_weight": 7,
+            "personality_factor": "sociability",
+            "label": "Found a Partner"
+        },
+        {
+            "id": "parenthood",
+            "base_weight": 7,
+            "personality_factor": "sociability",
+            "label": "Became a Parent"
+        },
+        {
+            "id": "grief",
+            "base_weight": 9,
+            "personality_factor": "sociability",
+            "label": "Lost Someone"
+        },
+        {
+            "id": "friendship",
+            "base_weight": 5,
+            "personality_factor": "sociability",
+            "label": "Made a Friend"
+        },
+        {
+            "id": "rivalry",
+            "base_weight": 4,
+            "personality_factor": null,
+            "label": "Gained a Rival"
+        },
+        {
+            "id": "mental_break",
+            "base_weight": 6,
+            "personality_factor": null,
+            "label": "Had a Breakdown"
+        },
+        {
+            "id": "discovery",
+            "base_weight": 4,
+            "personality_factor": "curiosity",
+            "label": "Discovered Something"
+        },
+        {
+            "id": "masterwork",
+            "base_weight": 7,
+            "personality_factor": "diligence",
+            "label": "Created a Masterwork"
+        },
+        {
+            "id": "combat_wound",
+            "base_weight": 5,
+            "personality_factor": null,
+            "label": "Was Wounded"
+        },
+        {
+            "id": "building",
+            "base_weight": 3,
+            "personality_factor": "diligence",
+            "label": "Built Something"
+        },
+        {
+            "id": "migration",
+            "base_weight": 6,
+            "personality_factor": "curiosity",
+            "label": "Migrated"
+        },
+        {
+            "id": "near_death",
+            "base_weight": 8,
+            "personality_factor": null,
+            "label": "Nearly Died"
+        },
+        {
+            "id": "faction_change",
+            "base_weight": 5,
+            "personality_factor": null,
+            "label": "Changed Faction"
+        },
+        {
+            "id": "disease_contracted",
+            "base_weight": 4,
+            "personality_factor": null,
+            "label": "Fell Ill"
+        },
+        {
+            "id": "disease_recovered",
+            "base_weight": 5,
+            "personality_factor": null,
+            "label": "Recovered from Illness"
+        },
+        {
+            "id": "survived_epidemic",
+            "base_weight": 7,
+            "personality_factor": null,
+            "label": "Survived an Epidemic"
+        },
+        {
+            "id": "ritual_attended",
+            "base_weight": 4,
+            "personality_factor": "sociability",
+            "label": "Attended a Ritual"
+        },
+        {
+            "id": "became_luminary",
+            "base_weight": 7,
+            "personality_factor": "sociability",
+            "label": "Became a Luminary"
+        },
+        {
+            "id": "became_outcast",
+            "base_weight": 6,
+            "personality_factor": null,
+            "label": "Became an Outcast"
+        },
+        {
+            "id": "reputation_milestone",
+            "base_weight": 4,
+            "personality_factor": "sociability",
+            "label": "Reputation Changed"
+        },
+        {
+            "id": "aspiration_assigned",
+            "base_weight": 3,
+            "personality_factor": "curiosity",
+            "label": "Set a Life Goal"
+        },
+        {
+            "id": "aspiration_achieved",
+            "base_weight": 8,
+            "personality_factor": "diligence",
+            "label": "Achieved a Life Goal"
+        },
+        {
+            "id": "aspiration_failed",
+            "base_weight": 5,
+            "personality_factor": null,
+            "label": "Failed a Life Goal"
+        },
+        {
+            "id": "aspiration_progress",
+            "base_weight": 3,
+            "personality_factor": "diligence",
+            "label": "Made Progress on Goal"
+        },
+        {
+            "id": "raid_defended",
+            "base_weight": 7,
+            "personality_factor": null,
+            "label": "Defended Against a Raid"
+        },
+        {
+            "id": "raid_participated",
+            "base_weight": 6,
+            "personality_factor": null,
+            "label": "Fought in a Raid"
+        },
+        {
+            "id": "comrade_fell_in_battle",
+            "base_weight": 8,
+            "personality_factor": "sociability",
+            "label": "Lost a Comrade in Battle"
+        },
+        {
+            "id": "battle_wound",
+            "base_weight": 5,
+            "personality_factor": null,
+            "label": "Wounded in Battle"
+        },
+        {
+            "id": "colony_raided",
+            "base_weight": 7,
+            "personality_factor": null,
+            "label": "Colony Was Raided"
+        },
+        {
+            "id": "mentorship_began",
+            "base_weight": 5,
+            "personality_factor": "diligence",
+            "label": "Began a Mentorship"
+        },
+        {
+            "id": "mentorship_graduated",
+            "base_weight": 7,
+            "personality_factor": "diligence",
+            "label": "Graduated from Mentorship"
+        },
+        {
+            "id": "mentored_graduate",
+            "base_weight": 7,
+            "personality_factor": "sociability",
+            "label": "Trained a Graduate"
+        },
+        {
+            "id": "mentorship_broken",
+            "base_weight": 4,
+            "personality_factor": null,
+            "label": "Mentorship Ended"
+        },
+        {
+            "id": "personality_curiosity_grew",
+            "base_weight": 4,
+            "personality_factor": "curiosity",
+            "label": "Curiosity Grew"
+        },
+        {
+            "id": "personality_curiosity_faded",
+            "base_weight": 4,
+            "personality_factor": "curiosity",
+            "label": "Curiosity Faded"
+        },
+        {
+            "id": "personality_sociability_grew",
+            "base_weight": 4,
+            "personality_factor": "sociability",
+            "label": "Became More Social"
+        },
+        {
+            "id": "personality_sociability_faded",
+            "base_weight": 4,
+            "personality_factor": "sociability",
+            "label": "Became More Withdrawn"
+        },
+        {
+            "id": "personality_diligence_grew",
+            "base_weight": 4,
+            "personality_factor": "diligence",
+            "label": "Drive Strengthened"
+        },
+        {
+            "id": "personality_diligence_faded",
+            "base_weight": 4,
+            "personality_factor": "diligence",
+            "label": "Drive Weakened"
+        },
+        {
+            "id": "heirloom_created",
+            "base_weight": 7,
+            "personality_factor": "diligence",
+            "label": "Created an Heirloom"
+        },
+        {
+            "id": "heirloom_received",
+            "base_weight": 6,
+            "personality_factor": "sociability",
+            "label": "Received an Heirloom"
+        },
+        {
+            "id": "heirloom_inherited",
+            "base_weight": 7,
+            "personality_factor": "sociability",
+            "label": "Inherited a Family Heirloom"
+        },
+        {
+            "id": "heirloom_lost",
+            "base_weight": 6,
+            "personality_factor": null,
+            "label": "Lost an Heirloom"
+        },
+        {
+            "id": "heirloom_became_relic",
+            "base_weight": 8,
+            "personality_factor": "sociability",
+            "label": "Heirloom Declared Faction Relic"
+        },
+        {
+            "id": "edict_issued",
+            "base_weight": 5,
+            "personality_factor": null,
+            "label": "Lived Under Edict"
+        },
+        {
+            "id": "edict_festival",
+            "base_weight": 6,
+            "personality_factor": "sociability",
+            "label": "Celebrated a Festival Decree"
+        },
+        {
+            "id": "edict_martial_law",
+            "base_weight": 7,
+            "personality_factor": "bravery",
+            "label": "Endured Martial Law"
+        },
+        {
+            "id": "legendary_deed",
+            "base_weight": 8,
+            "personality_factor": "diligence",
+            "label": "Achieved a Legendary Deed"
+        },
+        {
+            "id": "legend_status",
+            "base_weight": 9,
+            "personality_factor": "sociability",
+            "label": "Became a Living Legend"
+        }
+    ]
+}

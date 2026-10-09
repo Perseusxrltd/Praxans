@@ -1,0 +1,329 @@
+{
+  "schema_version": 1,
+  "updated_on": "2026-10-08",
+  "inspected_at_utc": "2026-10-08T13:56:57.002927+00:00",
+  "memo": "scaling-and-open-endedness.md",
+  "source_register": "source-register.json",
+  "source_ids": ["A04", "A07", "A09"],
+  "scope": "Read-only source review and arithmetic; no host connection, live read, runtime edit, simulated time advance or load trial. Source fingerprints describe the developing working tree, not proven deployment.",
+  "source_fingerprints": [
+    {
+      "path": "src/server/app.ts",
+      "sha256": "7448cccfa273b9825991a7beb1d1743179d0c9225c825e7cb411b8ee8dfcdfce"
+    },
+    {
+      "path": "src/server/observer.ts",
+      "sha256": "5ee9f99a80fc413438ede9e560fd5affa85777c302f0c2b923bd9c384e8042ed"
+    },
+    {
+      "path": "src/server/atlas.ts",
+      "sha256": "f5b4615661eae6e2f3e73095b24d58a610a04c144b0295caa70afba64d8383f4"
+    },
+    {
+      "path": "src/server/preflight.ts",
+      "sha256": "46aa287dcf01ed63e521f403d88462f1bebc65e05d13d927be158b7ed283ce4c"
+    },
+    {
+      "path": "src/server/store.ts",
+      "sha256": "5e56dcf5926a40ef742bb1973d8a4c9bac5140d5a6a4af6c33071768cecbdbf5"
+    },
+    {
+      "path": "src/server/schema.ts",
+      "sha256": "3343d25a78ea569ae8d408a6dcfed892c2326e448fbe5706be975ef4e62b0cac"
+    },
+    {
+      "path": "src/client/main.tsx",
+      "sha256": "9523614471ac686ff9e23478fd29191c04d18e35873a0777a24a3ebfbe27a882"
+    },
+    {
+      "path": "src/client/PlanetWelcome.tsx",
+      "sha256": "e5b3b71990edc74b4dd770cb933da000c30d253a0df755b52d8a3cea5ce9fbf4"
+    },
+    {
+      "path": "src/simulation/types.ts",
+      "sha256": "5a997888179b34e385b08e2fe8675483f1f3e4860d9b7ee8187ff160a2694bc2"
+    },
+    {
+      "path": "src/simulation/terrain.ts",
+      "sha256": "d010933a49455d945e3ddfad20d80c60cac6624ed5397aed3bab9b232e9a551b"
+    },
+    {
+      "path": "src/simulation/world.ts",
+      "sha256": "d346c84217a952f14794ae747aeb1672f5f2b15a2f454e06a1ffa99f0c063473"
+    },
+    {
+      "path": "src/simulation/engine.ts",
+      "sha256": "bed898148082350fada773d56668aaf75238ed167004ba0cbe376da02d8b48a8"
+    },
+    {
+      "path": "src/simulation/citizens.ts",
+      "sha256": "f267959787ea754b60bbaf296a4e2dca5e7f982e174f44984292913bf0c2fd0a"
+    },
+    {
+      "path": "src/simulation/cognition.ts",
+      "sha256": "e6da762851f1373cc15af1b295a63b07c8f0da6de0bbbfa7775f6b3b693ef45a"
+    },
+    {
+      "path": "src/simulation/diplomacy.ts",
+      "sha256": "f185f73563e207930178eb097aad64121c431c49805812d196eb340748df45ae"
+    },
+    {
+      "path": "src/simulation/society.ts",
+      "sha256": "774e3eb222f56380c3f461fc12ea7e754749a8a7c1497a97f50134bf7795421d"
+    },
+    {
+      "path": "src/simulation/progress.ts",
+      "sha256": "ddbc95da6640f91bb359468fb5d2ab2addf2cdc313586d3d4aae85c9d77c3007"
+    },
+    {
+      "path": "src/simulation/settlement.ts",
+      "sha256": "6e9e72c7f3f7394edd10204caefaa32af6a9b2ca4614ad85ef76d13bf2c8af91"
+    },
+    {
+      "path": "src/simulation/movement.ts",
+      "sha256": "915973703e927479acd5dd21beefdefcaaeeab3f3c6a5430338aaba5851d726a"
+    },
+    {
+      "path": "src/simulation/economy.ts",
+      "sha256": "10f6a6f99f7668b8b7abbc3c3a55b203305573a73bd91d6be1568d5e5a5ce8ae"
+    },
+    {
+      "path": "src/simulation/geometry.ts",
+      "sha256": "bfaec32d5ae35fdaa63df8c9ad6af600aa651e89d04e66d502c4ca37eb6bd5ac"
+    },
+    {
+      "path": "tests/web/observer.test.ts",
+      "sha256": "80e2f26d679ac22bcf20deb75c0cc9fb96220970c905a8a7a8bb8741b3f29823"
+    }
+  ],
+  "parent_supplied_operational_evidence": [
+    {
+      "claim": "One finite renewal is active with 1,200 new inhabitants.",
+      "classification": "parent_report_not_independently_verified",
+      "population": 1200,
+      "reported_memory_limit": "1 GB",
+      "reported_volume_limit": "500 MB",
+      "unit_note": "Capacity labels are retained as reported; this memo does not assume decimal or binary provider units."
+    },
+    {
+      "claim": "A large live read-only audit triggered an OOM restart.",
+      "classification": "parent_report_not_reproduced",
+      "inference_limit": "No peak-memory trace or isolated allocation cause was independently measured by research."
+    },
+    {
+      "claim": "A compressed backup exhausted the volume until cleanup/recovery.",
+      "classification": "parent_report_not_reproduced",
+      "inference_limit": "No host disk operation or current capacity probe was performed by research."
+    }
+  ],
+  "implemented_in_inspected_tree": {
+    "overview_poll_ms": 5000,
+    "shared_overview_cache_ms": 1000,
+    "detailed_stream_after_surface_entry": true,
+    "observer_citizen_removed_mind_fields": [
+      "synapses",
+      "pending",
+      "activations",
+      "resource details in places"
+    ],
+    "observer_seed_fields_retained": ["carbon", "mineral", "lineage", "layer"],
+    "atlas_preview": [256, 128],
+    "atlas_full": [1024, 512],
+    "atlas_raw_bytes": {
+      "preview": 131072,
+      "full": 2097152
+    },
+    "atlas_work_yields": "Every 8 generation rows and 32 filtering rows; still the server event loop.",
+    "preflight_reduction": "SQL identity projection, one parsed candidate world, no redundant private rollback clone/archive.",
+    "all_saved_regions_loaded": true,
+    "detailed_frames_include_global_entities": true,
+    "stream_count_cap": 100,
+    "per_stream_writable_backpressure_bytes": 4194304
+  },
+  "scaling_counterexamples": {
+    "contact_candidate_pair_bounds": [
+      {
+        "population": 1200,
+        "pairs": 719400
+      },
+      {
+        "population": 12000,
+        "pairs": 71994000
+      },
+      {
+        "population": 120000,
+        "pairs": 7199940000
+      }
+    ],
+    "pair_scope": "Upper bound of current hourly loop with all participants awake/non-journey; early conditions and density affect actual work. No elapsed time inferred.",
+    "full_rest_adult_ground_metres_per_tick": 450.0,
+    "region_projected_side_metres": 320,
+    "region_area_m2": 102400,
+    "local_assembly_radius_projected_metres": 30,
+    "minimum_institution_quorum_fraction": 0.5,
+    "assembly_scope": "Radius remains in projected cells, while quorum counts all qualifying adults of the civilization."
+  },
+  "proposed_acceptance_budgets": {
+    "classification": "untested_engineering_targets_not_physical_laws_or_capacity_guarantees",
+    "overview_decoded_bytes": 65536,
+    "overview_markers_per_page": 256,
+    "detail_page_decoded_bytes": 1048576,
+    "routine_delta_decoded_bytes": 131072,
+    "local_view_remote_population_multiplier": 10,
+    "maximum_local_projection_cost_and_bytes_growth_fraction": 0.1,
+    "steady_accounted_memory_limit_fraction": 0.7,
+    "peak_accounted_memory_limit_fraction": 0.85,
+    "volume_reserve_fraction": 0.2,
+    "disk_admission_rule": "Free bytes exceed full operation output plus observed worst WAL/scratch growth plus reserve; compression does not remove the source or temporary copy cost.",
+    "disposable_load_duration_minutes": 30,
+    "mean_complete_tick_ms": 175,
+    "target_wall_tick_ms": 250,
+    "event_loop_delay_p99_ms": 100,
+    "health_latency_target_ms": 1000,
+    "population_ladder": [1200, 12000, 120000],
+    "observer_ladder": [0, 1, 20, 100],
+    "further_scale_promotion": "Proceed only after prior tier passes on declared hardware; no claim about a million or more entities from this memo."
+  },
+  "conservation_contract": [
+    "A region or coarse pool has one spatial owner, area/volume/depth scope, tick and revision.",
+    "Cross-boundary stock, heat, movement and information transactions apply once; neighbor copies own no duplicate inventory.",
+    "Existing named people retain identity, kinship and knowledge carriers; no anonymous replacement on zoom.",
+    "Fine/coarse conversion partitions/recombines integer counts and extensive material/energy pools; temperature and averages are not inventories.",
+    "Materialization presently imports explicit boundary inventory; it is not refinement of an existing coarse ecosystem.",
+    "RNG/update-order changes require explicit versioning and declared replay/statistical acceptance criteria.",
+    "Unobserved state continues aging and acting; the camera never determines physical chronology."
+  ],
+  "open_endedness_contract": [
+    "Recipes are subsequent descriptions of discovered operations/evidence, not effect grants or unlocks.",
+    "Larger creations need local physical connections and paid material/work, not only a larger cuboid cap.",
+    "Institutions require actual holders, communication, resources and scoped authorization/enforcement; names do not create authority.",
+    "Knowledge copying and loss need carriers; global index eviction cannot erase every retained account."
+  ],
+  "candidate_links": [
+    "R13",
+    "R14",
+    "R15",
+    "R16",
+    "R18",
+    "R19",
+    "R20",
+    "R09",
+    "R10",
+    "R23"
+  ],
+  "validation": {
+    "validated_at_utc": "2026-10-08T13:58:17.322796+00:00",
+    "json_files": 8,
+    "source_ids": 27,
+    "candidate_ids": 24,
+    "research_local_links": 106,
+    "heading_fragments": 3,
+    "dependency_graph": "pass",
+    "recorded_arithmetic": "pass",
+    "source_paths": "pass",
+    "load_tests_executed": false
+  },
+  "structural_scan": {
+    "inspected_at_utc": "2026-10-08T13:58:13.154Z",
+    "baseCommit": "1a492d9496c1b78b29112c9c32a3221112dce4dc",
+    "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+    "gitVisibleExistingFileCount": 874,
+    "jsTsFileCount": 112,
+    "sourceFileCount": 73,
+    "srcContentSha256": "430622dc19e8a87c7bdde1631e0d9e13a38d7a718ab165b51b16c995c36019ee",
+    "resolvedEdgeCount": 554,
+    "edgesByArea": {
+      "docs -> src/simulation": 8,
+      "scripts -> src/server": 18,
+      "scripts -> src/simulation": 24,
+      "src/client -> src/simulation": 27,
+      "src/client -> src/client": 21,
+      "src/server -> src/simulation": 40,
+      "src/server -> src/server": 18,
+      "src/simulation -> src/simulation": 233,
+      "tests -> src/simulation": 117,
+      "tests -> tests": 23,
+      "tests -> src/server": 25
+    },
+    "missingImports": [],
+    "missingAssets": [],
+    "nonliteralLoads": [],
+    "layerViolations": [],
+    "simulationEnvironmentImports": [],
+    "localMarkdownLinksChecked": 194,
+    "missingMarkdownLinks": []
+  },
+  "follow_up_measurement": {
+    "record": "restored-world-cpu-profile.json",
+    "recorded_at_utc": "2026-10-08T14:04:31.155Z",
+    "scope": "Independent 64-tick simulation-only CPU profile on a temporary copy of the 1,200-person/38-region backup; original source unchanged. No daily boundary, populated fauna, save, observer, rendering or live-host measurement.",
+    "immediate_priority": "The profile identifies costly chemistry/weather work. The first combined constant/iteration candidate was slower and reverted; future changes need fresh discriminating measurements. Quadratic scan growth remains unresolved.",
+    "observer_release_status": "Parent subsequently reports the observer-loading fix live; research did not access the host."
+  },
+  "parent_reported_release_update": {
+    "reported_on": "2026-10-08",
+    "provenance": "Parent agent; research performed no host read or deployment.",
+    "renewal_tick": 195860,
+    "new_adults": 1200,
+    "original_communities": 4,
+    "historical_deaths_retained": true,
+    "runtime_release": "observer-scaling-20261008",
+    "runtime_active_since_utc": "2026-10-08T14:02:00Z",
+    "active_since_precision": "minute",
+    "world_format": 9,
+    "laws": "biosphere-1.3",
+    "explorer_deployment_status": "READY",
+    "seamless_continuity_claimed": false,
+    "continuity_limits": ["Disk-full incidents", "Memory restart"],
+    "current_parent_work": "Repairing advisory submissions during actual clock debt."
+  },
+  "candidate_performance_follow_up": {
+    "reviewed_at_utc": "2026-10-08T14:32:25.991738+00:00",
+    "record": "restored-world-cpu-profile.json",
+    "candidate": "Four molar constants plus Object.keys sediment iteration",
+    "disposition": "Exact 64-tick serialized endpoints but slower in both orders; entire candidate reverted and will not be deployed.",
+    "sequential_orders": [
+      {
+        "order": ["before", "candidate"],
+        "before_elapsed_ms": 15297.101005999999,
+        "candidate_elapsed_ms": 17000.652759,
+        "reports": ["observer-perf-before.json", "observer-perf-after.json"]
+      },
+      {
+        "order": ["candidate", "before"],
+        "before_elapsed_ms": 18156.240385,
+        "candidate_elapsed_ms": 27129.885653,
+        "reports": [
+          "observer-perf-after-repeat.json",
+          "observer-perf-before-repeat.json"
+        ]
+      }
+    ],
+    "limitations": "Noisy descriptive combined-change timings; no isolated causality or production-capacity proof."
+  },
+  "parent_reported_advisory_wal_preparation": {
+    "recorded_at_utc": "2026-10-08T14:32:25.991738+00:00",
+    "provenance": "Parent report; research did not read the host or fresh backup.",
+    "candidate_active": false,
+    "candidate_scope": [
+      "Stage advisory changes without full-world cloning",
+      "Accept proposals at the current logical tick during backlog",
+      "16 MiB retained-WAL limit"
+    ],
+    "retained_wal_limit_bytes": 16777216,
+    "wal_limit_scope": "Reusable checkpointed WAL retention; active transactions/readers can cause WAL to exceed this size. Not a hard active disk-use ceiling.",
+    "fresh_backup": {
+      "tick": 204116,
+      "people": 1200,
+      "reported_raw_sha256": "197178de84dea08cf5055b599acc5f0896fc927a6a730bf6b418153bad551968",
+      "source_directory": "/tmp",
+      "transfer": "Direct from /tmp; no backup file occupied /data.",
+      "research_independently_validated": false
+    },
+    "remaining_limits": [
+      "Prepared candidate is not evidence of activation.",
+      "Off-volume backup transfer does not bound active database/WAL growth.",
+      "Prior disk-full incidents and memory restart preclude seamless-continuity claims."
+    ]
+  }
+}

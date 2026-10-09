@@ -1,0 +1,301 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUTC": "2026-10-08T20:16:41.369525+00:00",
+  "method": "Closed-form source arithmetic; no simulation, saved world, database, host or Git access. State-independent comparisons do not predict historical death times.",
+  "sourceFingerprints": [
+    {
+      "path": "src/simulation/types.ts",
+      "sha256": "5a997888179b34e385b08e2fe8675483f1f3e4860d9b7ee8187ff160a2694bc2"
+    },
+    {
+      "path": "src/simulation/content.ts",
+      "sha256": "22cf13ee58c69f41a94bb31bdd7e78c16f1f1764a5e5aea63de5cdfcbedf39f3"
+    },
+    {
+      "path": "src/simulation/laws.ts",
+      "sha256": "9f9ac36bfa087cf0919d6ded6e1356f840898be35648c8fd6484ee9ac3b02318"
+    },
+    {
+      "path": "src/simulation/chemistry.ts",
+      "sha256": "b7fd7b97336f98923bed95fc009a734485426296d176f87a63fa0357f3977a05"
+    },
+    {
+      "path": "src/simulation/citizens.ts",
+      "sha256": "f18a906bdef37abd4d6fab69b2d45f2a3240e0da22a38499bf32d74e12826f32"
+    },
+    {
+      "path": "src/simulation/physiology.ts",
+      "sha256": "f42014137c544f7e726411cee66b5e3967e2f0a491f4af8be80dca15ada4bed3"
+    },
+    {
+      "path": "src/simulation/weathering.ts",
+      "sha256": "2c4819d2601c4f1e863e094c3a2bbf3da7bca26610e1d8709409ef8d5ceb7bb7"
+    },
+    {
+      "path": "src/simulation/subsistence.ts",
+      "sha256": "c128acc69066bcb8e8d4ec4457bea81370962b66517dc858c27be9cd6884e123"
+    },
+    {
+      "path": "src/simulation/engine.ts",
+      "sha256": "6e742bb7be153861a8b0f59d74abf5a2353d9fab7332456a37bb460ec856fed1"
+    }
+  ],
+  "units": {
+    "simulatedHoursPerTick": 0.25,
+    "ticksPerSimulatedDay": 96,
+    "nourishmentAndPersonalEnergy": "dimensionless 0\u2013100 indicators; personal energy is a rest/fatigue indicator, not kJ",
+    "bodyAndFood": "kg of an effective 94% organic/6% mineral material; hydration is separate; not anatomical fat or fresh-food mass",
+    "chemicalKJPerKgOrganic": 17000,
+    "chemicalKJPerKgFoodOrBody": 15980.0,
+    "chemicalKcalPerKgFoodOrBodyUsing4_184KJPerKcal": 3819.3116634799235
+  },
+  "isolatedLowHungerGate": {
+    "assumptions": "Starts below 12 nourishment at 100 health; enough oxygen and body substrate; no feeding, thermal/disease/dehydration injury, recovery or other processes. Only the low-hunger subtraction is counted.",
+    "healthLostPerHour": 1.15,
+    "bodyCatabolismKgPerHour": 0.015,
+    "ticksToRemove100Health": 348,
+    "simulatedHoursToRemove100Health": 87.0,
+    "bodyConsumedKgOverThoseTicks": 1.305,
+    "remainingBodyKgFrom18": 16.695,
+    "remainingBodyKgFrom2": 0.6950000000000001,
+    "chemicalKJReleasedPerHourAtFullCatabolism": 239.7,
+    "equivalentChemicalWattsAtFullCatabolism": 66.58333333333333,
+    "creditedRestingWattsAt18KgBody": 110,
+    "creditedActiveWattsAt18KgBody": 160
+  },
+  "appetiteArithmetic": {
+    "restingAdult": {
+      "nourishmentPointsPerHour": 1.3,
+      "equilibriumMealKgPerDayIgnoringGrowthAndThermalFood": 0.65,
+      "meanChemicalWattsIfEntireMealRespired": 120.2199074074074,
+      "hoursToNourishment12From90ContinuousArithmetic": 60.0,
+      "hoursToNourishment12From100ContinuousArithmetic": 67.6923076923077
+    },
+    "activeAdult": {
+      "nourishmentPointsPerHour": 1.75,
+      "equilibriumMealKgPerDayIgnoringGrowthAndThermalFood": 0.875,
+      "meanChemicalWattsIfEntireMealRespired": 161.83449074074073,
+      "hoursToNourishment12From90ContinuousArithmetic": 44.57142857142857,
+      "hoursToNourishment12From100ContinuousArithmetic": 50.285714285714285
+    },
+    "child": {
+      "nourishmentPointsPerHour": 1.15,
+      "equilibriumMealKgPerDayIgnoringGrowthAndThermalFood": 0.575,
+      "meanChemicalWattsIfEntireMealRespired": 106.34837962962962,
+      "hoursToNourishment12From90ContinuousArithmetic": 67.82608695652175,
+      "hoursToNourishment12From100ContinuousArithmetic": 76.5217391304348
+    }
+  },
+  "growingChildMeanChemicalWattsAt35PercentMealRetention": 69.12644675925925,
+  "seasonalTarget": {
+    "equation": "S0 = c*expm1(k*D)/k solves dS/dt = -c-k*S with S(D)=0; zero-k limit is c*D",
+    "assumptions": "Continuous constant loss and demand, no production, accessible homogeneous stock; real source decay occurs once per day and varies by local conditions.",
+    "dailyDemandKgPerPerson": 1.6,
+    "planningLossRatePerDay": 0.006,
+    "days": 180,
+    "maximumKgPerPerson": 518.581213617473,
+    "maximumKgFor300People": 155574.36408524192,
+    "zeroLossKgPerPerson": 288.0,
+    "requiredKgForConsumptionBeforeEndOfDayDecay": 517.0270257193281,
+    "requiredKgForBeginningOfDayDecayBeforeConsumption": 520.138513001033
+  },
+  "stockDecayConditions": [
+    {
+      "temperatureC": -30,
+      "condition": "dry",
+      "thermalFactor": 0.05,
+      "lossRatePerDay": 0.00026000000000000003,
+      "fractionLostAfterOneDay": 0.000259966202929143,
+      "kgLostFrom144TonnesInOneDay": 37.43513322179659,
+      "halfLifeDaysWithoutUseOrProduction": 2665.9506944613277,
+      "fractionRemainingAfter180DaysWithoutUseOrProduction": 0.9542782341529094,
+      "constantConditionInitialReserveKgFor1_6KgDailyFor180Days": 294.8455731623536
+    },
+    {
+      "temperatureC": -30,
+      "condition": "dampUnprotected",
+      "thermalFactor": 0.05,
+      "lossRatePerDay": 0.00045999999999999996,
+      "fractionLostAfterOneDay": 0.0004598942162208012,
+      "kgLostFrom144TonnesInOneDay": 66.22476713579537,
+      "halfLifeDaysWithoutUseOrProduction": 1506.8416968694464,
+      "fractionRemainingAfter180DaysWithoutUseOrProduction": 0.9205352358578188,
+      "constantConditionInitialReserveKgFor1_6KgDailyFor180Days": 300.25920666405545
+    },
+    {
+      "temperatureC": -30,
+      "condition": "dampFullyProtected",
+      "thermalFactor": 0.05,
+      "lossRatePerDay": 0.0003400000000000001,
+      "fractionLostAfterOneDay": 0.00033994220655011,
+      "kgLostFrom144TonnesInOneDay": 48.95167774321584,
+      "halfLifeDaysWithoutUseOrProduction": 2038.6681781174857,
+      "fractionRemainingAfter180DaysWithoutUseOrProduction": 0.9406350939432649,
+      "constantConditionInitialReserveKgFor1_6KgDailyFor180Days": 296.9953657855448
+    },
+    {
+      "temperatureC": -10,
+      "condition": "dry",
+      "thermalFactor": 0.125,
+      "lossRatePerDay": 0.0006500000000000001,
+      "fractionLostAfterOneDay": 0.0006497887957633966,
+      "kgLostFrom144TonnesInOneDay": 93.5695865899291,
+      "halfLifeDaysWithoutUseOrProduction": 1066.380277784531,
+      "fractionRemainingAfter180DaysWithoutUseOrProduction": 0.8895851931634113,
+      "constantConditionInitialReserveKgFor1_6KgDailyFor180Days": 305.52475000747535
+    },
+    {
+      "temperatureC": -10,
+      "condition": "dampUnprotected",
+      "thermalFactor": 0.125,
+      "lossRatePerDay": 0.00115,
+      "fractionLostAfterOneDay": 0.001149339003406308,
+      "kgLostFrom144TonnesInOneDay": 165.50481649050838,
+      "halfLifeDaysWithoutUseOrProduction": 602.7366787477786,
+      "fractionRemainingAfter180DaysWithoutUseOrProduction": 0.813019649987571,
+      "constantConditionInitialReserveKgFor1_6KgDailyFor180Days": 319.9757520427864
+    },
+    {
+      "temperatureC": -10,
+      "condition": "dampFullyProtected",
+      "thermalFactor": 0.125,
+      "lossRatePerDay": 0.0008500000000000001,
+      "fractionLostAfterOneDay": 0.0008496388523324201,
+      "kgLostFrom144TonnesInOneDay": 122.3479947358685,
+      "halfLifeDaysWithoutUseOrProduction": 815.4672712469944,
+      "fractionRemainingAfter180DaysWithoutUseOrProduction": 0.8581297218113938,
+      "constantConditionInitialReserveKgFor1_6KgDailyFor180Days": 311.1999603628008
+    },
+    {
+      "temperatureC": 0,
+      "condition": "dry",
+      "thermalFactor": 0.25,
+      "lossRatePerDay": 0.0013000000000000002,
+      "fractionLostAfterOneDay": 0.0012991553660476936,
+      "kgLostFrom144TonnesInOneDay": 187.07837271086788,
+      "halfLifeDaysWithoutUseOrProduction": 533.1901388922655,
+      "fractionRemainingAfter180DaysWithoutUseOrProduction": 0.7913618158955839,
+      "constantConditionInitialReserveKgFor1_6KgDailyFor180Days": 324.48552887111117
+    },
+    {
+      "temperatureC": 0,
+      "condition": "dampUnprotected",
+      "thermalFactor": 0.25,
+      "lossRatePerDay": 0.0023,
+      "fractionLostAfterOneDay": 0.0022973570266678653,
+      "kgLostFrom144TonnesInOneDay": 330.8194118401726,
+      "halfLifeDaysWithoutUseOrProduction": 301.3683393738893,
+      "fractionRemainingAfter180DaysWithoutUseOrProduction": 0.6610009512659125,
+      "constantConditionInitialReserveKgFor1_6KgDailyFor180Days": 356.7701752239266
+    },
+    {
+      "temperatureC": 0,
+      "condition": "dampFullyProtected",
+      "thermalFactor": 0.25,
+      "lossRatePerDay": 0.0017000000000000001,
+      "fractionLostAfterOneDay": 0.0016985558184854476,
+      "kgLostFrom144TonnesInOneDay": 244.59203786190446,
+      "halfLifeDaysWithoutUseOrProduction": 407.7336356234972,
+      "fractionRemainingAfter180DaysWithoutUseOrProduction": 0.7363866194561001,
+      "constantConditionInitialReserveKgFor1_6KgDailyFor180Days": 336.92452380978125
+    },
+    {
+      "temperatureC": 10,
+      "condition": "dry",
+      "thermalFactor": 0.5,
+      "lossRatePerDay": 0.0026000000000000003,
+      "fractionLostAfterOneDay": 0.0025966229274302565,
+      "kgLostFrom144TonnesInOneDay": 373.91370154995695,
+      "halfLifeDaysWithoutUseOrProduction": 266.59506944613275,
+      "fractionRemainingAfter180DaysWithoutUseOrProduction": 0.6262535236575559,
+      "constantConditionInitialReserveKgFor1_6KgDailyFor180Days": 367.2599401151093
+    },
+    {
+      "temperatureC": 10,
+      "condition": "dampUnprotected",
+      "thermalFactor": 0.5,
+      "lossRatePerDay": 0.0046,
+      "fractionLostAfterOneDay": 0.00458943620402775,
+      "kgLostFrom144TonnesInOneDay": 660.878813379996,
+      "halfLifeDaysWithoutUseOrProduction": 150.68416968694464,
+      "fractionRemainingAfter180DaysWithoutUseOrProduction": 0.4369222575744412,
+      "constantConditionInitialReserveKgFor1_6KgDailyFor180Days": 448.25623873561915
+    },
+    {
+      "temperatureC": 10,
+      "condition": "dampFullyProtected",
+      "thermalFactor": 0.5,
+      "lossRatePerDay": 0.0034000000000000002,
+      "fractionLostAfterOneDay": 0.0033942265451023844,
+      "kgLostFrom144TonnesInOneDay": 488.76862249474334,
+      "halfLifeDaysWithoutUseOrProduction": 203.8668178117486,
+      "fractionRemainingAfter180DaysWithoutUseOrProduction": 0.5422652533139831,
+      "constantConditionInitialReserveKgFor1_6KgDailyFor180Days": 397.2310328927692
+    },
+    {
+      "temperatureC": 20,
+      "condition": "dry",
+      "thermalFactor": 1.0,
+      "lossRatePerDay": 0.005200000000000001,
+      "fractionLostAfterOneDay": 0.0051865034042332565,
+      "kgLostFrom144TonnesInOneDay": 746.856490209589,
+      "halfLifeDaysWithoutUseOrProduction": 133.29753472306638,
+      "fractionRemainingAfter180DaysWithoutUseOrProduction": 0.39219347589350495,
+      "constantConditionInitialReserveKgFor1_6KgDailyFor180Days": 476.84982930095924
+    },
+    {
+      "temperatureC": 20,
+      "condition": "dampUnprotected",
+      "thermalFactor": 1.0,
+      "lossRatePerDay": 0.0092,
+      "fractionLostAfterOneDay": 0.00915780948338466,
+      "kgLostFrom144TonnesInOneDay": 1318.724565607391,
+      "halfLifeDaysWithoutUseOrProduction": 75.34208484347232,
+      "fractionRemainingAfter180DaysWithoutUseOrProduction": 0.19090105916394634,
+      "constantConditionInitialReserveKgFor1_6KgDailyFor180Days": 737.0983686108879
+    },
+    {
+      "temperatureC": 20,
+      "condition": "dampFullyProtected",
+      "thermalFactor": 1.0,
+      "lossRatePerDay": 0.0068000000000000005,
+      "fractionLostAfterOneDay": 0.006776932316365291,
+      "kgLostFrom144TonnesInOneDay": 975.8782535566019,
+      "halfLifeDaysWithoutUseOrProduction": 101.9334089058743,
+      "fractionRemainingAfter180DaysWithoutUseOrProduction": 0.2940516049516783,
+      "constantConditionInitialReserveKgFor1_6KgDailyFor180Days": 564.8855572291415
+    }
+  ],
+  "thermalClamp": {
+    "coldFloorFactor": 0.05,
+    "coldFloorBeginsAtTemperatureC": -23.219280948873624,
+    "maximumWetRateReductionWithFullProtection": 0.26086956521739124,
+    "note": "These are effective assumptions, not empirical lower bounds on all food deterioration."
+  },
+  "consultedSources": [
+    {
+      "id": "F01",
+      "author": "FAO/WHO/UNU",
+      "title": "Human energy requirements, chapter 2: Principles and definitions",
+      "publicationYear": 2004,
+      "url": "https://www.fao.org/4/y5686e/y5686e04.htm",
+      "accessedOn": "2026-10-08",
+      "readScope": "Selected HTML passages from sections 2.1\u20132.4 and the energy-unit footnote; title/contents page also read.",
+      "claimType": "expert_methodological_synthesis",
+      "use": "Energy intake, expenditure and tissue deposition require distinct accounting; basal energy depends on body size/composition and state; 1 kcal = 4.184 kJ.",
+      "limits": "Healthy-population dietary guidance is not a starvation mortality curve or validation of this model's body pool, damage coefficients or normative goals. Underlying studies were not independently read."
+    },
+    {
+      "id": "F02",
+      "author": "FAO/WHO/UNU",
+      "title": "Human energy requirements, chapter 3: Energy requirements of infants from birth to 12 months",
+      "publicationYear": 2004,
+      "url": "https://www.fao.org/4/y5686e/y5686e05.htm",
+      "accessedOn": "2026-10-08",
+      "readScope": "Selected HTML passages in sections 3.1 and 3.3 on doubly labelled water, tissue synthesis/deposition and body-composition measurement; methodological limitations in section 3.4.",
+      "claimType": "expert_methodological_synthesis",
+      "use": "Measured expenditure already includes thermoregulation and tissue synthesis; stored tissue energy is added separately. Body-composition measurement determines the meaning of mass-based comparisons.",
+      "limits": "No table or equation was fitted to Praxans. The component studies, particularly their malnutrition data, were not independently read; no infant survival limit is inferred."
+    }
+  ]
+}

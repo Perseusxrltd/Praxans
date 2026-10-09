@@ -1,0 +1,996 @@
+{
+  "release": "developmental-growth-20261009-1",
+  "runtimeSha256": "3c2471d2e69d2347846a5d48c007790f6042ea86808ce91a27dd68efd83c36b4",
+  "dependenciesSha256": "0ca3efac2e32e64895e4f395f1919a966af1b18b017c12aaa088b491f2f0022e",
+  "worldVersion": 15,
+  "lawsVersion": "biosphere-1.9",
+  "storageVersion": 2,
+  "sourceContentSha256": "2183807fc5c5fdac642167826558fc64ff9706da5b91a05f74d211b519b11e99",
+  "publication": {
+    "status": "live",
+    "implementationCommit": "eae67e54b6c7ad1832b5bb24cb39104eae2eebab",
+    "activation": {
+      "at": "2026-10-09T05:47:21.678Z",
+      "event": "activation",
+      "status": 200,
+      "value": {
+        "release": "developmental-growth-20261009-1",
+        "type": "preflight",
+        "id": "praxans-world",
+        "seed": 1847,
+        "sourceTick": 450788,
+        "tick": 450820,
+        "format": 15,
+        "laws": "biosphere-1.9",
+        "validationHeapLimitBytes": 226492416,
+        "resumedTick": 450980
+      }
+    },
+    "hostMonitor": {
+      "at": "2026-10-09T05:48:22.642Z",
+      "event": "monitor-complete",
+      "startedAt": "2026-10-09T05:46:16.139Z",
+      "finishedAt": "2026-10-09T05:48:22.640Z",
+      "samples": 126,
+      "minimumAvailableBytes": 83591168,
+      "maximumWalBytes": 36087112,
+      "maximumCgroupMemoryBytes": 999899136,
+      "eventsBefore": "low 0\nhigh 0\nmax 1888\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "eventsAfter": "low 0\nhigh 0\nmax 2293\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "errors": [],
+      "status": {
+        "phase": "running",
+        "release": "developmental-growth-20261009-1",
+        "pendingRequests": 1,
+        "activeRequests": 0,
+        "observers": 1,
+        "runtimePid": 556,
+        "managedProcesses": 1,
+        "error": null
+      }
+    },
+    "savedAudit": {
+      "at": "2026-10-09T05:48:16.863Z",
+      "node": "v22.23.3",
+      "gatewaySha256": "fc3454f1f506bf84d3b3553fe32d1736780c729269801b232c079a063facebcc",
+      "runtimeSha256": "3c2471d2e69d2347846a5d48c007790f6042ea86808ce91a27dd68efd83c36b4",
+      "current": {
+        "directory": "/data/runtime/releases/developmental-growth-20261009-1-3c2471d2e69d2347"
+      },
+      "status": {
+        "phase": "running",
+        "release": "developmental-growth-20261009-1",
+        "pendingRequests": 1,
+        "activeRequests": 0,
+        "observers": 1,
+        "runtimePid": 556,
+        "managedProcesses": 1,
+        "error": null
+      },
+      "head": {
+        "checksum": "2e53fb713ed262d987c405f986e20e23597bcbf680fa02faf74912ba4f227663",
+        "tick": 451332,
+        "people": 0,
+        "births": 407,
+        "deaths": 1639,
+        "generator": "planet-1",
+        "rng": 1458260088
+      },
+      "clock": {
+        "tick": 451332,
+        "wall_ms": 1791505273340
+      },
+      "storage": 2,
+      "archives": [
+        {
+          "id": "008-material-memory-and-agency",
+          "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+          "created_at": 1791445486072
+        },
+        {
+          "id": "009-human-thermal-and-distance-balance",
+          "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+          "created_at": 1791466127552
+        },
+        {
+          "id": "010-performed-body-maintenance",
+          "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+          "created_at": 1791501484044
+        },
+        {
+          "id": "011-consumption-before-ration-pickup",
+          "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+          "created_at": 1791504160572
+        },
+        {
+          "id": "012-funded-human-metabolism",
+          "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+          "created_at": 1791508588158
+        },
+        {
+          "id": "013-local-inventory-exposure-and-access",
+          "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+          "created_at": 1791512310450
+        },
+        {
+          "id": "014-performed-local-food-handoff",
+          "checksum": "a429759388484bdef2d6048e9044c1ab5d773cbd6b3ff598f9da54dcad4b958b",
+          "created_at": 1791521109688
+        },
+        {
+          "id": "015-age-bounded-structural-growth",
+          "checksum": "fb2a929456519b7801f9af20b075c9fa5a43ce60cfbcb7792b647d378103b673",
+          "created_at": 1791524835913
+        }
+      ],
+      "communities": [
+        {
+          "id": "civ-1",
+          "foundedTick": 0,
+          "births": 84,
+          "deaths": 390,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        },
+        {
+          "id": "civ-11",
+          "foundedTick": 0,
+          "births": 93,
+          "deaths": 400,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        },
+        {
+          "id": "civ-21",
+          "foundedTick": 0,
+          "births": 96,
+          "deaths": 407,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        },
+        {
+          "id": "civ-3118",
+          "foundedTick": 10369,
+          "births": 134,
+          "deaths": 442,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        }
+      ],
+      "counts": {
+        "sessions": 27,
+        "agents": 1,
+        "receipts": 3,
+        "world_events": 70797,
+        "world_history": 4701,
+        "renewals": 1
+      },
+      "volume": {
+        "capacity": 454299648,
+        "available": 87973888,
+        "wal": 31707552
+      },
+      "memory": {
+        "events": "low 0\nhigh 0\nmax 2293\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "current": 908513280,
+        "runtimeStatus": [
+          "VmHWM:\t  485092 kB",
+          "VmRSS:\t  415404 kB",
+          "RssAnon:\t  360588 kB",
+          "RssFile:\t   54816 kB"
+        ]
+      },
+      "health": {
+        "ok": true,
+        "tick": 451340,
+        "lawsVersion": "biosphere-1.9",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 19621,
+        "simulation": "catching-up"
+      }
+    },
+    "externalObserver": {
+      "startedAt": "2026-10-09T05:45:55.764Z",
+      "finishedAt": "2026-10-09T05:50:14.776Z",
+      "snapshots": 4,
+      "frames": 134,
+      "firstTick": 450704,
+      "lastTick": 452096,
+      "streamEnded": false,
+      "regressions": [],
+      "faults": [],
+      "healthSamples": [
+        {
+          "at": "2026-10-09T05:45:56.909Z",
+          "status": 200,
+          "ok": true,
+          "tick": 450708,
+          "lawsVersion": "biosphere-1.8",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19641,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T05:46:09.260Z",
+          "status": 200,
+          "ok": true,
+          "tick": 450764,
+          "lawsVersion": "biosphere-1.8",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19638,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T05:46:20.330Z",
+          "status": 200,
+          "ok": true,
+          "tick": 450820,
+          "lawsVersion": "biosphere-1.8",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19636,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T05:46:31.643Z",
+          "status": 200,
+          "ok": true,
+          "tick": 450884,
+          "lawsVersion": "biosphere-1.8",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19632,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T05:46:46.346Z",
+          "status": 200,
+          "ok": true,
+          "tick": 450948,
+          "lawsVersion": "biosphere-1.8",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19629,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T05:46:56.527Z",
+          "status": 503,
+          "ok": false,
+          "persistent": true,
+          "acceptingProposals": false,
+          "simulation": "updating"
+        },
+        {
+          "at": "2026-10-09T05:47:06.671Z",
+          "status": 503,
+          "ok": false,
+          "persistent": true,
+          "acceptingProposals": false,
+          "simulation": "updating"
+        },
+        {
+          "at": "2026-10-09T05:47:19.280Z",
+          "status": 503,
+          "ok": false,
+          "persistent": true,
+          "acceptingProposals": false,
+          "simulation": "updating"
+        },
+        {
+          "at": "2026-10-09T05:47:31.702Z",
+          "status": 200,
+          "ok": true,
+          "tick": 451044,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19651,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T05:47:41.992Z",
+          "status": 200,
+          "ok": true,
+          "tick": 451124,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19642,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T05:47:54.707Z",
+          "status": 200,
+          "ok": true,
+          "tick": 451200,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19634,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T05:48:06.078Z",
+          "status": 200,
+          "ok": true,
+          "tick": 451268,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19630,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T05:48:16.619Z",
+          "status": 200,
+          "ok": true,
+          "tick": 451360,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19618,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T05:48:30.701Z",
+          "status": 200,
+          "ok": true,
+          "tick": 451428,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19613,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T05:48:40.971Z",
+          "status": 200,
+          "ok": true,
+          "tick": 451512,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19604,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T05:48:51.208Z",
+          "status": 200,
+          "ok": true,
+          "tick": 451556,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19604,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T05:49:05.730Z",
+          "status": 200,
+          "ok": true,
+          "tick": 451620,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19601,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T05:49:16.076Z",
+          "status": 200,
+          "ok": true,
+          "tick": 451700,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19592,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T05:49:31.130Z",
+          "status": 200,
+          "ok": true,
+          "tick": 451780,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19585,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T05:49:41.797Z",
+          "status": 200,
+          "ok": true,
+          "tick": 451864,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19575,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T05:49:52.421Z",
+          "status": 200,
+          "ok": true,
+          "tick": 451940,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19568,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T05:50:02.734Z",
+          "status": 200,
+          "ok": true,
+          "tick": 452028,
+          "lawsVersion": "biosphere-1.9",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 19557,
+          "simulation": "catching-up"
+        }
+      ],
+      "scope": "one direct Railway observer during the format-14 to 15 developmental growth update; finite samples do not guarantee every connection or latency"
+    },
+    "website": {
+      "id": "dpl_3hp3WqX51nwT1RCT1HWmvySAuXQj",
+      "url": "praxans-45vknmwyc-perseusxr-projects.vercel.app",
+      "readyState": "READY",
+      "target": "production",
+      "createdAt": 1791524898089,
+      "aliases": [
+        "praxans.vercel.app",
+        "praxans-perseusxr-projects.vercel.app"
+      ],
+      "verification": "Vercel provider metadata; no request to a live Vercel URL"
+    },
+    "independentPostUpdateBackup": "verified"
+  },
+  "local": {
+    "focusedMetabolism": {
+      "passed": 28,
+      "failed": 0,
+      "newDevelopmentCases": 8
+    },
+    "initialFullModelServer": {
+      "passed": 232,
+      "failed": 3,
+      "skipped": 0,
+      "cancelled": 0,
+      "total": 235,
+      "failures": "Three outdated migration-count expectations in depth, persistence and renewal; no physical candidate failure."
+    },
+    "correctedMigrationFiles": {
+      "passed": 32,
+      "failed": 0,
+      "files": [
+        "depth.test.ts",
+        "persistence.test.ts",
+        "renewal.test.ts"
+      ]
+    },
+    "build": "passed",
+    "format": "passed",
+    "hotfix": {
+      "passed": 25,
+      "failed": 0
+    },
+    "browser": {
+      "passed": 40,
+      "errors": [],
+      "isolatedAfterWebsiteBuild": true,
+      "capturesInspected": [
+        "desktop shared world",
+        "portrait onboarding/loading; not a loaded mobile world assertion"
+      ]
+    },
+    "production": {
+      "checks": [
+        "the compiled server advances while nobody watches",
+        "production never exposes manual time controls",
+        "the runnable example agent can observe and guide its community",
+        "online backup captures an existing world and its claimed community",
+        "restart preserves the seed, people, and geography",
+        "restart simulates missed time instead of erasing the interruption",
+        "browser ownership survives a process restart",
+        "the same agent key survives a process restart",
+        "the advice retains its identity and content across process restarts",
+        "each service release is recorded once in the continuing world",
+        "restoring a backup respects the previous ownership lease",
+        "the backup itself can resume with the original owner and key"
+      ],
+      "passed": 12,
+      "savedTick": 28,
+      "continuedTick": 70,
+      "backupTick": 22
+    },
+    "suppliedGameClient": {
+      "clientSha256": "1210f58b47aadd9cb4b141fb4b2dc9e17a929aa1a813cdd26b5306a0d08b6808",
+      "unmodifiedSuppliedClient": true,
+      "frames": [
+        {
+          "mode": "shared-world",
+          "tick": 1,
+          "connected": true,
+          "communities": 3
+        },
+        {
+          "mode": "shared-world",
+          "tick": 2,
+          "connected": true,
+          "communities": 3
+        },
+        {
+          "mode": "shared-world",
+          "tick": 3,
+          "connected": true,
+          "communities": 3
+        }
+      ],
+      "errors": [],
+      "screenshotInspected": true
+    },
+    "initialBrowserFailure": {
+      "cause": "A concurrent website build made Vite reload .vercel/output/static/index.html, destroying the page evaluation during manual time advancement. Server log records that reload.",
+      "errorsInBrowser": [],
+      "disposition": "Unchanged browser test passes all 40 checks when run after the website build; no application change."
+    }
+  },
+  "foodMeasurement": {
+    "priorLaw": "../research/food-flux-day-2026-10-09.json",
+    "candidate": "../research/development-food-day-2026-10-09.json",
+    "scope": "Matched 24-hour inhabited copied-world baseline and observation; initial states equal except physical version labels. No historical death shares, body resizing, seasonal or populated-host proof."
+  },
+  "independentBackup": {
+    "raw": {
+      "bytes": 310272000,
+      "sha256": "4eaf43c8794fe1ec022cb205336f14991268bf5eb7d6367491a188599adf499a"
+    },
+    "gzip": {
+      "bytes": 247878832,
+      "sha256": "679e0317e1e182166260e3f1612de53503fff9afa6abcc741c588182890b38eb"
+    },
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "version": 14,
+      "lawsVersion": "biosphere-1.8",
+      "generationVersion": "planet-1",
+      "tick": 442500,
+      "rng": 3690172892,
+      "births": 407,
+      "deaths": 1639
+    },
+    "regionsVerified": 38,
+    "fullArchivesVerified": 7,
+    "priorProtectedRows": {
+      "world_events": {
+        "count": 70658,
+        "unchanged": true,
+        "sha256": "d2923afa0c8b5be895d240552b5e8f2edde7ebbb0528f4273a6d36f24f4af8fe"
+      },
+      "world_history": {
+        "count": 4443,
+        "unchanged": true,
+        "sha256": "b717a28c52a017861378e25057f55cc2ee473d461ea5b95bd7fe676a923040a4"
+      },
+      "interventions": {
+        "count": 24,
+        "unchanged": true,
+        "sha256": "eae7e813b896c3006ac75b7f78903623b0d98be7636321edaf5655e27ffd0f2e"
+      },
+      "world_backups": {
+        "count": 7,
+        "unchanged": true,
+        "sha256": "78b607bf22be6298430ba3985a79ebcbabeab607888ebe0d556926fc96008358"
+      },
+      "world_backup_parts": {
+        "count": 2554,
+        "unchanged": true,
+        "sha256": "bdf408dfb7946c36dbb0385dada326e3c0d33337dda8d1eb30d93a0e5e50e796"
+      },
+      "sessions": {
+        "count": 26,
+        "unchanged": true,
+        "sha256": "0d6afe9454e239dd137f4d5b60ad5ca2d9cce15310d1a0aee85843c5b44c6262"
+      },
+      "agents": {
+        "count": 1,
+        "unchanged": true,
+        "sha256": "957b018ab65e7c6ccc013fa617df670d30fe6a4e442fd4f94da60e69ee7ea33b"
+      },
+      "receipts": {
+        "count": 3,
+        "unchanged": true,
+        "sha256": "61eeb51a809a13188fead544cfbca9f51d31b607589fd2ff68bba49452172183"
+      }
+    },
+    "independentDecoder": {
+      "library": "libzstd",
+      "version": "1.5.5",
+      "scope": "Independent C library via Python, exact single-frame/content length and original/payload SHA-256; no application codec imported."
+    },
+    "sourceBackupUnchanged": true
+  },
+  "exactCopiedWorldCapacity": {
+    "at": "2026-10-09T05:33:56.447Z",
+    "sourceSha256": "4eaf43c8794fe1ec022cb205336f14991268bf5eb7d6367491a188599adf499a",
+    "sourceUnchanged": true,
+    "code": 0,
+    "signal": null,
+    "report": {
+      "heapLimitBytes": 226492416,
+      "sourceTick": 442500,
+      "sourceVersion": 14,
+      "version": 15,
+      "laws": "biosphere-1.9",
+      "storage": 2,
+      "people": 0,
+      "regions": 38,
+      "migrationMs": 37145.142313,
+      "saves": [
+        {
+          "tick": 442532,
+          "simulationMs": 5828.199757999995,
+          "saveMs": 2573.9266910000006,
+          "walBytes": 31312032
+        },
+        {
+          "tick": 442564,
+          "simulationMs": 6495.299469999998,
+          "saveMs": 2372.102850999996,
+          "walBytes": 31340872
+        },
+        {
+          "tick": 442596,
+          "simulationMs": 5871.008635999999,
+          "saveMs": 3768.4210659999953,
+          "walBytes": 31653992
+        }
+      ],
+      "exactMigrationBoundary": true,
+      "exactArchiveSha256": "48a030b8fd5e709dd0dbb2b678989494c11fedfe9fe8a395a7a5fbe78367c08c",
+      "protectedRows": {
+        "sessions": {
+          "count": 27,
+          "sha256": "a37179eccdc8a449a37ceaf8136121e8c366261b81025e6e37f9a0a6dad96c75"
+        },
+        "agents": {
+          "count": 1,
+          "sha256": "0a865b232360c42a866e7e4e2374798d4065177291d5536248c8057e24650958"
+        },
+        "receipts": {
+          "count": 3,
+          "sha256": "8e2b9b8b3ef18d3047a9a3799be52d26aa14e738b5184e981968107007413445"
+        },
+        "events": {
+          "count": 70755,
+          "sha256": "72e62839b9d4c72aa4f40bf5a8bb164fd50aeb016db3c1d59cb4cdfe02764014"
+        },
+        "history": {
+          "count": 4609,
+          "sha256": "07b9e7d85d03e59c29c709c5095b594036da545d0aabec0fa84a5d14d1bd0b85"
+        },
+        "interventions": {
+          "count": 24,
+          "sha256": "254f194bafb50f8948acd342731e5f721da899d55a7dc25d521721a51b68b099"
+        },
+        "archives": {
+          "count": 7,
+          "sha256": "8004944f509f3dcd7476476589216bca827fd8954b2f54ca53d31a810643f94e"
+        },
+        "archiveParts": {
+          "count": 2554,
+          "sha256": "dcaabbe7f33476d53fcc4576d5bfcea1f4766715a29f02773bec549b78747a4c"
+        }
+      },
+      "exactRestart": true,
+      "finalTick": 442596,
+      "clock": {
+        "tick": 442596,
+        "wall_ms": 1791503089340
+      },
+      "finalMetadataChecksum": "085bbaedd7485c54f1ddb1197c2391f53acef9167153dbad99af44594e959218",
+      "finalRegionChecksum": "201fe96dd65397882cc1db9a4ff4cf2d01374438032e3a3c2fd6e123db63b13a"
+    },
+    "capacity": {
+      "bytes": 454299648,
+      "initialNonWalBudget": 335000000,
+      "minimumFree": 82587648,
+      "maximumWal": 36606232,
+      "samples": 1527
+    },
+    "peakRssBytes": 377614336,
+    "scope": "Disposable private tmpfs at the live volume capacity; complete format-14 to 15 migration, exact archive, three saves, protected rows and restart under a 216 MiB effective heap. Local memory and IO are not a live cgroup or inhabited-host guarantee.",
+    "initialSetupFailure": "sudo required a password; no test or live write started. The same test passed in an unprivileged user/mount namespace with its own finite tmpfs."
+  },
+  "coherence": {
+    "baseCommit": "eae67e54b6c7ad1832b5bb24cb39104eae2eebab",
+    "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+    "gitVisibleExistingFileCount": 964,
+    "jsTsFileCount": 137,
+    "sourceFileCount": 81,
+    "srcContentSha256": "2183807fc5c5fdac642167826558fc64ff9706da5b91a05f74d211b519b11e99",
+    "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
+    "resolvedEdgeCount": 713,
+    "edgesByArea": {
+      "docs -> src/simulation": 22,
+      "scripts -> src/server": 27,
+      "scripts -> src/simulation": 26,
+      "src/client -> src/simulation": 27,
+      "src/client -> src/client": 21,
+      "src/server -> src/simulation": 41,
+      "src/server -> src/server": 28,
+      "src/simulation -> src/simulation": 253,
+      "tests -> src/simulation": 184,
+      "tests -> tests": 32,
+      "tests -> src/server": 52
+    },
+    "missingImports": [],
+    "missingAssets": [],
+    "nonliteralLoads": [
+      {
+        "file": "docs/research/collapse-first-death-replay.mjs",
+        "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+      },
+      {
+        "file": "docs/research/collapse-first-death-replay.mjs",
+        "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+      }
+    ],
+    "layerViolations": [],
+    "simulationEnvironmentImports": [],
+    "localMarkdownLinksChecked": 530,
+    "missingMarkdownLinks": [],
+    "semanticReview": [
+      "Structural dry-equivalent mass excludes the reserve subset; initial bodies, thermal scaling and age capacity share reference values.",
+      "One orbital-year duration determines age intervals; the existing caller advances age once before metabolism prepares.",
+      "Processing stays within actual intake and resting-maintenance throughput; thermal injury gates and oxygen use are unchanged.",
+      "No additional saved person field, world writer, metadata reinitialization or history truncation; migration 015 changes only version labels.",
+      "Measured food accounts separate gross harvest, transfers, oxidation, retention, spoilage and initially empty intake, with shared catchments counted once.",
+      "Corrected the roadmap sentence that still identified the older food-custody runtime as current; source-model and release/publication claims remain distinct.",
+      "The release ledger now names deployed format 15 and distinguishes measured harvest completion counts from unmeasured work-time, memory and route causes; seasonal supply remains separate."
+    ],
+    "limitations": [
+      "Inherited body composition, processing fraction, maturation/recovery curve, injury and oxygen contention remain uncalibrated.",
+      "Birth can still draw home supplies remotely; infant movement and food preparation/swallowing remain coarse.",
+      "The local 24-hour comparison still has a food deficit and child cold injury; no seasonal viability follows.",
+      "Existing storage and observer performance bounds remain; this physical change does not establish inhabited 1 GB or massive-world capacity."
+    ]
+  },
+  "ci": {
+    "implementationCommit": "eae67e54b6c7ad1832b5bb24cb39104eae2eebab",
+    "runs": [
+      {
+        "id": 37889478264,
+        "event": "push",
+        "conclusion": "success"
+      },
+      {
+        "id": 37889482311,
+        "event": "pull_request",
+        "conclusion": "success"
+      }
+    ],
+    "modelServer": {
+      "passed": 235,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0
+    },
+    "scope": "Both complete workflows, including all configured browser and runtime integration stages; later evidence-only commits have their own CI status."
+  },
+  "independentPostUpdateBackup": {
+    "raw": {
+      "bytes": 310272000,
+      "sha256": "fc76ab0bcf53e5aa9945481c0221f1d422f14728cfad2977533fbe996fd3f683"
+    },
+    "gzip": {
+      "bytes": 270232222,
+      "sha256": "3073681fa2694c57b4d39df87a85b6326eb93afc1fc9544872f6be3b8e3e9995"
+    },
+    "integrity": "ok",
+    "independentDecoder": {
+      "library": "libzstd",
+      "version": "1.5.5",
+      "scope": "Independent C library via Python, exact single-frame/content length and original/payload SHA-256; no application codec imported."
+    },
+    "storage": 2,
+    "worldChecksum": "eef40dd480e8a1b74e4528f80994b57f3417b6b22fa54a130f5917be3517dffd",
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "version": 15,
+      "lawsVersion": "biosphere-1.9",
+      "generationVersion": "planet-1",
+      "tick": 451524,
+      "rng": 1182883055,
+      "births": 407,
+      "deaths": 1639
+    },
+    "people": 0,
+    "clock": {
+      "tick": 451524,
+      "wall_ms": 1791505321340.0
+    },
+    "archives": [
+      {
+        "id": "008-material-memory-and-agency",
+        "sha256": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+        "createdAt": 1791445486072
+      },
+      {
+        "id": "009-human-thermal-and-distance-balance",
+        "sha256": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+        "createdAt": 1791466127552
+      },
+      {
+        "id": "010-performed-body-maintenance",
+        "sha256": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+        "createdAt": 1791501484044
+      },
+      {
+        "id": "011-consumption-before-ration-pickup",
+        "sha256": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+        "createdAt": 1791504160572
+      },
+      {
+        "id": "012-funded-human-metabolism",
+        "sha256": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+        "createdAt": 1791508588158
+      },
+      {
+        "id": "013-local-inventory-exposure-and-access",
+        "sha256": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+        "createdAt": 1791512310450
+      },
+      {
+        "id": "014-performed-local-food-handoff",
+        "sha256": "a429759388484bdef2d6048e9044c1ab5d773cbd6b3ff598f9da54dcad4b958b",
+        "createdAt": 1791521109688
+      },
+      {
+        "id": "015-age-bounded-structural-growth",
+        "sha256": "fb2a929456519b7801f9af20b075c9fa5a43ce60cfbcb7792b647d378103b673",
+        "createdAt": 1791524835913
+      }
+    ],
+    "protectedRows": {
+      "world_events": {
+        "count": 70755,
+        "unchanged": true,
+        "sha256": "caf3996275a8c78e4e8e545b1bc50cdc66a4a0a23aa5e1a2600170d2b9f95c00"
+      },
+      "world_history": {
+        "count": 4609,
+        "unchanged": true,
+        "sha256": "f004878329b0d6dce0cfb819a16152f5f0e5815ede9970e48fa2146cac5e9c9b"
+      },
+      "interventions": {
+        "count": 24,
+        "unchanged": true,
+        "sha256": "eae7e813b896c3006ac75b7f78903623b0d98be7636321edaf5655e27ffd0f2e"
+      },
+      "world_backups": {
+        "count": 7,
+        "unchanged": true,
+        "sha256": "78b607bf22be6298430ba3985a79ebcbabeab607888ebe0d556926fc96008358"
+      },
+      "world_backup_parts": {
+        "count": 2554,
+        "unchanged": true,
+        "sha256": "bdf408dfb7946c36dbb0385dada326e3c0d33337dda8d1eb30d93a0e5e50e796"
+      },
+      "sessions": {
+        "count": 27,
+        "unchanged": true,
+        "sha256": "cd201443e09865c3b845bbec363a23fd27a1a48b5719a549be1383c69c76a22a"
+      },
+      "agents": {
+        "count": 1,
+        "unchanged": true,
+        "sha256": "957b018ab65e7c6ccc013fa617df670d30fe6a4e442fd4f94da60e69ee7ea33b"
+      },
+      "receipts": {
+        "count": 3,
+        "unchanged": true,
+        "sha256": "61eeb51a809a13188fead544cfbca9f51d31b607589fd2ff68bba49452172183"
+      }
+    },
+    "exactMigrationMetadata": {
+      "tick": 450980,
+      "beforeChecksum": "d2970046fed7663173e974f53e8f3c290e7c48d32677f91844e40e52302d3dcd",
+      "afterChecksum": "2a468dedac5fea72c643e83293093aa7648cae5d887481a81cf63ba58ec0037e",
+      "onlyVersionLabelsChanged": true,
+      "archiveSha256": "fb2a929456519b7801f9af20b075c9fa5a43ce60cfbcb7792b647d378103b673"
+    },
+    "copy": {
+      "startedAt": "2026-10-09T05:48:48.363Z",
+      "copiedAt": "2026-10-09T05:48:51.839Z",
+      "elapsedMilliseconds": 3475.329071,
+      "identity": {
+        "checksum": "eef40dd480e8a1b74e4528f80994b57f3417b6b22fa54a130f5917be3517dffd",
+        "tick": 451524,
+        "people": 0,
+        "births": 407,
+        "deaths": 1639,
+        "clock": {
+          "tick": 451524,
+          "wall_ms": 1791505321340
+        },
+        "regions": 38,
+        "archives": [
+          {
+            "id": "008-material-memory-and-agency",
+            "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+            "created_at": 1791445486072
+          },
+          {
+            "id": "009-human-thermal-and-distance-balance",
+            "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+            "created_at": 1791466127552
+          },
+          {
+            "id": "010-performed-body-maintenance",
+            "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+            "created_at": 1791501484044
+          },
+          {
+            "id": "011-consumption-before-ration-pickup",
+            "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+            "created_at": 1791504160572
+          },
+          {
+            "id": "012-funded-human-metabolism",
+            "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+            "created_at": 1791508588158
+          },
+          {
+            "id": "013-local-inventory-exposure-and-access",
+            "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+            "created_at": 1791512310450
+          },
+          {
+            "id": "014-performed-local-food-handoff",
+            "checksum": "a429759388484bdef2d6048e9044c1ab5d773cbd6b3ff598f9da54dcad4b958b",
+            "created_at": 1791521109688
+          },
+          {
+            "id": "015-age-bounded-structural-growth",
+            "checksum": "fb2a929456519b7801f9af20b075c9fa5a43ce60cfbcb7792b647d378103b673",
+            "created_at": 1791524835913
+          }
+        ]
+      },
+      "copyMonitor": {
+        "samples": 136,
+        "minimumAvailableBytes": 87986176,
+        "maximumWalBytes": 31695192,
+        "maximumCgroupMemoryBytes": 999907328,
+        "eventsBefore": "low 0\nhigh 0\nmax 2293\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "eventsAfter": "low 0\nhigh 0\nmax 2511\noom 0\noom_kill 0\noom_group_kill 0\n"
+      }
+    },
+    "sourceBackupUnchanged": true,
+    "regionsVerified": 38,
+    "fullArchivesVerified": 8,
+    "sourceBackupSha256": "4eaf43c8794fe1ec022cb205336f14991268bf5eb7d6367491a188599adf499a"
+  }
+}

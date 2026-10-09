@@ -1,0 +1,2862 @@
+{
+  "status": "runtime and website deployed; independent saved-state verification passed; preceding disk-full halt and 32-tick recomputation retained",
+  "release": "region-storage-20261009-1",
+  "runtimeSha256": "6a34c59cadc76f1d1549e9bb0f0b533075afc5aea48012364eb32120d0c95ad9",
+  "dependenciesSha256": "0ca3efac2e32e64895e4f395f1919a966af1b18b017c12aaa088b491f2f0022e",
+  "storageBefore": 1,
+  "storageAfter": 2,
+  "worldFormat": 13,
+  "laws": "biosphere-1.7",
+  "physicalSourceChanged": false,
+  "checks": {
+    "modelServer": 214,
+    "genericHotfix": 25,
+    "compiledProduction": 12,
+    "build": "passed",
+    "format": "passed after the final browser readiness change",
+    "reconnect": {
+      "checks": [
+        "an interrupted observer visibly reports disconnection",
+        "two real HTTP 503 responses do not permanently stop observation",
+        "reconnection retains the camera and selected community without reloading",
+        "reconnection continues the same world's clock and community identities",
+        "returning to the planet cancels a pending surface reconnect",
+        "recovery creates no browser errors beyond the deliberately refused requests"
+      ],
+      "errors": [],
+      "refusals": 3,
+      "streamRequests": 5,
+      "beforeTick": 8,
+      "afterTick": 33
+    },
+    "suppliedClient": {
+      "clientSha256": "1210f58b47aadd9cb4b141fb4b2dc9e17a929aa1a813cdd26b5306a0d08b6808",
+      "unmodifiedSuppliedClient": true,
+      "frames": [
+        {
+          "mode": "shared-world",
+          "tick": 1,
+          "connected": true,
+          "communities": 3
+        },
+        {
+          "mode": "shared-world",
+          "tick": 2,
+          "connected": true,
+          "communities": 3
+        },
+        {
+          "mode": "shared-world",
+          "tick": 3,
+          "connected": true,
+          "communities": 3
+        }
+      ],
+      "errors": []
+    },
+    "generalBrowser": {
+      "initial": "failed at tick equality; no JavaScript errors",
+      "diagnosticRerun": 40,
+      "final": 40,
+      "scope": "The original failure did not capture both mismatching tick values. The source permits test-only HTTP snapshot acceptance to race a still-buffered initial SSE snapshot; production time ownership is unchanged."
+    },
+    "reconnectMobileViewport": {
+      "checks": [
+        "an interrupted observer visibly reports disconnection",
+        "two real HTTP 503 responses do not permanently stop observation",
+        "reconnection retains the camera and selected community without reloading",
+        "reconnection continues the same world's clock and community identities",
+        "returning to the planet cancels a pending surface reconnect",
+        "recovery creates no browser errors beyond the deliberately refused requests"
+      ],
+      "errors": [],
+      "refusals": 3,
+      "streamRequests": 5,
+      "beforeTick": 20,
+      "afterTick": 48
+    },
+    "screenshots": "Desktop world, supplied game loop and both disconnected/reconnected portrait views inspected; no browser errors beyond deliberately refused requests.",
+    "maintenanceInspect": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "tick": 400744,
+      "format": 13,
+      "storageVersion": 2,
+      "laws": "biosphere-1.7",
+      "requiresMigration": false,
+      "regions": 38,
+      "people": 0,
+      "communities": 4,
+      "savedAt": "2026-10-09T03:45:45.400Z",
+      "checksums": "valid",
+      "archives": [
+        {
+          "id": "008-material-memory-and-agency",
+          "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+          "createdAt": 1791445486072,
+          "encoding": "deflate-parts-1",
+          "rawBytes": 46697011,
+          "parts": 179
+        },
+        {
+          "id": "009-human-thermal-and-distance-balance",
+          "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+          "createdAt": 1791466127552,
+          "encoding": "deflate-parts-1",
+          "rawBytes": 53486584,
+          "parts": 205
+        },
+        {
+          "id": "010-performed-body-maintenance",
+          "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+          "createdAt": 1791501484044,
+          "encoding": "deflate-parts-1",
+          "rawBytes": 106657105,
+          "parts": 407
+        },
+        {
+          "id": "011-consumption-before-ration-pickup",
+          "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+          "createdAt": 1791504160572,
+          "encoding": "deflate-parts-1",
+          "rawBytes": 108904108,
+          "parts": 416
+        },
+        {
+          "id": "012-funded-human-metabolism",
+          "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+          "createdAt": 1791508588158,
+          "encoding": "deflate-parts-1",
+          "rawBytes": 112448226,
+          "parts": 429
+        },
+        {
+          "id": "013-local-inventory-exposure-and-access",
+          "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+          "createdAt": 1791512310450,
+          "encoding": "deflate-parts-1",
+          "rawBytes": 117075634,
+          "parts": 447
+        }
+      ],
+      "archiveVerification": "not performed; use verify-archives on an offline copy"
+    }
+  },
+  "matchedCapacity": {
+    "baseline": {
+      "at": "2026-10-09T03:07:13.223Z",
+      "mode": "baseline",
+      "sourceSha256": "9a33e9c2845d676ef8fdb5c65b570a69c1646c3c8d5df6cd6b5b3a0a5a059442",
+      "sourceUnchanged": true,
+      "code": 0,
+      "signal": null,
+      "report": {
+        "mode": "baseline",
+        "heapLimitBytes": 226492416,
+        "sourceTick": 389256,
+        "regions": 38,
+        "before": {
+          "pages": 75090,
+          "freePages": 932,
+          "storage": 1,
+          "rawRegionBytes": 116261181
+        },
+        "first": {
+          "label": "unchanged checkpoint / storage conversion",
+          "tick": 389256,
+          "elapsedMs": 1727.9011520000004,
+          "cpuMs": 2377.018,
+          "pages": 75090,
+          "freePages": 932,
+          "walBytes": 8272,
+          "regionBytes": 116261181
+        },
+        "saves": [
+          {
+            "label": "32 more ticks",
+            "tick": 389288,
+            "elapsedMs": 2735.175741000001,
+            "cpuMs": 4212.962,
+            "pages": 75090,
+            "freePages": 960,
+            "walBytes": 117951512,
+            "regionBytes": 115927534,
+            "simulationMs": 6334.062018999999
+          },
+          {
+            "label": "32 more ticks",
+            "tick": 389320,
+            "elapsedMs": 2312.803703999998,
+            "cpuMs": 3218.24,
+            "pages": 75090,
+            "freePages": 943,
+            "walBytes": 118017432,
+            "regionBytes": 115977520,
+            "simulationMs": 4632.367009000001
+          },
+          {
+            "label": "32 more ticks",
+            "tick": 389352,
+            "elapsedMs": 2298.3390949999994,
+            "cpuMs": 3843.842,
+            "pages": 75090,
+            "freePages": 885,
+            "walBytes": 118256392,
+            "regionBytes": 116222555,
+            "simulationMs": 3864.5180359999977
+          }
+        ],
+        "loadMs": 2198.015674,
+        "restartMs": 2739.2804240000005,
+        "storage": 1,
+        "exactInitialState": true,
+        "exactRestart": true,
+        "protectedRows": {
+          "sessions": {
+            "count": 25,
+            "sha256": "6ee288f70bcce72c6f7a29b688a858a8e4f0c301f44b6591e691929346ecd1eb"
+          },
+          "agents": {
+            "count": 1,
+            "sha256": "550d63886d79cf58d8a17f0560cfc9036c78c25b0717e368e91ef3bcee654d66"
+          },
+          "receipts": {
+            "count": 3,
+            "sha256": "8e2b9b8b3ef18d3047a9a3799be52d26aa14e738b5184e981968107007413445"
+          },
+          "events": {
+            "count": 70486,
+            "sha256": "8e05565e73363a5b396f21ebf9682813d0250bbd938d8428d1298b4d8c7b25a9"
+          },
+          "history": {
+            "count": 4054,
+            "sha256": "fe6f6117cbdb0570a30c0a4d8b89adda05ec8cfa084c6570aab94f1a21797f10"
+          },
+          "interventions": {
+            "count": 21,
+            "sha256": "9cfe90b00cb6e2dc18cc06b069e5fbfb669b9c0e60d3f95b6c8ad561d15c3811"
+          },
+          "archives": {
+            "count": 6,
+            "sha256": "77ee9e5f275425427ed052b84b18f9b3f34ae30e6a2f1e5d9827a2f897ad0aa9"
+          },
+          "archiveParts": {
+            "count": 2083,
+            "sha256": "21b6f154c8c9511e7f75cfd2c8c6b0ed191d9af1c9862476404d25ef90e74b84"
+          }
+        },
+        "finalTick": 389352,
+        "people": 0,
+        "finalMetadataChecksum": "afe6d8be859f30b79dbfb9ebd34bb90a3700557a8b82e12636277e5aae1668af",
+        "finalRegionChecksum": "99a1150a6eba5cd899fc09cd110f58ec1310bb9654ba9f8f767aa9b773f48b37"
+      },
+      "capacity": {
+        "bytes": 454299648,
+        "initialNonWalBudget": 330900000,
+        "minimumFree": 4874240,
+        "maximumWal": 118256392,
+        "samples": 730
+      },
+      "peakRssBytes": 361754624,
+      "scope": "Complete Store conversion, three dirty 32-tick saves and exact restart on a private live-sized tmpfs; 216 MiB effective heap. Sequential local trials, not a disk-IO or total live-cgroup guarantee."
+    },
+    "candidate": {
+      "at": "2026-10-09T03:08:54.507Z",
+      "mode": "candidate",
+      "sourceSha256": "9a33e9c2845d676ef8fdb5c65b570a69c1646c3c8d5df6cd6b5b3a0a5a059442",
+      "sourceUnchanged": true,
+      "code": 0,
+      "signal": null,
+      "report": {
+        "mode": "candidate",
+        "heapLimitBytes": 226492416,
+        "sourceTick": 389256,
+        "regions": 38,
+        "before": {
+          "pages": 75090,
+          "freePages": 932,
+          "storage": 1,
+          "rawRegionBytes": 116261181
+        },
+        "first": {
+          "label": "unchanged checkpoint / storage conversion",
+          "tick": 389256,
+          "elapsedMs": 2936.735214999999,
+          "cpuMs": 3595.354,
+          "pages": 75090,
+          "freePages": 22511,
+          "walBytes": 28337392,
+          "regionBytes": 27961101
+        },
+        "saves": [
+          {
+            "label": "32 more ticks",
+            "tick": 389288,
+            "elapsedMs": 2830.263083,
+            "cpuMs": 4091.055,
+            "pages": 75090,
+            "freePages": 22431,
+            "walBytes": 29495112,
+            "regionBytes": 28064702,
+            "simulationMs": 5317.657791
+          },
+          {
+            "label": "32 more ticks",
+            "tick": 389320,
+            "elapsedMs": 2778.8640989999985,
+            "cpuMs": 4153.452,
+            "pages": 75090,
+            "freePages": 22418,
+            "walBytes": 29544552,
+            "regionBytes": 28111153,
+            "simulationMs": 4693.4769049999995
+          },
+          {
+            "label": "32 more ticks",
+            "tick": 389352,
+            "elapsedMs": 3210.526914000002,
+            "cpuMs": 4734.69,
+            "pages": 75090,
+            "freePages": 22457,
+            "walBytes": 29383872,
+            "regionBytes": 27949761,
+            "simulationMs": 4810.089433000001
+          }
+        ],
+        "loadMs": 3301.955025,
+        "restartMs": 2992.024273999996,
+        "storage": 2,
+        "exactInitialState": true,
+        "exactRestart": true,
+        "protectedRows": {
+          "sessions": {
+            "count": 25,
+            "sha256": "6ee288f70bcce72c6f7a29b688a858a8e4f0c301f44b6591e691929346ecd1eb"
+          },
+          "agents": {
+            "count": 1,
+            "sha256": "550d63886d79cf58d8a17f0560cfc9036c78c25b0717e368e91ef3bcee654d66"
+          },
+          "receipts": {
+            "count": 3,
+            "sha256": "8e2b9b8b3ef18d3047a9a3799be52d26aa14e738b5184e981968107007413445"
+          },
+          "events": {
+            "count": 70486,
+            "sha256": "8e05565e73363a5b396f21ebf9682813d0250bbd938d8428d1298b4d8c7b25a9"
+          },
+          "history": {
+            "count": 4054,
+            "sha256": "fe6f6117cbdb0570a30c0a4d8b89adda05ec8cfa084c6570aab94f1a21797f10"
+          },
+          "interventions": {
+            "count": 21,
+            "sha256": "9cfe90b00cb6e2dc18cc06b069e5fbfb669b9c0e60d3f95b6c8ad561d15c3811"
+          },
+          "archives": {
+            "count": 6,
+            "sha256": "77ee9e5f275425427ed052b84b18f9b3f34ae30e6a2f1e5d9827a2f897ad0aa9"
+          },
+          "archiveParts": {
+            "count": 2083,
+            "sha256": "21b6f154c8c9511e7f75cfd2c8c6b0ed191d9af1c9862476404d25ef90e74b84"
+          }
+        },
+        "finalTick": 389352,
+        "people": 0,
+        "finalMetadataChecksum": "afe6d8be859f30b79dbfb9ebd34bb90a3700557a8b82e12636277e5aae1668af",
+        "finalRegionChecksum": "99a1150a6eba5cd899fc09cd110f58ec1310bb9654ba9f8f767aa9b773f48b37"
+      },
+      "capacity": {
+        "bytes": 454299648,
+        "initialNonWalBudget": 330900000,
+        "minimumFree": 93782016,
+        "maximumWal": 29544552,
+        "samples": 813
+      },
+      "peakRssBytes": 354222080,
+      "scope": "Complete Store conversion, three dirty 32-tick saves and exact restart on a private live-sized tmpfs; 216 MiB effective heap. Sequential local trials, not a disk-IO or total live-cgroup guarantee."
+    }
+  },
+  "inhabitedHandover": {
+    "checks": [
+      "the copied world contains the original four communities and their first born generation",
+      "the real-world candidate uses an effective validation heap below 224 MiB",
+      "the exact region-storage artifact replaces the worker through the continuing gateway",
+      "the same compressed observer connection continues across the storage encoding update",
+      "advice remains available while the real clock debt is retained",
+      "the compressed regional saving continues through at least 96 committed ticks after handover",
+      "the observer remains monotonic and open through later checkpoint writes",
+      "the finite source filesystem retains free space during copying and handover",
+      "all prior inhabitants including infants and each community identity survive this bounded handover",
+      "storage advances to two while the physical format and laws remain unchanged",
+      "clock debt is retained exactly",
+      "ownership, agent keys, receipts and every earlier event remain unchanged",
+      "all historical archives remain unchanged without a new physical migration",
+      "one release is recorded with equal boundary checksums",
+      "the physical intervention remains recorded exactly once",
+      "restart retains existing people and new census changes match ordinary births and deaths"
+    ],
+    "snapshots": 2,
+    "compactSnapshots": 2,
+    "frames": 37,
+    "lastTick": 228588,
+    "fault": null,
+    "activation": {
+      "release": "region-storage-20261009-1",
+      "type": "preflight",
+      "id": "praxans-world",
+      "seed": 1847,
+      "sourceTick": 228436,
+      "tick": 228468,
+      "format": 13,
+      "laws": "biosphere-1.7",
+      "validationHeapLimitBytes": 226492416,
+      "resumedTick": 228492
+    },
+    "restarted": {
+      "tick": 228594,
+      "people": 1444,
+      "births": 244,
+      "deaths": 32,
+      "format": 13,
+      "laws": "biosphere-1.7"
+    },
+    "peakProcessRssBytes": 1324531712,
+    "memoryByPhase": {
+      "starting": {
+        "parentRss": 610459648,
+        "childrenRss": 440320000,
+        "parentAnon": 551886848,
+        "childrenAnon": 386793472
+      },
+      "running": {
+        "parentRss": 495677440,
+        "childrenRss": 630353920,
+        "parentAnon": 437104640,
+        "childrenAnon": 575025152
+      },
+      "preparing": {
+        "parentRss": 392204288,
+        "childrenRss": 964665344,
+        "parentAnon": 333631488,
+        "childrenAnon": 856711168
+      },
+      "handover": {
+        "parentRss": 386953216,
+        "childrenRss": 603000832,
+        "parentAnon": 328380416,
+        "childrenAnon": 548392960
+      }
+    },
+    "capacity": {
+      "bytes": 454299648,
+      "minimumAvailableBytes": 13148160,
+      "maximumWalBytes": 109521992,
+      "samples": 2093,
+      "byPhase": {
+        "starting": {
+          "minimumAvailableBytes": 122859520,
+          "maximumWalBytes": 4152,
+          "samples": 205
+        },
+        "running": {
+          "minimumAvailableBytes": 80023552,
+          "maximumWalBytes": 42777992,
+          "samples": 1073
+        },
+        "preparing": {
+          "minimumAvailableBytes": 13418496,
+          "maximumWalBytes": 109254192,
+          "samples": 647
+        },
+        "handover": {
+          "minimumAvailableBytes": 13148160,
+          "maximumWalBytes": 109521992,
+          "samples": 168
+        }
+      },
+      "scope": "disposable private tmpfs with live-sized quota and matched starting non-WAL footprint; not a live host IO or cgroup memory guarantee"
+    },
+    "memoryScope": "sampled parent plus direct child RSS in a local test, not live cgroup peak"
+  },
+  "latestWorldHandover": {
+    "sourceBackupSha256": "be2af9087c305a3dd3dcbb8a455bc1e97417a6de023e05af281d9ca587606a07",
+    "initialNonWalBudgetBytes": 333900000,
+    "checks": [
+      "the latest copied world retains four extinct communities and all 1639 historical deaths",
+      "the real-world candidate uses an effective validation heap below 224 MiB",
+      "the exact region-storage artifact replaces the worker through the continuing gateway",
+      "the same compressed observer connection continues across the storage encoding update",
+      "advice remains available while the real clock debt is retained",
+      "the compressed regional saving continues through at least 96 committed ticks after handover",
+      "the observer remains monotonic and open through later checkpoint writes",
+      "the finite source filesystem retains free space during copying and handover",
+      "all historical community identities and censuses survive this bounded handover",
+      "storage advances to two while the physical format and laws remain unchanged",
+      "clock debt is retained exactly",
+      "ownership, agent keys, receipts and every earlier event remain unchanged",
+      "all historical archives remain unchanged without a new physical migration",
+      "one release is recorded with equal boundary checksums",
+      "the physical intervention remains recorded exactly once",
+      "restart retains existing people and new census changes match ordinary births and deaths"
+    ],
+    "snapshots": 5,
+    "compactSnapshots": 5,
+    "frames": 29,
+    "lastTick": 396388,
+    "fault": null,
+    "activation": {
+      "release": "region-storage-20261009-1",
+      "type": "preflight",
+      "id": "praxans-world",
+      "seed": 1847,
+      "sourceTick": 396232,
+      "tick": 396264,
+      "format": 13,
+      "laws": "biosphere-1.7",
+      "validationHeapLimitBytes": 226492416,
+      "resumedTick": 396296
+    },
+    "restarted": {
+      "tick": 396400,
+      "people": 0,
+      "births": 407,
+      "deaths": 1639,
+      "format": 13,
+      "laws": "biosphere-1.7"
+    },
+    "peakProcessRssBytes": 1126547456,
+    "memoryByPhase": {
+      "starting": {
+        "parentRss": 363847680,
+        "childrenRss": 395087872,
+        "parentAnon": 305274880,
+        "childrenAnon": 341561344
+      },
+      "running": {
+        "parentRss": 343793664,
+        "childrenRss": 497733632,
+        "parentAnon": 285220864,
+        "childrenAnon": 443486208
+      },
+      "preparing": {
+        "parentRss": 339091456,
+        "childrenRss": 810590208,
+        "parentAnon": 280518656,
+        "childrenAnon": 702455808
+      },
+      "handover": {
+        "parentRss": 317399040,
+        "childrenRss": 412155904,
+        "parentAnon": 258826240,
+        "childrenAnon": 357548032
+      }
+    },
+    "capacity": {
+      "bytes": 454299648,
+      "minimumAvailableBytes": 16384,
+      "maximumWalBytes": 119591272,
+      "samples": 2609,
+      "byPhase": {
+        "starting": {
+          "minimumAvailableBytes": 119828480,
+          "maximumWalBytes": 4152,
+          "samples": 267
+        },
+        "running": {
+          "minimumAvailableBytes": 90140672,
+          "maximumWalBytes": 29659912,
+          "samples": 1109
+        },
+        "preparing": {
+          "minimumAvailableBytes": 16384,
+          "maximumWalBytes": 119591272,
+          "samples": 879
+        },
+        "handover": {
+          "minimumAvailableBytes": 417792,
+          "maximumWalBytes": 119187512,
+          "samples": 354
+        }
+      },
+      "scope": "disposable private tmpfs with live-sized quota and matched starting non-WAL footprint; not a live host IO or cgroup memory guarantee"
+    },
+    "memoryScope": "sampled parent plus direct child RSS in a local test, not live cgroup peak"
+  },
+  "activationBackup": {
+    "raw": {
+      "bytes": 308813824,
+      "sha256": "be2af9087c305a3dd3dcbb8a455bc1e97417a6de023e05af281d9ca587606a07"
+    },
+    "gzip": {
+      "bytes": 202506821,
+      "sha256": "dddc97be5f84935cd0d6f98612e5de4eb4faad9907d5d0a0f369fdc2191cc96c"
+    },
+    "integrity": "ok",
+    "worldChecksum": "7b0d40d8f5465cc9f228573b61029e10ec8bc9f548a0235e2da034f523836d0c",
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "generationVersion": "planet-1",
+      "version": 13,
+      "lawsVersion": "biosphere-1.7",
+      "tick": 396232,
+      "rng": 2323051307,
+      "births": 407,
+      "deaths": 1639
+    },
+    "people": 0,
+    "regions": 38,
+    "clock": {
+      "tick": 396232,
+      "wall_ms": 1791491498340.0
+    },
+    "counts": {
+      "sessions": 26,
+      "agents": 1,
+      "receipts": 3,
+      "world_events": 70530
+    },
+    "archives": [
+      {
+        "id": "008-material-memory-and-agency",
+        "sha256": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb"
+      },
+      {
+        "id": "009-human-thermal-and-distance-balance",
+        "sha256": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164"
+      },
+      {
+        "id": "010-performed-body-maintenance",
+        "sha256": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f"
+      },
+      {
+        "id": "011-consumption-before-ration-pickup",
+        "sha256": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f"
+      },
+      {
+        "id": "012-funded-human-metabolism",
+        "sha256": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0"
+      },
+      {
+        "id": "013-local-inventory-exposure-and-access",
+        "sha256": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77"
+      }
+    ],
+    "copy": {
+      "startedAt": "2026-10-09T03:20:10.806Z",
+      "copiedAt": "2026-10-09T03:20:11.739Z",
+      "elapsedMilliseconds": 931.907235,
+      "identity": {
+        "checksum": "7b0d40d8f5465cc9f228573b61029e10ec8bc9f548a0235e2da034f523836d0c",
+        "tick": 396232,
+        "people": 0,
+        "births": 407,
+        "deaths": 1639,
+        "clock": {
+          "tick": 396232,
+          "wall_ms": 1791491498340
+        },
+        "events": {
+          "n": 70530,
+          "through": 70530
+        },
+        "regions": 38,
+        "archives": [
+          {
+            "id": "008-material-memory-and-agency",
+            "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+            "created_at": 1791445486072
+          },
+          {
+            "id": "009-human-thermal-and-distance-balance",
+            "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+            "created_at": 1791466127552
+          },
+          {
+            "id": "010-performed-body-maintenance",
+            "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+            "created_at": 1791501484044
+          },
+          {
+            "id": "011-consumption-before-ration-pickup",
+            "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+            "created_at": 1791504160572
+          },
+          {
+            "id": "012-funded-human-metabolism",
+            "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+            "created_at": 1791508588158
+          },
+          {
+            "id": "013-local-inventory-exposure-and-access",
+            "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+            "created_at": 1791512310450
+          }
+        ]
+      },
+      "copyMonitor": {
+        "samples": 93,
+        "minimumAvailableBytes": 2863104,
+        "maximumWalBytes": 119587152,
+        "maximumCgroupMemoryBytes": 999911424,
+        "eventsBefore": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "eventsAfter": "low 0\nhigh 0\nmax 200\noom 0\noom_kill 0\noom_group_kill 0\n"
+      }
+    }
+  },
+  "preactivationIncident": {
+    "at": "2026-10-09T03:31:28.497Z",
+    "runtime": "food-custody-20261009-2",
+    "error": "database or disk is full",
+    "sqliteErrcode": 13,
+    "committedTick": 399368,
+    "uncommittedTick": 399400,
+    "availableBytes": 0,
+    "walBytes": 121028608,
+    "reclamation": {
+      "at": "2026-10-09T03:33:18.335Z",
+      "health": {
+        "ok": false,
+        "tick": 399400,
+        "lawsVersion": "biosphere-1.7",
+        "persistent": true,
+        "acceptingProposals": false,
+        "lagSeconds": 24507,
+        "simulation": "halted"
+      },
+      "before": {
+        "checksum": "4eb7b300bf5f388e91b3a659084896319f038126e993ad4fe80f7219bc5e2aef",
+        "clock": {
+          "tick": 399368,
+          "wall_ms": 1791492282340
+        },
+        "storage": 1,
+        "archives": [
+          {
+            "id": "008-material-memory-and-agency",
+            "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+            "created_at": 1791445486072
+          },
+          {
+            "id": "009-human-thermal-and-distance-balance",
+            "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+            "created_at": 1791466127552
+          },
+          {
+            "id": "010-performed-body-maintenance",
+            "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+            "created_at": 1791501484044
+          },
+          {
+            "id": "011-consumption-before-ration-pickup",
+            "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+            "created_at": 1791504160572
+          },
+          {
+            "id": "012-funded-human-metabolism",
+            "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+            "created_at": 1791508588158
+          },
+          {
+            "id": "013-local-inventory-exposure-and-access",
+            "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+            "created_at": 1791512310450
+          }
+        ]
+      },
+      "after": {
+        "checksum": "4eb7b300bf5f388e91b3a659084896319f038126e993ad4fe80f7219bc5e2aef",
+        "clock": {
+          "tick": 399368,
+          "wall_ms": 1791492282340
+        },
+        "storage": 1,
+        "archives": [
+          {
+            "id": "008-material-memory-and-agency",
+            "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+            "created_at": 1791445486072
+          },
+          {
+            "id": "009-human-thermal-and-distance-balance",
+            "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+            "created_at": 1791466127552
+          },
+          {
+            "id": "010-performed-body-maintenance",
+            "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+            "created_at": 1791501484044
+          },
+          {
+            "id": "011-consumption-before-ration-pickup",
+            "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+            "created_at": 1791504160572
+          },
+          {
+            "id": "012-funded-human-metabolism",
+            "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+            "created_at": 1791508588158
+          },
+          {
+            "id": "013-local-inventory-exposure-and-access",
+            "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+            "created_at": 1791512310450
+          }
+        ]
+      },
+      "checkpoint": {
+        "busy": 0,
+        "log": 0,
+        "checkpointed": 0
+      },
+      "availableBefore": 0,
+      "availableAfter": 121032704,
+      "walBytes": 0,
+      "scope": "SQLite checkpoint reclamation only; unchanged saved world, clock, storage and archive descriptors; halted worker has not been restarted"
+    },
+    "scope": "The old runtime halted before storage publication. SQLite reclaimed its completed log with exact saved checksum/clock/archive descriptors unchanged. Do not describe subsequent recovery as uninterrupted time."
+  },
+  "deployment": {
+    "provider": "Railway",
+    "kind": "runtime-only activation on the same service/volume",
+    "containerDeploymentId": "a7bbebcf-a4d6-416a-9966-4f6d1908a696",
+    "gatewaySourceCommit": "8148006f2bd7914cfcc0c3e054bd6c43787967cc",
+    "activatedAt": "2026-10-09T03:42:27.883Z",
+    "activationAndHostChecks": {
+      "startedAt": "2026-10-09T03:42:12.617Z",
+      "finishedAt": "2026-10-09T03:42:43.580Z",
+      "gatewaySha256": "fc3454f1f506bf84d3b3553fe32d1736780c729269801b232c079a063facebcc",
+      "runtimeSha256": "6a34c59cadc76f1d1549e9bb0f0b533075afc5aea48012364eb32120d0c95ad9",
+      "before": {
+        "checksum": "4eb7b300bf5f388e91b3a659084896319f038126e993ad4fe80f7219bc5e2aef",
+        "world": {
+          "id": "praxans-world",
+          "seed": 1847,
+          "tick": 399368,
+          "rng": 1778919904,
+          "format": 13,
+          "laws": "biosphere-1.7",
+          "generation": "planet-1",
+          "people": 0,
+          "births": 407,
+          "deaths": 1639
+        },
+        "clock": {
+          "tick": 399368,
+          "wall_ms": 1791492282340
+        },
+        "storage": 1,
+        "communities": [
+          {
+            "id": "civ-1",
+            "foundedTick": 0,
+            "births": 84,
+            "deaths": 390,
+            "renewal": {
+              "tick": 195860,
+              "arrivals": 300,
+              "interventionId": "community-renewal-20261008"
+            }
+          },
+          {
+            "id": "civ-11",
+            "foundedTick": 0,
+            "births": 93,
+            "deaths": 400,
+            "renewal": {
+              "tick": 195860,
+              "arrivals": 300,
+              "interventionId": "community-renewal-20261008"
+            }
+          },
+          {
+            "id": "civ-21",
+            "foundedTick": 0,
+            "births": 96,
+            "deaths": 407,
+            "renewal": {
+              "tick": 195860,
+              "arrivals": 300,
+              "interventionId": "community-renewal-20261008"
+            }
+          },
+          {
+            "id": "civ-3118",
+            "foundedTick": 10369,
+            "births": 134,
+            "deaths": 442,
+            "renewal": {
+              "tick": 195860,
+              "arrivals": 300,
+              "interventionId": "community-renewal-20261008"
+            }
+          }
+        ],
+        "ownership": {
+          "sessions": "c4118c82c950e23514b0e83b86ab540978a3b2923de30fed10d8bad66368680f",
+          "agents": "7cf7d13f526839de253b3fd21b9eb7f99eafc7bc1306a6cef6fc3cc7da27d0af",
+          "receipts": "62bed705fcf9fd8129b41a71cc7ce1e9bce6d3de829ab444f4a90e5aae4563b8"
+        },
+        "counts": {
+          "sessions": 26,
+          "agents": 1,
+          "receipts": 3,
+          "world_events": 70545,
+          "world_history": 4160
+        },
+        "archives": [
+          {
+            "id": "008-material-memory-and-agency",
+            "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+            "created_at": 1791445486072
+          },
+          {
+            "id": "009-human-thermal-and-distance-balance",
+            "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+            "created_at": 1791466127552
+          },
+          {
+            "id": "010-performed-body-maintenance",
+            "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+            "created_at": 1791501484044
+          },
+          {
+            "id": "011-consumption-before-ration-pickup",
+            "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+            "created_at": 1791504160572
+          },
+          {
+            "id": "012-funded-human-metabolism",
+            "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+            "created_at": 1791508588158
+          },
+          {
+            "id": "013-local-inventory-exposure-and-access",
+            "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+            "created_at": 1791512310450
+          }
+        ],
+        "regions": [
+          {
+            "encoding": "json",
+            "regions": 38
+          }
+        ],
+        "renewals": 1
+      },
+      "after": {
+        "checksum": "b4f1f5d608becf059feed4e77423d19455d51c77b0dca32bca548c4fd244714d",
+        "world": {
+          "id": "praxans-world",
+          "seed": 1847,
+          "tick": 399464,
+          "rng": 386603045,
+          "format": 13,
+          "laws": "biosphere-1.7",
+          "generation": "planet-1",
+          "people": 0,
+          "births": 407,
+          "deaths": 1639
+        },
+        "clock": {
+          "tick": 399464,
+          "wall_ms": 1791492306340
+        },
+        "storage": 2,
+        "communities": [
+          {
+            "id": "civ-1",
+            "foundedTick": 0,
+            "births": 84,
+            "deaths": 390,
+            "renewal": {
+              "tick": 195860,
+              "arrivals": 300,
+              "interventionId": "community-renewal-20261008"
+            }
+          },
+          {
+            "id": "civ-11",
+            "foundedTick": 0,
+            "births": 93,
+            "deaths": 400,
+            "renewal": {
+              "tick": 195860,
+              "arrivals": 300,
+              "interventionId": "community-renewal-20261008"
+            }
+          },
+          {
+            "id": "civ-21",
+            "foundedTick": 0,
+            "births": 96,
+            "deaths": 407,
+            "renewal": {
+              "tick": 195860,
+              "arrivals": 300,
+              "interventionId": "community-renewal-20261008"
+            }
+          },
+          {
+            "id": "civ-3118",
+            "foundedTick": 10369,
+            "births": 134,
+            "deaths": 442,
+            "renewal": {
+              "tick": 195860,
+              "arrivals": 300,
+              "interventionId": "community-renewal-20261008"
+            }
+          }
+        ],
+        "ownership": {
+          "sessions": "c4118c82c950e23514b0e83b86ab540978a3b2923de30fed10d8bad66368680f",
+          "agents": "7cf7d13f526839de253b3fd21b9eb7f99eafc7bc1306a6cef6fc3cc7da27d0af",
+          "receipts": "62bed705fcf9fd8129b41a71cc7ce1e9bce6d3de829ab444f4a90e5aae4563b8"
+        },
+        "counts": {
+          "sessions": 26,
+          "agents": 1,
+          "receipts": 3,
+          "world_events": 70546,
+          "world_history": 4161
+        },
+        "archives": [
+          {
+            "id": "008-material-memory-and-agency",
+            "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+            "created_at": 1791445486072
+          },
+          {
+            "id": "009-human-thermal-and-distance-balance",
+            "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+            "created_at": 1791466127552
+          },
+          {
+            "id": "010-performed-body-maintenance",
+            "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+            "created_at": 1791501484044
+          },
+          {
+            "id": "011-consumption-before-ration-pickup",
+            "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+            "created_at": 1791504160572
+          },
+          {
+            "id": "012-funded-human-metabolism",
+            "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+            "created_at": 1791508588158
+          },
+          {
+            "id": "013-local-inventory-exposure-and-access",
+            "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+            "created_at": 1791512310450
+          }
+        ],
+        "regions": [
+          {
+            "encoding": "zstd-frame-1",
+            "regions": 38,
+            "rawBytes": 118604688,
+            "packedBytes": 28363256
+          }
+        ],
+        "release": {
+          "sequence": 22,
+          "id": "release:region-storage-20261009-1",
+          "tick": 399368,
+          "description": "Lossless compressed region checkpoints reduce write-log space. Storage format 2 preserves the exact world, clock, resources, population and history; no physical laws or founding rules change.",
+          "before_checksum": "4eb7b300bf5f388e91b3a659084896319f038126e993ad4fe80f7219bc5e2aef",
+          "after_checksum": "4eb7b300bf5f388e91b3a659084896319f038126e993ad4fe80f7219bc5e2aef",
+          "created_at": 1791517347157
+        },
+        "renewals": 1
+      },
+      "healthBefore": {
+        "ok": false,
+        "tick": 399400,
+        "lawsVersion": "biosphere-1.7",
+        "persistent": true,
+        "acceptingProposals": false,
+        "lagSeconds": 25042,
+        "simulation": "halted"
+      },
+      "statusBefore": {
+        "phase": "running",
+        "release": "food-custody-20261009-2",
+        "pendingRequests": 1,
+        "activeRequests": 0,
+        "observers": 1,
+        "runtimePid": 20,
+        "managedProcesses": 1,
+        "error": "EACCES: permission denied, open '/tmp/praxans-region-storage-20261009-1/manifest.json'"
+      },
+      "statusAfter": {
+        "phase": "running",
+        "release": "region-storage-20261009-1",
+        "pendingRequests": 3,
+        "activeRequests": 2,
+        "observers": 1,
+        "runtimePid": 213,
+        "managedProcesses": 1,
+        "error": null
+      },
+      "activation": {
+        "release": "region-storage-20261009-1",
+        "type": "preflight",
+        "id": "praxans-world",
+        "seed": 1847,
+        "sourceTick": 399368,
+        "tick": 399400,
+        "format": 13,
+        "laws": "biosphere-1.7",
+        "validationHeapLimitBytes": 226492416,
+        "resumedTick": 399368
+      },
+      "initialNonWalBytes": 333266944,
+      "healthSamples": [
+        {
+          "at": "2026-10-09T03:42:12.624Z",
+          "phase": "running",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 2.455804999999998,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25042,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:13.128Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 2.8015329999999494,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25042,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:13.632Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 2.4827339999999367,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25043,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:14.138Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 4.185955000000149,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25043,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:14.643Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 2.564824999999928,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25044,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:15.148Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 3.3103800000003503,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25044,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:15.653Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 2.3214350000002923,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25045,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:16.160Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 4.206394999999702,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25045,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:16.664Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 2.7681430000002365,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25046,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:17.168Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 2.436635000000024,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25046,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:17.672Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 3.362170000000333,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25047,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:18.177Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 2.647154000000228,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25047,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:18.682Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 2.8667829999994865,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25048,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:19.185Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 2.779432999999699,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25048,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:19.689Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 2.0721169999997073,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25049,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:20.193Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 2.3606049999998504,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25049,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:20.699Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 2.757792999999765,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25050,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:21.206Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 2.462165000000823,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25050,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:21.710Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 2.3313560000005964,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25051,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:22.216Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 5.067699000001085,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25051,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:22.720Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 2.2250660000008793,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25052,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:23.227Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 3.1684910000003583,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25052,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:23.735Z",
+          "phase": "preparing",
+          "status": 503,
+          "retryAfter": null,
+          "milliseconds": 2.4377050000002782,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25053,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:24.239Z",
+          "phase": "handover",
+          "status": 503,
+          "retryAfter": "1",
+          "milliseconds": 1.5992599999990489,
+          "ok": false,
+          "persistent": true,
+          "acceptingProposals": false,
+          "simulation": "updating"
+        },
+        {
+          "at": "2026-10-09T03:42:24.742Z",
+          "phase": "handover",
+          "status": 503,
+          "retryAfter": "1",
+          "milliseconds": 1.3205410000009579,
+          "ok": false,
+          "persistent": true,
+          "acceptingProposals": false,
+          "simulation": "updating"
+        },
+        {
+          "at": "2026-10-09T03:42:25.250Z",
+          "phase": "handover",
+          "status": 503,
+          "retryAfter": "1",
+          "milliseconds": 1.5120520000000397,
+          "ok": false,
+          "persistent": true,
+          "acceptingProposals": false,
+          "simulation": "updating"
+        },
+        {
+          "at": "2026-10-09T03:42:25.753Z",
+          "phase": "handover",
+          "status": 503,
+          "retryAfter": "1",
+          "milliseconds": 0.9880339999999705,
+          "ok": false,
+          "persistent": true,
+          "acceptingProposals": false,
+          "simulation": "updating"
+        },
+        {
+          "at": "2026-10-09T03:42:26.255Z",
+          "phase": "handover",
+          "status": 503,
+          "retryAfter": "1",
+          "milliseconds": 0.9451239999998506,
+          "ok": false,
+          "persistent": true,
+          "acceptingProposals": false,
+          "simulation": "updating"
+        },
+        {
+          "at": "2026-10-09T03:42:26.757Z",
+          "phase": "handover",
+          "status": 503,
+          "retryAfter": "1",
+          "milliseconds": 0.8593149999996967,
+          "ok": false,
+          "persistent": true,
+          "acceptingProposals": false,
+          "simulation": "updating"
+        },
+        {
+          "at": "2026-10-09T03:42:27.260Z",
+          "phase": "handover",
+          "status": 503,
+          "retryAfter": "1",
+          "milliseconds": 1.09051399999953,
+          "ok": false,
+          "persistent": true,
+          "acceptingProposals": false,
+          "simulation": "updating"
+        },
+        {
+          "at": "2026-10-09T03:42:27.762Z",
+          "phase": "handover",
+          "status": 503,
+          "retryAfter": "1",
+          "milliseconds": 0.905945000000429,
+          "ok": false,
+          "persistent": true,
+          "acceptingProposals": false,
+          "simulation": "updating"
+        },
+        {
+          "at": "2026-10-09T03:42:28.795Z",
+          "phase": "running",
+          "status": 200,
+          "retryAfter": null,
+          "milliseconds": 497.7362359999988,
+          "ok": true,
+          "tick": 399372,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25065,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:42:29.948Z",
+          "phase": "running",
+          "status": 200,
+          "retryAfter": null,
+          "milliseconds": 651.820595000001,
+          "ok": true,
+          "tick": 399380,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25064,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:42:30.632Z",
+          "phase": "running",
+          "status": 200,
+          "retryAfter": null,
+          "milliseconds": 181.51237899999978,
+          "ok": true,
+          "tick": 399388,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25063,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:42:31.399Z",
+          "phase": "running",
+          "status": 200,
+          "retryAfter": null,
+          "milliseconds": 265.9446119999993,
+          "ok": true,
+          "tick": 399396,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25062,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:42:33.379Z",
+          "phase": "running",
+          "status": 200,
+          "retryAfter": null,
+          "milliseconds": 1478.4151070000007,
+          "ok": true,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25063,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:42:33.955Z",
+          "phase": "running",
+          "status": 200,
+          "retryAfter": null,
+          "milliseconds": 74.18135600000096,
+          "ok": true,
+          "tick": 399404,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25062,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:42:34.814Z",
+          "phase": "running",
+          "status": 200,
+          "retryAfter": null,
+          "milliseconds": 358.1906200000012,
+          "ok": true,
+          "tick": 399412,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25061,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:42:35.401Z",
+          "phase": "running",
+          "status": 200,
+          "retryAfter": null,
+          "milliseconds": 85.9968540000009,
+          "ok": true,
+          "tick": 399420,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25060,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:42:36.030Z",
+          "phase": "running",
+          "status": 200,
+          "retryAfter": null,
+          "milliseconds": 123.82943199999863,
+          "ok": true,
+          "tick": 399428,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25058,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:42:37.982Z",
+          "phase": "running",
+          "status": 200,
+          "retryAfter": null,
+          "milliseconds": 1449.9387079999979,
+          "ok": true,
+          "tick": 399432,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25059,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:42:38.700Z",
+          "phase": "running",
+          "status": 200,
+          "retryAfter": null,
+          "milliseconds": 207.7176389999986,
+          "ok": true,
+          "tick": 399440,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25058,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:42:39.688Z",
+          "phase": "running",
+          "status": 200,
+          "retryAfter": null,
+          "milliseconds": 486.34209399999963,
+          "ok": true,
+          "tick": 399448,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25057,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:42:40.635Z",
+          "phase": "running",
+          "status": 200,
+          "retryAfter": null,
+          "milliseconds": 445.45898300000044,
+          "ok": true,
+          "tick": 399456,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25056,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:42:43.080Z",
+          "phase": "running",
+          "status": 200,
+          "retryAfter": null,
+          "milliseconds": 1943.5159250000033,
+          "ok": true,
+          "tick": 399464,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25056,
+          "simulation": "catching-up"
+        }
+      ],
+      "capacity": {
+        "samples": 309,
+        "minimumAvailableBytes": 90697728,
+        "maximumWalBytes": 30030712,
+        "maximumCgroupMemoryBytes": 999911424,
+        "eventsBefore": "low 0\nhigh 0\nmax 273\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "eventsAfter": "low 0\nhigh 0\nmax 348\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "byPhase": {
+          "preparing": {
+            "samples": 111,
+            "minimumAvailableBytes": 120537088,
+            "maximumWalBytes": 0,
+            "maximumMemoryBytes": 999911424
+          },
+          "running": {
+            "samples": 158,
+            "minimumAvailableBytes": 90697728,
+            "maximumWalBytes": 30030712,
+            "maximumMemoryBytes": 999854080
+          },
+          "handover": {
+            "samples": 40,
+            "minimumAvailableBytes": 91987968,
+            "maximumWalBytes": 28737032,
+            "maximumMemoryBytes": 619806720
+          }
+        }
+      },
+      "scope": "Actual recovery from a disk-full halt through the same gateway; 32 previously unsaved ticks are recomputed, not uninterrupted time. No clock reset, world replacement, renewed people or physical law change."
+    },
+    "observer": {
+      "startedAt": "2026-10-09T03:39:32.809Z",
+      "finishedAt": "2026-10-09T03:43:51.063Z",
+      "snapshots": 3,
+      "frames": 54,
+      "firstTick": 399400,
+      "lastTick": 399940,
+      "streamEnded": false,
+      "regressions": [
+        {
+          "from": 399400,
+          "to": 399368,
+          "repeatedTicks": 32
+        }
+      ],
+      "faults": [],
+      "healthSamples": [
+        {
+          "at": "2026-10-09T03:39:33.592Z",
+          "status": 503,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 24884,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:39:43.781Z",
+          "status": 503,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 24895,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:39:56.368Z",
+          "status": 503,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 24906,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:40:06.582Z",
+          "status": 503,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 24916,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:40:16.777Z",
+          "status": 503,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 24927,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:40:26.976Z",
+          "status": 503,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 24938,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:40:39.555Z",
+          "status": 503,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 24949,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:40:49.714Z",
+          "status": 503,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 24960,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:40:59.896Z",
+          "status": 503,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 24971,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:41:12.520Z",
+          "status": 503,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 24982,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:41:22.671Z",
+          "status": 503,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 24993,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:41:32.838Z",
+          "status": 503,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25004,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:41:45.673Z",
+          "status": 503,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25015,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:41:55.836Z",
+          "status": 503,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25026,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:06.000Z",
+          "status": 503,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25037,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:18.682Z",
+          "status": 503,
+          "ok": false,
+          "tick": 399400,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": false,
+          "lagSeconds": 25048,
+          "simulation": "halted"
+        },
+        {
+          "at": "2026-10-09T03:42:29.110Z",
+          "status": 200,
+          "ok": true,
+          "tick": 399384,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25063,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:42:40.617Z",
+          "status": 200,
+          "ok": true,
+          "tick": 399464,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25056,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:42:53.956Z",
+          "status": 200,
+          "ok": true,
+          "tick": 399540,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25048,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:43:04.131Z",
+          "status": 200,
+          "ok": true,
+          "tick": 399620,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25039,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:43:14.515Z",
+          "status": 200,
+          "ok": true,
+          "tick": 399688,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25034,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:43:27.688Z",
+          "status": 200,
+          "ok": true,
+          "tick": 399772,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25024,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:43:39.149Z",
+          "status": 200,
+          "ok": true,
+          "tick": 399848,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25017,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T03:43:49.481Z",
+          "status": 200,
+          "ok": true,
+          "tick": 399936,
+          "lawsVersion": "biosphere-1.7",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25007,
+          "simulation": "catching-up"
+        }
+      ],
+      "scope": "one direct Railway observer during recovery from an existing disk-full halt into storage 2; the saved checkpoint is 32 ticks behind the halted in-memory view; samples do not guarantee every connection"
+    },
+    "latestAudit": {
+      "at": "2026-10-09T03:50:27.957Z",
+      "node": "v22.23.3",
+      "gatewaySha256": "fc3454f1f506bf84d3b3553fe32d1736780c729269801b232c079a063facebcc",
+      "runtimeSha256": "6a34c59cadc76f1d1549e9bb0f0b533075afc5aea48012364eb32120d0c95ad9",
+      "current": {
+        "directory": "/data/runtime/releases/region-storage-20261009-1-6a34c59cadc76f1d"
+      },
+      "status": {
+        "phase": "running",
+        "release": "region-storage-20261009-1",
+        "pendingRequests": 0,
+        "activeRequests": 0,
+        "observers": 0,
+        "runtimePid": 213,
+        "managedProcesses": 1,
+        "error": null
+      },
+      "head": {
+        "checksum": "266d0f08ca470ad3c3e395248e4d9d5167af3019a093f313695b2aa94b895fdc",
+        "tick": 402600,
+        "people": 0,
+        "births": 407,
+        "deaths": 1639,
+        "generator": "planet-1",
+        "rng": 3647824610
+      },
+      "clock": {
+        "tick": 402600,
+        "wall_ms": 1791493090340
+      },
+      "storage": 2,
+      "archives": [
+        {
+          "id": "008-material-memory-and-agency",
+          "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+          "created_at": 1791445486072
+        },
+        {
+          "id": "009-human-thermal-and-distance-balance",
+          "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+          "created_at": 1791466127552
+        },
+        {
+          "id": "010-performed-body-maintenance",
+          "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+          "created_at": 1791501484044
+        },
+        {
+          "id": "011-consumption-before-ration-pickup",
+          "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+          "created_at": 1791504160572
+        },
+        {
+          "id": "012-funded-human-metabolism",
+          "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+          "created_at": 1791508588158
+        },
+        {
+          "id": "013-local-inventory-exposure-and-access",
+          "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+          "created_at": 1791512310450
+        }
+      ],
+      "communities": [
+        {
+          "id": "civ-1",
+          "foundedTick": 0,
+          "births": 84,
+          "deaths": 390,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        },
+        {
+          "id": "civ-11",
+          "foundedTick": 0,
+          "births": 93,
+          "deaths": 400,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        },
+        {
+          "id": "civ-21",
+          "foundedTick": 0,
+          "births": 96,
+          "deaths": 407,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        },
+        {
+          "id": "civ-3118",
+          "foundedTick": 10369,
+          "births": 134,
+          "deaths": 442,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          }
+        }
+      ],
+      "counts": {
+        "sessions": 26,
+        "agents": 1,
+        "receipts": 3,
+        "world_events": 70564,
+        "world_history": 4193,
+        "renewals": 1
+      },
+      "volume": {
+        "capacity": 454299648,
+        "available": 90406912,
+        "wal": 30319112
+      },
+      "memory": {
+        "events": "low 0\nhigh 0\nmax 655\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "current": 959098880,
+        "runtimeStatus": [
+          "VmHWM:\t  454364 kB",
+          "VmRSS:\t  405024 kB",
+          "RssAnon:\t  350084 kB",
+          "RssFile:\t   54940 kB"
+        ]
+      },
+      "health": {
+        "ok": true,
+        "tick": 402608,
+        "lawsVersion": "biosphere-1.7",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 24735,
+        "simulation": "catching-up"
+      }
+    }
+  },
+  "website": {
+    "provider": "Vercel",
+    "id": "dpl_6Wr76X4ofersJ2uvh2ZFGR2HLShS",
+    "url": "https://praxans-dg5h9tg1p-perseusxr-projects.vercel.app",
+    "canonicalUrl": "https://praxans.vercel.app",
+    "readyState": "READY",
+    "target": "production",
+    "createdAt": 1791517437840,
+    "verification": "Provider CLI deployment metadata and alias result; deployed URL not fetched.",
+    "existingTabs": "Refresh once to acquire the new client bundle.",
+    "containerAssets": "Direct Railway homepage retains the preceding container assets; the canonical Vercel website has the new client."
+  },
+  "limits": [
+    "One host/volume; no claim of uninterrupted operation through infrastructure failure.",
+    "The live old writer filled the disk before activation; recovery replayed 32 unsaved ticks.",
+    "The finite new-writer monitor retained about 90.7 MB free but reached cgroup memory pressure; no OOM kill in that interval.",
+    "Whole-region serialization, metadata/archive growth and long-term combined memory capacity remain unresolved.",
+    "RAM-filesystem capacity trials are not host disk or cgroup guarantees; full candidate saves were slower in the matched local comparison.",
+    "All four existing communities remain extinct; no new renewal, physical law change or long-term survival claim.",
+    "The infant-food diagnostic is controlled current-model evidence, not an apportionment of historical deaths."
+  ],
+  "recoveryBackup": {
+    "raw": {
+      "bytes": 310272000,
+      "sha256": "9353bb6f8680aae104479ce76bcaff4e06c1e31fe310ad86fd6188165d011bbc"
+    },
+    "gzip": {
+      "bytes": 202836209,
+      "sha256": "527f282b6cb9ade2c99c0bf1bb9b62ca76143563fbccd527f13d2b12d89b0069"
+    },
+    "integrity": "ok",
+    "worldChecksum": "4eb7b300bf5f388e91b3a659084896319f038126e993ad4fe80f7219bc5e2aef",
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "generationVersion": "planet-1",
+      "version": 13,
+      "lawsVersion": "biosphere-1.7",
+      "tick": 399368,
+      "rng": 1778919904,
+      "births": 407,
+      "deaths": 1639
+    },
+    "people": 0,
+    "regions": 38,
+    "clock": {
+      "tick": 399368,
+      "wall_ms": 1791492282340.0
+    },
+    "counts": {
+      "sessions": 26,
+      "agents": 1,
+      "receipts": 3,
+      "world_events": 70545
+    },
+    "archives": [
+      {
+        "id": "008-material-memory-and-agency",
+        "sha256": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb"
+      },
+      {
+        "id": "009-human-thermal-and-distance-balance",
+        "sha256": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164"
+      },
+      {
+        "id": "010-performed-body-maintenance",
+        "sha256": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f"
+      },
+      {
+        "id": "011-consumption-before-ration-pickup",
+        "sha256": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f"
+      },
+      {
+        "id": "012-funded-human-metabolism",
+        "sha256": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0"
+      },
+      {
+        "id": "013-local-inventory-exposure-and-access",
+        "sha256": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77"
+      }
+    ],
+    "copy": {
+      "startedAt": "2026-10-09T03:34:09.169Z",
+      "copiedAt": "2026-10-09T03:34:11.372Z",
+      "elapsedMilliseconds": 2201.82669,
+      "identity": {
+        "checksum": "4eb7b300bf5f388e91b3a659084896319f038126e993ad4fe80f7219bc5e2aef",
+        "tick": 399368,
+        "people": 0,
+        "births": 407,
+        "deaths": 1639,
+        "clock": {
+          "tick": 399368,
+          "wall_ms": 1791492282340
+        },
+        "events": {
+          "n": 70545,
+          "through": 70545
+        },
+        "regions": 38,
+        "archives": [
+          {
+            "id": "008-material-memory-and-agency",
+            "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+            "created_at": 1791445486072
+          },
+          {
+            "id": "009-human-thermal-and-distance-balance",
+            "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+            "created_at": 1791466127552
+          },
+          {
+            "id": "010-performed-body-maintenance",
+            "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+            "created_at": 1791501484044
+          },
+          {
+            "id": "011-consumption-before-ration-pickup",
+            "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+            "created_at": 1791504160572
+          },
+          {
+            "id": "012-funded-human-metabolism",
+            "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+            "created_at": 1791508588158
+          },
+          {
+            "id": "013-local-inventory-exposure-and-access",
+            "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+            "created_at": 1791512310450
+          }
+        ]
+      },
+      "copyMonitor": {
+        "samples": 98,
+        "minimumAvailableBytes": 121032704,
+        "maximumWalBytes": 0,
+        "maximumCgroupMemoryBytes": 999911424,
+        "eventsBefore": "low 0\nhigh 0\nmax 200\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "eventsAfter": "low 0\nhigh 0\nmax 252\noom 0\noom_kill 0\noom_group_kill 0\n"
+      }
+    }
+  },
+  "structuralReview": {
+    "inspectedAt": "2026-10-09T03:55:06.528Z",
+    "structuralScan": {
+      "baseCommit": "31d7cc7497e9aae4973e5cc818fa846cdfa56307",
+      "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+      "gitVisibleExistingFileCount": 953,
+      "jsTsFileCount": 135,
+      "sourceFileCount": 80,
+      "srcContentSha256": "ae0a8d6ee2d82634ded1c190c479f1f19c20e5fba3b4b6ceec05d73144ec2727",
+      "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
+      "resolvedEdgeCount": 687,
+      "edgesByArea": {
+        "docs -> src/simulation": 22,
+        "scripts -> src/server": 27,
+        "scripts -> src/simulation": 26,
+        "src/client -> src/simulation": 27,
+        "src/client -> src/client": 21,
+        "src/server -> src/simulation": 41,
+        "src/server -> src/server": 28,
+        "src/simulation -> src/simulation": 245,
+        "tests -> src/simulation": 170,
+        "tests -> tests": 31,
+        "tests -> src/server": 49
+      },
+      "missingImports": [],
+      "missingAssets": [],
+      "nonliteralLoads": [
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+        },
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+        }
+      ],
+      "layerViolations": [],
+      "simulationEnvironmentImports": [],
+      "localMarkdownLinksChecked": 471,
+      "missingMarkdownLinks": []
+    }
+  },
+  "semanticReview": [
+    "The storage version and schema checker have one owner; all current generic region readers use the shared decoder.",
+    "Schema and row conversion happen under the sole writer in one existing save transaction, with clock and metadata unchanged at a storage-only boundary.",
+    "Original historical archive bytes are retained and storage-aware gateway fallback is already deployed.",
+    "No simulation modules, shared time/space units, resource transfers or conservation laws change in this release.",
+    "The observer owns retry lifecycle and preserves view state; no browser endpoint gains production clock authority.",
+    "Historical pinned-revision research remains distinct from generic readers; source and public model/hosting/requirement records now describe storage compatibility and unresolved feeding/growth."
+  ],
+  "sourceCommit": "31d7cc7497e9aae4973e5cc818fa846cdfa56307",
+  "operatorAttempt": {
+    "firstAt": "2026-10-09T03:40:03.366Z",
+    "outcome": "rejected before preflight/database mutation",
+    "cause": "The private staged artifact belonged to the root SSH user and was not readable by the gateway service.",
+    "correction": "Only the verified artifact files/directory were assigned to the actual service owner (uid/gid 1000), retaining private modes; the same artifact then activated successfully."
+  },
+  "postActivationBackup": {
+    "raw": {
+      "bytes": 310272000,
+      "sha256": "60a15203bd13de2d2e6c95387167e27c56792b62477a0f7452e10c5f3a88c592"
+    },
+    "gzip": {
+      "bytes": 223447234,
+      "sha256": "8c31bc5afbba8768f0e14b6358c532033d1697f1c78ca5c7f442966369a872e5"
+    },
+    "integrity": "ok",
+    "independentDecoder": {
+      "library": "libzstd",
+      "version": "1.5.5",
+      "scope": "Independent C library via Python, exact single-frame/content length and original/payload SHA-256; no application codec imported."
+    },
+    "storage": 2,
+    "worldChecksum": "5c2f92f0c95fa306a0b7700502edd2153af3924c94a42ec976507a327bde3044",
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "version": 13,
+      "lawsVersion": "biosphere-1.7",
+      "generationVersion": "planet-1",
+      "tick": 400744,
+      "rng": 3735639215,
+      "births": 407,
+      "deaths": 1639
+    },
+    "people": 0,
+    "clock": {
+      "tick": 400744,
+      "wall_ms": 1791492626340.0
+    },
+    "regions": [
+      {
+        "id": "-1,-1",
+        "sha256": "8b37bce24fd4798bf04636661a971e98bdaf7397730c4e627ce920ccfec23eb3",
+        "rawBytes": 3475721,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 854737
+      },
+      {
+        "id": "-1,0",
+        "sha256": "2a6af5d7de2bbde79fc06522cbeec753e2e8d550f7a5a6f9ad98f9c74b303ccb",
+        "rawBytes": 3199411,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 795384
+      },
+      {
+        "id": "-1,1",
+        "sha256": "051bc5a9126a10f56ee08228241624fdbec4a4cf0c25fe7f26f251f0a70f9d9b",
+        "rawBytes": 2416776,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 602026
+      },
+      {
+        "id": "0,-1",
+        "sha256": "a38c61929a92c77a57197a53dd7d3de67ab249e930439fa0dad678dc94857685",
+        "rawBytes": 3429078,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 830694
+      },
+      {
+        "id": "0,0",
+        "sha256": "7f7591ab2f628064ef832193a317f957d9fdd811891557510dc823905c5d4238",
+        "rawBytes": 3028967,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 697437
+      },
+      {
+        "id": "0,1",
+        "sha256": "a3e215c7ddd3e2ab69ae9e4c74e774271634f1cbbad58d572556d9b0d477393e",
+        "rawBytes": 2859744,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 647660
+      },
+      {
+        "id": "0,2",
+        "sha256": "dfd3ba861648d8169a872f63e2ed0d8ebbdef76fc697882f6a5e674ac983c70f",
+        "rawBytes": 2274075,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 562558
+      },
+      {
+        "id": "1,-1",
+        "sha256": "be037bc0377d64e5ee1af923c61abb1ab3f721d4ac593e5e3cb2d520e6ec29d9",
+        "rawBytes": 3370577,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 815703
+      },
+      {
+        "id": "1,0",
+        "sha256": "39ca53314d5bacb6e025bfa806fae89e59bb13555bc33d334b7d87facb720feb",
+        "rawBytes": 3193128,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 729379
+      },
+      {
+        "id": "1,1",
+        "sha256": "e9f356653b256313571d145322b4e1f78c0b62fce373dae11dd53a037ced62c6",
+        "rawBytes": 2729765,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 603363
+      },
+      {
+        "id": "1,2",
+        "sha256": "bc633703b326cbda53aa8e1f3386783fe189d72d2d003fcf9c09a6c543672b3d",
+        "rawBytes": 2181820,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 525915
+      },
+      {
+        "id": "2,-1",
+        "sha256": "51ee26e69f6d67cfb0b69b87ba9334848adf5ca93e596bf23c2dc26b66ebdd82",
+        "rawBytes": 3337783,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 814467
+      },
+      {
+        "id": "2,0",
+        "sha256": "40e536f5789a98c901b17ab75938ec0fb37729740c81b226b754392c2a2290c8",
+        "rawBytes": 3159347,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 757247
+      },
+      {
+        "id": "2,1",
+        "sha256": "a9260b02fff42564f5ea393a99e7d282bbbd6d65378bbe462bcff1d21ace81cb",
+        "rawBytes": 2961216,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 693936
+      },
+      {
+        "id": "2,2",
+        "sha256": "18454cf892e72670ab0dca69c1485cc868cd1afa4a78683843e8b6c6d0b8b4ed",
+        "rawBytes": 2878129,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 715050
+      },
+      {
+        "id": "3,-1",
+        "sha256": "14606405c408440bf401f6e30b29ce50af391c33976835cc8aef5e8a851c5f1d",
+        "rawBytes": 3472778,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 856601
+      },
+      {
+        "id": "3,0",
+        "sha256": "70dfe305ac7a73777e07b5f4c879511bfd2adc6e354ce652bbdb242d3cf2c8d7",
+        "rawBytes": 3357276,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 830862
+      },
+      {
+        "id": "3,1",
+        "sha256": "05b8b48baab8c8e6446126741007fd1ecda1233119d946af032f824bc6fc2734",
+        "rawBytes": 3327060,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 822810
+      },
+      {
+        "id": "3,2",
+        "sha256": "aa4a8d4523ef9384b3a6fdc21c511a1310d4e29cc35496749cf8063739fa190d",
+        "rawBytes": 3279738,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 810438
+      },
+      {
+        "id": "4,-1",
+        "sha256": "16b0c4822b952b96b2f47ba8e1356e5c8863c27739ef2afb2e7e620abf11e9d3",
+        "rawBytes": 3439998,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 843820
+      },
+      {
+        "id": "4,0",
+        "sha256": "ca6b14e365d1a07c93233dcdf9a28adb013746512123ec3f1e45dcd7590a9735",
+        "rawBytes": 3401910,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 840430
+      },
+      {
+        "id": "4,1",
+        "sha256": "437c890bd2e519510c3595db477e6bbaf68aad584fc1b60b21315eb812372c29",
+        "rawBytes": 2618575,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 648474
+      },
+      {
+        "id": "4,2",
+        "sha256": "f0264664917816e2b2d798473a006d9d61ff68b249dd171166974221e6c05b7f",
+        "rawBytes": 1298415,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 324736
+      },
+      {
+        "id": "5,-1",
+        "sha256": "22e2ae5f2ca2a51d6d1d03675f6fc36043f58d447fc5867f3280bbb4be125040",
+        "rawBytes": 2807033,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 696503
+      },
+      {
+        "id": "5,0",
+        "sha256": "afe03bf769b3417a8ce8ef987b1a06ebe2d7233d1e71a2eda61005f5e4453de9",
+        "rawBytes": 3247040,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 800274
+      },
+      {
+        "id": "5,1",
+        "sha256": "cd4e8c3759b2ccb86d32d24ce5ef0eca8f9aced0122316a91885fe304310e6eb",
+        "rawBytes": 3095353,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 759525
+      },
+      {
+        "id": "6,-1",
+        "sha256": "a304488bfcf2ef260a4e84f68a88f20bae0febdd891dcade453d1f9bfa390354",
+        "rawBytes": 3539520,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 870012
+      },
+      {
+        "id": "6,0",
+        "sha256": "1bdd7bffa5c617f27a6c4e5b99184635cbe5044e6092152b473c4b7c4d5015bc",
+        "rawBytes": 3544330,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 873662
+      },
+      {
+        "id": "6,1",
+        "sha256": "565730e0510d07eb57ffd5e65d9ae9ee0c152a5298ab59128580a0791a500c53",
+        "rawBytes": 3599896,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 878837
+      },
+      {
+        "id": "7,-1",
+        "sha256": "4742f86bca889d6b95a2f3d85d314467bfb6b151667790a2071c684c230b3e57",
+        "rawBytes": 3497673,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 830747
+      },
+      {
+        "id": "7,0",
+        "sha256": "6e0526dc32f8e9d64d38bc3a666c76d1099fcab7a79f8478fc8fcfe4a1755492",
+        "rawBytes": 3515549,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 808652
+      },
+      {
+        "id": "7,1",
+        "sha256": "54dac8713bc9d8792b777b4e680fd2322e30f4a25a623ee42fc7f176a48eec9d",
+        "rawBytes": 3442174,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 819313
+      },
+      {
+        "id": "8,-1",
+        "sha256": "f472e567fa34ab9abc6d750ae902f99425003e9cd46dc982353c7c8f3cf19b8b",
+        "rawBytes": 3416536,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 790498
+      },
+      {
+        "id": "8,0",
+        "sha256": "f95e7f87438d81644c31873481362c23efa87c2696785c2870f62d0b6d712f6f",
+        "rawBytes": 3538594,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 824121
+      },
+      {
+        "id": "8,1",
+        "sha256": "3e6f8a43a055cb1bb0ef44b35d13601fac4660f1d974c1311fbac84ca67c0d08",
+        "rawBytes": 3529008,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 801193
+      },
+      {
+        "id": "9,-1",
+        "sha256": "0e751f2a694c3b680c6aeaa009add040dab615ba12920a7d79045d93c6663abd",
+        "rawBytes": 3495881,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 823066
+      },
+      {
+        "id": "9,0",
+        "sha256": "c0a09f05b5f8c7e05af233aff715de9ba1319d9860244644c14930f269d0bbd3",
+        "rawBytes": 3245974,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 755289
+      },
+      {
+        "id": "9,1",
+        "sha256": "08f3da00cdf34602571ff9e0efffe8de1bf2b8c663a178b38a32156c4e6125dc",
+        "rawBytes": 3487199,
+        "encoding": "zstd-frame-1",
+        "packedBytes": 827447
+      }
+    ],
+    "archives": [
+      {
+        "id": "008-material-memory-and-agency",
+        "sha256": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+        "createdAt": 1791445486072
+      },
+      {
+        "id": "009-human-thermal-and-distance-balance",
+        "sha256": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+        "createdAt": 1791466127552
+      },
+      {
+        "id": "010-performed-body-maintenance",
+        "sha256": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+        "createdAt": 1791501484044
+      },
+      {
+        "id": "011-consumption-before-ration-pickup",
+        "sha256": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+        "createdAt": 1791504160572
+      },
+      {
+        "id": "012-funded-human-metabolism",
+        "sha256": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+        "createdAt": 1791508588158
+      },
+      {
+        "id": "013-local-inventory-exposure-and-access",
+        "sha256": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+        "createdAt": 1791512310450
+      }
+    ],
+    "protectedRows": {
+      "world_events": {
+        "count": 70545,
+        "unchanged": true,
+        "sha256": "db5e4c100b281bfce2ebbb0df2d286582e5fd4dadab2694482f91879a8f80e4e"
+      },
+      "world_history": {
+        "count": 4160,
+        "unchanged": true,
+        "sha256": "19b7f7a9c61fa15f15b3a398d7f0a14e1ca25e4a9482d3176ce5497b3c852a9c"
+      },
+      "interventions": {
+        "count": 21,
+        "unchanged": true,
+        "sha256": "b8ba8b3ae25dcfcf332acff781a2aa1f2aaae0e9bf90e1a0fbf94709c7da28c8"
+      },
+      "world_backups": {
+        "count": 6,
+        "unchanged": true,
+        "sha256": "bb637a9ef465abf7b53cadf28f24422d549ab872174d7219b15eccf4b7bbe28f"
+      },
+      "world_backup_parts": {
+        "count": 2083,
+        "unchanged": true,
+        "sha256": "551cbb4e1397715cb976d021d1c59db780a9aeb4cd7e3cb0c34f4d8765c193b7"
+      },
+      "sessions": {
+        "count": 26,
+        "unchanged": true,
+        "sha256": "0d6afe9454e239dd137f4d5b60ad5ca2d9cce15310d1a0aee85843c5b44c6262"
+      },
+      "agents": {
+        "count": 1,
+        "unchanged": true,
+        "sha256": "957b018ab65e7c6ccc013fa617df670d30fe6a4e442fd4f94da60e69ee7ea33b"
+      },
+      "receipts": {
+        "count": 3,
+        "unchanged": true,
+        "sha256": "61eeb51a809a13188fead544cfbca9f51d31b607589fd2ff68bba49452172183"
+      }
+    },
+    "release": {
+      "sequence": 22,
+      "id": "release:region-storage-20261009-1",
+      "tick": 399368,
+      "description": "Lossless compressed region checkpoints reduce write-log space. Storage format 2 preserves the exact world, clock, resources, population and history; no physical laws or founding rules change.",
+      "before_checksum": "4eb7b300bf5f388e91b3a659084896319f038126e993ad4fe80f7219bc5e2aef",
+      "after_checksum": "4eb7b300bf5f388e91b3a659084896319f038126e993ad4fe80f7219bc5e2aef",
+      "created_at": 1791517347157
+    },
+    "copy": {
+      "startedAt": "2026-10-09T03:45:43.939Z",
+      "copiedAt": "2026-10-09T03:45:46.456Z",
+      "elapsedMilliseconds": 2511.291425,
+      "identity": {
+        "checksum": "5c2f92f0c95fa306a0b7700502edd2153af3924c94a42ec976507a327bde3044",
+        "tick": 400744,
+        "people": 0,
+        "births": 407,
+        "deaths": 1639,
+        "clock": {
+          "tick": 400744,
+          "wall_ms": 1791492626340
+        },
+        "events": {
+          "n": 70559,
+          "through": 70559
+        },
+        "regions": 38,
+        "archives": [
+          {
+            "id": "008-material-memory-and-agency",
+            "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+            "created_at": 1791445486072
+          },
+          {
+            "id": "009-human-thermal-and-distance-balance",
+            "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+            "created_at": 1791466127552
+          },
+          {
+            "id": "010-performed-body-maintenance",
+            "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+            "created_at": 1791501484044
+          },
+          {
+            "id": "011-consumption-before-ration-pickup",
+            "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+            "created_at": 1791504160572
+          },
+          {
+            "id": "012-funded-human-metabolism",
+            "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+            "created_at": 1791508588158
+          },
+          {
+            "id": "013-local-inventory-exposure-and-access",
+            "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+            "created_at": 1791512310450
+          }
+        ]
+      },
+      "copyMonitor": {
+        "samples": 109,
+        "minimumAvailableBytes": 90607616,
+        "maximumWalBytes": 30121352,
+        "maximumCgroupMemoryBytes": 999911424,
+        "eventsBefore": "low 0\nhigh 0\nmax 348\noom 0\noom_kill 0\noom_group_kill 0\n",
+        "eventsAfter": "low 0\nhigh 0\nmax 655\noom 0\noom_kill 0\noom_group_kill 0\n"
+      }
+    },
+    "sourceBackupUnchanged": true
+  },
+  "ci": [
+    {
+      "conclusion": "success",
+      "databaseId": 37880294995,
+      "event": "pull_request",
+      "headSha": "31d7cc7497e9aae4973e5cc818fa846cdfa56307",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 37880291358,
+      "event": "push",
+      "headSha": "31d7cc7497e9aae4973e5cc818fa846cdfa56307",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 37877655940,
+      "event": "pull_request",
+      "headSha": "8148006f2bd7914cfcc0c3e054bd6c43787967cc",
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 37877652897,
+      "event": "push",
+      "headSha": "8148006f2bd7914cfcc0c3e054bd6c43787967cc",
+      "status": "completed"
+    }
+  ]
+}

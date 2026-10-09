@@ -1,0 +1,15 @@
+services:
+  world:
+    build: .
+    ports:
+      - "5173:8080"
+    environment:
+      PRAXANS_DB: /data/praxans.sqlite
+      WORLD_SEED: "1847"
+      PRAXANS_RELEASE: browser-foundation-1
+    volumes:
+      - praxans-world:/data
+    restart: unless-stopped
+    stop_grace_period: 20s
+volumes:
+  praxans-world:

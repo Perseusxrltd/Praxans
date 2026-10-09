@@ -1,0 +1,169 @@
+{
+  "recordedAtUTC": "2026-10-08T20:33:08.031929+00:00",
+  "incident": {
+    "haltedAtUTC": "2026-10-08T19:45:59.803Z",
+    "error": "SQLITE_FULL",
+    "reportedHaltedTick": 291124,
+    "lastCommittedTick": 291092,
+    "uncommittedTicksRecomputedAfterRestart": 32,
+    "confirmedAtUTC": "2026-10-08T20:17:08.984Z",
+    "availableBytesAtDiagnosis": 4096,
+    "walBytesAtDiagnosis": 174370816
+  },
+  "checkpoint": {
+    "before": {
+      "at": "2026-10-08T20:19:17.852Z",
+      "freeBytes": 4096,
+      "walBytes": 174370816,
+      "walIndex": {
+        "maxFrame": 24209,
+        "databasePages": 63164,
+        "backfilledFrames": 24209,
+        "readMarks": [0, 24209, 4294967295, 4294967295, 4294967295]
+      }
+    },
+    "checkpoint": {
+      "busy": 0,
+      "log": 0,
+      "checkpointed": 0
+    },
+    "after": {
+      "at": "2026-10-08T20:19:17.885Z",
+      "freeBytes": 174379008,
+      "walBytes": 0,
+      "walIndex": {
+        "maxFrame": 0,
+        "databasePages": 63164,
+        "backfilledFrames": 0,
+        "readMarks": [0, 0, 4294967295, 4294967295, 4294967295]
+      }
+    },
+    "logicalBefore": {
+      "world": {
+        "checksum": "8b8411e168a3fc214300a264b582ab72a10f13ab250a810036c7c0156f372c60",
+        "tick": 291092
+      },
+      "clock": {
+        "tick": 291092,
+        "wall_ms": 1791465213340
+      }
+    },
+    "logicalAfter": {
+      "world": {
+        "checksum": "8b8411e168a3fc214300a264b582ab72a10f13ab250a810036c7c0156f372c60",
+        "tick": 291092
+      },
+      "clock": {
+        "tick": 291092,
+        "wall_ms": 1791465213340
+      }
+    },
+    "logicalStateUnchanged": true
+  },
+  "independentBackup": {
+    "raw": {
+      "bytes": 226304000,
+      "sha256": "55e7c89e349b46809a6f0a6e2fa2d28b20343fca483ffa9d120e9eaf84275bd7"
+    },
+    "gzip": {
+      "bytes": 61212127,
+      "sha256": "6459ea919ed35b26c183fdc24ba2d6f22faa6b5600b559c386d8402cd11c642f"
+    },
+    "integrity": "ok",
+    "worldChecksum": "8b8411e168a3fc214300a264b582ab72a10f13ab250a810036c7c0156f372c60",
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "generationVersion": "planet-1",
+      "version": 9,
+      "lawsVersion": "biosphere-1.3",
+      "tick": 291092,
+      "rng": 2385982194,
+      "births": 407,
+      "deaths": 1639
+    },
+    "people": 0,
+    "regions": 38,
+    "clock": {
+      "tick": 291092,
+      "wallMs": 1791465213340.0
+    },
+    "archives": [
+      {
+        "id": "008-material-memory-and-agency",
+        "sha256": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb"
+      },
+      {
+        "id": "009-human-thermal-and-distance-balance",
+        "sha256": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164"
+      }
+    ]
+  },
+  "resume": {
+    "atUTC": "2026-10-08T20:24:04.487Z",
+    "method": "SIGTERM to confirmed halted child889; existing gateway launches current artifact from committed state. Faulted close skips an unsafe in-memory save. No reset, migration, new release or restoration.",
+    "runtimeSha256": "05af5a6275f6ab8430a1d848983cc4007922a7c2c6bcf519ca8dd18baa656d2d",
+    "continuityCheckedAtUTC": "2026-10-08T20:30:30.892Z",
+    "committedTick": 292948,
+    "soleRuntimePids": [966],
+    "identityAndClockPreserved": true,
+    "sessionsPreserved": 18,
+    "agentIdentityPreserved": 1,
+    "receiptsPreserved": 3,
+    "priorJournalCountRetained": 69845,
+    "storedArchiveChecksumsPreserved": true,
+    "interventionsUnchanged": true,
+    "noAdditionalOOMKill": true,
+    "databaseReadMilliseconds": 2314
+  },
+  "monitor": {
+    "samples": 21,
+    "first": {
+      "at": "2026-10-08T20:25:53.352Z",
+      "availableBytes": 75517952,
+      "databaseBytes": 258719744,
+      "walBytes": 99020112,
+      "memoryBytes": 952209408,
+      "maxFrame": 1,
+      "backfilledFrames": 0,
+      "health": {
+        "ok": true,
+        "tick": 291636,
+        "lawsVersion": "biosphere-1.3",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 25806,
+        "simulation": "catching-up"
+      }
+    },
+    "last": {
+      "at": "2026-10-08T20:31:27.740Z",
+      "availableBytes": 157761536,
+      "databaseBytes": 258719744,
+      "walBytes": 16777216,
+      "memoryBytes": 849104896,
+      "maxFrame": 1,
+      "backfilledFrames": 0,
+      "health": {
+        "ok": true,
+        "tick": 293208,
+        "lawsVersion": "biosphere-1.3",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 25745,
+        "simulation": "catching-up"
+      }
+    },
+    "allHealthChecksPassed": true,
+    "sampledTicksMonotonic": true,
+    "minAvailableBytes": 74182656,
+    "maxWalBytes": 100354992,
+    "maxCgroupMemoryBytes": 999833600
+  },
+  "limits": [
+    "This resumes the same code; it is not a permanent fix for copy readers or write amplification.",
+    "The monitor is a finite diagnostic, not an installed watchdog or a bound on unsampled peaks.",
+    "The identity audit compares bounded signatures, archive checksum fields and prior journal count; all archive bodies were independently rehashed on the backup, not on the active service.",
+    "The second halt occurred minutes after activation. Log exhaustion is proven; this sample does not identify which concurrent read prevented WAL reuse at that moment."
+  ]
+}

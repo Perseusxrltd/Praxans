@@ -1,0 +1,869 @@
+{
+  "release": "body-maintenance-20261008-2",
+  "status": "live and continuity verified",
+  "artifact": {
+    "protocol": 1,
+    "release": "body-maintenance-20261008-2",
+    "notes": "Performed self and nearby body maintenance consumes existing fiber and ordinary work, with shared transfer budgets and signed thermal feedback. Format 10 / biosphere-1.4 preserves saved state and history; loading releases obsolete population JSON before migration saves. Food allocation, growth and basal energy calibration remain unresolved.",
+    "sha256": "69cdc2bac224e00537e5610540f711e656ce8f0f6c64a78ced1147d5344d2fc0",
+    "dependencies": "0ca3efac2e32e64895e4f395f1919a966af1b18b017c12aaa088b491f2f0022e",
+    "nodeMajor": 22
+  },
+  "worldFormat": 10,
+  "lawsVersion": "biosphere-1.4",
+  "storageVersion": 1,
+  "modelTests": {
+    "passed": 153,
+    "failed": 0,
+    "durationMs": 406113.393869,
+    "scope": "Complete body-work implementation, before the later loader-only metadata-retention correction."
+  },
+  "loaderFollowup": {
+    "passed": 36,
+    "failed": 0,
+    "scope": "Body-work, persistence, compressed archive and private preflight tests after the final loader correction."
+  },
+  "productionChecks": 12,
+  "hotfixChecks": 21,
+  "browser": {
+    "checks": [
+      "The initial covering and recipient reflect the saved fixture",
+      "The helper is identified as doing body work",
+      "The inspector names the actual recipient and initial progress",
+      "A paid simulation step places finite fiber on the child",
+      "The inspector now reports performed work",
+      "The child inspector agrees with the observer quantity",
+      "Child text does not claim unobserved continuous care",
+      "The mobile inspector fits its viewport",
+      "The browser reports no errors"
+    ],
+    "beforeTick": 28,
+    "afterTick": 29,
+    "covering": 0.1,
+    "helperText": "Helping with a covering\nNeri Reed \u00b7 0.1 kg adjusted",
+    "errors": []
+  },
+  "suppliedGameClient": {
+    "clientSha256": "1210f58b47aadd9cb4b141fb4b2dc9e17a929aa1a813cdd26b5306a0d08b6808",
+    "unmodifiedSuppliedClient": true,
+    "frames": [
+      {
+        "mode": "shared-world",
+        "tick": 1,
+        "connected": true,
+        "communities": 3
+      },
+      {
+        "mode": "shared-world",
+        "tick": 2,
+        "connected": true,
+        "communities": 3
+      },
+      {
+        "mode": "shared-world",
+        "tick": 3,
+        "connected": true,
+        "communities": 3
+      }
+    ],
+    "errors": []
+  },
+  "screenshotsInspected": [
+    "helper",
+    "child",
+    "mobile inspector",
+    "supplied game-loop landscape"
+  ],
+  "currentBackupMigration": {
+    "checkedAt": "2026-10-08T23:03:08.368Z",
+    "mode": "current",
+    "source": "output/backups/before-body-maintenance-20261008.sqlite",
+    "originalSha256": "ad6b5604b2fe30217917238ba29084c36de21a6470f562c3011a903cd7518fb6",
+    "sourceUnchanged": true,
+    "scope": "Actual format 9 to 10 archive/migration on a disposable backup, followed by 96 simulated ticks and restart; local disk quota and child RSS, not simultaneous live-plus-candidate cgroup memory.",
+    "code": 0,
+    "signal": null,
+    "report": {
+      "migrationMs": 9793.164505,
+      "sourceTick": 324428,
+      "tick": 324524,
+      "sourcePeople": 0,
+      "people": 0,
+      "births": 407,
+      "deaths": 1639,
+      "format": 10,
+      "laws": "biosphere-1.4",
+      "manifest": {
+        "id": "010-performed-body-maintenance",
+        "checksum": "f0662935ad42cd1d2ac5e70c422cc36b645c36bb8f2a2d1c9eb3c68bb9918cdb",
+        "createdAt": 1791500540121,
+        "encoding": "deflate-parts-1",
+        "rawBytes": 103821945,
+        "parts": 397
+      },
+      "originalSha256": "f0662935ad42cd1d2ac5e70c422cc36b645c36bb8f2a2d1c9eb3c68bb9918cdb",
+      "originalBytes": 103821945,
+      "compressedBytes": 32468570,
+      "heapLimitBytes": 226492416,
+      "maxRssKiB": 363964,
+      "databaseBytes": 268173312,
+      "unchangedMigrationMetadataExceptVersions": true,
+      "unchangedMigrationRegions": true,
+      "unchangedMigrationClock": true,
+      "priorSignatures": {
+        "sessions": {
+          "count": 24,
+          "sha256": "ce1fa749889ee5c8f2a44a13314743a89af846bf7e72c97c675d97796311e6f2"
+        },
+        "agents": {
+          "count": 1,
+          "sha256": "14d13691a8b52c73dab234177ea6ca6e2657a9f59845d05ce47a5d673172fe95"
+        },
+        "receipts": {
+          "count": 3,
+          "sha256": "66822d0cd6667353d334014de7d5c42373e15e82838fadfde3e9656e2a30b963"
+        },
+        "priorEvents": {
+          "count": 70110,
+          "sha256": "d782a7e6d16f42dfb64bed0178a1f57eea8ca964e7548d296db8e677f6f592ae"
+        },
+        "renewals": {
+          "count": 1,
+          "sha256": "790c07765725acb8f7af55c7b4b11b3f5ae5dede6a439d32ef9c565adfd5151e"
+        }
+      },
+      "threeFurtherSaves": true,
+      "restarted": true
+    },
+    "capacity": {
+      "bytes": 454299648,
+      "initialNonWalFootprint": 285000000,
+      "minFree": 54956032,
+      "maxWal": 104656272,
+      "samples": 931
+    },
+    "peakRssBytes": 366030848
+  },
+  "inhabitedBackupMigration": {
+    "checkedAt": "2026-10-08T23:10:07.668Z",
+    "mode": "inhabited",
+    "source": "output/backups/before-construction-planning-20261008.sqlite",
+    "originalSha256": "a973f2a1e4e3df17eab5d11e63467b635c13eddfed8124ef6b53d480f5da94ce",
+    "sourceUnchanged": true,
+    "scope": "Actual format 9 to 10 archive/migration on a disposable backup, followed by 96 simulated ticks and restart; local disk quota and child RSS, not simultaneous live-plus-candidate cgroup memory.",
+    "code": 0,
+    "signal": null,
+    "report": {
+      "migrationMs": 10306.239704,
+      "sourceTick": 228436,
+      "tick": 228532,
+      "sourcePeople": 1439,
+      "people": 1441,
+      "births": 241,
+      "deaths": 32,
+      "format": 10,
+      "laws": "biosphere-1.4",
+      "manifest": {
+        "id": "010-performed-body-maintenance",
+        "checksum": "8832099a7f4ba3dfb697febb712a7443b34f9ea9fbb01590e2d568474b4c7f13",
+        "createdAt": 1791500942134,
+        "encoding": "deflate-parts-1",
+        "rawBytes": 108207518,
+        "parts": 413
+      },
+      "originalSha256": "8832099a7f4ba3dfb697febb712a7443b34f9ea9fbb01590e2d568474b4c7f13",
+      "originalBytes": 108207518,
+      "compressedBytes": 32934603,
+      "heapLimitBytes": 226492416,
+      "maxRssKiB": 437400,
+      "databaseBytes": 287494144,
+      "unchangedMigrationMetadataExceptVersions": true,
+      "unchangedMigrationRegions": true,
+      "unchangedMigrationClock": true,
+      "priorSignatures": {
+        "sessions": {
+          "count": 17,
+          "sha256": "e6850551fd8a819414a3791e8965c3a877fae2f7185e283c820118cc836cf69e"
+        },
+        "agents": {
+          "count": 1,
+          "sha256": "fca4373f90cd0ba0b6e093d8cb68177d071ad14297acac9a7ce7d0688858e9c6"
+        },
+        "receipts": {
+          "count": 3,
+          "sha256": "66822d0cd6667353d334014de7d5c42373e15e82838fadfde3e9656e2a30b963"
+        },
+        "priorEvents": {
+          "count": 63018,
+          "sha256": "65710d9f8e185dfd8841b10bd2dc260f9e3a3b2b5e2f17d32eeec385ed919959"
+        },
+        "renewals": {
+          "count": 1,
+          "sha256": "790c07765725acb8f7af55c7b4b11b3f5ae5dede6a439d32ef9c565adfd5151e"
+        }
+      },
+      "threeFurtherSaves": true,
+      "restarted": true
+    },
+    "capacity": {
+      "bytes": 454299648,
+      "initialNonWalFootprint": 285000000,
+      "minFree": 4943872,
+      "maxWal": 109188272,
+      "samples": 1331
+    },
+    "peakRssBytes": 433262592
+  },
+  "inhabitedHandover": {
+    "checks": [
+      "the copied world contains the original four communities and their first born generation",
+      "the real-world candidate uses an effective validation heap below 224 MiB",
+      "the exact body-maintenance artifact replaces the worker through the continuing gateway",
+      "the same compressed observer connection continues across the body-maintenance law migration",
+      "advice remains available while the real clock debt is retained",
+      "the observer remains monotonic and open through later checkpoint writes",
+      "the finite source filesystem retains free space during copying and handover",
+      "all prior inhabitants including infants and each community identity survive this bounded handover",
+      "the additive storage format remains one while physical format advances",
+      "clock debt is retained exactly",
+      "ownership, agent keys, receipts and every earlier event remain unchanged",
+      "old law archives remain unchanged alongside one new body-maintenance archive",
+      "one release is recorded with equal boundary checksums",
+      "the physical intervention remains recorded exactly once",
+      "restart retains existing people and new census changes match ordinary births and deaths"
+    ],
+    "snapshots": 2,
+    "compactSnapshots": 2,
+    "frames": 28,
+    "lastTick": 228552,
+    "fault": null,
+    "activation": {
+      "release": "body-maintenance-20261008-2",
+      "type": "preflight",
+      "id": "praxans-world",
+      "seed": 1847,
+      "sourceTick": 228436,
+      "tick": 228468,
+      "format": 10,
+      "laws": "biosphere-1.4",
+      "validationHeapLimitBytes": 226492416,
+      "resumedTick": 228508
+    },
+    "restarted": {
+      "tick": 228560,
+      "people": 1441,
+      "births": 241,
+      "deaths": 32,
+      "format": 10,
+      "laws": "biosphere-1.4"
+    },
+    "peakProcessRssBytes": 1358053376,
+    "memoryByPhase": {
+      "starting": {
+        "parentRss": 532856832,
+        "childrenRss": 424927232,
+        "parentAnon": 474644480,
+        "childrenAnon": 371761152
+      },
+      "running": {
+        "parentRss": 435429376,
+        "childrenRss": 608894976,
+        "parentAnon": 377217024,
+        "childrenAnon": 554106880
+      },
+      "preparing": {
+        "parentRss": 400121856,
+        "childrenRss": 994504704,
+        "parentAnon": 341909504,
+        "childrenAnon": 886730752
+      },
+      "handover": {
+        "parentRss": 399785984,
+        "childrenRss": 536207360,
+        "parentAnon": 341573632,
+        "childrenAnon": 481779712
+      }
+    },
+    "capacity": {
+      "bytes": 454299648,
+      "minimumAvailableBytes": 3813376,
+      "maximumWalBytes": 109678552,
+      "samples": 1663,
+      "byPhase": {
+        "starting": {
+          "minimumAvailableBytes": 112828416,
+          "maximumWalBytes": 16512,
+          "samples": 194
+        },
+        "running": {
+          "minimumAvailableBytes": 3813376,
+          "maximumWalBytes": 108829832,
+          "samples": 547
+        },
+        "preparing": {
+          "minimumAvailableBytes": 38363136,
+          "maximumWalBytes": 108920472,
+          "samples": 653
+        },
+        "handover": {
+          "minimumAvailableBytes": 36835328,
+          "maximumWalBytes": 109678552,
+          "samples": 269
+        }
+      },
+      "scope": "disposable private tmpfs with live-sized quota and matched starting non-WAL footprint; not a live host IO or cgroup memory guarantee"
+    },
+    "memoryScope": "sampled parent plus direct child RSS in a local test, not live cgroup peak",
+    "status": {
+      "phase": "running",
+      "release": "body-maintenance-20261008-2",
+      "pendingRequests": 0,
+      "activeRequests": 0,
+      "observers": 0,
+      "runtimePid": 136634,
+      "managedProcesses": 1,
+      "error": null
+    }
+  },
+  "rejectedCandidates": [
+    {
+      "release": "body-maintenance-20261008-1",
+      "sha256": "3742d7d6ebe131d6c5e245697131c18a83a9cc03551a98aa65fb302f754c0bb3",
+      "reason": "Old serialized population metadata remained live through migration save, exceeding the private validation heap.",
+      "liveActivation": false,
+      "oldDisposableOwnerRetained": true
+    }
+  ],
+  "backup": {
+    "tick": 324428,
+    "bytes": 258719744,
+    "sha256": "ad6b5604b2fe30217917238ba29084c36de21a6470f562c3011a903cd7518fb6",
+    "gzipBytes": 71233472,
+    "gzipSha256": "4746b2478094fb8aa6356dd2ee6f7d35035213229a7948f5ccabf2c6fe288a0e",
+    "checked": [
+      "raw and compressed SHA-256",
+      "SQLite integrity",
+      "metadata",
+      "all 38 regions",
+      "both legacy full archive bodies"
+    ]
+  },
+  "limits": [
+    "No seasonal or generational survival claim.",
+    "Food allocation, age/growth, baseline heat and body-reserve metabolism remain unresolved.",
+    "Cell-level contact and work/choice parameters are approximations.",
+    "Inhabited migration and handover retain only a few MB of free disk under the tested footprint.",
+    "Local parent/child RSS exceeds the live 1 GB allowance; this is not proof that an inhabited live handover fits that cgroup.",
+    "The earlier empty-copy migration predates the loader-only retention correction; final exact-artifact inhabited handover and live preflight exercise that correction."
+  ],
+  "repositoryReview": {
+    "inspectedAt": "2026-10-08T23:26:03.488Z",
+    "structuralScan": {
+      "baseCommit": "90d346eaaf2a18b614fd1e1a7c708f839ad8a315",
+      "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+      "gitVisibleExistingFileCount": 929,
+      "jsTsFileCount": 124,
+      "sourceFileCount": 76,
+      "srcContentSha256": "0b3ccfc5b0556d117020166dff379dc983efd7eadbfaa043f34b7ac63225082e",
+      "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
+      "resolvedEdgeCount": 618,
+      "edgesByArea": {
+        "docs -> src/simulation": 22,
+        "scripts -> src/server": 22,
+        "scripts -> src/simulation": 25,
+        "src/client -> src/simulation": 27,
+        "src/client -> src/client": 21,
+        "src/server -> src/simulation": 40,
+        "src/server -> src/server": 22,
+        "src/simulation -> src/simulation": 242,
+        "tests -> src/simulation": 137,
+        "tests -> tests": 27,
+        "tests -> src/server": 33
+      },
+      "missingImports": [],
+      "missingAssets": [],
+      "nonliteralLoads": [
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+        },
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+        }
+      ],
+      "layerViolations": [],
+      "simulationEnvironmentImports": [],
+      "localMarkdownLinksChecked": 384,
+      "missingMarkdownLinks": []
+    }
+  },
+  "website": {
+    "id": "dpl_GurtrNS34e3vTAY24tyw1KvNqM6R",
+    "url": "https://praxans.vercel.app",
+    "readyState": "READY",
+    "target": "production",
+    "firstAttempt": "Provider returned Not authorized; existing user connection verified and retry succeeded."
+  },
+  "implementationCommit": "90d346eaaf2a18b614fd1e1a7c708f839ad8a315",
+  "liveContinuity": {
+    "at": "2026-10-08T23:19:28.199Z",
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "generationVersion": "planet-1",
+      "version": 10,
+      "lawsVersion": "biosphere-1.4",
+      "tick": 332748,
+      "rng": 2679298466,
+      "births": 407,
+      "deaths": 1639,
+      "people": 0,
+      "regions": 38
+    },
+    "storageVersion": 1,
+    "communities": [
+      {
+        "id": "civ-1",
+        "name": "Fernhaven",
+        "foundedTick": 0,
+        "births": 84,
+        "deaths": 390,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        }
+      },
+      {
+        "id": "civ-11",
+        "name": "Amber Hollow",
+        "foundedTick": 0,
+        "births": 93,
+        "deaths": 400,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        }
+      },
+      {
+        "id": "civ-21",
+        "name": "Stonebrook",
+        "foundedTick": 0,
+        "births": 96,
+        "deaths": 407,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        }
+      },
+      {
+        "id": "civ-3118",
+        "name": "Adonis",
+        "foundedTick": 10369,
+        "births": 134,
+        "deaths": 442,
+        "renewal": {
+          "tick": 195860,
+          "arrivals": 300,
+          "interventionId": "community-renewal-20261008"
+        }
+      }
+    ],
+    "metadataBytes": 1123501,
+    "worldChecksum": "4c4338f109cddcee760fa605014425f17791f9fce0c037e51dcf6d33e66f718f",
+    "clock": {
+      "tick": 332748,
+      "wallMs": 1791475627340
+    },
+    "identitySignatures": {
+      "sessions": {
+        "count": 24,
+        "sha256": "e2efc4a7171a53123abf0a9f419db70a0c913845f7d1f58524626ac9d7290251"
+      },
+      "agents": {
+        "count": 1,
+        "sha256": "f6221519f60ca4b3ec7d0b288952c79a478318c1ac894d06cf6bf7f9606b0da7"
+      },
+      "receipts": {
+        "count": 3,
+        "sha256": "dd6180876eb71f018a1ba5c958fda6ffa52913e3d26773bcebc448acac11b0e0"
+      }
+    },
+    "priorJournalRows": 70110,
+    "archives": [
+      {
+        "id": "008-material-memory-and-agency",
+        "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb"
+      },
+      {
+        "id": "009-human-thermal-and-distance-balance",
+        "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164"
+      },
+      {
+        "id": "010-performed-body-maintenance",
+        "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f"
+      }
+    ],
+    "interventions": [
+      {
+        "id": "release:browser-foundation-1",
+        "tick": 0
+      },
+      {
+        "id": "release:browser-foundation-1-hosting",
+        "tick": 5972
+      },
+      {
+        "id": "008-material-memory-and-agency",
+        "tick": 20244
+      },
+      {
+        "id": "release:world-recovery-20261008",
+        "tick": 20244
+      },
+      {
+        "id": "release:community-records-20261008",
+        "tick": 82900
+      },
+      {
+        "id": "009-human-thermal-and-distance-balance",
+        "tick": 195860
+      },
+      {
+        "id": "operator:community-renewal-20261008",
+        "tick": 195860
+      },
+      {
+        "id": "release:community-renewal-20261008-2",
+        "tick": 195860
+      },
+      {
+        "id": "release:observer-scaling-20261008",
+        "tick": 200180
+      },
+      {
+        "id": "release:advisor-recovery-20261008-2",
+        "tick": 209364
+      },
+      {
+        "id": "release:work-planning-20261008-2",
+        "tick": 290260
+      },
+      {
+        "id": "release:checkpoint-copy-20261008-1",
+        "tick": 301940
+      },
+      {
+        "id": "release:archive-blocks-20261008-1",
+        "tick": 313516
+      },
+      {
+        "id": "010-performed-body-maintenance",
+        "tick": 332428
+      },
+      {
+        "id": "release:body-maintenance-20261008-2",
+        "tick": 332428
+      }
+    ],
+    "release": {
+      "id": "release:body-maintenance-20261008-2",
+      "tick": 332428,
+      "before_checksum": "2cca2aa7af829f8eaf6d76c2f37a29f59097d054b09e1ff9ea514be324b58c70",
+      "after_checksum": "2cca2aa7af829f8eaf6d76c2f37a29f59097d054b09e1ff9ea514be324b58c70"
+    },
+    "totalSessions": 24,
+    "totalJournalRows": 70191,
+    "priorIdentityScope": {
+      "sessionsCreatedThrough": 1791493733817,
+      "receiptsCreatedThrough": 1791395301632
+    },
+    "databaseReadMilliseconds": 180,
+    "availableBytes": 141365248,
+    "walBytes": 16777216,
+    "memoryEvents": "low 0\nhigh 0\nmax 3412\noom 0\noom_kill 1\noom_group_kill 0\n",
+    "current": {
+      "directory": "/data/runtime/releases/body-maintenance-20261008-2-69cdc2bac224e005"
+    },
+    "runtimePids": [
+      1301
+    ]
+  },
+  "liveChecks": [
+    "same world and four historical communities",
+    "same 24 prior session, one agent and three receipt signatures",
+    "all 70110 prior journal rows retained by count",
+    "old archive checksum fields retained alongside one new archive",
+    "one additional law intervention and one release; sole previous population renewal retained",
+    "exact clock arithmetic from the independent backup",
+    "one current runtime with matching durable pointer",
+    "release boundary has equal before/after checksums"
+  ],
+  "liveActivation": {
+    "startedAt": "2026-10-08T23:17:35.412Z",
+    "finishedAt": "2026-10-08T23:18:08.230Z",
+    "release": "body-maintenance-20261008-2",
+    "sha256": "69cdc2bac224e00537e5610540f711e656ce8f0f6c64a78ced1147d5344d2fc0",
+    "code": 0,
+    "signal": null,
+    "error": null,
+    "stdout": "{\"release\":\"body-maintenance-20261008-2\",\"type\":\"preflight\",\"id\":\"praxans-world\",\"seed\":1847,\"sourceTick\":332364,\"tick\":332396,\"format\":10,\"laws\":\"biosphere-1.4\",\"validationHeapLimitBytes\":226492416,\"resumedTick\":332428}\n",
+    "stderr": "(node:1280) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+  },
+  "internalMonitor": {
+    "samples": 181,
+    "startedAt": "2026-10-08T23:17:12.278Z",
+    "finishedAt": "2026-10-08T23:20:12.508Z",
+    "minimumAvailableBytes": 49754112,
+    "maximumWalBytes": 108298352,
+    "maximumCgroupMemoryBytes": 999899136,
+    "initialMemoryEvents": {
+      "low": 0,
+      "high": 0,
+      "max": 2818,
+      "oom": 0,
+      "oom_kill": 1,
+      "oom_group_kill": 0
+    },
+    "finalMemoryEvents": {
+      "low": 0,
+      "high": 0,
+      "max": 3412,
+      "oom": 0,
+      "oom_kill": 1,
+      "oom_group_kill": 0
+    },
+    "scope": "Finite one-second host samples during activation; watcher has ended. The archive export occurs afterward."
+  },
+  "externalMonitor": {
+    "startedAt": "2026-10-08T23:17:07.016Z",
+    "finishedAt": "2026-10-08T23:20:20.719Z",
+    "snapshots": 3,
+    "frames": 79,
+    "firstTick": 332268,
+    "lastTick": 332964,
+    "streamEnded": false,
+    "regressions": [],
+    "faults": [],
+    "healthSamples": [
+      {
+        "at": "2026-10-08T23:17:08.894Z",
+        "status": 200,
+        "ok": true,
+        "tick": 332272,
+        "lawsVersion": "biosphere-1.3",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 25922,
+        "simulation": "catching-up"
+      },
+      {
+        "at": "2026-10-08T23:17:21.534Z",
+        "status": 200,
+        "ok": true,
+        "tick": 332328,
+        "lawsVersion": "biosphere-1.3",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 25919,
+        "simulation": "catching-up"
+      },
+      {
+        "at": "2026-10-08T23:17:33.592Z",
+        "status": 200,
+        "ok": true,
+        "tick": 332364,
+        "lawsVersion": "biosphere-1.3",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 25923,
+        "simulation": "catching-up"
+      },
+      {
+        "at": "2026-10-08T23:17:44.332Z",
+        "status": 200,
+        "ok": true,
+        "tick": 332400,
+        "lawsVersion": "biosphere-1.3",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 25926,
+        "simulation": "catching-up"
+      },
+      {
+        "at": "2026-10-08T23:18:08.112Z",
+        "status": 200,
+        "ok": true,
+        "tick": 332432,
+        "lawsVersion": "biosphere-1.4",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 25940,
+        "simulation": "catching-up"
+      },
+      {
+        "at": "2026-10-08T23:18:22.111Z",
+        "status": 200,
+        "ok": true,
+        "tick": 332492,
+        "lawsVersion": "biosphere-1.4",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 25940,
+        "simulation": "catching-up"
+      },
+      {
+        "at": "2026-10-08T23:18:34.535Z",
+        "status": 200,
+        "ok": true,
+        "tick": 332544,
+        "lawsVersion": "biosphere-1.4",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 25938,
+        "simulation": "catching-up"
+      },
+      {
+        "at": "2026-10-08T23:18:47.645Z",
+        "status": 200,
+        "ok": true,
+        "tick": 332588,
+        "lawsVersion": "biosphere-1.4",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 25941,
+        "simulation": "catching-up"
+      },
+      {
+        "at": "2026-10-08T23:18:58.024Z",
+        "status": 200,
+        "ok": true,
+        "tick": 332648,
+        "lawsVersion": "biosphere-1.4",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 25937,
+        "simulation": "catching-up"
+      },
+      {
+        "at": "2026-10-08T23:19:11.334Z",
+        "status": 200,
+        "ok": true,
+        "tick": 332684,
+        "lawsVersion": "biosphere-1.4",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 25940,
+        "simulation": "catching-up"
+      },
+      {
+        "at": "2026-10-08T23:19:25.587Z",
+        "status": 200,
+        "ok": true,
+        "tick": 332748,
+        "lawsVersion": "biosphere-1.4",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 25939,
+        "simulation": "catching-up"
+      },
+      {
+        "at": "2026-10-08T23:19:38.036Z",
+        "status": 200,
+        "ok": true,
+        "tick": 332808,
+        "lawsVersion": "biosphere-1.4",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 25935,
+        "simulation": "catching-up"
+      },
+      {
+        "at": "2026-10-08T23:19:49.797Z",
+        "status": 200,
+        "ok": true,
+        "tick": 332844,
+        "lawsVersion": "biosphere-1.4",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 25939,
+        "simulation": "catching-up"
+      },
+      {
+        "at": "2026-10-08T23:20:04.185Z",
+        "status": 200,
+        "ok": true,
+        "tick": 332908,
+        "lawsVersion": "biosphere-1.4",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 25938,
+        "simulation": "catching-up"
+      },
+      {
+        "at": "2026-10-08T23:20:16.669Z",
+        "status": 200,
+        "ok": true,
+        "tick": 332964,
+        "lawsVersion": "biosphere-1.4",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 25935,
+        "simulation": "catching-up"
+      }
+    ],
+    "scope": "one direct Railway observer during a body-maintenance law hotfix of a healthy continuing world; samples do not guarantee all client connections"
+  },
+  "githubChecks": [
+    {
+      "conclusion": "",
+      "databaseId": 37858579344,
+      "event": "pull_request",
+      "headSha": "90d346eaaf2a18b614fd1e1a7c708f839ad8a315",
+      "status": "in_progress",
+      "url": "https://github.com/Perseusxrltd/Praxans/actions/runs/37858579344"
+    },
+    {
+      "conclusion": "",
+      "databaseId": 37858576726,
+      "event": "push",
+      "headSha": "90d346eaaf2a18b614fd1e1a7c708f839ad8a315",
+      "status": "in_progress",
+      "url": "https://github.com/Perseusxrltd/Praxans/actions/runs/37858576726"
+    }
+  ],
+  "liveArchiveVerification": {
+    "scope": "Off-host verification of every newly created compressed archive block and complete original bytes; bounded original metadata prefix matches both recorded migration hashes after changing only the two root version labels.",
+    "manifest": {
+      "id": "010-performed-body-maintenance",
+      "encoding": "deflate-parts-1",
+      "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+      "raw_bytes": 106657105,
+      "part_count": 407
+    },
+    "migration": {
+      "id": "010-performed-body-maintenance",
+      "tick": 332428,
+      "before_checksum": "87089eb2108fd1c9d16bce10e963486d89d8433eb23dd01d0d4e3c4030fb9e6c",
+      "after_checksum": "2cca2aa7af829f8eaf6d76c2f37a29f59097d054b09e1ff9ea514be324b58c70"
+    },
+    "parts": 407,
+    "rawBytes": 106657105,
+    "compressedBytes": 33185542,
+    "completeOriginalSha256": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+    "metadataBytes": 1125337,
+    "metadataOnlyVersionLabelsChanged": true,
+    "sourceTick": 332428,
+    "sourceFormat": 9,
+    "sourceLaws": "biosphere-1.3",
+    "sourcePeople": 0,
+    "births": 407,
+    "deaths": 1639,
+    "remoteExportMaxRssKiB": 59456,
+    "exportStartedAt": "2026-10-08T23:21:31.953Z",
+    "exportFinishedAt": "2026-10-08T23:21:35.586Z"
+  }
+}

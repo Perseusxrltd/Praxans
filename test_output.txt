@@ -1,0 +1,162 @@
+D:\Documents\PerseusXR\Thonglets\praxans_game.py:7280: SyntaxWarning: 'return' in a 'finally' block
+  return main(next_runtime_config)
+...E.............................................................................................................................EEF......................................................[Scheduler] council failed: fake error (cooldown 1s)
+.....[Scheduler] Unknown channel: invalid_channel
+........E..............................................................E..........................................
+======================================================================
+ERROR: test_crafting (unittest.loader._FailedTest.test_crafting)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_crafting
+Traceback (most recent call last):
+  File "C:\Users\jorqu\AppData\Local\Programs\Python\Python314\Lib\unittest\loader.py", line 426, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "C:\Users\jorqu\AppData\Local\Programs\Python\Python314\Lib\unittest\loader.py", line 367, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "D:\Documents\PerseusXR\Thonglets\tests\test_crafting.py", line 33, in <module>
+    from praxans_game import Building, JOB_DEFS
+  File "D:\Documents\PerseusXR\Thonglets\praxans_game.py", line 31, in <module>
+    from graphics import GraphicsConfig, SceneRenderer, build_render_frame
+  File "D:\Documents\PerseusXR\Thonglets\graphics\__init__.py", line 9, in <module>
+    from graphics.scene_renderer import SceneRenderer
+  File "D:\Documents\PerseusXR\Thonglets\graphics\scene_renderer.py", line 10, in <module>
+    from graphics.terrain_renderer import TerrainRenderer
+  File "D:\Documents\PerseusXR\Thonglets\graphics\terrain_renderer.py", line 151
+    `r`n    def _chunk_seed_coords(self, chunk, world_state) -> tuple[int, int]:`r`n        chunk_x = getattr(chunk, "chunk_x", None)`r`n        chunk_y = getattr(chunk, "chunk_y", None)`r`n        if isinstance(chunk_x, int) and isinstance(chunk_y, int):`r`n            return (chunk_x, chunk_y)`r`n        chunk_size = max(1, int(getattr(world_state, "chunk_size", 1) or 1))`r`n        world_x = int(getattr(chunk, "world_x", 0) or 0)`r`n        world_y = int(getattr(chunk, "world_y", 0) or 0)`r`n        return (world_x // chunk_size, world_y // chunk_size)`r`n    def _build_chunk_surface(self, chunk, world_state) -> pygame.Surface:
+    ^
+SyntaxError: invalid syntax
+
+
+======================================================================
+ERROR: test_graphics_renderer (unittest.loader._FailedTest.test_graphics_renderer)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_graphics_renderer
+Traceback (most recent call last):
+  File "C:\Users\jorqu\AppData\Local\Programs\Python\Python314\Lib\unittest\loader.py", line 426, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "C:\Users\jorqu\AppData\Local\Programs\Python\Python314\Lib\unittest\loader.py", line 367, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "D:\Documents\PerseusXR\Thonglets\tests\test_graphics_renderer.py", line 9, in <module>
+    from graphics import GraphicsConfig, SceneRenderer, build_render_frame
+  File "D:\Documents\PerseusXR\Thonglets\graphics\__init__.py", line 9, in <module>
+    from graphics.scene_renderer import SceneRenderer
+  File "D:\Documents\PerseusXR\Thonglets\graphics\scene_renderer.py", line 10, in <module>
+    from graphics.terrain_renderer import TerrainRenderer
+  File "D:\Documents\PerseusXR\Thonglets\graphics\terrain_renderer.py", line 151
+    `r`n    def _chunk_seed_coords(self, chunk, world_state) -> tuple[int, int]:`r`n        chunk_x = getattr(chunk, "chunk_x", None)`r`n        chunk_y = getattr(chunk, "chunk_y", None)`r`n        if isinstance(chunk_x, int) and isinstance(chunk_y, int):`r`n            return (chunk_x, chunk_y)`r`n        chunk_size = max(1, int(getattr(world_state, "chunk_size", 1) or 1))`r`n        world_x = int(getattr(chunk, "world_x", 0) or 0)`r`n        world_y = int(getattr(chunk, "world_y", 0) or 0)`r`n        return (world_x // chunk_size, world_y // chunk_size)`r`n    def _build_chunk_surface(self, chunk, world_state) -> pygame.Surface:
+    ^
+SyntaxError: invalid syntax
+
+
+======================================================================
+ERROR: test_grief_system (unittest.loader._FailedTest.test_grief_system)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_grief_system
+Traceback (most recent call last):
+  File "C:\Users\jorqu\AppData\Local\Programs\Python\Python314\Lib\unittest\loader.py", line 426, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "C:\Users\jorqu\AppData\Local\Programs\Python\Python314\Lib\unittest\loader.py", line 367, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "D:\Documents\PerseusXR\Thonglets\tests\test_grief_system.py", line 18, in <module>
+    import praxans_game  # noqa: F401  ù must precede entities.praxan (wildcard import dep)
+    ^^^^^^^^^^^^^^^^^^^
+  File "D:\Documents\PerseusXR\Thonglets\praxans_game.py", line 31, in <module>
+    from graphics import GraphicsConfig, SceneRenderer, build_render_frame
+  File "D:\Documents\PerseusXR\Thonglets\graphics\__init__.py", line 9, in <module>
+    from graphics.scene_renderer import SceneRenderer
+  File "D:\Documents\PerseusXR\Thonglets\graphics\scene_renderer.py", line 10, in <module>
+    from graphics.terrain_renderer import TerrainRenderer
+  File "D:\Documents\PerseusXR\Thonglets\graphics\terrain_renderer.py", line 151
+    `r`n    def _chunk_seed_coords(self, chunk, world_state) -> tuple[int, int]:`r`n        chunk_x = getattr(chunk, "chunk_x", None)`r`n        chunk_y = getattr(chunk, "chunk_y", None)`r`n        if isinstance(chunk_x, int) and isinstance(chunk_y, int):`r`n            return (chunk_x, chunk_y)`r`n        chunk_size = max(1, int(getattr(world_state, "chunk_size", 1) or 1))`r`n        world_x = int(getattr(chunk, "world_x", 0) or 0)`r`n        world_y = int(getattr(chunk, "world_y", 0) or 0)`r`n        return (world_x // chunk_size, world_y // chunk_size)`r`n    def _build_chunk_surface(self, chunk, world_state) -> pygame.Surface:
+    ^
+SyntaxError: invalid syntax
+
+
+======================================================================
+ERROR: test_praxan_memory (unittest.loader._FailedTest.test_praxan_memory)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_praxan_memory
+Traceback (most recent call last):
+  File "C:\Users\jorqu\AppData\Local\Programs\Python\Python314\Lib\unittest\loader.py", line 426, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "C:\Users\jorqu\AppData\Local\Programs\Python\Python314\Lib\unittest\loader.py", line 367, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "D:\Documents\PerseusXR\Thonglets\tests\test_praxan_memory.py", line 10, in <module>
+    import praxans_game  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^
+  File "D:\Documents\PerseusXR\Thonglets\praxans_game.py", line 31, in <module>
+    from graphics import GraphicsConfig, SceneRenderer, build_render_frame
+  File "D:\Documents\PerseusXR\Thonglets\graphics\__init__.py", line 9, in <module>
+    from graphics.scene_renderer import SceneRenderer
+  File "D:\Documents\PerseusXR\Thonglets\graphics\scene_renderer.py", line 10, in <module>
+    from graphics.terrain_renderer import TerrainRenderer
+  File "D:\Documents\PerseusXR\Thonglets\graphics\terrain_renderer.py", line 151
+    `r`n    def _chunk_seed_coords(self, chunk, world_state) -> tuple[int, int]:`r`n        chunk_x = getattr(chunk, "chunk_x", None)`r`n        chunk_y = getattr(chunk, "chunk_y", None)`r`n        if isinstance(chunk_x, int) and isinstance(chunk_y, int):`r`n            return (chunk_x, chunk_y)`r`n        chunk_size = max(1, int(getattr(world_state, "chunk_size", 1) or 1))`r`n        world_x = int(getattr(chunk, "world_x", 0) or 0)`r`n        world_y = int(getattr(chunk, "world_y", 0) or 0)`r`n        return (world_x // chunk_size, world_y // chunk_size)`r`n    def _build_chunk_surface(self, chunk, world_state) -> pygame.Surface:
+    ^
+SyntaxError: invalid syntax
+
+
+======================================================================
+ERROR: test_social_interactions (unittest.loader._FailedTest.test_social_interactions)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_social_interactions
+Traceback (most recent call last):
+  File "C:\Users\jorqu\AppData\Local\Programs\Python\Python314\Lib\unittest\loader.py", line 426, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "C:\Users\jorqu\AppData\Local\Programs\Python\Python314\Lib\unittest\loader.py", line 367, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "D:\Documents\PerseusXR\Thonglets\tests\test_social_interactions.py", line 33, in <module>
+    import praxans_game  # noqa: F401 ù needed so wildcard import in praxan.py works
+    ^^^^^^^^^^^^^^^^^^^
+  File "D:\Documents\PerseusXR\Thonglets\praxans_game.py", line 31, in <module>
+    from graphics import GraphicsConfig, SceneRenderer, build_render_frame
+  File "D:\Documents\PerseusXR\Thonglets\graphics\__init__.py", line 9, in <module>
+    from graphics.scene_renderer import SceneRenderer
+  File "D:\Documents\PerseusXR\Thonglets\graphics\scene_renderer.py", line 10, in <module>
+    from graphics.terrain_renderer import TerrainRenderer
+  File "D:\Documents\PerseusXR\Thonglets\graphics\terrain_renderer.py", line 151
+    `r`n    def _chunk_seed_coords(self, chunk, world_state) -> tuple[int, int]:`r`n        chunk_x = getattr(chunk, "chunk_x", None)`r`n        chunk_y = getattr(chunk, "chunk_y", None)`r`n        if isinstance(chunk_x, int) and isinstance(chunk_y, int):`r`n            return (chunk_x, chunk_y)`r`n        chunk_size = max(1, int(getattr(world_state, "chunk_size", 1) or 1))`r`n        world_x = int(getattr(chunk, "world_x", 0) or 0)`r`n        world_y = int(getattr(chunk, "world_y", 0) or 0)`r`n        return (world_x // chunk_size, world_y // chunk_size)`r`n    def _build_chunk_surface(self, chunk, world_state) -> pygame.Surface:
+    ^
+SyntaxError: invalid syntax
+
+
+======================================================================
+FAIL: test_game_exits_cleanly_in_headless_smoke_mode (test_headless_smoke.HeadlessSmokeTests.test_game_exits_cleanly_in_headless_smoke_mode)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Documents\PerseusXR\Thonglets\tests\test_headless_smoke.py", line 35, in test_game_exits_cleanly_in_headless_smoke_mode
+    self.assertEqual(result.returncode, 0, msg=result.stderr or result.stdout)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : D:\Documents\PerseusXR\Thonglets\praxans_game.py:7280: SyntaxWarning: 'return' in a 'finally' block
+  return main(next_runtime_config)
+Traceback (most recent call last):
+  File "D:\Documents\PerseusXR\Thonglets\praxans_game.py", line 31, in <module>
+    from graphics import GraphicsConfig, SceneRenderer, build_render_frame
+  File "D:\Documents\PerseusXR\Thonglets\graphics\__init__.py", line 9, in <module>
+    from graphics.scene_renderer import SceneRenderer
+  File "D:\Documents\PerseusXR\Thonglets\graphics\scene_renderer.py", line 10, in <module>
+    from graphics.terrain_renderer import TerrainRenderer
+  File "D:\Documents\PerseusXR\Thonglets\graphics\terrain_renderer.py", line 151
+    `r`n    def _chunk_seed_coords(self, chunk, world_state) -> tuple[int, int]:`r`n        chunk_x = getattr(chunk, "chunk_x", None)`r`n        chunk_y = getattr(chunk, "chunk_y", None)`r`n        if isinstance(chunk_x, int) and isinstance(chunk_y, int):`r`n            return (chunk_x, chunk_y)`r`n        chunk_size = max(1, int(getattr(world_state, "chunk_size", 1) or 1))`r`n        world_x = int(getattr(chunk, "world_x", 0) or 0)`r`n        world_y = int(getattr(chunk, "world_y", 0) or 0)`r`n        return (world_x // chunk_size, world_y // chunk_size)`r`n    def _build_chunk_surface(self, chunk, world_state) -> pygame.Surface:
+    ^
+SyntaxError: invalid syntax
+
+
+----------------------------------------------------------------------
+Ran 305 tests in 9.592s
+
+FAILED (failures=1, errors=5)
+pygame-ce 2.5.6 (SDL 2.32.10, Python 3.14.0)
+[TechResearch] Unlocked Efficient Farming (doctrine=growth, cost=100, remaining=100)
+[TechResearch] Unlocked Basic Medicine (doctrine=security, cost=200, remaining=100)
+[TechResearch] Unlocked Efficient Farming (doctrine=growth, cost=100, remaining=100)
+[TechResearch] Unlocked Efficient Farming (doctrine=growth, cost=100, remaining=400)
+[TechResearch] Unlocked Advanced Irrigation (doctrine=growth, cost=250, remaining=150)
+[TechResearch] Unlocked Community Building (doctrine=harmony, cost=100, remaining=100)
+[TechResearch] Unlocked Efficient Farming (doctrine=growth, cost=100, remaining=100)
+[TechResearch] Unlocked Efficient Farming (doctrine=growth, cost=100, remaining=100)
+[TechResearch] Unlocked Efficient Farming (doctrine=growth, cost=100, remaining=50)

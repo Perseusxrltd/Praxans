@@ -1,0 +1,533 @@
+{
+  "release": "body-care-planning-20261009-1",
+  "status": "live",
+  "implementationCommit": "8103c8abb8fe57ee36127c0f882748dcf3135ff4",
+  "runtimeSha256": "30e8831f4b941e9e92ac2991288eddb400b140ab7ddcd88575ee942c5479a0f8",
+  "runtimeBytes": 500402,
+  "dependenciesSha256": "0ca3efac2e32e64895e4f395f1919a966af1b18b017c12aaa088b491f2f0022e",
+  "sourceContentSha256": "d5d0e9812638aedb8ff5d7c8905ff85990f4e7e78e03166d585ef858f3f0e4d7",
+  "worldVersion": 15,
+  "lawsVersion": "biosphere-1.9",
+  "storageVersion": 2,
+  "scope": "Controller-only planning correction; no new saved field or physical law, migration, renewal, reset, rewind, reseed, database replacement or PR merge.",
+  "local": {
+    "modelServer": {
+      "passed": 239,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0
+    },
+    "build": "pass",
+    "format": "pass",
+    "hotfix": {
+      "passed": 25
+    },
+    "production": {
+      "passed": 12
+    },
+    "suppliedGameClient": {
+      "clientSha256": "1210f58b47aadd9cb4b141fb4b2dc9e17a929aa1a813cdd26b5306a0d08b6808",
+      "unmodifiedSuppliedClient": true,
+      "frames": [
+        {
+          "mode": "shared-world",
+          "tick": 1,
+          "connected": true,
+          "communities": 3
+        },
+        {
+          "mode": "shared-world",
+          "tick": 2,
+          "connected": true,
+          "communities": 3
+        },
+        {
+          "mode": "shared-world",
+          "tick": 3,
+          "connected": true,
+          "communities": 3
+        }
+      ],
+      "errors": []
+    },
+    "capturesInspected": [
+      "disposable game-loop shot-2",
+      "disposable hotfix-smoke 02-after"
+    ],
+    "browserScope": "The unmodified supplied game client and hotfix browser ran locally. No additional local general-browser run is claimed. Both complete CI workflows separately pass their configured browser stages."
+  },
+  "matchedDay": {
+    "record": "../research/care-work-budget-2026-10-09.json",
+    "initialTick": 228436,
+    "finalTick": 228532,
+    "hours": 24,
+    "initialPeople": 1439,
+    "finalPeople": 1441,
+    "newDeaths": 0,
+    "bodyWorkHoursBefore": 9618.75,
+    "bodyWorkHoursAfter": 3573.75,
+    "harvestKgBefore": 725.12619955,
+    "harvestKgAfter": 936.86457743,
+    "foodOxidationKgBefore": 1145.718675,
+    "foodOxidationKgAfter": 1134.968542,
+    "opposingRecipientIntervalsBefore": 385,
+    "opposingRecipientIntervalsAfter": 0,
+    "lowestObservedChildHealthBefore": 94.058107,
+    "lowestObservedChildHealthAfter": 93.85547,
+    "observedRunsMatchUninstrumentedDigests": true,
+    "sourceBackupUnchanged": true,
+    "scope": "Current-law inhabited copies and separate paid causal controls. The before uninstrumented reference is reused from the preceding study. This care mechanism postdates the historical extinction; no historical death share, equal individual benefit, seasonal viability or controlled speedup is established."
+  },
+  "exactCopiedWorldCapacity": {
+    "at": "2026-10-09T08:12:16.992Z",
+    "sourceSha256": "481f075ec00a658d264b5d27945542a99137145cb5610e8b8da3330a7b43f1bf",
+    "sourceUnchanged": true,
+    "sourceTick": 505700,
+    "finalTick": 505796,
+    "people": 0,
+    "regions": 38,
+    "heapLimitBytes": 226492416,
+    "exactLoadBoundary": true,
+    "archivesUnchanged": true,
+    "exactRestart": true,
+    "saves": 3,
+    "capacity": {
+      "bytes": 454299648,
+      "initialNonWalBudget": 335000000,
+      "minimumFree": 87060480,
+      "maximumWal": 32168992,
+      "samples": 1084
+    },
+    "peakRssBytes": 355368960,
+    "scope": "Disposable private tmpfs at the live volume capacity; unchanged format-15 load, preserved archives, three saves, protected rows and restart under a 216 MiB effective heap. Local memory and IO are not a live cgroup or inhabited-host guarantee."
+  },
+  "publication": {
+    "activation": {
+      "at": "2026-10-09T08:29:33.379Z",
+      "event": "activation",
+      "status": 200,
+      "value": {
+        "release": "body-care-planning-20261009-1",
+        "type": "preflight",
+        "id": "praxans-world",
+        "seed": 1847,
+        "sourceTick": 516548,
+        "tick": 516580,
+        "format": 15,
+        "laws": "biosphere-1.9",
+        "validationHeapLimitBytes": 226492416,
+        "resumedTick": 516612
+      }
+    },
+    "railway": {
+      "containerDeploymentId": "a7bbebcf-a4d6-416a-9966-4f6d1908a696",
+      "gatewaySha256": "fc3454f1f506bf84d3b3553fe32d1736780c729269801b232c079a063facebcc",
+      "sameGatewayServiceAndVolume": true,
+      "node": "v22.23.3",
+      "savedAuditAt": "2026-10-09T08:33:04.324Z",
+      "phase": "running",
+      "release": "body-care-planning-20261009-1",
+      "managedProcesses": 1,
+      "head": {
+        "checksum": "7c10fbdb17fce5d9843e62bcd0e0d63f2bcb4d644e0b1d60eee5d7ca82d7bd50",
+        "tick": 518116,
+        "people": 0,
+        "births": 407,
+        "deaths": 1639,
+        "generator": "planet-1",
+        "rng": 3725593640
+      },
+      "clock": {
+        "tick": 518116,
+        "wall_ms": 1791521969340
+      },
+      "clockInvariant": "wall_ms - 1791465213340 == (tick - 291092) * 250",
+      "communities": [
+        {
+          "id": "civ-1",
+          "name": "Fernhaven",
+          "foundedTick": 0,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          },
+          "births": 84,
+          "deaths": 390
+        },
+        {
+          "id": "civ-11",
+          "name": "Amber Hollow",
+          "foundedTick": 0,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          },
+          "births": 93,
+          "deaths": 400
+        },
+        {
+          "id": "civ-21",
+          "name": "Stonebrook",
+          "foundedTick": 0,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          },
+          "births": 96,
+          "deaths": 407
+        },
+        {
+          "id": "civ-3118",
+          "name": "Adonis",
+          "foundedTick": 10369,
+          "renewal": {
+            "tick": 195860,
+            "arrivals": 300,
+            "interventionId": "community-renewal-20261008"
+          },
+          "births": 134,
+          "deaths": 442
+        }
+      ],
+      "counts": {
+        "sessions": 30,
+        "agents": 1,
+        "receipts": 3,
+        "world_events": 71133,
+        "world_history": 5397,
+        "renewals": 1
+      },
+      "health": {
+        "ok": true,
+        "tick": 518148,
+        "lawsVersion": "biosphere-1.9",
+        "persistent": true,
+        "acceptingProposals": true,
+        "lagSeconds": 12807,
+        "simulation": "catching-up"
+      },
+      "volume": {
+        "capacity": 454299648,
+        "available": 86298624,
+        "wal": 32906472
+      }
+    },
+    "hostMonitor": {
+      "at": "2026-10-09T08:30:34.097Z",
+      "event": "monitor-complete",
+      "startedAt": "2026-10-09T08:29:03.411Z",
+      "finishedAt": "2026-10-09T08:30:34.096Z",
+      "samples": 89,
+      "minimumAvailableBytes": 86179840,
+      "maximumWalBytes": 32992992,
+      "maximumCgroupMemoryBytes": 999903232,
+      "eventsBefore": "low 0\nhigh 0\nmax 3009\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "eventsAfter": "low 0\nhigh 0\nmax 3432\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "errors": [
+        "Error: ENOENT: no such file or directory, stat '/data/praxans.sqlite-wal'"
+      ],
+      "status": {
+        "phase": "running",
+        "release": "body-care-planning-20261009-1",
+        "pendingRequests": 1,
+        "activeRequests": 0,
+        "observers": 1,
+        "runtimePid": 722,
+        "managedProcesses": 1,
+        "error": null
+      }
+    },
+    "externalObserver": {
+      "startedAt": "2026-10-09T08:27:20.396Z",
+      "finishedAt": "2026-10-09T08:31:37.157Z",
+      "snapshots": 3,
+      "frames": 153,
+      "firstTick": 515892,
+      "lastTick": 517492,
+      "streamEnded": false,
+      "regressions": [],
+      "faults": [],
+      "scope": "one direct Railway observer during the controller-only body-care planning update at unchanged format 15; finite samples do not guarantee every connection or latency"
+    },
+    "healthSamples": {
+      "total": 21,
+      "unavailable": [
+        {
+          "at": "2026-10-09T08:29:29.078Z",
+          "status": 503,
+          "ok": false,
+          "persistent": true,
+          "acceptingProposals": false,
+          "simulation": "updating"
+        }
+      ]
+    },
+    "website": {
+      "id": "dpl_FSqhJtbwX6uxwPbE8A659rCMBEHZ",
+      "url": "praxans-gfpys3e2c-perseusxr-projects.vercel.app",
+      "target": "production",
+      "readyState": "READY",
+      "aliases": [
+        "praxans.vercel.app",
+        "praxans-perseusxr-projects.vercel.app"
+      ],
+      "createdAt": 1791534858698,
+      "prebuiltBuild": "pass",
+      "initialDeployError": "Not authorized",
+      "retry": "Succeeded after verifying existing account/team access and prior deployment metadata; no new login or permission change. Initial provider error cause is not established.",
+      "verification": "Provider metadata only; no fetch of the live Vercel URL."
+    },
+    "releaseRecord": {
+      "sequence": 27,
+      "id": "release:body-care-planning-20261009-1",
+      "tick": 516612,
+      "description": "Make autonomous covering choices tolerate ordinary rest/work heat variation, reconsider stale local goals, and preserve finite paid fiber transfers and physiological costs.",
+      "before_checksum": "7634a41bbb5c0cf0c40d6db63364fbf9352147e413752c38955e981d406dfeb7",
+      "after_checksum": "7634a41bbb5c0cf0c40d6db63364fbf9352147e413752c38955e981d406dfeb7",
+      "created_at": 1791534573352
+    },
+    "archiveSetUnchanged": true,
+    "onlyNewIntervention": "release:body-care-planning-20261009-1"
+  },
+  "independentBackup": {
+    "raw": {
+      "bytes": 310272000,
+      "sha256": "481f075ec00a658d264b5d27945542a99137145cb5610e8b8da3330a7b43f1bf"
+    },
+    "gzip": {
+      "bytes": 271914234,
+      "sha256": "20e994a56dd5e93ce68fbad7b81245a03f85912b4f4bb2905ad6c3b8827d6e9d"
+    },
+    "integrity": "ok",
+    "independentDecoder": {
+      "library": "libzstd",
+      "version": "1.5.5",
+      "scope": "Independent C library via Python, exact single-frame/content length and original/payload SHA-256; no application codec imported."
+    },
+    "storage": 2,
+    "worldChecksum": "2cff3db56048bc32c04ee6046a908e55b9ab61b9b4bff383eb580c3d2445da15",
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "version": 15,
+      "lawsVersion": "biosphere-1.9",
+      "generationVersion": "planet-1",
+      "tick": 505700,
+      "rng": 1378258126,
+      "births": 407,
+      "deaths": 1639
+    },
+    "people": 0,
+    "clock": {
+      "tick": 505700,
+      "wall_ms": 1791518865340.0
+    },
+    "sourceBackupUnchanged": true,
+    "sourceBackupSha256": "fc76ab0bcf53e5aa9945481c0221f1d422f14728cfad2977533fbe996fd3f683",
+    "regionsVerified": 38,
+    "fullArchivesVerified": 8,
+    "protectedRows": {
+      "world_events": {
+        "count": 70799,
+        "unchanged": true
+      },
+      "world_history": {
+        "count": 4703,
+        "unchanged": true
+      },
+      "interventions": {
+        "count": 26,
+        "unchanged": true
+      },
+      "world_backups": {
+        "count": 8,
+        "unchanged": true
+      },
+      "world_backup_parts": {
+        "count": 3036,
+        "unchanged": true
+      },
+      "sessions": {
+        "count": 27,
+        "unchanged": true
+      },
+      "agents": {
+        "count": 1,
+        "unchanged": true
+      },
+      "receipts": {
+        "count": 3,
+        "unchanged": true
+      }
+    }
+  },
+  "independentPostUpdateBackup": {
+    "raw": {
+      "bytes": 310272000,
+      "sha256": "07eef2c5a65d28d7d1c202f8bef81cdce9c7a0176fe1ea1677ba63145b96659f"
+    },
+    "gzip": {
+      "bytes": 272152767,
+      "sha256": "6f04db1de880ac7976341749361331a86d23f99f96730d904e483c2e85a70117"
+    },
+    "integrity": "ok",
+    "independentDecoder": {
+      "library": "libzstd",
+      "version": "1.5.5",
+      "scope": "Independent C library via Python, exact single-frame/content length and original/payload SHA-256; no application codec imported."
+    },
+    "storage": 2,
+    "worldChecksum": "81a5b5e686441e534e656abaaa4bbabd354c95796a7098c0337f37ca0e24fb07",
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "version": 15,
+      "lawsVersion": "biosphere-1.9",
+      "generationVersion": "planet-1",
+      "tick": 518308,
+      "rng": 179343071,
+      "births": 407,
+      "deaths": 1639
+    },
+    "people": 0,
+    "clock": {
+      "tick": 518308,
+      "wall_ms": 1791522017340.0
+    },
+    "sourceBackupUnchanged": true,
+    "sourceBackupSha256": "481f075ec00a658d264b5d27945542a99137145cb5610e8b8da3330a7b43f1bf",
+    "regionsVerified": 38,
+    "fullArchivesVerified": 8,
+    "protectedRows": {
+      "world_events": {
+        "count": 71068,
+        "unchanged": true
+      },
+      "world_history": {
+        "count": 5267,
+        "unchanged": true
+      },
+      "interventions": {
+        "count": 26,
+        "unchanged": true
+      },
+      "world_backups": {
+        "count": 8,
+        "unchanged": true
+      },
+      "world_backup_parts": {
+        "count": 3036,
+        "unchanged": true
+      },
+      "sessions": {
+        "count": 30,
+        "unchanged": true
+      },
+      "agents": {
+        "count": 1,
+        "unchanged": true
+      },
+      "receipts": {
+        "count": 3,
+        "unchanged": true
+      }
+    }
+  },
+  "ci": {
+    "implementationCommit": "8103c8abb8fe57ee36127c0f882748dcf3135ff4",
+    "runs": [
+      {
+        "conclusion": "success",
+        "databaseId": 37905068209,
+        "event": "pull_request",
+        "headSha": "8103c8abb8fe57ee36127c0f882748dcf3135ff4",
+        "status": "completed",
+        "url": "https://github.com/Perseusxrltd/Praxans/actions/runs/37905068209"
+      },
+      {
+        "conclusion": "success",
+        "databaseId": 37905064623,
+        "event": "push",
+        "headSha": "8103c8abb8fe57ee36127c0f882748dcf3135ff4",
+        "status": "completed",
+        "url": "https://github.com/Perseusxrltd/Praxans/actions/runs/37905064623"
+      }
+    ],
+    "scope": "Both complete implementation workflows, including configured browser/runtime integration stages. Later evidence-only commits have separate CI status."
+  },
+  "retainedFailures": [
+    "Initial completion fixture expected a now-unnecessary transfer; changed to genuinely colder conditions.",
+    "New persistence fixture initially dropped people and their matter; now processes conservative deaths before its baseline.",
+    "Initial build needed explicit repair-task narrowing in a new test.",
+    "A verifier initially started before pre-update backup transport completed; completed retry passes.",
+    "First staging finalization contained a newline-escaping syntax error before decoding or activation; retained packed payload finalized correctly.",
+    "One live monitor sample could not stat a WAL file absent during handover; subsequent samples succeeded. Extrema cover successful samples.",
+    "One live health sample returned updating/503; not uninterrupted advice.",
+    "Initial Vercel deployment returned Not authorized; existing access checks and retry succeeded."
+  ],
+  "remainingLimits": [
+    "Current-day food oxidation still exceeds harvesting before other losses.",
+    "Lower summed child cold injury does not imply improvement for every child; lowest observed child health worsens slightly.",
+    "Planning tolerance is not a calibrated physiological comfort zone or a complete consent model.",
+    "Source contention, discarded gathering progress, search of depleted patches, construction reservations and unredistributed capped material allocations need separate causal controls.",
+    "Infant feeding, mobility, gestation, body composition, injury/recovery and developmental calibration remain coarse.",
+    "Finite empty-world host checks do not prove inhabited operation within 1 GB or massive-population/indefinite storage capacity.",
+    "The care controller was introduced after the historical collapse; its defect cannot explain earlier deaths."
+  ],
+  "coherence": {
+    "baseCommit": "8103c8abb8fe57ee36127c0f882748dcf3135ff4",
+    "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+    "gitVisibleExistingFileCount": 968,
+    "jsTsFileCount": 137,
+    "sourceFileCount": 81,
+    "srcContentSha256": "d5d0e9812638aedb8ff5d7c8905ff85990f4e7e78e03166d585ef858f3f0e4d7",
+    "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
+    "resolvedEdgeCount": 713,
+    "edgesByArea": {
+      "docs -> src/simulation": 22,
+      "scripts -> src/server": 27,
+      "scripts -> src/simulation": 26,
+      "src/client -> src/simulation": 27,
+      "src/client -> src/client": 21,
+      "src/server -> src/simulation": 41,
+      "src/server -> src/server": 28,
+      "src/simulation -> src/simulation": 253,
+      "tests -> src/simulation": 184,
+      "tests -> tests": 32,
+      "tests -> src/server": 52
+    },
+    "missingImports": [],
+    "missingAssets": [],
+    "nonliteralLoads": [
+      {
+        "file": "docs/research/collapse-first-death-replay.mjs",
+        "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+      },
+      {
+        "file": "docs/research/collapse-first-death-replay.mjs",
+        "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+      }
+    ],
+    "layerViolations": [],
+    "simulationEnvironmentImports": [],
+    "localMarkdownLinksChecked": 553,
+    "missingMarkdownLinks": [],
+    "semanticReview": [
+      "Choice targets and learning costs share the same resting/active thermal interval and existing heat equation.",
+      "Ongoing reconsideration uses local visible state and the actor's own task; it occurs after funded physiology/fatigue and grants no replacement work.",
+      "Physical transfers retain contact, earned work, finite stock/recipient caps and permissive opposing actions. The controller is distinct from complete consent or learned individual preference.",
+      "No saved field, protocol/task shape, physical equation or reservoir changes; controller-only release keeps format/laws/storage and the sole-writer gateway boundary.",
+      "Historical law replay remains distinct from later current-law care/growth counterfactuals; daily deficits and uneven child outcomes stay explicit.",
+      "Publication follow-up reconciles current runtime, Vercel readiness, final evidence and previously proposed daily/work measurements across progress, roadmap, investigation and devlog."
+    ],
+    "limitations": [
+      "Two intentional historical-source dynamic imports are outside static resolution.",
+      "Source allocation before aggregate recipient caps can leave unused material shares without redistribution; its practical contribution remains unisolated.",
+      "Structural scans do not prove every scientific assumption, runtime path, anchor or legacy Python behavior.",
+      "Finite capacity and monitoring samples do not establish inhabited 1 GB or indefinite world scalability."
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "inspectedAt": "2026-10-08T15:30:28.263132+00:00",
+  "source": "Independent previously verified before-advisor-recovery-20261008.sqlite; read-only local metadata, not a current live query.",
+  "tick": 204116,
+  "worldMetadataChecksum": "de5ca9c84a4d23897c6223bcd5e0c97cdc5f88db756b73d29ab317c8c43c5056",
+  "renewalTick": 195860,
+  "simulatedDaysSinceRenewal": 86.0,
+  "communities": [
+    {
+      "civilizationId": "civ-1",
+      "population": 300,
+      "pregnancies": 63,
+      "earliestDueTick": 221952,
+      "latestDueTick": 230016
+    },
+    {
+      "civilizationId": "civ-11",
+      "population": 300,
+      "pregnancies": 72,
+      "earliestDueTick": 221856,
+      "latestDueTick": 230016
+    },
+    {
+      "civilizationId": "civ-21",
+      "population": 300,
+      "pregnancies": 64,
+      "earliestDueTick": 222048,
+      "latestDueTick": 229920
+    },
+    {
+      "civilizationId": "civ-3118",
+      "population": 300,
+      "pregnancies": 79,
+      "earliestDueTick": 221952,
+      "latestDueTick": 230016
+    }
+  ]
+}

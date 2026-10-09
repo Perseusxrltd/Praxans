@@ -1,0 +1,8 @@
+{
+  "scenario": "seed 1847, 64x64, 128 ticks",
+  "beforeMs": 2751.634242,
+  "afterMs": 2620.950608,
+  "speedup": 1.049861158619743,
+  "equality": "exact serialized state",
+  "checksum": "3c306037fa20e5a40772cffa0b02516e1b707ab05b31308d6a92846d2b1070ec"
+}

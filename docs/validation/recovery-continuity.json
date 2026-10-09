@@ -1,0 +1,47 @@
+{
+  "checkedAt": "2026-10-08T07:30:23.908Z",
+  "backupSha256": "a8bbb992dfbfbc5866490479d71294e787e088f138108b7e0473d577b2dbeeed",
+  "fromFormat": 7,
+  "toFormat": 8,
+  "laws": "biosphere-1.2",
+  "seed": 1847,
+  "sourceTick": 20244,
+  "sourcePeople": 0,
+  "sourceRegions": 38,
+  "preserved": [
+    "source backup bytes",
+    "seed",
+    "RNG",
+    "next identity",
+    "clock",
+    "generator",
+    "existing citizen fields",
+    "terrain fields",
+    "stocks",
+    "reserved structure matter",
+    "ownership/key/receipt/archive/clock rows"
+  ],
+  "migrationElementDifferenceKg": 0,
+  "forwardTicks": 3000,
+  "simulationMs": 504007.770226,
+  "resultingStateChecksum": "76f1cf1a164b3843c5dd54ef5ae490a8fc1617402aecd106c86a046e467cb4e8",
+  "resultingTick": 23244,
+  "resultingPeople": 0,
+  "resultingEcosystem": {
+    "plants": 58,
+    "producerKg": 3.1717022256589495,
+    "dormantCohorts": 0,
+    "dormantKg": 0,
+    "animalCohorts": 0,
+    "temperatureRange": [
+      -1.2408795890130515,
+      4.157161717713252
+    ]
+  },
+  "resultingElementErrors": {
+    "absolute": 2.0217037200927734,
+    "relative": 1.8565315929828383e-10
+  },
+  "restart": "exact",
+  "integrity": "ok"
+}

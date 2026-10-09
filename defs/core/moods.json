@@ -1,0 +1,564 @@
+{
+    "MoodDef": [
+        {
+            "id": "AteRawFood",
+            "mood_offset": -7,
+            "duration": 86400
+        },
+        {
+            "id": "AteFineFood",
+            "mood_offset": 5,
+            "duration": 86400
+        },
+        {
+            "id": "Catharsis",
+            "mood_offset": 30,
+            "duration": 300
+        },
+        {
+            "id": "FoughtOffInfection",
+            "mood_offset": 5,
+            "duration": 120
+        },
+        {
+            "id": "HadChat",
+            "mood_offset": 2,
+            "duration": 120
+        },
+        {
+            "id": "HadDeepTalk",
+            "mood_offset": 5,
+            "duration": 240
+        },
+        {
+            "id": "HadArgument",
+            "mood_offset": -6,
+            "duration": 180
+        },
+        {
+            "id": "WasInsulted",
+            "mood_offset": -10,
+            "duration": 200
+        },
+        {
+            "id": "WasComforted",
+            "mood_offset": 8,
+            "duration": 200
+        },
+        {
+            "id": "GaveComfort",
+            "mood_offset": 3,
+            "duration": 150
+        },
+        {
+            "id": "SharedMeal",
+            "mood_offset": 5,
+            "duration": 240
+        },
+        {
+            "id": "TaughtSomeone",
+            "mood_offset": 3,
+            "duration": 180
+        },
+        {
+            "id": "LearnedFromMentor",
+            "mood_offset": 4,
+            "duration": 180
+        },
+        {
+            "id": "HadFun",
+            "mood_offset": 5,
+            "duration": 180
+        },
+        {
+            "id": "AttendedDoctrineRenewal",
+            "mood_offset": 8,
+            "duration": 300
+        },
+        {
+            "id": "AttendedHarvestFeast",
+            "mood_offset": 12,
+            "duration": 360
+        },
+        {
+            "id": "MournedTogether",
+            "mood_offset": 5,
+            "duration": 240
+        },
+        {
+            "id": "CelebratedNamingDay",
+            "mood_offset": 10,
+            "duration": 300
+        },
+        {
+            "id": "AttendedSeasonalRite",
+            "mood_offset": 7,
+            "duration": 240
+        },
+        {
+            "id": "CelebratedVictory",
+            "mood_offset": 15,
+            "duration": 420
+        },
+        {
+            "id": "Luminary",
+            "mood_offset": 8,
+            "duration": 600
+        },
+        {
+            "id": "Respected",
+            "mood_offset": 4,
+            "duration": 600
+        },
+        {
+            "id": "Overlooked",
+            "mood_offset": -3,
+            "duration": 600
+        },
+        {
+            "id": "Outcast",
+            "mood_offset": -8,
+            "duration": 600
+        },
+        {
+            "id": "GainedReputation",
+            "mood_offset": 3,
+            "duration": 180
+        },
+        {
+            "id": "LostReputation",
+            "mood_offset": -3,
+            "duration": 180
+        },
+        {
+            "id": "AspirationAchieved",
+            "mood_offset": 15,
+            "duration": 600
+        },
+        {
+            "id": "AspirationProgress",
+            "mood_offset": 3,
+            "duration": 180
+        },
+        {
+            "id": "AspirationFailed",
+            "mood_offset": -8,
+            "duration": 300
+        },
+        {
+            "id": "AspirationAssigned",
+            "mood_offset": 2,
+            "duration": 120
+        },
+        {
+            "id": "RaidVictory",
+            "mood_offset": 8,
+            "duration": 300
+        },
+        {
+            "id": "RaidSurvived",
+            "mood_offset": 5,
+            "duration": 240
+        },
+        {
+            "id": "RaidDefeated",
+            "mood_offset": -12,
+            "duration": 360
+        },
+        {
+            "id": "WonSkirmish",
+            "mood_offset": 5,
+            "duration": 200
+        },
+        {
+            "id": "DefendedBorder",
+            "mood_offset": 4,
+            "duration": 200
+        },
+        {
+            "id": "LostSkirmish",
+            "mood_offset": -6,
+            "duration": 240
+        },
+        {
+            "id": "SabotageSuccess",
+            "mood_offset": 6,
+            "duration": 240
+        },
+        {
+            "id": "RepelledSaboteurs",
+            "mood_offset": 5,
+            "duration": 200
+        },
+        {
+            "id": "SabotageSuffered",
+            "mood_offset": -10,
+            "duration": 300
+        },
+        {
+            "id": "ConquestVictory",
+            "mood_offset": 15,
+            "duration": 420
+        },
+        {
+            "id": "DefendedColony",
+            "mood_offset": 10,
+            "duration": 360
+        },
+        {
+            "id": "ConquestDefeated",
+            "mood_offset": -18,
+            "duration": 480
+        },
+        {
+            "id": "ComradeWounded",
+            "mood_offset": -5,
+            "duration": 180
+        },
+        {
+            "id": "ComradeFallen",
+            "mood_offset": -10,
+            "duration": 300
+        },
+        {
+            "id": "BattleHardened",
+            "mood_offset": 3,
+            "duration": 600
+        },
+        {
+            "id": "TraditionWarriorSpirit",
+            "mood_offset": 3,
+            "duration": 120
+        },
+        {
+            "id": "TraditionHarvestPride",
+            "mood_offset": 4,
+            "duration": 120
+        },
+        {
+            "id": "TraditionHealersOath",
+            "mood_offset": 3,
+            "duration": 120
+        },
+        {
+            "id": "TraditionBuildersLegacy",
+            "mood_offset": 3,
+            "duration": 120
+        },
+        {
+            "id": "TraditionExplorersCall",
+            "mood_offset": 3,
+            "duration": 120
+        },
+        {
+            "id": "TraditionScholarsPath",
+            "mood_offset": 3,
+            "duration": 120
+        },
+        {
+            "id": "TraditionPeacekeepersWay",
+            "mood_offset": 4,
+            "duration": 120
+        },
+        {
+            "id": "TraditionSurvivorsGrit",
+            "mood_offset": 2,
+            "duration": 120
+        },
+        {
+            "id": "TraditionArtisansMark",
+            "mood_offset": 4,
+            "duration": 120
+        },
+        {
+            "id": "TraditionAncestralRemembrance",
+            "mood_offset": 2,
+            "duration": 120
+        },
+        {
+            "id": "DefectorAnxiety",
+            "mood_offset": -5,
+            "duration": 180
+        },
+        {
+            "id": "MemberDefected",
+            "mood_offset": -4,
+            "duration": 120
+        },
+        {
+            "id": "NewcomerArrival",
+            "mood_offset": 3,
+            "duration": 120
+        },
+        {
+            "id": "WarRefugee",
+            "mood_offset": -6,
+            "duration": 180
+        },
+        {
+            "id": "MemberFledWar",
+            "mood_offset": -3,
+            "duration": 120
+        },
+        {
+            "id": "RefugeeWelcomed",
+            "mood_offset": 4,
+            "duration": 120
+        },
+        {
+            "id": "PlagueFlight",
+            "mood_offset": -5,
+            "duration": 180
+        },
+        {
+            "id": "MemberFledPlague",
+            "mood_offset": -3,
+            "duration": 120
+        },
+        {
+            "id": "PlagueSurvivorArrived",
+            "mood_offset": 2,
+            "duration": 120
+        },
+        {
+            "id": "FamilyReunion",
+            "mood_offset": 8,
+            "duration": 240
+        },
+        {
+            "id": "MemberLeftForFamily",
+            "mood_offset": -2,
+            "duration": 120
+        },
+        {
+            "id": "FamilyReunited",
+            "mood_offset": 5,
+            "duration": 180
+        },
+        {
+            "id": "IdeologicalExile",
+            "mood_offset": -4,
+            "duration": 180
+        },
+        {
+            "id": "MemberExiled",
+            "mood_offset": -3,
+            "duration": 120
+        },
+        {
+            "id": "IdeologicalRefugee",
+            "mood_offset": 2,
+            "duration": 120
+        },
+        {
+            "id": "TeachingApprentice",
+            "mood_offset": 3,
+            "duration": 120
+        },
+        {
+            "id": "LearningFromMentor",
+            "mood_offset": 5,
+            "duration": 120
+        },
+        {
+            "id": "ApprenticeGraduated",
+            "mood_offset": 10,
+            "duration": 180
+        },
+        {
+            "id": "MentorProud",
+            "mood_offset": 8,
+            "duration": 180
+        },
+        {
+            "id": "MentorshipFormed",
+            "mood_offset": 4,
+            "duration": 90
+        },
+        {
+            "id": "LostMentor",
+            "mood_offset": -6,
+            "duration": 180
+        },
+        {
+            "id": "LostApprentice",
+            "mood_offset": -4,
+            "duration": 120
+        },
+        {
+            "id": "MentorshipBroken",
+            "mood_offset": -3,
+            "duration": 90
+        },
+        {
+            "id": "PersonalityGrowth",
+            "mood_offset": 3,
+            "duration": 120
+        },
+        {
+            "id": "PersonalityDecline",
+            "mood_offset": -3,
+            "duration": 120
+        },
+        {
+            "id": "ReceivedHeirloom",
+            "mood_offset": 10,
+            "duration": 300
+        },
+        {
+            "id": "LostHeirloom",
+            "mood_offset": -8,
+            "duration": 240
+        },
+        {
+            "id": "CreatedHeirloom",
+            "mood_offset": 12,
+            "duration": 360
+        },
+        {
+            "id": "HeirloomBecameRelic",
+            "mood_offset": 8,
+            "duration": 300
+        },
+        {
+            "id": "AncestralHeirloom",
+            "mood_offset": 5,
+            "duration": 600
+        },
+        {
+            "id": "FactionRelicNearby",
+            "mood_offset": 3,
+            "duration": 120
+        },
+        {
+            "id": "HeirloomLooted",
+            "mood_offset": -12,
+            "duration": 360
+        },
+        {
+            "id": "EdictConscription",
+            "mood_offset": -6,
+            "duration": 200
+        },
+        {
+            "id": "EdictRationing",
+            "mood_offset": -5,
+            "duration": 260
+        },
+        {
+            "id": "EdictOpenBorders",
+            "mood_offset": 3,
+            "duration": 320
+        },
+        {
+            "id": "EdictClosedBorders",
+            "mood_offset": -3,
+            "duration": 320
+        },
+        {
+            "id": "EdictResearchMandate",
+            "mood_offset": 2,
+            "duration": 260
+        },
+        {
+            "id": "EdictFestival",
+            "mood_offset": 10,
+            "duration": 150
+        },
+        {
+            "id": "EdictMartialLaw",
+            "mood_offset": -10,
+            "duration": 180
+        },
+        {
+            "id": "EdictConstructionDrive",
+            "mood_offset": 1,
+            "duration": 220
+        },
+        {
+            "id": "EdictHealingInitiative",
+            "mood_offset": 4,
+            "duration": 220
+        },
+        {
+            "id": "EdictForagingMandate",
+            "mood_offset": -2,
+            "duration": 200
+        },
+        {
+            "id": "FeudSimmering",
+            "mood_offset": -3,
+            "duration": 120
+        },
+        {
+            "id": "FeudHostile",
+            "mood_offset": -6,
+            "duration": 150
+        },
+        {
+            "id": "FeudVendetta",
+            "mood_offset": -10,
+            "duration": 180
+        },
+        {
+            "id": "FeudBloodFeud",
+            "mood_offset": -15,
+            "duration": 240
+        },
+        {
+            "id": "FeudConfrontationWon",
+            "mood_offset": 3,
+            "duration": 180
+        },
+        {
+            "id": "FeudConfrontationLost",
+            "mood_offset": -8,
+            "duration": 180
+        },
+        {
+            "id": "FeudResolved",
+            "mood_offset": 4,
+            "duration": 180
+        },
+        {
+            "id": "EraOfProsperity",
+            "mood_offset": 4,
+            "duration": 120
+        },
+        {
+            "id": "EraOfConflict",
+            "mood_offset": -4,
+            "duration": 120
+        },
+        {
+            "id": "EraOfHardship",
+            "mood_offset": -3,
+            "duration": 120
+        },
+        {
+            "id": "EraOfUncertainty",
+            "mood_offset": -2,
+            "duration": 120
+        },
+        {
+            "id": "EraOfLegends",
+            "mood_offset": 6,
+            "duration": 120
+        },
+        {
+            "id": "NotableFigure",
+            "mood_offset": 3,
+            "duration": 300
+        },
+        {
+            "id": "RenownedFigure",
+            "mood_offset": 6,
+            "duration": 300
+        },
+        {
+            "id": "LegendaryFigure",
+            "mood_offset": 10,
+            "duration": 300
+        }
+    ]
+}

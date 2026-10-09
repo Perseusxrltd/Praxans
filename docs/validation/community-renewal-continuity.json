@@ -1,0 +1,308 @@
+{
+  "observedAt": "2026-10-08T13:31:53.259Z",
+  "world": {
+    "id": "praxans-world",
+    "seed": 1847,
+    "tick": 196276,
+    "version": 9,
+    "laws": "biosphere-1.3",
+    "generation": "planet-1",
+    "people": 1200,
+    "animals": 0,
+    "regions": 38
+  },
+  "clock": {
+    "tick": 196276,
+    "wall_ms": 1791441509340
+  },
+  "preserved": {
+    "sessions": {
+      "count": 14,
+      "unchanged": true
+    },
+    "agents": {
+      "count": 1,
+      "unchanged": true
+    },
+    "receipts": {
+      "count": 3,
+      "unchanged": true
+    },
+    "eventPrefix": {
+      "count": 2359,
+      "unchanged": true
+    },
+    "priorArchive": {
+      "count": 1,
+      "unchanged": true
+    }
+  },
+  "archives": [
+    {
+      "id": "008-material-memory-and-agency",
+      "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+      "createdAt": 1791445486072,
+      "tick": 20244,
+      "version": 7
+    },
+    {
+      "id": "009-human-thermal-and-distance-balance",
+      "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+      "createdAt": 1791466127552,
+      "tick": 195860,
+      "version": 8
+    }
+  ],
+  "operator": {
+    "id": "operator:community-renewal-20261008",
+    "tick": 195860,
+    "createdAt": 1791466131306,
+    "beforeChecksum": "4d7074af4d32d88b97fd67562c85cd0de1bab50de2a313f1dc0352c747edc9ba",
+    "afterChecksum": "f0f17693960464a01ec97ec5f0e37ade2436306568914bc01e32762e95019745",
+    "request": {
+      "id": "community-renewal-20261008",
+      "worldId": "praxans-world",
+      "seed": 1847,
+      "civilizationIds": [
+        "civ-1",
+        "civ-11",
+        "civ-21",
+        "civ-3118"
+      ],
+      "peoplePerCommunity": 300,
+      "suppliesPerPerson": {
+        "biomass": 480,
+        "wood": 80,
+        "fiber": 6,
+        "stone": 5,
+        "clay": 2
+      },
+      "habitat": {
+        "radius": 48,
+        "plantKg": 48,
+        "groundcoverKg": 6,
+        "seedKg": 0.3
+      },
+      "reason": "Owner-authorized restoration after a defective historical heat model destroyed the land ecosystem. Three hundred new adult residents per community, finite provisions and established land-plant tissue enter the physical boundary inventory. Former residents remain dead and their history is preserved; subsequent survival follows the shared natural laws."
+    },
+    "result": {
+      "arrivals": [
+        {
+          "civId": "civ-1",
+          "people": 300,
+          "plantKg": 150534,
+          "seedKg": 1703.3999999998332,
+          "patches": 2905
+        },
+        {
+          "civId": "civ-11",
+          "people": 300,
+          "plantKg": 20628,
+          "seedKg": 1726.7999999998297,
+          "patches": 2944
+        },
+        {
+          "civId": "civ-21",
+          "people": 300,
+          "plantKg": 26946,
+          "seedKg": 517.8000000000128,
+          "patches": 929
+        },
+        {
+          "civId": "civ-3118",
+          "people": 300,
+          "plantKg": 372474,
+          "seedKg": 4148.400000001055,
+          "patches": 6935
+        }
+      ],
+      "matter": {
+        "carbon": 1242518.3999998122,
+        "mineral": 68507.16716003418,
+        "water": 699862.4560103416,
+        "chemical": 21122812799.996815
+      }
+    }
+  },
+  "release": {
+    "id": "release:community-renewal-20261008-2",
+    "tick": 195860,
+    "before_checksum": "f0f17693960464a01ec97ec5f0e37ade2436306568914bc01e32762e95019745",
+    "after_checksum": "f0f17693960464a01ec97ec5f0e37ade2436306568914bc01e32762e95019745"
+  },
+  "artifact": {
+    "protocol": 1,
+    "release": "community-renewal-20261008-2",
+    "notes": "Finite recorded 300-person renewal; connected camps and thermal survival; open component geometry; distinct trial and construction evidence; scoped agent connections available during clock recovery.",
+    "sha256": "4e4d6a68ac384a5205f839928ac16a592033ee5e2578d02e5b20a5878ca7db64",
+    "dependencies": "0ca3efac2e32e64895e4f395f1919a966af1b18b017c12aaa088b491f2f0022e",
+    "nodeMajor": 22
+  },
+  "communities": [
+    {
+      "id": "civ-1",
+      "name": "Fernhaven",
+      "foundedTick": 0,
+      "deaths": 9,
+      "births": 0,
+      "population": 300,
+      "renewal": {
+        "tick": 195860,
+        "arrivals": 300,
+        "interventionId": "community-renewal-20261008"
+      },
+      "foodKg": 144952.48497056842,
+      "averageHealth": 99.99906311315496,
+      "minimumHealth": 99.92893394648797,
+      "environment": {
+        "temperature": 9.068384220918116,
+        "waterKg": 12179.735485787807,
+        "iceKg": 0,
+        "forageKg": 1.9484247211383332
+      }
+    },
+    {
+      "id": "civ-11",
+      "name": "Amber Hollow",
+      "foundedTick": 0,
+      "deaths": 7,
+      "births": 0,
+      "population": 300,
+      "renewal": {
+        "tick": 195860,
+        "arrivals": 300,
+        "interventionId": "community-renewal-20261008"
+      },
+      "foodKg": 144464.3216963952,
+      "averageHealth": 99.98672244983281,
+      "minimumHealth": 99.45913043478117,
+      "environment": {
+        "temperature": 9.055227376827252,
+        "waterKg": 12238.817818100264,
+        "iceKg": 0,
+        "forageKg": 0.0884882045306856
+      }
+    },
+    {
+      "id": "civ-21",
+      "name": "Stonebrook",
+      "foundedTick": 0,
+      "deaths": 8,
+      "births": 0,
+      "population": 300,
+      "renewal": {
+        "tick": 195860,
+        "arrivals": 300,
+        "interventionId": "community-renewal-20261008"
+      },
+      "foodKg": 144143.43845319093,
+      "averageHealth": 99.99196132943148,
+      "minimumHealth": 99.38434782608726,
+      "environment": {
+        "temperature": 8.858965515772004,
+        "waterKg": 12566.656382406863,
+        "iceKg": 0,
+        "forageKg": 0.08031198629332735
+      }
+    },
+    {
+      "id": "civ-3118",
+      "name": "Adonis",
+      "foundedTick": 10369,
+      "deaths": 8,
+      "births": 0,
+      "population": 300,
+      "renewal": {
+        "tick": 195860,
+        "arrivals": 300,
+        "interventionId": "community-renewal-20261008"
+      },
+      "foodKg": 145025.2298307916,
+      "averageHealth": 99.96451304347842,
+      "minimumHealth": 98.30434782608722,
+      "environment": {
+        "temperature": 8.860996067352959,
+        "waterKg": 13458.893748161494,
+        "iceKg": 0,
+        "forageKg": 1.8528261207004968
+      }
+    }
+  ],
+  "ecology": {
+    "growingKg": 617377.2584126901,
+    "seedKg": 12797.545664650466,
+    "cohorts": 22876
+  },
+  "checksums": "valid",
+  "integrity": "ok",
+  "pendingActivation": false,
+  "continuityLimit": "The handover succeeded, but a subsequent memory-pressure worker restart made two live observers see a checkpoint rollback. Later disk-full failures also stopped saving. See the incident narrative; this is not proof of seamless service.",
+  "laterBackup": {
+    "observedAt": "2026-10-08T14:17:41.103Z",
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "tick": 204116,
+      "version": 9,
+      "laws": "biosphere-1.3",
+      "people": 1200
+    },
+    "raw": {
+      "bytes": 205668352,
+      "sha256": "197178de84dea08cf5055b599acc5f0896fc927a6a730bf6b418153bad551968"
+    },
+    "gzip": {
+      "bytes": 55793657,
+      "sha256": "2aa32593df90fae4cb8a7b4fba8535ff104c49f11333c12f6d8ca018a06c7776"
+    },
+    "integrity": "ok",
+    "checksums": "valid",
+    "clockDebtPreserved": true,
+    "communities": [
+      {
+        "id": "civ-1",
+        "name": "Fernhaven",
+        "population": 300,
+        "births": 0,
+        "deaths": 9,
+        "foodKg": 114958.57728632535,
+        "standingShelter": 12.64229454409544,
+        "healthMin": 99.64911789297773,
+        "healthMean": 99.98099312987735
+      },
+      {
+        "id": "civ-11",
+        "name": "Amber Hollow",
+        "population": 300,
+        "births": 0,
+        "deaths": 7,
+        "foodKg": 113445.57660282751,
+        "standingShelter": 12.108985949444673,
+        "healthMin": 98.7887500000037,
+        "healthMean": 99.97245252229654
+      },
+      {
+        "id": "civ-21",
+        "name": "Stonebrook",
+        "population": 300,
+        "births": 0,
+        "deaths": 8,
+        "foodKg": 110019.31232231113,
+        "standingShelter": 10.451449365912252,
+        "healthMin": 97.89448578595055,
+        "healthMean": 99.96114792363427
+      },
+      {
+        "id": "civ-3118",
+        "name": "Adonis",
+        "population": 300,
+        "births": 0,
+        "deaths": 8,
+        "foodKg": 130120.88317461526,
+        "standingShelter": 7.617647058823529,
+        "healthMin": 98.96626672241312,
+        "healthMean": 99.973215245262
+      }
+    ]
+  }
+}

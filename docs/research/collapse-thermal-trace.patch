@@ -1,0 +1,28 @@
+diff --git a/src/simulation/physiology.ts b/src/simulation/physiology.ts
+index 851be5b..c112b67 100644
+--- a/src/simulation/physiology.ts
++++ b/src/simulation/physiology.ts
+@@ -91,7 +91,7 @@ function fuel(
+   return amount * MATERIALS.biomass.carbon * LAWS.chemicalEnergy;
+ }
+
+-export function regulateTemperature(
++function regulateTemperatureUntraced(
+   world: World,
+   person: Citizen,
+   civ: Civilization,
+@@ -173,3 +173,14 @@ export function regulateTemperature(
+       Math.max(0, excessKJ - sweat * PLANET.vaporizationHeat) / 240,
+   );
+ }
++
++// Diagnostic-only wrapper in the detached historical replay worktree.
++type ThermalArguments = Parameters<typeof regulateTemperatureUntraced>;
++export function regulateTemperature(...args: ThermalArguments): void {
++  const probe = (globalThis as typeof globalThis & {
++    __praxansThermalProbe?: (phase: string, ...args: ThermalArguments) => void;
++  }).__praxansThermalProbe;
++  probe?.("before", ...args);
++  regulateTemperatureUntraced(...args);
++  probe?.("after", ...args);
++}

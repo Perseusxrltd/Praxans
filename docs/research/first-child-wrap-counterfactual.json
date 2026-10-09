@@ -1,0 +1,119 @@
+{
+  "recordedAtUTC": "2026-10-08T20:13:06.227Z",
+  "evidenceKind": "Two isolated calls to actual regulateTemperature at recorded final local conditions; no stepWorld or historical replay",
+  "historicalEvidence": {
+    "path": "output/research/collapse-first-death-replay.json",
+    "sha256": "81ce91ab3dbc0c5c22f1fe4b33291d4086f087688fbd3019a6f5075fe94719a1",
+    "baselineCommit": "4ed610b48c604ab9734a301ecdddda55fc9f6111",
+    "exactHistoricalDeathEventMatchedByParent": true,
+    "citizenId": "person-102382",
+    "tick": 231549
+  },
+  "recordedBefore": {
+    "phase": "before",
+    "tick": 231549,
+    "dt": 0.25,
+    "active": false,
+    "shelterResistance": 0,
+    "ageYears": 0.21894200919753132,
+    "bodyKg": 17.907914960749917,
+    "health": 0.9711685799370396,
+    "hunger": 62.243991178266036,
+    "hydrationKg": 5.298228740187476,
+    "provisionsKg": 0,
+    "wrapKg": 0,
+    "stockFoodKg": 0,
+    "stockFiberKg": 327.15403560661093,
+    "atHome": true,
+    "position": {
+      "x": 56,
+      "y": 31
+    },
+    "task": "rest",
+    "temperatureC": 6.940471937138853,
+    "sickness": 0
+  },
+  "totalInitialFiberKgInBothCases": 327.15403560661093,
+  "sourceFingerprints": [
+    {
+      "path": "src/simulation/physiology.ts",
+      "sha256": "f42014137c544f7e726411cee66b5e3967e2f0a491f4af8be80dca15ada4bed3"
+    },
+    {
+      "path": "src/simulation/content.ts",
+      "sha256": "22cf13ee58c69f41a94bb31bdd7e78c16f1f1764a5e5aea63de5cdfcbedf39f3"
+    },
+    {
+      "path": "src/simulation/laws.ts",
+      "sha256": "9f9ac36bfa087cf0919d6ded6e1356f840898be35648c8fd6484ee9ac3b02318"
+    },
+    {
+      "path": "src/simulation/chemistry.ts",
+      "sha256": "b7fd7b97336f98923bed95fc009a734485426296d176f87a63fa0357f3977a05"
+    },
+    {
+      "path": "src/simulation/settlement.ts",
+      "sha256": "6e9e72c7f3f7394edd10204caefaa32af6a9b2ca4614ad85ef76d13bf2c8af91"
+    }
+  ],
+  "cases": [
+    {
+      "case": "recorded bare state",
+      "initialStockFiberKg": 327.15403560661093,
+      "initialWrapKg": 0,
+      "finalStockFiberKg": 327.15403560661093,
+      "finalWrapKg": 0,
+      "fiberWearKg": 0,
+      "detritusOrganicIncreaseKg": 0,
+      "detritusMineralIncreaseKg": 0,
+      "healthBefore": 0.9711685799370396,
+      "healthAfter": 0,
+      "healthLostAfterClamp": 0.9711685799370396,
+      "potentialThermalHealthLossBeforeClamp": 1.0504551035963354,
+      "requiredAdditionalHeatKJ": 252.1092248631205,
+      "fundedAdditionalHeatKJ": 0,
+      "finalFoodKg": 0,
+      "finalBodyKg": 17.907914960749917,
+      "finalHydrationKg": 5.298228740187476,
+      "finalNourishment": 62.243991178266036,
+      "finalTemperatureC": 6.940471937138853,
+      "survivedThisSingleThermalCall": false,
+      "maxAbsoluteElementResidualKg": 0,
+      "chemicalPlusReleasedResidualKJ": 0,
+      "chemicalEnergyReleasedKJ": 0
+    },
+    {
+      "case": "2 kg already allocated wrap",
+      "initialStockFiberKg": 325.15403560661093,
+      "initialWrapKg": 2,
+      "finalStockFiberKg": 325.15403560661093,
+      "finalWrapKg": 1.9999925000140626,
+      "fiberWearKg": 0.000007499985937409193,
+      "detritusOrganicIncreaseKg": 0.000007349986217874971,
+      "detritusMineralIncreaseKg": 1.4999971875706564e-7,
+      "healthBefore": 0.9711685799370396,
+      "healthAfter": 0.8383442005676418,
+      "healthLostAfterClamp": 0.13282437936939784,
+      "potentialThermalHealthLossBeforeClamp": 0.1328243793693979,
+      "requiredAdditionalHeatKJ": 31.877851048655497,
+      "fundedAdditionalHeatKJ": 0,
+      "finalFoodKg": 0,
+      "finalBodyKg": 17.907914960749917,
+      "finalHydrationKg": 5.298228740187476,
+      "finalNourishment": 62.243991178266036,
+      "finalTemperatureC": 6.940471937138853,
+      "survivedThisSingleThermalCall": true,
+      "maxAbsoluteElementResidualKg": 4.547473508864641e-13,
+      "chemicalPlusReleasedResidualKJ": 4.76837158203125e-7,
+      "chemicalEnergyReleasedKJ": 0
+    }
+  ],
+  "conclusion": "At the exact final local exposure, the bare actor reaches zero health; the actor with 2 kg of the same finite stock already allocated as a wrap retains positive health for this one quarter-hour. No food is added or consumed.",
+  "limitations": [
+    "Preallocation represents protection obtained earlier. It is not an implemented instant caregiver action, and this comparison assigns no free labor to the preserved world.",
+    "The synthetic world reproduces the relevant person, temperature, activity, shelter and accessible-food/fiber conditions; it does not reconstruct the historical camp geometry or other inhabitants.",
+    "Recorded hydration prevents melting; both cases remain below heat-balance neutrality, preventing sweating. With no food, there is no respiration; unrelated synthetic water/air reservoirs cannot affect these calls.",
+    "The wrapped case still loses health. One-call survival does not establish survival of the day, winter, or other inhabitants.",
+    "Conservation covers finite fiber allocation/wear and the existing element/chemical-energy ledgers. The model still lacks a unified mobilizable-body energy budget and core body-temperature state."
+  ]
+}

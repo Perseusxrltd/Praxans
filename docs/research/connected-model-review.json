@@ -1,0 +1,1021 @@
+{
+  "schema_version": 1,
+  "updated_on": "2026-10-08",
+  "report": "connected-model-review.md",
+  "probe": "connected-model-probe.mjs",
+  "source_register": "source-register.json",
+  "candidate_queue": "mechanism-candidates.json",
+  "source_ids": [],
+  "candidate_ids": ["R01", "R03", "R21", "R22", "R23", "R24"],
+  "scope": "Independent read-only review, pure/synthetic small probes and inspection of completed parent-run diagnostic JSON. No new external source claims, clock advance, world generation, database access or live changes.",
+  "probe_command": "node --import tsx docs/research/connected-model-probe.mjs /tmp/praxans-connected-review.json",
+  "probe_runs": [
+    {
+      "observedAtUtc": "2026-10-08T12:34:26.217Z",
+      "scope": "Pure geometry evaluations, synthetic 225-cell settlement fixtures and one daily stock-decay call. No world generation, clock advance, database, server or survival ensemble.",
+      "fingerprints": [
+        {
+          "path": "src/simulation/geometry.ts",
+          "sha256": "00c6a7f97c617c871a306125d6b0186fd182f82b70626cc9c2bcf6b69498713c"
+        },
+        {
+          "path": "src/simulation/laws.ts",
+          "sha256": "9f9ac36bfa087cf0919d6ded6e1356f840898be35648c8fd6484ee9ac3b02318"
+        },
+        {
+          "path": "src/simulation/settlement.ts",
+          "sha256": "6f029fee07b451eae5bb3255eafb96320a8c17723015348e044d07d8e29312a9"
+        },
+        {
+          "path": "src/simulation/weathering.ts",
+          "sha256": "2c4819d2601c4f1e863e094c3a2bbf3da7bca26610e1d8709409ef8d5ceb7bb7"
+        },
+        {
+          "path": "src/simulation/terrain.ts",
+          "sha256": "d010933a49455d945e3ddfad20d80c60cac6624ed5397aed3bab9b232e9a551b"
+        },
+        {
+          "path": "src/simulation/physiology.ts",
+          "sha256": "f42014137c544f7e726411cee66b5e3967e2f0a491f4af8be80dca15ada4bed3"
+        },
+        {
+          "path": "src/simulation/citizens.ts",
+          "sha256": "4dd158e5e78057e505b3fa8b6e584c04d3a6fa052a3b80d15e0b06db383f00ee"
+        },
+        {
+          "path": "src/simulation/economy.ts",
+          "sha256": "d2591441f0d30a05c616d99a3e54c3c06f17b1eaad041b7d420e6020089d4215"
+        }
+      ],
+      "geometry": {
+        "cases": [
+          {
+            "name": "connected open-top bin",
+            "expectedVolumeM3": 0.95,
+            "observedVolumeM3": 0.95,
+            "stable": true,
+            "pass": true
+          },
+          {
+            "name": "detached walls",
+            "expectedVolumeM3": 0,
+            "observedVolumeM3": 0,
+            "stable": true,
+            "pass": true
+          },
+          {
+            "name": "missing floor",
+            "expectedVolumeM3": 0,
+            "observedVolumeM3": 0,
+            "stable": true,
+            "pass": true
+          },
+          {
+            "name": "lower spillway",
+            "expectedVolumeM3": 0.4,
+            "observedVolumeM3": 0.4,
+            "stable": true,
+            "pass": true
+          },
+          {
+            "name": "0.1 mm side slit",
+            "expectedVolumeM3": 0,
+            "observedVolumeM3": 0,
+            "stable": true,
+            "pass": true
+          },
+          {
+            "name": "quarter turn and translation",
+            "expectedVolumeM3": 0.95,
+            "observedVolumeM3": 0.95,
+            "stable": true,
+            "pass": true
+          },
+          {
+            "name": "supported internal solid displaces storage",
+            "expectedVolumeM3": 0.825,
+            "observedVolumeM3": 0.825,
+            "stable": true,
+            "pass": true
+          }
+        ],
+        "sealedCavity": {
+          "stable": true,
+          "storageVolumeM3": 0.95,
+          "limitation": "Void exists, but filling/retrieval and assembly sequence are not represented by this scalar."
+        },
+        "maximumPartition": {
+          "components": 32,
+          "cells": 274625,
+          "typedArrayBytes": 1922375,
+          "stableInCurrentStaticModel": true,
+          "warmups": 1,
+          "submissions": 3,
+          "timesMs": [32.06564100000003, 24.985404000000017, 68.75838700000003],
+          "limitation": "Node CPU timings under concurrent host load, not full-runtime throughput or representative-world performance."
+        }
+      },
+      "settlement": {
+        "diskCheck": {
+          "radiusCells": 2,
+          "actualCount": 13,
+          "squareWouldHave": 25
+        },
+        "openLand": {
+          "requestedAreaM2": 4800,
+          "radiusCells": 3.9088200952233594,
+          "allocatedCells": 45,
+          "allocatedAreaM2": 4500,
+          "uniqueRestCells": 45
+        },
+        "oneCellIsland": {
+          "requestedAreaM2": 4800,
+          "allocatedCells": 1
+        },
+        "diagonalDisconnectedLand": {
+          "position": {
+            "x": 1,
+            "y": 1
+          },
+          "cardinalPath": null,
+          "canReachStock": true
+        },
+        "warmCachePopulationScans": {
+          "totalWorldPeople": 1200,
+          "campPeople": 300,
+          "repeatedCalls": 10,
+          "globalPopulationVisits": 12000
+        },
+        "spoilageLedger": {
+          "inputFoodKg": 144000,
+          "lostFoodKg": 1033.0764618508692,
+          "addedLitterCarbonKg": 971.0918741398199,
+          "addedLitterMineralKg": 61.9845877110523,
+          "massResidualKg": 2.9558577807620168e-12,
+          "carbonResidualKg": 2.8421709430404007e-12,
+          "mineralResidualKg": 1.4921397450962104e-13
+        }
+      }
+    },
+    {
+      "observedAtUtc": "2026-10-08T12:39:20.593Z",
+      "scope": "Pure geometry evaluations, synthetic 225-cell settlement fixtures and one daily stock-decay call. No world generation, clock advance, database, server or survival ensemble.",
+      "fingerprints": [
+        {
+          "path": "src/simulation/geometry.ts",
+          "sha256": "bfaec32d5ae35fdaa63df8c9ad6af600aa651e89d04e66d502c4ca37eb6bd5ac"
+        },
+        {
+          "path": "src/simulation/laws.ts",
+          "sha256": "9f9ac36bfa087cf0919d6ded6e1356f840898be35648c8fd6484ee9ac3b02318"
+        },
+        {
+          "path": "src/simulation/settlement.ts",
+          "sha256": "6e9e72c7f3f7394edd10204caefaa32af6a9b2ca4614ad85ef76d13bf2c8af91"
+        },
+        {
+          "path": "src/simulation/weathering.ts",
+          "sha256": "2c4819d2601c4f1e863e094c3a2bbf3da7bca26610e1d8709409ef8d5ceb7bb7"
+        },
+        {
+          "path": "src/simulation/terrain.ts",
+          "sha256": "d010933a49455d945e3ddfad20d80c60cac6624ed5397aed3bab9b232e9a551b"
+        },
+        {
+          "path": "src/simulation/physiology.ts",
+          "sha256": "f42014137c544f7e726411cee66b5e3967e2f0a491f4af8be80dca15ada4bed3"
+        },
+        {
+          "path": "src/simulation/citizens.ts",
+          "sha256": "4dd158e5e78057e505b3fa8b6e584c04d3a6fa052a3b80d15e0b06db383f00ee"
+        },
+        {
+          "path": "src/simulation/economy.ts",
+          "sha256": "d2591441f0d30a05c616d99a3e54c3c06f17b1eaad041b7d420e6020089d4215"
+        }
+      ],
+      "geometry": {
+        "cases": [
+          {
+            "name": "connected open-top bin",
+            "expectedVolumeM3": 0.95,
+            "observedVolumeM3": 0.95,
+            "stable": true,
+            "pass": true
+          },
+          {
+            "name": "detached walls",
+            "expectedVolumeM3": 0,
+            "observedVolumeM3": 0,
+            "stable": true,
+            "pass": true
+          },
+          {
+            "name": "missing floor",
+            "expectedVolumeM3": 0,
+            "observedVolumeM3": 0,
+            "stable": true,
+            "pass": true
+          },
+          {
+            "name": "lower spillway",
+            "expectedVolumeM3": 0.4,
+            "observedVolumeM3": 0.4,
+            "stable": true,
+            "pass": true
+          },
+          {
+            "name": "0.1 mm side slit",
+            "expectedVolumeM3": 0,
+            "observedVolumeM3": 0,
+            "stable": true,
+            "pass": true
+          },
+          {
+            "name": "quarter turn and translation",
+            "expectedVolumeM3": 0.95,
+            "observedVolumeM3": 0.95,
+            "stable": true,
+            "pass": true
+          },
+          {
+            "name": "supported internal solid displaces storage",
+            "expectedVolumeM3": 0.825,
+            "observedVolumeM3": 0.825,
+            "stable": true,
+            "pass": true
+          }
+        ],
+        "cacheInvalidation": {
+          "initialCachedVolume": 0.95,
+          "afterDimensionMutation": 0.4,
+          "afterElementReplacement": 0.95,
+          "afterRemoval": 0,
+          "expected": [0.95, 0.4, 0.95, 0]
+        },
+        "sealedCavity": {
+          "stable": true,
+          "storageVolumeM3": 0.95,
+          "limitation": "Void exists, but filling/retrieval and assembly sequence are not represented by this scalar."
+        },
+        "maximumPartition": {
+          "components": 32,
+          "cells": 274625,
+          "typedArrayBytes": 1922375,
+          "stableInCurrentStaticModel": true,
+          "warmups": 1,
+          "submissions": 3,
+          "timesMs": [
+            0.1502980000000207, 0.11178300000005947, 0.059988000000089414
+          ],
+          "limitation": "Node CPU timings under concurrent host load, not full-runtime throughput or representative-world performance."
+        }
+      },
+      "settlement": {
+        "diskCheck": {
+          "radiusCells": 2,
+          "actualCount": 13,
+          "squareWouldHave": 25
+        },
+        "openLand": {
+          "requestedAreaM2": 4800,
+          "radiusCells": 3.9088200952233594,
+          "allocatedCells": 48,
+          "allocatedAreaM2": 4800,
+          "uniqueRestCells": 48
+        },
+        "oneCellIsland": {
+          "requestedAreaM2": 4800,
+          "allocatedCells": 1
+        },
+        "diagonalDisconnectedLand": {
+          "position": {
+            "x": 1,
+            "y": 1
+          },
+          "cardinalPath": null,
+          "canReachStock": false
+        },
+        "warmCachePopulationScans": {
+          "totalWorldPeople": 1200,
+          "campPeople": 300,
+          "repeatedCalls": 10,
+          "globalPopulationVisits": 0,
+          "instrumentation": "Array.reduce callbacks and Symbol.iterator yields counted after warming the cache."
+        },
+        "populationCacheInvalidation": {
+          "beforeTransferArea": 4800,
+          "afterTransferArea": 4784,
+          "afterTickArea": 4800,
+          "afterLengthChangeArea": 4816,
+          "afterArrayReplacementArea": 100,
+          "expected": [4800, 4784, 4800, 4816, 100]
+        },
+        "spoilageLedger": {
+          "inputFoodKg": 144000,
+          "lostFoodKg": 1033.0764618508692,
+          "addedLitterCarbonKg": 971.0918741398199,
+          "addedLitterMineralKg": 61.98458771105235,
+          "massResidualKg": 2.9558577807620168e-12,
+          "carbonResidualKg": 2.8421709430404007e-12,
+          "mineralResidualKg": 1.9895196601282805e-13
+        }
+      }
+    }
+  ],
+  "probe_comparison_limits": "Same original geometry/settlement workload. Final probe additionally checks geometry/population cache invalidation and instruments both reduce callbacks and iterator yields. Warm cache timings are not cold partition cost or full-runtime performance.",
+  "current_checked_disposition": {
+    "connected_volume_cases": "Seven pass in both reviewed revisions.",
+    "detached_wall_bug": "Corrected, observed volume zero.",
+    "disconnected_diagonal_access": "Corrected, access false and path null.",
+    "open_land_target": "Corrected, 48 allocated cells / 4,800 m2 for 300 synthetic people.",
+    "constrained_land": "One-cell island remains 100 m2; source description now calls area a target limited by connected land.",
+    "population_cache": "Warm repeated calls cause zero measured reduce/iterator visits; transfer/tick/length/identity invalidation checks pass.",
+    "geometry_cache": "In-place dimension change, element replacement and removal invalidate correctly.",
+    "food_return_ledger": "Approximately 3e-12 kg mass residual in the isolated daily food-loss check."
+  },
+  "correction_to_prior_research": "The square-neighborhood warning was stale and incorrect. nearbyTiles filters a disk; radius two returns 13 cells, not 25.",
+  "seasonal_32_founder_report": {
+    "artifact": "output/validation/renewal-complete-catchments-storage-32.json",
+    "artifact_sha256": "206f156537ea0a7825cc7f99f821dfcf47be9da57a2d1937eda03250229a6ae5",
+    "provenance": "Completed parent-run artifact read by research; simulation was not independently repeated.",
+    "implementation_sha256": "1c3c7b2c9b69ae6c5e816101fea70df9ebe13d09d3e66776437bfc6f3d4f3318",
+    "source_tick": 128180,
+    "format": 9,
+    "laws": "biosphere-1.3",
+    "scope": "All saved regions intersecting the requested complete catchments, with sealed outer edges and proportional atmospheric inventory. Domain sensitivity diagnostic: cropping changes transport and shared RNG consumption, not an exact whole-world forecast.",
+    "domain": {
+      "regions": 7,
+      "cells": 7168,
+      "catchments": [
+        {
+          "civId": "civ-1",
+          "radiusMetres": 120,
+          "representedCells": 441,
+          "landCells": 439,
+          "representedAreaHectares": 4.41
+        },
+        {
+          "civId": "civ-11",
+          "radiusMetres": 120,
+          "representedCells": 441,
+          "landCells": 441,
+          "representedAreaHectares": 4.41
+        },
+        {
+          "civId": "civ-21",
+          "radiusMetres": 120,
+          "representedCells": 441,
+          "landCells": 410,
+          "representedAreaHectares": 4.41
+        },
+        {
+          "civId": "civ-3118",
+          "radiusMetres": 120,
+          "representedCells": 441,
+          "landCells": 441,
+          "representedAreaHectares": 4.41
+        }
+      ]
+    },
+    "completed_days": 600,
+    "initial_sample": {
+      "day": 0,
+      "tick": 128180,
+      "communities": [
+        {
+          "id": "civ-1",
+          "population": 32,
+          "deaths": 9,
+          "births": 0,
+          "foodKg": 15360.000008582632,
+          "fiberKg": 172.4789071467436,
+          "harvestKg": 618.4552576795932,
+          "temperature": 1.594697452005472,
+          "water": 11426.36205783235,
+          "ice": 0,
+          "health": 98,
+          "nourishment": 90,
+          "hydration": 8,
+          "growingKg": 21576,
+          "seedKg": 245.09999999999872,
+          "forage": 13479.985563261489,
+          "structures": 5
+        },
+        {
+          "id": "civ-11",
+          "population": 32,
+          "deaths": 7,
+          "births": 0,
+          "foodKg": 15360.000008742849,
+          "fiberKg": 170.4165966834089,
+          "harvestKg": 602.9870631350487,
+          "temperature": 1.5979051645980715,
+          "water": 11394.087904140524,
+          "ice": 0,
+          "health": 98,
+          "nourishment": 90,
+          "hydration": 8,
+          "growingKg": 21618,
+          "seedKg": 249.29999999999862,
+          "forage": 13405.640972259853,
+          "structures": 4
+        },
+        {
+          "id": "civ-21",
+          "population": 32,
+          "deaths": 8,
+          "births": 0,
+          "foodKg": 15360.000007421646,
+          "fiberKg": 203.9701384715304,
+          "harvestKg": 505.67848938699814,
+          "temperature": 1.7104543940396864,
+          "water": 11724.06429551109,
+          "ice": 0,
+          "health": 98,
+          "nourishment": 90,
+          "hydration": 8,
+          "growingKg": 17532,
+          "seedKg": 202.4999999999988,
+          "forage": 10427.697185256171,
+          "structures": 3
+        },
+        {
+          "id": "civ-3118",
+          "population": 32,
+          "deaths": 8,
+          "births": 0,
+          "foodKg": 15360.000244116516,
+          "fiberKg": 152.44624889537556,
+          "harvestKg": 381.9344677916542,
+          "temperature": 1.628302904641629,
+          "water": 12689.418234001245,
+          "ice": 0,
+          "health": 98,
+          "nourishment": 90,
+          "hydration": 8,
+          "growingKg": 23814,
+          "seedKg": 264.5999999999986,
+          "forage": 15033.916853886105,
+          "structures": 1
+        }
+      ]
+    },
+    "final_sample": {
+      "day": 600,
+      "tick": 185780,
+      "communities": [
+        {
+          "id": "civ-1",
+          "population": 48,
+          "deaths": 9,
+          "births": 15,
+          "foodKg": 1441.1734076911675,
+          "fiberKg": 37.188134797903516,
+          "harvestKg": 29631.689204655686,
+          "temperature": 16.531916936790758,
+          "water": 50.78804258254074,
+          "ice": 0,
+          "health": 99.99092340502885,
+          "nourishment": 81.65020631687354,
+          "hydration": 6.588544476889617,
+          "growingKg": 1811.9631280668784,
+          "seedKg": 504.51592667928986,
+          "forage": 582.6976711191304,
+          "structures": 16
+        },
+        {
+          "id": "civ-11",
+          "population": 4,
+          "deaths": 51,
+          "births": 16,
+          "foodKg": 586.8238869550667,
+          "fiberKg": 76.15858187567446,
+          "harvestKg": 27335.68867770444,
+          "temperature": 16.320707542614834,
+          "water": 54.52109503596225,
+          "ice": 0,
+          "health": 100,
+          "nourishment": 87.86749999999992,
+          "hydration": 7.282134709793544,
+          "growingKg": 7241.2705620914785,
+          "seedKg": 499.3117502147635,
+          "forage": 4824.963937967107,
+          "structures": 12
+        },
+        {
+          "id": "civ-21",
+          "population": 3,
+          "deaths": 48,
+          "births": 12,
+          "foodKg": 463.3169905236086,
+          "fiberKg": 35.023281009319184,
+          "harvestKg": 20596.13127728928,
+          "temperature": 16.376851786806473,
+          "water": 70.62812106854618,
+          "ice": 0,
+          "health": 100,
+          "nourishment": 80.66249999999991,
+          "hydration": 7.5256764824520035,
+          "growingKg": 4507.148933134702,
+          "seedKg": 410.7476340486055,
+          "forage": 2868.918837489584,
+          "structures": 20
+        },
+        {
+          "id": "civ-3118",
+          "population": 47,
+          "deaths": 8,
+          "births": 15,
+          "foodKg": 990.3760492858197,
+          "fiberKg": 86.73165153510462,
+          "harvestKg": 29838.71933344014,
+          "temperature": 16.458624469891156,
+          "water": 51.329822522908,
+          "ice": 0,
+          "health": 100,
+          "nourishment": 81.0853122453932,
+          "hydration": 6.557342362754193,
+          "growingKg": 2014.6826794823007,
+          "seedKg": 531.4971771808512,
+          "forage": 737.3532458209615,
+          "structures": 17
+        }
+      ]
+    },
+    "new_deaths": {
+      "civ-1": 0,
+      "civ-11": 44,
+      "civ-21": 40,
+      "civ-3118": 0
+    },
+    "net_camp_food_stock_drawdown_kg": {
+      "civ-1": 13918.826600891465,
+      "civ-11": 14773.176121787783,
+      "civ-21": 14896.683016898038,
+      "civ-3118": 14369.624194830696
+    }
+  },
+  "short_300_founder_comparison": {
+    "concentrated": {
+      "artifact": "output/validation/renewal-full-world-300.json",
+      "artifact_sha256": "f5b6567276c9d592a1fec91642deb1f340937f63ee815a3fd24f91ce737aa8f7",
+      "provenance": "Completed parent-run artifact read by research; simulation was not independently repeated.",
+      "implementation_sha256": "138f4489f1f9ad916b2ca6058314480b0ff38142a647fc9050903e00e0184be5",
+      "source_tick": 151764,
+      "format": 9,
+      "laws": "biosphere-1.3",
+      "scope": "All saved regions and communities; offline continuation without agent actions.",
+      "domain": {
+        "regions": 38,
+        "cells": 38912,
+        "catchments": [
+          {
+            "civId": "civ-1",
+            "radiusMetres": 480,
+            "representedCells": 7213,
+            "landCells": 3822,
+            "representedAreaHectares": 72.13
+          },
+          {
+            "civId": "civ-11",
+            "radiusMetres": 480,
+            "representedCells": 7213,
+            "landCells": 3844,
+            "representedAreaHectares": 72.13
+          },
+          {
+            "civId": "civ-21",
+            "radiusMetres": 480,
+            "representedCells": 7163,
+            "landCells": 4281,
+            "representedAreaHectares": 71.63
+          },
+          {
+            "civId": "civ-3118",
+            "radiusMetres": 480,
+            "representedCells": 7211,
+            "landCells": 6935,
+            "representedAreaHectares": 72.11
+          }
+        ]
+      },
+      "completed_days": 14,
+      "initial_sample": {
+        "day": 0,
+        "tick": 151764,
+        "communities": [
+          {
+            "id": "civ-1",
+            "population": 300,
+            "deaths": 9,
+            "births": 0,
+            "foodKg": 144000.00000207173,
+            "fiberKg": 1243.299881351153,
+            "harvestKg": 618.4552576795932,
+            "temperature": 20.192464448689787,
+            "water": 10463.104224905788,
+            "ice": 0,
+            "health": 98,
+            "nourishment": 90,
+            "hydration": 8,
+            "growingKg": 21576,
+            "seedKg": 497.0999999999964,
+            "forage": 13467.333973480136,
+            "structures": 5
+          },
+          {
+            "id": "civ-11",
+            "population": 300,
+            "deaths": 7,
+            "births": 0,
+            "foodKg": 144000.00000212193,
+            "fiberKg": 1241.305964604451,
+            "harvestKg": 602.9870631350487,
+            "temperature": 20.190068251776044,
+            "water": 10525.24806116654,
+            "ice": 0,
+            "health": 98,
+            "nourishment": 90,
+            "hydration": 8,
+            "growingKg": 21618,
+            "seedKg": 510.29999999999666,
+            "forage": 13415.76367130049,
+            "structures": 4
+          },
+          {
+            "id": "civ-21",
+            "population": 300,
+            "deaths": 8,
+            "births": 0,
+            "foodKg": 144000.00000176646,
+            "fiberKg": 1273.8933219444368,
+            "harvestKg": 505.67848938699814,
+            "temperature": 20.308996593941696,
+            "water": 10475.832273452887,
+            "ice": 0,
+            "health": 98,
+            "nourishment": 90,
+            "hydration": 8,
+            "growingKg": 17532,
+            "seedKg": 414.8999999999975,
+            "forage": 10349.480513371507,
+            "structures": 3
+          },
+          {
+            "id": "civ-3118",
+            "population": 300,
+            "deaths": 8,
+            "births": 0,
+            "foodKg": 144000.00005927877,
+            "fiberKg": 1223.807074510582,
+            "harvestKg": 381.9344677916542,
+            "temperature": 20.18290282795638,
+            "water": 11750.343272930946,
+            "ice": 0,
+            "health": 98,
+            "nourishment": 90,
+            "hydration": 8,
+            "growingKg": 23814,
+            "seedKg": 264.5999999999986,
+            "forage": 15033.916853886105,
+            "structures": 1
+          }
+        ]
+      },
+      "final_sample": {
+        "day": 14,
+        "tick": 153108,
+        "communities": [
+          {
+            "id": "civ-1",
+            "population": 300,
+            "deaths": 9,
+            "births": 0,
+            "foodKg": 114848.16149758987,
+            "fiberKg": 1234.7459512738549,
+            "harvestKg": 5161.082931427243,
+            "temperature": 44.11937776729952,
+            "water": 3201.157436306848,
+            "ice": 0,
+            "health": 99.96644074693432,
+            "nourishment": 95.47340833333362,
+            "hydration": 7.0371422661672405,
+            "growingKg": 23120.4173317896,
+            "seedKg": 498.2438401365577,
+            "forage": 13901.28820364485,
+            "structures": 5
+          },
+          {
+            "id": "civ-11",
+            "population": 300,
+            "deaths": 7,
+            "births": 0,
+            "foodKg": 114489.40812051138,
+            "fiberKg": 1211.9059702113111,
+            "harvestKg": 7906.463080870531,
+            "temperature": 47.98080331911898,
+            "water": 2396.4525308842194,
+            "ice": 0,
+            "health": 99.97704466276488,
+            "nourishment": 93.7176333333333,
+            "hydration": 7.098743540562284,
+            "growingKg": 20445.89058269037,
+            "seedKg": 516.0556006708889,
+            "forage": 11380.400639481106,
+            "structures": 4
+          },
+          {
+            "id": "civ-21",
+            "population": 300,
+            "deaths": 8,
+            "births": 0,
+            "foodKg": 113876.24211228029,
+            "fiberKg": 1264.8292587468547,
+            "harvestKg": 5004.983546553732,
+            "temperature": 48.2035266452216,
+            "water": 2463.154302316319,
+            "ice": 0,
+            "health": 99.97428836399123,
+            "nourishment": 93.68435000000017,
+            "hydration": 7.084388927338059,
+            "growingKg": 16787.36818091928,
+            "seedKg": 420.53413295231974,
+            "forage": 9385.114774198159,
+            "structures": 3
+          },
+          {
+            "id": "civ-3118",
+            "population": 300,
+            "deaths": 8,
+            "births": 0,
+            "foodKg": 113784.92398865367,
+            "fiberKg": 1215.1936762925384,
+            "harvestKg": 5077.268756142017,
+            "temperature": 49.18886111443517,
+            "water": 4295.096388193765,
+            "ice": 0,
+            "health": 99.97976785117065,
+            "nourishment": 95.47248333333354,
+            "hydration": 7.097950471831035,
+            "growingKg": 25837.229639443813,
+            "seedKg": 553.6868736421847,
+            "forage": 16026.762100627364,
+            "structures": 1
+          }
+        ]
+      },
+      "new_deaths": {
+        "civ-1": 0,
+        "civ-11": 0,
+        "civ-21": 0,
+        "civ-3118": 0
+      },
+      "net_camp_food_stock_drawdown_kg": {
+        "civ-1": 29151.838504481857,
+        "civ-11": 29510.591881610555,
+        "civ-21": 30123.757889486165,
+        "civ-3118": 30215.076070625102
+      }
+    },
+    "distributed": {
+      "artifact": "output/validation/renewal-full-world-300-space.json",
+      "artifact_sha256": "349be4c6f10796edbcf0ac60676ceda70eb999cc71326755a0b3d13be120f225",
+      "provenance": "Completed parent-run artifact read by research; simulation was not independently repeated.",
+      "implementation_sha256": "2e5747931617bee13c19b3a864029deb6cbedbb00b4f596b7d5dbacb9802145f",
+      "source_tick": 151764,
+      "format": 9,
+      "laws": "biosphere-1.3",
+      "scope": "All saved regions and communities; offline continuation without agent actions.",
+      "domain": {
+        "regions": 38,
+        "cells": 38912,
+        "catchments": [
+          {
+            "civId": "civ-1",
+            "radiusMetres": 480,
+            "representedCells": 7213,
+            "landCells": 3822,
+            "representedAreaHectares": 72.13
+          },
+          {
+            "civId": "civ-11",
+            "radiusMetres": 480,
+            "representedCells": 7213,
+            "landCells": 3844,
+            "representedAreaHectares": 72.13
+          },
+          {
+            "civId": "civ-21",
+            "radiusMetres": 480,
+            "representedCells": 7163,
+            "landCells": 4281,
+            "representedAreaHectares": 71.63
+          },
+          {
+            "civId": "civ-3118",
+            "radiusMetres": 480,
+            "representedCells": 7211,
+            "landCells": 6935,
+            "representedAreaHectares": 72.11
+          }
+        ]
+      },
+      "completed_days": 14,
+      "initial_sample": {
+        "day": 0,
+        "tick": 151764,
+        "communities": [
+          {
+            "id": "civ-1",
+            "population": 300,
+            "deaths": 9,
+            "births": 0,
+            "foodKg": 144000.00000207173,
+            "fiberKg": 1243.299881351153,
+            "harvestKg": 618.4552576795932,
+            "temperature": 20.192464448689787,
+            "water": 10463.104224905788,
+            "ice": 0,
+            "health": 98,
+            "nourishment": 90,
+            "hydration": 8,
+            "growingKg": 21576,
+            "seedKg": 497.0999999999964,
+            "forage": 13467.333973480136,
+            "structures": 5
+          },
+          {
+            "id": "civ-11",
+            "population": 300,
+            "deaths": 7,
+            "births": 0,
+            "foodKg": 144000.00000212193,
+            "fiberKg": 1241.305964604451,
+            "harvestKg": 602.9870631350487,
+            "temperature": 20.190068251776044,
+            "water": 10525.24806116654,
+            "ice": 0,
+            "health": 98,
+            "nourishment": 90,
+            "hydration": 8,
+            "growingKg": 21618,
+            "seedKg": 510.29999999999666,
+            "forage": 13415.76367130049,
+            "structures": 4
+          },
+          {
+            "id": "civ-21",
+            "population": 300,
+            "deaths": 8,
+            "births": 0,
+            "foodKg": 144000.00000176646,
+            "fiberKg": 1273.8933219444368,
+            "harvestKg": 505.67848938699814,
+            "temperature": 20.308996593941696,
+            "water": 10475.832273452887,
+            "ice": 0,
+            "health": 98,
+            "nourishment": 90,
+            "hydration": 8,
+            "growingKg": 17532,
+            "seedKg": 414.8999999999975,
+            "forage": 10349.480513371507,
+            "structures": 3
+          },
+          {
+            "id": "civ-3118",
+            "population": 300,
+            "deaths": 8,
+            "births": 0,
+            "foodKg": 144000.00005927877,
+            "fiberKg": 1223.807074510582,
+            "harvestKg": 381.9344677916542,
+            "temperature": 20.18290282795638,
+            "water": 11750.343272930946,
+            "ice": 0,
+            "health": 98,
+            "nourishment": 90,
+            "hydration": 8,
+            "growingKg": 23814,
+            "seedKg": 264.5999999999986,
+            "forage": 15033.916853886105,
+            "structures": 1
+          }
+        ]
+      },
+      "final_sample": {
+        "day": 14,
+        "tick": 153108,
+        "communities": [
+          {
+            "id": "civ-1",
+            "population": 300,
+            "deaths": 9,
+            "births": 0,
+            "foodKg": 134024.391149181,
+            "fiberKg": 1238.0415225166641,
+            "harvestKg": 12486.308241331963,
+            "temperature": 22.425399315273985,
+            "water": 9806.780750398906,
+            "ice": 0,
+            "health": 99.97454105351181,
+            "nourishment": 96.29436666666693,
+            "hydration": 7.180988559796639,
+            "growingKg": 16057.951716129515,
+            "seedKg": 497.87295490458007,
+            "forage": 6971.477497330287,
+            "structures": 5
+          },
+          {
+            "id": "civ-11",
+            "population": 300,
+            "deaths": 7,
+            "births": 0,
+            "foodKg": 133542.9440987379,
+            "fiberKg": 1069.3340439982692,
+            "harvestKg": 12141.676436419866,
+            "temperature": 22.92606845827074,
+            "water": 9480.807657125115,
+            "ice": 0,
+            "health": 99.9797757664438,
+            "nourishment": 92.94366666666676,
+            "hydration": 7.1806713722722115,
+            "growingKg": 16375.774737344398,
+            "seedKg": 514.9513941398942,
+            "forage": 7362.94639471921,
+            "structures": 4
+          },
+          {
+            "id": "civ-21",
+            "population": 300,
+            "deaths": 8,
+            "births": 0,
+            "foodKg": 130000.55128527255,
+            "fiberKg": 1268.3912910474626,
+            "harvestKg": 8380.849123986834,
+            "temperature": 21.87817746808237,
+            "water": 9730.62432372097,
+            "ice": 0,
+            "health": 99.97700989409154,
+            "nourishment": 91.37140000000012,
+            "hydration": 7.194296646471159,
+            "growingKg": 13669.641706355054,
+            "seedKg": 420.1177862928325,
+            "forage": 6523.537949029931,
+            "structures": 3
+          },
+          {
+            "id": "civ-3118",
+            "population": 300,
+            "deaths": 8,
+            "births": 0,
+            "foodKg": 132310.49758837858,
+            "fiberKg": 1218.6264099928721,
+            "harvestKg": 10528.866360605967,
+            "temperature": 22.27941069763464,
+            "water": 11202.239850695289,
+            "ice": 0,
+            "health": 99.9747865384616,
+            "nourishment": 96.40836666666692,
+            "hydration": 7.14466423160505,
+            "growingKg": 20511.84997590898,
+            "seedKg": 538.8334217655907,
+            "forage": 10791.89337811007,
+            "structures": 1
+          }
+        ]
+      },
+      "new_deaths": {
+        "civ-1": 0,
+        "civ-11": 0,
+        "civ-21": 0,
+        "civ-3118": 0
+      },
+      "net_camp_food_stock_drawdown_kg": {
+        "civ-1": 9975.608852890728,
+        "civ-11": 10457.055903384025,
+        "civ-21": 13999.448716493906,
+        "civ-3118": 11689.502470900188
+      }
+    },
+    "same_saved_source_reference": true,
+    "same_source_tick": true,
+    "same_reported_initial_sample": true,
+    "same_declared_intervention_and_matter": true,
+    "initial_state_comparison_limit": "Only reported initial samples/source references/intervention summaries were compared; no complete serialized initial-state comparison by research.",
+    "interpretation": "The changed bundle lowers reported camp-center temperatures and retains more camp food stock over 14 days with no new deaths. It does not isolate the causal contribution of each change or validate seasonal balance.",
+    "food_accounting_limit": "The files report net camp stock change, not separate spoilage. Reconcile consumption, harvest, cargo and provisions before attributing the whole decline to decay.",
+    "final_small_refinements": "The later footprint/cache refinements are independently checked in the final small probe. Their additional full-world handover/recheck remained pending when reported."
+  },
+  "remaining_limits": [
+    "Aggregate stock allocation over camp cells rather than persistent individual piles/containers and transport.",
+    "Geometric capacity does not establish contents, loading/retrieval, rainproofing, airtightness or watertightness.",
+    "Same-community structure capacity still contributes to stock protection without individual storage locations.",
+    "Heat capacity omits some added material/body/structure pools; local oxygen diffusion into piles remains unresolved.",
+    "Material processing, tools, joints and physical knowledge carriers remain incomplete.",
+    "Fixed experiment/teaching utility and globally forced memory eviction remain research questions.",
+    "The earlier combined 32-founder seasonal diagnostic failed to retain most people in two communities despite optimistic separate runs."
+  ],
+  "deployment_status": "Parent reports the tested older restoration configuration was never deployed. Research does not certify the pending handover or release."
+}

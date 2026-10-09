@@ -1,0 +1,84 @@
+{
+  "recordedAtUTC": "2026-10-08T20:33:08.028600+00:00",
+  "scope": "Publication and targeted rechecks of the completed collapse investigation; application source unchanged. No repeated seasonal ensemble or new live physical intervention.",
+  "artifacts": [
+    {
+      "path": "docs/research/collapse-forensics.json",
+      "bytes": 29558,
+      "sha256": "c695fdeac7c4478d4944ccfd728d8f0334879dd4f6fb343d81c7d00ac3b61d7a",
+      "originalDiagnosticBytesPreserved": true
+    },
+    {
+      "path": "docs/research/collapse-mechanism-probe.json",
+      "bytes": 21066,
+      "sha256": "9e274f20ab7ec559afe15d01bee2d062d731e3d38919752187c081e276316e3d",
+      "originalDiagnosticBytesPreserved": true
+    },
+    {
+      "path": "docs/research/collapse-habitat.json",
+      "bytes": 75518,
+      "sha256": "f2af8463026ccf7460a2a9ecc5e54bccc1cdd262e8172228daa9aea9af768975",
+      "originalDiagnosticBytesPreserved": true
+    },
+    {
+      "path": "docs/research/collapse-first-death-replay.json",
+      "bytes": 67981,
+      "sha256": "81ce91ab3dbc0c5c22f1fe4b33291d4086f087688fbd3019a6f5075fe94719a1",
+      "originalDiagnosticBytesPreserved": true
+    },
+    {
+      "path": "docs/research/collapse-timeline.json",
+      "bytes": 142432,
+      "sha256": "d3304be6fa4eb80289bb72cf788bde08ad4b10307100f5c142293f4b2bb6a38d",
+      "originalDiagnosticBytesPreserved": true
+    },
+    {
+      "path": "docs/research/first-child-wrap-counterfactual.json",
+      "bytes": 5126,
+      "sha256": "946c09ddf8806c06f8b7035cd35f3abb23d225c421e708895ad8c73b0243c204",
+      "originalDiagnosticBytesPreserved": true
+    },
+    {
+      "path": "docs/research/starvation-storage-arithmetic.json",
+      "bytes": 14019,
+      "sha256": "e74d609764f8937eee9e1f36cddcc977c5451a500a63cc4104b4fe6b9beca9c4",
+      "originalDiagnosticBytesPreserved": true
+    }
+  ],
+  "historicalReplay": {
+    "baselineCommit": "4ed610b48c604ab9734a301ecdddda55fc9f6111",
+    "sourceTick": 228436,
+    "finalTick": 231549,
+    "ticks": 3113,
+    "deathEventExactlyReproduced": true,
+    "originalElapsedSeconds": 768.574825791,
+    "repeatedDuringPackaging": false,
+    "portableRunnerInputsVerifiedWithoutSimulation": true,
+    "thermalFilesByteIdenticalBetweenBaselineAndCurrent": [
+      "src/simulation/physiology.ts",
+      "src/simulation/content.ts",
+      "src/simulation/laws.ts"
+    ]
+  },
+  "rechecks": {
+    "forensics": "All published age/community/history aggregates exactly match the immutable-backup extractor recheck.",
+    "rationAndThermalControls": "Five one-tick ration cases and 26 isolated thermal calls pass; finite resource and energy constraints checked.",
+    "firstInfantProtection": "Two actual-function calls match published cases exactly; wrapped health 0.8383442005676418 versus bare 0.",
+    "sourceArithmetic": "Low-hunger, all 15 decay conditions and seasonal reserve arithmetic match the published values exactly.",
+    "syntax": "Five diagnostic JavaScript modules parse; two Python diagnostics compile.",
+    "figure": "1280x1000PNG visually inspected, including source footer; original browser export had no errors.",
+    "catalog": {
+      "sourceCount": 29,
+      "candidateCount": 25,
+      "uniqueIdsAndRanks": true,
+      "sourceAndCodeReferencesResolve": true,
+      "noDependencyCycles": true
+    }
+  },
+  "limits": [
+    "The exact thermal cause is proven for one historical infant, not every death.",
+    "A wrap counterfactual survives one quarter-hour; caregiver work and longer survival are not implemented by the fixture.",
+    "Historical food stocks and connected standing tissue do not establish renewable yield or delivered meals.",
+    "The later separate storage outage and recovery do not explain earlier human deaths."
+  ]
+}

@@ -1,0 +1,310 @@
+{
+    "ReputationEventDef": [
+        {
+            "id": "built_structure",
+            "label": "Completed Construction",
+            "delta": 3,
+            "category": "building",
+            "description": "Gains respect for contributing to settlement infrastructure"
+        },
+        {
+            "id": "crafted_item",
+            "label": "Crafted an Item",
+            "delta": 2,
+            "category": "building",
+            "description": "Gains minor respect for productive crafting"
+        },
+        {
+            "id": "crafted_masterwork",
+            "label": "Created a Masterwork",
+            "delta": 8,
+            "category": "building",
+            "description": "Great respect for exceptional craftsmanship"
+        },
+        {
+            "id": "healed_other",
+            "label": "Tended the Sick",
+            "delta": 4,
+            "category": "medical",
+            "description": "Respected for healing a fellow praxan"
+        },
+        {
+            "id": "taught_skill",
+            "label": "Taught a Skill",
+            "delta": 3,
+            "category": "social",
+            "description": "Gains respect for mentoring others"
+        },
+        {
+            "id": "combat_victory",
+            "label": "Won in Combat",
+            "delta": 5,
+            "category": "combat",
+            "description": "Respected for defending the colony"
+        },
+        {
+            "id": "led_ritual",
+            "label": "Led a Ritual",
+            "delta": 4,
+            "category": "social",
+            "description": "Gains standing for leading community ceremonies"
+        },
+        {
+            "id": "explored_new_area",
+            "label": "Explored Unknown Territory",
+            "delta": 2,
+            "category": "exploration",
+            "description": "Minor respect for scouting new areas"
+        },
+        {
+            "id": "survived_disaster",
+            "label": "Survived a Disaster",
+            "delta": 3,
+            "category": "survival",
+            "description": "Respect for enduring catastrophe"
+        },
+        {
+            "id": "recovered_from_disease",
+            "label": "Recovered from Illness",
+            "delta": 2,
+            "category": "survival",
+            "description": "Minor respect for beating illness"
+        },
+        {
+            "id": "comforted_grieving",
+            "label": "Comforted the Grieving",
+            "delta": 3,
+            "category": "social",
+            "description": "Respect for emotional support"
+        },
+        {
+            "id": "insult_given",
+            "label": "Insulted Someone",
+            "delta": -4,
+            "category": "social",
+            "description": "Loses respect for antisocial behavior"
+        },
+        {
+            "id": "argument_started",
+            "label": "Started an Argument",
+            "delta": -2,
+            "category": "social",
+            "description": "Minor standing loss for causing conflict"
+        },
+        {
+            "id": "fled_combat",
+            "label": "Fled from Combat",
+            "delta": -5,
+            "category": "combat",
+            "description": "Loses respect for cowardice in battle"
+        },
+        {
+            "id": "mental_break",
+            "label": "Had a Breakdown",
+            "delta": -3,
+            "category": "personal",
+            "description": "Minor standing loss from public breakdown"
+        },
+        {
+            "id": "failed_construction",
+            "label": "Failed a Build",
+            "delta": -2,
+            "category": "building",
+            "description": "Minor loss for construction failure"
+        },
+        {
+            "id": "leadership_tenure",
+            "label": "Steady Leadership",
+            "delta": 1,
+            "category": "leadership",
+            "description": "Gradual respect from continued leadership"
+        },
+        {
+            "id": "elected_leader",
+            "label": "Elected as Leader",
+            "delta": 6,
+            "category": "leadership",
+            "description": "Major standing boost from being chosen to lead"
+        },
+        {
+            "id": "lost_leadership",
+            "label": "Lost Leadership",
+            "delta": -4,
+            "category": "leadership",
+            "description": "Standing loss from being replaced as leader"
+        },
+        {
+            "id": "shared_food",
+            "label": "Shared Food",
+            "delta": 2,
+            "category": "social",
+            "description": "Minor respect for generosity"
+        },
+        {
+            "id": "aspiration_achieved",
+            "label": "Achieved a Life Goal",
+            "delta": 5,
+            "category": "personal",
+            "description": "Gains respect for fulfilling a personal aspiration"
+        },
+        {
+            "id": "aspiration_abandoned",
+            "label": "Abandoned a Life Goal",
+            "delta": -2,
+            "category": "personal",
+            "description": "Loses minor respect for giving up on personal goals"
+        },
+        {
+            "id": "defended_colony",
+            "label": "Defended the Colony",
+            "delta": 6,
+            "category": "combat",
+            "description": "Great respect for standing against raiders"
+        },
+        {
+            "id": "raid_kill",
+            "label": "Slew a Raider",
+            "delta": 4,
+            "category": "combat",
+            "description": "Respect for eliminating an attacker"
+        },
+        {
+            "id": "led_defense",
+            "label": "Led the Defense",
+            "delta": 7,
+            "category": "combat",
+            "description": "Faction leader who commanded a successful defense"
+        },
+        {
+            "id": "wounded_in_battle",
+            "label": "Wounded in Battle",
+            "delta": 2,
+            "category": "combat",
+            "description": "Minor respect for taking wounds in defense of the colony"
+        },
+        {
+            "id": "fled_battle",
+            "label": "Fled from Battle",
+            "delta": -6,
+            "category": "combat",
+            "description": "Heavy standing loss for abandoning comrades in combat"
+        },
+        {
+            "id": "raided_enemy",
+            "label": "Raided an Enemy",
+            "delta": 3,
+            "category": "combat",
+            "description": "Respect for aggression against hostile factions"
+        },
+        {
+            "id": "defected_faction",
+            "label": "Defected from Faction",
+            "delta": -4,
+            "category": "social",
+            "description": "Reputation loss for abandoning one's community"
+        },
+        {
+            "id": "welcomed_newcomer",
+            "label": "Welcomed a Newcomer",
+            "delta": 2,
+            "category": "social",
+            "description": "Reputation gain for accepting an outsider into the community"
+        },
+        {
+            "id": "graduated_apprentice",
+            "label": "Graduated an Apprentice",
+            "delta": 6,
+            "category": "social",
+            "description": "Great respect for training the next generation"
+        },
+        {
+            "id": "mentorship_session",
+            "label": "Mentored Another",
+            "delta": 1,
+            "category": "social",
+            "description": "Minor standing gain from ongoing mentorship"
+        },
+        {
+            "id": "created_heirloom",
+            "label": "Created an Heirloom",
+            "delta": 7,
+            "category": "building",
+            "description": "Great respect for crafting an item worthy of legend"
+        },
+        {
+            "id": "holds_faction_relic",
+            "label": "Keeper of a Faction Relic",
+            "delta": 3,
+            "category": "leadership",
+            "description": "Respect for bearing a treasured artifact of the faction"
+        },
+        {
+            "id": "feud_confrontation_won",
+            "label": "Won a Blood Feud Confrontation",
+            "delta": 2,
+            "category": "combat",
+            "description": "Stood ground in a personal feud confrontation"
+        },
+        {
+            "id": "feud_confrontation_lost",
+            "label": "Lost a Blood Feud Confrontation",
+            "delta": -3,
+            "category": "combat",
+            "description": "Defeated in a personal feud confrontation"
+        },
+        {
+            "id": "became_legend",
+            "label": "Became a Legend",
+            "delta": 10,
+            "category": "personal",
+            "description": "Massive respect for achieving legendary status through extraordinary deeds"
+        }
+    ],
+    "ReputationTierDef": [
+        {
+            "id": "luminary",
+            "label": "Luminary",
+            "min_reputation": 80,
+            "moodlet": "Luminary",
+            "mood_offset": 8,
+            "mood_duration": 600,
+            "description": "A beacon of the community — inspires others by their presence"
+        },
+        {
+            "id": "respected",
+            "label": "Respected",
+            "min_reputation": 60,
+            "moodlet": "Respected",
+            "mood_offset": 4,
+            "mood_duration": 600,
+            "description": "Trusted and sought for counsel"
+        },
+        {
+            "id": "established",
+            "label": "Established",
+            "min_reputation": 40,
+            "moodlet": null,
+            "mood_offset": 0,
+            "mood_duration": 0,
+            "description": "A solid community member in good standing"
+        },
+        {
+            "id": "marginal",
+            "label": "Marginal",
+            "min_reputation": 20,
+            "moodlet": "Overlooked",
+            "mood_offset": -3,
+            "mood_duration": 600,
+            "description": "Struggling to earn community respect"
+        },
+        {
+            "id": "outcast",
+            "label": "Outcast",
+            "min_reputation": 0,
+            "moodlet": "Outcast",
+            "mood_offset": -8,
+            "mood_duration": 600,
+            "description": "Shunned by the community — desperate and alone"
+        }
+    ]
+}

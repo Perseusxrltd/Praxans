@@ -1,0 +1,612 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-10-08T14:04:31.155Z",
+  "claim_kind": "independent_local_simulation_performance_measurement",
+  "memo": "restored-world-cpu-profile.md",
+  "scope": "One cold-loaded 64-tick V8 profile on a temporary file copy of the independently supplied restored-world backup. No live/host access, source database writes, runtime edits or simulation saves. No production-capacity or seasonal claim.",
+  "source_backup": {
+    "path": "output/backups/before-observer-scaling-20261008.sqlite",
+    "bytes": 198180864,
+    "sha256": "f7b5964114a6c5a7ca343551c9026161fb2648f09acb96468827179e3ac49e6a",
+    "copied_sha256": "f7b5964114a6c5a7ca343551c9026161fb2648f09acb96468827179e3ac49e6a",
+    "source_unchanged_after_run": true,
+    "private_copy_removed": true,
+    "advanced_world_saved": false
+  },
+  "implementation": {
+    "built_at_utc": "2026-10-08T14:04:10.514Z",
+    "bundle_sha256": "436f23120eced47acdbda5022aa24050a7ccc7fcf51a208d8f336d2f0e8e90be",
+    "source_map_sha256": "ddf763f8935d438d5226dd4a05970d375ee24f940bf2aadd490bf6c0e2fd5cb5",
+    "source_fingerprints": [
+      {
+        "path": "src/simulation/content.ts",
+        "sha256": "22cf13ee58c69f41a94bb31bdd7e78c16f1f1764a5e5aea63de5cdfcbedf39f3"
+      },
+      {
+        "path": "src/simulation/geometry.ts",
+        "sha256": "bfaec32d5ae35fdaa63df8c9ad6af600aa651e89d04e66d502c4ca37eb6bd5ac"
+      },
+      {
+        "path": "src/simulation/data/elements.json",
+        "sha256": "f976dc4ab24c8d431d78cca3faf9ba57bf20b991e6abc1cba5fbcc8ff9684d86"
+      },
+      {
+        "path": "src/simulation/elements.ts",
+        "sha256": "f5bfc37d9b9132962210299f7cc5786924d1293e80669264341724831e032c8e"
+      },
+      {
+        "path": "src/simulation/chemistry.ts",
+        "sha256": "b7fd7b97336f98923bed95fc009a734485426296d176f87a63fa0357f3977a05"
+      },
+      {
+        "path": "src/simulation/types.ts",
+        "sha256": "5a997888179b34e385b08e2fe8675483f1f3e4860d9b7ee8187ff160a2694bc2"
+      },
+      {
+        "path": "src/simulation/planet.ts",
+        "sha256": "5e5c8babbfae1a050a8fef95bd188a8bfbf2adf6de9df2bbd013492612cc78f4"
+      },
+      {
+        "path": "src/simulation/thermodynamics.ts",
+        "sha256": "f83fd1da59c87312ec2e7fd9f363dfd9ef3f644da3397c8a113c6467868f6ccf"
+      },
+      {
+        "path": "src/simulation/events.ts",
+        "sha256": "cc222529e33e9160907f3690cfa7b5a7bf542833a3fe78c4914da6e0da0b82e2"
+      },
+      {
+        "path": "src/simulation/random.ts",
+        "sha256": "369b630db6331391c12ed14b246384e16b0f280bd46b235385fe745311843bc2"
+      },
+      {
+        "path": "src/simulation/geology.ts",
+        "sha256": "dcaca6ee24620250eeed4ad7f63da502252a9b91bd0a6509c2dbca06522a8a70"
+      },
+      {
+        "path": "src/simulation/laws.ts",
+        "sha256": "9f9ac36bfa087cf0919d6ded6e1356f840898be35648c8fd6484ee9ac3b02318"
+      },
+      {
+        "path": "src/simulation/climate.ts",
+        "sha256": "f425760c9bc6fbe34d0b6a25953fee42a3d09efd7fd695a6893e1b677f323466"
+      },
+      {
+        "path": "src/simulation/life.ts",
+        "sha256": "c9036e09dd0fee53393d7d6dd9d64920680fa7525ba8080fdae39c86fd16f396"
+      },
+      {
+        "path": "src/simulation/surface.ts",
+        "sha256": "448f6b26035a945d410da2c471d4026038bf5e7912e2a96cfee16aadcb9a9ca3"
+      },
+      {
+        "path": "src/simulation/terrain.ts",
+        "sha256": "d010933a49455d945e3ddfad20d80c60cac6624ed5397aed3bab9b232e9a551b"
+      },
+      {
+        "path": "src/simulation/landscape.ts",
+        "sha256": "d363b8916918ad707252a323c6526eecefb3837d8d1c0b3799ef82806f3a9c8f"
+      },
+      {
+        "path": "src/simulation/weather.ts",
+        "sha256": "8ddf7beff17a0c22f04b6ed74185a88a058bb60a3f3978bd9256d52f0eaeeee5"
+      },
+      {
+        "path": "src/simulation/settlement.ts",
+        "sha256": "6e9e72c7f3f7394edd10204caefaa32af6a9b2ca4614ad85ef76d13bf2c8af91"
+      },
+      {
+        "path": "src/simulation/weathering.ts",
+        "sha256": "2c4819d2601c4f1e863e094c3a2bbf3da7bca26610e1d8709409ef8d5ceb7bb7"
+      },
+      {
+        "path": "src/simulation/founding.ts",
+        "sha256": "36e909fa53b200317fab2ca8169a5b67517af677c70f179c017197683e82cb2f"
+      },
+      {
+        "path": "src/simulation/chronology.ts",
+        "sha256": "c2017cdd615c72f90169f8c7ef0925a11d850150b2c732a003cee25b4bb21732"
+      },
+      {
+        "path": "src/simulation/cognition.ts",
+        "sha256": "e6da762851f1373cc15af1b295a63b07c8f0da6de0bbbfa7775f6b3b693ef45a"
+      },
+      {
+        "path": "src/simulation/subsistence.ts",
+        "sha256": "c128acc69066bcb8e8d4ec4457bea81370962b66517dc858c27be9cd6884e123"
+      },
+      {
+        "path": "src/simulation/progress.ts",
+        "sha256": "ddbc95da6640f91bb359468fb5d2ab2addf2cdc313586d3d4aae85c9d77c3007"
+      },
+      {
+        "path": "src/simulation/world.ts",
+        "sha256": "d346c84217a952f14794ae747aeb1672f5f2b15a2f454e06a1ffa99f0c063473"
+      },
+      {
+        "path": "src/simulation/ecology.ts",
+        "sha256": "fd4f45be677a8e05b47a6a82edab888710086543948c44894936f62fccd0a2c3"
+      },
+      {
+        "path": "src/simulation/movement.ts",
+        "sha256": "915973703e927479acd5dd21beefdefcaaeeab3f3c6a5430338aaba5851d726a"
+      },
+      {
+        "path": "src/simulation/diplomacy.ts",
+        "sha256": "f185f73563e207930178eb097aad64121c431c49805812d196eb340748df45ae"
+      },
+      {
+        "path": "src/simulation/economy.ts",
+        "sha256": "10f6a6f99f7668b8b7abbc3c3a55b203305573a73bd91d6be1568d5e5a5ce8ae"
+      },
+      {
+        "path": "src/simulation/physiology.ts",
+        "sha256": "f42014137c544f7e726411cee66b5e3967e2f0a491f4af8be80dca15ada4bed3"
+      },
+      {
+        "path": "src/simulation/citizens.ts",
+        "sha256": "f267959787ea754b60bbaf296a4e2dca5e7f982e174f44984292913bf0c2fd0a"
+      },
+      {
+        "path": "src/simulation/society.ts",
+        "sha256": "774e3eb222f56380c3f461fc12ea7e754749a8a7c1497a97f50134bf7795421d"
+      },
+      {
+        "path": "src/simulation/actions.ts",
+        "sha256": "e483938cb619fc3435213bf8ee007aa390f7afd8bd5e1931398339d405567b26"
+      },
+      {
+        "path": "src/simulation/validation.ts",
+        "sha256": "f31e165f227d53cf26c95524e658e4de062786305ba8362350c53030a601c8c4"
+      },
+      {
+        "path": "src/simulation/fauna.ts",
+        "sha256": "892b4477f413b85dcf6174527d1752f542b1f4b8acc59c9982d4e64d972756cf"
+      },
+      {
+        "path": "src/simulation/engine.ts",
+        "sha256": "bed898148082350fada773d56668aaf75238ed167004ba0cbe376da02d8b48a8"
+      },
+      {
+        "path": "src/server/migrations.ts",
+        "sha256": "d1bf265b3fbcfdb2dfcf929836bbc0d2d61c48fe310992af1b5a45f133264671"
+      },
+      {
+        "path": "src/server/store.ts",
+        "sha256": "5e56dcf5926a40ef742bb1973d8a4c9bac5140d5a6a4af6c33071768cecbdbf5"
+      },
+      {
+        "path": "output/validation/profile-restored-population.ts",
+        "sha256": "0097765b839fc79ec329aa92f1187aaff1b323b7bf5b0a9fc64245320f25bd3b"
+      }
+    ],
+    "current_working_tree_may_differ": true
+  },
+  "runtime": {
+    "node": "v22.22.0",
+    "platform": "linux",
+    "arch": "x64",
+    "cpu": "Intel(R) Core(TM) Ultra 7 155H",
+    "logicalCpuCount": 22,
+    "heapLimitBytes": 1124073472,
+    "explicit_old_space_limit_MiB": 1024,
+    "host_equivalence_claimed": false
+  },
+  "state": {
+    "initial": {
+      "tick": 199028,
+      "format": 9,
+      "laws": "biosphere-1.3",
+      "population": 1200,
+      "regions": 38,
+      "tiles": 38912,
+      "animalCohorts": 0,
+      "structures": 15,
+      "communities": 4
+    },
+    "final": {
+      "tick": 199092,
+      "population": 1200
+    },
+    "ticks": 64,
+    "simulated_hours": 16.0,
+    "hourly_update_ticks": 16,
+    "daily_update_ticks": 0
+  },
+  "timing": {
+    "unit": "milliseconds",
+    "summed_stepWorld": 15779.864375999994,
+    "enclosing_loop": 15794.761247,
+    "ticks": {
+      "mean": 246.5603808749999,
+      "p50": 58.422599999999875,
+      "p95": 892.655643,
+      "maximum": 1127.276778
+    },
+    "hourly": {
+      "count": 16,
+      "totalMs": 12832.671336999994,
+      "meanMs": 802.0419585624996
+    },
+    "non_hourly": {
+      "count": 48,
+      "totalMs": 2947.1930390000007,
+      "meanMs": 61.39985497916668
+    },
+    "first_16": {
+      "count": 16,
+      "totalMs": 4322.817096999997,
+      "meanMs": 270.17606856249984
+    },
+    "last_48": {
+      "count": 48,
+      "totalMs": 11457.047278999999,
+      "meanMs": 238.68848497916665
+    },
+    "excluded_load": 1381.856975,
+    "excluded_validation": 523.7977510000019,
+    "process_cpu": {
+      "user": 20726.413,
+      "system": 1676.103
+    },
+    "process_cpu_note": "User plus system CPU includes process background threads and can exceed elapsed wall time."
+  },
+  "sampling": {
+    "requestedIntervalUs": 1000,
+    "sampleCount": 14028,
+    "durationMs": 16002.747,
+    "attributedDeltaMs": 16002.112,
+    "maximumDeltaMs": 206.498,
+    "included_overhead": "Four progress log/setImmediate yields, per-tick memory sampling and profiler overhead; outside-step samples reported separately.",
+    "exclusions": [
+      "backup read/copy/hash",
+      "Store load",
+      "post-run validation",
+      "saving/checkpoint serialization",
+      "observer projection/transport",
+      "rendering",
+      "external agent submissions"
+    ],
+    "phase_rows_partition_weighted_samples": true,
+    "inclusive_function_rows_overlap": true
+  },
+  "phases": [
+    {
+      "name": "updateEcology",
+      "sampledMs": 9021.253999999959,
+      "samples": 8018,
+      "percent": 56.37539594773464
+    },
+    {
+      "name": "updateCitizen",
+      "sampledMs": 4151.373000000006,
+      "samples": 3727,
+      "percent": 25.94265681929989
+    },
+    {
+      "name": "garbage collection (not phase-attributable)",
+      "sampledMs": 1471.8170000000011,
+      "samples": 1239,
+      "percent": 9.197642161234725
+    },
+    {
+      "name": "stepWorld self / inlined or unclassified work",
+      "sampledMs": 806.4739999999993,
+      "samples": 724,
+      "percent": 5.039797246763423
+    },
+    {
+      "name": "detectContacts",
+      "sampledMs": 285.926,
+      "samples": 263,
+      "percent": 1.786801642183232
+    },
+    {
+      "name": "outside stepWorld / profiler / idle",
+      "sampledMs": 233.16399999999987,
+      "samples": 28,
+      "percent": 1.4570826650882076
+    },
+    {
+      "name": "updateCouncils",
+      "sampledMs": 12.328,
+      "samples": 11,
+      "percent": 0.07703983074234201
+    },
+    {
+      "name": "planCommunity",
+      "sampledMs": 10.179,
+      "samples": 9,
+      "percent": 0.06361035343334681
+    },
+    {
+      "name": "processDeaths",
+      "sampledMs": 5.3870000000000005,
+      "samples": 5,
+      "percent": 0.03366430631156688
+    },
+    {
+      "name": "updateAccords",
+      "sampledMs": 2.07,
+      "samples": 2,
+      "percent": 0.012935792475393247
+    },
+    {
+      "name": "updateJourneys",
+      "sampledMs": 1.098,
+      "samples": 1,
+      "percent": 0.006861594269556419
+    },
+    {
+      "name": "updateFauna",
+      "sampledMs": 1.042,
+      "samples": 1,
+      "percent": 0.006511640463458823
+    }
+  ],
+  "selected_inclusive_functions": [
+    {
+      "name": "src/simulation/weather.ts:131 updateWeather",
+      "sampledMs": 5144.291999999974,
+      "samples": 4544,
+      "percent": 32.147581519239296
+    },
+    {
+      "name": "src/simulation/landscape.ts:51 depositSediment",
+      "sampledMs": 935.208000000001,
+      "samples": 821,
+      "percent": 5.844278555230717
+    },
+    {
+      "name": "src/simulation/landscape.ts:23 entrainSediment",
+      "sampledMs": 879.5120000000001,
+      "samples": 772,
+      "percent": 5.4962244983662165
+    },
+    {
+      "name": "src/simulation/chemistry.ts:273 oxygenFraction",
+      "sampledMs": 570.2940000000002,
+      "samples": 513,
+      "percent": 3.5638670695468213
+    },
+    {
+      "name": "src/simulation/elements.ts:79 molarMass",
+      "sampledMs": 540.6590000000001,
+      "samples": 485,
+      "percent": 3.378672765194995
+    },
+    {
+      "name": "src/simulation/citizens.ts:619 (anonymous)",
+      "sampledMs": 273.90299999999996,
+      "samples": 229,
+      "percent": 1.7116678098490996
+    },
+    {
+      "name": "src/simulation/citizens.ts:235 (anonymous)",
+      "sampledMs": 214.60500000000005,
+      "samples": 192,
+      "percent": 1.3411042242424005
+    },
+    {
+      "name": "src/simulation/citizens.ts:643 (anonymous)",
+      "sampledMs": 178.58700000000007,
+      "samples": 163,
+      "percent": 1.116021435170558
+    }
+  ],
+  "selected_self_functions": [
+    {
+      "name": "src/simulation/landscape.ts:51 depositSediment",
+      "sampledMs": 935.208000000001,
+      "samples": 821,
+      "percent": 5.844278555230717
+    },
+    {
+      "name": "src/simulation/landscape.ts:23 entrainSediment",
+      "sampledMs": 879.5120000000001,
+      "samples": 772,
+      "percent": 5.4962244983662165
+    }
+  ],
+  "memory": {
+    "peak_observed_after_tick_rss_bytes": 369152000,
+    "process_max_rss_KiB": 360564,
+    "process_max_includes_excluded_load_and_validation": true,
+    "does_not_measure": "Combined live server, other processes, observers, backups, preflight, SQLite/page-cache and disk footprint."
+  },
+  "recommendations": [
+    {
+      "priority": 1,
+      "status": "combined_candidate_exact_endpoint_replay_slower_reverted",
+      "change": "Precompute numeric molar masses for O2/N2/Ar/CO2 once; preserve division and addition order.",
+      "anchors": [
+        {
+          "path": "src/simulation/chemistry.ts",
+          "profiled_lines": [274, 280, 281, 282]
+        },
+        {
+          "path": "src/simulation/elements.ts",
+          "symbols": ["ELEMENTS", "ELEMENT_BY_SYMBOL", "atoms", "molarMass"]
+        }
+      ],
+      "immutability_basis": "Element records and symbol table are frozen; atomic_mass scalar and literal formula strings are immutable. Other CHEMISTRY molarMass calls initialize module constants.",
+      "must_not_cache": [
+        "changing atmospheric oxygenFraction",
+        "fresh mutable atoms() result objects"
+      ],
+      "follow_up": "candidate_follow_up; no isolated timing attribution to this individual change"
+    },
+    {
+      "priority": 2,
+      "status": "combined_candidate_exact_endpoint_replay_slower_reverted",
+      "change": "Avoid Object.entries pair allocations in entrainSediment/depositSediment with equivalent own-property iteration.",
+      "constraints": [
+        "Preserve own enumerable string-key order and zero-key behavior.",
+        "Preserve per-symbol transfer arithmetic and delayed transport pass.",
+        "Do not skip or reorder physical transfers without separate justification."
+      ],
+      "follow_up": "candidate_follow_up; no isolated timing attribution to this individual change"
+    },
+    {
+      "priority": 3,
+      "status": "proposed_not_benchmarked",
+      "change": "Measure local population/structure indexes on dense and sparse growth workloads.",
+      "constraints": [
+        "Preserve existing eligibility, candidate order, ties and RNG consumption.",
+        "Callback time is incomplete whole-feature attribution; contact/disease scans are not dominant in this interval."
+      ]
+    }
+  ],
+  "acceptance_before_optimization_claim": [
+    "Existing conservation/replay checks appropriate to changed helpers pass.",
+    "Identical private input, tick/RNG/entities/ledgers agree for a semantics-preserving change.",
+    "Repeat bounded same-state, same-runtime measurement with separate output prefixes; report variability."
+  ],
+  "limitations": [
+    "Sampling and optimization/inlining prevent exact phase or source-line timing; percentages use weighted profiler time deltas, not independent stopwatches.",
+    "Inclusive function rows overlap and must not be added. Phase rows form a partition, with GC and unmatched/inlined work reported separately.",
+    "Line weights divide each leaf node's sampled duration using V8 positionTicks; generated line starts are mapped to frozen TypeScript sources. They are estimates, not exact instruction timings.",
+    "The measurement is one cold-loaded 64-tick interval on a local machine, with an explicit 1,024 MiB old-space cap. No production hardware or long-run performance equivalence is claimed.",
+    "No daily boundary crossed; daily work is unmeasured.",
+    "Zero animal cohorts; fauna scaling is unmeasured.",
+    "No long-run, multi-observer, lifecycle-overlap, live-host, seasonal or large-population validation.",
+    "The initial independent baseline did not run an optimized comparison; parent-executed comparison artifacts are recorded separately in candidate_follow_up."
+  ],
+  "local_artifacts": [
+    {
+      "path": "output/validation/profile-restored-population.ts",
+      "sha256": "0097765b839fc79ec329aa92f1187aaff1b323b7bf5b0a9fc64245320f25bd3b"
+    },
+    {
+      "path": "output/validation/profile-restored-population.mjs",
+      "sha256": "436f23120eced47acdbda5022aa24050a7ccc7fcf51a208d8f336d2f0e8e90be"
+    },
+    {
+      "path": "output/validation/profile-restored-population.mjs.map",
+      "sha256": "ddf763f8935d438d5226dd4a05970d375ee24f940bf2aadd490bf6c0e2fd5cb5"
+    },
+    {
+      "path": "output/validation/restored-world-profile-build.json",
+      "sha256": "55ec0d83bc060ec1c4879df653c9e9449344efe1fd60aa00e6704d827abdbc3f"
+    },
+    {
+      "path": "output/validation/restored-world-profile-64.json",
+      "sha256": "be672945a427462848ba323e25e177bf9fc898f3f4ccbfb08b47f83d4f0ccbb2"
+    },
+    {
+      "path": "output/validation/restored-world-profile-64.cpuprofile",
+      "sha256": "f8d464084d5c2e67b88e83550aa0ea6d454c6d2a36a86783cb0b421e1a31b348"
+    },
+    {
+      "path": "output/validation/analyze-restored-profile.mjs",
+      "sha256": "77dbc775d9c7343c5158c3097eba46d35e97231218b1b1083b3fc127515978b4"
+    },
+    {
+      "path": "output/validation/restored-world-profile-64-analysis.json",
+      "sha256": "19aa26fbba5b560c03584809d119c5ac7e709c9abd16d2ddd82c515576ca532b"
+    }
+  ],
+  "updated_at_utc": "2026-10-08T14:32:25.991738+00:00",
+  "candidate_follow_up": {
+    "reviewed_at_utc": "2026-10-08T14:32:25.991738+00:00",
+    "provenance": "Parent-executed comparison; research independently read the four output reports and replay driver, compared recorded endpoint digests and verified frozen engine hashes. No research rerun.",
+    "candidate": "Four precomputed molar masses plus Object.keys iteration in sediment transfers.",
+    "allocation_limit": "Object.keys allocates a key array; this candidate was not allocation-free.",
+    "disposition": "Entire combined candidate reverted by parent; will not be deployed.",
+    "deployment_evidence": "Parent report; research performed no host access.",
+    "source_sha256": "f7b5964114a6c5a7ca343551c9026161fb2648f09acb96468827179e3ac49e6a",
+    "initial_tick": 199028,
+    "final_tick": 199092,
+    "ticks_per_run": 64,
+    "people_at_final": 1200,
+    "initial_serialized_world_sha256": "a561d070ee92c09bd90376f466d2a9d25bbba97f410740683d4097f62e732799",
+    "final_serialized_world_sha256": "9d6835be1a07a2d08a8a32bc62ffcb4efee323079ea51543000b51313d29bf83",
+    "digest_method": "SHA256(JSON.stringify(world)) before timing and after post-run validateWorld; no per-tick world hashes recorded.",
+    "initial_and_final_rng_agree": true,
+    "source_unchanged_in_all_reports": true,
+    "sequential_orders": [
+      {
+        "order": ["before", "candidate"],
+        "before_elapsed_ms": 15297.101005999999,
+        "candidate_elapsed_ms": 17000.652759,
+        "reports": ["observer-perf-before.json", "observer-perf-after.json"]
+      },
+      {
+        "order": ["candidate", "before"],
+        "before_elapsed_ms": 18156.240385,
+        "candidate_elapsed_ms": 27129.885653,
+        "reports": [
+          "observer-perf-after-repeat.json",
+          "observer-perf-before-repeat.json"
+        ]
+      }
+    ],
+    "runs": [
+      {
+        "report": "output/validation/observer-perf-before.json",
+        "reported_at_utc": "2026-10-08T14:17:22.830Z",
+        "engine_sha256": "5da7e342102366e5d80af698d7206d96dce07433d1fa4b52c2e1b65f996304a2",
+        "elapsed_ms": 15297.101005999999,
+        "mean_ms": 239.01720321874998
+      },
+      {
+        "report": "output/validation/observer-perf-after.json",
+        "reported_at_utc": "2026-10-08T14:17:52.229Z",
+        "engine_sha256": "84abde03307cf9df7cc41d3a8d5625167208d3992d116c427c4a2ce2b60de90c",
+        "elapsed_ms": 17000.652759,
+        "mean_ms": 265.635199359375
+      },
+      {
+        "report": "output/validation/observer-perf-after-repeat.json",
+        "reported_at_utc": "2026-10-08T14:19:18.240Z",
+        "engine_sha256": "84abde03307cf9df7cc41d3a8d5625167208d3992d116c427c4a2ce2b60de90c",
+        "elapsed_ms": 27129.885653,
+        "mean_ms": 423.904463328125
+      },
+      {
+        "report": "output/validation/observer-perf-before-repeat.json",
+        "reported_at_utc": "2026-10-08T14:19:47.584Z",
+        "engine_sha256": "5da7e342102366e5d80af698d7206d96dce07433d1fa4b52c2e1b65f996304a2",
+        "elapsed_ms": 18156.240385,
+        "mean_ms": 283.691256015625
+      }
+    ],
+    "finding": "Candidate elapsed time exceeded baseline in both sequential orders; no measured benefit supports shipping this bundle.",
+    "limits": [
+      "Noisy descriptive measurements; two combined code changes and uncontrolled timing variability do not isolate causality.",
+      "Endpoint digest equality applies to this source state and interval; it does not prove equivalence for every intermediate tick or other states.",
+      "Separate replay harness from the original sampled CPU profile; initial/final whole-world serialization is outside timing but may affect memory/GC conditions.",
+      "Load, persistence, validation, observer work, rendering and digest computation are outside elapsed tick-loop timing.",
+      "No daily boundary, seasonal forecast, live-host capacity or higher-population evidence."
+    ],
+    "artifacts": [
+      {
+        "path": "output/validation/observer-perf-before.json",
+        "sha256": "8717622576308f1bc8609f35035060ffebfad20f7b9983a7e4b61eca8453cbf6"
+      },
+      {
+        "path": "output/validation/observer-perf-after.json",
+        "sha256": "af4bbf004c2395eb9122ed217b805cd7f56bb84113bb2a97d57e7a101699ab33"
+      },
+      {
+        "path": "output/validation/observer-perf-after-repeat.json",
+        "sha256": "e2c4cbe217fe5e8ea7d306cbc808d510aaf5b6c98d110ade6c4c1e9167b3d5aa"
+      },
+      {
+        "path": "output/validation/observer-perf-before-repeat.json",
+        "sha256": "d6b671879a305030924f6254457001f12b30d89653c6f02fa5da5f0c7b94a53e"
+      },
+      {
+        "path": "output/validation/engine-before-observer-perf.mjs",
+        "sha256": "5da7e342102366e5d80af698d7206d96dce07433d1fa4b52c2e1b65f996304a2"
+      },
+      {
+        "path": "output/validation/engine-after-observer-perf.mjs",
+        "sha256": "84abde03307cf9df7cc41d3a8d5625167208d3992d116c427c4a2ce2b60de90c"
+      },
+      {
+        "path": "output/validation/replay-observer-perf.ts",
+        "sha256": "ee9d5d17e05457fdc77d330c7e65c053ca827d030841c4d3608e8c64f091693d"
+      }
+    ]
+  }
+}

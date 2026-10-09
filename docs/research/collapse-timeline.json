@@ -1,0 +1,6856 @@
+{
+  "sourceBackupSha256": "4beed425fdc4ba9b4bd70d84b1054977a88571caff72be30582df7dd28681811",
+  "renewalTick": 195860,
+  "firstDeathDay": 371.7604166666667,
+  "lastDeathDay": 549.65625,
+  "history": [
+    {
+      "day": 0.7916666666666666,
+      "tick": 195936,
+      "population": 1200,
+      "communalFoodTonnes": 575.0474773767409,
+      "forestPercent": 26.144130993485632
+    },
+    {
+      "day": 1.7916666666666667,
+      "tick": 196032,
+      "population": 1200,
+      "communalFoodTonnes": 576.226819504328,
+      "forestPercent": 26.145880283476984
+    },
+    {
+      "day": 2.7916666666666665,
+      "tick": 196128,
+      "population": 1200,
+      "communalFoodTonnes": 577.512545396834,
+      "forestPercent": 26.101155928412034
+    },
+    {
+      "day": 3.7916666666666665,
+      "tick": 196224,
+      "population": 1200,
+      "communalFoodTonnes": 578.5044322170052,
+      "forestPercent": 26.05159017425796
+    },
+    {
+      "day": 4.791666666666667,
+      "tick": 196320,
+      "population": 1200,
+      "communalFoodTonnes": 577.0730464644337,
+      "forestPercent": 26.07845367811065
+    },
+    {
+      "day": 5.791666666666667,
+      "tick": 196416,
+      "population": 1200,
+      "communalFoodTonnes": 575.6229217733428,
+      "forestPercent": 26.104403706929702
+    },
+    {
+      "day": 6.791666666666667,
+      "tick": 196512,
+      "population": 1200,
+      "communalFoodTonnes": 574.1859429776342,
+      "forestPercent": 26.126747630940766
+    },
+    {
+      "day": 7.791666666666667,
+      "tick": 196608,
+      "population": 1200,
+      "communalFoodTonnes": 572.5221493962956,
+      "forestPercent": 26.1406713454178
+    },
+    {
+      "day": 8.791666666666666,
+      "tick": 196704,
+      "population": 1200,
+      "communalFoodTonnes": 570.8799497414383,
+      "forestPercent": 26.153324708647784
+    },
+    {
+      "day": 9.791666666666666,
+      "tick": 196800,
+      "population": 1200,
+      "communalFoodTonnes": 568.8128838208384,
+      "forestPercent": 26.181517423328387
+    },
+    {
+      "day": 10.791666666666666,
+      "tick": 196896,
+      "population": 1200,
+      "communalFoodTonnes": 566.6817969040284,
+      "forestPercent": 26.1995160277515
+    },
+    {
+      "day": 11.791666666666666,
+      "tick": 196992,
+      "population": 1200,
+      "communalFoodTonnes": 564.5234863263187,
+      "forestPercent": 26.195815391210402
+    },
+    {
+      "day": 12.791666666666666,
+      "tick": 197088,
+      "population": 1200,
+      "communalFoodTonnes": 562.6195628274378,
+      "forestPercent": 26.173854023660763
+    },
+    {
+      "day": 13.791666666666666,
+      "tick": 197184,
+      "population": 1200,
+      "communalFoodTonnes": 561.5070653384447,
+      "forestPercent": 26.124284022232708
+    },
+    {
+      "day": 14.791666666666666,
+      "tick": 197280,
+      "population": 1200,
+      "communalFoodTonnes": 560.5273044262719,
+      "forestPercent": 26.066952437629652
+    },
+    {
+      "day": 15.791666666666666,
+      "tick": 197376,
+      "population": 1200,
+      "communalFoodTonnes": 560.2412605193446,
+      "forestPercent": 25.960103986496403
+    },
+    {
+      "day": 16.791666666666668,
+      "tick": 197472,
+      "population": 1200,
+      "communalFoodTonnes": 560.5351355211787,
+      "forestPercent": 25.862328366738314
+    },
+    {
+      "day": 17.791666666666668,
+      "tick": 197568,
+      "population": 1200,
+      "communalFoodTonnes": 560.1082657339338,
+      "forestPercent": 25.76605281417278
+    },
+    {
+      "day": 18.791666666666668,
+      "tick": 197664,
+      "population": 1200,
+      "communalFoodTonnes": 559.2504729457082,
+      "forestPercent": 25.677004251801588
+    },
+    {
+      "day": 19.791666666666668,
+      "tick": 197760,
+      "population": 1200,
+      "communalFoodTonnes": 558.4343625207033,
+      "forestPercent": 25.57860460887269
+    },
+    {
+      "day": 20.791666666666668,
+      "tick": 197856,
+      "population": 1200,
+      "communalFoodTonnes": 557.7352063715045,
+      "forestPercent": 25.465251690700036
+    },
+    {
+      "day": 21.791666666666668,
+      "tick": 197952,
+      "population": 1200,
+      "communalFoodTonnes": 556.9166938752746,
+      "forestPercent": 25.349586597593
+    },
+    {
+      "day": 22.791666666666668,
+      "tick": 198048,
+      "population": 1200,
+      "communalFoodTonnes": 556.439214384074,
+      "forestPercent": 25.205276231323655
+    },
+    {
+      "day": 23.791666666666668,
+      "tick": 198144,
+      "population": 1200,
+      "communalFoodTonnes": 555.0841185541711,
+      "forestPercent": 25.074309546817663
+    },
+    {
+      "day": 24.791666666666668,
+      "tick": 198240,
+      "population": 1200,
+      "communalFoodTonnes": 553.6973093111003,
+      "forestPercent": 24.935553013209944
+    },
+    {
+      "day": 25.791666666666668,
+      "tick": 198336,
+      "population": 1200,
+      "communalFoodTonnes": 552.6475012395075,
+      "forestPercent": 24.780547612766345
+    },
+    {
+      "day": 26.791666666666668,
+      "tick": 198432,
+      "population": 1200,
+      "communalFoodTonnes": 551.3677590915852,
+      "forestPercent": 24.630409289323715
+    },
+    {
+      "day": 27.791666666666668,
+      "tick": 198528,
+      "population": 1200,
+      "communalFoodTonnes": 550.461775785961,
+      "forestPercent": 24.458576197635942
+    },
+    {
+      "day": 28.791666666666668,
+      "tick": 198624,
+      "population": 1200,
+      "communalFoodTonnes": 549.6086352311328,
+      "forestPercent": 24.284310011564596
+    },
+    {
+      "day": 29.791666666666668,
+      "tick": 198720,
+      "population": 1200,
+      "communalFoodTonnes": 549.2343461471455,
+      "forestPercent": 24.094022747666983
+    },
+    {
+      "day": 30.791666666666668,
+      "tick": 198816,
+      "population": 1200,
+      "communalFoodTonnes": 549.4037651926706,
+      "forestPercent": 23.862947446580122
+    },
+    {
+      "day": 31.791666666666668,
+      "tick": 198912,
+      "population": 1200,
+      "communalFoodTonnes": 549.346099422225,
+      "forestPercent": 23.631444481213506
+    },
+    {
+      "day": 32.791666666666664,
+      "tick": 199008,
+      "population": 1200,
+      "communalFoodTonnes": 548.9314838277429,
+      "forestPercent": 23.41112736912081
+    },
+    {
+      "day": 33.791666666666664,
+      "tick": 199104,
+      "population": 1200,
+      "communalFoodTonnes": 548.4924822574983,
+      "forestPercent": 23.187291348883104
+    },
+    {
+      "day": 34.791666666666664,
+      "tick": 199200,
+      "population": 1200,
+      "communalFoodTonnes": 548.0556467803826,
+      "forestPercent": 22.94162225759079
+    },
+    {
+      "day": 35.791666666666664,
+      "tick": 199296,
+      "population": 1200,
+      "communalFoodTonnes": 547.5760116813507,
+      "forestPercent": 22.681228881165925
+    },
+    {
+      "day": 36.791666666666664,
+      "tick": 199392,
+      "population": 1200,
+      "communalFoodTonnes": 546.5587215777991,
+      "forestPercent": 22.45307059609688
+    },
+    {
+      "day": 37.791666666666664,
+      "tick": 199488,
+      "population": 1200,
+      "communalFoodTonnes": 545.4322292615138,
+      "forestPercent": 22.23502644354356
+    },
+    {
+      "day": 38.791666666666664,
+      "tick": 199584,
+      "population": 1200,
+      "communalFoodTonnes": 544.1692712904878,
+      "forestPercent": 22.016580457498886
+    },
+    {
+      "day": 39.791666666666664,
+      "tick": 199680,
+      "population": 1200,
+      "communalFoodTonnes": 542.927373416439,
+      "forestPercent": 21.79577999656243
+    },
+    {
+      "day": 40.791666666666664,
+      "tick": 199776,
+      "population": 1200,
+      "communalFoodTonnes": 541.5886318689245,
+      "forestPercent": 21.558465600178696
+    },
+    {
+      "day": 41.791666666666664,
+      "tick": 199872,
+      "population": 1200,
+      "communalFoodTonnes": 540.2564642258942,
+      "forestPercent": 21.326693448944454
+    },
+    {
+      "day": 42.791666666666664,
+      "tick": 199968,
+      "population": 1200,
+      "communalFoodTonnes": 539.4655830051383,
+      "forestPercent": 21.080636523645747
+    },
+    {
+      "day": 43.791666666666664,
+      "tick": 200064,
+      "population": 1200,
+      "communalFoodTonnes": 538.8084053697639,
+      "forestPercent": 20.826968550307683
+    },
+    {
+      "day": 44.791666666666664,
+      "tick": 200160,
+      "population": 1200,
+      "communalFoodTonnes": 537.8810906022081,
+      "forestPercent": 20.593380062763593
+    },
+    {
+      "day": 45.791666666666664,
+      "tick": 200256,
+      "population": 1200,
+      "communalFoodTonnes": 536.8916044446933,
+      "forestPercent": 20.36347751641205
+    },
+    {
+      "day": 46.791666666666664,
+      "tick": 200352,
+      "population": 1200,
+      "communalFoodTonnes": 535.5177263688515,
+      "forestPercent": 20.145013138837694
+    },
+    {
+      "day": 47.791666666666664,
+      "tick": 200448,
+      "population": 1200,
+      "communalFoodTonnes": 534.217729201549,
+      "forestPercent": 19.916410845357372
+    },
+    {
+      "day": 48.791666666666664,
+      "tick": 200544,
+      "population": 1200,
+      "communalFoodTonnes": 532.945582476329,
+      "forestPercent": 19.6943347114955
+    },
+    {
+      "day": 49.791666666666664,
+      "tick": 200640,
+      "population": 1200,
+      "communalFoodTonnes": 531.4849891464889,
+      "forestPercent": 19.472657685892855
+    },
+    {
+      "day": 50.791666666666664,
+      "tick": 200736,
+      "population": 1200,
+      "communalFoodTonnes": 530.2684970167619,
+      "forestPercent": 19.25066539696006
+    },
+    {
+      "day": 51.791666666666664,
+      "tick": 200832,
+      "population": 1200,
+      "communalFoodTonnes": 529.2216485338984,
+      "forestPercent": 19.02076774108495
+    },
+    {
+      "day": 52.791666666666664,
+      "tick": 200928,
+      "population": 1200,
+      "communalFoodTonnes": 528.048150354346,
+      "forestPercent": 18.7842300616425
+    },
+    {
+      "day": 53.791666666666664,
+      "tick": 201024,
+      "population": 1200,
+      "communalFoodTonnes": 527.2270065232552,
+      "forestPercent": 18.545793651035478
+    },
+    {
+      "day": 54.791666666666664,
+      "tick": 201120,
+      "population": 1200,
+      "communalFoodTonnes": 526.3110113227076,
+      "forestPercent": 18.308031914854773
+    },
+    {
+      "day": 55.791666666666664,
+      "tick": 201216,
+      "population": 1200,
+      "communalFoodTonnes": 525.6112314080433,
+      "forestPercent": 18.071278308882764
+    },
+    {
+      "day": 56.791666666666664,
+      "tick": 201312,
+      "population": 1200,
+      "communalFoodTonnes": 524.8141656042397,
+      "forestPercent": 17.84464094757808
+    },
+    {
+      "day": 57.791666666666664,
+      "tick": 201408,
+      "population": 1200,
+      "communalFoodTonnes": 524.3736672221646,
+      "forestPercent": 17.60067956815831
+    },
+    {
+      "day": 58.791666666666664,
+      "tick": 201504,
+      "population": 1200,
+      "communalFoodTonnes": 523.5013017883738,
+      "forestPercent": 17.358286030799263
+    },
+    {
+      "day": 59.791666666666664,
+      "tick": 201600,
+      "population": 1200,
+      "communalFoodTonnes": 522.7146167694525,
+      "forestPercent": 17.1075995002247
+    },
+    {
+      "day": 60.791666666666664,
+      "tick": 201696,
+      "population": 1200,
+      "communalFoodTonnes": 521.9405089226992,
+      "forestPercent": 16.85820981956623
+    },
+    {
+      "day": 61.791666666666664,
+      "tick": 201792,
+      "population": 1200,
+      "communalFoodTonnes": 521.0524950152064,
+      "forestPercent": 16.59714448919306
+    },
+    {
+      "day": 62.791666666666664,
+      "tick": 201888,
+      "population": 1200,
+      "communalFoodTonnes": 519.6332161763376,
+      "forestPercent": 16.360408735706304
+    },
+    {
+      "day": 63.791666666666664,
+      "tick": 201984,
+      "population": 1200,
+      "communalFoodTonnes": 518.4456982453361,
+      "forestPercent": 16.112487729264295
+    },
+    {
+      "day": 64.79166666666667,
+      "tick": 202080,
+      "population": 1200,
+      "communalFoodTonnes": 517.293778609197,
+      "forestPercent": 15.863142759094318
+    },
+    {
+      "day": 65.79166666666667,
+      "tick": 202176,
+      "population": 1200,
+      "communalFoodTonnes": 515.993288858219,
+      "forestPercent": 15.632660534812345
+    },
+    {
+      "day": 66.79166666666667,
+      "tick": 202272,
+      "population": 1200,
+      "communalFoodTonnes": 513.6372428805101,
+      "forestPercent": 15.443048739754111
+    },
+    {
+      "day": 67.79166666666667,
+      "tick": 202368,
+      "population": 1200,
+      "communalFoodTonnes": 511.43500056832056,
+      "forestPercent": 15.25345554631811
+    },
+    {
+      "day": 68.79166666666667,
+      "tick": 202464,
+      "population": 1200,
+      "communalFoodTonnes": 509.29394655364024,
+      "forestPercent": 15.066010602179194
+    },
+    {
+      "day": 69.79166666666667,
+      "tick": 202560,
+      "population": 1200,
+      "communalFoodTonnes": 506.92063230421195,
+      "forestPercent": 14.87557323233912
+    },
+    {
+      "day": 70.79166666666667,
+      "tick": 202656,
+      "population": 1200,
+      "communalFoodTonnes": 504.171432999852,
+      "forestPercent": 14.688135484877481
+    },
+    {
+      "day": 71.79166666666667,
+      "tick": 202752,
+      "population": 1200,
+      "communalFoodTonnes": 501.59295093426516,
+      "forestPercent": 14.494097595155075
+    },
+    {
+      "day": 72.79166666666667,
+      "tick": 202848,
+      "population": 1200,
+      "communalFoodTonnes": 499.17089932339985,
+      "forestPercent": 14.29580584374032
+    },
+    {
+      "day": 73.79166666666667,
+      "tick": 202944,
+      "population": 1200,
+      "communalFoodTonnes": 496.74049668335914,
+      "forestPercent": 14.094040507417569
+    },
+    {
+      "day": 74.79166666666667,
+      "tick": 203040,
+      "population": 1200,
+      "communalFoodTonnes": 494.2821107898067,
+      "forestPercent": 13.889319725837696
+    },
+    {
+      "day": 75.79166666666667,
+      "tick": 203136,
+      "population": 1200,
+      "communalFoodTonnes": 491.90406685822444,
+      "forestPercent": 13.682459735466487
+    },
+    {
+      "day": 76.79166666666667,
+      "tick": 203232,
+      "population": 1200,
+      "communalFoodTonnes": 489.6019294355378,
+      "forestPercent": 13.472062404626628
+    },
+    {
+      "day": 77.79166666666667,
+      "tick": 203328,
+      "population": 1200,
+      "communalFoodTonnes": 487.3559960266083,
+      "forestPercent": 13.268923785290088
+    },
+    {
+      "day": 78.79166666666667,
+      "tick": 203424,
+      "population": 1200,
+      "communalFoodTonnes": 485.0551696712757,
+      "forestPercent": 13.068712162354387
+    },
+    {
+      "day": 79.79166666666667,
+      "tick": 203520,
+      "population": 1200,
+      "communalFoodTonnes": 482.76722328422903,
+      "forestPercent": 12.869730149323699
+    },
+    {
+      "day": 80.79166666666667,
+      "tick": 203616,
+      "population": 1200,
+      "communalFoodTonnes": 480.41764752166705,
+      "forestPercent": 12.677682031171173
+    },
+    {
+      "day": 81.79166666666667,
+      "tick": 203712,
+      "population": 1200,
+      "communalFoodTonnes": 478.0714528889733,
+      "forestPercent": 12.489046432209701
+    },
+    {
+      "day": 82.79166666666667,
+      "tick": 203808,
+      "population": 1200,
+      "communalFoodTonnes": 475.7073648301101,
+      "forestPercent": 12.303197265037177
+    },
+    {
+      "day": 83.79166666666667,
+      "tick": 203904,
+      "population": 1200,
+      "communalFoodTonnes": 473.39834335564683,
+      "forestPercent": 12.117846735081853
+    },
+    {
+      "day": 84.79166666666667,
+      "tick": 204000,
+      "population": 1200,
+      "communalFoodTonnes": 471.12282052321154,
+      "forestPercent": 11.941101604475833
+    },
+    {
+      "day": 85.79166666666667,
+      "tick": 204096,
+      "population": 1200,
+      "communalFoodTonnes": 468.89696755729614,
+      "forestPercent": 11.7682233520258
+    },
+    {
+      "day": 86.79166666666667,
+      "tick": 204192,
+      "population": 1200,
+      "communalFoodTonnes": 466.6783531361024,
+      "forestPercent": 11.599057099844826
+    },
+    {
+      "day": 87.79166666666667,
+      "tick": 204288,
+      "population": 1200,
+      "communalFoodTonnes": 464.4889159297703,
+      "forestPercent": 11.433329697820922
+    },
+    {
+      "day": 88.79166666666667,
+      "tick": 204384,
+      "population": 1200,
+      "communalFoodTonnes": 462.27306219110244,
+      "forestPercent": 11.270959928892994
+    },
+    {
+      "day": 89.79166666666667,
+      "tick": 204480,
+      "population": 1200,
+      "communalFoodTonnes": 460.0333509875141,
+      "forestPercent": 11.111895729324178
+    },
+    {
+      "day": 90.79166666666667,
+      "tick": 204576,
+      "population": 1200,
+      "communalFoodTonnes": 457.75850610204634,
+      "forestPercent": 10.95606917199103
+    },
+    {
+      "day": 91.79166666666667,
+      "tick": 204672,
+      "population": 1200,
+      "communalFoodTonnes": 455.48214274666236,
+      "forestPercent": 10.803248092232504
+    },
+    {
+      "day": 92.79166666666667,
+      "tick": 204768,
+      "population": 1200,
+      "communalFoodTonnes": 453.2415275107048,
+      "forestPercent": 10.653547053988188
+    },
+    {
+      "day": 93.79166666666667,
+      "tick": 204864,
+      "population": 1200,
+      "communalFoodTonnes": 451.028177840363,
+      "forestPercent": 10.506501462686185
+    },
+    {
+      "day": 94.79166666666667,
+      "tick": 204960,
+      "population": 1200,
+      "communalFoodTonnes": 448.81626862085625,
+      "forestPercent": 10.3622624844634
+    },
+    {
+      "day": 95.79166666666667,
+      "tick": 205056,
+      "population": 1200,
+      "communalFoodTonnes": 446.6177921056429,
+      "forestPercent": 10.220732267147447
+    },
+    {
+      "day": 96.79166666666667,
+      "tick": 205152,
+      "population": 1200,
+      "communalFoodTonnes": 444.427223090593,
+      "forestPercent": 10.082605824138351
+    },
+    {
+      "day": 97.79166666666667,
+      "tick": 205248,
+      "population": 1200,
+      "communalFoodTonnes": 442.2668177383732,
+      "forestPercent": 9.94707787717234
+    },
+    {
+      "day": 98.79166666666667,
+      "tick": 205344,
+      "population": 1200,
+      "communalFoodTonnes": 440.0928958821033,
+      "forestPercent": 9.81419613775426
+    },
+    {
+      "day": 99.79166666666667,
+      "tick": 205440,
+      "population": 1200,
+      "communalFoodTonnes": 437.89896639429077,
+      "forestPercent": 9.683590147670488
+    },
+    {
+      "day": 100.79166666666667,
+      "tick": 205536,
+      "population": 1200,
+      "communalFoodTonnes": 435.69307750761504,
+      "forestPercent": 9.555461279191844
+    },
+    {
+      "day": 101.79166666666667,
+      "tick": 205632,
+      "population": 1200,
+      "communalFoodTonnes": 433.49441905737575,
+      "forestPercent": 9.430419043058015
+    },
+    {
+      "day": 102.79166666666667,
+      "tick": 205728,
+      "population": 1200,
+      "communalFoodTonnes": 431.3304322832404,
+      "forestPercent": 9.307808407188062
+    },
+    {
+      "day": 103.79166666666667,
+      "tick": 205824,
+      "population": 1200,
+      "communalFoodTonnes": 429.19290475507677,
+      "forestPercent": 9.187502090166957
+    },
+    {
+      "day": 104.79166666666667,
+      "tick": 205920,
+      "population": 1200,
+      "communalFoodTonnes": 427.03973747489596,
+      "forestPercent": 9.069577223517157
+    },
+    {
+      "day": 105.79166666666667,
+      "tick": 206016,
+      "population": 1200,
+      "communalFoodTonnes": 424.8883578963287,
+      "forestPercent": 8.953904517836408
+    },
+    {
+      "day": 106.79166666666667,
+      "tick": 206112,
+      "population": 1200,
+      "communalFoodTonnes": 422.7472974285697,
+      "forestPercent": 8.840426889294974
+    },
+    {
+      "day": 107.79166666666667,
+      "tick": 206208,
+      "population": 1200,
+      "communalFoodTonnes": 420.63037701590827,
+      "forestPercent": 8.729093398908317
+    },
+    {
+      "day": 108.79166666666667,
+      "tick": 206304,
+      "population": 1200,
+      "communalFoodTonnes": 418.5178528117165,
+      "forestPercent": 8.61986476725254
+    },
+    {
+      "day": 109.79166666666667,
+      "tick": 206400,
+      "population": 1200,
+      "communalFoodTonnes": 416.4018160048105,
+      "forestPercent": 8.512696258790738
+    },
+    {
+      "day": 110.79166666666667,
+      "tick": 206496,
+      "population": 1200,
+      "communalFoodTonnes": 414.2619662121363,
+      "forestPercent": 8.407482778549834
+    },
+    {
+      "day": 111.79166666666667,
+      "tick": 206592,
+      "population": 1200,
+      "communalFoodTonnes": 412.11652563641417,
+      "forestPercent": 8.304237349586488
+    },
+    {
+      "day": 112.79166666666667,
+      "tick": 206688,
+      "population": 1200,
+      "communalFoodTonnes": 409.9830290766308,
+      "forestPercent": 8.202917511597981
+    },
+    {
+      "day": 113.79166666666667,
+      "tick": 206784,
+      "population": 1200,
+      "communalFoodTonnes": 407.8822452791806,
+      "forestPercent": 8.103498413587003
+    },
+    {
+      "day": 114.79166666666667,
+      "tick": 206880,
+      "population": 1200,
+      "communalFoodTonnes": 405.79560042104174,
+      "forestPercent": 8.005906173731956
+    },
+    {
+      "day": 115.79166666666667,
+      "tick": 206976,
+      "population": 1200,
+      "communalFoodTonnes": 403.70145206103973,
+      "forestPercent": 7.910064400776674
+    },
+    {
+      "day": 116.79166666666667,
+      "tick": 207072,
+      "population": 1200,
+      "communalFoodTonnes": 401.59953448175014,
+      "forestPercent": 7.815993284884383
+    },
+    {
+      "day": 117.79166666666667,
+      "tick": 207168,
+      "population": 1200,
+      "communalFoodTonnes": 399.51295146475894,
+      "forestPercent": 7.72361343620523
+    },
+    {
+      "day": 118.79166666666667,
+      "tick": 207264,
+      "population": 1200,
+      "communalFoodTonnes": 397.4490432232185,
+      "forestPercent": 7.6329235622343905
+    },
+    {
+      "day": 119.79166666666667,
+      "tick": 207360,
+      "population": 1200,
+      "communalFoodTonnes": 395.38865269258235,
+      "forestPercent": 7.543869700200588
+    },
+    {
+      "day": 120.79166666666667,
+      "tick": 207456,
+      "population": 1200,
+      "communalFoodTonnes": 393.3129804466802,
+      "forestPercent": 7.456359589317077
+    },
+    {
+      "day": 121.79166666666667,
+      "tick": 207552,
+      "population": 1200,
+      "communalFoodTonnes": 391.223571689407,
+      "forestPercent": 7.370431710498628
+    },
+    {
+      "day": 122.79166666666667,
+      "tick": 207648,
+      "population": 1200,
+      "communalFoodTonnes": 389.11665241438305,
+      "forestPercent": 7.285993266620079
+    },
+    {
+      "day": 123.79166666666667,
+      "tick": 207744,
+      "population": 1200,
+      "communalFoodTonnes": 387.025274153154,
+      "forestPercent": 7.203125357510667
+    },
+    {
+      "day": 124.79166666666667,
+      "tick": 207840,
+      "population": 1200,
+      "communalFoodTonnes": 384.9534835175408,
+      "forestPercent": 7.121711731666107
+    },
+    {
+      "day": 125.79166666666667,
+      "tick": 207936,
+      "population": 1200,
+      "communalFoodTonnes": 382.8991265177305,
+      "forestPercent": 7.041695114813189
+    },
+    {
+      "day": 126.79166666666667,
+      "tick": 208032,
+      "population": 1200,
+      "communalFoodTonnes": 380.81961994854254,
+      "forestPercent": 6.963100378317129
+    },
+    {
+      "day": 127.79166666666667,
+      "tick": 208128,
+      "population": 1200,
+      "communalFoodTonnes": 378.7477225710594,
+      "forestPercent": 6.885873456750721
+    },
+    {
+      "day": 128.79166666666666,
+      "tick": 208224,
+      "population": 1200,
+      "communalFoodTonnes": 376.6684442690959,
+      "forestPercent": 6.809986567720213
+    },
+    {
+      "day": 129.79166666666666,
+      "tick": 208320,
+      "population": 1200,
+      "communalFoodTonnes": 374.616889791295,
+      "forestPercent": 6.735383059291437
+    },
+    {
+      "day": 130.79166666666666,
+      "tick": 208416,
+      "population": 1200,
+      "communalFoodTonnes": 372.5566991346843,
+      "forestPercent": 6.662102805288049
+    },
+    {
+      "day": 131.79166666666666,
+      "tick": 208512,
+      "population": 1200,
+      "communalFoodTonnes": 370.5185564822618,
+      "forestPercent": 6.590093377513454
+    },
+    {
+      "day": 132.79166666666666,
+      "tick": 208608,
+      "population": 1200,
+      "communalFoodTonnes": 368.45215797079527,
+      "forestPercent": 6.519240949133313
+    },
+    {
+      "day": 133.79166666666666,
+      "tick": 208704,
+      "population": 1200,
+      "communalFoodTonnes": 366.37928600443445,
+      "forestPercent": 6.449705947360382
+    },
+    {
+      "day": 134.79166666666666,
+      "tick": 208800,
+      "population": 1200,
+      "communalFoodTonnes": 364.28293885639704,
+      "forestPercent": 6.381277343019138
+    },
+    {
+      "day": 135.79166666666666,
+      "tick": 208896,
+      "population": 1200,
+      "communalFoodTonnes": 362.19800266786757,
+      "forestPercent": 6.3141337928071275
+    },
+    {
+      "day": 136.79166666666666,
+      "tick": 208992,
+      "population": 1200,
+      "communalFoodTonnes": 360.12752341556643,
+      "forestPercent": 6.2481672144624705
+    },
+    {
+      "day": 137.79166666666666,
+      "tick": 209088,
+      "population": 1200,
+      "communalFoodTonnes": 358.08030289555956,
+      "forestPercent": 6.183225756101829
+    },
+    {
+      "day": 138.79166666666666,
+      "tick": 209184,
+      "population": 1200,
+      "communalFoodTonnes": 356.00395483031434,
+      "forestPercent": 6.119277993673108
+    },
+    {
+      "day": 139.79166666666666,
+      "tick": 209280,
+      "population": 1200,
+      "communalFoodTonnes": 353.9264429188688,
+      "forestPercent": 6.056717283158297
+    },
+    {
+      "day": 140.79166666666666,
+      "tick": 209376,
+      "population": 1200,
+      "communalFoodTonnes": 351.8639332194655,
+      "forestPercent": 5.995135166342681
+    },
+    {
+      "day": 141.79166666666666,
+      "tick": 209472,
+      "population": 1200,
+      "communalFoodTonnes": 349.80666229035216,
+      "forestPercent": 5.934686542777436
+    },
+    {
+      "day": 142.79166666666666,
+      "tick": 209568,
+      "population": 1200,
+      "communalFoodTonnes": 347.75716563975635,
+      "forestPercent": 5.875372247263117
+    },
+    {
+      "day": 143.79166666666666,
+      "tick": 209664,
+      "population": 1200,
+      "communalFoodTonnes": 345.7220287836043,
+      "forestPercent": 5.81698786418498
+    },
+    {
+      "day": 144.79166666666666,
+      "tick": 209760,
+      "population": 1200,
+      "communalFoodTonnes": 343.66223120602945,
+      "forestPercent": 5.759534410070851
+    },
+    {
+      "day": 145.79166666666666,
+      "tick": 209856,
+      "population": 1200,
+      "communalFoodTonnes": 341.5891488682458,
+      "forestPercent": 5.703055568825075
+    },
+    {
+      "day": 146.79166666666666,
+      "tick": 209952,
+      "population": 1200,
+      "communalFoodTonnes": 339.4981611769624,
+      "forestPercent": 5.647623039985164
+    },
+    {
+      "day": 147.79166666666666,
+      "tick": 210048,
+      "population": 1200,
+      "communalFoodTonnes": 337.40766555764014,
+      "forestPercent": 5.59289285284878
+    },
+    {
+      "day": 148.79166666666666,
+      "tick": 210144,
+      "population": 1200,
+      "communalFoodTonnes": 335.32487404922585,
+      "forestPercent": 5.539216365904788
+    },
+    {
+      "day": 149.79166666666666,
+      "tick": 210240,
+      "population": 1200,
+      "communalFoodTonnes": 333.2523739815267,
+      "forestPercent": 5.485890889653038
+    },
+    {
+      "day": 150.79166666666666,
+      "tick": 210336,
+      "population": 1200,
+      "communalFoodTonnes": 331.16970730949504,
+      "forestPercent": 5.4338807362829
+    },
+    {
+      "day": 151.79166666666666,
+      "tick": 210432,
+      "population": 1200,
+      "communalFoodTonnes": 329.05926702215,
+      "forestPercent": 5.382869448075234
+    },
+    {
+      "day": 152.79166666666666,
+      "tick": 210528,
+      "population": 1200,
+      "communalFoodTonnes": 326.9616792848994,
+      "forestPercent": 5.33307870203818
+    },
+    {
+      "day": 153.79166666666666,
+      "tick": 210624,
+      "population": 1200,
+      "communalFoodTonnes": 324.8659407990597,
+      "forestPercent": 5.284227099833139
+    },
+    {
+      "day": 154.79166666666666,
+      "tick": 210720,
+      "population": 1200,
+      "communalFoodTonnes": 322.772662757474,
+      "forestPercent": 5.236304013928815
+    },
+    {
+      "day": 155.79166666666666,
+      "tick": 210816,
+      "population": 1200,
+      "communalFoodTonnes": 320.68606147748926,
+      "forestPercent": 5.189569582260936
+    },
+    {
+      "day": 156.79166666666666,
+      "tick": 210912,
+      "population": 1200,
+      "communalFoodTonnes": 318.6008486376988,
+      "forestPercent": 5.143938571764262
+    },
+    {
+      "day": 157.79166666666666,
+      "tick": 211008,
+      "population": 1200,
+      "communalFoodTonnes": 316.53321453232445,
+      "forestPercent": 5.098969117421145
+    },
+    {
+      "day": 158.79166666666666,
+      "tick": 211104,
+      "population": 1200,
+      "communalFoodTonnes": 314.4602480967507,
+      "forestPercent": 5.054881859205871
+    },
+    {
+      "day": 159.79166666666666,
+      "tick": 211200,
+      "population": 1200,
+      "communalFoodTonnes": 312.38674252212707,
+      "forestPercent": 5.011749248486116
+    },
+    {
+      "day": 160.79166666666666,
+      "tick": 211296,
+      "population": 1200,
+      "communalFoodTonnes": 310.2812627815647,
+      "forestPercent": 4.969493490426144
+    },
+    {
+      "day": 161.79166666666666,
+      "tick": 211392,
+      "population": 1200,
+      "communalFoodTonnes": 308.1682186845781,
+      "forestPercent": 4.928143714768849
+    },
+    {
+      "day": 162.79166666666666,
+      "tick": 211488,
+      "population": 1200,
+      "communalFoodTonnes": 306.0709961672807,
+      "forestPercent": 4.8875509134569795
+    },
+    {
+      "day": 163.79166666666666,
+      "tick": 211584,
+      "population": 1200,
+      "communalFoodTonnes": 303.9809315883426,
+      "forestPercent": 4.847780332167971
+    },
+    {
+      "day": 164.79166666666666,
+      "tick": 211680,
+      "population": 1200,
+      "communalFoodTonnes": 301.89321553633084,
+      "forestPercent": 4.80900417938428
+    },
+    {
+      "day": 165.79166666666666,
+      "tick": 211776,
+      "population": 1200,
+      "communalFoodTonnes": 299.7794807254014,
+      "forestPercent": 4.771091932045754
+    },
+    {
+      "day": 166.79166666666666,
+      "tick": 211872,
+      "population": 1200,
+      "communalFoodTonnes": 297.6847444352511,
+      "forestPercent": 4.73432801733448
+    },
+    {
+      "day": 167.79166666666666,
+      "tick": 211968,
+      "population": 1200,
+      "communalFoodTonnes": 295.5678421509488,
+      "forestPercent": 4.698671908004796
+    },
+    {
+      "day": 168.79166666666666,
+      "tick": 212064,
+      "population": 1200,
+      "communalFoodTonnes": 293.44739491917034,
+      "forestPercent": 4.6635093403012355
+    },
+    {
+      "day": 169.79166666666666,
+      "tick": 212160,
+      "population": 1200,
+      "communalFoodTonnes": 291.32662936270947,
+      "forestPercent": 4.6298464837650135
+    },
+    {
+      "day": 170.79166666666666,
+      "tick": 212256,
+      "population": 1200,
+      "communalFoodTonnes": 289.2129449933729,
+      "forestPercent": 4.5978434685886596
+    },
+    {
+      "day": 171.79166666666666,
+      "tick": 212352,
+      "population": 1200,
+      "communalFoodTonnes": 287.08750725498254,
+      "forestPercent": 4.566416603209695
+    },
+    {
+      "day": 172.79166666666666,
+      "tick": 212448,
+      "population": 1200,
+      "communalFoodTonnes": 284.9586083391907,
+      "forestPercent": 4.5363354089508
+    },
+    {
+      "day": 173.79166666666666,
+      "tick": 212544,
+      "population": 1200,
+      "communalFoodTonnes": 282.80506529127035,
+      "forestPercent": 4.5064243298300575
+    },
+    {
+      "day": 174.79166666666666,
+      "tick": 212640,
+      "population": 1200,
+      "communalFoodTonnes": 280.6004959947264,
+      "forestPercent": 4.4753562130854565
+    },
+    {
+      "day": 175.79166666666666,
+      "tick": 212736,
+      "population": 1200,
+      "communalFoodTonnes": 278.4052644228067,
+      "forestPercent": 4.446418301867827
+    },
+    {
+      "day": 176.79166666666666,
+      "tick": 212832,
+      "population": 1200,
+      "communalFoodTonnes": 276.2072965514772,
+      "forestPercent": 4.420571632060325
+    },
+    {
+      "day": 177.79166666666666,
+      "tick": 212928,
+      "population": 1200,
+      "communalFoodTonnes": 274.2000861672346,
+      "forestPercent": 4.396211499604011
+    },
+    {
+      "day": 178.79166666666666,
+      "tick": 213024,
+      "population": 1200,
+      "communalFoodTonnes": 271.9886163744744,
+      "forestPercent": 4.374541762632886
+    },
+    {
+      "day": 179.79166666666666,
+      "tick": 213120,
+      "population": 1200,
+      "communalFoodTonnes": 269.75746267874257,
+      "forestPercent": 4.353502529374975
+    },
+    {
+      "day": 180.79166666666666,
+      "tick": 213216,
+      "population": 1200,
+      "communalFoodTonnes": 267.5263583127924,
+      "forestPercent": 4.3340923260886415
+    },
+    {
+      "day": 181.79166666666666,
+      "tick": 213312,
+      "population": 1200,
+      "communalFoodTonnes": 265.3015793458387,
+      "forestPercent": 4.317300872848941
+    },
+    {
+      "day": 182.79166666666666,
+      "tick": 213408,
+      "population": 1200,
+      "communalFoodTonnes": 263.0727609326162,
+      "forestPercent": 4.304418449924208
+    },
+    {
+      "day": 183.79166666666666,
+      "tick": 213504,
+      "population": 1200,
+      "communalFoodTonnes": 260.84927193634525,
+      "forestPercent": 4.290398703363256
+    },
+    {
+      "day": 184.79166666666666,
+      "tick": 213600,
+      "population": 1200,
+      "communalFoodTonnes": 258.61418287782226,
+      "forestPercent": 4.278578265362055
+    },
+    {
+      "day": 185.79166666666666,
+      "tick": 213696,
+      "population": 1200,
+      "communalFoodTonnes": 256.37795559186077,
+      "forestPercent": 4.270761913528347
+    },
+    {
+      "day": 186.79166666666666,
+      "tick": 213792,
+      "population": 1200,
+      "communalFoodTonnes": 254.13068733401022,
+      "forestPercent": 4.2650902606097025
+    },
+    {
+      "day": 187.79166666666666,
+      "tick": 213888,
+      "population": 1200,
+      "communalFoodTonnes": 251.888771539629,
+      "forestPercent": 4.262134338306497
+    },
+    {
+      "day": 188.79166666666666,
+      "tick": 213984,
+      "population": 1200,
+      "communalFoodTonnes": 249.63767958448238,
+      "forestPercent": 4.262700728690407
+    },
+    {
+      "day": 189.79166666666666,
+      "tick": 214080,
+      "population": 1200,
+      "communalFoodTonnes": 247.4013526774525,
+      "forestPercent": 4.2661949591206945
+    },
+    {
+      "day": 190.79166666666666,
+      "tick": 214176,
+      "population": 1200,
+      "communalFoodTonnes": 245.16122318729344,
+      "forestPercent": 4.273928606426443
+    },
+    {
+      "day": 191.79166666666666,
+      "tick": 214272,
+      "population": 1200,
+      "communalFoodTonnes": 242.90419096947926,
+      "forestPercent": 4.288580766367665
+    },
+    {
+      "day": 192.79166666666666,
+      "tick": 214368,
+      "population": 1200,
+      "communalFoodTonnes": 240.66831244720362,
+      "forestPercent": 4.306948109792453
+    },
+    {
+      "day": 193.79166666666666,
+      "tick": 214464,
+      "population": 1200,
+      "communalFoodTonnes": 238.42333923580807,
+      "forestPercent": 4.329691296785831
+    },
+    {
+      "day": 194.79166666666666,
+      "tick": 214560,
+      "population": 1200,
+      "communalFoodTonnes": 236.15548724758443,
+      "forestPercent": 4.3603433901528525
+    },
+    {
+      "day": 195.79166666666666,
+      "tick": 214656,
+      "population": 1200,
+      "communalFoodTonnes": 233.90058166725876,
+      "forestPercent": 4.394064152529009
+    },
+    {
+      "day": 196.79166666666666,
+      "tick": 214752,
+      "population": 1200,
+      "communalFoodTonnes": 231.63169346918272,
+      "forestPercent": 4.434880938349116
+    },
+    {
+      "day": 197.79166666666666,
+      "tick": 214848,
+      "population": 1200,
+      "communalFoodTonnes": 229.34451964747643,
+      "forestPercent": 4.481197813036262
+    },
+    {
+      "day": 198.79166666666666,
+      "tick": 214944,
+      "population": 1200,
+      "communalFoodTonnes": 227.06988629562267,
+      "forestPercent": 4.5325853264007465
+    },
+    {
+      "day": 199.79166666666666,
+      "tick": 215040,
+      "population": 1200,
+      "communalFoodTonnes": 224.79276375498438,
+      "forestPercent": 4.586511944724263
+    },
+    {
+      "day": 200.79166666666666,
+      "tick": 215136,
+      "population": 1200,
+      "communalFoodTonnes": 222.50564586361352,
+      "forestPercent": 4.646298534107041
+    },
+    {
+      "day": 201.79166666666666,
+      "tick": 215232,
+      "population": 1200,
+      "communalFoodTonnes": 220.25486655085572,
+      "forestPercent": 4.708821306498006
+    },
+    {
+      "day": 202.79166666666666,
+      "tick": 215328,
+      "population": 1200,
+      "communalFoodTonnes": 217.99814504399714,
+      "forestPercent": 4.776737435449527
+    },
+    {
+      "day": 203.79166666666666,
+      "tick": 215424,
+      "population": 1200,
+      "communalFoodTonnes": 215.7397075621665,
+      "forestPercent": 4.846777924276954
+    },
+    {
+      "day": 204.79166666666666,
+      "tick": 215520,
+      "population": 1200,
+      "communalFoodTonnes": 213.49726710013158,
+      "forestPercent": 4.917182043958985
+    },
+    {
+      "day": 205.79166666666666,
+      "tick": 215616,
+      "population": 1200,
+      "communalFoodTonnes": 211.2315780361396,
+      "forestPercent": 4.992673099340493
+    },
+    {
+      "day": 206.79166666666666,
+      "tick": 215712,
+      "population": 1200,
+      "communalFoodTonnes": 208.99879636061485,
+      "forestPercent": 5.070911466214884
+    },
+    {
+      "day": 207.79166666666666,
+      "tick": 215808,
+      "population": 1200,
+      "communalFoodTonnes": 206.79096351892284,
+      "forestPercent": 5.1487000277438435
+    },
+    {
+      "day": 208.79166666666666,
+      "tick": 215904,
+      "population": 1200,
+      "communalFoodTonnes": 204.62407567731628,
+      "forestPercent": 5.230231732815269
+    },
+    {
+      "day": 209.79166666666666,
+      "tick": 216000,
+      "population": 1200,
+      "communalFoodTonnes": 202.4366264646052,
+      "forestPercent": 5.31384922803413
+    },
+    {
+      "day": 210.79166666666666,
+      "tick": 216096,
+      "population": 1200,
+      "communalFoodTonnes": 200.25892651316488,
+      "forestPercent": 5.403264309212662
+    },
+    {
+      "day": 211.79166666666666,
+      "tick": 216192,
+      "population": 1200,
+      "communalFoodTonnes": 198.08042587519228,
+      "forestPercent": 5.497068650670482
+    },
+    {
+      "day": 212.79166666666666,
+      "tick": 216288,
+      "population": 1200,
+      "communalFoodTonnes": 195.88550328487526,
+      "forestPercent": 5.5944674464952655
+    },
+    {
+      "day": 213.79166666666666,
+      "tick": 216384,
+      "population": 1200,
+      "communalFoodTonnes": 193.69017361440171,
+      "forestPercent": 5.6928625845307925
+    },
+    {
+      "day": 214.79166666666666,
+      "tick": 216480,
+      "population": 1200,
+      "communalFoodTonnes": 191.55314318070992,
+      "forestPercent": 5.793951385447224
+    },
+    {
+      "day": 215.79166666666666,
+      "tick": 216576,
+      "population": 1200,
+      "communalFoodTonnes": 189.43317086636839,
+      "forestPercent": 5.8987441267696985
+    },
+    {
+      "day": 216.79166666666666,
+      "tick": 216672,
+      "population": 1200,
+      "communalFoodTonnes": 187.38977822505234,
+      "forestPercent": 6.004449330338647
+    },
+    {
+      "day": 217.79166666666666,
+      "tick": 216768,
+      "population": 1200,
+      "communalFoodTonnes": 185.30270201134311,
+      "forestPercent": 6.113838011924712
+    },
+    {
+      "day": 218.79166666666666,
+      "tick": 216864,
+      "population": 1200,
+      "communalFoodTonnes": 183.31672274275905,
+      "forestPercent": 6.2255283964890795
+    },
+    {
+      "day": 219.79166666666666,
+      "tick": 216960,
+      "population": 1200,
+      "communalFoodTonnes": 181.34696351596148,
+      "forestPercent": 6.341548229939
+    },
+    {
+      "day": 220.79166666666666,
+      "tick": 217056,
+      "population": 1200,
+      "communalFoodTonnes": 179.5592993182116,
+      "forestPercent": 6.4589721001594835
+    },
+    {
+      "day": 221.79166666666666,
+      "tick": 217152,
+      "population": 1200,
+      "communalFoodTonnes": 177.87149528401724,
+      "forestPercent": 6.5755429490523865
+    },
+    {
+      "day": 222.79166666666666,
+      "tick": 217248,
+      "population": 1200,
+      "communalFoodTonnes": 176.24012302351161,
+      "forestPercent": 6.693809729288948
+    },
+    {
+      "day": 223.79166666666666,
+      "tick": 217344,
+      "population": 1200,
+      "communalFoodTonnes": 174.73531258896173,
+      "forestPercent": 6.804089731117075
+    },
+    {
+      "day": 224.79166666666666,
+      "tick": 217440,
+      "population": 1200,
+      "communalFoodTonnes": 173.27765027713875,
+      "forestPercent": 6.920888267807792
+    },
+    {
+      "day": 225.79166666666666,
+      "tick": 217536,
+      "population": 1200,
+      "communalFoodTonnes": 172.07535677733415,
+      "forestPercent": 7.011303609254299
+    },
+    {
+      "day": 226.79166666666666,
+      "tick": 217632,
+      "population": 1200,
+      "communalFoodTonnes": 170.80028799738398,
+      "forestPercent": 7.102173070295664
+    },
+    {
+      "day": 227.79166666666666,
+      "tick": 217728,
+      "population": 1200,
+      "communalFoodTonnes": 169.30548961941827,
+      "forestPercent": 7.19502076668193
+    },
+    {
+      "day": 228.79166666666666,
+      "tick": 217824,
+      "population": 1200,
+      "communalFoodTonnes": 167.81020117757,
+      "forestPercent": 7.2994869773396465
+    },
+    {
+      "day": 229.79166666666666,
+      "tick": 217920,
+      "population": 1200,
+      "communalFoodTonnes": 166.3691706438246,
+      "forestPercent": 7.415318315989397
+    },
+    {
+      "day": 230.79166666666666,
+      "tick": 218016,
+      "population": 1200,
+      "communalFoodTonnes": 164.87718147159427,
+      "forestPercent": 7.54564794614131
+    },
+    {
+      "day": 231.79166666666666,
+      "tick": 218112,
+      "population": 1200,
+      "communalFoodTonnes": 163.4531129761356,
+      "forestPercent": 7.6836502393199115
+    },
+    {
+      "day": 232.79166666666666,
+      "tick": 218208,
+      "population": 1200,
+      "communalFoodTonnes": 162.10870302336266,
+      "forestPercent": 7.81863023094939
+    },
+    {
+      "day": 233.79166666666666,
+      "tick": 218304,
+      "population": 1200,
+      "communalFoodTonnes": 160.77019350101176,
+      "forestPercent": 7.9576080086549945
+    },
+    {
+      "day": 234.79166666666666,
+      "tick": 218400,
+      "population": 1200,
+      "communalFoodTonnes": 159.48704909154873,
+      "forestPercent": 8.098477080257947
+    },
+    {
+      "day": 235.79166666666666,
+      "tick": 218496,
+      "population": 1200,
+      "communalFoodTonnes": 158.37025350119708,
+      "forestPercent": 8.236460473547568
+    },
+    {
+      "day": 236.79166666666666,
+      "tick": 218592,
+      "population": 1200,
+      "communalFoodTonnes": 157.36091830586722,
+      "forestPercent": 8.37112193267577
+    },
+    {
+      "day": 237.79166666666666,
+      "tick": 218688,
+      "population": 1200,
+      "communalFoodTonnes": 156.10086671344328,
+      "forestPercent": 8.528930860176978
+    },
+    {
+      "day": 238.79166666666666,
+      "tick": 218784,
+      "population": 1200,
+      "communalFoodTonnes": 154.72492217872767,
+      "forestPercent": 8.698601398097397
+    },
+    {
+      "day": 239.79166666666666,
+      "tick": 218880,
+      "population": 1200,
+      "communalFoodTonnes": 153.39053181272297,
+      "forestPercent": 8.867705521452727
+    },
+    {
+      "day": 240.79166666666666,
+      "tick": 218976,
+      "population": 1200,
+      "communalFoodTonnes": 152.03853323395677,
+      "forestPercent": 9.040620947715176
+    },
+    {
+      "day": 241.79166666666666,
+      "tick": 219072,
+      "population": 1200,
+      "communalFoodTonnes": 150.64284967441293,
+      "forestPercent": 9.220447473579954
+    },
+    {
+      "day": 242.79166666666666,
+      "tick": 219168,
+      "population": 1200,
+      "communalFoodTonnes": 149.26969395236122,
+      "forestPercent": 9.394053043889409
+    },
+    {
+      "day": 243.79166666666666,
+      "tick": 219264,
+      "population": 1200,
+      "communalFoodTonnes": 147.80969893405873,
+      "forestPercent": 9.58147016852299
+    },
+    {
+      "day": 244.79166666666666,
+      "tick": 219360,
+      "population": 1200,
+      "communalFoodTonnes": 146.4574384404441,
+      "forestPercent": 9.769283881958902
+    },
+    {
+      "day": 245.79166666666666,
+      "tick": 219456,
+      "population": 1200,
+      "communalFoodTonnes": 145.09340886294393,
+      "forestPercent": 9.959877545978973
+    },
+    {
+      "day": 246.79166666666666,
+      "tick": 219552,
+      "population": 1200,
+      "communalFoodTonnes": 143.78866283174844,
+      "forestPercent": 10.140872957016851
+    },
+    {
+      "day": 247.79166666666666,
+      "tick": 219648,
+      "population": 1200,
+      "communalFoodTonnes": 142.59205389760933,
+      "forestPercent": 10.325256666138781
+    },
+    {
+      "day": 248.79166666666666,
+      "tick": 219744,
+      "population": 1200,
+      "communalFoodTonnes": 141.1796260866151,
+      "forestPercent": 10.5207147270689
+    },
+    {
+      "day": 249.79166666666666,
+      "tick": 219840,
+      "population": 1200,
+      "communalFoodTonnes": 139.9829436649496,
+      "forestPercent": 10.71194355609077
+    },
+    {
+      "day": 250.79166666666666,
+      "tick": 219936,
+      "population": 1200,
+      "communalFoodTonnes": 138.78342626135145,
+      "forestPercent": 10.909314660237426
+    },
+    {
+      "day": 251.79166666666666,
+      "tick": 220032,
+      "population": 1200,
+      "communalFoodTonnes": 137.4131225832631,
+      "forestPercent": 11.111067839283878
+    },
+    {
+      "day": 252.79166666666666,
+      "tick": 220128,
+      "population": 1200,
+      "communalFoodTonnes": 135.9929370296144,
+      "forestPercent": 11.313901433884151
+    },
+    {
+      "day": 253.79166666666666,
+      "tick": 220224,
+      "population": 1200,
+      "communalFoodTonnes": 134.39790867075055,
+      "forestPercent": 11.526699677494975
+    },
+    {
+      "day": 254.79166666666666,
+      "tick": 220320,
+      "population": 1200,
+      "communalFoodTonnes": 132.75826273653487,
+      "forestPercent": 11.7424727760929
+    },
+    {
+      "day": 255.79166666666666,
+      "tick": 220416,
+      "population": 1200,
+      "communalFoodTonnes": 131.2686550506532,
+      "forestPercent": 11.961789196020106
+    },
+    {
+      "day": 256.7916666666667,
+      "tick": 220512,
+      "population": 1200,
+      "communalFoodTonnes": 129.75905108923536,
+      "forestPercent": 12.180937162620095
+    },
+    {
+      "day": 257.7916666666667,
+      "tick": 220608,
+      "population": 1200,
+      "communalFoodTonnes": 128.16978964072166,
+      "forestPercent": 12.401496040675397
+    },
+    {
+      "day": 258.7916666666667,
+      "tick": 220704,
+      "population": 1200,
+      "communalFoodTonnes": 126.67174337783808,
+      "forestPercent": 12.625425204628291
+    },
+    {
+      "day": 259.7916666666667,
+      "tick": 220800,
+      "population": 1200,
+      "communalFoodTonnes": 125.12129453536987,
+      "forestPercent": 12.850381344782146
+    },
+    {
+      "day": 260.7916666666667,
+      "tick": 220896,
+      "population": 1200,
+      "communalFoodTonnes": 123.72461444879386,
+      "forestPercent": 13.066496336057249
+    },
+    {
+      "day": 261.7916666666667,
+      "tick": 220992,
+      "population": 1200,
+      "communalFoodTonnes": 122.25177317240008,
+      "forestPercent": 13.286566260020058
+    },
+    {
+      "day": 262.7916666666667,
+      "tick": 221088,
+      "population": 1200,
+      "communalFoodTonnes": 120.79564946547183,
+      "forestPercent": 13.504502228151779
+    },
+    {
+      "day": 263.7916666666667,
+      "tick": 221184,
+      "population": 1200,
+      "communalFoodTonnes": 119.42542770077992,
+      "forestPercent": 13.724630577728902
+    },
+    {
+      "day": 264.7916666666667,
+      "tick": 221280,
+      "population": 1200,
+      "communalFoodTonnes": 117.99989175122481,
+      "forestPercent": 13.949527774048494
+    },
+    {
+      "day": 265.7916666666667,
+      "tick": 221376,
+      "population": 1200,
+      "communalFoodTonnes": 116.49517335752493,
+      "forestPercent": 14.173969191574745
+    },
+    {
+      "day": 266.7916666666667,
+      "tick": 221472,
+      "population": 1200,
+      "communalFoodTonnes": 114.98871736870778,
+      "forestPercent": 14.402762247329726
+    },
+    {
+      "day": 267.7916666666667,
+      "tick": 221568,
+      "population": 1200,
+      "communalFoodTonnes": 113.62375265358604,
+      "forestPercent": 14.628710429835012
+    },
+    {
+      "day": 268.7916666666667,
+      "tick": 221664,
+      "population": 1200,
+      "communalFoodTonnes": 112.18090960782155,
+      "forestPercent": 14.85618116367606
+    },
+    {
+      "day": 269.7916666666667,
+      "tick": 221760,
+      "population": 1200,
+      "communalFoodTonnes": 110.89707013441564,
+      "forestPercent": 15.076979269997166
+    },
+    {
+      "day": 270.7916666666667,
+      "tick": 221856,
+      "population": 1202,
+      "communalFoodTonnes": 109.90658805554911,
+      "forestPercent": 15.289828597281655
+    },
+    {
+      "day": 271.7916666666667,
+      "tick": 221952,
+      "population": 1207,
+      "communalFoodTonnes": 108.65341663899034,
+      "forestPercent": 15.511333640471983
+    },
+    {
+      "day": 272.7916666666667,
+      "tick": 222048,
+      "population": 1212,
+      "communalFoodTonnes": 107.5794376417649,
+      "forestPercent": 15.728778816657716
+    },
+    {
+      "day": 273.7916666666667,
+      "tick": 222144,
+      "population": 1222,
+      "communalFoodTonnes": 106.40288677593178,
+      "forestPercent": 15.94615312356808
+    },
+    {
+      "day": 274.7916666666667,
+      "tick": 222240,
+      "population": 1226,
+      "communalFoodTonnes": 105.41589577424898,
+      "forestPercent": 16.161190001286553
+    },
+    {
+      "day": 275.7916666666667,
+      "tick": 222336,
+      "population": 1229,
+      "communalFoodTonnes": 104.51340850929262,
+      "forestPercent": 16.373446300627418
+    },
+    {
+      "day": 276.7916666666667,
+      "tick": 222432,
+      "population": 1236,
+      "communalFoodTonnes": 103.67992972841982,
+      "forestPercent": 16.582240162334863
+    },
+    {
+      "day": 277.7916666666667,
+      "tick": 222528,
+      "population": 1240,
+      "communalFoodTonnes": 102.7050393019131,
+      "forestPercent": 16.792450974701207
+    },
+    {
+      "day": 278.7916666666667,
+      "tick": 222624,
+      "population": 1242,
+      "communalFoodTonnes": 101.70904160984975,
+      "forestPercent": 16.999089381632267
+    },
+    {
+      "day": 279.7916666666667,
+      "tick": 222720,
+      "population": 1245,
+      "communalFoodTonnes": 100.86792054564182,
+      "forestPercent": 17.20681060384763
+    },
+    {
+      "day": 280.7916666666667,
+      "tick": 222816,
+      "population": 1250,
+      "communalFoodTonnes": 99.87135709581527,
+      "forestPercent": 17.415206206875645
+    },
+    {
+      "day": 281.7916666666667,
+      "tick": 222912,
+      "population": 1253,
+      "communalFoodTonnes": 98.62973656485617,
+      "forestPercent": 17.626834034871948
+    },
+    {
+      "day": 282.7916666666667,
+      "tick": 223008,
+      "population": 1256,
+      "communalFoodTonnes": 97.44773894404571,
+      "forestPercent": 17.830105461378885
+    },
+    {
+      "day": 283.7916666666667,
+      "tick": 223104,
+      "population": 1258,
+      "communalFoodTonnes": 96.65463671844408,
+      "forestPercent": 18.025904550822368
+    },
+    {
+      "day": 284.7916666666667,
+      "tick": 223200,
+      "population": 1265,
+      "communalFoodTonnes": 95.86688850641505,
+      "forestPercent": 18.224983746012
+    },
+    {
+      "day": 285.7916666666667,
+      "tick": 223296,
+      "population": 1267,
+      "communalFoodTonnes": 94.99756754903196,
+      "forestPercent": 18.424122580630495
+    },
+    {
+      "day": 286.7916666666667,
+      "tick": 223392,
+      "population": 1271,
+      "communalFoodTonnes": 94.34012135956714,
+      "forestPercent": 18.620917147189417
+    },
+    {
+      "day": 287.7916666666667,
+      "tick": 223488,
+      "population": 1277,
+      "communalFoodTonnes": 93.82316683839225,
+      "forestPercent": 18.80558750790935
+    },
+    {
+      "day": 288.7916666666667,
+      "tick": 223584,
+      "population": 1281,
+      "communalFoodTonnes": 93.24322964265076,
+      "forestPercent": 18.987152544607664
+    },
+    {
+      "day": 289.7916666666667,
+      "tick": 223680,
+      "population": 1286,
+      "communalFoodTonnes": 92.59733205558896,
+      "forestPercent": 19.169379343792436
+    },
+    {
+      "day": 290.7916666666667,
+      "tick": 223776,
+      "population": 1290,
+      "communalFoodTonnes": 92.10200015030452,
+      "forestPercent": 19.348433434612424
+    },
+    {
+      "day": 291.7916666666667,
+      "tick": 223872,
+      "population": 1294,
+      "communalFoodTonnes": 91.52874302432421,
+      "forestPercent": 19.525432040462924
+    },
+    {
+      "day": 292.7916666666667,
+      "tick": 223968,
+      "population": 1298,
+      "communalFoodTonnes": 90.82528118941205,
+      "forestPercent": 19.705693493036115
+    },
+    {
+      "day": 293.7916666666667,
+      "tick": 224064,
+      "population": 1302,
+      "communalFoodTonnes": 89.97241358568324,
+      "forestPercent": 19.886822496020212
+    },
+    {
+      "day": 294.7916666666667,
+      "tick": 224160,
+      "population": 1305,
+      "communalFoodTonnes": 88.99530974318867,
+      "forestPercent": 20.0736968662686
+    },
+    {
+      "day": 295.7916666666667,
+      "tick": 224256,
+      "population": 1308,
+      "communalFoodTonnes": 88.1182742013573,
+      "forestPercent": 20.25249355289926
+    },
+    {
+      "day": 296.7916666666667,
+      "tick": 224352,
+      "population": 1312,
+      "communalFoodTonnes": 87.20639533823389,
+      "forestPercent": 20.4344640215837
+    },
+    {
+      "day": 297.7916666666667,
+      "tick": 224448,
+      "population": 1314,
+      "communalFoodTonnes": 86.34844644278873,
+      "forestPercent": 20.61257996682891
+    },
+    {
+      "day": 298.7916666666667,
+      "tick": 224544,
+      "population": 1319,
+      "communalFoodTonnes": 85.5598309264254,
+      "forestPercent": 20.788061629230725
+    },
+    {
+      "day": 299.7916666666667,
+      "tick": 224640,
+      "population": 1322,
+      "communalFoodTonnes": 84.6618201607589,
+      "forestPercent": 20.96135304735163
+    },
+    {
+      "day": 300.7916666666667,
+      "tick": 224736,
+      "population": 1325,
+      "communalFoodTonnes": 83.81845340314918,
+      "forestPercent": 21.136404732944953
+    },
+    {
+      "day": 301.7916666666667,
+      "tick": 224832,
+      "population": 1327,
+      "communalFoodTonnes": 83.03505678373996,
+      "forestPercent": 21.310498802122357
+    },
+    {
+      "day": 302.7916666666667,
+      "tick": 224928,
+      "population": 1332,
+      "communalFoodTonnes": 82.13010131473915,
+      "forestPercent": 21.484046527800345
+    },
+    {
+      "day": 303.7916666666667,
+      "tick": 225024,
+      "population": 1334,
+      "communalFoodTonnes": 81.18784457164892,
+      "forestPercent": 21.65613590496817
+    },
+    {
+      "day": 304.7916666666667,
+      "tick": 225120,
+      "population": 1336,
+      "communalFoodTonnes": 80.26156969897859,
+      "forestPercent": 21.829506148008125
+    },
+    {
+      "day": 305.7916666666667,
+      "tick": 225216,
+      "population": 1339,
+      "communalFoodTonnes": 79.534548764832,
+      "forestPercent": 21.9963601210044
+    },
+    {
+      "day": 306.7916666666667,
+      "tick": 225312,
+      "population": 1343,
+      "communalFoodTonnes": 78.66943344008382,
+      "forestPercent": 22.16518221622526
+    },
+    {
+      "day": 307.7916666666667,
+      "tick": 225408,
+      "population": 1345,
+      "communalFoodTonnes": 77.86166186680886,
+      "forestPercent": 22.33146330388785
+    },
+    {
+      "day": 308.7916666666667,
+      "tick": 225504,
+      "population": 1353,
+      "communalFoodTonnes": 76.9962949736146,
+      "forestPercent": 22.497706345923074
+    },
+    {
+      "day": 309.7916666666667,
+      "tick": 225600,
+      "population": 1357,
+      "communalFoodTonnes": 76.02614162008251,
+      "forestPercent": 22.663502523473053
+    },
+    {
+      "day": 310.7916666666667,
+      "tick": 225696,
+      "population": 1359,
+      "communalFoodTonnes": 75.10628217657192,
+      "forestPercent": 22.827856113650117
+    },
+    {
+      "day": 311.7916666666667,
+      "tick": 225792,
+      "population": 1362,
+      "communalFoodTonnes": 74.11471827153576,
+      "forestPercent": 22.992762697909576
+    },
+    {
+      "day": 312.7916666666667,
+      "tick": 225888,
+      "population": 1364,
+      "communalFoodTonnes": 73.12325345364712,
+      "forestPercent": 23.156367173550393
+    },
+    {
+      "day": 313.7916666666667,
+      "tick": 225984,
+      "population": 1367,
+      "communalFoodTonnes": 72.22231447067438,
+      "forestPercent": 23.31727316976166
+    },
+    {
+      "day": 314.7916666666667,
+      "tick": 226080,
+      "population": 1367,
+      "communalFoodTonnes": 71.29539291698995,
+      "forestPercent": 23.47744997475906
+    },
+    {
+      "day": 315.7916666666667,
+      "tick": 226176,
+      "population": 1374,
+      "communalFoodTonnes": 70.35506265991802,
+      "forestPercent": 23.634935674435916
+    },
+    {
+      "day": 316.7916666666667,
+      "tick": 226272,
+      "population": 1379,
+      "communalFoodTonnes": 69.47025946208399,
+      "forestPercent": 23.788753620540064
+    },
+    {
+      "day": 317.7916666666667,
+      "tick": 226368,
+      "population": 1381,
+      "communalFoodTonnes": 68.5449755573745,
+      "forestPercent": 23.944556103994767
+    },
+    {
+      "day": 318.7916666666667,
+      "tick": 226464,
+      "population": 1386,
+      "communalFoodTonnes": 67.69524849666277,
+      "forestPercent": 24.098002858423445
+    },
+    {
+      "day": 319.7916666666667,
+      "tick": 226560,
+      "population": 1389,
+      "communalFoodTonnes": 66.85455915932035,
+      "forestPercent": 24.251027981001272
+    },
+    {
+      "day": 320.7916666666667,
+      "tick": 226656,
+      "population": 1394,
+      "communalFoodTonnes": 66.16181796281788,
+      "forestPercent": 24.397130955386757
+    },
+    {
+      "day": 321.7916666666667,
+      "tick": 226752,
+      "population": 1398,
+      "communalFoodTonnes": 65.57456728620376,
+      "forestPercent": 24.53958726223936
+    },
+    {
+      "day": 322.7916666666667,
+      "tick": 226848,
+      "population": 1404,
+      "communalFoodTonnes": 65.00688065706233,
+      "forestPercent": 24.6797670958214
+    },
+    {
+      "day": 323.7916666666667,
+      "tick": 226944,
+      "population": 1406,
+      "communalFoodTonnes": 64.55837369730345,
+      "forestPercent": 24.819992333395525
+    },
+    {
+      "day": 324.7916666666667,
+      "tick": 227040,
+      "population": 1410,
+      "communalFoodTonnes": 64.10944935956853,
+      "forestPercent": 24.957953188384945
+    },
+    {
+      "day": 325.7916666666667,
+      "tick": 227136,
+      "population": 1411,
+      "communalFoodTonnes": 63.335923170890034,
+      "forestPercent": 25.09876921509576
+    },
+    {
+      "day": 326.7916666666667,
+      "tick": 227232,
+      "population": 1417,
+      "communalFoodTonnes": 62.53551309224606,
+      "forestPercent": 25.238881176397715
+    },
+    {
+      "day": 327.7916666666667,
+      "tick": 227328,
+      "population": 1419,
+      "communalFoodTonnes": 61.691872058517475,
+      "forestPercent": 25.377173347809478
+    },
+    {
+      "day": 328.7916666666667,
+      "tick": 227424,
+      "population": 1423,
+      "communalFoodTonnes": 60.772307278613795,
+      "forestPercent": 25.51626128677616
+    },
+    {
+      "day": 329.7916666666667,
+      "tick": 227520,
+      "population": 1424,
+      "communalFoodTonnes": 60.01467975164362,
+      "forestPercent": 25.64936414613102
+    },
+    {
+      "day": 330.7916666666667,
+      "tick": 227616,
+      "population": 1425,
+      "communalFoodTonnes": 59.38909081475609,
+      "forestPercent": 25.781216459572835
+    },
+    {
+      "day": 331.7916666666667,
+      "tick": 227712,
+      "population": 1427,
+      "communalFoodTonnes": 58.75254574269948,
+      "forestPercent": 25.908809722909854
+    },
+    {
+      "day": 332.7916666666667,
+      "tick": 227808,
+      "population": 1427,
+      "communalFoodTonnes": 58.19501643186735,
+      "forestPercent": 26.033499952373784
+    },
+    {
+      "day": 333.7916666666667,
+      "tick": 227904,
+      "population": 1428,
+      "communalFoodTonnes": 57.64807427727454,
+      "forestPercent": 26.15820675123908
+    },
+    {
+      "day": 334.7916666666667,
+      "tick": 228000,
+      "population": 1435,
+      "communalFoodTonnes": 57.09854307447216,
+      "forestPercent": 26.27947344835699
+    },
+    {
+      "day": 335.7916666666667,
+      "tick": 228096,
+      "population": 1437,
+      "communalFoodTonnes": 56.670374468840755,
+      "forestPercent": 26.397536700771333
+    },
+    {
+      "day": 336.7916666666667,
+      "tick": 228192,
+      "population": 1438,
+      "communalFoodTonnes": 56.30847294480057,
+      "forestPercent": 26.51359988922487
+    },
+    {
+      "day": 337.7916666666667,
+      "tick": 228288,
+      "population": 1439,
+      "communalFoodTonnes": 55.61585640559213,
+      "forestPercent": 26.627027479657144
+    },
+    {
+      "day": 338.7916666666667,
+      "tick": 228384,
+      "population": 1439,
+      "communalFoodTonnes": 55.09407026090165,
+      "forestPercent": 26.736150618306358
+    },
+    {
+      "day": 339.7916666666667,
+      "tick": 228480,
+      "population": 1441,
+      "communalFoodTonnes": 54.513578856898135,
+      "forestPercent": 26.849350476485572
+    },
+    {
+      "day": 340.7916666666667,
+      "tick": 228576,
+      "population": 1444,
+      "communalFoodTonnes": 54.072993817992554,
+      "forestPercent": 26.96130871101866
+    },
+    {
+      "day": 341.7916666666667,
+      "tick": 228672,
+      "population": 1446,
+      "communalFoodTonnes": 53.68042966810076,
+      "forestPercent": 27.066508441180144
+    },
+    {
+      "day": 342.7916666666667,
+      "tick": 228768,
+      "population": 1448,
+      "communalFoodTonnes": 53.33355627592994,
+      "forestPercent": 27.172893561880496
+    },
+    {
+      "day": 343.7916666666667,
+      "tick": 228864,
+      "population": 1449,
+      "communalFoodTonnes": 53.0983592524879,
+      "forestPercent": 27.27109435275769
+    },
+    {
+      "day": 344.7916666666667,
+      "tick": 228960,
+      "population": 1450,
+      "communalFoodTonnes": 52.64076491099295,
+      "forestPercent": 27.367456387697974
+    },
+    {
+      "day": 345.7916666666667,
+      "tick": 229056,
+      "population": 1452,
+      "communalFoodTonnes": 52.15634671974632,
+      "forestPercent": 27.464379267688148
+    },
+    {
+      "day": 346.7916666666667,
+      "tick": 229152,
+      "population": 1456,
+      "communalFoodTonnes": 51.58177332313202,
+      "forestPercent": 27.560556247819644
+    },
+    {
+      "day": 347.7916666666667,
+      "tick": 229248,
+      "population": 1457,
+      "communalFoodTonnes": 51.22919461788213,
+      "forestPercent": 27.6485347340046
+    },
+    {
+      "day": 348.7916666666667,
+      "tick": 229344,
+      "population": 1458,
+      "communalFoodTonnes": 50.6818772006536,
+      "forestPercent": 27.733803234893607
+    },
+    {
+      "day": 349.7916666666667,
+      "tick": 229440,
+      "population": 1461,
+      "communalFoodTonnes": 50.07831030925893,
+      "forestPercent": 27.82229680762288
+    },
+    {
+      "day": 350.7916666666667,
+      "tick": 229536,
+      "population": 1466,
+      "communalFoodTonnes": 49.45706476130761,
+      "forestPercent": 27.907038943484697
+    },
+    {
+      "day": 351.7916666666667,
+      "tick": 229632,
+      "population": 1470,
+      "communalFoodTonnes": 48.82068918437553,
+      "forestPercent": 27.98959451686488
+    },
+    {
+      "day": 352.7916666666667,
+      "tick": 229728,
+      "population": 1471,
+      "communalFoodTonnes": 48.22274971213835,
+      "forestPercent": 28.062705436080478
+    },
+    {
+      "day": 353.7916666666667,
+      "tick": 229824,
+      "population": 1471,
+      "communalFoodTonnes": 47.6540991737883,
+      "forestPercent": 28.13566584122573
+    },
+    {
+      "day": 354.7916666666667,
+      "tick": 229920,
+      "population": 1475,
+      "communalFoodTonnes": 46.95825265010663,
+      "forestPercent": 28.20884099233722
+    },
+    {
+      "day": 355.7916666666667,
+      "tick": 230016,
+      "population": 1478,
+      "communalFoodTonnes": 46.360571691725134,
+      "forestPercent": 28.275607307796875
+    },
+    {
+      "day": 356.7916666666667,
+      "tick": 230112,
+      "population": 1479,
+      "communalFoodTonnes": 45.83635204078685,
+      "forestPercent": 28.34166602483456
+    },
+    {
+      "day": 357.7916666666667,
+      "tick": 230208,
+      "population": 1482,
+      "communalFoodTonnes": 45.27598984901049,
+      "forestPercent": 28.40703458927254
+    },
+    {
+      "day": 358.7916666666667,
+      "tick": 230304,
+      "population": 1487,
+      "communalFoodTonnes": 44.73855373878793,
+      "forestPercent": 28.465901209829404
+    },
+    {
+      "day": 359.7916666666667,
+      "tick": 230400,
+      "population": 1490,
+      "communalFoodTonnes": 44.3011063809496,
+      "forestPercent": 28.51981690519892
+    },
+    {
+      "day": 360.7916666666667,
+      "tick": 230496,
+      "population": 1493,
+      "communalFoodTonnes": 43.664107865298405,
+      "forestPercent": 28.576692143027703
+    },
+    {
+      "day": 361.7916666666667,
+      "tick": 230592,
+      "population": 1499,
+      "communalFoodTonnes": 43.011974413172204,
+      "forestPercent": 28.624738377478227
+    },
+    {
+      "day": 362.7916666666667,
+      "tick": 230688,
+      "population": 1500,
+      "communalFoodTonnes": 42.159165241771724,
+      "forestPercent": 28.671174624221457
+    },
+    {
+      "day": 363.7916666666667,
+      "tick": 230784,
+      "population": 1503,
+      "communalFoodTonnes": 41.23775732143614,
+      "forestPercent": 28.712953263118234
+    },
+    {
+      "day": 364.7916666666667,
+      "tick": 230880,
+      "population": 1504,
+      "communalFoodTonnes": 40.26639808044422,
+      "forestPercent": 28.744353642006367
+    },
+    {
+      "day": 365.7916666666667,
+      "tick": 230976,
+      "population": 1506,
+      "communalFoodTonnes": 39.13523291711825,
+      "forestPercent": 28.77810999049502
+    },
+    {
+      "day": 366.7916666666667,
+      "tick": 231072,
+      "population": 1510,
+      "communalFoodTonnes": 37.921946910349114,
+      "forestPercent": 28.804495420358766
+    },
+    {
+      "day": 367.7916666666667,
+      "tick": 231168,
+      "population": 1511,
+      "communalFoodTonnes": 36.67864001968596,
+      "forestPercent": 28.827396513878078
+    },
+    {
+      "day": 368.7916666666667,
+      "tick": 231264,
+      "population": 1511,
+      "communalFoodTonnes": 35.500123689819546,
+      "forestPercent": 28.838540485397363
+    },
+    {
+      "day": 369.7916666666667,
+      "tick": 231360,
+      "population": 1516,
+      "communalFoodTonnes": 34.64582903729501,
+      "forestPercent": 28.84054509245995
+    },
+    {
+      "day": 370.7916666666667,
+      "tick": 231456,
+      "population": 1519,
+      "communalFoodTonnes": 33.56600282563806,
+      "forestPercent": 28.839345668720128
+    },
+    {
+      "day": 371.7916666666667,
+      "tick": 231552,
+      "population": 1525,
+      "communalFoodTonnes": 32.70124122751812,
+      "forestPercent": 28.827505764597944
+    },
+    {
+      "day": 372.7916666666667,
+      "tick": 231648,
+      "population": 1502,
+      "communalFoodTonnes": 31.944784806609004,
+      "forestPercent": 28.805711000316258
+    },
+    {
+      "day": 373.7916666666667,
+      "tick": 231744,
+      "population": 1474,
+      "communalFoodTonnes": 31.483102148621466,
+      "forestPercent": 28.772150446628714
+    },
+    {
+      "day": 374.7916666666667,
+      "tick": 231840,
+      "population": 1458,
+      "communalFoodTonnes": 31.099386409079052,
+      "forestPercent": 28.727254507109336
+    },
+    {
+      "day": 375.7916666666667,
+      "tick": 231936,
+      "population": 1417,
+      "communalFoodTonnes": 30.636259538340802,
+      "forestPercent": 28.674571350333395
+    },
+    {
+      "day": 376.7916666666667,
+      "tick": 232032,
+      "population": 1384,
+      "communalFoodTonnes": 30.207025418928332,
+      "forestPercent": 28.60815499895028
+    },
+    {
+      "day": 377.7916666666667,
+      "tick": 232128,
+      "population": 1345,
+      "communalFoodTonnes": 29.73491336856877,
+      "forestPercent": 28.532937384647706
+    },
+    {
+      "day": 378.7916666666667,
+      "tick": 232224,
+      "population": 1336,
+      "communalFoodTonnes": 29.399623722732873,
+      "forestPercent": 28.447955859807145
+    },
+    {
+      "day": 379.7916666666667,
+      "tick": 232320,
+      "population": 1315,
+      "communalFoodTonnes": 28.98989374927424,
+      "forestPercent": 28.355221311363408
+    },
+    {
+      "day": 380.7916666666667,
+      "tick": 232416,
+      "population": 1287,
+      "communalFoodTonnes": 28.560850642975893,
+      "forestPercent": 28.252274971489697
+    },
+    {
+      "day": 381.7916666666667,
+      "tick": 232512,
+      "population": 1266,
+      "communalFoodTonnes": 28.329220621142884,
+      "forestPercent": 28.1363026058938
+    },
+    {
+      "day": 382.7916666666667,
+      "tick": 232608,
+      "population": 1243,
+      "communalFoodTonnes": 28.4694209040641,
+      "forestPercent": 28.010682204925114
+    },
+    {
+      "day": 383.7916666666667,
+      "tick": 232704,
+      "population": 1214,
+      "communalFoodTonnes": 28.605750812181164,
+      "forestPercent": 27.874169438973578
+    },
+    {
+      "day": 384.7916666666667,
+      "tick": 232800,
+      "population": 1184,
+      "communalFoodTonnes": 28.96080595039271,
+      "forestPercent": 27.720769735201774
+    },
+    {
+      "day": 385.7916666666667,
+      "tick": 232896,
+      "population": 1167,
+      "communalFoodTonnes": 29.463996953858462,
+      "forestPercent": 27.560071495746683
+    },
+    {
+      "day": 386.7916666666667,
+      "tick": 232992,
+      "population": 1148,
+      "communalFoodTonnes": 30.01740390489608,
+      "forestPercent": 27.388597120437797
+    },
+    {
+      "day": 387.7916666666667,
+      "tick": 233088,
+      "population": 1140,
+      "communalFoodTonnes": 30.483929605797652,
+      "forestPercent": 27.20539462673751
+    },
+    {
+      "day": 388.7916666666667,
+      "tick": 233184,
+      "population": 1128,
+      "communalFoodTonnes": 30.58094162540762,
+      "forestPercent": 27.03254295824215
+    },
+    {
+      "day": 389.7916666666667,
+      "tick": 233280,
+      "population": 1123,
+      "communalFoodTonnes": 30.876865088739574,
+      "forestPercent": 26.843463383628773
+    },
+    {
+      "day": 390.7916666666667,
+      "tick": 233376,
+      "population": 1112,
+      "communalFoodTonnes": 31.342549639901335,
+      "forestPercent": 26.64820423844208
+    },
+    {
+      "day": 391.7916666666667,
+      "tick": 233472,
+      "population": 1101,
+      "communalFoodTonnes": 31.715024880133075,
+      "forestPercent": 26.447519081142307
+    },
+    {
+      "day": 392.7916666666667,
+      "tick": 233568,
+      "population": 1093,
+      "communalFoodTonnes": 31.877303995382533,
+      "forestPercent": 26.24257680941506
+    },
+    {
+      "day": 393.7916666666667,
+      "tick": 233664,
+      "population": 1086,
+      "communalFoodTonnes": 31.991942159012684,
+      "forestPercent": 26.03051792972832
+    },
+    {
+      "day": 394.7916666666667,
+      "tick": 233760,
+      "population": 1078,
+      "communalFoodTonnes": 32.509007643044015,
+      "forestPercent": 25.800200087433783
+    },
+    {
+      "day": 395.7916666666667,
+      "tick": 233856,
+      "population": 1075,
+      "communalFoodTonnes": 32.803942303394635,
+      "forestPercent": 25.57677802160578
+    },
+    {
+      "day": 396.7916666666667,
+      "tick": 233952,
+      "population": 1062,
+      "communalFoodTonnes": 33.15520267082105,
+      "forestPercent": 25.35118298890143
+    },
+    {
+      "day": 397.7916666666667,
+      "tick": 234048,
+      "population": 1044,
+      "communalFoodTonnes": 33.28072716423087,
+      "forestPercent": 25.129261967563473
+    },
+    {
+      "day": 398.7916666666667,
+      "tick": 234144,
+      "population": 1011,
+      "communalFoodTonnes": 33.39494562782014,
+      "forestPercent": 24.900998325255376
+    },
+    {
+      "day": 399.7916666666667,
+      "tick": 234240,
+      "population": 973,
+      "communalFoodTonnes": 33.52699828579623,
+      "forestPercent": 24.6527716240053
+    },
+    {
+      "day": 400.7916666666667,
+      "tick": 234336,
+      "population": 942,
+      "communalFoodTonnes": 33.33348615152045,
+      "forestPercent": 24.414036385925293
+    },
+    {
+      "day": 401.7916666666667,
+      "tick": 234432,
+      "population": 914,
+      "communalFoodTonnes": 32.953891428276386,
+      "forestPercent": 24.18326294079202
+    },
+    {
+      "day": 402.7916666666667,
+      "tick": 234528,
+      "population": 891,
+      "communalFoodTonnes": 32.84054825958308,
+      "forestPercent": 23.935279821158844
+    },
+    {
+      "day": 403.7916666666667,
+      "tick": 234624,
+      "population": 882,
+      "communalFoodTonnes": 33.18112049036783,
+      "forestPercent": 23.686966651011822
+    },
+    {
+      "day": 404.7916666666667,
+      "tick": 234720,
+      "population": 871,
+      "communalFoodTonnes": 33.835718290826094,
+      "forestPercent": 23.434809711991868
+    },
+    {
+      "day": 405.7916666666667,
+      "tick": 234816,
+      "population": 826,
+      "communalFoodTonnes": 34.49685471335625,
+      "forestPercent": 23.1711427519447
+    },
+    {
+      "day": 406.7916666666667,
+      "tick": 234912,
+      "population": 796,
+      "communalFoodTonnes": 34.956974686626914,
+      "forestPercent": 22.922433065025654
+    },
+    {
+      "day": 407.7916666666667,
+      "tick": 235008,
+      "population": 769,
+      "communalFoodTonnes": 35.41244825048714,
+      "forestPercent": 22.662306469063765
+    },
+    {
+      "day": 408.7916666666667,
+      "tick": 235104,
+      "population": 762,
+      "communalFoodTonnes": 35.82295109167438,
+      "forestPercent": 22.403916647170515
+    },
+    {
+      "day": 409.7916666666667,
+      "tick": 235200,
+      "population": 697,
+      "communalFoodTonnes": 36.088427274934475,
+      "forestPercent": 22.159714516460593
+    },
+    {
+      "day": 410.7916666666667,
+      "tick": 235296,
+      "population": 608,
+      "communalFoodTonnes": 36.42239289084438,
+      "forestPercent": 21.908129358789143
+    },
+    {
+      "day": 411.7916666666667,
+      "tick": 235392,
+      "population": 556,
+      "communalFoodTonnes": 36.66037939840213,
+      "forestPercent": 21.665920524631918
+    },
+    {
+      "day": 412.7916666666667,
+      "tick": 235488,
+      "population": 524,
+      "communalFoodTonnes": 36.870254029872,
+      "forestPercent": 21.414410848385813
+    },
+    {
+      "day": 413.7916666666667,
+      "tick": 235584,
+      "population": 503,
+      "communalFoodTonnes": 36.96984489794031,
+      "forestPercent": 21.176257001474134
+    },
+    {
+      "day": 414.7916666666667,
+      "tick": 235680,
+      "population": 487,
+      "communalFoodTonnes": 37.14529494666411,
+      "forestPercent": 20.9405630958909
+    },
+    {
+      "day": 415.7916666666667,
+      "tick": 235776,
+      "population": 460,
+      "communalFoodTonnes": 37.47897477673043,
+      "forestPercent": 20.705162561782352
+    },
+    {
+      "day": 416.7916666666667,
+      "tick": 235872,
+      "population": 449,
+      "communalFoodTonnes": 37.91949275788852,
+      "forestPercent": 20.454147626646474
+    },
+    {
+      "day": 417.7916666666667,
+      "tick": 235968,
+      "population": 443,
+      "communalFoodTonnes": 38.28490238881801,
+      "forestPercent": 20.20366963337196
+    },
+    {
+      "day": 418.7916666666667,
+      "tick": 236064,
+      "population": 441,
+      "communalFoodTonnes": 38.58908601110492,
+      "forestPercent": 19.95453257145424
+    },
+    {
+      "day": 419.7916666666667,
+      "tick": 236160,
+      "population": 436,
+      "communalFoodTonnes": 38.71516435570748,
+      "forestPercent": 19.720056081356475
+    },
+    {
+      "day": 420.7916666666667,
+      "tick": 236256,
+      "population": 436,
+      "communalFoodTonnes": 39.04300457950313,
+      "forestPercent": 19.474519249432344
+    },
+    {
+      "day": 421.7916666666667,
+      "tick": 236352,
+      "population": 436,
+      "communalFoodTonnes": 39.3576140055046,
+      "forestPercent": 19.227721224031942
+    },
+    {
+      "day": 422.7916666666667,
+      "tick": 236448,
+      "population": 436,
+      "communalFoodTonnes": 39.550024605094336,
+      "forestPercent": 18.9869558755797
+    },
+    {
+      "day": 423.7916666666667,
+      "tick": 236544,
+      "population": 436,
+      "communalFoodTonnes": 39.833953842097934,
+      "forestPercent": 18.743563499408467
+    },
+    {
+      "day": 424.7916666666667,
+      "tick": 236640,
+      "population": 436,
+      "communalFoodTonnes": 40.383165144601136,
+      "forestPercent": 18.486772922480345
+    },
+    {
+      "day": 425.7916666666667,
+      "tick": 236736,
+      "population": 437,
+      "communalFoodTonnes": 40.864425567666935,
+      "forestPercent": 18.228674228302534
+    },
+    {
+      "day": 426.7916666666667,
+      "tick": 236832,
+      "population": 437,
+      "communalFoodTonnes": 41.19290579984487,
+      "forestPercent": 17.97449016752801
+    },
+    {
+      "day": 427.7916666666667,
+      "tick": 236928,
+      "population": 437,
+      "communalFoodTonnes": 41.661328108757814,
+      "forestPercent": 17.72258619576959
+    },
+    {
+      "day": 428.7916666666667,
+      "tick": 237024,
+      "population": 437,
+      "communalFoodTonnes": 41.94907304625866,
+      "forestPercent": 17.472476344639496
+    },
+    {
+      "day": 429.7916666666667,
+      "tick": 237120,
+      "population": 437,
+      "communalFoodTonnes": 42.26629403952673,
+      "forestPercent": 17.223093430649623
+    },
+    {
+      "day": 430.7916666666667,
+      "tick": 237216,
+      "population": 437,
+      "communalFoodTonnes": 42.4516188591862,
+      "forestPercent": 16.975357926479134
+    },
+    {
+      "day": 431.7916666666667,
+      "tick": 237312,
+      "population": 437,
+      "communalFoodTonnes": 42.383959118865725,
+      "forestPercent": 16.726903118685772
+    },
+    {
+      "day": 432.7916666666667,
+      "tick": 237408,
+      "population": 437,
+      "communalFoodTonnes": 42.743959098114566,
+      "forestPercent": 16.47618619809767
+    },
+    {
+      "day": 433.7916666666667,
+      "tick": 237504,
+      "population": 437,
+      "communalFoodTonnes": 42.86753324895421,
+      "forestPercent": 16.23631043100411
+    },
+    {
+      "day": 434.7916666666667,
+      "tick": 237600,
+      "population": 437,
+      "communalFoodTonnes": 43.034434541165,
+      "forestPercent": 15.989834561994495
+    },
+    {
+      "day": 435.7916666666667,
+      "tick": 237696,
+      "population": 439,
+      "communalFoodTonnes": 43.15532361809421,
+      "forestPercent": 15.745059660801283
+    },
+    {
+      "day": 436.7916666666667,
+      "tick": 237792,
+      "population": 439,
+      "communalFoodTonnes": 43.365969273588746,
+      "forestPercent": 15.504514310745659
+    },
+    {
+      "day": 437.7916666666667,
+      "tick": 237888,
+      "population": 440,
+      "communalFoodTonnes": 43.38396133155047,
+      "forestPercent": 15.253800001948406
+    },
+    {
+      "day": 438.7916666666667,
+      "tick": 237984,
+      "population": 440,
+      "communalFoodTonnes": 43.40684104495988,
+      "forestPercent": 15.002631320325674
+    },
+    {
+      "day": 439.7916666666667,
+      "tick": 238080,
+      "population": 438,
+      "communalFoodTonnes": 43.38841221148767,
+      "forestPercent": 14.754424959119927
+    },
+    {
+      "day": 440.7916666666667,
+      "tick": 238176,
+      "population": 438,
+      "communalFoodTonnes": 43.513872835967696,
+      "forestPercent": 14.49875433680273
+    },
+    {
+      "day": 441.7916666666667,
+      "tick": 238272,
+      "population": 438,
+      "communalFoodTonnes": 43.55875599117518,
+      "forestPercent": 14.223002905034551
+    },
+    {
+      "day": 442.7916666666667,
+      "tick": 238368,
+      "population": 439,
+      "communalFoodTonnes": 43.62809118580445,
+      "forestPercent": 13.954253121782024
+    },
+    {
+      "day": 443.7916666666667,
+      "tick": 238464,
+      "population": 440,
+      "communalFoodTonnes": 43.60040227812676,
+      "forestPercent": 13.685670118481868
+    },
+    {
+      "day": 444.7916666666667,
+      "tick": 238560,
+      "population": 440,
+      "communalFoodTonnes": 43.55885924522725,
+      "forestPercent": 13.415430907060607
+    },
+    {
+      "day": 445.7916666666667,
+      "tick": 238656,
+      "population": 439,
+      "communalFoodTonnes": 43.4310035801714,
+      "forestPercent": 13.15386552703358
+    },
+    {
+      "day": 446.7916666666667,
+      "tick": 238752,
+      "population": 439,
+      "communalFoodTonnes": 43.34588419826301,
+      "forestPercent": 12.896653888806146
+    },
+    {
+      "day": 447.7916666666667,
+      "tick": 238848,
+      "population": 436,
+      "communalFoodTonnes": 43.31727169010744,
+      "forestPercent": 12.642221278238944
+    },
+    {
+      "day": 448.7916666666667,
+      "tick": 238944,
+      "population": 434,
+      "communalFoodTonnes": 43.160445958402065,
+      "forestPercent": 12.389664078337447
+    },
+    {
+      "day": 449.7916666666667,
+      "tick": 239040,
+      "population": 429,
+      "communalFoodTonnes": 42.9939681400968,
+      "forestPercent": 12.14269066245751
+    },
+    {
+      "day": 450.7916666666667,
+      "tick": 239136,
+      "population": 428,
+      "communalFoodTonnes": 42.75858772618577,
+      "forestPercent": 11.904264983268867
+    },
+    {
+      "day": 451.7916666666667,
+      "tick": 239232,
+      "population": 428,
+      "communalFoodTonnes": 42.46988918077438,
+      "forestPercent": 11.676723786035796
+    },
+    {
+      "day": 452.7916666666667,
+      "tick": 239328,
+      "population": 428,
+      "communalFoodTonnes": 42.29892190668517,
+      "forestPercent": 11.448546733288351
+    },
+    {
+      "day": 453.7916666666667,
+      "tick": 239424,
+      "population": 428,
+      "communalFoodTonnes": 42.06308929969613,
+      "forestPercent": 11.2258064839716
+    },
+    {
+      "day": 454.7916666666667,
+      "tick": 239520,
+      "population": 428,
+      "communalFoodTonnes": 41.82044678822771,
+      "forestPercent": 11.007550326055721
+    },
+    {
+      "day": 455.7916666666667,
+      "tick": 239616,
+      "population": 426,
+      "communalFoodTonnes": 41.56633072987068,
+      "forestPercent": 10.805428540677122
+    },
+    {
+      "day": 456.7916666666667,
+      "tick": 239712,
+      "population": 426,
+      "communalFoodTonnes": 41.360608936941645,
+      "forestPercent": 10.60712668419644
+    },
+    {
+      "day": 457.7916666666667,
+      "tick": 239808,
+      "population": 425,
+      "communalFoodTonnes": 41.08389719573694,
+      "forestPercent": 10.407373392846722
+    },
+    {
+      "day": 458.7916666666667,
+      "tick": 239904,
+      "population": 425,
+      "communalFoodTonnes": 40.72331792659035,
+      "forestPercent": 10.21288071740402
+    },
+    {
+      "day": 459.7916666666667,
+      "tick": 240000,
+      "population": 425,
+      "communalFoodTonnes": 40.37241986758113,
+      "forestPercent": 10.012010158591677
+    },
+    {
+      "day": 460.7916666666667,
+      "tick": 240096,
+      "population": 427,
+      "communalFoodTonnes": 39.985404857397434,
+      "forestPercent": 9.81855611707301
+    },
+    {
+      "day": 461.7916666666667,
+      "tick": 240192,
+      "population": 427,
+      "communalFoodTonnes": 39.62321639882082,
+      "forestPercent": 9.63809169989806
+    },
+    {
+      "day": 462.7916666666667,
+      "tick": 240288,
+      "population": 427,
+      "communalFoodTonnes": 39.24068025522028,
+      "forestPercent": 9.458477640684276
+    },
+    {
+      "day": 463.7916666666667,
+      "tick": 240384,
+      "population": 427,
+      "communalFoodTonnes": 38.93459042136413,
+      "forestPercent": 9.285449561604107
+    },
+    {
+      "day": 464.7916666666667,
+      "tick": 240480,
+      "population": 427,
+      "communalFoodTonnes": 38.57643598878508,
+      "forestPercent": 9.111940820411272
+    },
+    {
+      "day": 465.7916666666667,
+      "tick": 240576,
+      "population": 427,
+      "communalFoodTonnes": 38.16181910071757,
+      "forestPercent": 8.942201758607087
+    },
+    {
+      "day": 466.7916666666667,
+      "tick": 240672,
+      "population": 427,
+      "communalFoodTonnes": 37.75880592756308,
+      "forestPercent": 8.777012657340041
+    },
+    {
+      "day": 467.7916666666667,
+      "tick": 240768,
+      "population": 427,
+      "communalFoodTonnes": 37.37437077112813,
+      "forestPercent": 8.609546232926753
+    },
+    {
+      "day": 468.7916666666667,
+      "tick": 240864,
+      "population": 428,
+      "communalFoodTonnes": 37.01659912143248,
+      "forestPercent": 8.451532036630235
+    },
+    {
+      "day": 469.7916666666667,
+      "tick": 240960,
+      "population": 428,
+      "communalFoodTonnes": 36.62999451065645,
+      "forestPercent": 8.300194164004314
+    },
+    {
+      "day": 470.7916666666667,
+      "tick": 241056,
+      "population": 428,
+      "communalFoodTonnes": 36.25095064317294,
+      "forestPercent": 8.154936666467737
+    },
+    {
+      "day": 471.7916666666667,
+      "tick": 241152,
+      "population": 428,
+      "communalFoodTonnes": 35.88821423827781,
+      "forestPercent": 8.008664762800866
+    },
+    {
+      "day": 472.7916666666667,
+      "tick": 241248,
+      "population": 428,
+      "communalFoodTonnes": 35.580977598165695,
+      "forestPercent": 7.865418527150793
+    },
+    {
+      "day": 473.7916666666667,
+      "tick": 241344,
+      "population": 428,
+      "communalFoodTonnes": 35.21445317131672,
+      "forestPercent": 7.722799459456753
+    },
+    {
+      "day": 474.7916666666667,
+      "tick": 241440,
+      "population": 428,
+      "communalFoodTonnes": 34.748088249097194,
+      "forestPercent": 7.581493938426839
+    },
+    {
+      "day": 475.7916666666667,
+      "tick": 241536,
+      "population": 429,
+      "communalFoodTonnes": 34.26930122326938,
+      "forestPercent": 7.444491697194784
+    },
+    {
+      "day": 476.7916666666667,
+      "tick": 241632,
+      "population": 429,
+      "communalFoodTonnes": 33.73278011457988,
+      "forestPercent": 7.317706160140457
+    },
+    {
+      "day": 477.7916666666667,
+      "tick": 241728,
+      "population": 429,
+      "communalFoodTonnes": 33.18943056512822,
+      "forestPercent": 7.195009979593996
+    },
+    {
+      "day": 478.7916666666667,
+      "tick": 241824,
+      "population": 429,
+      "communalFoodTonnes": 32.62638564237975,
+      "forestPercent": 7.078127737813311
+    },
+    {
+      "day": 479.7916666666667,
+      "tick": 241920,
+      "population": 429,
+      "communalFoodTonnes": 32.15829162479302,
+      "forestPercent": 6.960712035312355
+    },
+    {
+      "day": 480.7916666666667,
+      "tick": 242016,
+      "population": 429,
+      "communalFoodTonnes": 31.690977483948434,
+      "forestPercent": 6.836266184389182
+    },
+    {
+      "day": 481.7916666666667,
+      "tick": 242112,
+      "population": 429,
+      "communalFoodTonnes": 31.15325308853934,
+      "forestPercent": 6.724004560161108
+    },
+    {
+      "day": 482.7916666666667,
+      "tick": 242208,
+      "population": 429,
+      "communalFoodTonnes": 30.66258262942836,
+      "forestPercent": 6.614251005248313
+    },
+    {
+      "day": 483.7916666666667,
+      "tick": 242304,
+      "population": 429,
+      "communalFoodTonnes": 30.099436020415475,
+      "forestPercent": 6.511356254735236
+    },
+    {
+      "day": 484.7916666666667,
+      "tick": 242400,
+      "population": 429,
+      "communalFoodTonnes": 29.643774386160093,
+      "forestPercent": 6.3982652238785045
+    },
+    {
+      "day": 485.7916666666667,
+      "tick": 242496,
+      "population": 430,
+      "communalFoodTonnes": 29.153936111459956,
+      "forestPercent": 6.289001418916554
+    },
+    {
+      "day": 486.7916666666667,
+      "tick": 242592,
+      "population": 430,
+      "communalFoodTonnes": 28.5751141645815,
+      "forestPercent": 6.190552029471159
+    },
+    {
+      "day": 487.7916666666667,
+      "tick": 242688,
+      "population": 430,
+      "communalFoodTonnes": 28.062313980361232,
+      "forestPercent": 6.093089271559691
+    },
+    {
+      "day": 488.7916666666667,
+      "tick": 242784,
+      "population": 430,
+      "communalFoodTonnes": 27.55914573017706,
+      "forestPercent": 5.989155047211215
+    },
+    {
+      "day": 489.7916666666667,
+      "tick": 242880,
+      "population": 430,
+      "communalFoodTonnes": 26.989199317265598,
+      "forestPercent": 5.8898223150475
+    },
+    {
+      "day": 490.7916666666667,
+      "tick": 242976,
+      "population": 430,
+      "communalFoodTonnes": 26.44246721017958,
+      "forestPercent": 5.794331267416767
+    },
+    {
+      "day": 491.7916666666667,
+      "tick": 243072,
+      "population": 430,
+      "communalFoodTonnes": 25.876400319608436,
+      "forestPercent": 5.70155199329772
+    },
+    {
+      "day": 492.7916666666667,
+      "tick": 243168,
+      "population": 430,
+      "communalFoodTonnes": 25.334947059127916,
+      "forestPercent": 5.610312400047464
+    },
+    {
+      "day": 493.7916666666667,
+      "tick": 243264,
+      "population": 430,
+      "communalFoodTonnes": 24.813473368156426,
+      "forestPercent": 5.519642077881085
+    },
+    {
+      "day": 494.7916666666667,
+      "tick": 243360,
+      "population": 430,
+      "communalFoodTonnes": 24.24553779951818,
+      "forestPercent": 5.436269055350111
+    },
+    {
+      "day": 495.7916666666667,
+      "tick": 243456,
+      "population": 430,
+      "communalFoodTonnes": 23.717733119116357,
+      "forestPercent": 5.35081652567745
+    },
+    {
+      "day": 496.7916666666667,
+      "tick": 243552,
+      "population": 430,
+      "communalFoodTonnes": 23.21344987564413,
+      "forestPercent": 5.265027039413739
+    },
+    {
+      "day": 497.7916666666667,
+      "tick": 243648,
+      "population": 430,
+      "communalFoodTonnes": 22.671754398892126,
+      "forestPercent": 5.182807631148911
+    },
+    {
+      "day": 498.7916666666667,
+      "tick": 243744,
+      "population": 430,
+      "communalFoodTonnes": 22.15169531316523,
+      "forestPercent": 5.101608642160939
+    },
+    {
+      "day": 499.7916666666667,
+      "tick": 243840,
+      "population": 430,
+      "communalFoodTonnes": 21.61770881203435,
+      "forestPercent": 5.01965189935067
+    },
+    {
+      "day": 500.7916666666667,
+      "tick": 243936,
+      "population": 432,
+      "communalFoodTonnes": 21.10270057872845,
+      "forestPercent": 4.939276845236011
+    },
+    {
+      "day": 501.7916666666667,
+      "tick": 244032,
+      "population": 432,
+      "communalFoodTonnes": 20.63728708987014,
+      "forestPercent": 4.8498957101069236
+    },
+    {
+      "day": 502.7916666666667,
+      "tick": 244128,
+      "population": 433,
+      "communalFoodTonnes": 20.129505626704496,
+      "forestPercent": 4.76565269042006
+    },
+    {
+      "day": 503.7916666666667,
+      "tick": 244224,
+      "population": 433,
+      "communalFoodTonnes": 19.594768671709073,
+      "forestPercent": 4.682323417366464
+    },
+    {
+      "day": 504.7916666666667,
+      "tick": 244320,
+      "population": 433,
+      "communalFoodTonnes": 19.051493752533887,
+      "forestPercent": 4.603481987725665
+    },
+    {
+      "day": 505.7916666666667,
+      "tick": 244416,
+      "population": 433,
+      "communalFoodTonnes": 18.544684380491606,
+      "forestPercent": 4.518464138081852
+    },
+    {
+      "day": 506.7916666666667,
+      "tick": 244512,
+      "population": 433,
+      "communalFoodTonnes": 18.032127181177106,
+      "forestPercent": 4.441176366374543
+    },
+    {
+      "day": 507.7916666666667,
+      "tick": 244608,
+      "population": 433,
+      "communalFoodTonnes": 17.326074529802565,
+      "forestPercent": 4.391120270627136
+    },
+    {
+      "day": 508.7916666666667,
+      "tick": 244704,
+      "population": 433,
+      "communalFoodTonnes": 16.63366781708232,
+      "forestPercent": 4.34181394148186
+    },
+    {
+      "day": 509.7916666666667,
+      "tick": 244800,
+      "population": 433,
+      "communalFoodTonnes": 15.937938382729557,
+      "forestPercent": 4.293543021718633
+    },
+    {
+      "day": 510.7916666666667,
+      "tick": 244896,
+      "population": 433,
+      "communalFoodTonnes": 15.248844379128984,
+      "forestPercent": 4.245982206288692
+    },
+    {
+      "day": 511.7916666666667,
+      "tick": 244992,
+      "population": 433,
+      "communalFoodTonnes": 14.564707352134269,
+      "forestPercent": 4.199408468374596
+    },
+    {
+      "day": 512.7916666666666,
+      "tick": 245088,
+      "population": 433,
+      "communalFoodTonnes": 13.868244508155199,
+      "forestPercent": 4.1535183185633056
+    },
+    {
+      "day": 513.7916666666666,
+      "tick": 245184,
+      "population": 433,
+      "communalFoodTonnes": 13.179915114121808,
+      "forestPercent": 4.1089745219454095
+    },
+    {
+      "day": 514.7916666666666,
+      "tick": 245280,
+      "population": 432,
+      "communalFoodTonnes": 12.505536183189887,
+      "forestPercent": 4.06545621641285
+    },
+    {
+      "day": 515.7916666666666,
+      "tick": 245376,
+      "population": 432,
+      "communalFoodTonnes": 11.833879514558584,
+      "forestPercent": 4.022569955884167
+    },
+    {
+      "day": 516.7916666666666,
+      "tick": 245472,
+      "population": 432,
+      "communalFoodTonnes": 11.170404012332192,
+      "forestPercent": 3.9806547763252724
+    },
+    {
+      "day": 517.7916666666666,
+      "tick": 245568,
+      "population": 432,
+      "communalFoodTonnes": 10.500085962482206,
+      "forestPercent": 3.9395691544412395
+    },
+    {
+      "day": 518.7916666666666,
+      "tick": 245664,
+      "population": 431,
+      "communalFoodTonnes": 9.824588302463336,
+      "forestPercent": 3.8994457236344515
+    },
+    {
+      "day": 519.7916666666666,
+      "tick": 245760,
+      "population": 431,
+      "communalFoodTonnes": 9.16348919750801,
+      "forestPercent": 3.8600451266589113
+    },
+    {
+      "day": 520.7916666666666,
+      "tick": 245856,
+      "population": 432,
+      "communalFoodTonnes": 8.470639216731142,
+      "forestPercent": 3.821534310135516
+    },
+    {
+      "day": 521.7916666666666,
+      "tick": 245952,
+      "population": 433,
+      "communalFoodTonnes": 7.78717963210993,
+      "forestPercent": 3.783761340343567
+    },
+    {
+      "day": 522.7916666666666,
+      "tick": 246048,
+      "population": 433,
+      "communalFoodTonnes": 7.105909039595682,
+      "forestPercent": 3.7468402937490923
+    },
+    {
+      "day": 523.7916666666666,
+      "tick": 246144,
+      "population": 433,
+      "communalFoodTonnes": 6.431284283799943,
+      "forestPercent": 3.710624203678656
+    },
+    {
+      "day": 524.7916666666666,
+      "tick": 246240,
+      "population": 433,
+      "communalFoodTonnes": 5.769706837956381,
+      "forestPercent": 3.6752500320566166
+    },
+    {
+      "day": 525.7916666666666,
+      "tick": 246336,
+      "population": 433,
+      "communalFoodTonnes": 5.1098411997704805,
+      "forestPercent": 3.640583942963984
+    },
+    {
+      "day": 526.7916666666666,
+      "tick": 246432,
+      "population": 432,
+      "communalFoodTonnes": 4.444151631886456,
+      "forestPercent": 3.6067860020424845
+    },
+    {
+      "day": 527.7916666666666,
+      "tick": 246528,
+      "population": 432,
+      "communalFoodTonnes": 3.7888602234370254,
+      "forestPercent": 3.5736869132610516
+    },
+    {
+      "day": 528.7916666666666,
+      "tick": 246624,
+      "population": 433,
+      "communalFoodTonnes": 3.1435401066829187,
+      "forestPercent": 3.541361833688139
+    },
+    {
+      "day": 529.7916666666666,
+      "tick": 246720,
+      "population": 433,
+      "communalFoodTonnes": 2.4963050837546477,
+      "forestPercent": 3.509906813743893
+    },
+    {
+      "day": 530.7916666666666,
+      "tick": 246816,
+      "population": 436,
+      "communalFoodTonnes": 1.8513624075161255,
+      "forestPercent": 3.4790892710249417
+    },
+    {
+      "day": 531.7916666666666,
+      "tick": 246912,
+      "population": 436,
+      "communalFoodTonnes": 1.2067596234265288,
+      "forestPercent": 3.449171808119068
+    },
+    {
+      "day": 532.7916666666666,
+      "tick": 247008,
+      "population": 436,
+      "communalFoodTonnes": 0.5732181811036854,
+      "forestPercent": 3.4200783374362795
+    },
+    {
+      "day": 533.7916666666666,
+      "tick": 247104,
+      "population": 435,
+      "communalFoodTonnes": 0.00117047227604748,
+      "forestPercent": 3.391797322090033
+    },
+    {
+      "day": 534.7916666666666,
+      "tick": 247200,
+      "population": 435,
+      "communalFoodTonnes": 0.0014243579100965765,
+      "forestPercent": 3.3643614743807935
+    },
+    {
+      "day": 535.7916666666666,
+      "tick": 247296,
+      "population": 424,
+      "communalFoodTonnes": 0.0016883889768502891,
+      "forestPercent": 3.337669181156263
+    },
+    {
+      "day": 536.7916666666666,
+      "tick": 247392,
+      "population": 312,
+      "communalFoodTonnes": 0.0014770177963893893,
+      "forestPercent": 3.3121044338536505
+    },
+    {
+      "day": 537.7916666666666,
+      "tick": 247488,
+      "population": 308,
+      "communalFoodTonnes": 0.001945689855541855,
+      "forestPercent": 3.287476534404511
+    },
+    {
+      "day": 538.7916666666666,
+      "tick": 247584,
+      "population": 306,
+      "communalFoodTonnes": 0.0023784626232857165,
+      "forestPercent": 3.26396417057804
+    },
+    {
+      "day": 539.7916666666666,
+      "tick": 247680,
+      "population": 284,
+      "communalFoodTonnes": 0.0032823223355596025,
+      "forestPercent": 3.2416632699665793
+    },
+    {
+      "day": 540.7916666666666,
+      "tick": 247776,
+      "population": 45,
+      "communalFoodTonnes": 0.0047612572931758175,
+      "forestPercent": 3.2204264333832278
+    },
+    {
+      "day": 541.7916666666666,
+      "tick": 247872,
+      "population": 3,
+      "communalFoodTonnes": 0.005149116577821743,
+      "forestPercent": 3.2004047528561492
+    },
+    {
+      "day": 542.7916666666666,
+      "tick": 247968,
+      "population": 2,
+      "communalFoodTonnes": 0.0022371419679027603,
+      "forestPercent": 3.1817444281996456
+    },
+    {
+      "day": 543.7916666666666,
+      "tick": 248064,
+      "population": 2,
+      "communalFoodTonnes": 0.0001829421437494406,
+      "forestPercent": 3.164454616400724
+    },
+    {
+      "day": 544.7916666666666,
+      "tick": 248160,
+      "population": 2,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.148699525862406
+    },
+    {
+      "day": 545.7916666666666,
+      "tick": 248256,
+      "population": 2,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.134375059559682
+    },
+    {
+      "day": 546.7916666666666,
+      "tick": 248352,
+      "population": 1,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.121489630400797
+    },
+    {
+      "day": 547.7916666666666,
+      "tick": 248448,
+      "population": 1,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.1102066936462185
+    },
+    {
+      "day": 548.7916666666666,
+      "tick": 248544,
+      "population": 1,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.100367146209968
+    },
+    {
+      "day": 549.7916666666666,
+      "tick": 248640,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.0922975265832218
+    },
+    {
+      "day": 550.7916666666666,
+      "tick": 248736,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.0861851859649247
+    },
+    {
+      "day": 551.7916666666666,
+      "tick": 248832,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.081980730537897
+    },
+    {
+      "day": 552.7916666666666,
+      "tick": 248928,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.0810061971432052
+    },
+    {
+      "day": 553.7916666666666,
+      "tick": 249024,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.082920595725101
+    },
+    {
+      "day": 554.7916666666666,
+      "tick": 249120,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.088841356309822
+    },
+    {
+      "day": 555.7916666666666,
+      "tick": 249216,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.098878206191567
+    },
+    {
+      "day": 556.7916666666666,
+      "tick": 249312,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.1128220514597063
+    },
+    {
+      "day": 557.7916666666666,
+      "tick": 249408,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.1324117446589854
+    },
+    {
+      "day": 558.7916666666666,
+      "tick": 249504,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.1566627389226545
+    },
+    {
+      "day": 559.7916666666666,
+      "tick": 249600,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.1860693906854207
+    },
+    {
+      "day": 560.7916666666666,
+      "tick": 249696,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.2210299652151266
+    },
+    {
+      "day": 561.7916666666666,
+      "tick": 249792,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.2605459147166935
+    },
+    {
+      "day": 562.7916666666666,
+      "tick": 249888,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.305116768858568
+    },
+    {
+      "day": 563.7916666666666,
+      "tick": 249984,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.3533992335731795
+    },
+    {
+      "day": 564.7916666666666,
+      "tick": 250080,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.4049868722424175
+    },
+    {
+      "day": 565.7916666666666,
+      "tick": 250176,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.4612803516317943
+    },
+    {
+      "day": 566.7916666666666,
+      "tick": 250272,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.5224965490104148
+    },
+    {
+      "day": 567.7916666666666,
+      "tick": 250368,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.587229095125198
+    },
+    {
+      "day": 568.7916666666666,
+      "tick": 250464,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.6557252650512218
+    },
+    {
+      "day": 569.7916666666666,
+      "tick": 250560,
+      "population": 0,
+      "communalFoodTonnes": 0.0,
+      "forestPercent": 3.728284972346639
+    }
+  ],
+  "deathsPerDay": [
+    {
+      "day": 0.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 1.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 2.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 3.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 4.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 5.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 6.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 7.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 8.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 9.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 10.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 11.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 12.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 13.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 14.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 15.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 16.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 17.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 18.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 19.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 20.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 21.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 22.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 23.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 24.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 25.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 26.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 27.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 28.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 29.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 30.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 31.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 32.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 33.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 34.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 35.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 36.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 37.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 38.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 39.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 40.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 41.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 42.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 43.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 44.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 45.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 46.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 47.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 48.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 49.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 50.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 51.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 52.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 53.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 54.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 55.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 56.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 57.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 58.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 59.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 60.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 61.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 62.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 63.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 64.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 65.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 66.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 67.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 68.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 69.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 70.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 71.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 72.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 73.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 74.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 75.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 76.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 77.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 78.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 79.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 80.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 81.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 82.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 83.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 84.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 85.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 86.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 87.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 88.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 89.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 90.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 91.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 92.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 93.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 94.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 95.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 96.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 97.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 98.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 99.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 100.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 101.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 102.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 103.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 104.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 105.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 106.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 107.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 108.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 109.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 110.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 111.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 112.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 113.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 114.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 115.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 116.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 117.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 118.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 119.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 120.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 121.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 122.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 123.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 124.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 125.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 126.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 127.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 128.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 129.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 130.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 131.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 132.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 133.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 134.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 135.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 136.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 137.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 138.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 139.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 140.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 141.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 142.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 143.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 144.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 145.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 146.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 147.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 148.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 149.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 150.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 151.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 152.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 153.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 154.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 155.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 156.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 157.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 158.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 159.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 160.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 161.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 162.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 163.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 164.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 165.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 166.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 167.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 168.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 169.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 170.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 171.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 172.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 173.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 174.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 175.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 176.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 177.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 178.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 179.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 180.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 181.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 182.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 183.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 184.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 185.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 186.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 187.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 188.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 189.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 190.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 191.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 192.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 193.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 194.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 195.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 196.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 197.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 198.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 199.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 200.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 201.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 202.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 203.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 204.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 205.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 206.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 207.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 208.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 209.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 210.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 211.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 212.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 213.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 214.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 215.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 216.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 217.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 218.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 219.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 220.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 221.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 222.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 223.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 224.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 225.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 226.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 227.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 228.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 229.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 230.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 231.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 232.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 233.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 234.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 235.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 236.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 237.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 238.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 239.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 240.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 241.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 242.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 243.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 244.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 245.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 246.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 247.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 248.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 249.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 250.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 251.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 252.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 253.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 254.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 255.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 256.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 257.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 258.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 259.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 260.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 261.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 262.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 263.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 264.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 265.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 266.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 267.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 268.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 269.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 270.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 271.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 272.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 273.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 274.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 275.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 276.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 277.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 278.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 279.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 280.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 281.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 282.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 283.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 284.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 285.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 286.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 287.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 288.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 289.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 290.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 291.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 292.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 293.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 294.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 295.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 296.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 297.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 298.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 299.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 300.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 301.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 302.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 303.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 304.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 305.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 306.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 307.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 308.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 309.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 310.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 311.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 312.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 313.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 314.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 315.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 316.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 317.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 318.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 319.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 320.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 321.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 322.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 323.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 324.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 325.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 326.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 327.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 328.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 329.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 330.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 331.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 332.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 333.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 334.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 335.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 336.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 337.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 338.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 339.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 340.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 341.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 342.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 343.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 344.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 345.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 346.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 347.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 348.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 349.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 350.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 351.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 352.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 353.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 354.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 355.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 356.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 357.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 358.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 359.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 360.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 361.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 362.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 363.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 364.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 365.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 366.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 367.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 368.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 369.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 370.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 371.5,
+      "adult": 0,
+      "child": 1
+    },
+    {
+      "day": 372.5,
+      "adult": 0,
+      "child": 36
+    },
+    {
+      "day": 373.5,
+      "adult": 0,
+      "child": 27
+    },
+    {
+      "day": 374.5,
+      "adult": 0,
+      "child": 21
+    },
+    {
+      "day": 375.5,
+      "adult": 1,
+      "child": 44
+    },
+    {
+      "day": 376.5,
+      "adult": 23,
+      "child": 17
+    },
+    {
+      "day": 377.5,
+      "adult": 20,
+      "child": 14
+    },
+    {
+      "day": 378.5,
+      "adult": 10,
+      "child": 1
+    },
+    {
+      "day": 379.5,
+      "adult": 24,
+      "child": 1
+    },
+    {
+      "day": 380.5,
+      "adult": 27,
+      "child": 2
+    },
+    {
+      "day": 381.5,
+      "adult": 20,
+      "child": 1
+    },
+    {
+      "day": 382.5,
+      "adult": 29,
+      "child": 1
+    },
+    {
+      "day": 383.5,
+      "adult": 26,
+      "child": 0
+    },
+    {
+      "day": 384.5,
+      "adult": 30,
+      "child": 0
+    },
+    {
+      "day": 385.5,
+      "adult": 23,
+      "child": 0
+    },
+    {
+      "day": 386.5,
+      "adult": 13,
+      "child": 0
+    },
+    {
+      "day": 387.5,
+      "adult": 10,
+      "child": 0
+    },
+    {
+      "day": 388.5,
+      "adult": 15,
+      "child": 0
+    },
+    {
+      "day": 389.5,
+      "adult": 7,
+      "child": 0
+    },
+    {
+      "day": 390.5,
+      "adult": 12,
+      "child": 1
+    },
+    {
+      "day": 391.5,
+      "adult": 7,
+      "child": 2
+    },
+    {
+      "day": 392.5,
+      "adult": 9,
+      "child": 2
+    },
+    {
+      "day": 393.5,
+      "adult": 6,
+      "child": 1
+    },
+    {
+      "day": 394.5,
+      "adult": 6,
+      "child": 0
+    },
+    {
+      "day": 395.5,
+      "adult": 5,
+      "child": 1
+    },
+    {
+      "day": 396.5,
+      "adult": 21,
+      "child": 0
+    },
+    {
+      "day": 397.5,
+      "adult": 17,
+      "child": 0
+    },
+    {
+      "day": 398.5,
+      "adult": 34,
+      "child": 0
+    },
+    {
+      "day": 399.5,
+      "adult": 39,
+      "child": 0
+    },
+    {
+      "day": 400.5,
+      "adult": 31,
+      "child": 0
+    },
+    {
+      "day": 401.5,
+      "adult": 27,
+      "child": 1
+    },
+    {
+      "day": 402.5,
+      "adult": 21,
+      "child": 0
+    },
+    {
+      "day": 403.5,
+      "adult": 10,
+      "child": 0
+    },
+    {
+      "day": 404.5,
+      "adult": 12,
+      "child": 0
+    },
+    {
+      "day": 405.5,
+      "adult": 3,
+      "child": 48
+    },
+    {
+      "day": 406.5,
+      "adult": 3,
+      "child": 28
+    },
+    {
+      "day": 407.5,
+      "adult": 6,
+      "child": 15
+    },
+    {
+      "day": 408.5,
+      "adult": 3,
+      "child": 3
+    },
+    {
+      "day": 409.5,
+      "adult": 90,
+      "child": 1
+    },
+    {
+      "day": 410.5,
+      "adult": 77,
+      "child": 0
+    },
+    {
+      "day": 411.5,
+      "adult": 45,
+      "child": 0
+    },
+    {
+      "day": 412.5,
+      "adult": 29,
+      "child": 0
+    },
+    {
+      "day": 413.5,
+      "adult": 20,
+      "child": 0
+    },
+    {
+      "day": 414.5,
+      "adult": 18,
+      "child": 0
+    },
+    {
+      "day": 415.5,
+      "adult": 26,
+      "child": 0
+    },
+    {
+      "day": 416.5,
+      "adult": 8,
+      "child": 1
+    },
+    {
+      "day": 417.5,
+      "adult": 5,
+      "child": 0
+    },
+    {
+      "day": 418.5,
+      "adult": 4,
+      "child": 0
+    },
+    {
+      "day": 419.5,
+      "adult": 3,
+      "child": 0
+    },
+    {
+      "day": 420.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 421.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 422.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 423.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 424.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 425.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 426.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 427.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 428.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 429.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 430.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 431.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 432.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 433.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 434.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 435.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 436.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 437.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 438.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 439.5,
+      "adult": 3,
+      "child": 0
+    },
+    {
+      "day": 440.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 441.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 442.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 443.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 444.5,
+      "adult": 0,
+      "child": 1
+    },
+    {
+      "day": 445.5,
+      "adult": 0,
+      "child": 1
+    },
+    {
+      "day": 446.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 447.5,
+      "adult": 3,
+      "child": 0
+    },
+    {
+      "day": 448.5,
+      "adult": 2,
+      "child": 0
+    },
+    {
+      "day": 449.5,
+      "adult": 6,
+      "child": 0
+    },
+    {
+      "day": 450.5,
+      "adult": 2,
+      "child": 0
+    },
+    {
+      "day": 451.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 452.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 453.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 454.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 455.5,
+      "adult": 3,
+      "child": 0
+    },
+    {
+      "day": 456.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 457.5,
+      "adult": 1,
+      "child": 0
+    },
+    {
+      "day": 458.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 459.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 460.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 461.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 462.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 463.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 464.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 465.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 466.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 467.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 468.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 469.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 470.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 471.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 472.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 473.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 474.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 475.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 476.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 477.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 478.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 479.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 480.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 481.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 482.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 483.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 484.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 485.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 486.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 487.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 488.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 489.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 490.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 491.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 492.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 493.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 494.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 495.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 496.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 497.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 498.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 499.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 500.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 501.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 502.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 503.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 504.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 505.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 506.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 507.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 508.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 509.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 510.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 511.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 512.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 513.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 514.5,
+      "adult": 1,
+      "child": 0
+    },
+    {
+      "day": 515.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 516.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 517.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 518.5,
+      "adult": 1,
+      "child": 0
+    },
+    {
+      "day": 519.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 520.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 521.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 522.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 523.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 524.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 525.5,
+      "adult": 1,
+      "child": 0
+    },
+    {
+      "day": 526.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 527.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 528.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 529.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 530.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 531.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 532.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 533.5,
+      "adult": 1,
+      "child": 0
+    },
+    {
+      "day": 534.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 535.5,
+      "adult": 0,
+      "child": 69
+    },
+    {
+      "day": 536.5,
+      "adult": 0,
+      "child": 55
+    },
+    {
+      "day": 537.5,
+      "adult": 0,
+      "child": 4
+    },
+    {
+      "day": 538.5,
+      "adult": 0,
+      "child": 5
+    },
+    {
+      "day": 539.5,
+      "adult": 77,
+      "child": 0
+    },
+    {
+      "day": 540.5,
+      "adult": 213,
+      "child": 0
+    },
+    {
+      "day": 541.5,
+      "adult": 10,
+      "child": 1
+    },
+    {
+      "day": 542.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 543.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 544.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 545.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 546.5,
+      "adult": 0,
+      "child": 1
+    },
+    {
+      "day": 547.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 548.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 549.5,
+      "adult": 1,
+      "child": 0
+    },
+    {
+      "day": 550.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 551.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 552.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 553.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 554.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 555.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 556.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 557.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 558.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 559.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 560.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 561.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 562.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 563.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 564.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 565.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 566.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 567.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 568.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 569.5,
+      "adult": 0,
+      "child": 0
+    },
+    {
+      "day": 570.5,
+      "adult": 0,
+      "child": 0
+    }
+  ],
+  "limits": "Daily food includes only communal stock, excluding personal rations, cargo and standing plants. Death age classification follows recorded age; all children were under one year and all adults aged19\u201343."
+}

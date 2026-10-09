@@ -1,0 +1,109 @@
+# Browser world architecture
+
+Praxans has one authoritative world process. Browsers observe it; external agents send bounded requests. Neither a browser's frame rate nor a model response controls simulation time.
+
+```mermaid
+flowchart LR
+  Observer[Browser observer] --> Website[Vercel static website]
+  Website -->|API and event stream| Server[Railway Node service]
+  Agent[Player's HTTP or MCP agent] -->|Scoped requests| Server
+  Server --> Simulation[Deterministic simulation]
+  Simulation -->|Validated checkpoints| Store[SQLite on persistent volume]
+  Store --> Archive[History, migrations, ownership, clock]
+```
+
+## Source boundaries
+
+| Location | Responsibility |
+| --- | --- |
+| `src/simulation/types.ts` | Explicit saved state, snapshots, tick units, format version |
+| `world.ts`, `terrain.ts`, `surface.ts` | Initial conditions, seeded planet, region materialization, frontier founding |
+| `planet.ts`, `chronology.ts` | Orbits, solar position, moon, calendar, geological epoch |
+| `chemistry.ts`, `laws.ts`, `thermodynamics.ts` | Element identities, material balances, biochemical energy, statics, selected entropy flows |
+| `climate.ts`, `weather.ts`, `geology.ts`, `ecology.ts`, `fauna.ts` | Planetary heat exchange, local environment, dormant propagules and living processes |
+| `landscape.ts`, `weathering.ts` | Sediment/surface evolution, fabric loss, repair, salvage and storage exposure |
+| `cognition.ts`, `society.ts`, `diplomacy.ts`, `progress.ts` | Personal learning, local assemblies, journeys/commitments and civilization outcome feedback |
+| `citizens.ts`, `economy.ts`, `engine.ts`, `actions.ts` | Needs, learning, work, relationships, ordered updates, bounded agent intervention |
+| `physiology.ts`, `subsistence.ts`, `movement.ts`, `settlement.ts`, `geometry.ts` | Finite intake/reserve oxidation, shared food/ice budgets, paid activity, remembered supplies, spherical walking, connected camp area and material enclosures |
+| `bodywork.ts` | Local body-maintenance opportunities, performed repair work, shared fiber transfers and thermal feedback |
+| `foodwork.ts` | Voluntary paid food handoffs using the same personal-contact index, post-meal holder budgets and gross transfers before later ingestion |
+| `src/server/app.ts`, `schema.ts` | HTTP/MCP, scoped authorization, action validation, public snapshots and event streams |
+| `observer.ts`, `atlas.ts` | Public projections and progressively sampled planetary imagery, separate from authoritative state |
+| `store.ts`, `backup.ts`, `storage-format.ts`, `regions.ts`, `region-codec.ts`, `archives.ts`, `archive-codec.ts`, `migrations.ts` | Atomic SQLite storage, bounded native backups, verified migration archives, ownership lease, recovery clock |
+| `src/server/intervention.ts`, `src/simulation/renewal.ts` | Private, finite, idempotent operator renewal with explicit boundary inventories and permanent history |
+| `gateway.ts`, `runtime.ts`, `worker.ts`, `artifact.ts`, `preflight.ts` | Stable HTTP/SSE transport, replaceable sole-writer runtime, verified artifacts, private candidate validation and durable activation |
+| `src/client/` | Planet entrance, landscape rendering, inspection, history, and agent onboarding |
+
+The historical Python modules and authored content definitions do not participate in the browser runtime.
+
+## Clock ownership and determinism
+
+The world stores a nonnegative integer tick and the seeded PRNG state. One tick represents 900 simulated seconds. The host aims to advance one tick every 250 real milliseconds: one simulated day takes 24 real seconds at full speed. Weather and ecology update hourly; geological changes integrate daily at their much slower physical rates.
+
+A persisted wall-clock checkpoint records how much real time has been processed. After interruption, the server advances every missed tick in bounded batches. It does not jump over hunger, metabolism, births, weather, or other consequences. The public health response reports lag, recovery state and proposal availability. Advisory proposals enter at the current logical tick even during recovery; they cannot change earlier ticks, skip debt or execute work immediately. New founding waits when recovery is more than ten real seconds behind. Very large backlogs and growing worlds can take time to recover.
+
+Recovery yields between work batches and promptly schedules further overdue ticks. It does not add an ordinary tick delay to every recovery batch. Observer broadcasts have a wall-time ceiling so accelerated recovery need not transmit every intermediate frame; simulation time and the persistent checkpoint retain all processed steps.
+
+A database lease prevents two processes from advancing the same saved world. The owner renews it every five seconds; an interrupted owner's lease expires after thirty seconds. A successful world transaction checks/renews its held lease before commit, so lengthy synchronous archive work does not release its write lock with the previous lease already expired. A lost token aborts the transaction. Save and clock checkpoint commit together. A graceful stop saves and releases ownership. A fault preserves the last valid checkpoint and makes health fail. A busy pre-write checkpoint is recoverable: the server retains that computed state, defers further simulation steps, keeps observation available and retries before advancing. It reports `waiting-for-storage`; new advice receives `WORLD_STORAGE_BUSY`, while committed receipt replay remains available.
+
+In production, the gateway retains public observer connections while a compiled runtime owns the database and clock. A hotfix first validates its migration and forward steps on a private consistent copy. The gateway then drains current requests, queues arrivals, checkpoints/stops the old owner, and starts the prepared candidate. Complete compressed SSE records continue over the existing browser connection. A durable activation pointer survives gateway restarts; incompatible or missing referenced artifacts fail closed. An actual container/host replacement still interrupts this single-host transport.
+
+Deterministic replay means the same state, tick sequence, PRNG, laws, and ordered actions produce the same result. Network arrival times and different agent choices are external inputs, not deterministic predictions.
+
+Storage encoding has its own SQLite `user_version`, independent of world format and physical law. Version 1 supports plaintext history and independently compressed 256 KiB archive blocks; version 2 adds encoded regional rows. Version 3 adds reversible digit/literal block streams with smaller original Deflate fallbacks. Historical bytes, decimal spelling, checksums, identities and dates remain authoritative. New world serialization follows ordinary JSON order with additional memory proportional to the largest record, without a second complete world string.
+
+All archive descriptors are checked before conversion. Compaction runs before terrain loading, verifies every original block and full archive, then verifies the expected manifest and stored replacement before committing each archive. New writes receive the same read-back verification. Legacy plaintext still requires its original row; compressed processing is bounded by one block. Current-law loads can upgrade storage without changing world or clock state, and already converted archives are not recompressed. Version 3 requires the regional schema from version 2; a schema-1 world keeps Deflate until its ordinary save upgrades regions.
+
+Each conversion is separate from the later physical migration. Its rollback restores payloads, descriptor and version together; a completed conversion can remain if the later migration fails. Such a database requires a storage-3-compatible reader, and the gateway's compatibility fingerprint prevents fallback to storage-2 code. SQLite reuses freed pages without shrinking its file or deleting history. The [trial storage release](releases/archive-storage-0.2.md) records exact-byte, failure, capacity and publication evidence.
+
+The archive, physical migration, checkpoint and intervention records commit in one transaction. Loading owns its parsed world exclusively and may transform that object after archiving it; the public migration function remains pure by default. Failed migration discards that owned object and rolls back its rows. The additive archive storage-0-to-1 schema upgrade commits separately before loading, so it can remain after a later physical migration fails. Region storage-1-to-2 conversion instead commits inside the owner's save transaction; schema, payloads, clock and metadata roll back together if it fails. Preflight now exercises the real archive transaction on its private copy. A current-format preflight creates no new physical archive. Full historical verification belongs on an offline backup: old plaintext archives still require their original large row to be read.
+
+Storage version 2 adds losslessly encoded regional rows independently of physical format. Original UTF-8 JSON and SHA-256 remain authoritative; Zstandard payloads carry their own hash, content length and a bounded decoding window, with plaintext fallback when compression is not smaller. Canonical region readers serve normal loading and maintenance/upgrade tools. Old regional schemas remain readable, but older runtimes cannot resume encoded rows. Unknown schemas or corrupted/incomplete frames fail closed. Freed pages are reusable; full regional serialization and future capacity remain unresolved. See [validation and publication status](releases/region-checkpoints-0.2.md).
+
+## An immense, finite frontier
+
+The planet uses an equal-area surface projection with longitude wrapping and polar boundaries. A cell covers 100 m²; a region contains 32 × 32 cells. The Earth-sized surface has roughly five trillion possible cells. The first observer window spans 96 × 96 cells.
+
+Continental elevation and climate priors come from seeded spherical fields. The globe atlas samples the same fields. Regions are generated deterministically when a new settlement or actual travel needs them; moving the camera does not create land. New settlements search the frontier away from developed communities and require a habitable, adequately supplied local site.
+
+Materialized regions remain in the world and continue running when unobserved. Unmaterialized regions have seeded priors, not a fully simulated past. Their matter and arriving founders enter an explicit boundary inventory when they join the simulated volume. The conservation ledger includes those additions. Existing regions are not regenerated on a code update, and each world retains its generation version.
+
+The current engine runs all active regions in one Node process. A vast address space does not imply unlimited CPU, memory, observers, or simultaneous civilizations. A future hierarchy of regional simulation and transport must preserve material fluxes and time before it can replace this foundation.
+
+## Learning and agents
+
+The people phase shares one contact index. Its captured positions and tick-local positive-movement set distinguish pending routes from actual travel, including paths that return to their origin. The movement integrator reports metres; ordinary travel marks the shared context without adding saved state. Physiology and finite meal/ration pickup precede work. `harvesting.ts` captures only occupied ongoing resource-work sites, collects newly funded claims, and commits joint source debits/private credits before personal transfers and ordinary task completions. Deferred tending/experiment completions cannot recycle new matter into earlier harvest claims. Its optional cumulative task yield is an observation, not a second inventory. The harvesting boundary is simultaneous; the remaining economy retains sequential decisions and completions. All three physical work commits reject lost contact and absent actors/recipients before sharing sources; membership is indexed once per applicable commit, never scanned per contact.
+
+People choose work from bodily drives, policy, locally remembered opportunities, attention and experience. A bounded adaptive network changes activity preferences after real outcomes. Sleep consolidates personal knowledge; teaching needs a nearby holder. Experiments spend actual samples and record predictions, failures and uncertainty. Construction supplies stronger evidence. Useful ideas guide material gathering; scarcity changes practicality without an arbitrary gathering cap making every costly idea unreachable. No named template grants a physical affordance.
+
+Conditional task selection retains the urgent-need gates and one initial work-lottery draw, rescaling its selected or rejected interval for later eligible branches. Failed assignments can continue; infeasible preferred designs can yield to remembered alternatives through the same construction validator. This is an explicit behavioral policy with finite numerical precision. It changes future task frequencies without resetting RNG or rewriting prior work.
+
+Body maintenance extends the existing repair activity. A transient index captures people and their occupied cells at the start of each tick; the first observer of a cell estimates local covering opportunities for that quarter-hour. Decisions and performed transfers recheck contact and supplies. Existing active tasks earn finite capacity after ordinary fatigue and bodily costs. After every person's movement and physiology, a common boundary allocates available fiber proportionally and commits actual placement/removal before deaths and journeys. Removed fiber cannot fund another placement at that same boundary. The citizen scheduler prepares shared current food and ice requests, completes funded physiology, then commits optional intake and ration refills before decisions/movement/work and existing body transfers. Maintenance, heat and melting draw from one actual substrate account. Refill requests snapshot camp access and share finite residual supplies proportionally, with duplicate and stale-contact checks. The inherited 3 kg target and proportional contention are explicit controller conventions, not social agreements. Private rations, work cargo and caravan stores retain their custody. Oxygen contention remains sequential. Loose goods across those holders receive the same hourly sampled exposure; intake and body compartments retain their physiological paths.
+
+Task fields retain a recipient, target covering mass and kilograms actually moved. The index, opportunity estimates and transfer claims are not saved. Signed marginal thermal outcomes feed the existing repair-learning path; observed opposing self-adjustment prompts another choice. This represents neither spoken consent nor knowledge of a peer's private intentions. Shared heat/shelter calculations belong in physiology, not a second protective-bonus system.
+
+An external agent receives an observation and submits one to six typed proposals. A transaction validates and queues the whole batch atomically with its receipt. A receipt confirms submission, not acceptance. Local adults deliberate; quorum, consent, bodily needs, trust and feasibility constrain later execution. All keys share a community's six-pending-proposal capacity and four-simulated-hour interval. Retrying the same request ID and body returns the prior receipt within its retained window. Votes, decisions and subsequent observational reviews persist.
+
+Submission staging copies only the affected community, event queues and root bookkeeping. Unchanged physical state is shared read-only until the synchronous commit replaces the authoritative root; failed validation or database commit cannot leak a proposal. Independent simulation callers retain a fully isolated result through the separate `applyAgentActions` wrapper. This reduces submission allocations but does not make full-world checkpointing incremental.
+
+Contacts are per-community, dated reports. New correspondence travels with living volunteers who eat, rest and leave work behind. Trade reserves only the sender's cargo; a recipient can decline on arrival. Return cargo needs the homeward leg. Free-form letters are inert data; supported commitment primitives need reciprocal assent and actual fulfillment. Existing pre-format-8 escrowed exchanges retain their identities and delivery paths; from biosphere-1.7 their actual goods share future physical spoilage. Delivery accords credit received mass, and a shortfall may require another provisioned trip. Outcome feedback is a vector of state potentials sampled once per world day; reads do not create rewards.
+
+Agent execution happens outside the world process. The server stores a hash of each civilization key and exposes no arbitrary code execution endpoint. Model outages do not block autonomous local behavior.
+
+Metabolic preparation captures resting demand separately from total requested metabolism. Finite oxidation is shared by rest, optional activity, thermal balance and melting; injury and existing recovery/retention gates use mandatory resting deficit, while activity uses its funded fraction. Fresh fluxes carry a validated pair of resting measurements. Format-18 migration preserves old observations without inferring the missing pair; the browser falls back to their original total-request shortfall. Planned-effort fatigue/water costs and food/oxygen allocation priorities remain separate model limits.
+
+## Persistence and observation
+
+SQLite uses WAL mode with full synchronization. Metadata and each materialized region carry checksums. Durable tables retain events, historical measurements, sessions, scoped agent records, action receipts, releases, and migration snapshots. The in-memory event ring is only a recent working view; the browser can page through the permanent journal.
+
+The entrance polls a small overview every five seconds and shares a one-second server summary cache. It displays a 256×128 planet atlas before requesting 1024×512 refinement. Detailed SSE starts only after entering the surface and closes on returning to the entrance. A shared async atlas task yields between row batches; it still runs on the simulation process's event loop.
+
+Detailed viewers receive a snapshot and periodic compressed frames. Public people omit synapses, activations and pending learning; place memories expose coordinates rather than full resource maps. Dormant cohorts omit full inherited genomes. Authoritative state and the scoped agent's fuller people observations are preserved. Public values are rounded for transport; physical calculations retain their precision. A slow observer can be disconnected rather than indefinitely buffering updates. The current service limits concurrent streams to 100.
+
+SQLite caps retained reusable WAL space at 16 MiB when the log is reset after checkpointing. Active transactions or held readers can require a larger WAL; this is not a hard disk-use cap. Transactions first restart the checkpointed log so a reader that delayed an earlier automatic checkpoint cannot leave two full write batches to accumulate. Backups copy through SQLite in short asynchronous page batches; completed copies are published exclusively. A long reader can delay a transaction, and one large save still needs its own full WAL headroom. Backups must fit outside the live data volume or include demonstrated database/WAL headroom. The [scaling review](research/scaling-and-open-endedness.md) records remaining global scans, unbounded entity-frame growth, monolithic metadata writes and coarse/fine execution requirements.
+
+The local map uses Canvas, visible-tile traversal, object culling and bounded raster/frame scheduling; the globe lazy-loads Three.js. A cancellable browser worker samples the world's pinned terrain generator for planetary exploration, with fewer than 100,000 samples and at most three retained rasters. This is a geography survey, not a parallel simulation. Visiting a community switches to its authoritative local snapshot. Camera movement neither materializes server regions nor invents fine physical reservoirs.
+
+Geometry and colors come from world data. Pausing is local to an observer; hidden/explorer-covered local canvases stop drawing, and test time controls exist only in explicitly enabled development runs. The current surface resolution is 100 m²; fine construction geometry and future subsurface physics are separate scales.
+
+See [hosting](hosting.md) for volume, backup, release, and migration procedures, and [model scope](model.md) for the scientific assumptions.

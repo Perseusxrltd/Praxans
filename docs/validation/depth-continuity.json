@@ -1,0 +1,34 @@
+{
+  "checkedAt": "2026-10-07T18:56:02.529Z",
+  "backupSha256": "d060fab333a11547c4bc499f7843e652418a488bf457a0ba21561a5cbfb902a2",
+  "fromFormat": 7,
+  "toFormat": 8,
+  "laws": "biosphere-1.2",
+  "seed": 1847,
+  "sourceTick": 11764,
+  "sourcePeople": 8,
+  "sourceRegions": 38,
+  "preserved": [
+    "source backup bytes",
+    "seed",
+    "RNG",
+    "next identity",
+    "clock",
+    "generator",
+    "existing citizen fields",
+    "terrain fields",
+    "stocks",
+    "reserved structure matter",
+    "ownership/key/receipt/archive/clock rows"
+  ],
+  "migrationElementDifferenceKg": 0,
+  "forwardTicks": 288,
+  "resultingTick": 12052,
+  "resultingPeople": 8,
+  "resultingElementErrors": {
+    "absolute": 0.013933181762695312,
+    "relative": 1.279484816500666e-12
+  },
+  "restart": "exact",
+  "integrity": "ok"
+}

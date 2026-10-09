@@ -1,0 +1,307 @@
+{
+  "date": "2026-10-09",
+  "status": "implemented, measured, not deployed",
+  "question": "Separate mandatory resting deficit from unfunded requested work without weakening actual deficits or granting activity.",
+  "candidateSource": {
+    "baseCommit": "5bc09db81eceacc82c4713815513bdf2474f056d",
+    "sourceSha256": "3fb22b621e62d1418182bfeec7575a2d8cc3bb941fecd19cde51465c66e48d18",
+    "bundleSha256": "86c2622eefc59a59b45963bc66c5e2f60d5638053698b85179dfa471b5666309",
+    "runnerSha256": "c77f0603b0383d3089c748f2b989e6899ed089551ae7382abb009b1bfcf28125",
+    "helperSha256": "276ec3d4fa44601e1856914d542a465ed5f29e7d6a62e84d50c798ad248b71d7",
+    "sourceInstrumentation": false
+  },
+  "sourceFiles": 82,
+  "baseline": {
+    "implementation": "fdeb5b117adafe6ec1c949a411042235af7c45ec",
+    "sourceSha256": "d45f2ea46583a0ffcc221f0ca58123f780328e699b4cac04555f49941734bdea",
+    "newRuns": 0,
+    "reusedVerifiedResultSha256": "1b4a89941c5a8f99979b884f438a7313f4e148e024d3a0a6f861a4aee893ed9d",
+    "reportSha256": "ec85454ee732f257549fcaba861acd245f26d8043d3c96af1825fb20781e7307"
+  },
+  "input": {
+    "sha256": "cf8abcb12f564b7ce4bc3464712f057acbc4f65b52380be5145c26b3fc69d985",
+    "nativeFormat": 16,
+    "startTick": 231412,
+    "targetTick": 231508,
+    "normalizedInitialWorldDigest": "3478537e1163f750eec20e8cf26ec19c53399efb933808aa89310200d3f8a804",
+    "initialPeople": 1512,
+    "completeInteractingWorld": true,
+    "candidateBudgetMs": 300000
+  },
+  "before": {
+    "startTick": 231412,
+    "endTick": 231508,
+    "finalPeople": 1499,
+    "birthsDuringDay": 3,
+    "deathsDuringDay": 16,
+    "fullWorldDigestBeforeSave": "ef285aa5fbf20e8887e39c96c007703843e6842b33597a92632d56b5eda22764",
+    "fullWorldDigestAfterSave": "08edbefe25c985001ce8a89d17a816f8a6b3fe7ae5ecd513ee85f9944ac51d04",
+    "harvestKg": 758.1225071454392,
+    "recordedMetabolicInjury": 1924.4365980189177,
+    "startingChildren": 312,
+    "childDeaths": [],
+    "minimumSurvivingChildHealth": 14.949428569111282,
+    "byCommunity": {
+      "civ-1": {
+        "harvestKg": 163.8963196823388,
+        "ingestedKg": 279.13140631033485,
+        "foodOxidizedKg": 282.7769180255324,
+        "reserveOxidizedKg": 0,
+        "recordedMetabolicInjury": 0
+      },
+      "civ-11": {
+        "harvestKg": 187.34609004967933,
+        "ingestedKg": 187.33942141860933,
+        "foodOxidizedKg": 155.9497944026323,
+        "reserveOxidizedKg": 121.61128841835675,
+        "recordedMetabolicInjury": 1915.5049875318336
+      },
+      "civ-21": {
+        "harvestKg": 124.20619651839661,
+        "ingestedKg": 280.9797733404432,
+        "foodOxidizedKg": 283.6330917004724,
+        "reserveOxidizedKg": 0,
+        "recordedMetabolicInjury": 4.513560522365907
+      },
+      "civ-3118": {
+        "harvestKg": 282.6739008950244,
+        "ingestedKg": 266.66814933386576,
+        "foodOxidizedKg": 295.2225414326937,
+        "reserveOxidizedKg": 0,
+        "recordedMetabolicInjury": 4.418049964718108
+      }
+    },
+    "deaths": [
+      {
+        "person": "person-4691",
+        "tick": 231471
+      },
+      {
+        "person": "person-4621",
+        "tick": 231476
+      },
+      {
+        "person": "person-4521",
+        "tick": 231477
+      },
+      {
+        "person": "person-4665",
+        "tick": 231477
+      },
+      {
+        "person": "person-4444",
+        "tick": 231480
+      },
+      {
+        "person": "person-4640",
+        "tick": 231480
+      },
+      {
+        "person": "person-4528",
+        "tick": 231484
+      },
+      {
+        "person": "person-4594",
+        "tick": 231484
+      },
+      {
+        "person": "person-4600",
+        "tick": 231487
+      },
+      {
+        "person": "person-4517",
+        "tick": 231488
+      },
+      {
+        "person": "person-4638",
+        "tick": 231488
+      },
+      {
+        "person": "person-4703",
+        "tick": 231488
+      },
+      {
+        "person": "person-4573",
+        "tick": 231491
+      },
+      {
+        "person": "person-4627",
+        "tick": 231492
+      },
+      {
+        "person": "person-4456",
+        "tick": 231502
+      },
+      {
+        "person": "person-4705",
+        "tick": 231504
+      }
+    ]
+  },
+  "after": {
+    "startTick": 231412,
+    "endTick": 231508,
+    "finalPeople": 1499,
+    "birthsDuringDay": 3,
+    "deathsDuringDay": 16,
+    "fullWorldDigestBeforeSave": "d59932f62f547c6dffe69f1720066dfbca35ca4e0765ffa1d4198e3006cb90b9",
+    "fullWorldDigestAfterSave": "0755c802353aab955a74966d2dc398a1646bc4a1a3da4f60e669cef1e4355d7b",
+    "harvestKg": 758.4122700613079,
+    "recordedMetabolicInjury": 1923.0067567857425,
+    "startingChildren": 312,
+    "childDeaths": [],
+    "minimumSurvivingChildHealth": 14.949428569111259,
+    "byCommunity": {
+      "civ-1": {
+        "harvestKg": 161.53949152183486,
+        "ingestedKg": 278.5877487261618,
+        "foodOxidizedKg": 282.7544304752829,
+        "reserveOxidizedKg": 0,
+        "recordedMetabolicInjury": 0
+      },
+      "civ-11": {
+        "harvestKg": 187.34599161507504,
+        "ingestedKg": 187.33933271012728,
+        "foodOxidizedKg": 155.94966390193414,
+        "reserveOxidizedKg": 121.61128807525313,
+        "recordedMetabolicInjury": 1914.0751462986584
+      },
+      "civ-21": {
+        "harvestKg": 130.17025063627807,
+        "ingestedKg": 280.9748775365709,
+        "foodOxidizedKg": 283.64562876832014,
+        "reserveOxidizedKg": 0,
+        "recordedMetabolicInjury": 4.513560522365907
+      },
+      "civ-3118": {
+        "harvestKg": 279.35653628811997,
+        "ingestedKg": 266.66762776984615,
+        "foodOxidizedKg": 295.2067711889374,
+        "reserveOxidizedKg": 0,
+        "recordedMetabolicInjury": 4.418049964718108
+      }
+    },
+    "deaths": [
+      {
+        "person": "person-4691",
+        "tick": 231471
+      },
+      {
+        "person": "person-4621",
+        "tick": 231476
+      },
+      {
+        "person": "person-4521",
+        "tick": 231477
+      },
+      {
+        "person": "person-4665",
+        "tick": 231477
+      },
+      {
+        "person": "person-4444",
+        "tick": 231480
+      },
+      {
+        "person": "person-4640",
+        "tick": 231480
+      },
+      {
+        "person": "person-4528",
+        "tick": 231484
+      },
+      {
+        "person": "person-4594",
+        "tick": 231484
+      },
+      {
+        "person": "person-4517",
+        "tick": 231488
+      },
+      {
+        "person": "person-4600",
+        "tick": 231488
+      },
+      {
+        "person": "person-4638",
+        "tick": 231488
+      },
+      {
+        "person": "person-4703",
+        "tick": 231488
+      },
+      {
+        "person": "person-4573",
+        "tick": 231491
+      },
+      {
+        "person": "person-4627",
+        "tick": 231492
+      },
+      {
+        "person": "person-4456",
+        "tick": 231502
+      },
+      {
+        "person": "person-4705",
+        "tick": 231504
+      }
+    ]
+  },
+  "comparison": {
+    "sameDeathIds": true,
+    "changedDeathTicks": [
+      {
+        "person": "person-4600",
+        "before": 231487,
+        "after": 231488
+      }
+    ],
+    "measuredInjuryChange": -1.4298412331752388,
+    "survivalBenefitEstablished": false
+  },
+  "candidateResult": {
+    "sourceSha256": "cf8abcb12f564b7ce4bc3464712f057acbc4f65b52380be5145c26b3fc69d985",
+    "sourceUnchanged": true,
+    "startTick": 231412,
+    "endTick": 231508,
+    "targetTick": 231508,
+    "reachedTarget": true,
+    "elapsedMs": 41543.517876,
+    "peakRssBytes": 625545216,
+    "initialDigest": "65c22718d51b2e52898796b0f0051d6aa1c9276a4e80c5ca58a995b2acecfd3a"
+  },
+  "candidateReportSha256": "8392154ab3a19180a1d4d70843a5e93411229da0fbc708248c61fd99bfacb542",
+  "controls": {
+    "focused": {
+      "event": "completed",
+      "at": "2026-10-09T13:47:39.719328+00:00",
+      "code": 0,
+      "predeclaredExecutionLimitReached": false,
+      "durationSeconds": 6.848244875000091,
+      "sourceAndTestsUnchanged": true,
+      "finalSourceAndTests": {
+        "files": 120,
+        "sha256": "81e13ac0d89c551d0a71cbf5d7a845781e90e8f7114d68ef54e26a74cd686148"
+      },
+      "log": "output/research/resting-demand-20261009/focused-controls.log",
+      "logSha256": "092dc12e85ac610b3eadd0def7caecd126bf5fb5258070519edd47144db70926"
+    },
+    "cases": [
+      "Actual citizen with pending route at 0, 49.5 and 99 kJ: equal resting injury/recovery, zero unfunded work",
+      "Oxygen-limited spare intake: finite resting-capped retention remains possible after rest is funded",
+      "Cold deficit remains injurious with or without planned work",
+      "Rest-funded finite ice melting retains shared oxidation and zero unfunded work",
+      "Partially funded activity still yields 0, one-half and full actual progress",
+      "Exact format-17 migration, old measurement absence, archives and restart",
+      "Reject partial, negative, nonfinite and inconsistent resting measurement pairs"
+    ]
+  },
+  "limitations": [
+    "Later-law transition state, not an original historical-law replay or demographic calibration.",
+    "One selected day is not seasonal or generational viability.",
+    "Recorded metabolic injury is clipped at terminal health; other injury/recovery are separate.",
+    "Aggregate injury/harvest changes cannot attribute historical death shares or independent causes.",
+    "Planned-effort fatigue and water costs, current food/oxygen priorities, blocked-attempt energy and biological coefficients remain unresolved."
+  ]
+}

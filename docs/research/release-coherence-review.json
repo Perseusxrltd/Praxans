@@ -1,0 +1,580 @@
+{
+  "schema_version": 1,
+  "updated_on": "2026-10-08",
+  "review": "release-coherence-review.md",
+  "probe": "release-coherence-probe.mjs",
+  "scope": "Read-only source review, structural inventory, and small synthetic observation calls. Existing simulation/production artifacts were read, not rerun. No runtime edits, live database writes or deployment by research.",
+  "inspected_at_utc": "2026-10-08T13:17:29.766159+00:00",
+  "status": "C01 narrow correction independently verified; no remaining code blocker identified in inspected recovery paths; explicit model and external-transport limits remain",
+  "original_repeat_experiment": {
+    "inspectedAt": "2026-10-08T13:12:04.059Z",
+    "scope": "One synthetic repeat experiment; no generation, clock advance or database",
+    "sourceSha256": {
+      "src/simulation/economy.ts": "d2591441f0d30a05c616d99a3e54c3c06f17b1eaad041b7d420e6020089d4215",
+      "src/simulation/laws.ts": "9f9ac36bfa087cf0919d6ded6e1356f840898be35648c8fd6484ee9ac3b02318",
+      "src/simulation/geometry.ts": "bfaec32d5ae35fdaa63df8c9ad6af600aa651e89d04e66d502c4ca37eb6bd5ac",
+      "src/simulation/cognition.ts": "e6da762851f1373cc15af1b295a63b07c8f0da6de0bbbfa7775f6b3b693ef45a"
+    },
+    "ran": true,
+    "currentEvaluatedStorageM3": 0,
+    "oldStorageM3": 0.95,
+    "recordedStorageAfterM3": 0.95,
+    "oldConfidence": 0.5,
+    "confidenceAfter": 0.58,
+    "recordedSurprise": 0.95,
+    "trialsAfter": 2,
+    "recordedTickAfter": -100,
+    "statementAfter": "Historical estimate: 0.95 m\u00b3 storage",
+    "woodStockAfterKg": 0.6,
+    "detritus": {
+      "carbon": 0.396,
+      "mineral": 0.004
+    }
+  },
+  "structural_scan": {
+    "inspected_at_utc": "2026-10-08T13:17:47.742Z",
+    "baseCommit": "1a492d9496c1b78b29112c9c32a3221112dce4dc",
+    "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+    "gitVisibleExistingFileCount": 869,
+    "jsTsFileCount": 109,
+    "sourceFileCount": 72,
+    "srcContentSha256": "0b57dc8b381e734e93d859ed37b461c9d1452fee5cbef3b9831ef773ee55d975",
+    "resolvedEdgeCount": 545,
+    "edgesByArea": {
+      "docs -> src/simulation": 8,
+      "scripts -> src/server": 16,
+      "scripts -> src/simulation": 24,
+      "src/client -> src/simulation": 27,
+      "src/client -> src/client": 21,
+      "src/server -> src/simulation": 38,
+      "src/server -> src/server": 17,
+      "src/simulation -> src/simulation": 233,
+      "tests -> src/simulation": 117,
+      "tests -> tests": 22,
+      "tests -> src/server": 22
+    },
+    "missingImports": [],
+    "missingAssets": [],
+    "nonliteralLoads": [],
+    "layerViolations": [],
+    "simulationEnvironmentImports": [],
+    "localMarkdownLinksChecked": 177,
+    "missingMarkdownLinks": []
+  },
+  "corrected_observation_probe": {
+    "inspected_at_utc": "2026-10-08T13:18:27.586Z",
+    "scope": "Partial synthetic objects for runExperiment only, not valid saved worlds. Same detached-wall geometry and 1 kg initial wood as the original reproduction; added event/memory fields permit a new note. Two sequential sample calls and one separate method-control call; no clock advance.",
+    "sourceSha256": {
+      "src/simulation/economy.ts": "10f6a6f99f7668b8b7abbc3c3a55b203305573a73bd91d6be1568d5e5a5ce8ae",
+      "src/simulation/laws.ts": "9f9ac36bfa087cf0919d6ded6e1356f840898be35648c8fd6484ee9ac3b02318",
+      "src/simulation/geometry.ts": "bfaec32d5ae35fdaa63df8c9ad6af600aa651e89d04e66d502c4ca37eb6bd5ac",
+      "src/simulation/cognition.ts": "e6da762851f1373cc15af1b295a63b07c8f0da6de0bbbfa7775f6b3b693ef45a",
+      "src/simulation/citizens.ts": "f267959787ea754b60bbaf296a4e2dca5e7f982e174f44984292913bf0c2fd0a"
+    },
+    "conflictingRetest": {
+      "ran": true,
+      "evaluatedStorageM3": 0,
+      "previousUnchanged": true,
+      "previousStorageAfterM3": 0.95,
+      "previousConfidenceAfter": 0.5,
+      "observationsAfter": 2,
+      "freshNote": {
+        "id": "observation-1",
+        "tick": 0,
+        "statement": "0.0 m\u00b2 of cover, 0.4 m\u00b2 of working surface, and 0.00 m\u00b3 of enclosed space",
+        "evidence": "Probe Person handled samples of the actual materials. Components occupy separate volumes. Loads reach the ground within the material strength limits. 0.00 m\u00b2 of free floor space is covered above head height. These are idealized static estimates; construction and exposure provide further evidence.",
+        "design": {
+          "name": "Detached walls",
+          "components": [
+            {
+              "material": "wood",
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "width": 1,
+              "depth": 1,
+              "height": 0.05
+            },
+            {
+              "material": "wood",
+              "x": -2,
+              "y": 0,
+              "z": 0,
+              "width": 0.1,
+              "depth": 1,
+              "height": 1
+            },
+            {
+              "material": "wood",
+              "x": 2,
+              "y": 0,
+              "z": 0,
+              "width": 0.1,
+              "depth": 1,
+              "height": 1
+            },
+            {
+              "material": "wood",
+              "x": 0,
+              "y": -2,
+              "z": 0,
+              "width": 1,
+              "depth": 0.1,
+              "height": 1
+            },
+            {
+              "material": "wood",
+              "x": 0,
+              "y": 2,
+              "z": 0,
+              "width": 1,
+              "depth": 0.1,
+              "height": 1
+            }
+          ]
+        },
+        "properties": {
+          "mass": 234,
+          "cost": {
+            "biomass": 0,
+            "wood": 234,
+            "fiber": 0,
+            "stone": 0,
+            "clay": 0
+          },
+          "stable": true,
+          "stability": 1,
+          "coveredArea": 0,
+          "height": 1,
+          "insulation": 0,
+          "capacity": 0,
+          "workSurface": 0.40000000000000036,
+          "storageVolume": 0,
+          "work": 16.5,
+          "weakestStress": 5101.2,
+          "explanation": [
+            "Components occupy separate volumes.",
+            "Loads reach the ground within the material strength limits.",
+            "0.00 m\u00b2 of free floor space is covered above head height."
+          ]
+        },
+        "trials": 1,
+        "research": {
+          "authorId": "person",
+          "method": "material-trial",
+          "prediction": {
+            "stable": true,
+            "coveredArea": 0,
+            "storageVolume": 0.95
+          },
+          "surprise": 0.95,
+          "confidence": 0.65,
+          "samples": {
+            "biomass": 0,
+            "wood": 0.4,
+            "fiber": 0,
+            "stone": 0,
+            "clay": 0
+          }
+        }
+      },
+      "woodStockAfterKg": 0.6,
+      "returnedMassKg": 0.4
+    },
+    "agreeingRetest": {
+      "observationsAfter": 2,
+      "previousUnchanged": true,
+      "freshTrialsAfter": 2,
+      "matchingCurrentResultReused": true
+    },
+    "methodControl": {
+      "previousConstructionUnchanged": true,
+      "observationsAfter": 2,
+      "separateSampleMethod": "material-trial"
+    },
+    "pass": true
+  },
+  "findings": [
+    {
+      "id": "C01",
+      "priority": "P0",
+      "status": "narrow_correction_independently_verified",
+      "claim_type": "code_observation",
+      "summary": "Contradictory repeat experiment raises confidence in an unchanged previous result; construction can overwrite its method.",
+      "source_paths": [
+        "src/simulation/economy.ts",
+        "src/simulation/citizens.ts"
+      ],
+      "candidate_ids": [
+        "R23",
+        "R09"
+      ],
+      "acceptance": "Match geometry, method and physical properties to reuse evidence; keep contradictory/different-method notes separate and earlier accounts unchanged.",
+      "verification": "Original conflicting result remains byte-for-byte unchanged; separate current note stores 0 m3; agreeing repeat reuses current result; method control preserves construction note. Parent reports 11/11 knowledge-record/depth-suite regressions, including construction after sample; research inspected that regression source without rerunning the suite."
+    },
+    {
+      "id": "C02",
+      "priority": "P1",
+      "status": "documented_next_work",
+      "claim_type": "code_observation",
+      "summary": "Fixed assembly affordance gate prevents supportive votes outside cover/storage/work thresholds; fixed selection and teaching weights narrow purposes.",
+      "source_paths": [
+        "src/simulation/society.ts",
+        "src/simulation/economy.ts",
+        "src/simulation/engine.ts",
+        "src/simulation/cognition.ts"
+      ],
+      "candidate_ids": [
+        "R23",
+        "R12"
+      ],
+      "arithmetic": {
+        "base_utility": -0.2,
+        "maximum_trust": 0.95,
+        "maximum_influence": 0.27499999999999997,
+        "maximum_vote_value": 0.07499999999999996,
+        "support_requires_greater_than": 0.15
+      }
+    },
+    {
+      "id": "C03",
+      "priority": "P1",
+      "status": "documented_next_work",
+      "claim_type": "code_observation",
+      "summary": "Finite cuboid/material and automatic-site representation lacks general processing/tools and physical knowledge carriers.",
+      "candidate_ids": [
+        "R23",
+        "R09"
+      ]
+    },
+    {
+      "id": "C04",
+      "priority": "P1",
+      "status": "documented_next_work",
+      "claim_type": "code_observation",
+      "summary": "Aggregate storage/remote capacity and incompletely populated thermal capacity remain explicit effective couplings.",
+      "candidate_ids": [
+        "R22",
+        "R24"
+      ]
+    },
+    {
+      "id": "C05",
+      "priority": "P1",
+      "status": "documented_next_work",
+      "claim_type": "code_observation",
+      "summary": "Spherical movement and projected search/site distances coexist; fine geometry is not fine terrain or depth-resolved reservoirs.",
+      "candidate_ids": [
+        "R13",
+        "R14",
+        "R15",
+        "R16"
+      ]
+    },
+    {
+      "id": "C06",
+      "priority": "P1",
+      "status": "evidence_scope_limit",
+      "claim_type": "parameter_assumption",
+      "summary": "Ordinary 300-adult founding starts with 48 kg food/person; tested recovery with 480 kg/person. Neither short trial certifies seasonal or generational adequacy.",
+      "candidate_ids": [
+        "R21",
+        "R01",
+        "R02",
+        "R03"
+      ],
+      "food_kg_per_person": {
+        "ordinary_founding": 48,
+        "recovery": 480
+      }
+    },
+    {
+      "id": "C07",
+      "priority": "P2",
+      "status": "documented_next_work",
+      "claim_type": "code_observation",
+      "summary": "Advice trust uses fixed four-outcome weights; initialConditions metadata still calls fresh 300-person communities small.",
+      "candidate_ids": [
+        "R12",
+        "R20"
+      ]
+    },
+    {
+      "id": "C08",
+      "priority": "P1",
+      "status": "documented_next_work",
+      "claim_type": "code_observation",
+      "summary": "Bounded browser survey is a preview, with live detail in community windows; multiscale payload and subsurface contracts remain future work.",
+      "candidate_ids": [
+        "R18",
+        "R19"
+      ]
+    },
+    {
+      "id": "C09",
+      "priority": "P1",
+      "status": "external_transport_baseline_unresolved",
+      "claim_type": "simulation_result",
+      "summary": "External observer ECONNRESET before any activation; large decoded payload observed, causal diagnosis unknown.",
+      "candidate_ids": [
+        "R18",
+        "R19",
+        "R20"
+      ],
+      "acceptance": "Correlate external and local stream, runtime and proxy evidence; distinguish preexisting resets from any later activation and decoded size from wire size."
+    }
+  ],
+  "evidence": [
+    {
+      "path": "output/validation/renewal-backup-handover-300.json",
+      "sha256": "349b3df9dc61f90e47c3e9779fbb60194164f0ef84fd1162ab9e0d1fd765d882",
+      "read_at_utc": "2026-10-08T13:17:29.766159+00:00",
+      "scope": "Disposable copied-backup continuity, not live activation",
+      "fault": null,
+      "status": {
+        "phase": "running",
+        "release": "community-renewal-20261008",
+        "pendingRequests": 0,
+        "activeRequests": 0,
+        "observers": 0,
+        "runtimePid": 40600,
+        "managedProcesses": 1,
+        "error": null
+      },
+      "checks": [
+        "the copied live format-eight world begins with its original four empty communities",
+        "the compatible artifact replaces the worker through the continuing gateway",
+        "the same compressed observer connection receives the renewed world",
+        "all four same-ID communities receive 300 new residents",
+        "clock debt is retained exactly",
+        "ownership, agent keys, receipts and every earlier event remain unchanged",
+        "prior archives survive and the new law migration is archived",
+        "the physical intervention is recorded exactly once",
+        "a restart with the same operator file does not duplicate people or the intervention"
+      ],
+      "activation": {
+        "release": "community-renewal-20261008",
+        "type": "preflight",
+        "id": "praxans-world",
+        "seed": 1847,
+        "sourceTick": 151764,
+        "tick": 151796,
+        "format": 9,
+        "laws": "biosphere-1.3",
+        "resumedTick": 151844
+      },
+      "restarted": {
+        "tick": 151848,
+        "people": 1200,
+        "format": 9,
+        "laws": "biosphere-1.3"
+      }
+    },
+    {
+      "path": "output/validation/renewal-full-world-300-final.json",
+      "sha256": "cb40b8b8184d447cbc5ac960cec1585fb59daf95e394e243a1b916a60a7d92ad",
+      "read_at_utc": "2026-10-08T13:17:29.766159+00:00",
+      "scope": "Final-refinement sample only; duration below is the artifact value at read",
+      "completed_days": 7,
+      "implementation_fingerprint": null,
+      "last_sample": [
+        {
+          "day": 7,
+          "tick": 152436,
+          "communities": [
+            {
+              "id": "civ-1",
+              "population": 300,
+              "deaths": 9,
+              "births": 0,
+              "foodKg": 139773.72610093333,
+              "fiberKg": 1240.7584573546453,
+              "harvestKg": 7598.417637033241,
+              "temperature": 21.49555014199822,
+              "water": 10182.12435274516,
+              "ice": 0,
+              "health": 99.99946336399108,
+              "nourishment": 92.82112500000027,
+              "hydration": 7.4663055220283026,
+              "growingKg": 17974.79283667253,
+              "seedKg": 500.4274186132699,
+              "forage": 9226.864189949632,
+              "structures": 5
+            },
+            {
+              "id": "civ-11",
+              "population": 300,
+              "deaths": 7,
+              "births": 0,
+              "foodKg": 140645.3908415748,
+              "fiberKg": 936.4855596297109,
+              "harvestKg": 8553.36175273428,
+              "temperature": 22.25870439793481,
+              "water": 10151.15801579073,
+              "ice": 0,
+              "health": 99.99822313266445,
+              "nourishment": 92.06173333333352,
+              "hydration": 7.2871641522863895,
+              "growingKg": 17049.28878082767,
+              "seedKg": 517.8370911881944,
+              "forage": 8450.75500208041,
+              "structures": 4
+            },
+            {
+              "id": "civ-21",
+              "population": 300,
+              "deaths": 8,
+              "births": 0,
+              "foodKg": 138077.13474622782,
+              "fiberKg": 1271.2370860624726,
+              "harvestKg": 5922.786849912909,
+              "temperature": 21.442338178109495,
+              "water": 10234.414990834042,
+              "ice": 0,
+              "health": 100,
+              "nourishment": 93.82842500000037,
+              "hydration": 7.308618189448512,
+              "growingKg": 14237.661982572274,
+              "seedKg": 421.659897664207,
+              "forage": 7104.9904626670495,
+              "structures": 3
+            },
+            {
+              "id": "civ-3118",
+              "population": 300,
+              "deaths": 8,
+              "births": 0,
+              "foodKg": 139412.92867332353,
+              "fiberKg": 1221.3085928376422,
+              "harvestKg": 7012.34714187189,
+              "temperature": 22.773028940922117,
+              "water": 11512.610929212817,
+              "ice": 0,
+              "health": 99.98947297937582,
+              "nourishment": 92.74246666666699,
+              "hydration": 7.377397887022434,
+              "growingKg": 20794.189091491146,
+              "seedKg": 478.4693103732939,
+              "forage": 11555.589691028466,
+              "structures": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "output/validation/renewal-production-smoke-solo.log",
+      "sha256": "3ce5062fdcfd73b673d4dc2d8708b334f00709f7bf48abde42d96550add2ec5a",
+      "read_at_utc": "2026-10-08T13:17:29.766159+00:00",
+      "scope": "Read completed production log: 12 passed. Parent confirms default 900 population and absence of concurrent heavy simulations; older concurrent runs timed out.",
+      "reported_passed_checks": 12
+    },
+    {
+      "path": "output/validation/renewal-external-stream.jsonl",
+      "sha256": "f37073f95a4208eda2d123409c1ff35974a043f429d1fab41445ebe28d2b7fa6",
+      "read_at_utc": "2026-10-08T13:20:18.661786+00:00",
+      "scope": "Read external reset artifact; parent supplied that old runtime was unchanged and no handover had been attempted. Counter measured fetch-decoded body chunks consumed by plain-text SSE parser, not compressed wire bytes.",
+      "result": {
+        "at": "2026-10-08T13:09:38.953Z",
+        "event": "finished",
+        "startedAt": "2026-10-08T13:07:55.474Z",
+        "firstTick": 185972,
+        "lastTick": 186248,
+        "frames": 23,
+        "snapshots": 1,
+        "bytes": 66693423,
+        "heartbeats": 2,
+        "requestedStop": false,
+        "fault": "terminated",
+        "faultCause": "Error: read ECONNRESET"
+      }
+    }
+  ],
+  "deployment_status": {
+    "as_of_parent_report_utc_date": "2026-10-08",
+    "vercel_explorer": "Parent release record reports production READY; no independent research page fetch.",
+    "railway_v9_1200_renewal": "Parent says preparing; no live activation claimed."
+  },
+  "rationBoundaryFollowup": {
+    "date": "2026-10-09",
+    "record": "../validation/ration-boundary-2026-10-09.json",
+    "scope": "Implemented consumption-before-packing and compatible lossless archive compaction. Immediate consumption, metabolism, growth, scale and open institutions remain unresolved.",
+    "status": "LIVE with saved-world and full changed-archive verification; all prior study findings retained."
+  },
+  "fundedMetabolismFollowup": {
+    "inspectedAt": "2026-10-09T01:20:48.274Z",
+    "structuralScan": {
+      "baseCommit": "36c4fdd9228b22a09a8337bb235f4cb596114970",
+      "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+      "gitVisibleExistingFileCount": 935,
+      "jsTsFileCount": 126,
+      "sourceFileCount": 76,
+      "srcContentSha256": "2450199e28b92f5f507d628fd8aaef16a1301b86b0f1fdc221e4eafeefeb93d6",
+      "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
+      "resolvedEdgeCount": 653,
+      "edgesByArea": {
+        "docs -> src/simulation": 22,
+        "scripts -> src/server": 22,
+        "scripts -> src/simulation": 25,
+        "src/client -> src/simulation": 27,
+        "src/client -> src/client": 21,
+        "src/server -> src/simulation": 41,
+        "src/server -> src/server": 22,
+        "src/simulation -> src/simulation": 244,
+        "tests -> src/simulation": 161,
+        "tests -> tests": 29,
+        "tests -> src/server": 39
+      },
+      "missingImports": [],
+      "missingAssets": [],
+      "nonliteralLoads": [
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+        },
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+        }
+      ],
+      "layerViolations": [],
+      "simulationEnvironmentImports": [],
+      "localMarkdownLinksChecked": 417,
+      "missingMarkdownLinks": []
+    },
+    "sourceReview": [
+      {
+        "topic": "Units and conserved custody",
+        "finding": "body + unoxidized intake appear in matter/element/chemical inventories; reserves are a subset inside body. One respiration path supplies heat and products. Childbirth debits body/reserve tags; death returns body + intake once."
+      },
+      {
+        "topic": "Order and shared demand",
+        "finding": "One current food/ice boundary precedes optional intake/ration refill. Snapshotted contacts and finite custody prevent packing or duplicate ice claims from reserving another actor's present meal. Oxygen remains sequential; unused ice allocations wait for a later interval."
+      },
+      {
+        "topic": "Physical work and time",
+        "finding": "Original tasks use the funded interval, and new physical work waits until the next interval. Water-route purpose avoids self-cancellation; stationary conversation receives paid resting metabolism. Journeys require current-tick matching-party flux. The quarter-hour clock is unchanged."
+      },
+      {
+        "topic": "Model, interface and requirements",
+        "finding": "Model/protocol/API/inspector agree that satiety is fullness, not chemical fuel. Childhood growth, infant feeding, activity power and injury are labeled uncalibrated. Political/depth/scaling requirements remain open in the ledger."
+      },
+      {
+        "topic": "Historical reproducibility",
+        "finding": "All listed mechanism, protection and arithmetic fingerprints match commit 35a1665bff52a425d1476c7c22db2440bed05406. The guide pins that checkout; current scripts reject obsolete source inputs before running controls. Original result JSON and the expensive historical replay are retained."
+      },
+      {
+        "topic": "Repository responsibilities",
+        "finding": "No new module boundary violation. The unmarked Pygame overview in CLAUDE.md is now explicitly historical with current-browser entry links. Current README, metadata, model and devlog remove obsolete claims that the single metabolic account is still absent."
+      }
+    ],
+    "validation": "20 new metabolic cases; 188/189 full batch plus 2/2 corrected construction fixture; build/format; 13 browser, 16 connection, 12 isolated production, 21 generic hotfix and 16 exact-artifact inhabited-copy checks. Retained timeouts are separately reported.",
+    "publication": "LIVE at tick 363208; Vercel inspector READY; exact archive and preserved-world verification recorded in funded-metabolism-2026-10-09.json.",
+    "limits": [
+      "No seasonal human or generational survival validation.",
+      "Finite live disk and 1 GB memory; local inhabited combined RSS exceeds live capacity.",
+      "No complete body anatomy, microbial chemistry, food logistics institutions or general political organization."
+    ],
+    "scope": "Current parent implementation follow-up; the earlier read-only research and its measured probe remain unchanged."
+  }
+}

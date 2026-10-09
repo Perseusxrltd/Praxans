@@ -1,0 +1,39 @@
+{
+  "inspectedAt": "2026-10-08T15:35:17.879413+00:00",
+  "source": "Direct live public overview; saved output/validation/renewal-later-overview.json",
+  "tick": 222772,
+  "daysSinceRenewal": 280.3333333333333,
+  "population": 1245,
+  "births": 45,
+  "deaths": 32,
+  "civilizations": [
+    {
+      "id": "civ-1",
+      "name": "Fernhaven",
+      "x": 26,
+      "y": 24,
+      "population": 311
+    },
+    {
+      "id": "civ-11",
+      "name": "Amber Hollow",
+      "x": 56,
+      "y": 26,
+      "population": 313
+    },
+    {
+      "id": "civ-21",
+      "name": "Stonebrook",
+      "x": 37,
+      "y": 46,
+      "population": 310
+    },
+    {
+      "id": "civ-3118",
+      "name": "Adonis",
+      "x": 272,
+      "y": 16,
+      "population": 311
+    }
+  ]
+}
