@@ -68,6 +68,8 @@ The live [body-maintenance correction](docs/releases/body-maintenance-0.2.md) le
 
 The [checkpoint and observer recovery release](docs/releases/region-checkpoints-0.2.md) records lossless storage, terminal stream retries, validation and actual publication status. A [bounded infant feeding/growth study](docs/research/infant-food-access-2026-10-09.md) separates additional access defects from claims about historical deaths.
 
+The [local food handoff release](docs/releases/local-food-handoff-0.2.md) adds optional paid delivery between nearby people, preserving private holdings and leaving ingestion to normal physiology. Its tests and publication record retain the distinction between correcting a measured access gap and establishing sustainable communities.
+
 The [implementation ledger](docs/roadmap.md) tracks every accepted requirement, its status and its evidence. The [fundamentals review](docs/fundamentals.md) explains the remaining core work; the [agency and diplomacy contract](docs/agency-and-diplomacy.md) defines influence, success and contact.
 
 ## Keep the same universe

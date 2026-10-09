@@ -78,6 +78,7 @@ const activityLabel = (person: Citizen) => {
     return task.recipientId === person.id
       ? "Adjusting their covering"
       : "Helping with a covering";
+  if (task?.kind === "deliver" && task.recipientId) return "Handing over food";
   return task
     ? `${task.kind[0].toUpperCase()}${task.kind.slice(1)}`
     : "Taking a moment";
@@ -1936,7 +1937,7 @@ function CitizenPanel({
           {activityLabel(person)}
           <small>
             {recipient
-              ? `${recipient.id === person.id ? "Their own protection" : recipient.name} · ${round(person.task!.progress, 2)} kg adjusted`
+              ? `${recipient.id === person.id ? "Their own protection" : recipient.name} · ${round(person.task!.progress, 2)} kg ${person.task!.kind === "deliver" ? "handed over" : "adjusted"}`
               : person.cargo
                 ? `Carrying ${round(person.cargo.amount, 1)} kg of ${person.cargo.material}`
                 : person.age < 12

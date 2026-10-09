@@ -26,6 +26,7 @@ flowchart LR
 | `citizens.ts`, `economy.ts`, `engine.ts`, `actions.ts` | Needs, learning, work, relationships, ordered updates, bounded agent intervention |
 | `physiology.ts`, `subsistence.ts`, `movement.ts`, `settlement.ts`, `geometry.ts` | Finite intake/reserve oxidation, shared food/ice budgets, paid activity, remembered supplies, spherical walking, connected camp area and material enclosures |
 | `bodywork.ts` | Local body-maintenance opportunities, performed repair work, shared fiber transfers and thermal feedback |
+| `foodwork.ts` | Voluntary paid food handoffs using the same personal-contact index, post-meal holder budgets and gross transfers before later ingestion |
 | `src/server/app.ts`, `schema.ts` | HTTP/MCP, scoped authorization, action validation, public snapshots and event streams |
 | `observer.ts`, `atlas.ts` | Public projections and progressively sampled planetary imagery, separate from authoritative state |
 | `store.ts`, `backup.ts`, `storage-format.ts`, `regions.ts`, `region-codec.ts`, `archives.ts`, `migrations.ts` | Atomic SQLite storage, bounded native backups, verified migration archives, ownership lease, recovery clock |

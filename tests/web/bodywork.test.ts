@@ -536,8 +536,8 @@ test("format nine migration retains people, minds, tasks, inventories and empty 
       assert.equal(JSON.stringify(old), original);
       assert.deepEqual(migrated.world, {
         ...old,
-        version: 13,
-        lawsVersion: "biosphere-1.7",
+        version: 14,
+        lawsVersion: "biosphere-1.8",
         citizens: old.citizens.map((person) => ({
           ...person,
           metabolism: initialMetabolism(person.body),
@@ -550,6 +550,7 @@ test("format nine migration retains people, minds, tasks, inventories and empty 
           "011-consumption-before-ration-pickup",
           "012-funded-human-metabolism",
           "013-local-inventory-exposure-and-access",
+          "014-performed-local-food-handoff",
         ],
       );
       const loaded = store.load(0, true);
@@ -568,7 +569,7 @@ test("format nine migration retains people, minds, tasks, inventories and empty 
       );
       assert.deepEqual(JSON.parse(archived), old);
       assert.deepEqual(store.load(0, true), loaded);
-      assert.equal(store.interventions().length, 4);
+      assert.equal(store.interventions().length, 5);
     } finally {
       store.close();
     }

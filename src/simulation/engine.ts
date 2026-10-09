@@ -643,22 +643,34 @@ export function validateWorld(world: World): void {
       fail("bodily route purpose");
     if (
       task &&
-      (task.recipientId !== undefined || task.targetWrapMass !== undefined)
+      (task.recipientId !== undefined ||
+        task.targetWrapMass !== undefined ||
+        task.targetProvisionMass !== undefined)
     ) {
+      const wrap =
+        task.kind === "repair" &&
+        task.material === "fiber" &&
+        Number.isFinite(task.targetWrapMass) &&
+        task.targetWrapMass! >= 0 &&
+        task.targetProvisionMass === undefined;
+      const food =
+        task.kind === "deliver" &&
+        task.material === "biomass" &&
+        Number.isFinite(task.targetProvisionMass) &&
+        task.targetProvisionMass! >= 0 &&
+        task.targetWrapMass === undefined &&
+        task.recipientId !== person.id;
       if (
-        task.kind !== "repair" ||
-        task.material !== "fiber" ||
+        (!wrap && !food) ||
         task.structureId !== undefined ||
         typeof task.recipientId !== "string" ||
         !task.recipientId ||
-        !Number.isFinite(task.targetWrapMass) ||
-        task.targetWrapMass! < 0 ||
         !Number.isFinite(task.progress) ||
         task.progress < 0 ||
         !Number.isInteger(task.tile) ||
         !world.tiles[task.tile]
       )
-        fail("body maintenance task");
+        fail("personal body maintenance or food handoff task");
       // A target may have died or moved since the last save. Execution cancels
       // that stale task instead of inventing a recipient or discarding a world.
     }

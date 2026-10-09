@@ -147,10 +147,10 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **name**: Human Needs and Body Maintenance
 - **status**: experimental
 - **package**: src/simulation/
-- **files**: `physiology.ts`, `bodywork.ts`, `subsistence.ts`, `citizens.ts`
+- **files**: `physiology.ts`, `bodywork.ts`, `foodwork.ts`, `subsistence.ts`, `citizens.ts`
 - **dependencies**: natural_systems, world_state, settlement_space, human_cognition
 - **dependents**: civilization_intelligence
-- **known_issues**: The historical infant death exposed absent caregiver protection. Body maintenance now permits finite local assistance through ordinary repair work, with common transfer budgets and observable self-adjustment. Contact and work/choice parameters remain coarse; food and ice contention use finite shared budgets, and one actual intake/reserve account funds heat and activity. Oxygen contention, performed feeding, childhood growth, reserve/power calibration, containers, broader care and generational viability remain unresolved. See docs/research/community-collapse-2026-10-08.md and the bounded infant-food-access-2026-10-09.md diagnostic, which confirms missing holder handoff and uncalibrated heat/growth coupling without measuring death shares.
+- **known_issues**: The historical infant death exposed absent caregiver protection. Body maintenance permits finite local assistance through ordinary repair work. Paid food handoffs share its contact index, snapshot post-meal holdings and debit all sources before recipient credits; subsequent physiology ingests delivered provisions. Contact and work/choice parameters remain coarse; food and ice contention use finite shared budgets, and one actual intake/reserve account funds heat and activity. Oxygen contention, performed feeding, childhood growth, reserve/power calibration, containers, broader care and generational viability remain unresolved. See docs/research/community-collapse-2026-10-08.md and the bounded infant-food-access-2026-10-09.md diagnostic, which identified the preceding holder gap and the still uncalibrated heat/growth coupling without measuring death shares. Local food handoff publication and tests are in docs/releases/local-food-handoff-0.2.md; explicit bundle acceptance and developmental mobility remain unmodeled.
 - **last_touched**: 2026-10-09
 
 ### settlement_space

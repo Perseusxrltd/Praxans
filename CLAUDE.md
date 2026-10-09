@@ -8,6 +8,8 @@ Storage format has its own version, separate from world format and laws. Canonic
 
 The Python/Pygame architecture below is retained as a **historical reference**, not the active runtime or current setup instructions.
 
+Personal food handoffs share the body-work contact index and capture private holdings after meals. They debit all donors before crediting recipients, so a received portion cannot be forwarded in the same interval. Delivery changes provisions; subsequent ordinary metabolism ingests the food. Format 14 / biosphere-1.8 has an explicit preserving migration. [The release record](docs/releases/local-food-handoff-0.2.md) gives publication status and distinguishes this primitive from realistic infant feeding, growth or long-term viability.
+
 ## Historical project overview
 
 **Praxans** is an autonomous Pygame civilization sandbox. Small AI-driven creatures ("Praxans") gather resources, build settlements, and react to biome/weather/social conditions. The game is **observer-only** — no live player control over the colony.

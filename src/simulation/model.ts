@@ -7,6 +7,7 @@ import { FOUNDING } from "./founding";
 import { THERMODYNAMICS } from "./thermodynamics";
 import { ADVICE_RULES } from "./society";
 import { METABOLISM, PHYSIOLOGY } from "./physiology";
+import { FOOD_HANDOFF } from "./foodwork";
 import { SUBSISTENCE } from "./subsistence";
 import { WALKING_METRES_PER_HOUR } from "./movement";
 import { SETTLEMENT_SPACE } from "./settlement";
@@ -46,6 +47,7 @@ export const NATURAL_MODEL = Object.freeze({
     thermalBalance: PHYSIOLOGY,
     metabolism: METABOLISM,
     seasonalPlanning: SUBSISTENCE,
+    localFoodHandoff: FOOD_HANDOFF,
     walkingMetresPerHour: WALKING_METRES_PER_HOUR,
     nourishment:
       "From biosphere-1.6, satiety, nourishment and the historical hunger field describe intake fullness (0 empty, 100 full), not stored body energy or a starvation diagnosis. A migrated legacy value is replaced by the first metabolic interval. Inspect metabolism.intake, metabolism.reserves and metabolism.last for actual fuel and shortfalls.",
@@ -53,6 +55,8 @@ export const NATURAL_MODEL = Object.freeze({
       "0 means exhausted; 100 means rested. Urgent nourishment and rest can interrupt ongoing work.",
     feeding:
       "Current metabolic requests share finite reachable food before optional intake buffers and personal rations refill. Intake is separate unoxidized biomass-equivalent kg; reserves are a usable subset already included in body, never extra mass. One oxygen-limited oxidation supplies maintenance, heat and paid activity. Retained intake restores reserves before coarse structural growth. Allocation, automatic feeding, retention and power limits are controller/model assumptions, not learned institutions or calibrated anatomy.",
+    foodHandoff:
+      "From biosphere-1.8, a willing person can spend paid delivery time handing their own provisions or biomass cargo to a stationary person in the same cell. Post-meal holder budgets and all-debits-before-credits prevent duplication and same-interval forwarding. Delivery credits provisions only; later ordinary physiology ingests the food. Choice uses coarse local hunger/empty-bundle signals and social disposition, without kinship or community permission. Bundle targets, handling rates and the contact cell are approximations, not recipient consent, lactation, preparation or assisted swallowing. No nutritional success is awarded merely for handing food over.",
     protection:
       "Performed work places real fiber on bodies. Thickness and conductivity reduce heat demand; cold can use finite intake and body reserves within their power limits. Shared ice is reserved once before food allocation and melts only with released heat. Sweating spends hydration. The injury dose is an uncalibrated energy-deficit model without core temperature, organs or tissue-specific metabolism.",
   },

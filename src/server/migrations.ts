@@ -206,6 +206,18 @@ const migrations: RegisteredMigration[] = [
       // Future physical rules only; every saved inventory remains exact here.
     },
   },
+  {
+    id: "014-performed-local-food-handoff",
+    from: 13,
+    to: 14,
+    fromLaws: "biosphere-1.7",
+    toLaws: "biosphere-1.8",
+    description:
+      "Preserve every existing person, task, memory, body, intake, reserve, ration, cargo, stock, caravan, region, identity, RNG, clock and historical record. From this boundary, people may choose to hand their own carried food to a nearby person through paid delivery work. Contact uses the existing stationary-cell approximation. Capture finite holder budgets after current meals and ration pickup, and debit all donors before crediting recipients; received food cannot fund another handoff in the same interval. Donor choice uses coarse local hunger and empty-bundle signals, existing social disposition and urgent personal needs. Kinship and community labels confer no physical permission. Handling rate and buffer targets are explicit controller approximations. Delivery changes provisions only; subsequent ordinary physiology performs ingestion. This does not represent recipient consent, lactation, food preparation or assisted swallowing, nor validate childhood growth or seasonal survival. No people, food, past care, meals or clock time are created.",
+    apply() {
+      // Optional personal-delivery fields begin only when new work is chosen.
+    },
+  },
 ];
 
 function migrationPath(

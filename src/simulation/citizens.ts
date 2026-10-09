@@ -73,6 +73,14 @@ import {
   workOnBody,
   type BodyWork,
 } from "./bodywork";
+import {
+  beginFoodWork,
+  finishFoodWork,
+  foodWorkOpportunity,
+  isFoodHandoff,
+  workOnFood,
+  type FoodWork,
+} from "./foodwork";
 import { walkPath, WALKING_METRES_PER_HOUR } from "./movement";
 import {
   foodReservePerPerson,
@@ -188,6 +196,7 @@ function decide(
   civ: Civilization,
   population: number,
   bodyWork: BodyWork,
+  foodWork: FoodWork,
 ): void {
   const sky = astronomy(world.tick, person.x, person.y),
     night = sky.solarAltitude < -6;
@@ -262,6 +271,19 @@ function decide(
       )
         return;
     }
+    const food = foodWorkOpportunity(world, person, foodWork);
+    if (
+      food &&
+      choose(
+        0.65 * disposition(person, "deliver") * person.traits.sociability,
+      ) &&
+      assignTask(world, person, "deliver", person.x, person.y, {
+        material: "biomass",
+        recipientId: food.recipient.id,
+        targetProvisionMass: food.target,
+      })
+    )
+      return;
   }
   if (person.cargo) {
     assignTask(world, person, "deliver", civ.x, civ.y);
@@ -597,11 +619,13 @@ export function updateCitizen(
   finishCitizenPhysiology(world, step);
   refillMetabolicIntake(world, [step.metabolism]);
   finishRationPickup(world, prepareRationPickup(world, [person]));
-  updateCitizenActivity(world, step, population, bodyWork);
+  const foodWork = beginFoodWork(world, bodyWork);
+  updateCitizenActivity(world, step, population, bodyWork, foodWork);
   // Standalone diagnostic callers update one actor. The world engine passes one
   // population through updateCitizens; calling this repeatedly does not provide
   // a shared food boundary. A supplied body context only groups body transfers.
   if (!sharedBodyWork) finishBodyWork(world, bodyWork);
+  finishFoodWork(world, foodWork);
 }
 
 /** Shared current food needs, actual oxidation, optional meals/rations, then work. */
@@ -621,14 +645,17 @@ export function updateCitizens(world: World): void {
   for (const step of steps) finishCitizenPhysiology(world, step);
   refillMetabolicIntake(world, metabolism);
   finishRationPickup(world, prepareRationPickup(world));
+  const foodWork = beginFoodWork(world, bodyWork);
   for (const step of steps)
     updateCitizenActivity(
       world,
       step,
       populations.get(step.person.civId)!,
       bodyWork,
+      foodWork,
     );
   finishBodyWork(world, bodyWork);
+  finishFoodWork(world, foodWork);
 }
 
 interface CitizenStep {
@@ -734,6 +761,7 @@ function updateCitizenActivity(
   step: CitizenStep,
   population: number,
   bodyWork: BodyWork,
+  foodWork: FoodWork,
 ): void {
   const { person, civ, taskAtStart, tile, waterTarget, sheltered } = step;
   if (person.health <= 0) return;
@@ -752,13 +780,14 @@ function updateCitizenActivity(
     atHome = canReachCampStocks(world, civ, person);
   if (person.task) {
     const task = person.task;
+    const personalWork = isBodyRepair(task) || isFoodHandoff(task);
     const headingHome =
       (task.kind === "rest" ||
-        task.kind === "deliver" ||
+        (task.kind === "deliver" && !isFoodHandoff(task)) ||
         task.kind === "move") &&
       task.path.at(-1) === tileIndex(world, civ.x, civ.y);
     const needsFood =
-      (isBodyRepair(task) && person.hunger < 40) ||
+      (personalWork && person.hunger < 40) ||
       ((person.hunger < 40 ||
         (person.provisions < 0.25 && tile.temperature < 10)) &&
         civ.stock.biomass > 1e-9 &&
@@ -768,10 +797,10 @@ function updateCitizenActivity(
       (person.energy < 23 ||
         person.mind.sleepPressure > 0.75 ||
         (astronomy(world.tick, person.x, person.y).solarAltitude < -6 &&
-          !isBodyRepair(task)) ||
+          !personalWork) ||
         person.sick > 45) &&
       task.kind !== "rest" &&
-      task.kind !== "deliver";
+      (task.kind !== "deliver" || personalWork);
     const thirsty = person.hydration < waterTarget * 0.6;
     const pursuingWater =
       task.need === "water" &&
@@ -787,7 +816,7 @@ function updateCitizenActivity(
       person.mind.sleeping = false;
     }
   }
-  if (!person.task) decide(world, person, civ, population, bodyWork);
+  if (!person.task) decide(world, person, civ, population, bodyWork, foodWork);
   const task = person.task;
   if (!task) return;
   // New decisions start their physical interval next tick. Existing work and
@@ -840,6 +869,10 @@ function updateCitizenActivity(
     // Selection alone performs no work. The next tick accounts this task as
     // active before any protection is earned; rest/gather cannot run beside it.
     workOnBody(world, person, dt * funded, work, bodyWork);
+    return;
+  }
+  if (isFoodHandoff(task)) {
+    workOnFood(world, person, dt * funded, work, foodWork);
     return;
   }
   if (task.kind === "assemble") {

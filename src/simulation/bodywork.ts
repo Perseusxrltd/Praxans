@@ -42,6 +42,7 @@ interface BodyOpportunity {
 
 /** Transient step data, never saved. One index avoids a population scan per helper. */
 export interface BodyWork {
+  world: World;
   tick: number;
   people: Map<string, Citizen>;
   positions: Map<string, { x: number; y: number; tile: number }>;
@@ -64,6 +65,7 @@ export function beginBodyWork(world: World): BodyWork {
     local.set(tile, residents);
   }
   return {
+    world,
     tick: world.tick,
     people,
     positions,
@@ -87,13 +89,18 @@ function stationary(world: World, person: Citizen, work: BodyWork): boolean {
   );
 }
 
-function contact(
+/** Shared coarse contact for personal work: the same stationary occupied cell. */
+export function personalContact(
   world: World,
   actor: Citizen,
   recipient: Citizen,
   work: BodyWork,
 ): boolean {
   return (
+    work.world === world &&
+    work.tick === world.tick &&
+    work.people.get(actor.id) === actor &&
+    work.people.get(recipient.id) === recipient &&
     stationary(world, actor, work) &&
     stationary(world, recipient, work) &&
     work.positions.get(actor.id)!.tile ===
@@ -186,7 +193,7 @@ export function bodyWorkOpportunities(
   for (const candidate of candidates) {
     const { recipient, target } = candidate;
     if (
-      !contact(world, actor, recipient, work) ||
+      !personalContact(world, actor, recipient, work) ||
       (target > recipient.wrapMass ? !supply : !receive)
     )
       continue;
@@ -217,7 +224,7 @@ export function workOnBody(
   const task = actor.task;
   if (!isBodyRepair(task)) return;
   const recipient = work.people.get(task.recipientId);
-  if (!recipient || !contact(world, actor, recipient, work)) {
+  if (!recipient || !personalContact(world, actor, recipient, work)) {
     abandon(world, actor);
     return;
   }
@@ -247,7 +254,7 @@ export function workOnBody(
  * This scopes ordering independence to body work, not the rest of the economy.
  */
 export function finishBodyWork(world: World, work: BodyWork): void {
-  if (work.committed || work.tick !== world.tick)
+  if (work.committed || work.world !== world || work.tick !== world.tick)
     throw new Error("Body work must commit once in its own tick.");
   work.committed = true;
   const civs = new Map(world.civilizations.map((c) => [c.id, c]));
@@ -260,7 +267,7 @@ export function finishBodyWork(world: World, work: BodyWork): void {
       if (seen.has(intent.actor.id)) return false;
       seen.add(intent.actor.id);
       if (intent.actor.task !== intent.task) return false;
-      if (!contact(world, intent.actor, intent.recipient, work)) {
+      if (!personalContact(world, intent.actor, intent.recipient, work)) {
         abandon(world, intent.actor);
         return false;
       }

@@ -7,6 +7,15 @@
 
 ## Log
 
+### [2026-10-09] Voluntary Local Food Handoffs and Collapse Follow-up
+
+- **type**: bugfix
+- **systems**: human_physiology, civilization_intelligence, world_storage, browser_observer, browser_validation
+- **files**: `foodwork.ts`, `bodywork.ts`, `citizens.ts`, `engine.ts`, `migrations.ts`, `main.tsx`, `foodwork.test.ts`
+- **agent**: Codex
+
+The measured gap between nearby held food and infant access now has a performed transfer path. A willing person spends funded delivery time, using the existing contact index and finite post-meal inventories; all donor debits precede recipient credits and ingestion remains a later physiological process. Migration 014 preserves existing quantities/tasks/history. The observer identifies the recipient and actual kilograms handed over. Historical cold/allocation evidence and uncertainty in the remaining deaths are retained. Validation, failed fixtures, copied-world capacity and actual publication status are recorded in the [release](../docs/releases/local-food-handoff-0.2.md). → ADR-044.
+
 ### [2026-10-09] Published Lossless Regional Storage and Observer Recovery
 
 - **type**: infrastructure

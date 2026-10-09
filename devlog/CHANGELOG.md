@@ -8,6 +8,7 @@
 ## [Renewal, Scale and Agent Recovery 0.2] — 2026-10-08
 
 ### Added
+- Voluntary local food handoffs through funded delivery work, shared contact, finite post-meal source/gap budgets and later ordinary ingestion. Thirteen causal cases cover custody, work, contact, choice, no forwarding and preserving migration; the observer reports actual delivered mass (→ human_physiology; → ADR-044).
 - Published atomic storage version 2 with lossless bounded regional encoding, original/payload verification, legacy readers and rollback/restart tests (→ world_storage; → ADR-042).
 - Nine bounded infant-food/growth controls with exact probe and transfer evidence; no historical death apportionment or biological correction (→ human_physiology).
 - Finite unoxidized intake, a usable reserve subset inside existing body material and one measured metabolic heat/activity account; future death records and agent/browser observations expose the actual interval (→ human_physiology; → ADR-037).

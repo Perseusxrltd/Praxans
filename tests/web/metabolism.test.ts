@@ -680,14 +680,15 @@ test("format-11 migration partitions existing bodies and starts no invented inta
     }
     assert.deepEqual(projected, {
       ...old,
-      version: 13,
-      lawsVersion: "biosphere-1.7",
+      version: 14,
+      lawsVersion: "biosphere-1.8",
     });
     assert.deepEqual(
       migrated.interventions.map((i) => i.id),
       [
         "012-funded-human-metabolism",
         "013-local-inventory-exposure-and-access",
+        "014-performed-local-food-handoff",
       ],
     );
     const loaded = store.load(0, true);
@@ -707,7 +708,7 @@ test("format-11 migration partitions existing bodies and starts no invented inta
     assert.deepEqual(loaded, repeat);
     store.save(loaded);
     assert.deepEqual(store.load(0, true), loaded);
-    assert.equal(store.interventions().length, 2);
+    assert.equal(store.interventions().length, 3);
   } finally {
     store.close();
   }
