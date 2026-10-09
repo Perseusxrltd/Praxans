@@ -7,6 +7,17 @@
 
 ## Log
 
+### [2026-10-09] Completed Survival Continuation and Terminal Death Tracing
+
+- **type**: audit
+- **systems**: human_physiology, performed_harvesting, settlement_space, civilization_intelligence
+- **files**: `survival-continuation-2026-10-09.md`, `survival-continuation-2026-10-09.json`, `mechanism-candidates.json`
+- **agent**: Codex with world_research
+
+The [32.427-day paired study](../docs/research/survival-continuation-2026-10-09.md) reaches its predefined historical-date horizon with exact overlapping-day restart controls. Global harvest rises 27.57%, but Amber Hollow harvest falls 7.28% and the current arm loses four subsequent newborns and sixteen starting adults, versus no deaths before. The original 239 children survive both; the preceding arm still ends with severe newborn deterioration. These later-law transition-state trajectories do not validate viability or apportion historical deaths.
+
+Seven selected-day phase replays match their uninstrumented full-world references and accounting guards. One newborn's fatal cold injury is reproduced with food-funded maximum oxidation and no covering transfer. All sixteen adult deaths occur with depleted intake/reserves and zero movement; pending rest paths exclude these stationary recipients from the existing handoff contact rule. Donor presence/willingness is unmeasured, and the proposed finite-donor contact control remains unrun. The ledger retains food access, care/development calibration and local production follow-up. No simulation source, deployment or live history changes in this study; the read-only 12:08 UTC check retains the existing writer and release.
+
 ### [2026-10-09] Performed Harvesting and Finite Local Competition
 
 - **type**: bugfix

@@ -150,7 +150,7 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **files**: `physiology.ts`, `bodywork.ts`, `foodwork.ts`, `subsistence.ts`, `citizens.ts`
 - **dependencies**: natural_systems, world_state, settlement_space, human_cognition
 - **dependents**: civilization_intelligence
-- **known_issues**: The historical infant death exposed absent caregiver protection. Body maintenance permits finite local assistance through ordinary repair work. Paid food handoffs share its contact index, snapshot post-meal holdings and debit all sources before recipient credits; subsequent physiology ingests delivered provisions. Contact and work/choice parameters remain coarse; food and ice contention use finite shared budgets, and one actual intake/reserve account funds heat and activity. Age-resolved structural capacity and finite recovery now constrain future growth independently of extra cold/work oxidation; existing oversized bodies remain. The curve, processing and recovery parameters are uncalibrated. The covering controller now uses a declared resting/active tolerance and local reconsideration; physical costs and opposing transfers remain. Matched work/harvest evidence does not establish equal child benefit or seasonal survival. Oxygen contention, performed feeding, developmental mobility, reserve/power calibration, containers, broader care and generational viability remain unresolved. See docs/research/community-collapse-2026-10-08.md and the bounded infant-food-access-2026-10-09.md diagnostic, which identified the preceding holder gap and the earlier heat/growth coupling without measuring death shares. Format-15 implementation and publication evidence are in docs/releases/development-0.2.md. Local food handoff publication and tests are in docs/releases/local-food-handoff-0.2.md; explicit bundle acceptance and developmental mobility remain unmodeled.
+- **known_issues**: The historical infant death exposed absent caregiver protection. Body maintenance permits finite local assistance through ordinary repair work. Paid food handoffs share its contact index, snapshot post-meal holdings and debit all sources before recipient credits; subsequent physiology ingests delivered provisions. Contact and work/choice parameters remain coarse; food and ice contention use finite shared budgets, and one actual intake/reserve account funds heat and activity. Age-resolved structural capacity and finite recovery now constrain future growth independently of extra cold/work oxidation; existing oversized bodies remain. The curve, processing and recovery parameters are uncalibrated. The covering controller now uses a declared resting/active tolerance and local reconsideration; physical costs and opposing transfers remain. The completed 32.427-day paired study records 20 current-arm deaths against none before, all in Amber Hollow. Sixteen depleted adults remain motionless with pending rest routes, which the shared contact rule rejects; actual donor availability remains unmeasured. A finite-donor pending-route control is the next discriminating test. Infant cold deaths persist despite funded maximum oxidation. See docs/research/survival-continuation-2026-10-09.md; neither aggregate harvest gains nor original-child survival establish seasonal viability. Oxygen contention, performed feeding, developmental mobility, reserve/power calibration, containers, broader care and generational viability remain unresolved. See docs/research/community-collapse-2026-10-08.md and the bounded infant-food-access-2026-10-09.md diagnostic, which identified the preceding holder gap and the earlier heat/growth coupling without measuring death shares. Format-15 implementation and publication evidence are in docs/releases/development-0.2.md. Local food handoff publication and tests are in docs/releases/local-food-handoff-0.2.md; explicit bundle acceptance and developmental mobility remain unmodeled.
 - **last_touched**: 2026-10-09
 
 ### settlement_space
@@ -196,6 +196,17 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **dependents**: browser_validation
 - **known_issues**: Survey of pinned geography with live community visits; no arbitrary-location live ecology, millimetre terrain or subsurface navigation.
 - **last_touched**: 2026-10-08
+
+### performed_harvesting
+
+- **name**: Funded Resource Work and Shared Local Sources
+- **status**: experimental
+- **package**: src/simulation/
+- **files**: `harvesting.ts`, `citizens.ts`, `subsistence.ts`, `types.ts`, `model.ts`, `../server/migrations.ts`, `../../tests/web/harvesting.test.ts`
+- **dependencies**: world_state, natural_systems, human_physiology, human_cognition
+- **dependents**: civilization_intelligence, browser_validation
+- **known_issues**: Whole-cell encounter, productivity and handling remain uncalibrated. Shared plant accessibility is not anatomical tissue accounting; handling transitions retain measured timestep error. The entire economy is not simultaneous. In the completed 32.427-day pair, global harvest rises 27.57% while Amber harvest falls 7.28% and all 20 current-arm deaths occur there; aggregate improvement is not local food security or a direct causal death share. Local choices, delivery, site learning, developmental handling ability, containers and seasonal carrying capacity remain unresolved.
+- **last_touched**: 2026-10-09
 
 ## Entity Layer
 
@@ -879,14 +890,3 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **dependents**: none
 - **known_issues**: none
 - **last_touched**: 2026-03-07
-
-### performed_harvesting
-
-- **name**: Funded Resource Work and Shared Local Sources
-- **status**: experimental
-- **package**: src/simulation/
-- **files**: `harvesting.ts`, `citizens.ts`, `subsistence.ts`, `types.ts`, `model.ts`, `../server/migrations.ts`, `../../tests/web/harvesting.test.ts`
-- **dependencies**: world_state, natural_systems, human_physiology, human_cognition
-- **dependents**: civilization_intelligence, browser_validation
-- **known_issues**: Whole-cell encounter, productivity and handling remain uncalibrated. Shared plant accessibility is not anatomical tissue accounting; handling transitions retain measured timestep error. The entire economy is not simultaneous. Site learning, developmental handling ability, containers and seasonal carrying capacity remain unresolved.
-- **last_touched**: 2026-10-09

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-10-08",
+  "updated_on": "2026-10-09",
   "research_orientation": "Begin with ancient and premodern primary inquiry; use modern reproducible measurements to check physical claims. Philosophical and normative interpretations do not establish physical laws.",
   "scope": "Prioritized research candidates for active-session batches; no authorization to deploy, mutate a live database, or run new costly ensembles.",
   "source_register": "source-register.json",
@@ -10,25 +10,37 @@
     "P1": "Resolve the next material or behavioral connection.",
     "P2": "Develop a bounded later mechanism after prerequisites."
   },
-  "status_note": "Candidate progress is not implementation or deployment evidence; consult the canonical roadmap and release record.",
+  "status_note": "Observed problems and proposed tests retain their original research context. Status and follow-up evidence are reviewed separately; consult the canonical roadmap and release records for implementation and publication. Research templates do not grant or revoke user authorization.",
   "candidates": [
     {
       "id": "R25",
       "rank": 1,
       "priority": "P0",
       "title": "Connect finite care, age-dependent growth and metabolic energy",
-      "status": "exact_historical_thermal_death_and_finite_fiber_counterfactual_verified_corrections_pending",
+      "status": "care_metabolism_and_development_corrections_live_long_term_validation_open",
+      "status_history": [
+        {
+          "on": "2026-10-08",
+          "status": "exact_historical_thermal_death_and_finite_fiber_counterfactual_verified_corrections_pending"
+        }
+      ],
+      "followup_evidence": [
+        "survival-continuation-2026-10-09.md",
+        "../releases/body-maintenance-0.2.md",
+        "../releases/funded-metabolism-0.2.md",
+        "../releases/development-0.2.md"
+      ],
       "tracks": ["demography", "physiology", "care", "subsistence"],
       "roadmap_ids": ["H01", "W06", "P13"],
       "source_ids": ["A03", "A04", "M16", "M17"],
       "code_anchors": [
         {
           "path": "src/simulation/citizens.ts",
-          "symbol": "updateCitizen, meals, growth and catabolism"
+          "symbol": "updateCitizens and finishCitizenPhysiology"
         },
         {
           "path": "src/simulation/physiology.ts",
-          "symbol": "regulateTemperature, hydrationTarget and fuel"
+          "symbol": "prepareMetabolism, finishMetabolism and structuralCapacity"
         },
         {
           "path": "src/simulation/engine.ts",
@@ -83,21 +95,40 @@
       ],
       "dependencies": ["R02", "R13"],
       "release_implications": "Saved-state/physical-rule corrections need explicit versions, archive and continuity; the old death stays recorded and no automatic renewal follows.",
-      "latest_evidence": "community-collapse-2026-10-08.md"
+      "latest_evidence": "survival-continuation-2026-10-09.md",
+      "current_followup": {
+        "on": "2026-10-09",
+        "evidence": "survival-continuation-2026-10-09.md",
+        "observed": "Seven exact-reference phase windows accompany the complete paired 32.427-day trajectory. Current-law Amber loses four newborns and sixteen starting adults; original 239 children survive both arms. A newborn dies of cold at the food-funded oxidation cap without protection. All sixteen adults have empty intake/reserves, zero movement and pending rest paths, which the local handoff contact test rejects.",
+        "next_control": "Proposed, not run: same finite willing co-located donor and fuel-depleted recipient, compare pending route/no actual movement against explicitly stopped recipient. Preserve paid work, finite donor debits, later ingestion and rejection after actual displacement.",
+        "limits": "Terminal donor presence and willingness were not observed; the contact exclusion is not an independently apportioned death share. Earlier sickness affects four adults. Infant dependency/carrying/feeding, thermal calibration and planned-but-unperformed activity demand remain separate questions."
+      }
     },
     {
       "id": "R02",
       "rank": 2,
       "priority": "P0",
       "title": "Reconcile edible reserves, use, loss, and gathering effort",
-      "status": "ration_order_defect_reproduced_food_and_energy_flows_still_incomplete",
+      "status": "current_need_allocation_and_performed_harvest_live_seasonal_food_balance_open",
+      "status_history": [
+        {
+          "on": "2026-10-08",
+          "status": "ration_order_defect_reproduced_food_and_energy_flows_still_incomplete"
+        }
+      ],
+      "followup_evidence": [
+        "food-flux-day-2026-10-09.md",
+        "performed-harvesting-2026-10-09.md",
+        "survival-continuation-2026-10-09.md",
+        "../releases/ration-boundary-0.2.md"
+      ],
       "tracks": ["subsistence", "economics"],
       "roadmap_ids": ["W11", "P01", "P03", "W06"],
       "source_ids": ["A04", "A08", "M03", "M16", "M17"],
       "code_anchors": [
         {
           "path": "src/simulation/subsistence.ts",
-          "symbol": "edibleReserves"
+          "symbol": "feedIntake and carriedFoodKg"
         },
         {
           "path": "src/simulation/citizens.ts",
@@ -105,7 +136,7 @@
         },
         {
           "path": "src/simulation/physiology.ts",
-          "symbol": "takeAccessibleFood and fuel"
+          "symbol": "finishMetabolism and refillMetabolicIntake"
         },
         {
           "path": "src/simulation/weathering.ts",
@@ -157,7 +188,14 @@
       "dependencies": [],
       "release_implications": "Prefer diagnostic counters first; persistent counters require saved-state migration and must begin at their actual introduction tick.",
       "progress_note": "Five fixed-stock ration fixtures reproduce update-order deprivation despite full sharing; reversing order or providing ample food changes the result. Thermal fuel, hunger catabolism and baseline heat use disconnected budgets. Communal stock is not a complete food-flow account.",
-      "latest_evidence": "community-collapse-2026-10-08.md"
+      "latest_evidence": "survival-continuation-2026-10-09.md",
+      "current_followup": {
+        "on": "2026-10-09",
+        "evidence": "survival-continuation-2026-10-09.md",
+        "observed": "Global harvest rises 27.57% but Amber harvest falls 7.28%; its first daily communal food sample below 5 kg moves from day 28 to day 24. All sixteen terminal adults have no selected accessible shared source, while other Amber residents ingest 186.736 kg during their last observed day.",
+        "next_observation": "Trace earlier camp-footprint/access changes, finite personal stocks, remembered source choices, routes, actual local donor opportunities and delivered yield. Standing vegetation and communal/private totals do not imply personal access or sustainable yield.",
+        "limits": "Selected terminal windows do not identify the earlier event that stranded residents or isolate the harvest correction as a direct physiological death cause."
+      }
     },
     {
       "id": "R13",
@@ -408,7 +446,17 @@
       "rank": 6,
       "priority": "P0",
       "title": "Make biological food decay depend on conditions",
-      "status": "cold_scaling_checked_inventory_location_and_calibration_gaps_remain",
+      "status": "common_inventory_exposure_live_containers_and_calibration_open",
+      "status_history": [
+        {
+          "on": "2026-10-08",
+          "status": "cold_scaling_checked_inventory_location_and_calibration_gaps_remain"
+        }
+      ],
+      "followup_evidence": [
+        "food-flows-2026-10-09.md",
+        "../releases/food-custody-0.2.md"
+      ],
       "tracks": ["subsistence", "ecology", "materials"],
       "roadmap_ids": ["P10", "E03", "W06"],
       "source_ids": ["A02", "A04", "M03"],
@@ -476,7 +524,7 @@
           "note": "The earlier combined 32-founder seasonal run has severe losses in Amber and Stone despite the thermal decay correction. Later 300-person 14-day changed-bundle comparison lowers heat and net camp stock drawdown. Neither isolates decay nor establishes seasonal balance; Q10=2 remains an effective assumption."
         }
       ],
-      "latest_evidence": "community-collapse-2026-10-08.md"
+      "latest_evidence": "food-flows-2026-10-09.md"
     },
     {
       "id": "R04",
@@ -546,7 +594,18 @@
       "rank": 8,
       "priority": "P0",
       "title": "Choose gathering by remembered return and a feasible journey",
-      "status": "standing_food_access_mismatch_observed_not_isolated_causality",
+      "status": "observed_depletion_and_performed_harvest_live_site_return_learning_open",
+      "status_history": [
+        {
+          "on": "2026-10-08",
+          "status": "standing_food_access_mismatch_observed_not_isolated_causality"
+        }
+      ],
+      "followup_evidence": [
+        "observed-foraging-2026-10-09.md",
+        "performed-harvesting-2026-10-09.md",
+        "survival-continuation-2026-10-09.md"
+      ],
       "tracks": ["subsistence", "cognition", "economics"],
       "roadmap_ids": ["H02", "H03", "W04", "W06"],
       "source_ids": ["A04", "A05", "M02"],
@@ -607,7 +666,7 @@
       "dependencies": ["R02", "R04"],
       "release_implications": "Publish the behavioral approximation; verify determinism and no gain in resources or authority from a larger search budget.",
       "progress_note": "The inhabited snapshot contains 555.5 t standing edible tissue while local inner areas are depleted. This upper stock is not delivered food or annual production. Test one knowledge/path rule at a time before changing ecological yields.",
-      "latest_evidence": "community-collapse-2026-10-08.md"
+      "latest_evidence": "survival-continuation-2026-10-09.md"
     },
     {
       "id": "R24",
@@ -1834,6 +1893,15 @@
     "recorded_on": "2026-10-08",
     "report": "community-collapse-2026-10-08.md",
     "reproduction": "collapse-reproduction.md",
-    "status": "confirmed_defects_and_one_exact_cause_corrections_not_released"
+    "status": "historical_cause_verified_corrections_live_survival_validation_continues",
+    "status_history": [
+      {
+        "on": "2026-10-08",
+        "status": "confirmed_defects_and_one_exact_cause_corrections_not_released"
+      }
+    ],
+    "reviewed_on": "2026-10-09",
+    "followup": "survival-continuation-2026-10-09.md",
+    "latest_implemented_source": "19570a9424a7a3517107f7547a2b7f856945802d"
   }
 }
