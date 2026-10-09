@@ -167,7 +167,7 @@ test("a failed commit after owned migration preserves the old checkpoint and arc
     const head = store.db.prepare("SELECT * FROM world").get();
     const regions = store.db.prepare("SELECT * FROM chunks ORDER BY id").all();
     store.db.exec(
-      "CREATE TRIGGER reject_upgraded_world BEFORE UPDATE ON world WHEN json_extract(NEW.json,'$.version')=11 BEGIN SELECT RAISE(ABORT,'injected migration commit failure'); END",
+      "CREATE TRIGGER reject_upgraded_world BEFORE UPDATE ON world WHEN json_extract(NEW.json,'$.version')=12 BEGIN SELECT RAISE(ABORT,'injected migration commit failure'); END",
     );
     assert.throws(
       () => store.load(0, true),
@@ -185,9 +185,9 @@ test("a failed commit after owned migration preserves the old checkpoint and arc
     );
     assert.equal(store.interventions().length, 0);
     store.db.exec("DROP TRIGGER reject_upgraded_world");
-    assert.equal(store.load(0, true).version, 11);
+    assert.equal(store.load(0, true).version, 12);
     assert.equal(verifyWorldArchives(store.db).length, 1);
-    assert.equal(store.interventions().length, 4);
+    assert.equal(store.interventions().length, 5);
   } finally {
     store.close();
   }

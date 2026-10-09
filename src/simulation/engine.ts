@@ -6,6 +6,7 @@ import { updateCouncils, autonomousDiplomacy } from "./society";
 import { executeProposal } from "./actions";
 import { sampleProgress } from "./progress";
 import { validateDepth } from "./validation";
+import { withdrawBodyMatter } from "./physiology";
 import { decayStocks } from "./weathering";
 import { invalidateCampPopulation } from "./settlement";
 import { updateEcology } from "./ecology";
@@ -77,7 +78,7 @@ function updateFamilies(world: World, civ: Civilization): void {
       const child = createCitizen(world, civ, [parent, pregnancy.partner]);
       const food = Math.min(civ.stock.biomass, child.body);
       civ.stock.biomass -= food;
-      parent.body -= child.body - food;
+      withdrawBodyMatter(parent, child.body - food);
       const water = Math.min(home.water, child.hydration);
       home.water -= water;
       parent.hydration -= child.hydration - water;
@@ -565,12 +566,51 @@ export function validateWorld(world: World): void {
       fail("citizen position or community");
     for (const value of [
       person.body,
+      person.metabolism?.intake,
+      person.metabolism?.reserves,
       person.hydration,
       person.age,
       person.wrapMass,
       person.provisions,
     ])
       positive(value, "body state");
+    if (!person.metabolism || person.metabolism.reserves > person.body + 1e-9)
+      fail("body reserve subset");
+    const metabolism = person.metabolism.last;
+    if (metabolism !== null) {
+      if (
+        !metabolism ||
+        !Number.isSafeInteger(metabolism.tick) ||
+        metabolism.tick < 0 ||
+        metabolism.tick > world.tick ||
+        !Number.isFinite(metabolism.hours) ||
+        metabolism.hours <= 0 ||
+        !Number.isFinite(metabolism.heatLossKJ) ||
+        !Number.isFinite(metabolism.activityFraction) ||
+        metabolism.activityFraction < 0 ||
+        metabolism.activityFraction > 1 ||
+        !(
+          metabolism.journeyId === null ||
+          typeof metabolism.journeyId === "string"
+        )
+      )
+        fail("metabolic interval");
+      for (const value of [
+        metabolism.ingestedKg,
+        metabolism.foodOxidizedKg,
+        metabolism.reserveOxidizedKg,
+        metabolism.reserveStoredKg,
+        metabolism.structureStoredKg,
+        metabolism.maintenanceKJ,
+        metabolism.releasedKJ,
+        metabolism.meltKJ,
+        metabolism.unmetMaintenanceKJ,
+        metabolism.unmetColdKJ,
+        metabolism.unremovedHeatKJ,
+        metabolism.healthLoss,
+      ])
+        positive(value, "metabolic flux");
+    }
     for (const value of [
       person.health,
       person.hunger,
@@ -595,6 +635,11 @@ export function validateWorld(world: World): void {
     )
       fail("citizen path");
     const task = person.task;
+    if (
+      task?.need !== undefined &&
+      (task.need !== "water" || !["move", "explore"].includes(task.kind))
+    )
+      fail("bodily route purpose");
     if (
       task &&
       (task.recipientId !== undefined || task.targetWrapMass !== undefined)

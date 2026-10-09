@@ -509,6 +509,20 @@ function App() {
                 activity: p.task?.kind ?? "deciding",
                 bodyCoveringKg: p.wrapMass,
                 rationsKg: p.provisions,
+                metabolism: p.metabolism
+                  ? {
+                      intakeKg: p.metabolism.intake,
+                      bodyReservesKg: p.metabolism.reserves,
+                      intervalTick: p.metabolism.last?.tick,
+                      releasedKJ: p.metabolism.last?.releasedKJ,
+                      shortfallKJ: p.metabolism.last
+                        ? Math.max(
+                            p.metabolism.last.unmetMaintenanceKJ,
+                            p.metabolism.last.unmetColdKJ,
+                          )
+                        : undefined,
+                    }
+                  : undefined,
                 helpingPerson: p.task?.recipientId,
                 health: round(p.health),
                 generation: p.generation,
@@ -1857,6 +1871,9 @@ function CitizenPanel({
   const civ = world.civilizations.find((c) => c.id === person.civId)!,
     partner = world.citizens.find((p) => p.id === person.partnerId),
     recipient = world.citizens.find((p) => p.id === person.task?.recipientId);
+  const metabolism = person.metabolism,
+    flux = metabolism?.last,
+    shortfall = flux ? Math.max(flux.unmetMaintenanceKJ, flux.unmetColdKJ) : 0;
   return (
     <>
       <span className="eyebrow">ONE SMALL, WHOLE LIFE</span>
@@ -1899,7 +1916,10 @@ function CitizenPanel({
       </div>
       <h3>The rhythms of a body</h3>
       <Meter label="Health" value={person.health} />
-      <Meter label="Nourishment" value={person.hunger} />
+      <Meter
+        label={metabolism ? "Satiety" : "Nourishment"}
+        value={person.hunger}
+      />
       <Meter label="Rest" value={person.energy} />
       <Meter label="Contentment" value={person.happiness} />
       <p className="muted">
@@ -1908,6 +1928,26 @@ function CitizenPanel({
       <p className="muted">
         Personal rations: {round(person.provisions, 2)} kg of food.
       </p>
+      {metabolism && (
+        <>
+          <p className="muted">
+            Food digesting: {round(metabolism.intake, 2)} kg. Usable body
+            reserves: {round(metabolism.reserves, 2)} kg.
+          </p>
+          {flux && (
+            <p className="muted">
+              Energy released: {round(flux.releasedKJ, 1)} kJ over{" "}
+              {round(flux.hours * 60)} minutes.
+              {shortfall > 0.01 && (
+                <> Energy shortfall: {round(shortfall, 1)} kJ.</>
+              )}
+              {flux.unremovedHeatKJ > 0.01 && (
+                <> Heat not shed: {round(flux.unremovedHeatKJ, 1)} kJ.</>
+              )}
+            </p>
+          )}
+        </>
+      )}
       <MindPanel person={person} civ={civ} />
       <h3>A way of being</h3>
       <div className="trait-tags">

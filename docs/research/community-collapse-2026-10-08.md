@@ -67,7 +67,7 @@ This replay establishes one precise historical cause. It does not apportion all 
 
 ## Two reproduced mechanisms
 
-**C1 — optional ration packing can precede another person's urgent meal.** [`stepWorld`](../../src/simulation/engine.ts) updated people in array order in the investigated baseline; [births append children](../../src/simulation/engine.ts). [`updateCitizen`](../../src/simulation/citizens.ts) packed up to 3 kg at home before checking meal need in that baseline. [`takeAccessibleFood`](../../src/simulation/physiology.ts) does not make someone else's provisions available.
+**C1 — optional ration packing can precede another person's urgent meal.** [`stepWorld`](../../src/simulation/engine.ts) updated people in array order in the investigated baseline; [births append children](../../src/simulation/engine.ts). [`updateCitizen`](../../src/simulation/citizens.ts) packed up to 3 kg at home before checking meal need in that baseline. The historical food-withdrawal function kept someone else's provisions private; the subsequent metabolic implementation replaces that function while preserving custody.
 
 With the same 3 kg communal food, an adult at 90 nourishment and a child at 10, one actual tick gives:
 
@@ -121,6 +121,12 @@ The work-planning update completed at 19:42:59 UTC, after the collapse. An old-r
 
 The [reproduction guide](collapse-reproduction.md) lists exact source fingerprints, commands and scope for the read-only extractor, disposable mechanism controls, habitat analysis, historical replay and figure. Published result files are retained; repeat commands write ignored `output/research` files. Full backup copies are private and deliberately not in Git.
 
-The review changes documentation and diagnostic artifacts only. It does not release the proposed care, allocation, growth or food-flow mechanisms. The construction/work-choice fix is live, but it was published after the recorded extinction and cannot explain earlier deaths.
+The original investigation changed documentation and diagnostic artifacts only. Its measurements describe the recorded baseline, including historical function names above; later implementation must not overwrite that evidence. The construction/work-choice fix was published after the recorded extinction and cannot explain earlier deaths.
 
 During publication checks, a separate disk-full halt was found and the same runtime was recovered from its committed state. The [storage recovery record](../validation/storage-recovery-2026-10-08.md) documents that operational action and its limits; it is not a cause of the earlier deaths or another population restoration.
+
+## Subsequent corrections — 2026-10-09
+
+The [body-maintenance](../releases/body-maintenance-0.2.md) and [ration-boundary](../releases/ration-boundary-0.2.md) releases address performed covering and optional packing preceding another person's current need. The [funded-metabolism correction](../releases/funded-metabolism-0.2.md) introduces one actual intake/reserve oxidation account, shared current food/ice budgets and measured future death evidence; its release record distinguishes candidate validation from live publication. These changes preserve the original extinct communities and their history.
+
+The first infant's terminal heat loss and the allocation artifact are confirmed defects. Their fraction of all 1,607 deaths remains unmeasured. Infant growth/feeding, delivered food production, spoilage and connected carrying capacity still need bounded causal trials before the collapse can be described as a natural ecological outcome. A seven-day trial of the metabolic candidate exceeded its six-minute compute budget and produced no final census; it establishes no survival claim.

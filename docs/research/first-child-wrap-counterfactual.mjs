@@ -16,6 +16,30 @@ import { emptyStock, ledger } from "../../src/simulation/laws.ts";
 import { canReachCampStocks } from "../../src/simulation/settlement.ts";
 
 const root = path.resolve(import.meta.dirname, "../..");
+const sourceFingerprints = [
+  "physiology",
+  "content",
+  "laws",
+  "chemistry",
+  "settlement",
+].map((name) => {
+  const relative = `src/simulation/${name}.ts`;
+  return {
+    path: relative,
+    sha256: createHash("sha256")
+      .update(fs.readFileSync(path.join(root, relative)))
+      .digest("hex"),
+  };
+});
+assert.deepEqual(
+  sourceFingerprints,
+  JSON.parse(
+    fs.readFileSync(
+      new URL("first-child-wrap-counterfactual.json", import.meta.url),
+    ),
+  ).sourceFingerprints,
+  "Historical inputs changed; use the pinned checkout in collapse-reproduction.md.",
+);
 const replayPath = path.join(
   import.meta.dirname,
   "collapse-first-death-replay.json",
@@ -184,21 +208,6 @@ const cases = [runCase(0), runCase(2)];
 assert.equal(cases[0].healthAfter, recordedAfter.health);
 assert.equal(cases[0].healthAfter, 0);
 assert.ok(cases[1].healthAfter > 0);
-const sourceFingerprints = [
-  "physiology",
-  "content",
-  "laws",
-  "chemistry",
-  "settlement",
-].map((name) => {
-  const relative = `src/simulation/${name}.ts`;
-  return {
-    path: relative,
-    sha256: createHash("sha256")
-      .update(fs.readFileSync(path.join(root, relative)))
-      .digest("hex"),
-  };
-});
 const result = {
   recordedAtUTC: new Date().toISOString(),
   evidenceKind:

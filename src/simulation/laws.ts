@@ -26,7 +26,7 @@ import type {
 
 /** Changing these laws requires a new version and an explicit saved-world migration. */
 export const LAWS = Object.freeze({
-  version: "biosphere-1.5",
+  version: "biosphere-1.6",
   gravity: 9.81,
   chemicalEnergy: 17000,
   photosyntheticEfficiency: 0.024,
@@ -170,6 +170,7 @@ export function ledger(world: World): Matter & { chemical: number } {
       add(material as Material, amount);
   for (const person of world.citizens) {
     add("biomass", person.body);
+    add("biomass", person.metabolism.intake);
     add("fiber", person.wrapMass);
     add("biomass", person.provisions);
     water += person.hydration;

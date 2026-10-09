@@ -24,6 +24,10 @@ for name in SOURCES:
         "sha256": hashlib.sha256((ROOT / relative).read_bytes()).hexdigest(),
     })
 
+assert fingerprints == json.loads(
+    (ROOT / "docs/research/starvation-storage-arithmetic.json").read_text()
+)["sourceFingerprints"], "Historical inputs changed; use the pinned checkout in collapse-reproduction.md."
+
 # Refuse to attach current fingerprints to obsolete copied constants after a
 # model change. These are guards on this audit's inputs, not implementation tests.
 contracts = {

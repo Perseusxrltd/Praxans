@@ -1,5 +1,7 @@
 # Browser world validation
 
+The [funded-metabolism candidate](../releases/funded-metabolism-0.2.md) has a separate [measured record](funded-metabolism-2026-10-09.json). Twenty new metabolic cases, sixteen exact-artifact inhabited handover checks and twelve isolated production checks pass. Retained failures include a seven-day compute timeout and a production timeout under competing load; neither is evidence of natural extinction. Live status is recorded separately.
+
 The live [ration-boundary correction](../releases/ration-boundary-0.2.md) has separate [causal, storage, continuity and publication evidence](ration-boundary-2026-10-09.json). Its initial quota failure is retained alongside the corrected test and actual tick-344720 handover; passing allocation cases do not establish demographic viability.
 
 ## Body maintenance — 2026-10-08

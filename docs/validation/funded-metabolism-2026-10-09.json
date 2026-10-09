@@ -1,0 +1,471 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-09T01:13:35.571848+00:00",
+  "status": "validated candidate; artifact staged but not activated",
+  "release": "funded-metabolism-20261009-1",
+  "runtimeSha256": "7f45713e7a1a257c1d228ada10fdd0a096ba19e8b9811aa8e7979e4d1e084a0f",
+  "sourceBaseCommit": "bd3a84cb882a18348229f3c8ab5758c96c9da31b",
+  "sourceFingerprint": "2450199e28b92f5f507d628fd8aaef16a1301b86b0f1fdc221e4eafeefeb93d6",
+  "worldFormat": 12,
+  "lawsVersion": "biosphere-1.6",
+  "storageVersion": 1,
+  "model": {
+    "bodyUnits": "kg biomass-equivalent material, hydration separate; not anatomical total body weight",
+    "intake": "actual swallowed unoxidized kg, counted separately",
+    "reserves": "mobilizable subset already within body; not double-counted",
+    "foodEnergyKJPerKg": 15980,
+    "initialReserveFraction": 0.1,
+    "powerAt18KgBodyW": {
+      "resting": 110,
+      "active": 160,
+      "reserveMaximum": 220,
+      "totalMaximum": 440
+    },
+    "parameterStatus": "Coarse engineering assumptions, not calibrated physiology or a starvation survival curve"
+  },
+  "validation": {
+    "modelServer": {
+      "completed": 189,
+      "passedInFullBatch": 188,
+      "failedInFullBatch": 1,
+      "failure": "Construction-evidence fixture assigned high fullness but no actual meal beyond camp stock reach.",
+      "correction": "Finite 0.9 kg intake transfer with matching stock debit; targeted knowledge-record tests pass 2/2. No runtime change after full batch.",
+      "newMetabolismCasesPassed": 20,
+      "remainingFailedCases": 0,
+      "aggregateScope": "Full batch plus targeted corrected fixture, not a repeated all-green full batch."
+    },
+    "build": "passed",
+    "format": "passed after finalization",
+    "browser": {
+      "checks": [
+        "The saved person has no personal rations",
+        "Satiety is labeled separately from chemical energy",
+        "Initial private food is visible",
+        "An actual tick gives both people the same residual rations",
+        "The adult inspector shows carried food",
+        "The child inspector shows its actual personal rations",
+        "The hungry child has eaten before packing",
+        "The inspector shows real intake and usable body reserves",
+        "The inspector shows the measured energy interval",
+        "Visible quantities match the authoritative observer",
+        "Natural laws expose the actual metabolic coefficients",
+        "The mobile inspector fits its viewport",
+        "The browser reports no errors"
+      ],
+      "beforeTick": 29,
+      "afterTick": 30,
+      "rations": 1.0499999999999998,
+      "childSatiety": 99.31163954943679,
+      "metabolism": {
+        "intake": 0.8938047559449311,
+        "reserves": 0,
+        "last": {
+          "tick": 30,
+          "hours": 0.25,
+          "ingestedKg": 0.9,
+          "foodOxidizedKg": 0.006195244055068836,
+          "reserveOxidizedKg": 0,
+          "reserveStoredKg": 0,
+          "structureStoredKg": 0,
+          "maintenanceKJ": 99,
+          "heatLossKJ": 67.5,
+          "releasedKJ": 99,
+          "meltKJ": 0,
+          "unmetMaintenanceKJ": 0,
+          "unmetColdKJ": 0,
+          "unremovedHeatKJ": 0,
+          "healthLoss": 0,
+          "activityFraction": 0,
+          "journeyId": null
+        }
+      },
+      "errors": []
+    },
+    "connection": {
+      "passed": 16,
+      "scope": "Local Chromium owner/agent copy/share/email flow; private keys masked in inspected screenshots."
+    },
+    "production": {
+      "checks": [
+        "the compiled server advances while nobody watches",
+        "production never exposes manual time controls",
+        "the runnable example agent can observe and guide its community",
+        "online backup captures an existing world and its claimed community",
+        "restart preserves the seed, people, and geography",
+        "restart simulates missed time instead of erasing the interruption",
+        "browser ownership survives a process restart",
+        "the same agent key survives a process restart",
+        "the advice retains its identity and content across process restarts",
+        "each service release is recorded once in the continuing world",
+        "restoring a backup respects the previous ownership lease",
+        "the backup itself can resume with the original owner and key"
+      ],
+      "passed": 12,
+      "savedTick": 32,
+      "continuedTick": 94,
+      "backupTick": 23
+    },
+    "genericHotfix": {
+      "passed": 21,
+      "scope": "Disposable local gateway continuity, rollback and failure injection; not a live-host guarantee."
+    },
+    "inhabitedExactArtifact": {
+      "checks": [
+        "the copied world contains the original four communities and their first born generation",
+        "the real-world candidate uses an effective validation heap below 224 MiB",
+        "the exact funded-metabolism artifact replaces the worker through the continuing gateway",
+        "the same compressed observer connection continues across the funded-metabolism law migration",
+        "advice remains available while the real clock debt is retained",
+        "the new physiology continues through at least 96 committed ticks after handover",
+        "the observer remains monotonic and open through later checkpoint writes",
+        "the finite source filesystem retains free space during copying and handover",
+        "all prior inhabitants including infants and each community identity survive this bounded handover",
+        "the additive storage format remains one while physical format advances",
+        "clock debt is retained exactly",
+        "ownership, agent keys, receipts and every earlier event remain unchanged",
+        "old law archives remain unchanged alongside one new combined care/ration/metabolism archive",
+        "one release is recorded with equal boundary checksums",
+        "the physical intervention remains recorded exactly once",
+        "restart retains existing people and new census changes match ordinary births and deaths"
+      ],
+      "snapshots": 2,
+      "compactSnapshots": 2,
+      "frames": 42,
+      "lastTick": 228608,
+      "fault": null,
+      "activation": {
+        "release": "funded-metabolism-20261009-1",
+        "type": "preflight",
+        "id": "praxans-world",
+        "seed": 1847,
+        "sourceTick": 228436,
+        "tick": 228468,
+        "format": 12,
+        "laws": "biosphere-1.6",
+        "validationHeapLimitBytes": 226492416,
+        "resumedTick": 228516
+      },
+      "restarted": {
+        "tick": 228616,
+        "people": 1444,
+        "births": 244,
+        "deaths": 32,
+        "format": 12,
+        "laws": "biosphere-1.6"
+      },
+      "peakProcessRssBytes": 1393446912,
+      "memoryByPhase": {
+        "starting": {
+          "parentRss": 544727040,
+          "childrenRss": 431439872,
+          "parentAnon": 486154240,
+          "childrenAnon": 378454016
+        },
+        "running": {
+          "parentRss": 431431680,
+          "childrenRss": 642240512,
+          "parentAnon": 372858880,
+          "childrenAnon": 587632640
+        },
+        "preparing": {
+          "parentRss": 424194048,
+          "childrenRss": 969359360,
+          "parentAnon": 365621248,
+          "childrenAnon": 861044736
+        },
+        "handover": {
+          "parentRss": 370733056,
+          "childrenRss": 554360832,
+          "parentAnon": 312160256,
+          "childrenAnon": 499752960
+        }
+      },
+      "capacity": {
+        "bytes": 454299648,
+        "minimumAvailableBytes": 6561792,
+        "maximumWalBytes": 109983432,
+        "samples": 2183,
+        "byPhase": {
+          "starting": {
+            "minimumAvailableBytes": 116736000,
+            "maximumWalBytes": 16512,
+            "samples": 153
+          },
+          "running": {
+            "minimumAvailableBytes": 6561792,
+            "maximumWalBytes": 109983432,
+            "samples": 966
+          },
+          "preparing": {
+            "minimumAvailableBytes": 8339456,
+            "maximumWalBytes": 108920472,
+            "samples": 737
+          },
+          "handover": {
+            "minimumAvailableBytes": 7606272,
+            "maximumWalBytes": 109649712,
+            "samples": 327
+          }
+        },
+        "scope": "disposable private tmpfs with live-sized quota and matched starting non-WAL footprint; not a live host IO or cgroup memory guarantee"
+      },
+      "memoryScope": "sampled parent plus direct child RSS in a local test, not live cgroup peak",
+      "status": {
+        "phase": "running",
+        "release": "funded-metabolism-20261009-1",
+        "pendingRequests": 0,
+        "activeRequests": 0,
+        "observers": 0,
+        "runtimePid": 150283,
+        "managedProcesses": 1,
+        "error": null
+      }
+    },
+    "currentWorldMigration": {
+      "checkedAt": "2026-10-09T00:57:03.594Z",
+      "mode": "current",
+      "source": "output/backups/before-funded-metabolism-20261009.sqlite",
+      "originalSha256": "010cf95826f5abc4701aea367a337c561931c42d9fa47f53ee4eac2c20e7c534",
+      "sourceUnchanged": true,
+      "scope": "Actual format 9 or 11 to 12 archive/migration on a disposable backup, followed by 96 (empty) or 672 (inhabited) simulated ticks and restart; local disk quota and child RSS, not simultaneous live-plus-candidate cgroup memory.",
+      "code": 0,
+      "signal": null,
+      "report": {
+        "migrationMs": 10128.099919,
+        "sourceTick": 356816,
+        "tick": 356912,
+        "sourcePeople": 0,
+        "people": 0,
+        "births": 407,
+        "deaths": 1639,
+        "format": 12,
+        "laws": "biosphere-1.6",
+        "manifest": {
+          "id": "012-funded-human-metabolism",
+          "checksum": "ae58ead1fb3c0d99c9398aeb1257ea23482abd4fbf3c02cd430f9d6ef746db07",
+          "createdAt": 1791507368286,
+          "encoding": "deflate-parts-1",
+          "rawBytes": 108910235,
+          "parts": 416
+        },
+        "originalSha256": "ae58ead1fb3c0d99c9398aeb1257ea23482abd4fbf3c02cd430f9d6ef746db07",
+        "originalBytes": 108910235,
+        "compressedBytes": 33860827,
+        "heapLimitBytes": 226492416,
+        "maxRssKiB": 360056,
+        "databaseBytes": 286371840,
+        "unchangedMigrationMetadataExceptVersionsAndMetabolicPartition": true,
+        "unchangedMigrationRegions": true,
+        "unchangedMigrationClock": true,
+        "priorSignatures": {
+          "sessions": {
+            "count": 24,
+            "sha256": "ce1fa749889ee5c8f2a44a13314743a89af846bf7e72c97c675d97796311e6f2"
+          },
+          "agents": {
+            "count": 1,
+            "sha256": "be936faf0ec866bb0f178758d7dd0ee5619fbb7a4cf1aeb3698a6299ab417649"
+          },
+          "receipts": {
+            "count": 3,
+            "sha256": "66822d0cd6667353d334014de7d5c42373e15e82838fadfde3e9656e2a30b963"
+          },
+          "priorEvents": {
+            "count": 70313,
+            "sha256": "d56b24a5dafcf7dc70378768b8678456412b9958d99122df037b2e7b85dcfba2"
+          },
+          "renewals": {
+            "count": 1,
+            "sha256": "790c07765725acb8f7af55c7b4b11b3f5ae5dede6a439d32ef9c565adfd5151e"
+          }
+        },
+        "furtherSaves": 3,
+        "simulatedDays": 1,
+        "sampledMetabolicIntervals": {
+          "humanReleasedKJ": 0,
+          "humanReserveKg": 0,
+          "lowestHealth": 100,
+          "note": "one interval sampled at each 32-tick checkpoint, not a full daily flow ledger"
+        },
+        "restarted": true
+      },
+      "capacity": {
+        "bytes": 454299648,
+        "initialNonWalFootprint": 315000000,
+        "minFree": 28823552,
+        "maxWal": 110242992,
+        "samples": 987
+      },
+      "peakRssBytes": 368537600
+    },
+    "historicalInputGuards": {
+      "checks": [
+        {
+          "script": "collapse-mechanism-probe.mjs",
+          "rejectsChangedSourceBeforeSimulation": true
+        },
+        {
+          "script": "first-child-wrap-counterfactual.mjs",
+          "rejectsChangedSourceBeforeSimulation": true
+        },
+        {
+          "script": "starvation-storage-arithmetic.py",
+          "rejectsChangedSourceBeforeSimulation": true
+        }
+      ],
+      "scope": "Current revision rejects obsolete controls; published historical results are unchanged and their simulations were not rerun."
+    },
+    "suppliedGameClient": {
+      "unmodified": true,
+      "sha256": "1210f58b47aadd9cb4b141fb4b2dc9e17a929aa1a813cdd26b5306a0d08b6808",
+      "observedTicks": [
+        1,
+        2,
+        3
+      ],
+      "people": 900,
+      "communities": 3,
+      "browserErrors": 0
+    },
+    "screenshotsInspected": [
+      "output/playwright/metabolic/02-child.png",
+      "output/playwright/metabolic/03-mobile.png",
+      "output/playwright/metabolic-game-loop/shot-2.png",
+      "output/playwright/connection-smoke/03-mobile-ready.png"
+    ],
+    "repositoryCoherence": {
+      "record": "release-coherence-2026-10-08.json",
+      "review": "fundedMetabolismReview",
+      "sourceFingerprint": "2450199e28b92f5f507d628fd8aaef16a1301b86b0f1fdc221e4eafeefeb93d6",
+      "existingFiles": 935,
+      "resolvedEdges": 653,
+      "localMarkdownLinks": 416,
+      "missingImportsAssetsOrLinks": 0,
+      "layerViolations": 0
+    }
+  },
+  "retainedFailures": {
+    "inhabitedSevenDay": {
+      "checkedAt": "2026-10-09T01:02:31.827Z",
+      "mode": "inhabited",
+      "source": "output/backups/before-construction-planning-20261008.sqlite",
+      "originalSha256": "a973f2a1e4e3df17eab5d11e63467b635c13eddfed8124ef6b53d480f5da94ce",
+      "sourceUnchanged": true,
+      "scope": "Actual format 9 or 11 to 12 archive/migration on a disposable backup, followed by 96 (empty) or 672 (inhabited) simulated ticks and restart; local disk quota and child RSS, not simultaneous live-plus-candidate cgroup memory.",
+      "code": null,
+      "signal": "SIGKILL",
+      "capacity": {
+        "bytes": 454299648,
+        "initialNonWalFootprint": 315000000,
+        "minFree": 13303808,
+        "maxWal": 109839232,
+        "samples": 7100
+      },
+      "peakRssBytes": 489512960
+    },
+    "inhabitedSevenDayInterpretation": "Harness terminated the simultaneous 672-tick attempt after a 360-second compute budget; no final census or survival result. Do not treat SIGKILL as an observed simulated extinction or a demonstrated host OOM.",
+    "contendedProduction": "Earlier compiled production test exceeded the unchanged 300-second backup-recovery deadline during concurrent heavy simulations; the isolated retry passes all twelve checks. Clock debt was not reset.",
+    "initialFixtures": "Floating health tolerance and bulk-ledger rounding assertions were corrected; care and construction fixtures now fund actual food. Stationary conversation and repeated water-route cancellation exposed real integration issues, corrected and covered by behavior tests.",
+    "browser": "Initial exact-text selector did not match the displayed percentage; targeted selector was corrected. No application change was needed."
+  },
+  "verifiedBackup": {
+    "raw": {
+      "bytes": 286371840,
+      "sha256": "010cf95826f5abc4701aea367a337c561931c42d9fa47f53ee4eac2c20e7c534"
+    },
+    "gzip": {
+      "bytes": 152231471,
+      "sha256": "9999390b647080af8c5358a33360175e249b2d90dcfa1be4680a28377cceba3f"
+    },
+    "integrity": "ok",
+    "worldChecksum": "dd16f218fd48e264a7c5cbfbcfa746d450355527058928dfbe4f2803dbc84ad1",
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "generationVersion": "planet-1",
+      "version": 11,
+      "lawsVersion": "biosphere-1.5",
+      "tick": 356816,
+      "rng": 2057233197,
+      "births": 407,
+      "deaths": 1639
+    },
+    "people": 0,
+    "regions": 38,
+    "clock": {
+      "tick": 356816,
+      "wall_ms": 1791481644340.0
+    },
+    "counts": {
+      "sessions": 24,
+      "agents": 1,
+      "receipts": 3,
+      "world_events": 70313
+    },
+    "archives": [
+      {
+        "id": "008-material-memory-and-agency",
+        "sha256": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb"
+      },
+      {
+        "id": "009-human-thermal-and-distance-balance",
+        "sha256": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164"
+      },
+      {
+        "id": "010-performed-body-maintenance",
+        "sha256": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f"
+      },
+      {
+        "id": "011-consumption-before-ration-pickup",
+        "sha256": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f"
+      }
+    ],
+    "copy": {
+      "startedAt": "2026-10-09T00:52:38.506Z",
+      "copiedAt": "2026-10-09T00:52:43.396Z",
+      "elapsedMilliseconds": 4889.721245000001,
+      "identity": {
+        "head": {
+          "checksum": "dd16f218fd48e264a7c5cbfbcfa746d450355527058928dfbe4f2803dbc84ad1",
+          "id": "praxans-world",
+          "tick": 356816,
+          "people": 0,
+          "format": 11,
+          "laws": "biosphere-1.5"
+        },
+        "clock": {
+          "tick": 356816,
+          "wall_ms": 1791481644340
+        },
+        "regions": 38,
+        "events": {
+          "n": 70313,
+          "through": 70313
+        }
+      },
+      "copyMonitor": {
+        "samples": 21,
+        "minimumAvailableBytes": 32976896,
+        "maximumWalBytes": 110193552,
+        "maximumCgroupMemoryBytes": 999895040,
+        "eventsBefore": "low 0\nhigh 0\nmax 4585\noom 0\noom_kill 1\noom_group_kill 0\n",
+        "eventsAfter": "low 0\nhigh 0\nmax 4690\noom 0\noom_kill 1\noom_group_kill 0\n"
+      }
+    }
+  },
+  "publication": {
+    "backend": "pending",
+    "website": "pending",
+    "historyPolicy": "No new renewal, people, supplies, reset, rewind, reseed, deleted history or replacement volume."
+  },
+  "limits": [
+    "The investigation confirms defects; it does not apportion all 1607 historical renewed-population deaths.",
+    "No seasonal human survival or sustainable 300-founder / multi-generation carrying-capacity result.",
+    "All 1439 original people survive the bounded exact-artifact copy test; five ordinary births produce 1444 people at restart. This is not a long-term viability test.",
+    "Inhabited exact-artifact local combined RSS peaks at 1393446912 bytes, above the live 1 GB allowance. It does not demonstrate inhabited live-host memory fit.",
+    "The live-sized quota leaves only 6561792 bytes minimum free during the inhabited handover; capacity is finite.",
+    "Sequential oxygen contention, unused ice reservations, performed feeding, private food spoilage and voluntary allocation institutions remain unresolved.",
+    "Infant feeding, age-dependent growth, gestational energy, reserve/power/injury/recovery calibration, tissue-specific chemistry and core body temperature remain unresolved.",
+    "Existing political, material/depth, ecological and massive-population requirements remain in the ledger."
+  ]
+}

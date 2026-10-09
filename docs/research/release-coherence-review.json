@@ -500,5 +500,81 @@
     "record": "../validation/ration-boundary-2026-10-09.json",
     "scope": "Implemented consumption-before-packing and compatible lossless archive compaction. Immediate consumption, metabolism, growth, scale and open institutions remain unresolved.",
     "status": "LIVE with saved-world and full changed-archive verification; all prior study findings retained."
+  },
+  "fundedMetabolismFollowup": {
+    "inspectedAt": "2026-10-09T01:13:50.212Z",
+    "structuralScan": {
+      "baseCommit": "bd3a84cb882a18348229f3c8ab5758c96c9da31b",
+      "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+      "gitVisibleExistingFileCount": 935,
+      "jsTsFileCount": 126,
+      "sourceFileCount": 76,
+      "srcContentSha256": "2450199e28b92f5f507d628fd8aaef16a1301b86b0f1fdc221e4eafeefeb93d6",
+      "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
+      "resolvedEdgeCount": 653,
+      "edgesByArea": {
+        "docs -> src/simulation": 22,
+        "scripts -> src/server": 22,
+        "scripts -> src/simulation": 25,
+        "src/client -> src/simulation": 27,
+        "src/client -> src/client": 21,
+        "src/server -> src/simulation": 41,
+        "src/server -> src/server": 22,
+        "src/simulation -> src/simulation": 244,
+        "tests -> src/simulation": 161,
+        "tests -> tests": 29,
+        "tests -> src/server": 39
+      },
+      "missingImports": [],
+      "missingAssets": [],
+      "nonliteralLoads": [
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+        },
+        {
+          "file": "docs/research/collapse-first-death-replay.mjs",
+          "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+        }
+      ],
+      "layerViolations": [],
+      "simulationEnvironmentImports": [],
+      "localMarkdownLinksChecked": 416,
+      "missingMarkdownLinks": []
+    },
+    "sourceReview": [
+      {
+        "topic": "Units and conserved custody",
+        "finding": "body + unoxidized intake appear in matter/element/chemical inventories; reserves are a subset inside body. One respiration path supplies heat and products. Childbirth debits body/reserve tags; death returns body + intake once."
+      },
+      {
+        "topic": "Order and shared demand",
+        "finding": "One current food/ice boundary precedes optional intake/ration refill. Snapshotted contacts and finite custody prevent packing or duplicate ice claims from reserving another actor's present meal. Oxygen remains sequential; unused ice allocations wait for a later interval."
+      },
+      {
+        "topic": "Physical work and time",
+        "finding": "Original tasks use the funded interval, and new physical work waits until the next interval. Water-route purpose avoids self-cancellation; stationary conversation receives paid resting metabolism. Journeys require current-tick matching-party flux. The quarter-hour clock is unchanged."
+      },
+      {
+        "topic": "Model, interface and requirements",
+        "finding": "Model/protocol/API/inspector agree that satiety is fullness, not chemical fuel. Childhood growth, infant feeding, activity power and injury are labeled uncalibrated. Political/depth/scaling requirements remain open in the ledger."
+      },
+      {
+        "topic": "Historical reproducibility",
+        "finding": "All listed mechanism, protection and arithmetic fingerprints match commit 35a1665bff52a425d1476c7c22db2440bed05406. The guide pins that checkout; current scripts reject obsolete source inputs before running controls. Original result JSON and the expensive historical replay are retained."
+      },
+      {
+        "topic": "Repository responsibilities",
+        "finding": "No new module boundary violation. The unmarked Pygame overview in CLAUDE.md is now explicitly historical with current-browser entry links. Current README, metadata, model and devlog remove obsolete claims that the single metabolic account is still absent."
+      }
+    ],
+    "validation": "20 new metabolic cases; 188/189 full batch plus 2/2 corrected construction fixture; build/format; 13 browser, 16 connection, 12 isolated production, 21 generic hotfix and 16 exact-artifact inhabited-copy checks. Retained timeouts are separately reported.",
+    "publication": "Candidate staged; live activation pending.",
+    "limits": [
+      "No seasonal human or generational survival validation.",
+      "Finite live disk and 1 GB memory; local inhabited combined RSS exceeds live capacity.",
+      "No complete body anatomy, microbial chemistry, food logistics institutions or general political organization."
+    ],
+    "scope": "Current parent implementation follow-up; the earlier read-only research and its measured probe remain unchanged."
   }
 }

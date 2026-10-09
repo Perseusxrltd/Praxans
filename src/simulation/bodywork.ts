@@ -171,8 +171,8 @@ export function bodyWorkOpportunities(
         target,
       );
       const benefit =
-        Math.abs(before.lossW - before.metabolismW) -
-        Math.abs(after.lossW - after.metabolismW);
+        Math.abs(before.lossW - before.metabolicDemandW) -
+        Math.abs(after.lossW - after.metabolicDemandW);
       if (benefit > EPSILON) candidates.push({ recipient, target, benefit });
     }
     candidates.sort(
@@ -400,10 +400,10 @@ export function finishBodyWork(world: World, work: BodyWork): void {
       body.active,
       body.shelter,
     );
-    const oldBurden = Math.abs(before.lossW - before.metabolismW);
+    const oldBurden = Math.abs(before.lossW - before.metabolicDemandW);
     reinforce(
       c.actor,
-      (oldBurden - Math.abs(after.lossW - after.metabolismW)) /
+      (oldBurden - Math.abs(after.lossW - after.metabolicDemandW)) /
         Math.max(1, oldBurden),
       world.tick,
     );

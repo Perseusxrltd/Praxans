@@ -1,6 +1,12 @@
 # Praxans — CLAUDE.md
 
-## Project Overview
+## Current browser runtime
+
+The active game is the TypeScript/Node/React shared world in `src/`, backed by SQLite. Use [AGENTS.md](AGENTS.md), [README.md](README.md), [the model](docs/model.md) and [current progress](progress.md) for implementation, tests and deployment state. Agents connect through scoped HTTP/MCP; running the simulation does not require hosted model inference. Updates preserve the existing world through explicit migrations.
+
+The Python/Pygame architecture below is retained as a **historical reference**, not the active runtime or current setup instructions.
+
+## Historical project overview
 
 **Praxans** is an autonomous Pygame civilization sandbox. Small AI-driven creatures ("Praxans") gather resources, build settlements, and react to biome/weather/social conditions. The game is **observer-only** — no live player control over the colony.
 

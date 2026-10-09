@@ -1,13 +1,7 @@
 import { MATERIALS } from "./content";
 import { seedPlant } from "./ecology";
 import { runExperiment, designScore, matchingObservation } from "./economy";
-import {
-  emptyStock,
-  refreshTile,
-  respire,
-  respirable,
-  returnMaterial,
-} from "./laws";
+import { emptyStock, refreshTile, returnMaterial } from "./laws";
 import {
   beginExperience,
   disposition,
@@ -25,7 +19,6 @@ import {
   workspaceBenefit,
 } from "./weathering";
 import {
-  BIO_NUTRIENTS,
   accumulateAtmosphere,
   CLAY,
   addNutrients,
@@ -63,8 +56,11 @@ import {
 import { nearbyTiles } from "./terrain";
 import { hasPassage } from "./diplomacy";
 import {
-  regulateTemperature,
-  takeAccessibleFood,
+  prepareMetabolism,
+  feedMetabolicNeeds,
+  finishMetabolism,
+  refillMetabolicIntake,
+  type MetabolicStep,
   hydrationTarget,
   nearbyDrinkingWater,
   bodyShelter,
@@ -200,7 +196,12 @@ function decide(
       (place) =>
         world.tick - place.tick < 96 * 7 &&
         ((place.water ?? 0) > 1 ||
-          ((place.frozenWater ?? 0) > 1 && person.provisions > 0.01)),
+          ((place.frozenWater ?? 0) > 1 &&
+            person.provisions +
+              person.metabolism.intake +
+              person.metabolism.reserves +
+              (person.cargo?.material === "biomass" ? person.cargo.amount : 0) >
+              0.01)),
     );
     known.sort((a, b) => distance(person, a) - distance(person, b));
     for (const place of known) {
@@ -209,7 +210,10 @@ function decide(
       );
       bank.sort((a, b) => distance(person, a) - distance(person, b));
       for (const tile of bank)
-        if (assignTask(world, person, "move", tile.x, tile.y)) return;
+        if (
+          assignTask(world, person, "move", tile.x, tile.y, { need: "water" })
+        )
+          return;
     }
     const search = nearbyTiles(world, person, 10).filter(
       (t) =>
@@ -219,7 +223,10 @@ function decide(
     );
     search.sort((a, b) => distance(person, a) - distance(person, b));
     for (const tile of search.slice(0, 8))
-      if (assignTask(world, person, "explore", tile.x, tile.y)) return;
+      if (
+        assignTask(world, person, "explore", tile.x, tile.y, { need: "water" })
+      )
+        return;
   }
   let selection: ReturnType<typeof conditionalChoice> | undefined;
   const choose = (probability: number) =>
@@ -583,8 +590,12 @@ export function updateCitizen(
   population: number,
   sharedBodyWork?: BodyWork,
 ): void {
+  if (person.health <= 0) return;
   const bodyWork = sharedBodyWork ?? beginBodyWork(world);
-  const step = updateCitizenPhysiology(world, person, civ);
+  const step = prepareCitizenPhysiology(world, person, civ);
+  feedMetabolicNeeds(world, [step.metabolism]);
+  finishCitizenPhysiology(world, step);
+  refillMetabolicIntake(world, [step.metabolism]);
   finishRationPickup(world, prepareRationPickup(world, [person]));
   updateCitizenActivity(world, step, population, bodyWork);
   // Standalone diagnostic callers update one actor. The world engine passes one
@@ -593,16 +604,22 @@ export function updateCitizen(
   if (!sharedBodyWork) finishBodyWork(world, bodyWork);
 }
 
-/** One bodily phase, one local pickup boundary, then decisions and movement. */
+/** Shared current food needs, actual oxidation, optional meals/rations, then work. */
 export function updateCitizens(world: World): void {
   const populations = new Map<string, number>();
   for (const person of world.citizens)
     populations.set(person.civId, (populations.get(person.civId) ?? 0) + 1);
   const civs = new Map(world.civilizations.map((civ) => [civ.id, civ]));
   const bodyWork = beginBodyWork(world);
-  const steps = world.citizens.map((person) =>
-    updateCitizenPhysiology(world, person, civs.get(person.civId)!),
-  );
+  const steps = world.citizens
+    .filter((person) => person.health > 0)
+    .map((person) =>
+      prepareCitizenPhysiology(world, person, civs.get(person.civId)!),
+    );
+  const metabolism = steps.map((step) => step.metabolism);
+  feedMetabolicNeeds(world, metabolism);
+  for (const step of steps) finishCitizenPhysiology(world, step);
+  refillMetabolicIntake(world, metabolism);
   finishRationPickup(world, prepareRationPickup(world));
   for (const step of steps)
     updateCitizenActivity(
@@ -621,9 +638,10 @@ interface CitizenStep {
   tile: Tile;
   waterTarget: number;
   sheltered: number;
+  metabolism: MetabolicStep;
 }
 
-function updateCitizenPhysiology(
+function prepareCitizenPhysiology(
   world: World,
   person: Citizen,
   civ: Civilization,
@@ -633,15 +651,9 @@ function updateCitizenPhysiology(
     tile = getTile(world, person.x, person.y)!;
   updateMind(world, person, dt);
   person.age += dt / (24 * DAYS_PER_YEAR);
-  const active = person.task && !["rest", "social"].includes(person.task.kind);
-  person.hunger = clamp(
-    person.hunger -
-      dt *
-        (person.age < 12
-          ? 1.15
-          : (active ? 1.75 : 1.3) +
-            (person.pregnancy ? 0.18 : 0) +
-            (person.task?.kind === "experiment" ? 0.08 : 0)),
+  const active = !!(
+    person.task &&
+    (person.task.path.length || !["rest", "social"].includes(person.task.kind))
   );
   person.energy = clamp(
     person.energy - dt * (active ? 0.7 + civ.policies.effort * 0.9 : 0.4),
@@ -659,48 +671,41 @@ function updateCitizenPhysiology(
       touchTile(world, tileIndex(world, source.x, source.y));
     }
   }
-  if (person.hunger < 62) {
-    const meal = takeAccessibleFood(
-      world,
-      person,
-      civ,
-      Math.min(person.age < 12 ? 0.65 : 0.9, respirable(world, 1) / 0.94),
-    );
-    const retained =
-      person.body < 18 ? Math.min(meal * 0.35, 18 - person.body) : 0;
-    person.body += retained;
-    respire(world, (meal - retained) * 0.94, tile);
-    addNutrients(tile, BIO_NUTRIENTS, (meal - retained) * 0.06);
-    person.hunger = clamp(person.hunger + meal * 48);
-  }
-  if (person.hunger < 12) {
-    const catabolism = Math.min(
-      person.body,
-      dt * 0.015,
-      respirable(world, 1) / 0.94,
-    );
-    person.body -= catabolism;
-    respire(world, catabolism * 0.94, tile);
-    addNutrients(tile, BIO_NUTRIENTS, catabolism * 0.06);
-    person.health = clamp(person.health - dt * 1.15);
-  } else
+  const shelter = bodyShelter(world, person);
+  const metabolism = prepareMetabolism(
+    world,
+    person,
+    tile,
+    dt,
+    active,
+    shelter.resistance,
+  );
+  return {
+    person,
+    civ,
+    taskAtStart,
+    tile,
+    waterTarget,
+    sheltered: shelter.coverage,
+    metabolism,
+  };
+}
+
+function finishCitizenPhysiology(world: World, step: CitizenStep): void {
+  const { person } = step;
+  const dt = HOURS_PER_TICK;
+  const flux = finishMetabolism(world, step.metabolism);
+  if (
+    person.health > 0 &&
+    flux.healthLoss === 0 &&
+    flux.unmetMaintenanceKJ < 1e-9
+  )
     person.health = clamp(
       person.health + dt * (0.08 + person.traits.resilience * 0.1),
     );
   const breathable = oxygenFraction(world);
   if (breathable < 0.15)
     person.health = clamp(person.health - dt * (1 - breathable / 0.15) * 16);
-  const shelter = bodyShelter(world, person),
-    sheltered = shelter.coverage;
-  regulateTemperature(
-    world,
-    person,
-    civ,
-    tile,
-    dt,
-    !!active,
-    shelter.resistance,
-  );
   if (person.hydration < 0.15) person.health = clamp(person.health - dt * 1.3);
   if (person.sick > 0) {
     person.sick = Math.max(
@@ -722,16 +727,6 @@ function updateCitizenPhysiology(
     )
       person.sick = 30;
   }
-  const satisfaction =
-    (person.hunger + person.energy + person.health) / 3 -
-    5 +
-    civ.policies.sharing * 3 +
-    sheltered * 4 -
-    person.sick * 0.2;
-  person.happiness = clamp(
-    person.happiness + (satisfaction - person.happiness) * 0.004,
-  );
-  return { person, civ, taskAtStart, tile, waterTarget, sheltered };
 }
 
 function updateCitizenActivity(
@@ -741,7 +736,18 @@ function updateCitizenActivity(
   bodyWork: BodyWork,
 ): void {
   const { person, civ, taskAtStart, tile, waterTarget, sheltered } = step;
-  if (person.health <= 0 || person.journeyId) return;
+  if (person.health <= 0) return;
+  // Assess satiety after actual meals, including for traveling people.
+  const satisfaction =
+    (person.hunger + person.energy + person.health) / 3 -
+    5 +
+    civ.policies.sharing * 3 +
+    sheltered * 4 -
+    person.sick * 0.2;
+  person.happiness = clamp(
+    person.happiness + (satisfaction - person.happiness) * 0.004,
+  );
+  if (person.journeyId) return;
   const dt = HOURS_PER_TICK,
     atHome = canReachCampStocks(world, civ, person);
   if (person.task) {
@@ -766,8 +772,14 @@ function updateCitizenActivity(
         person.sick > 45) &&
       task.kind !== "rest" &&
       task.kind !== "deliver";
-    const needsWater = person.hydration < waterTarget * 0.6;
-    if (needsFood || needsRest || needsWater) {
+    const thirsty = person.hydration < waterTarget * 0.6;
+    const pursuingWater =
+      task.need === "water" &&
+      (!task.path.length || world.tiles[task.path[0]]?.terrain !== "water");
+    // Water is decide()'s first urgency. Reassigning its valid route every tick
+    // would cancel every paid interval before movement; lower-priority needs
+    // must not cancel it only to choose the same route again.
+    if (thirsty ? !pursuingWater : needsFood || needsRest) {
       // Bodily needs can interrupt ongoing work, including a multi-day assembly.
       // Existing fabric/progress and carried matter remain in the world.
       reinforce(person, -0.2, world.tick);
@@ -778,8 +790,24 @@ function updateCitizenActivity(
   if (!person.task) decide(world, person, civ, population, bodyWork);
   const task = person.task;
   if (!task) return;
+  // New decisions start their physical interval next tick. Existing work and
+  // travel receive only the activity actually funded after resting maintenance.
+  if (task !== taskAtStart) return;
+  const flux = person.metabolism.last!;
+  // Stationary conversation uses the paid resting allowance. Walking and all
+  // physical work require the additional active budget measured this interval.
+  const funded = step.metabolism.active
+    ? flux.activityFraction
+    : clamp(flux.releasedKJ / flux.maintenanceKJ, 0, 1);
   if (task.path.length) {
-    walkPath(world, person, task.path, dt, person.energy, person.age < 12);
+    walkPath(
+      world,
+      person,
+      task.path,
+      dt * funded,
+      person.energy,
+      person.age < 12,
+    );
     return;
   }
   if (task.kind === "rest") {
@@ -800,6 +828,7 @@ function updateCitizenActivity(
   }
   const work =
     dt *
+    funded *
     (0.65 + person.traits.diligence * 0.5) *
     (0.75 + civ.policies.effort * 0.5) *
     (0.65 + person.mind.attention * 0.4) *
@@ -810,7 +839,7 @@ function updateCitizenActivity(
   if (isBodyRepair(task)) {
     // Selection alone performs no work. The next tick accounts this task as
     // active before any protection is earned; rest/gather cannot run beside it.
-    if (taskAtStart === task) workOnBody(world, person, dt, work, bodyWork);
+    workOnBody(world, person, dt * funded, work, bodyWork);
     return;
   }
   if (task.kind === "assemble") {
@@ -904,6 +933,7 @@ export function processDeaths(world: World): void {
   const dead = world.citizens.filter(
     (p) =>
       p.health <= 0 ||
+      p.body <= 1e-12 ||
       (p.age > 74 &&
         world.tick % 96 === 0 &&
         random(world) < (p.age - 74) * 0.008),
@@ -912,6 +942,7 @@ export function processDeaths(world: World): void {
     const tile = getTile(world, person.x, person.y)!,
       civ = world.civilizations.find((c) => c.id === person.civId)!;
     returnMaterial(world, tile, "biomass", person.body);
+    returnMaterial(world, tile, "biomass", person.metabolism.intake);
     returnMaterial(world, tile, "fiber", person.wrapMass);
     returnMaterial(world, tile, "biomass", person.provisions);
     tile.water += person.hydration;
@@ -940,6 +971,12 @@ export function processDeaths(world: World): void {
         temperature: tile.temperature,
         oxygenFraction: oxygenFraction(world),
         sickness: person.sick,
+        metabolism: {
+          bodyKg: person.body,
+          intakeKg: person.metabolism.intake,
+          reserveKg: person.metabolism.reserves,
+          last: person.metabolism.last ? { ...person.metabolism.last } : null,
+        },
       },
       x: person.x,
       y: person.y,

@@ -8,6 +8,7 @@ import { createCivics, sampleProgress } from "../simulation/progress";
 import { inheritedContact } from "../simulation/diplomacy";
 import { getTile } from "../simulation/terrain";
 import { initialPlanetaryClimate } from "../simulation/climate";
+import { initialMetabolism } from "../simulation/physiology";
 
 export interface Intervention {
   id: string;
@@ -178,6 +179,19 @@ const migrations: RegisteredMigration[] = [
     toLaws: "biosphere-1.5",
     apply() {
       // Only future scheduling changes; no saved inventory or task is rewritten.
+    },
+  },
+  {
+    id: "012-funded-human-metabolism",
+    from: 11,
+    to: 12,
+    fromLaws: "biosphere-1.5",
+    toLaws: "biosphere-1.6",
+    description:
+      "Preserve all existing body mass, food, materials, identities, ownership, geography, RNG, clock and history. Begin unoxidized intake empty and classify 10 percent of each existing dry-equivalent body as a mobilizable subset, not additional matter or anatomical fat; no historical meals or energy stores are invented. Current metabolic food requests precede optional internal meals and carried rations. One oxygen-limited oxidation path supplies actual maintenance, heat and finite ice melting; reserve use decreases both its tag and total body mass. Retained food restores reserves before structural growth under one processed-food allowance. Satiety becomes an intake signal rather than a separate starvation clock. Work and journeys require a funded prior activity interval. Future death records retain the measured metabolic interval. Reserve fractions, power limits, injury doses, feeding behavior and growth remain declared coarse assumptions requiring calibration; no population is restored and no claim of generational viability is made.",
+    apply(world: World) {
+      for (const person of world.citizens)
+        person.metabolism = initialMetabolism(person.body);
     },
   },
 ];

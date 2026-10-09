@@ -1,6 +1,6 @@
 # Reproduce the collapse investigation
 
-The [causal report](community-collapse-2026-10-08.md) distinguishes saved observations, a historical replay, small current-function controls and unresolved hypotheses. Published JSON files retain their original measured values and provenance. Recheck scripts write ignored `output/research` files. They are diagnostics, not changes to the live simulation or requests to restore people.
+The [causal report](community-collapse-2026-10-08.md) distinguishes saved observations, a historical replay, small controls using a pinned later revision and unresolved hypotheses. Published JSON files retain their original measured values and provenance. Recheck scripts write ignored `output/research` files. They are diagnostics, not changes to the live simulation or requests to restore people.
 
 ## Independent inputs
 
@@ -32,17 +32,26 @@ The habitat snapshot uses four-neighbor connectivity in represented terrain, sph
 
 ## Small mechanism controls
 
+These results used revision `35a1665bff52a425d1476c7c22db2440bed05406`, whose listed source hashes match all three published mechanism/protection/arithmetic files. Subsequent care, allocation and metabolic changes intentionally produce different behavior. The current diagnostic scripts reject changed source fingerprints before running their controls. Do not run the original fixtures against the new laws and present them as a reproduction.
+
+Prepare a separate checkout at the measured revision (choose a fresh path), then run its diagnostic files:
+
 ```sh
-node --import tsx docs/research/collapse-mechanism-probe.mjs
+praxans_controls_dir=/tmp/praxans-collapse-controls-35a1665
+git worktree add --detach "$praxans_controls_dir" 35a1665bff52a425d1476c7c22db2440bed05406
+ln -s "$PWD/node_modules" "$praxans_controls_dir/node_modules"
+(cd "$praxans_controls_dir" && node --import tsx docs/research/collapse-mechanism-probe.mjs)
 ```
 
-The [published result](collapse-mechanism-probe.json) records five one-tick ration cases and 26 isolated thermal calls, including update-order reversal, ample food, maximum sharing and finite-fiber age/protection controls. Source fingerprints identify the current functions tested. The later work-planning changes are present in this source; these fixtures do not masquerade as a historical full-world replay. Synthetic initial conditions do not add material to the preserved world.
+This checkout needs no private backup for the small controls; the published replay JSON supplies the protection fixture.
+
+The [published result](collapse-mechanism-probe.json) records five one-tick ration cases and 26 isolated thermal calls, including update-order reversal, ample food, maximum sharing and finite-fiber age/protection controls. Source fingerprints identify the functions at that pinned revision. The later work-planning changes are present in this source; these fixtures do not masquerade as a historical full-world replay. Synthetic initial conditions do not add material to the preserved world.
 
 ## Protection and arithmetic follow-ups
 
 ```sh
-node --import tsx docs/research/first-child-wrap-counterfactual.mjs
-python3 docs/research/starvation-storage-arithmetic.py
+(cd "$praxans_controls_dir" && node --import tsx docs/research/first-child-wrap-counterfactual.mjs)
+(cd "$praxans_controls_dir" && python3 docs/research/starvation-storage-arithmetic.py)
 ```
 
 The [two-call protection result](first-child-wrap-counterfactual.json) reuses the exact relevant terminal conditions from the replay, keeping total fiber fixed. It does not reconstruct other inhabitants or the historical camp geometry. The [starvation/storage arithmetic](starvation-storage-arithmetic.json) is source-derived calculation only, with its own source fingerprints, equations and reading register; it is not another world trial. The accompanying [interpretation](starvation-storage-review.md) states the missing coupling and calibration limits. Both recheck scripts preserve published results.

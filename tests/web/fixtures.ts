@@ -120,9 +120,10 @@ export function legacyCheckpoint(
       (c: { id: string }) => c.id === person.civId,
     );
     civ.stock.fiber += person.wrapMass;
-    civ.stock.biomass += person.provisions;
+    civ.stock.biomass += person.provisions + person.metabolism.intake;
     delete person.wrapMass;
     delete person.provisions;
+    delete person.metabolism;
     delete person.mind;
     delete person.journeyId;
   }

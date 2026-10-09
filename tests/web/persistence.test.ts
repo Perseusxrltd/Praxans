@@ -244,7 +244,7 @@ test("a registered hotfix preserves an established world and archives its exact 
     stepWorld(original, 8);
     const legacy = legacyCheckpoint(store, original, 5);
     const upgraded = store.load(999);
-    assert.equal(upgraded.version, 11);
+    assert.equal(upgraded.version, 12);
     assert.equal(upgraded.entropy.sinceTick, original.tick);
     assert.equal(upgraded.generationVersion, "archipelago-1");
     assert.equal(upgraded.tick, original.tick);
@@ -258,7 +258,8 @@ test("a registered hotfix preserves an established world and archives its exact 
     }
     assert.deepEqual(
       upgraded.citizens.map(
-        ({ mind, journeyId, wrapMass, provisions, ...person }) => person,
+        ({ mind, journeyId, wrapMass, provisions, metabolism, ...person }) =>
+          person,
       ),
       legacy.citizens,
     );
@@ -282,7 +283,7 @@ test("a registered hotfix preserves an established world and archives its exact 
           ),
         `${symbol}: projecting personal inventories into legacy stock preserves matter`,
       );
-    assert.equal(store.interventions().length, 6);
+    assert.equal(store.interventions().length, 7);
     const [backup] = listWorldArchives(store.db);
     const json = Buffer.concat([
       ...worldArchiveBytes(store.db, backup.id),
@@ -293,7 +294,7 @@ test("a registered hotfix preserves an established world and archives its exact 
     assert.deepEqual(store.load(0), upgraded);
     assert.equal(
       store.interventions().length,
-      6,
+      7,
       "a restart does not apply the migration again",
     );
     materializeChunk(upgraded, 30, 40);

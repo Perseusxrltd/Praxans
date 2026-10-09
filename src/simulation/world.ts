@@ -1,5 +1,6 @@
 import { FAUNA_BY_ID } from "./life";
 import { initialPlanetaryClimate } from "./climate";
+import { initialMetabolism } from "./physiology";
 import { NAMES, PALETTES, SEASONS, SURNAMES } from "./content";
 import { LAWS, emptyStock, ledger, refreshTile, solarAt } from "./laws";
 import { between, clamp, hash, noise, pick, random } from "./random";
@@ -300,6 +301,7 @@ export function createCitizen(
     happiness: between(world, 65, 85),
     sick: 0,
     body: parents ? 2 : 18,
+    metabolism: initialMetabolism(parents ? 2 : 18),
     hydration: parents ? 1 : 8,
     traits: {
       diligence: inherit("diligence"),

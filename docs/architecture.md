@@ -24,7 +24,7 @@ flowchart LR
 | `landscape.ts`, `weathering.ts` | Sediment/surface evolution, fabric loss, repair, salvage and storage exposure |
 | `cognition.ts`, `society.ts`, `diplomacy.ts`, `progress.ts` | Personal learning, local assemblies, journeys/commitments and civilization outcome feedback |
 | `citizens.ts`, `economy.ts`, `engine.ts`, `actions.ts` | Needs, learning, work, relationships, ordered updates, bounded agent intervention |
-| `physiology.ts`, `subsistence.ts`, `movement.ts`, `settlement.ts`, `geometry.ts` | Funded thermal needs, remembered supplies, spherical walking, connected camp area and material enclosures |
+| `physiology.ts`, `subsistence.ts`, `movement.ts`, `settlement.ts`, `geometry.ts` | Finite intake/reserve oxidation, shared food/ice budgets, paid activity, remembered supplies, spherical walking, connected camp area and material enclosures |
 | `bodywork.ts` | Local body-maintenance opportunities, performed repair work, shared fiber transfers and thermal feedback |
 | `src/server/app.ts`, `schema.ts` | HTTP/MCP, scoped authorization, action validation, public snapshots and event streams |
 | `observer.ts`, `atlas.ts` | Public projections and progressively sampled planetary imagery, separate from authoritative state |

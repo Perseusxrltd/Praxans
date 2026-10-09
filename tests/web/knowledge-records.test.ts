@@ -64,6 +64,9 @@ test("completing an assembly adds construction evidence without rewriting the ea
   actor.y = structure.y;
   actor.energy = 100;
   actor.hunger = 100;
+  // The worker is outside stock reach; a high score alone cannot fund a meal.
+  actor.metabolism.intake = 0.9;
+  civ.stock.biomass -= 0.9;
   actor.mind.sleepPressure = 0;
   actor.task = {
     kind: "assemble",

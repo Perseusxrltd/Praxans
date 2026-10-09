@@ -4,10 +4,17 @@ import { LAWS, respire, respirable, returnMaterial } from "./laws";
 import { PLANET } from "./planet";
 import { heatCapacity } from "./thermodynamics";
 import { clamp } from "./random";
-import type { Citizen, Civilization, Tile, World } from "./types";
+import type {
+  Citizen,
+  Civilization,
+  MetabolicFlux,
+  Metabolism,
+  Tile,
+  World,
+} from "./types";
 import { nearbyTiles } from "./terrain";
-import { canReachCampStocks } from "./settlement";
 import { distance } from "./world";
+import { feedIntake, shareFiniteSupply } from "./subsistence";
 
 /** Effective human heat balance, not a model of organs or cellular thermoregulation. */
 export const PHYSIOLOGY = Object.freeze({
@@ -20,6 +27,57 @@ export const PHYSIOLOGY = Object.freeze({
   wrapTargetKg: 2,
   wrappingKgPerHour: 0.4,
 });
+
+/** Effective substrate limits; these are not measured anatomical parameters. */
+export interface MetabolicModel {
+  reserveFraction: number;
+  reservePowerMultiple: number;
+  maximumPowerMultiple: number;
+  intakeKgPerBodyKg: number;
+  intakeTurnoverPerHour: number;
+  refillFraction: number;
+  retentionFraction: number;
+  injuryKJPerPoint: number;
+}
+export const METABOLISM: Readonly<MetabolicModel> = Object.freeze({
+  reserveFraction: 0.1,
+  reservePowerMultiple: 2,
+  maximumPowerMultiple: 4,
+  intakeKgPerBodyKg: 0.05,
+  intakeTurnoverPerHour: 4,
+  refillFraction: 0.4,
+  retentionFraction: 0.35,
+  injuryKJPerPoint: 240,
+});
+const FOOD_KJ_PER_KG = LAWS.chemicalEnergy * MATERIALS.biomass.carbon;
+const EPSILON = 1e-9;
+
+export function initialMetabolism(body: number): Metabolism {
+  if (!Number.isFinite(body) || body < 0)
+    throw new Error("A metabolic partition requires an existing body mass.");
+  return { intake: 0, reserves: body * METABOLISM.reserveFraction, last: null };
+}
+
+/** Transfer, not oxidation: childbirth can use a finite part of a parent's body. */
+export function withdrawBodyMatter(person: Citizen, requested: number): number {
+  const amount = Math.min(person.body, Math.max(0, requested));
+  const reserve = Math.min(person.metabolism.reserves, amount);
+  person.metabolism.reserves -= reserve;
+  person.body -= amount;
+  return amount;
+}
+
+export const intakeCapacity = (
+  person: Citizen,
+  model: Readonly<MetabolicModel> = METABOLISM,
+) => Math.max(0.001, person.body * model.intakeKgPerBodyKg);
+
+/** Satiety is an intake signal, never a source of chemical energy or injury. */
+function updateSatiety(person: Citizen, model: Readonly<MetabolicModel>) {
+  person.hunger = clamp(
+    (person.metabolism.intake / intakeCapacity(person, model)) * 100,
+  );
+}
 
 export const hydrationTarget = (person: Citizen) =>
   person.age < 12 ? 1 + person.body * 0.25 : 8;
@@ -65,11 +123,11 @@ export function bodyHeatBalance(
     PHYSIOLOGY.airResistance + wrapResistance + shelterResistance;
   const lossW =
     (area * (PHYSIOLOGY.skinTemperature - temperature)) / resistance;
-  const metabolismW =
+  const metabolicDemandW =
     (PHYSIOLOGY.basalWatts +
       (active ? PHYSIOLOGY.activeWatts : PHYSIOLOGY.restingWatts)) *
     scale;
-  return { area, lossW, metabolismW };
+  return { area, lossW, metabolicDemandW };
 }
 
 /**
@@ -84,7 +142,7 @@ export function preferredWrapMass(
   active: boolean,
   shelterResistance: number,
 ): number {
-  const { area, metabolismW } = bodyHeatBalance(
+  const { area, metabolicDemandW } = bodyHeatBalance(
     person,
     temperature,
     active,
@@ -97,7 +155,7 @@ export function preferredWrapMass(
   if (temperature > PHYSIOLOGY.skinTemperature) return maximum;
   if (temperature === PHYSIOLOGY.skinTemperature) return person.wrapMass;
   const resistance =
-    (area * (PHYSIOLOGY.skinTemperature - temperature)) / metabolismW -
+    (area * (PHYSIOLOGY.skinTemperature - temperature)) / metabolicDemandW -
     PHYSIOLOGY.airResistance -
     shelterResistance;
   return Math.max(
@@ -124,62 +182,374 @@ export function nearbyDrinkingWater(
   );
 }
 
-/** Take only real food the person can reach, including independently carried rations. */
-export function takeAccessibleFood(
-  world: World,
-  person: Citizen,
-  civ: Civilization,
-  requested: number,
-): number {
-  const journey = person.journeyId
-    ? world.caravans.find((c) => c.id === person.journeyId)
-    : undefined;
-  const atHome = canReachCampStocks(world, civ, person);
-  const carried = person.cargo?.material === "biomass" ? person.cargo : null;
-  let left = Math.max(0, requested);
-  const personal = Math.min(left, person.provisions);
-  person.provisions -= personal;
-  left -= personal;
-  if (journey) {
-    const amount = Math.min(left, journey.provisions);
-    journey.provisions -= amount;
-    left -= amount;
-  } else if (atHome) {
-    const amount = Math.min(left, civ.stock.biomass);
-    civ.stock.biomass -= amount;
-    left -= amount;
-  }
-  if (carried && left > 0) {
-    const amount = Math.min(left, carried.amount);
-    carried.amount -= amount;
-    left -= amount;
-    if (carried.amount === 0) person.cargo = null;
-  }
-  return requested - left;
+export interface MetabolicStep {
+  world: World;
+  tick: number;
+  person: Citizen;
+  tile: Tile;
+  hours: number;
+  active: boolean;
+  journeyId: string | null;
+  model: Readonly<MetabolicModel>;
+  capacity: number;
+  ingestionLimitKg: number;
+  maximumOxidationKg: number;
+  reserveLimitKg: number;
+  maintenanceKJ: number;
+  restingKJ: number;
+  heatLossKJ: number;
+  meltSource: Tile;
+  meltRequestedKg: number;
+  meltHeatPerKg: number;
+  ingestedKg: number;
+  fed: boolean;
+  finished: boolean;
+  refilled: boolean;
 }
 
-/** Extra metabolism spends accessible food; it cannot draw from a distant stockpile. */
-function fuel(
+/** Snapshot demand before any shared food withdrawal or another body's heating. */
+export function prepareMetabolism(
   world: World,
   person: Citizen,
-  civ: Civilization,
   tile: Tile,
-  requestedKJ: number,
-): number {
-  const requested = Math.max(
+  dt: number,
+  active: boolean,
+  shelterResistance: number,
+  model: Readonly<MetabolicModel> = METABOLISM,
+): MetabolicStep {
+  if (!Number.isFinite(dt) || dt <= 0)
+    throw new Error("Metabolism requires a positive finite time interval.");
+  if (
+    model !== METABOLISM &&
+    (!Object.values(model).every(
+      (value) => Number.isFinite(value) && value >= 0,
+    ) ||
+      model.reserveFraction >= 1 ||
+      model.retentionFraction >= 1 ||
+      model.refillFraction > 1 ||
+      !model.intakeKgPerBodyKg ||
+      !model.intakeTurnoverPerHour ||
+      !model.injuryKJPerPoint)
+  )
+    throw new Error("Invalid experimental metabolic coefficients.");
+  // Arranging usable fiber is performed work. Physiology only wears the material
+  // already present; being near a stockpile cannot clothe anyone by itself.
+  const worn = person.wrapMass * (1 - Math.exp(-dt * 0.000015));
+  person.wrapMass -= worn;
+  returnMaterial(world, tile, "fiber", worn);
+  const targetWater = hydrationTarget(person);
+  const source = nearbyDrinkingWater(world, person) ?? tile;
+  const meltRequestedKg =
+    person.hydration < targetWater * 0.8 && tile.water < 0.1
+      ? Math.max(
+          0,
+          Math.min(
+            source.air.snow + source.ice,
+            targetWater - person.hydration,
+            dt * 2,
+          ),
+        )
+      : 0;
+  const { lossW, metabolicDemandW } = bodyHeatBalance(
+    person,
+    tile.temperature,
+    active,
+    shelterResistance,
+  );
+  const restingW =
+    (PHYSIOLOGY.basalWatts + PHYSIOLOGY.restingWatts) *
+    Math.max(0.2, person.body / 18);
+  const capacity = intakeCapacity(person, model);
+  return {
+    world,
+    tick: world.tick,
+    person,
+    tile,
+    hours: dt,
+    active,
+    journeyId: person.journeyId,
+    model,
+    capacity,
+    ingestionLimitKg: capacity * model.intakeTurnoverPerHour * dt,
+    maximumOxidationKg:
+      (restingW * model.maximumPowerMultiple * dt * 3.6) / FOOD_KJ_PER_KG,
+    reserveLimitKg:
+      (restingW * model.reservePowerMultiple * dt * 3.6) / FOOD_KJ_PER_KG,
+    maintenanceKJ: metabolicDemandW * dt * 3.6,
+    restingKJ: restingW * dt * 3.6,
+    heatLossKJ: lossW * dt * 3.6,
+    meltSource: source,
+    meltRequestedKg,
+    meltHeatPerKg: PLANET.fusionHeat + Math.max(0, -source.temperature) * 2.1,
+    ingestedKg: 0,
+    fed: false,
+    finished: false,
+    refilled: false,
+  };
+}
+
+function checkSteps(
+  world: World,
+  steps: readonly MetabolicStep[],
+  phase: "feed" | "refill",
+) {
+  const seen = new Set<string>();
+  for (const step of steps) {
+    if (
+      step.world !== world ||
+      step.tick !== world.tick ||
+      seen.has(step.person.id) ||
+      (phase === "feed" ? step.fed : !step.finished || step.refilled)
+    )
+      throw new Error(
+        "Metabolic phases must run once per person in their original world tick.",
+      );
+    seen.add(step.person.id);
+  }
+}
+
+function requiredEnergy(step: MetabolicStep, meltKg = step.meltRequestedKg) {
+  // Maintenance becomes heat. The same packet can then leave through sensible
+  // loss or melting; baseline plus the full outward heat would count it twice.
+  return Math.max(
+    step.maintenanceKJ,
+    Math.max(0, step.heatLossKJ) + meltKg * step.meltHeatPerKg,
+  );
+}
+
+/** Current needs get a common food boundary before any optional internal storage. */
+export function feedMetabolicNeeds(
+  world: World,
+  steps: readonly MetabolicStep[],
+): void {
+  checkSteps(world, steps, "feed");
+  // Reserve one finite quantity per ice source before asking for its heat.
+  // Otherwise two people can claim the same ice and withhold surplus food from
+  // someone else's current maintenance after the first person melts it all.
+  const iceClaims = new Map<
+    Tile,
+    { person: Citizen; amount: number; step: MetabolicStep }[]
+  >();
+  for (const step of steps) {
+    const amount = Math.min(
+      step.meltRequestedKg,
+      Math.max(
+        0,
+        step.maximumOxidationKg * FOOD_KJ_PER_KG - Math.max(0, step.heatLossKJ),
+      ) / step.meltHeatPerKg,
+    );
+    step.meltRequestedKg = 0;
+    if (!(amount > 0 && step.person.health > 0)) continue;
+    const claims = iceClaims.get(step.meltSource) ?? [];
+    claims.push({ person: step.person, amount, step });
+    iceClaims.set(step.meltSource, claims);
+  }
+  for (const [source, claims] of iceClaims)
+    shareFiniteSupply(claims, source.ice + source.air.snow, (claim, amount) => {
+      claim.step.meltRequestedKg = amount;
+    });
+  const received = feedIntake(
+    world,
+    steps.map((step) => ({
+      person: step.person,
+      amount: Math.max(
+        0,
+        Math.min(
+          step.ingestionLimitKg,
+          step.capacity - step.person.metabolism.intake,
+          Math.min(
+            step.maximumOxidationKg,
+            requiredEnergy(step) / FOOD_KJ_PER_KG,
+          ) - step.person.metabolism.intake,
+        ),
+      ),
+    })),
+  );
+  for (const step of steps) {
+    step.ingestedKg = received.get(step.person) ?? 0;
+    step.fed = true;
+  }
+}
+
+/** One oxygen-limited oxidation path supplies maintenance, heat and melting. */
+export function finishMetabolism(
+  world: World,
+  step: MetabolicStep,
+): MetabolicFlux {
+  if (
+    step.world !== world ||
+    step.tick !== world.tick ||
+    !step.fed ||
+    step.finished
+  )
+    throw new Error(
+      "A fed metabolic step must finish once in its original world tick.",
+    );
+  step.finished = true;
+  const { person, tile, model } = step;
+  const alive = person.health > 0;
+  const meltedRequest = Math.min(
+    step.meltRequestedKg,
+    step.meltSource.air.snow + step.meltSource.ice,
+  );
+  const wantedKg = alive
+    ? Math.min(
+        step.maximumOxidationKg,
+        requiredEnergy(step, meltedRequest) / FOOD_KJ_PER_KG,
+      )
+    : 0;
+  const oxygenKg =
+    respirable(world, wantedKg * MATERIALS.biomass.carbon) /
+    MATERIALS.biomass.carbon;
+  const foodOxidizedKg = Math.min(person.metabolism.intake, wantedKg, oxygenKg);
+  const reserveOxidizedKg = Math.max(
     0,
     Math.min(
-      requestedKJ / (LAWS.chemicalEnergy * MATERIALS.biomass.carbon),
-      respirable(world, 1) / MATERIALS.biomass.carbon,
+      person.metabolism.reserves,
+      step.reserveLimitKg,
+      wantedKg - foodOxidizedKg,
+      oxygenKg - foodOxidizedKg,
     ),
   );
-  const amount = takeAccessibleFood(world, person, civ, requested);
-  if (!amount) return 0;
-  respire(world, amount * MATERIALS.biomass.carbon, tile);
-  addNutrients(tile, BIO_NUTRIENTS, amount * MATERIALS.biomass.mineral);
-  return amount * MATERIALS.biomass.carbon * LAWS.chemicalEnergy;
+  person.metabolism.intake -= foodOxidizedKg;
+  person.metabolism.reserves -= reserveOxidizedKg;
+  person.body -= reserveOxidizedKg;
+  const oxidizedKg = foodOxidizedKg + reserveOxidizedKg;
+  const releasedKJ = oxidizedKg * FOOD_KJ_PER_KG;
+  respire(world, oxidizedKg * MATERIALS.biomass.carbon, tile);
+  addNutrients(tile, BIO_NUTRIENTS, oxidizedKg * MATERIALS.biomass.mineral);
+
+  const melted = Math.min(
+    meltedRequest,
+    Math.max(0, releasedKJ - Math.max(0, step.heatLossKJ)) / step.meltHeatPerKg,
+  );
+  const meltKJ = melted * step.meltHeatPerKg;
+  const snow = Math.min(step.meltSource.air.snow, melted);
+  step.meltSource.air.snow -= snow;
+  step.meltSource.ice -= Math.min(step.meltSource.ice, melted - snow);
+  person.hydration += melted;
+  tile.temperature -= meltKJ / heatCapacity(tile);
+  const unmetMaintenanceKJ = Math.max(0, step.maintenanceKJ - releasedKJ);
+  const unmetColdKJ = Math.max(0, step.heatLossKJ - (releasedKJ - meltKJ));
+  const excessKJ = Math.max(0, releasedKJ - meltKJ - step.heatLossKJ);
+  const targetWater = hydrationTarget(person);
+  const sweat = Math.min(
+    Math.max(0, person.hydration - targetWater * 0.35),
+    excessKJ / PLANET.vaporizationHeat,
+  );
+  person.hydration -= sweat;
+  tile.air.vapor += sweat;
+  tile.temperature -= (sweat * PLANET.vaporizationHeat) / heatCapacity(tile);
+  const unremovedHeatKJ = Math.max(
+    0,
+    excessKJ - sweat * PLANET.vaporizationHeat,
+  );
+  // Deficit components overlap; do not injure twice for the same missing kJ.
+  // This dose remains a phenomenological injury model, not core temperature.
+  const injury = alive
+    ? (Math.max(unmetMaintenanceKJ, unmetColdKJ) + unremovedHeatKJ) /
+      model.injuryKJPerPoint
+    : 0;
+  const previousHealth = person.health;
+  person.health = clamp(person.health - injury);
+  const healthLoss = previousHealth - person.health;
+
+  let reserveStoredKg = 0,
+    structureStoredKg = 0;
+  if (
+    alive &&
+    person.health > 0 &&
+    Math.max(unmetMaintenanceKJ, unmetColdKJ, unremovedHeatKJ) < EPSILON
+  ) {
+    // Reinterpret the inherited 35% retention fraction as one processed-food
+    // flux: retained / oxidized <= .35 / .65. Never retain a fraction of the
+    // remaining buffer repeatedly. Reserve restoration precedes structure.
+    let allowance = Math.min(
+      person.metabolism.intake,
+      (foodOxidizedKg * model.retentionFraction) /
+        (1 - model.retentionFraction),
+    );
+    const structure = person.body - person.metabolism.reserves;
+    const reserveTarget =
+      (structure * model.reserveFraction) / (1 - model.reserveFraction);
+    reserveStoredKg = Math.min(
+      allowance,
+      Math.max(0, reserveTarget - person.metabolism.reserves),
+    );
+    person.metabolism.reserves += reserveStoredKg;
+    allowance -= reserveStoredKg;
+    structureStoredKg = Math.min(
+      allowance,
+      Math.max(0, 18 * (1 - model.reserveFraction) - structure),
+    );
+    person.metabolism.intake -= reserveStoredKg + structureStoredKg;
+    person.body += reserveStoredKg + structureStoredKg;
+  }
+  const activityFraction = step.active
+    ? clamp(
+        (releasedKJ - step.restingKJ) /
+          Math.max(EPSILON, step.maintenanceKJ - step.restingKJ),
+        0,
+        1,
+      )
+    : 0;
+  const flux: MetabolicFlux = {
+    tick: step.tick,
+    hours: step.hours,
+    ingestedKg: step.ingestedKg,
+    foodOxidizedKg,
+    reserveOxidizedKg,
+    reserveStoredKg,
+    structureStoredKg,
+    maintenanceKJ: step.maintenanceKJ,
+    heatLossKJ: step.heatLossKJ,
+    releasedKJ,
+    meltKJ,
+    unmetMaintenanceKJ,
+    unmetColdKJ,
+    unremovedHeatKJ,
+    healthLoss,
+    activityFraction,
+    journeyId: step.journeyId,
+  };
+  person.metabolism.last = flux;
+  updateSatiety(person, model);
+  return flux;
 }
 
+/** Real meal buffers refill only after everyone's current metabolic interval. */
+export function refillMetabolicIntake(
+  world: World,
+  steps: readonly MetabolicStep[],
+): void {
+  checkSteps(world, steps, "refill");
+  const received = feedIntake(
+    world,
+    steps.map((step) => ({
+      person: step.person,
+      amount:
+        step.person.metabolism.intake <
+        step.capacity * step.model.refillFraction
+          ? Math.max(
+              0,
+              Math.min(
+                step.capacity - step.person.metabolism.intake,
+                step.ingestionLimitKg - step.ingestedKg,
+              ),
+            )
+          : 0,
+    })),
+  );
+  for (const step of steps) {
+    const amount = received.get(step.person) ?? 0;
+    step.ingestedKg += amount;
+    step.person.metabolism.last!.ingestedKg += amount;
+    step.refilled = true;
+    updateSatiety(step.person, step.model);
+  }
+}
+
+/** Single-person diagnostic wrapper; the world engine stages a shared boundary. */
 export function regulateTemperature(
   world: World,
   person: Citizen,
@@ -188,57 +558,19 @@ export function regulateTemperature(
   dt: number,
   active: boolean,
   shelterResistance: number,
-): void {
-  // Arranging usable fiber is performed work. Physiology only wears the material
-  // already present; being near a stockpile cannot clothe anyone by itself.
-  const worn = person.wrapMass * (1 - Math.exp(-dt * 0.000015));
-  person.wrapMass -= worn;
-  returnMaterial(world, tile, "fiber", worn);
-
-  // Frozen water can be melted with metabolic energy. Both the water and the
-  // latent heat have sources; an empty food supply cannot create drinking water.
-  const targetWater = hydrationTarget(person);
-  if (person.hydration < targetWater * 0.8 && tile.water < 0.1) {
-    const source = nearbyDrinkingWater(world, person) ?? tile;
-    const available = source.air.snow + source.ice;
-    const requested = Math.min(
-      available,
-      targetWater - person.hydration,
-      dt * 2,
-    );
-    const heatPerKg =
-      PLANET.fusionHeat + Math.max(0, -source.temperature) * 2.1;
-    const melted =
-      fuel(world, person, civ, tile, requested * heatPerKg) / heatPerKg;
-    const snow = Math.min(source.air.snow, melted);
-    source.air.snow -= snow;
-    source.ice -= Math.min(source.ice, melted - snow);
-    person.hydration += melted;
-    tile.temperature -= (melted * heatPerKg) / heatCapacity(tile);
-  }
-
-  const { lossW, metabolismW } = bodyHeatBalance(
+  model: Readonly<MetabolicModel> = METABOLISM,
+): MetabolicFlux {
+  if (person.civId !== civ.id)
+    throw new Error("A person's food custody must match their community.");
+  const step = prepareMetabolism(
+    world,
     person,
-    tile.temperature,
+    tile,
+    dt,
     active,
     shelterResistance,
+    model,
   );
-  const deficitKJ = Math.max(0, lossW - metabolismW) * dt * 3.6;
-  const suppliedKJ = fuel(world, person, civ, tile, deficitKJ);
-  // Remaining exposure reduces health. Insulation alone supplies no energy.
-  person.health = clamp(
-    person.health - Math.max(0, deficitKJ - suppliedKJ) / 240,
-  );
-  const excessKJ = Math.max(0, metabolismW - lossW) * dt * 3.6;
-  const sweat = Math.min(
-    Math.max(0, person.hydration - targetWater * 0.35),
-    excessKJ / PLANET.vaporizationHeat,
-  );
-  person.hydration -= sweat;
-  tile.air.vapor += sweat;
-  tile.temperature -= (sweat * PLANET.vaporizationHeat) / heatCapacity(tile);
-  person.health = clamp(
-    person.health -
-      Math.max(0, excessKJ - sweat * PLANET.vaporizationHeat) / 240,
-  );
+  feedMetabolicNeeds(world, [step]);
+  return finishMetabolism(world, step);
 }

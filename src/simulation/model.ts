@@ -6,7 +6,7 @@ import { BIOTA_MODEL, FAUNA, FLORA } from "./life";
 import { FOUNDING } from "./founding";
 import { THERMODYNAMICS } from "./thermodynamics";
 import { ADVICE_RULES } from "./society";
-import { PHYSIOLOGY } from "./physiology";
+import { METABOLISM, PHYSIOLOGY } from "./physiology";
 import { SUBSISTENCE } from "./subsistence";
 import { WALKING_METRES_PER_HOUR } from "./movement";
 import { SETTLEMENT_SPACE } from "./settlement";
@@ -34,16 +34,17 @@ export const NATURAL_MODEL = Object.freeze({
   settlementSpace: SETTLEMENT_SPACE,
   humanVitals: {
     thermalBalance: PHYSIOLOGY,
+    metabolism: METABOLISM,
     seasonalPlanning: SUBSISTENCE,
     walkingMetresPerHour: WALKING_METRES_PER_HOUR,
     nourishment:
-      "0 means starving; 100 means well fed. Agent observations expose people[].nourishment. The saved field people[].hunger is a historical name for the same high-is-good value, not hunger severity.",
+      "From biosphere-1.6, satiety, nourishment and the historical hunger field describe intake fullness (0 empty, 100 full), not stored body energy or a starvation diagnosis. A migrated legacy value is replaced by the first metabolic interval. Inspect metabolism.intake, metabolism.reserves and metabolism.last for actual fuel and shortfalls.",
     energy:
       "0 means exhausted; 100 means rested. Urgent nourishment and rest can interrupt ongoing work.",
     feeding:
-      "People eat available fractions at home or from their own carried food/provisions. Food, body growth, respiration and mineral returns remain conserved.",
+      "Current metabolic requests share finite reachable food before optional intake buffers and personal rations refill. Intake is separate unoxidized biomass-equivalent kg; reserves are a usable subset already included in body, never extra mass. One oxygen-limited oxidation supplies maintenance, heat and paid activity. Retained intake restores reserves before coarse structural growth. Allocation, automatic feeding, retention and power limits are controller/model assumptions, not learned institutions or calibrated anatomy.",
     protection:
-      "Body wraps contain real fiber. Thickness and conductivity reduce heat demand; exposed cold requires extra accessible food. Frozen drinking water needs paid latent heat. Heat stress consumes hydration. This is a coarse heat-budget approximation, not organ physiology.",
+      "Performed work places real fiber on bodies. Thickness and conductivity reduce heat demand; cold can use finite intake and body reserves within their power limits. Shared ice is reserved once before food allocation and melts only with released heat. Sweating spends hydration. The injury dose is an uncalibrated energy-deficit model without core temperature, organs or tissue-specific metabolism.",
   },
   thermodynamics: THERMODYNAMICS,
   agency: ADVICE_RULES,

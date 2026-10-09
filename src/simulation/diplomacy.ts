@@ -854,7 +854,19 @@ export function updateJourneys(world: World): void {
         world,
         caravan,
         caravan.path,
-        HOURS_PER_TICK * (world.weather === "storm" ? 0.7 : 1),
+        HOURS_PER_TICK *
+          (world.weather === "storm" ? 0.7 : 1) *
+          (caravan.stage === "legacy"
+            ? 1
+            : Math.min(
+                ...party.map((person) => {
+                  const interval = person.metabolism.last;
+                  return interval?.tick === world.tick &&
+                    interval.journeyId === caravan.id
+                    ? interval.activityFraction
+                    : 0;
+                }),
+              )),
         caravan.stage === "legacy"
           ? 100
           : Math.min(...party.map((p) => p.energy)),

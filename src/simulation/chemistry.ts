@@ -221,6 +221,7 @@ export function elementLedger(world: World): ElementMass {
       addMaterial(material as Material, amount);
   for (const person of world.citizens) {
     addMaterial("biomass", person.body);
+    addMaterial("biomass", person.metabolism.intake);
     addMaterial("fiber", person.wrapMass);
     addMaterial("biomass", person.provisions);
     water += person.hydration;

@@ -14,7 +14,6 @@ import { elementLedger } from "../../src/simulation/chemistry.ts";
 import { ledger, emptyStock } from "../../src/simulation/laws.ts";
 
 const root = path.resolve(import.meta.dirname, "../..");
-fs.mkdirSync(path.join(root, "output/research"), { recursive: true });
 const sources = [
   "citizens",
   "physiology",
@@ -32,6 +31,14 @@ const fingerprints = sources.map((name) => {
       .digest("hex"),
   };
 });
+assert.deepEqual(
+  fingerprints,
+  JSON.parse(
+    fs.readFileSync(new URL("collapse-mechanism-probe.json", import.meta.url)),
+  ).sourceFingerprints,
+  "Historical inputs changed; use the pinned checkout in collapse-reproduction.md.",
+);
+fs.mkdirSync(path.join(root, "output/research"), { recursive: true });
 const template = createWorld(1847, 64, 64, "planet-1", 2);
 const communityId = template.civilizations[0].id;
 template.civilizations = [template.civilizations[0]];

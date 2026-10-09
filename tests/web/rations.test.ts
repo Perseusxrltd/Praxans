@@ -9,7 +9,11 @@ import {
 } from "../../src/simulation/subsistence";
 import { canReachCampStocks } from "../../src/simulation/settlement";
 import { MATERIALS } from "../../src/simulation/content";
-import { PHYSIOLOGY } from "../../src/simulation/physiology";
+import {
+  PHYSIOLOGY,
+  initialMetabolism,
+  intakeCapacity,
+} from "../../src/simulation/physiology";
 import { elementLedger } from "../../src/simulation/chemistry";
 import { emptyStock, LAWS, ledger } from "../../src/simulation/laws";
 import { astronomy } from "../../src/simulation/planet";
@@ -21,7 +25,11 @@ import {
   verifyWorldArchives,
   worldArchiveBytes,
 } from "../../src/server/archives";
-import { DAYS_PER_YEAR, type World } from "../../src/simulation/types";
+import {
+  DAYS_PER_YEAR,
+  type Citizen,
+  type World,
+} from "../../src/simulation/types";
 
 function close(actual: number, expected: number, tolerance = 1e-8) {
   assert.ok(
@@ -43,6 +51,7 @@ function fixture(food = 3) {
     person.y = civ.y;
     person.age = 30;
     person.body = 18;
+    person.metabolism = initialMetabolism(person.body);
     person.provisions = 0;
     person.cargo = null;
     person.journeyId = null;
@@ -61,6 +70,10 @@ function fixture(food = 3) {
       progress: 0,
     };
   }
+  // The adult really has a meal available internally; the child has neither
+  // intake nor mobilizable reserves. Scores alone cannot establish either fact.
+  adult.metabolism.intake = intakeCapacity(adult);
+  child.metabolism.reserves = 0;
   world.tick = Array.from({ length: 96 }, (_, tick) => tick).find(
     (tick) =>
       (tick + 1) % 4 !== 0 && astronomy(tick, civ.x, civ.y).solarAltitude > 10,
@@ -109,11 +122,25 @@ test("shared-world meals precede optional rations in both adult/child orders", (
       const age = child.age;
       stepWorld(world);
       close(child.age - age, 0.25 / (24 * DAYS_PER_YEAR), 1e-14);
-      close(child.hunger, 10 - 0.25 * 1.15 + (food ? 0.65 * 48 : 0));
-      if (food) assert.ok(child.health > 98);
-      close(adult.provisions, food === 3 ? 1.175 : food === 7 ? 3 : 0);
+      const flux = child.metabolism.last!;
+      close(flux.releasedKJ, food ? 99 : 0);
+      if (food) {
+        assert.ok(child.health > 98);
+        assert.ok(child.metabolism.intake > 0);
+      } else {
+        assert.ok(child.health < 98);
+        close(child.metabolism.intake, 0);
+      }
+      const availableForRations = food - flux.ingestedKg;
+      close(adult.provisions, Math.min(3, availableForRations / 2));
       close(child.provisions, adult.provisions);
-      close(civ.stock.biomass, food === 7 ? 0.35 : 0);
+      close(
+        civ.stock.biomass +
+          adult.provisions +
+          child.provisions +
+          flux.ingestedKg,
+        food,
+      );
       conserved(world, before);
       outcomes.push([
         child.hunger,
@@ -134,6 +161,9 @@ test("cold fuel and melting use real food before an otherwise fed neighbor packs
       child.x++;
       const cold = getTile(world, child.x, child.y)!;
       cold.temperature = -5;
+      // Real insulation makes this demand attainable below the power ceiling.
+      child.wrapMass = 2;
+      world.civilizations[1].stock.fiber -= child.wrapMass;
       if (frozen) {
         for (const tile of nearbyTiles(world, child, 1.5)) tile.water = 0;
         child.hydration = 2;
@@ -151,12 +181,20 @@ test("cold fuel and melting use real food before an otherwise fed neighbor packs
         close(cold.ice, 1.5);
         close(child.hydration, 2 - 0.25 * 0.065 + 0.5);
       }
-      const consumed =
-        0.1 - civ.stock.biomass - adult.provisions - child.provisions;
-      assert.ok(consumed > 0.02 && consumed < 0.1);
+      const flux = child.metabolism.last!;
+      assert.ok(flux.foodOxidizedKg > 0 && flux.foodOxidizedKg < 0.1);
+      close(flux.reserveOxidizedKg, 0);
+      close(flux.unmetColdKJ, 0);
+      close(
+        civ.stock.biomass +
+          adult.provisions +
+          child.provisions +
+          flux.ingestedKg,
+        0.1,
+      );
       close(
         world.energy.released - released,
-        consumed * MATERIALS.biomass.carbon * LAWS.chemicalEnergy,
+        adult.metabolism.last!.releasedKJ + flux.releasedKJ,
       );
       close(adult.provisions, child.provisions);
       conserved(world, before);
@@ -360,6 +398,8 @@ test("an arriving worker waits for a boundary at which the camp is actually reac
 
 test("workers collect provisions before departure, while later deliveries wait for the next bodily phase", () => {
   const { world, civ, adult, child } = fixture(3);
+  child.metabolism = initialMetabolism(child.body);
+  child.metabolism.intake = intakeCapacity(child);
   adult.task = {
     kind: "move",
     progress: 0,
@@ -416,17 +456,23 @@ test("death during physiology stops a nearly completed delivery and does not acq
   conserved(world, before);
 });
 
-test("meal-vs-meal scarcity remains an exposed sequential-consumption limitation", () => {
+test("current food scarcity is independent of the person's position in the update array", () => {
   const results = [];
   for (const reversed of [false, true]) {
-    const { world, adult, child } = fixture(0.3);
+    const { world, adult, child } = fixture(
+      99 / (MATERIALS.biomass.carbon * LAWS.chemicalEnergy),
+    );
+    adult.metabolism.intake = 0;
+    adult.metabolism.reserves = 0;
     adult.hunger = child.hunger = 10;
     if (reversed) world.citizens.reverse();
     updateCitizens(world);
-    results.push([adult.hunger, child.hunger]);
+    close(adult.metabolism.last!.releasedKJ, 49.5);
+    close(child.metabolism.last!.releasedKJ, 49.5);
+    assert.ok(adult.health < 98 && child.health < 98);
+    results.push([adult.hunger, child.hunger, adult.health, child.health]);
   }
-  assert.ok(results[0][0] > results[0][1]);
-  assert.ok(results[1][1] > results[1][0]);
+  assert.deepEqual(results[0], results[1]);
 });
 
 test("format-10 continuation archives all prior state without inventing food or allocating on load", () => {
@@ -437,6 +483,8 @@ test("format-10 continuation archives all prior state without inventing food or 
     const old = structuredClone(world);
     old.version = 10;
     old.lawsVersion = "biosphere-1.4";
+    for (const person of old.citizens)
+      delete (person as Partial<Citizen>).metabolism;
     const { tiles, ...metadata } = old;
     const json = JSON.stringify(metadata);
     store.db
@@ -447,12 +495,16 @@ test("format-10 continuation archives all prior state without inventing food or 
     assert.equal(JSON.stringify(old), original);
     assert.deepEqual(migrated.world, {
       ...old,
-      version: 11,
-      lawsVersion: "biosphere-1.5",
+      version: 12,
+      lawsVersion: "biosphere-1.6",
+      citizens: old.citizens.map((person) => ({
+        ...person,
+        metabolism: initialMetabolism(person.body),
+      })),
     });
     assert.deepEqual(
       migrated.interventions.map((i) => i.id),
-      ["011-consumption-before-ration-pickup"],
+      ["011-consumption-before-ration-pickup", "012-funded-human-metabolism"],
     );
     const loaded = store.load(0, true);
     assert.deepEqual(loaded, migrated.world);
@@ -468,7 +520,7 @@ test("format-10 continuation archives all prior state without inventing food or 
     );
     assert.deepEqual(JSON.parse(archived), old);
     assert.deepEqual(store.load(0, true), loaded);
-    assert.equal(store.interventions().length, 1);
+    assert.equal(store.interventions().length, 2);
     const continued = structuredClone(loaded);
     stepWorld(loaded, 8);
     stepWorld(continued, 8);

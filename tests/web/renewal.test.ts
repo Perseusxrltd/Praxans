@@ -7,7 +7,7 @@ import { ledger } from "../../src/simulation/laws";
 import { processDeaths } from "../../src/simulation/citizens";
 import {
   regulateTemperature,
-  takeAccessibleFood,
+  initialMetabolism,
 } from "../../src/simulation/physiology";
 import { walkPath } from "../../src/simulation/movement";
 import { validateWorld } from "../../src/simulation/engine";
@@ -17,7 +17,10 @@ import type { CommunityRenewal } from "../../src/simulation/renewal";
 import { migrateWorld } from "../../src/server/migrations";
 import { nearbyTiles } from "../../src/simulation/terrain";
 import { updateCitizen } from "../../src/simulation/citizens";
-import { foodReservePerPerson } from "../../src/simulation/subsistence";
+import {
+  feedIntake,
+  foodReservePerPerson,
+} from "../../src/simulation/subsistence";
 import { measureSuccess } from "../../src/simulation/progress";
 import { astronomy } from "../../src/simulation/planet";
 import { decayStocks } from "../../src/simulation/weathering";
@@ -146,6 +149,10 @@ test("thermal protection, frozen drinking water and extra metabolism require con
   person.provisions = 0;
   person.cargo = null;
   civ.stock.biomass = 0;
+  // Empty external stores are not an empty metabolic budget: exhaust the
+  // fixture's unoxidized intake and usable reserve subset for this control.
+  person.metabolism.intake = 0;
+  person.metabolism.reserves = 0;
   person.hydration = 1;
   const hydration = person.hydration,
     ice = tile.ice,
@@ -193,9 +200,27 @@ test("thirst interrupts work and follows remembered water without looking up dis
     path: [],
     progress: 0,
   };
+  let waterTask = person.task;
   for (let i = 0; i < 8; i++) {
     world.tick++;
     updateCitizen(world, person, civ, 8);
+    if (i === 0) {
+      waterTask = person.task!;
+      assert.equal(waterTask.need, "water");
+      assert.equal(
+        person.x,
+        civ.x,
+        "a new route begins its paid interval next tick",
+      );
+    }
+    if (i === 1) {
+      assert.equal(
+        person.task,
+        waterTask,
+        "continued thirst does not repeatedly cancel its own route",
+      );
+      assert.ok(person.x > civ.x, "the funded route makes actual progress");
+    }
   }
   assert.ok(person.hydration > 6);
   assert.ok(source.water < 10);
@@ -278,7 +303,8 @@ test("carried rations stay usable beside work cargo and deaths return both wraps
   person.wrapMass = 2;
   person.cargo = { material: "stone", amount: 3 };
   const stock = civ.stock.biomass;
-  assert.equal(takeAccessibleFood(world, person, civ, 0.8), 0.5);
+  assert.equal(feedIntake(world, [{ person, amount: 0.8 }]).get(person), 0.5);
+  assert.equal(person.metabolism.intake, 0.5);
   assert.equal(civ.stock.biomass, stock);
   assert.equal(person.cargo.material, "stone");
   person.provisions = 1;
@@ -323,20 +349,22 @@ test("format eight migration introduces empty personal inventories without chang
   for (const p of old.citizens) {
     old.civilizations.find((c) => c.id === p.civId)!.stock.fiber += p.wrapMass;
     old.civilizations.find((c) => c.id === p.civId)!.stock.biomass +=
-      p.provisions;
+      p.provisions + p.metabolism.intake;
     delete (p as Partial<typeof p>).wrapMass;
     delete (p as Partial<typeof p>).provisions;
+    delete (p as Partial<typeof p>).metabolism;
   }
   const normalized = structuredClone(old);
   for (const person of normalized.citizens) {
     person.wrapMass = 0;
     person.provisions = 0;
+    person.metabolism = initialMetabolism(person.body);
   }
   const before = ledger(normalized);
   for (const key of ["carbon", "mineral", "water", "chemical"] as const)
     assert.ok(Math.abs(before[key] - original[key]) < 1e-4);
   const migrated = migrateWorld(old);
-  assert.equal(migrated.interventions.length, 3);
+  assert.equal(migrated.interventions.length, 4);
   assert.equal(migrated.world.rng, rng);
   assert.equal(migrated.world.nextId, nextId);
   assert.equal(migrated.world.citizens.length, world.citizens.length);

@@ -8,6 +8,7 @@
 ## [Renewal, Scale and Agent Recovery 0.2] — 2026-10-08
 
 ### Added
+- Finite unoxidized intake, a usable reserve subset inside existing body material and one measured metabolic heat/activity account; future death records and agent/browser observations expose the actual interval (→ human_physiology; → ADR-037).
 - Performed body maintenance through existing repair tasks: local self/nearby care, finite work and fiber, shared transfer budgets, signed outcome learning and an inspector for real covering/progress. Format 10 / biosphere-1.4 preserves existing state (→ human_physiology; → ADR-034).
 - Independently versioned, verified compressed migration archives and offline archive verification. Original historical bytes remain recoverable (→ world_storage; → ADR-033).
 - Preserved-world collapse study: 1,607 deaths reconciled, exact first-infant thermal replay, finite-fiber/ration-order controls, connected habitat measurements and an exported chronology. Later care and packing corrections address reproduced gaps; metabolic energy, growth and sustainable habitat capacity remain open (→ human_physiology; → settlement_space).
@@ -20,6 +21,7 @@
 - Antiquity-first source register, scale audits, failed-candidate evidence, measured CPU baseline and explicit large-world acceptance targets.
 
 ### Fixed
+- Current food and ice requests share finite supply before optional refills. Paid physical work and conversation retain their budgets; water-seeking routes can progress while thirst persists. Migration 012 preserves existing matter/history (→ civilization_intelligence; → world_storage).
 - All current physiological food use now precedes optional ration pickup, followed by decisions and movement. Residual refills preserve contact, finite budgets and private custody; the inspector shows actual rations. Format 11 / biosphere-1.5 leaves prior state intact (→ human_physiology; → ADR-035).
 - Legacy archive compression retains exact original bytes and checksums while making old pages reusable before the next law migration; the preceding storage-v1 runtime remains compatible (→ world_storage; → ADR-036).
 - World loading releases obsolete serialized population metadata before a migration save, preventing the demonstrated protected-heap failure on the 1,439-person backup (→ world_storage).
@@ -34,6 +36,7 @@
 - SQLite retains the original disk-full cause when it has already rolled back; reusable WAL retention is limited without discarding active reader history.
 
 ### Validation and limits
+- Funded-metabolism candidate: twenty new metabolic cases, thirteen focused browser checks, sixteen connection checks, twelve isolated production checks and sixteen exact-artifact inhabited-copy handover checks pass. The full batch is 188/189 plus a 2/2 corrected-fixture recheck. The contended production timeout and seven-day trial deadline remain recorded; no long-term survival or inhabited live-memory claim. Publication is pending.
 - Live `ration-boundary-20261009-1` passes 169 model/server tests, twelve production, 21 generic hotfix and fifteen inhabited-copy handover checks, focused browser checks and both implementation GitHub runs. At live tick 344720 the existing observer continues through the law update; saved 345616 preserves prior identities/history and exact clock arithmetic. All 800 changed archive blocks verify off-host, including complete original checksums. Finite monitoring records no new OOM kill; the existing clock debt, extinct communities and populated-host capacity limits remain.
 - Archive release: 138 model/server tests, twelve production, 21 hotfix, sixteen connection and fifteen inhabited quota/handover checks pass. Actual format-8 migration archives 52.6 MB in 17.4 MB of blocks under a 216 MiB heap; exact migration outputs match preceding code. The live tick-313804 audit retains prior identities/history/clock. Full-region writes, old plaintext storage, host memory and survival defects remain limits.
 - The final checkpoint/copy release passes 25 lifecycle tests, twelve production checks, 21 hotfix checks and fourteen inhabited-backup checks under a live-sized disk quota. A later live private preflight and saved-state audit pass. The copy-only predecessor missed a post-copy halt; recovery recomputed 32 uncommitted ticks. Memory remains close to the limit, and single-write/archive capacity is unresolved.

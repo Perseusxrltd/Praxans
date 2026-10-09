@@ -394,6 +394,7 @@ export function createGameServer(options: AppOptions) {
       civilization: civ,
       people: peopleOf(world, civ.id).map((person) => ({
         ...person,
+        satiety: person.hunger,
         nourishment: person.hunger,
       })),
       structures: world.structures.filter((s) => s.civId === civ.id),

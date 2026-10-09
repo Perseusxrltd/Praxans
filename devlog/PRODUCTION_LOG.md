@@ -7,6 +7,19 @@
 
 ## Log
 
+### [2026-10-09] One Funded Human Metabolic Account
+
+- **type**: bugfix
+- **systems**: human_physiology, civilization_intelligence, natural_systems, world_state, world_storage, civic_relations, agent_gateway, browser_observer, community_history, browser_validation
+- **files**: `physiology.ts`, `subsistence.ts`, `citizens.ts`, `engine.ts`, `diplomacy.ts`, `migrations.ts`, `types.ts`, `main.tsx`, `metabolism.test.ts`
+- **agent**: Codex
+
+Actual swallowed material and a reserve subset within existing body mass supply one oxygen-limited oxidation budget for maintenance, heat, melting and activity. Shared current food/ice claims precede optional refills; tasks and journeys use paid activity, while water routes retain their purpose. Body/intake transfers, childbirth and death conserve matter, and future death records preserve measured metabolic flux. Format 12 / biosphere-1.6 adds no people or supplies. → ADR-037.
+
+The [release](../docs/releases/funded-metabolism-0.2.md) and [validation record](../docs/validation/funded-metabolism-2026-10-09.json) retain twenty new metabolic cases, sixteen exact-artifact inhabited-copy checks, the successful isolated production retry and the seven-day trial's compute deadline. A freshly verified backup precedes publication. The artifact is staged; live activation and the matching website are still pending. Growth, feeding work, carrying capacity and inhabited host memory remain limits.
+
+---
+
 ### [2026-10-09] Residual Ration Pickup and Lossless Archive Compaction
 
 - **type**: bugfix

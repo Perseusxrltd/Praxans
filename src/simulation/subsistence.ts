@@ -1,6 +1,6 @@
 import { astronomy } from "./planet";
 import { clamp } from "./random";
-import type { Citizen, Civilization, World } from "./types";
+import type { Caravan, Citizen, Civilization, World } from "./types";
 import { canReachCampStocks } from "./settlement";
 
 export const SUBSISTENCE = Object.freeze({
@@ -28,6 +28,102 @@ export interface RationPickup {
   readonly claims: readonly RationClaim[];
   readonly stocks: ReadonlyMap<Civilization, number>;
   committed: boolean;
+}
+
+/** One finite proportional allocation, with stable arithmetic across actor order. */
+export function shareFiniteSupply<
+  T extends { person: Citizen; amount: number },
+>(
+  claims: T[],
+  budget: number,
+  credit: (claim: T, amount: number) => void,
+): number {
+  claims.sort((a, b) => (a.person.id < b.person.id ? -1 : 1));
+  const requested = claims.reduce((sum, claim) => sum + claim.amount, 0);
+  if (!(requested > 0 && budget > 0)) return 0;
+  const share = Math.min(1, budget / requested);
+  let remaining = budget;
+  for (const claim of claims) {
+    const amount = Math.min(remaining, claim.amount * share);
+    remaining -= amount;
+    credit(claim, amount);
+  }
+  return budget - remaining;
+}
+
+/**
+ * Transfer requested food into real unoxidized intake. Each actor uses their
+ * own carried food first; camp or journey stock shares one captured budget.
+ * Call separately for current metabolic demand and for optional meal top-ups.
+ * Proportional contention and automatic ingestion remain controller conventions.
+ */
+export function feedIntake(
+  world: World,
+  requests: readonly { person: Citizen; amount: number }[],
+): ReadonlyMap<Citizen, number> {
+  const members = new Set(world.citizens),
+    civs = new Map(world.civilizations.map((civ) => [civ.id, civ])),
+    journeys = new Map(world.caravans.map((party) => [party.id, party])),
+    seen = new Set<string>(),
+    received = new Map<Citizen, number>();
+  type Source = Civilization | Caravan;
+  const claims: { person: Citizen; amount: number; source?: Source }[] = [];
+  // Capture every contact before debiting any shared stock: camp area depends
+  // on stock volume. A traveler's supplies do not become communal camp property.
+  for (const request of requests) {
+    const { person, amount } = request;
+    if (!Number.isFinite(amount) || amount < 0)
+      throw new Error("Food demand must be a finite nonnegative mass.");
+    if (seen.has(person.id) || !members.has(person) || person.health <= 0)
+      continue;
+    seen.add(person.id);
+    const civ = civs.get(person.civId);
+    if (!civ || !amount) continue;
+    const journey = person.journeyId
+      ? journeys.get(person.journeyId)
+      : undefined;
+    const source = person.journeyId
+      ? journey?.partyIds.includes(person.id)
+        ? journey
+        : undefined
+      : canReachCampStocks(world, civ, person)
+        ? civ
+        : undefined;
+    claims.push({ person, amount, source });
+  }
+  const credit = (person: Citizen, amount: number) => {
+    person.metabolism.intake += amount;
+    received.set(person, (received.get(person) ?? 0) + amount);
+  };
+  const groups = new Map<Source, { person: Citizen; amount: number }[]>();
+  for (const { person, amount, source } of claims) {
+    let left = amount;
+    const carried = Math.min(left, person.provisions);
+    person.provisions -= carried;
+    left -= carried;
+    credit(person, carried);
+    if (left > 0 && person.cargo?.material === "biomass") {
+      const cargo = Math.min(left, person.cargo.amount);
+      person.cargo.amount -= cargo;
+      left -= cargo;
+      credit(person, cargo);
+      if (!person.cargo.amount) person.cargo = null;
+    }
+    if (source && left > 0) {
+      const group = groups.get(source) ?? [];
+      group.push({ person, amount: left });
+      groups.set(source, group);
+    }
+  }
+  for (const [source, group] of groups) {
+    const budget = "stock" in source ? source.stock.biomass : source.provisions;
+    const taken = shareFiniteSupply(group, budget, (claim, amount) =>
+      credit(claim.person, amount),
+    );
+    if ("stock" in source) source.stock.biomass -= taken;
+    else source.provisions -= taken;
+  }
+  return received;
 }
 
 /**
@@ -104,21 +200,14 @@ export function finishRationPickup(world: World, pickup: RationPickup): void {
     groups.set(civ, group);
   }
   for (const [civ, claims] of groups) {
-    // Stable arithmetic as well as stable awards, independent of iteration order.
-    claims.sort((a, b) => (a.person.id < b.person.id ? -1 : 1));
-    const requested = claims.reduce((sum, claim) => sum + claim.amount, 0);
     const budget = Math.max(
       0,
       Math.min(pickup.stocks.get(civ) ?? 0, civ.stock.biomass),
     );
-    const share = Math.min(1, budget / requested);
-    let remaining = budget;
-    for (const claim of claims) {
-      const amount = Math.min(remaining, claim.amount * share);
-      remaining -= amount;
+    const taken = shareFiniteSupply(claims, budget, (claim, amount) => {
       claim.person.provisions += amount;
-    }
-    civ.stock.biomass -= budget - remaining;
+    });
+    civ.stock.biomass -= taken;
   }
 }
 

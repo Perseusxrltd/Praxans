@@ -1,6 +1,6 @@
 import type { WorldClock } from "./chronology";
 import type { EntropyRecord } from "./thermodynamics";
-export const WORLD_VERSION = 11;
+export const WORLD_VERSION = 12;
 export type GenerationVersion = "archipelago-1" | "planet-1";
 export const TICK_MS = 250;
 export const HOURS_PER_TICK = 0.25;
@@ -236,6 +236,8 @@ export interface Mind {
   adviceTrust: number;
 }
 export interface Task {
+  /** The remembered bodily purpose of a route, not a guaranteed resource. */
+  need?: "water";
   kind: Activity;
   tile: number;
   path: number[];
@@ -246,6 +248,35 @@ export interface Task {
   recipientId?: string;
   /** Intended kilograms on that body; progress records kilograms actually moved. */
   targetWrapMass?: number;
+}
+/** Kilograms use the existing biomass-equivalent material, not anatomical fat. */
+export interface Metabolism {
+  /** Unoxidized food, counted separately from body and carried provisions. */
+  intake: number;
+  /** A mobilizable subset of body; never add this tag again in a material ledger. */
+  reserves: number;
+  /** Last measured interval; null means no interval has been measured yet. */
+  last: MetabolicFlux | null;
+}
+export interface MetabolicFlux {
+  tick: number;
+  hours: number;
+  ingestedKg: number;
+  foodOxidizedKg: number;
+  reserveOxidizedKg: number;
+  reserveStoredKg: number;
+  structureStoredKg: number;
+  maintenanceKJ: number;
+  heatLossKJ: number;
+  releasedKJ: number;
+  meltKJ: number;
+  unmetMaintenanceKJ: number;
+  unmetColdKJ: number;
+  unremovedHeatKJ: number;
+  healthLoss: number;
+  /** Fraction of the planned active interval funded after resting maintenance. */
+  activityFraction: number;
+  journeyId: string | null;
 }
 export interface Citizen {
   id: string;
@@ -262,7 +293,9 @@ export interface Citizen {
   energy: number;
   happiness: number;
   sick: number;
+  /** Total dry-equivalent body material, including metabolism.reserves. */
   body: number;
+  metabolism: Metabolism;
   hydration: number;
   traits: Traits;
   skill: number;
@@ -534,6 +567,12 @@ export interface WorldEvent {
     temperature: number;
     oxygenFraction: number;
     sickness: number;
+    metabolism?: {
+      bodyKg: number;
+      intakeKg: number;
+      reserveKg: number;
+      last: MetabolicFlux | null;
+    };
   };
 }
 export interface HistoryPoint {

@@ -25,7 +25,7 @@ Use the website or world-server origin as the base URL. Send `Authorization: Bea
 | `GET /api/journal?before=<cursor>` | Permanent world events, newest page first |
 | `GET /api/interventions` | Recorded updates and migrations |
 
-Read vitals carefully: **`people[].nourishment` is high when well fed and low when starving**. The retained `hunger` field has the same value under its historical name; rising `hunger` does not mean increasing deprivation. `energy` and `health` are also high when well. Compare food reserves, needs, access and recent outcomes before changing priorities.
+Read `lawsVersion` and `/api/laws` before interpreting vitals. From **biosphere-1.6**, `people[].satiety`, `nourishment` and historical `hunger` mean **intake fullness** (0 empty, 100 full), not chemical reserves or a starvation diagnosis. A migrated value is replaced at the first metabolic interval. `metabolism.intake` contains real unoxidized food; `metabolism.reserves` is a usable subset already included in `body`, never extra mass. `metabolism.last` records the last interval's oxidation, retention, released kJ, deficits and funded activity. The maximum of unmet maintenance and cold represents overlapping missing energy; do not sum them as independent losses. `energy` remains a rest/fatigue indicator, not chemical energy. Compare actual food, reserves, access, heat and health before changing priorities.
 
 Example decision:
 

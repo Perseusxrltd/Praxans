@@ -11,6 +11,7 @@ import {
 import {
   bodyHeatBalance,
   PHYSIOLOGY,
+  initialMetabolism,
   preferredWrapMass,
   regulateTemperature,
 } from "../../src/simulation/physiology";
@@ -302,8 +303,8 @@ test("thermal planning respects signed heat exchange including the skin-temperat
     const before = bodyHeatBalance(actor, temperature, false, 0);
     const after = bodyHeatBalance(actor, temperature, false, 0, target);
     assert.ok(
-      Math.abs(after.lossW - after.metabolismW) <=
-        Math.abs(before.lossW - before.metabolismW) + 1e-9,
+      Math.abs(after.lossW - after.metabolicDemandW) <=
+        Math.abs(before.lossW - before.metabolicDemandW) + 1e-9,
     );
     if (temperature === 33) assert.equal(target, actor.wrapMass);
     if (temperature === 40) assert.ok(target > actor.wrapMass);
@@ -330,6 +331,7 @@ test("already awake people can choose care before cargo/reserve goals, while sel
   actor.mind.synapses.repair = [4, 0, 0, 0, 0, 0, 0, 0];
   civ.stock.fiber -= 0.5;
   actor.cargo = { material: "fiber", amount: 0.5 };
+  actor.metabolism.intake = 0.9; // A real prior meal funds the helper's two intervals.
   civ.stock.biomass = 0; // Fixture scarcity: baseline comparisons below concern finite fiber.
   updateCitizens(world);
   assert.ok(isBodyRepair(actor.task));
@@ -522,6 +524,8 @@ test("format nine migration retains people, minds, tasks, inventories and empty 
       const old = structuredClone(world);
       old.version = 9;
       old.lawsVersion = "biosphere-1.3";
+      for (const person of old.citizens)
+        delete (person as Partial<Citizen>).metabolism;
       const { tiles: _tiles, ...metadata } = old;
       const json = JSON.stringify(metadata);
       store.db
@@ -532,14 +536,19 @@ test("format nine migration retains people, minds, tasks, inventories and empty 
       assert.equal(JSON.stringify(old), original);
       assert.deepEqual(migrated.world, {
         ...old,
-        version: 11,
-        lawsVersion: "biosphere-1.5",
+        version: 12,
+        lawsVersion: "biosphere-1.6",
+        citizens: old.citizens.map((person) => ({
+          ...person,
+          metabolism: initialMetabolism(person.body),
+        })),
       });
       assert.deepEqual(
         migrated.interventions.map((i) => i.id),
         [
           "010-performed-body-maintenance",
           "011-consumption-before-ration-pickup",
+          "012-funded-human-metabolism",
         ],
       );
       const loaded = store.load(0, true);
@@ -558,7 +567,7 @@ test("format nine migration retains people, minds, tasks, inventories and empty 
       );
       assert.deepEqual(JSON.parse(archived), old);
       assert.deepEqual(store.load(0, true), loaded);
-      assert.equal(store.interventions().length, 2);
+      assert.equal(store.interventions().length, 3);
     } finally {
       store.close();
     }
