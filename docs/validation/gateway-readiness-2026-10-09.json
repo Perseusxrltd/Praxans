@@ -1,0 +1,222 @@
+{
+  "status": "prepared, not deployed",
+  "scope": "Gateway-only container increment; runtime bytes and physical laws unchanged. Regional storage compression is separate.",
+  "baseCommit": "ea5436d298cdc4c5463a927ae1278feac8b49211",
+  "gatewaySha256": "fc3454f1f506bf84d3b3553fe32d1736780c729269801b232c079a063facebcc",
+  "runtimeSha256": "39acd20b025d3e3face2afc1a2721a6988c7ec8ca51871617120242def40f49e",
+  "storageVersion": 1,
+  "worldFormat": 13,
+  "laws": "biosphere-1.7",
+  "checks": {
+    "build": "passed",
+    "format": "passed",
+    "checkpointRegression": 1,
+    "hotfix": {
+      "checks": [
+        "the operator endpoint is a private local socket",
+        "failed candidate validation leaves the current runtime alive",
+        "the world continues while an invalid hotfix is rejected",
+        "validation heap exhaustion leaves the continuing runtime alive and advancing",
+        "heap failure removes only the candidate's private copy",
+        "health reports the actual handover promptly while ordinary advice remains queued",
+        "candidate validation has an effective bounded heap even with host V8 flags",
+        "a request arriving during handover completes through the new runtime after any clock catch-up",
+        "the same request ID cannot duplicate an intention across a hotfix",
+        "the runtime process changes while the gateway stays in place",
+        "the same observer connection receives the new runtime snapshot without ending",
+        "stream time stays monotonic through the handover",
+        "the agent still observes its original community",
+        "the same world, inhabitants and increasing clock survive",
+        "the browser retains its inspection and camera",
+        "activation has one permanent release record",
+        "a full process restart uses the durable active runtime pointer",
+        "ownership and accepted intentions persist after gateway restart",
+        "the browser reports no errors during runtime replacement: ",
+        "the next candidate validates while the active world remains running",
+        "shutdown during validation leaves no candidate or runtime orphan",
+        "shutdown removes the terminated validation worker's private copy",
+        "a failed candidate with changed storage and unchanged world metadata cannot restart the preceding runtime",
+        "an incompatible committed candidate retains its pending pointer for forward recovery",
+        "readiness promptly reports a world unavailable after incompatible candidate failure"
+      ],
+      "errors": [],
+      "activation": {
+        "release": "handover-accepted",
+        "type": "preflight",
+        "id": "praxans-world",
+        "seed": 1847,
+        "sourceTick": 96,
+        "tick": 128,
+        "format": 13,
+        "laws": "biosphere-1.7",
+        "validationHeapLimitBytes": 226492416,
+        "resumedTick": 123
+      },
+      "observerSnapshots": 2
+    },
+    "compiledProduction": 12,
+    "postHandoverScreenshot": "inspected; no browser errors"
+  },
+  "structuralReview": {
+    "baseCommit": "ea5436d298cdc4c5463a927ae1278feac8b49211",
+    "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
+    "gitVisibleExistingFileCount": 943,
+    "jsTsFileCount": 129,
+    "sourceFileCount": 77,
+    "srcContentSha256": "883c214dd0149642e58d617bfc094f96aea076c3d02b4ecbd718085967f39cf0",
+    "sourceHashMethod": "Sorted relative path + NUL + file bytes + NUL for all Git-visible src/ files.",
+    "resolvedEdgeCount": 669,
+    "edgesByArea": {
+      "docs -> src/simulation": 22,
+      "scripts -> src/server": 22,
+      "scripts -> src/simulation": 25,
+      "src/client -> src/simulation": 27,
+      "src/client -> src/client": 21,
+      "src/server -> src/simulation": 41,
+      "src/server -> src/server": 23,
+      "src/simulation -> src/simulation": 245,
+      "tests -> src/simulation": 170,
+      "tests -> tests": 30,
+      "tests -> src/server": 43
+    },
+    "missingImports": [],
+    "missingAssets": [],
+    "nonliteralLoads": [
+      {
+        "file": "docs/research/collapse-first-death-replay.mjs",
+        "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/engine.ts\")).href\n)"
+      },
+      {
+        "file": "docs/research/collapse-first-death-replay.mjs",
+        "expression": "import(\n  pathToFileURL(path.join(baseline, \"src/simulation/settlement.ts\")).href\n)"
+      }
+    ],
+    "layerViolations": [],
+    "simulationEnvironmentImports": [],
+    "localMarkdownLinksChecked": 443,
+    "missingMarkdownLinks": []
+  },
+  "backup": {
+    "raw": {
+      "bytes": 307568640,
+      "sha256": "9a33e9c2845d676ef8fdb5c65b570a69c1646c3c8d5df6cd6b5b3a0a5a059442"
+    },
+    "gzip": {
+      "bytes": 202154752,
+      "sha256": "56ff824fd53b95c278cba2a39ae0361bf12b99ac62f9c978eca33bbd3e949357"
+    },
+    "integrity": "ok",
+    "worldChecksum": "79997653986b51ba6dc473104e51ca6642b56f2de9ba4e1e123c256b3ab388ad",
+    "world": {
+      "id": "praxans-world",
+      "seed": 1847,
+      "generationVersion": "planet-1",
+      "version": 13,
+      "lawsVersion": "biosphere-1.7",
+      "tick": 389256,
+      "rng": 2402700183,
+      "births": 407,
+      "deaths": 1639
+    },
+    "people": 0,
+    "regions": 38,
+    "clock": {
+      "tick": 389256,
+      "wall_ms": 1791489754340.0
+    },
+    "counts": {
+      "sessions": 25,
+      "agents": 1,
+      "receipts": 3,
+      "world_events": 70486
+    },
+    "archives": [
+      {
+        "id": "008-material-memory-and-agency",
+        "sha256": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb"
+      },
+      {
+        "id": "009-human-thermal-and-distance-balance",
+        "sha256": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164"
+      },
+      {
+        "id": "010-performed-body-maintenance",
+        "sha256": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f"
+      },
+      {
+        "id": "011-consumption-before-ration-pickup",
+        "sha256": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f"
+      },
+      {
+        "id": "012-funded-human-metabolism",
+        "sha256": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0"
+      },
+      {
+        "id": "013-local-inventory-exposure-and-access",
+        "sha256": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77"
+      }
+    ],
+    "copy": {
+      "startedAt": "2026-10-09T02:54:45.184Z",
+      "copiedAt": "2026-10-09T02:54:54.933Z",
+      "elapsedMilliseconds": 9748.359713,
+      "identity": {
+        "checksum": "79997653986b51ba6dc473104e51ca6642b56f2de9ba4e1e123c256b3ab388ad",
+        "tick": 389256,
+        "people": 0,
+        "births": 407,
+        "deaths": 1639,
+        "clock": {
+          "tick": 389256,
+          "wall_ms": 1791489754340
+        },
+        "events": {
+          "n": 70486,
+          "through": 70486
+        },
+        "regions": 38,
+        "archives": [
+          {
+            "id": "008-material-memory-and-agency",
+            "checksum": "5b63386cd96d374122cfad3bb3c28c2c4199bf3e0a49a8b2f704b45de26b7bcb",
+            "created_at": 1791445486072
+          },
+          {
+            "id": "009-human-thermal-and-distance-balance",
+            "checksum": "ab6d17d74f89c46182d3ea4dc295e388b57a65c08583d6f9a928cc5446c90164",
+            "created_at": 1791466127552
+          },
+          {
+            "id": "010-performed-body-maintenance",
+            "checksum": "608e8b90ee2d9eb89f8a232a2c6cea77c387714d62a314b7a223c569fcbb068f",
+            "created_at": 1791501484044
+          },
+          {
+            "id": "011-consumption-before-ration-pickup",
+            "checksum": "4a35ecba50c92a60c40ce1e0cdea57c6eefdc7c0a8f80591822c12cf0ae9181f",
+            "created_at": 1791504160572
+          },
+          {
+            "id": "012-funded-human-metabolism",
+            "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+            "created_at": 1791508588158
+          },
+          {
+            "id": "013-local-inventory-exposure-and-access",
+            "checksum": "652005d9abf489e13306e4f9fa8b89b154cbb7959ccbb08192be30bce95faf77",
+            "created_at": 1791512310450
+          }
+        ]
+      },
+      "copyMonitor": {
+        "samples": 163,
+        "minimumAvailableBytes": 5664768,
+        "maximumWalBytes": 118066872,
+        "maximumCgroupMemoryBytes": 999911424,
+        "eventsBefore": "low 0\nhigh 0\nmax 6918\noom 0\noom_kill 1\noom_group_kill 0\n",
+        "eventsAfter": "low 0\nhigh 0\nmax 7442\noom 0\noom_kill 1\noom_group_kill 0\n"
+      }
+    }
+  },
+  "deployment": null
+}

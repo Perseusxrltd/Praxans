@@ -101,11 +101,11 @@ The systems below implement the active browser world. The subsequent Python/Pyga
 - **name**: Stable Observer Gateway and Runtime Hotfixes
 - **status**: active
 - **package**: src/server/
-- **files**: `gateway.ts`, `runtime.ts`, `worker.ts`, `preflight.ts`, `artifact.ts`, `sse.ts`, `scripts/prepare-hotfix.ts`, `scripts/hotfix.ts`
+- **files**: `gateway.ts`, `checkpoint.ts`, `runtime.ts`, `worker.ts`, `preflight.ts`, `artifact.ts`, `sse.ts`, `scripts/prepare-hotfix.ts`, `scripts/hotfix.ts`
 - **dependencies**: world_storage, agent_gateway
 - **dependents**: world_hosting, browser_observer, browser_validation
-- **known_issues**: One host and volume. Hotfixes require compatible dependencies and combined preflight/live-world memory and disk headroom. Exact-artifact live-sized quota and live-copy checks pass, while historical memory restart/checkpoint rollback and disk-full halts remain recorded. Runtime replacement does not update maintenance tools in the container image. Infrastructure failures remain separate operations; queues are finite.
-- **last_touched**: 2026-10-08
+- **known_issues**: One host and volume. Hotfixes require compatible dependencies and combined preflight/live-world memory and disk headroom. Storage-aware fallback is a bounded compatibility check, not a full payload/history integrity scan. Readiness reports unavailable during handover; a container replacement still needs reconnection. Runtime replacement does not update the gateway or maintenance tools in the image. Historical restart/checkpoint and disk-full failures remain recorded; queues are finite.
+- **last_touched**: 2026-10-09
 
 ### browser_validation
 

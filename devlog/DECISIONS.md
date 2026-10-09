@@ -432,3 +432,12 @@
 - **decision**: Check and renew the current writer's held lease after a successful synchronous transaction callback and before commit releases the SQLite write lock. A missing ownership token aborts and rolls back the proposed write. Unowned disposable preflight stores acquire no live authority.
 - **alternatives**: Increasing a fixed lease interval delays recovery and cannot bound growing archival work. A timer cannot run during synchronous compression. Publishing expired ownership and relying on the next tick leaves an avoidable handover gap.
 - **consequences**: This is a storage ownership correction with no new physical state or clock reset. Tests advance wall time beyond the old lease and verify that a contender still cannot acquire it after commit, and that lost ownership rolls back writes. Host/IO failure and work outside transactions retain their existing operational limits.
+
+### ADR-041: Storage-aware fallback and truthful handover readiness
+
+- **date**: 2026-10-09
+- **status**: accepted
+- **context**: A storage-only migration may leave the world metadata checksum unchanged, making the old gateway's fallback test insufficient. The last live law migration also held an ordinary health request beyond its fifteen-second deadline.
+- **decision**: Fingerprint world metadata, SQLite storage version/schema and ordered region checksums within one read transaction before deciding whether a failed candidate permits automatic fallback. Answer readiness immediately with an unavailable status while handover or recovery has no serving runtime; keep ordinary request queuing and observer handover intact. Install this gateway support before any incompatible regional encoding.
+- **alternatives**: Metadata-only comparison misses storage compatibility. A full historical payload scan adds unbounded handover work and belongs in independent integrity verification. Returning healthy status during downtime would misrepresent the world. A runtime artifact cannot replace its supervising gateway.
+- **consequences**: A committed incompatible candidate stays pending for forward recovery. The fingerprint is a compatibility guard, not comprehensive corruption detection. Installing the gateway requires a controlled container operation with explicit reconnection evidence; subsequent runtime-only updates retain the existing connection-preserving path. No physical world version changes.

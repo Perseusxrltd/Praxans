@@ -234,7 +234,14 @@ try {
   const exhaustedDirectory = await readFile(memoryMarker, "utf8");
   await assert.rejects(stat(exhaustedDirectory), { code: "ENOENT" });
   check("heap failure removes only the candidate's private copy", true);
-  const candidate = await artifact("handover-accepted");
+  const candidate = await artifact(
+    "handover-accepted",
+    `{
+      const { isMainThread } = await import("node:worker_threads");
+      if (isMainThread && !process.argv.includes("--preflight"))
+        await new Promise(done => setTimeout(done, 3000));
+    }\n`,
+  );
   const activation = gateway.activate(candidate);
   let activationEnded = false;
   void activation
@@ -266,6 +273,18 @@ try {
     signal: AbortSignal.timeout(90000),
   };
   const queued = fetch(`${base}/api/agent/actions`, adviceOptions);
+  const readiness = await fetch(`${base}/api/health`, {
+    signal: AbortSignal.timeout(1500),
+  });
+  const readinessBody = await readiness.json();
+  check(
+    "health reports the actual handover promptly while ordinary advice remains queued",
+    readiness.status === 503 &&
+      readiness.headers.get("retry-after") === "1" &&
+      readinessBody.ok === false &&
+      readinessBody.acceptingProposals === false &&
+      readinessBody.simulation === "updating",
+  );
   const activationResult = await activation;
   check(
     "candidate validation has an effective bounded heap even with host V8 flags",
@@ -419,6 +438,57 @@ try {
   check(
     "shutdown removes the terminated validation worker's private copy",
     true,
+  );
+  // A storage-only commit can leave the world metadata checksum untouched.
+  // Prove that this still prevents an incompatible automatic code rollback.
+  gateway = new WorldGateway(database, resolve("dist/server/runtime.mjs"));
+  await bind();
+  const schemaMarker = join(temporary, "schema-failure.json");
+  const incompatible = await artifact(
+    "handover-storage-failure",
+    `{
+      const { isMainThread } = await import("node:worker_threads");
+      if (isMainThread && !process.argv.includes("--preflight")) {
+        const { DatabaseSync } = await import("node:sqlite");
+        const { writeFileSync } = await import("node:fs");
+        const db = new DatabaseSync(process.env.PRAXANS_DB);
+        const before = db.prepare("SELECT checksum FROM world WHERE id=1").get().checksum;
+        db.exec("BEGIN IMMEDIATE; ALTER TABLE chunks ADD COLUMN future_layout TEXT; COMMIT");
+        const after = db.prepare("SELECT checksum FROM world WHERE id=1").get().checksum;
+        writeFileSync(${JSON.stringify(schemaMarker)}, JSON.stringify({ before, after }));
+        db.close();
+        throw new Error("Deliberate failure after incompatible storage commit");
+      }
+    }\n`,
+  );
+  await assert.rejects(
+    gateway.activate(incompatible),
+    /exited before readiness/,
+  );
+  const schemaTrial = JSON.parse(await readFile(schemaMarker, "utf8"));
+  check(
+    "a failed candidate with changed storage and unchanged world metadata cannot restart the preceding runtime",
+    schemaTrial.before === schemaTrial.after &&
+      gateway.status().phase === "unavailable" &&
+      gateway.status().managedProcesses === 0,
+  );
+  const pending = JSON.parse(
+    await readFile(join(temporary, "runtime", "pending.json"), "utf8"),
+  );
+  check(
+    "an incompatible committed candidate retains its pending pointer for forward recovery",
+    pending.directory.includes("handover-storage-failure-"),
+  );
+  const unavailable = await fetch(`${base}/api/health`, {
+    signal: AbortSignal.timeout(1500),
+  });
+  const unavailableBody = await unavailable.json();
+  check(
+    "readiness promptly reports a world unavailable after incompatible candidate failure",
+    unavailable.status === 503 &&
+      unavailableBody.ok === false &&
+      unavailableBody.acceptingProposals === false &&
+      unavailableBody.simulation === "recovering",
   );
   const report = {
     checks,

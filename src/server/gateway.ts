@@ -16,7 +16,6 @@ import {
 import { dirname, join, resolve } from "node:path";
 import { once } from "node:events";
 import { setTimeout as sleep } from "node:timers/promises";
-import { DatabaseSync } from "node:sqlite";
 import { createGzip, constants as zlibConstants, type Gzip } from "node:zlib";
 import {
   dependencyHash,
@@ -26,6 +25,7 @@ import {
   type RuntimeArtifact,
 } from "./artifact";
 import { SseRecords } from "./sse";
+import { checkpointFingerprint } from "./checkpoint";
 
 interface Target {
   file: string;
@@ -340,16 +340,7 @@ export class WorldGateway {
   }
 
   private checkpoint() {
-    const db = new DatabaseSync(this.database, { readOnly: true });
-    try {
-      return (
-        db.prepare("SELECT checksum FROM world WHERE id=1").get() as {
-          checksum: string;
-        }
-      ).checksum;
-    } finally {
-      db.close();
-    }
+    return checkpointFingerprint(this.database);
   }
 
   private async commitPointer() {
@@ -471,6 +462,21 @@ export class WorldGateway {
   }
 
   private async handle(req: IncomingMessage, res: ServerResponse) {
+    if (
+      req.method === "GET" &&
+      new URL(req.url ?? "/", "http://localhost").pathname === "/api/health" &&
+      (this.handover || !this.worker)
+    ) {
+      // Ordinary requests can wait through handover. Readiness must describe
+      // that state promptly instead of timing out behind a long migration.
+      res.setHeader("Retry-After", "1");
+      return reply(res, 503, {
+        ok: false,
+        persistent: true,
+        acceptingProposals: false,
+        simulation: this.handover ? "updating" : "recovering",
+      });
+    }
     if (this.waiting >= 128)
       return reply(res, 503, {
         error: "The world gateway is at capacity. Retry shortly.",

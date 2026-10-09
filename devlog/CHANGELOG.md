@@ -21,6 +21,7 @@
 - Antiquity-first source register, scale audits, failed-candidate evidence, measured CPU baseline and explicit large-world acceptance targets.
 
 ### Fixed
+- Prepared gateway support for storage-aware automatic fallback and prompt, truthful unavailable readiness during handover/recovery. An isolated build preserves the active runtime bytes; [publication status](../docs/releases/gateway-readiness-0.2.md) is explicit (→ runtime_handover; → ADR-041).
 - Successful long world transactions renew their held writer lease before commit; loss of ownership rolls back the write (→ world_storage; → ADR-040).
 - Loose camp, personal and journey materials share hourly sampled exposure, journey loads include personal supplies, and founding resources require connected represented land. Format 13 / biosphere-1.7 preserves actual inventories at migration; [release validation/publication](../docs/releases/food-custody-0.2.md) remains explicit (→ settlement_space; → civic_relations; → ADR-038).
 - Existing archive blocks use denser packing only when smaller, with original/replacement verification and unchanged codec, IDs, dates and original hashes. Capacity is measured on a copy; history is not removed (→ world_storage; → ADR-039).

@@ -7,6 +7,15 @@
 
 ## Log
 
+### [2026-10-09] Prepared Storage-Aware Gateway and Truthful Readiness
+
+- **type**: infrastructure
+- **systems**: runtime_handover, world_hosting, browser_validation
+- **files**: `gateway.ts`, `checkpoint.ts`, `checkpoint.test.ts`, `hotfix-smoke.ts`
+- **agent**: Codex
+
+An isolated container build keeps the existing food-custody runtime byte-identical while strengthening fallback compatibility and answering readiness promptly during handover/recovery. All 25 handover and 12 production checks pass, including a schema-only committed candidate failure; a fresh off-host backup verifies all six archives. [Publication and limits](../docs/releases/gateway-readiness-0.2.md) are tracked separately from the pending regional storage candidate. → ADR-041.
+
 ### [2026-10-09] Consistent Local Inventory Exposure and Resource Access
 
 - **type**: bugfix
