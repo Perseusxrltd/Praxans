@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "recordedAt": "2026-10-09T01:13:35.571848+00:00",
-  "status": "validated candidate; artifact staged but not activated",
+  "recordedAt": "2026-10-09T01:20:12.456757+00:00",
+  "status": "published and verified on the continuing world",
   "release": "funded-metabolism-20261009-1",
   "runtimeSha256": "7f45713e7a1a257c1d228ada10fdd0a096ba19e8b9811aa8e7979e4d1e084a0f",
   "sourceBaseCommit": "bd3a84cb882a18348229f3c8ab5758c96c9da31b",
@@ -339,7 +339,7 @@
       "sourceFingerprint": "2450199e28b92f5f507d628fd8aaef16a1301b86b0f1fdc221e4eafeefeb93d6",
       "existingFiles": 935,
       "resolvedEdges": 653,
-      "localMarkdownLinks": 416,
+      "localMarkdownLinks": 417,
       "missingImportsAssetsOrLinks": 0,
       "layerViolations": 0
     }
@@ -454,8 +454,22 @@
     }
   },
   "publication": {
-    "backend": "pending",
-    "website": "pending",
+    "backend": "LIVE",
+    "website": "READY",
+    "activatedAt": "2026-10-09T01:16:32.576Z",
+    "handoverTick": 363208,
+    "vercel": {
+      "id": "dpl_BovTxhm632cuXPhMSjYAE6hGfDLU",
+      "url": "praxans-hvffeppzi-perseusxr-projects.vercel.app",
+      "target": "production",
+      "readyState": "READY",
+      "createdAt": 1791508589096,
+      "aliases": [
+        "praxans.vercel.app",
+        "praxans-perseusxr-projects.vercel.app"
+      ]
+    },
+    "websiteVerification": "Vercel CLI deployment completion and independent provider inspection; local browser interaction/screenshots verified before publication. Live Vercel page URLs were not fetched.",
     "historyPolicy": "No new renewal, people, supplies, reset, rewind, reseed, deleted history or replacement volume."
   },
   "limits": [
@@ -467,5 +481,314 @@
     "Sequential oxygen contention, unused ice reservations, performed feeding, private food spoilage and voluntary allocation institutions remain unresolved.",
     "Infant feeding, age-dependent growth, gestational energy, reserve/power/injury/recovery calibration, tissue-specific chemistry and core body temperature remain unresolved.",
     "Existing political, material/depth, ecological and massive-population requirements remain in the ledger."
-  ]
+  ],
+  "sourceCommit": "36c4fdd9228b22a09a8337bb235f4cb596114970",
+  "liveVerification": {
+    "activation": {
+      "startedAt": "2026-10-09T01:16:01.413Z",
+      "finishedAt": "2026-10-09T01:16:32.576Z",
+      "release": "funded-metabolism-20261009-1",
+      "sha256": "7f45713e7a1a257c1d228ada10fdd0a096ba19e8b9811aa8e7979e4d1e084a0f",
+      "code": 0
+    },
+    "preflight": {
+      "release": "funded-metabolism-20261009-1",
+      "type": "preflight",
+      "id": "praxans-world",
+      "seed": 1847,
+      "sourceTick": 363152,
+      "tick": 363184,
+      "format": 12,
+      "laws": "biosphere-1.6",
+      "validationHeapLimitBytes": 226492416,
+      "resumedTick": 363208
+    },
+    "continuity": {
+      "auditedAt": "2026-10-09T01:17:07.881Z",
+      "baselineTick": 356816,
+      "tick": 363336,
+      "people": 0,
+      "births": 407,
+      "deaths": 1639,
+      "regions": 38,
+      "communityRecordsUnchanged": true,
+      "identitySignaturesUnchanged": true,
+      "identityCounts": {
+        "sessions": 24,
+        "agents": 1,
+        "receipts": 3
+      },
+      "priorJournalRowsRetainedByCount": 70313,
+      "totalJournalRows": 70359,
+      "journalScope": "Live audit counts the prior journal prefix; full content signatures were tested on private copies.",
+      "clockArithmeticExact": true,
+      "clockWallMilliseconds": 1791483274340,
+      "priorArchivesAndInterventionsRetained": true,
+      "onePriorRenewal": true,
+      "releaseBoundaryChecksumsEqual": true,
+      "runtimePids": [
+        1548
+      ],
+      "gatewayPid": 8,
+      "directory": "/data/runtime/releases/funded-metabolism-20261009-1-7f45713e7a1a257c",
+      "databaseReadMilliseconds": 37
+    },
+    "observer": {
+      "startedAt": "2026-10-09T01:15:34.128Z",
+      "finishedAt": "2026-10-09T01:18:45.238Z",
+      "snapshots": 3,
+      "frames": 69,
+      "firstTick": 363056,
+      "lastTick": 363748,
+      "streamEnded": false,
+      "regressions": [],
+      "faults": [],
+      "healthSamples": [
+        {
+          "at": "2026-10-09T01:15:35.578Z",
+          "status": 200,
+          "ok": true,
+          "tick": 363060,
+          "lawsVersion": "biosphere-1.5",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25331,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T01:15:52.300Z",
+          "status": 200,
+          "ok": true,
+          "tick": 363120,
+          "lawsVersion": "biosphere-1.5",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25332,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T01:16:02.708Z",
+          "status": 200,
+          "ok": true,
+          "tick": 363172,
+          "lawsVersion": "biosphere-1.5",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25330,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T01:16:13.416Z",
+          "status": 200,
+          "ok": true,
+          "tick": 363184,
+          "lawsVersion": "biosphere-1.5",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25338,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T01:16:33.102Z",
+          "status": 200,
+          "ok": true,
+          "tick": 363212,
+          "lawsVersion": "biosphere-1.6",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25350,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T01:16:43.513Z",
+          "status": 200,
+          "ok": true,
+          "tick": 363268,
+          "lawsVersion": "biosphere-1.6",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25347,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T01:16:57.926Z",
+          "status": 200,
+          "ok": true,
+          "tick": 363304,
+          "lawsVersion": "biosphere-1.6",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25351,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T01:17:12.282Z",
+          "status": 200,
+          "ok": true,
+          "tick": 363368,
+          "lawsVersion": "biosphere-1.6",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25350,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T01:17:27.715Z",
+          "status": 200,
+          "ok": true,
+          "tick": 363432,
+          "lawsVersion": "biosphere-1.6",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25351,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T01:17:39.939Z",
+          "status": 200,
+          "ok": true,
+          "tick": 363488,
+          "lawsVersion": "biosphere-1.6",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25348,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T01:17:52.225Z",
+          "status": 200,
+          "ok": true,
+          "tick": 363528,
+          "lawsVersion": "biosphere-1.6",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25351,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T01:18:09.021Z",
+          "status": 200,
+          "ok": true,
+          "tick": 363596,
+          "lawsVersion": "biosphere-1.6",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25349,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T01:18:22.391Z",
+          "status": 200,
+          "ok": true,
+          "tick": 363656,
+          "lawsVersion": "biosphere-1.6",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25348,
+          "simulation": "catching-up"
+        },
+        {
+          "at": "2026-10-09T01:18:36.856Z",
+          "status": 200,
+          "ok": true,
+          "tick": 363720,
+          "lawsVersion": "biosphere-1.6",
+          "persistent": true,
+          "acceptingProposals": true,
+          "lagSeconds": 25348,
+          "simulation": "catching-up"
+        }
+      ],
+      "scope": "one direct Railway observer during a funded-metabolism law hotfix of a healthy continuing world; samples do not guarantee all client connections"
+    },
+    "hostMonitor": {
+      "startedAt": "2026-10-09T01:15:37.063Z",
+      "finishedAt": "2026-10-09T01:18:37.281Z",
+      "samples": 181,
+      "minimumAvailableBytes": 28692480,
+      "maximumWalBytes": 113497792,
+      "maximumCgroupMemoryBytes": 999903232,
+      "memoryEventsBefore": {
+        "low": 0,
+        "high": 0,
+        "max": 4978,
+        "oom": 0,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "memoryEventsAfter": {
+        "low": 0,
+        "high": 0,
+        "max": 5526,
+        "oom": 0,
+        "oom_kill": 1,
+        "oom_group_kill": 0
+      },
+      "scope": "Finite one-second samples during this empty-world live hotfix, not proof of populated-host capacity or unsampled peaks. The watcher has ended."
+    },
+    "archives": [
+      {
+        "manifest": {
+          "id": "012-funded-human-metabolism",
+          "created_at": 1791508588158,
+          "encoding": "deflate-parts-1",
+          "checksum": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+          "raw_bytes": 112448226,
+          "part_count": 429
+        },
+        "parts": 429,
+        "rawBytes": 112448226,
+        "compressedBytes": 35158417,
+        "completeOriginalSha256": "dbcf1c0b01bdecefdad9acf8d5b11307c84d4b115519abf19a099e6a391dffb0",
+        "remoteExportMaxRssKiB": 60356,
+        "exportStartedAt": "2026-10-09T01:17:07.945Z",
+        "exportFinishedAt": "2026-10-09T01:17:14.005Z",
+        "migration": {
+          "id": "012-funded-human-metabolism",
+          "tick": 363208,
+          "before_checksum": "2cea1949dffd256981e3842ed0647df94b4d1d8866f364d3427b7dc73b9dab0d",
+          "after_checksum": "f10e5b4dfa0eb08eaccf0b46e188497c644f460cdfe5197f0f99b6ed569df2a6"
+        },
+        "metadataBytes": 1124334,
+        "metadataOnlyVersionLabelsChanged": true,
+        "sourceTick": 363208,
+        "sourceFormat": 11,
+        "sourceLaws": "biosphere-1.5",
+        "sourcePeople": 0,
+        "births": 407,
+        "deaths": 1639
+      }
+    ]
+  },
+  "githubChecksAtPublication": {
+    "sourceCommit": "36c4fdd9228b22a09a8337bb235f4cb596114970",
+    "status": "in_progress",
+    "pushRun": 37868883516,
+    "pullRequestRun": 37868889592,
+    "note": "Local checks and live verification are complete; these independent GitHub jobs were still running at publication."
+  },
+  "githubFollowup": {
+    "checkedAt": "2026-10-09T01:20:48.274Z",
+    "runs": [
+      {
+        "runId": 37868883516,
+        "event": "push",
+        "workflowStatus": "in_progress",
+        "passedSteps": [
+          "Run node --import tsx --test --test-concurrency=2 tests/web/*.test.ts",
+          "Run npm run test:production"
+        ]
+      },
+      {
+        "runId": 37868889592,
+        "event": "pr",
+        "workflowStatus": "in_progress",
+        "passedSteps": [
+          "Run node --import tsx --test --test-concurrency=2 tests/web/*.test.ts",
+          "Run npm run test:production"
+        ]
+      }
+    ],
+    "scope": "Both independent full model/server steps and production steps pass; remaining workflow stages were still running at this check."
+  }
 }

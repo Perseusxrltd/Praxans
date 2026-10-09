@@ -65,9 +65,9 @@
     }
   },
   "fundedMetabolismReview": {
-    "inspectedAt": "2026-10-09T01:13:50.212Z",
+    "inspectedAt": "2026-10-09T01:20:48.274Z",
     "structuralScan": {
-      "baseCommit": "bd3a84cb882a18348229f3c8ab5758c96c9da31b",
+      "baseCommit": "36c4fdd9228b22a09a8337bb235f4cb596114970",
       "scope": "Git-visible existing files; TypeScript AST static/import-type/literal dynamic relative imports, import.meta.url assets, inline Markdown local targets outside fenced blocks. Does not validate Markdown anchors, arbitrary runtime paths, package exports, all language semantics or legacy Python behavior.",
       "gitVisibleExistingFileCount": 935,
       "jsTsFileCount": 126,
@@ -102,7 +102,7 @@
       ],
       "layerViolations": [],
       "simulationEnvironmentImports": [],
-      "localMarkdownLinksChecked": 416,
+      "localMarkdownLinksChecked": 417,
       "missingMarkdownLinks": []
     },
     "sourceReview": [
@@ -132,7 +132,7 @@
       }
     ],
     "validation": "20 new metabolic cases; 188/189 full batch plus 2/2 corrected construction fixture; build/format; 13 browser, 16 connection, 12 isolated production, 21 generic hotfix and 16 exact-artifact inhabited-copy checks. Retained timeouts are separately reported.",
-    "publication": "Candidate staged; live activation pending.",
+    "publication": "LIVE at tick 363208; Vercel inspector READY; exact archive and preserved-world verification recorded in funded-metabolism-2026-10-09.json.",
     "limits": [
       "No seasonal human or generational survival validation.",
       "Finite live disk and 1 GB memory; local inhabited combined RSS exceeds live capacity.",
