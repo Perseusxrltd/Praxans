@@ -8,6 +8,8 @@ The later [bounded infant-food/growth diagnostic](infant-food-access-2026-10-09.
 
 The [developmental correction](../releases/development-0.2.md) is subsequently live: future structural growth now depends on age, finite recovery and actual substrate; all inherited bodies remain. The [care/work follow-up](care-work-budget-2026-10-09.md) then reproduces an avoidable conflict in the later care controller and traces labor, stock competition and actual metabolism over a matched day. That care mechanism did not exist during the historical collapse. Its corrected continuation harvests more food but still consumes more than it harvests and retains child cold deficits; it does not revise the historical death attribution below.
 
+The further [resource-observation study](observed-foraging-2026-10-09.md) isolates ongoing work after newly observed depletion. Its controller correction is live, but the matched current-law day has uneven harvest and worse aggregate child cold injury. It adds no historical death attribution or survival claim; partial work, source competition and sustainable access remain separate questions.
+
 ![Population, communal food and deaths after the finite renewal](../images/community-collapse-2026-10-08.png)
 
 The figure uses [daily history and death counts](collapse-timeline.json), not conditions observed after extinction.
