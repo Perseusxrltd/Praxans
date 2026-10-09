@@ -7,6 +7,15 @@
 
 ## Log
 
+### [2026-10-09] Trial Storage Hotfix Published with Complete History Verified
+
+- **type**: infrastructure
+- **systems**: world_storage, runtime_handover, world_hosting, browser_validation
+- **files**: `archive-storage-0.2.md`, `archive-storage-2026-10-09.json`, `roadmap.md`, `progress.md`
+- **agent**: Codex
+
+Release `archive-digits-20261009-1` becomes active at 680972 with format 18 / biosphere-1.12 / storage3 on the unchanged trial. Independent after-backup decoding verifies all eleven archives, 38 regions, original part identities and every prior durable row; the original ten archives save exactly 48,512,398 packed bytes. Both complete implementation workflows pass, while the first validation timeout, later observer disconnect and missing SSH return remain failed continuity evidence; a fresh 45-second observer passes. No renewal/reset/rewind occurred. → ADR-051; [release record](../docs/releases/archive-storage-0.2.md).
+
 ### [2026-10-09] Exact Archive Storage Fits the Trial Quota
 
 - **type**: infrastructure
